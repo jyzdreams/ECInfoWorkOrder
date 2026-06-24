@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EC 工单系统第一阶段原型汇报</title>
+  <style>
+    :root {
+      --navy: #10243f;
+      --navy-2: #19395f;
+      --blue: #2386d1;
+      --green: #23966f;
+      --gold: #c98b2f;
+      --red: #c94a43;
+      --bg: #f3f6f9;
+      --panel: #ffffff;
+      --line: #d8e1eb;
+      --text: #233244;
+      --muted: #657589;
+      --soft-blue: #eaf4ff;
+      --soft-green: #e9f7f1;
+      --soft-gold: #fff5df;
+      --shadow: 0 20px 46px rgba(16, 36, 63, 0.13);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow: hidden;
+      letter-spacing: 0;
+    }
+
+    button { font: inherit; }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background:
+        linear-gradient(90deg, rgba(35, 134, 209, 0.08), transparent 42%),
+        linear-gradient(180deg, #f8fafc, #edf2f7);
+    }
+
+    .slide {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      padding: 32px 50px 72px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide.active {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 48px;
+    }
+
+    .logo {
+      width: 188px;
+      height: auto;
+      display: block;
+    }
+
+    .cover .logo {
+      width: 258px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.96);
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+    }
+
+    .stage {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-align: right;
+    }
+
+    .cover {
+      background:
+        linear-gradient(135deg, rgba(16, 36, 63, 0.98), rgba(25, 57, 95, 0.94)),
+        #10243f;
+      color: #eef6ff;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 48%;
+      height: 42%;
+      background: linear-gradient(135deg, transparent, rgba(35, 134, 209, 0.22));
+      pointer-events: none;
+    }
+
+    .cover .stage,
+    .cover .kicker,
+    .cover .lead {
+      color: #c9d9e9;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 18px;
+      color: #fff;
+      font-size: 58px;
+      line-height: 1.08;
+      max-width: 900px;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 36px;
+      line-height: 1.16;
+    }
+
+    .cover h2 {
+      color: #fff;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: 19px;
+    }
+
+    .kicker {
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+      max-width: 900px;
+    }
+
+    .slide-body {
+      min-height: 0;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .cover-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+      gap: 44px;
+      align-items: end;
+      min-height: 0;
+    }
+
+    .cover-card {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #43566d;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .cover .pill {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #eef6ff;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .two-col { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .four-col { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .asym { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+
+    .card {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .quiet-card {
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .headline-card {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      min-height: 150px;
+    }
+
+    .headline-card strong {
+      color: var(--navy);
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .headline-card span {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .big-point {
+      font-size: 28px;
+      line-height: 1.35;
+      color: var(--navy);
+      font-weight: 900;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 10px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      line-height: 1.55;
+    }
+
+    .list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 9px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .decision-list {
+      counter-reset: item;
+      display: grid;
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .decision-list li {
+      counter-increment: item;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      line-height: 1.55;
+    }
+
+    .decision-list li::before {
+      content: counter(item);
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--soft-blue);
+      font-weight: 900;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      min-height: 108px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      gap: 7px;
+      align-content: start;
+    }
+
+    .step small {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .step strong {
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .status-chain {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .status {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 15px 10px;
+      text-align: center;
+      font-weight: 900;
+      color: var(--navy);
+      min-height: 72px;
+      display: grid;
+      place-items: center;
+    }
+
+    .status.blue { background: var(--soft-blue); color: #1b5790; }
+    .status.green { background: var(--soft-green); color: #12613f; }
+    .status.gold { background: var(--soft-gold); color: #83580d; }
+    .status.gray { background: #eef2f6; color: #556577; }
+
+    .screenshot-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 18px;
+      min-height: 0;
+    }
+
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .shot-card {
+      min-height: 0;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .shot-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .shot {
+      width: 100%;
+      height: 100%;
+      max-height: 590px;
+      object-fit: contain;
+      object-position: top center;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+
+    .shot.mobile {
+      max-height: 590px;
+    }
+
+    .missing-note {
+      display: none;
+      min-height: 280px;
+      place-items: center;
+      border: 1px dashed var(--line);
+      border-radius: 6px;
+      color: var(--muted);
+      background: #fbfcfe;
+      text-align: center;
+      padding: 18px;
+    }
+
+    .shot-card.missing img { display: none; }
+    .shot-card.missing .missing-note { display: grid; }
+
+    .not-mvp {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .not-mvp div {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+      border-radius: 6px;
+      padding: 16px;
+      min-height: 72px;
+      display: grid;
+      align-content: center;
+      font-weight: 900;
+      color: var(--navy);
+    }
+
+    .callout {
+      border-left: 5px solid var(--blue);
+      background: #eef7ff;
+      color: #234a70;
+      border-radius: 6px;
+      padding: 14px 16px;
+      line-height: 1.6;
+    }
+
+    .controls {
+      position: fixed;
+      right: 28px;
+      bottom: 22px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .controls button,
+    .page-no {
+      min-height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--navy);
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(16, 36, 63, 0.12);
+    }
+
+    .controls button {
+      min-width: 92px;
+      cursor: pointer;
+    }
+
+    .controls button.primary {
+      color: #fff;
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .page-no {
+      display: grid;
+      place-items: center;
+      min-width: 74px;
+      padding: 0 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      body { overflow: auto; }
+      .deck { height: auto; min-height: 100vh; }
+      .slide,
+      .slide.active {
+        height: auto;
+        min-height: 100vh;
+        padding: 24px 18px 86px;
+      }
+      h1 { font-size: 38px; }
+      h2 { font-size: 28px; }
+      .cover-body,
+      .two-col,
+      .three-col,
+      .four-col,
+      .asym,
+      .screenshot-layout,
+      .screenshot-pair,
+      .process,
+      .status-chain,
+      .not-mvp {
+        grid-template-columns: 1fr;
+      }
+      .logo { width: 164px; }
+      .shot { max-height: 380px; }
+    }
+
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff;
+      }
+      .deck {
+        height: auto;
+        background: #fff;
+      }
+      .slide,
+      .slide.active {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        page-break-after: always;
+        break-after: page;
+      }
+      .controls { display: none; }
+      .card,
+      .shot-card {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <section class="slide cover active" data-title="封面">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">客户流程确认版 · 2026-06-14</div>
+      </div>
+      <div class="cover-body">
+        <div>
+          <p class="kicker">客户流程确认会</p>
+          <h1>EC 工单系统<br>第一阶段原型汇报</h1>
+          <p class="lead">本次汇报聚焦一件事：确认第一版工单系统是否能支撑 EC 的服务请求记录、分派、处理、确认和基础统计。</p>
+          <div class="pill-row">
+            <span class="pill">当前阶段：流程确认 / 原型确认</span>
+            <span class="pill">先确认业务，再评估实施</span>
+            <span class="pill">第一阶段范围不扩大</span>
+          </div>
+        </div>
+        <div class="cover-card">
+          <h2>今天希望确认什么</h2>
+          <ul class="list">
+            <li>第一版只做内部工单闭环，是否符合客户预期。</li>
+            <li>CS、Team Leader、师傅、主管四类角色是否足够。</li>
+            <li>7 个状态和拒单回退规则是否可接受。</li>
+            <li>原型页面是否能支撑客户确认和后续实施评估。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="客户业务语境">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">01 / 客户业务语境</div>
+      </div>
+      <div class="slide-body asym">
+        <div>
+          <p class="kicker">不是做一个泛用系统，而是服务 EC 的现场服务管理</p>
+          <h2>从“请求分散”到“过程可追踪”</h2>
+          <p class="lead">EC 面向香港客户提供特低电压解决方案、安装及维修保养服务，场景覆盖保安系统、停车场系统、会所管理系统、电讯及广播系统等。工单系统第一版应先解决服务过程可见性，而不是一次做成大而全平台。</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <div class="big-point">客户最关心的不是功能多，而是工单不要卡住。</div>
+          </div>
+          <div class="quiet-card">
+            <ul class="list">
+              <li>谁接到请求？</li>
+              <li>谁负责分派？</li>
+              <li>师傅是否接单？</li>
+              <li>现场处理有没有记录和照片？</li>
+              <li>最后是否有人确认关闭？</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="汇报结论">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">02 / 汇报结论先行</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">建议本次会议确认的版本</p>
+          <h2>第一版建议只做一个清晰、可落地的内部工单闭环</h2>
+        </div>
+        <div class="grid four-col">
+          <div class="card headline-card"><strong>1</strong><h3>条主流程</h3><span>从 CS 建单到确认关闭，再进入基础统计。</span></div>
+          <div class="card headline-card"><strong>3</strong><h3>类工单</h3><span>来电 / 服务记录、PM / 维修 / 保养、CM / 特殊任务。</span></div>
+          <div class="card headline-card"><strong>4</strong><h3>类角色</h3><span>CS、Team Leader、师傅、主管 / 管理员。</span></div>
+          <div class="card headline-card"><strong>7</strong><h3>个状态</h3><span>待受理到已关闭 / 已取消，覆盖第一版闭环。</span></div>
+        </div>
+        <div class="callout">本原型不是最终界面设计，也不是上线版本；它用于帮助客户确认流程、角色、状态、页面和第一阶段范围。</div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="第一阶段边界">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">03 / 第一阶段边界</div>
+      </div>
+      <div class="slide-body two-col">
+        <div class="card">
+          <p class="kicker">第一版要做</p>
+          <h2>把工单流转跑通</h2>
+          <ul class="list">
+            <li>CS 建单 / 来电记录。</li>
+            <li>CS 受理并判断是否需要派工。</li>
+            <li>Team Leader 分派师傅。</li>
+            <li>师傅接单 / 拒单、处理并上传记录。</li>
+            <li>Team Leader 或主管确认关闭。</li>
+            <li>基础查询与基础统计。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="kicker">第一版不做</p>
+          <h2>避免范围失控</h2>
+          <ul class="list">
+            <li>不做客户自助门户。</li>
+            <li>不做 WhatsApp 自动通知。</li>
+            <li>不做 SLA 超时升级。</li>
+            <li>不做财务 / 采购 / HR 完整流程。</li>
+            <li>不做 AI 图片检测。</li>
+            <li>不做多系统深度集成。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="角色分工">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">04 / 角色分工</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">让每个动作都有负责人</p>
+          <h2>4 类角色，覆盖第一版主流程</h2>
+        </div>
+        <div class="grid four-col">
+          <div class="card"><h3>CS</h3><p class="mini">记录客户请求，完成受理判断，决定派工、现场解决或取消。</p></div>
+          <div class="card"><h3>Team Leader</h3><p class="mini">接收待分派工单，选择师傅，跟进拒单，确认处理结果。</p></div>
+          <div class="card"><h3>师傅</h3><p class="mini">查看任务，接单 / 拒单，现场处理，上传记录和照片。</p></div>
+          <div class="card"><h3>主管 / 管理员</h3><p class="mini">查看整体进度，处理异常，确认关闭，维护简化基础设置。</p></div>
+        </div>
+        <div class="callout">客户、CR、采购、财务、HR 不作为第一阶段独立工作台；如需要，只作为字段、备注或后续阶段角色。</div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="主流程">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">05 / 主流程</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">客户看到的是一条能闭环的路</p>
+          <h2>从来电记录到工单关闭</h2>
+        </div>
+        <div class="process">
+          <div class="step"><small>01</small><strong>CS 建单</strong><span>记录客户、联系人、区域和问题。</span></div>
+          <div class="step"><small>02</small><strong>CS 受理</strong><span>判断派工、现场解决或取消。</span></div>
+          <div class="step"><small>03</small><strong>TL 分派</strong><span>指定师傅，工单进入待接单。</span></div>
+          <div class="step"><small>04</small><strong>师傅响应</strong><span>接单进入处理；拒单回到待分派。</span></div>
+          <div class="step"><small>05</small><strong>现场处理</strong><span>填写处理记录，上传照片 / 附件。</span></div>
+          <div class="step"><small>06</small><strong>提交确认</strong><span>师傅提交结果，进入待确认。</span></div>
+          <div class="step"><small>07</small><strong>确认关闭</strong><span>TL 或主管确认，或退回处理中。</span></div>
+          <div class="step"><small>08</small><strong>基础统计</strong><span>按状态、类型、区域和人员汇总。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="状态规则">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">06 / 状态规则</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">状态少一点，流程清楚一点</p>
+          <h2>7 个状态覆盖第一版闭环</h2>
+        </div>
+        <div class="status-chain">
+          <div class="status gold">待受理</div>
+          <div class="status blue">待分派</div>
+          <div class="status blue">待接单</div>
+          <div class="status green">处理中</div>
+          <div class="status gold">待确认</div>
+          <div class="status green">已关闭</div>
+          <div class="status gray">已取消</div>
+        </div>
+        <div class="grid three-col">
+          <div class="card"><h3>拒单不是状态</h3><p class="mini">师傅拒单后填写原因，工单回到“待分派”。</p></div>
+          <div class="card"><h3>完成后先确认</h3><p class="mini">师傅提交结果后进入“待确认”，不直接关闭。</p></div>
+          <div class="card"><h3>关闭后先只读</h3><p class="mini">是否允许重开，需要客户在本次评审后确认。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="原型演示路径">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">07 / 原型演示路径</div>
+      </div>
+      <div class="slide-body asym">
+        <div>
+          <p class="kicker">建议现场按这个顺序讲</p>
+          <h2>从管理视角进入，再落到一线操作</h2>
+          <p class="lead">演示不需要逐个字段解释，而是让客户快速判断：这个流程是否符合 EC 当前工作方式。</p>
+        </div>
+        <div class="card">
+          <ol class="decision-list">
+            <li>先看首页：整体工单状态是否清楚。</li>
+            <li>再看列表：是否方便查询和筛选。</li>
+            <li>然后看建单：CS 录入是否足够简单。</li>
+            <li>再看详情：状态、记录、附件、按钮是否匹配。</li>
+            <li>最后看分派、师傅手机端和基础统计。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="看板展示">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">08 / 看板展示</div>
+      </div>
+      <div class="slide-body screenshot-layout">
+        <div class="shot-card"><div class="shot-title">工单看板 / 首页<span class="pill">主管视角</span></div><img class="shot" src="prototype-screenshots/01-dashboard-admin.png" alt="工单看板截图"><div class="missing-note">未找到首页截图。</div></div>
+        <div class="card">
+          <p class="kicker">讲解重点</p>
+          <h2>管理层一眼看到工单分布</h2>
+          <ul class="list">
+            <li>7 个状态数量集中展示。</li>
+            <li>今日待办快速定位需要处理的工单。</li>
+            <li>异常 / 待处理工单用于暴露风险。</li>
+            <li>类型和区域统计用于判断工作量分布。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="列表与建单">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">09 / 列表与建单</div>
+      </div>
+      <div class="slide-body screenshot-pair">
+        <div class="shot-card"><div class="shot-title">工单列表<span class="pill">查询 / 筛选</span></div><img class="shot" src="prototype-screenshots/02-ticket-list-admin.png" alt="工单列表截图"><div class="missing-note">未找到工单列表截图。</div></div>
+        <div class="shot-card"><div class="shot-title">新建工单 / 来电记录<span class="pill">CS 录入</span></div><img class="shot" src="prototype-screenshots/03-ticket-create-cs.png" alt="新建工单截图"><div class="missing-note">未找到新建工单截图。</div></div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="详情与处理">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">10 / 详情与处理</div>
+      </div>
+      <div class="slide-body screenshot-layout">
+        <div class="shot-card"><div class="shot-title">工单详情 / 处理记录<span class="pill">状态与按钮</span></div><img class="shot" src="prototype-screenshots/05-ticket-detail-teamleader.png" alt="工单详情截图"><div class="missing-note">未找到详情截图。</div></div>
+        <div class="card">
+          <p class="kicker">这一页是工单的“事实页”</p>
+          <h2>让客户确认每个状态能做什么</h2>
+          <ul class="list">
+            <li>显示当前状态、当前负责人、工单类型。</li>
+            <li>展示客户信息、区域地址和问题描述。</li>
+            <li>保留处理记录、附件 / 图片、状态流转记录。</li>
+            <li>按钮根据角色和状态变化，避免越权操作。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="分派与师傅端">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">11 / 分派与师傅端</div>
+      </div>
+      <div class="slide-body screenshot-pair">
+        <div class="shot-card"><div class="shot-title">Team Leader 分派<span class="pill">人工分派</span></div><img class="shot" src="prototype-screenshots/07-dispatch-teamleader.png" alt="分派截图"><div class="missing-note">未找到分派截图。</div></div>
+        <div class="shot-card"><div class="shot-title">师傅手机视图<span class="pill">接单 / 拒单</span></div><img class="shot mobile" src="prototype-screenshots/11-mobile-master.png" alt="师傅手机截图"><div class="missing-note">未找到手机截图。</div></div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="统计与设置">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">12 / 统计与设置</div>
+      </div>
+      <div class="slide-body screenshot-pair">
+        <div class="shot-card"><div class="shot-title">统计报表<span class="pill">第一阶段基础统计</span></div><img class="shot" src="prototype-screenshots/09-report-admin.png" alt="统计报表截图"><div class="missing-note">未找到统计截图。</div></div>
+        <div class="shot-card"><div class="shot-title">基础设置<span class="pill">简化版</span></div><img class="shot" src="prototype-screenshots/10-settings-admin.png" alt="基础设置截图"><div class="missing-note">未找到设置截图。</div></div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="不进入第一阶段">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">13 / 不进入第一阶段</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">边界说清楚，项目才不会失控</p>
+          <h2>这些内容不放进第一版主流程</h2>
+        </div>
+        <div class="not-mvp">
+          <div>客户自助门户</div>
+          <div>WhatsApp 自动通知</div>
+          <div>SLA 超时升级</div>
+          <div>财务 / 采购 / HR</div>
+          <div>AI 图片检测</div>
+          <div>多系统深度集成</div>
+          <div>报价 / 安装完整流程</div>
+          <div>复杂绩效 / 成本报表</div>
+        </div>
+        <div class="callout">这些能力可以作为后续阶段候选，但不能在第一阶段默认为必做。第一版先确认工单闭环和一线可用性。</div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="客户确认问题">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">14 / 客户确认问题</div>
+      </div>
+      <div class="slide-body asym">
+        <div>
+          <p class="kicker">会议上最好直接确认</p>
+          <h2>这 8 个问题决定后续实施范围</h2>
+          <p class="lead">如果这些口径能确认，下一步就可以围绕第一阶段版本进行实施范围、周期和工作量评估。</p>
+        </div>
+        <div class="card">
+          <ol class="decision-list">
+            <li>是否确认当前 1 条主流程？</li>
+            <li>是否确认 3 类工单类型？</li>
+            <li>是否确认 4 类角色与职责？</li>
+            <li>是否确认 7 个状态和拒单回退规则？</li>
+            <li>PM / CM 的最终业务定义是什么？</li>
+            <li>通知先做系统内提醒，还是要接外部渠道？</li>
+            <li>附件 / 照片是否必填，哪些场景必填？</li>
+            <li>已关闭后是否允许重开？</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="下一步">
+      <div class="brand-row">
+        <img class="logo" src="assets/ecinfo-logo.svg" alt="EC InfoTech Limited">
+        <div class="stage">15 / 下一步</div>
+      </div>
+      <div class="slide-body">
+        <div>
+          <p class="kicker">建议推进路径</p>
+          <h2>先确认，再小修，再进入实施评估</h2>
+        </div>
+        <div class="process">
+          <div class="step"><small>01</small><strong>客户确认流程</strong><span>确认主流程、角色、状态和页面方向。</span></div>
+          <div class="step"><small>02</small><strong>收集反馈</strong><span>记录客户对字段、按钮、通知和移动端的意见。</span></div>
+          <div class="step"><small>03</small><strong>小修原型</strong><span>只调整已确认范围内的页面和文案。</span></div>
+          <div class="step"><small>04</small><strong>冻结范围</strong><span>明确第一版做什么、不做什么。</span></div>
+          <div class="step"><small>05</small><strong>实施评估</strong><span>评估配置 / 定制开发边界和周期。</span></div>
+          <div class="step"><small>06</small><strong>工作拆分</strong><span>拆成表单、状态、权限、上传、统计等工作项。</span></div>
+          <div class="step"><small>07</small><strong>第一版实施</strong><span>进入可试用版本配置或开发。</span></div>
+          <div class="step"><small>08</small><strong>试用优化</strong><span>由 CS、Team Leader、师傅和主管试用验证。</span></div>
+        </div>
+        <div class="callout">建议结论：当前材料可以作为客户流程确认稿。确认后再进入实施评估，不建议在本轮把后续阶段能力提前放入第一版。</div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="演示控制">
+    <button type="button" id="prevBtn">上一页</button>
+    <span class="page-no" id="pageNo">1 / 16</span>
+    <button type="button" id="nextBtn" class="primary">下一页</button>
+  </nav>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const pageNo = document.getElementById("pageNo");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    let current = 0;
+
+    function showSlide(index) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      pageNo.textContent = `${current + 1} / ${slides.length}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+      document.title = `${current + 1}. ${slides[current].dataset.title} - EC 工单系统第一阶段原型汇报`;
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    prevBtn.addEventListener("click", prevSlide);
+    nextBtn.addEventListener("click", nextSlide);
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+        event.preventDefault();
+        nextSlide();
+      }
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        prevSlide();
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        showSlide(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        showSlide(slides.length - 1);
+      }
+    });
+
+    document.querySelectorAll(".shot-card img").forEach(img => {
+      img.addEventListener("error", () => img.closest(".shot-card").classList.add("missing"));
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>

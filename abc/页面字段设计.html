@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EC 工单管理系统 — 页面字段设计</title>
+<style>
+:root{--nav-w:230px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#1a1a2e;color:#ccc;display:flex;height:100vh}
+a{color:#64b5f6}
+
+nav{width:var(--nav-w);background:#16213e;height:100vh;overflow-y:auto;flex-shrink:0;border-right:1px solid #0f3460}
+nav h3{padding:20px 16px 12px;font-size:15px;color:#e0e0e0;border-bottom:1px solid #0f3460}
+nav .mod{display:block;padding:12px 16px 6px;font-size:12px;color:#64b5f6;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+nav a{display:block;padding:6px 16px 6px 24px;font-size:13px;text-decoration:none;color:#90a4ae;border-left:3px solid transparent;transition:.15s;cursor:pointer}
+nav a:hover,nav a.active{color:#fff;border-left-color:#42a5f5;background:rgba(66,165,245,.08)}
+
+main{flex:1;height:100vh;display:flex;flex-direction:column;min-width:0}
+header{background:#16213e;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #0f3460;flex-shrink:0}
+header h2{font-size:17px;color:#e0e0e0}
+
+#view{flex:1;overflow:auto;padding:20px}
+.card{background:#fff;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,.3);padding:28px;color:#333;max-width:1100px}
+.card h3{font-size:18px;margin-bottom:4px;color:#1a1a2e}
+.card .src{font-size:12px;color:#999;margin-bottom:20px}
+.card table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px}
+.card th{background:#f5f5f5;padding:10px 12px;text-align:left;font-weight:600;border:1px solid #e0e0e0;font-size:13px}
+.card td{padding:10px 12px;border:1px solid #e0e0e0;font-size:13px;vertical-align:top}
+.card td b{color:#1a1a2e}
+.required{color:#c62828;font-weight:700}
+.optional{color:#999}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;margin-right:4px}
+.tag-img{background:#e8f5e9;color:#2e7d32}
+.tag-note{background:#e3f2fd;color:#1565c0}
+.tag-deduced{background:#fff3e0;color:#e65100}
+.tag-yida{background:#f3e5f5;color:#7b1fa2}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#444;border-radius:3px}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <h3>字段设计</h3>
+  <span class="mod">M0 登录页</span>
+  <a data-sec="m0-p1">登录页</a>
+  <span class="mod">通知系统</span>
+  <a data-sec="notif">通知系统</a>
+  <span class="mod">M1 客户管理</span>
+  <a data-sec="m1-p1">客户列表</a>
+  <a data-sec="m1-p2">客户详情</a>
+  <a data-sec="m1-p3">新增/编辑客户</a>
+  <span class="mod">M2 报价管理</span>
+  <a data-sec="m2-p1">报价单列表</a>
+  <a data-sec="m2-p2">新增报价单</a>
+  <a data-sec="m2-p3">报价单详情</a>
+  <a data-sec="m2-p4">版本对比</a>
+  <a data-sec="m2-p5">客户确认页</a>
+  <span class="mod">M3 来电工单</span>
+  <a data-sec="m3-p1">新增来电工单</a>
+  <a data-sec="m3-p2">工单列表</a>
+  <a data-sec="m3-p3">工单详情</a>
+  <span class="mod">M4 派单调度</span>
+  <a data-sec="m4-p1">派单操作页</a>
+  <a data-sec="m4-p2">师傅端-我的工单</a>
+  <span class="mod">M5 现场执行</span>
+  <a data-sec="m5-p1">签到打卡</a>
+  <a data-sec="m5-p2">维修记录</a>
+  <a data-sec="m5-p3">拍照上传</a>
+  <a data-sec="m5-p4">无法修复/需报价</a>
+  <span class="mod">M6 完工闭环</span>
+  <a data-sec="m6-p1">客户签名页</a>
+  <a data-sec="m6-p2">完工单提交</a>
+  <a data-sec="m6-p3">完工单详情</a>
+  <span class="mod">M7 采购管理</span>
+  <a data-sec="m7-p1">PO申请</a>
+  <a data-sec="m7-p2">PO列表</a>
+  <a data-sec="m7-p3">PO详情</a>
+  <span class="mod">M8 报表中心</span>
+  <a data-sec="m8-p1">工单进度看板</a>
+  <a data-sec="m8-p2">Outstanding Report</a>
+  <span class="mod">M9 系统设置</span>
+  <a data-sec="m9-p1">区域码管理</a>
+  <a data-sec="m9-p2">员工管理</a>
+  <a data-sec="m9-p3">角色权限</a>
+  <a data-sec="m9-p4">编号规则</a>
+</nav>
+
+<main>
+  <header><h2 id="title">M1 客户管理 — 客户列表</h2></header>
+  <div id="view"><div class="card" id="content"></div></div>
+</main>
+
+<script>
+(function(){
+'use strict';
+
+var data={};
+
+// ═══════════════════════════════════════
+// M0 登录页
+// ═══════════════════════════════════════
+
+data["m0-p1"]={
+  title:"M0 登录页",
+  desc:"来源：原型设计",
+  note:"系统入口，员工从Staff表获取，可在M9员工管理维护。",
+  fields:[
+    ["选择角色","selected_role","枚举","是","CS客服/师傅/Super/报价员/采购部","5个角色按钮，点击筛选对应员工"],
+    ["选择用户","selected_user","选择","是","—","从Staff表按角色筛选，显示姓名+区域+职位"],
+    ["快速创建","addName","文本","否","≤50","找不到用户时输入姓名快速创建"],
+    ["当前登录用户","currentUser","对象","—","—","id/name/role/zone，写入localStorage持久化"],
+  ]
+};
+
+// ═══════════════════════════════════════
+// Notification 通知系统
+// ═══════════════════════════════════════
+
+data["notif"]={
+  title:"通知系统",
+  desc:"来源：原型设计",
+  note:"系统内通知，顶部铃铛+未读计数，点击展开面板。",
+  fields:[
+    ["通知ID","id","文本","—","自动","唯一标识"],
+    ["目标用户ID","userId","文本","—","—","为空时按role推送"],
+    ["目标角色","role","文本","—","—","CS客服/会计部/师傅等"],
+    ["标题","title","文本","是","≤100","通知标题"],
+    ["消息","message","文本","是","≤200","通知正文"],
+    ["跳转链接","link","文本","是","—","点击后跳转路径"],
+    ["类型","type","枚举","是","info/success/warning/error","决定圆点颜色"],
+    ["已读","read","布尔","否","默认false","—"],
+    ["创建时间","createdAt","日期时间","—","自动","—"],
+  ]
+};
+
+
+// ═══════════════════════════════════════
+// M1 客户管理
+// ═══════════════════════════════════════
+
+// M1-P1
+data['m1-p1']={
+  title:'M1 客户管理 — 客户列表',
+  desc:'来源：<span class="tag tag-img">185546 来電報告表格</span><span class="tag tag-note">03/26 纪要</span><span class="tag tag-note">01/30 纪要</span>',
+  note:'客户列表是 CS 人员的日常入口，用于快速查找已有客户。字段从纸质来電報告表格中的"客戶/聯絡人/聯絡電話"区域提取，部分筛选条件从纪要中的业务规则推演。',
+  fields:[
+    ['搜索框','search','文本','否','—','支持按客户名称/电话/合约编号模糊搜索'],
+    ['客户名称','client_name','文本','是','≤100','显示在列表中，点击进入详情'],
+    ['区域','zone','枚举','—','—','1P-7P，筛选条件'],
+    ['合约编号','contract_no','文本','—','≤64','现有合约编号格式：IN2411142 等'],
+    ['联络人','contact_person','文本','—','≤50','—'],
+    ['联络电话','contact_phone','文本','—','≤20','—'],
+    ['最近工单时间','last_wo_time','日期时间','—','—','自动关联最新工单创建时间'],
+    ['工单总数','wo_count','数字','—','—','—'],
+  ]
+};
+
+// M1-P2
+data['m1-p2']={
+  title:'M1 客户管理 — 客户详情',
+  desc:'来源：各材料交叉引用',
+  note:'点击客户列表中的某个客户后进入。展示该客户的完整信息、关联合约、历史工单。',
+  fields:[
+    ['客户名称','client_name','文本','是','≤100','—'],
+    ['区域','zone','枚举','是','1P-7P','从区域码体系确定'],
+    ['地址','address','文本','否','≤200','—'],
+    ['联络人','contact_person','文本','否','≤50','—'],
+    ['联络电话','contact_phone','文本','否','≤20','—'],
+    ['备註联络人','alt_contact','文本','否','≤50','备用联系人'],
+    ['备註电话','alt_phone','文本','否','≤20','—'],
+    ['合约编号','contract_no','文本','否','≤64','一个客户可能有多个合约'],
+    ['合约类型','contract_type','枚举','否','—','Main Contract / Maintenance Contract / Tender / Walk-in'],
+    ['禁止拍照','no_photo','布尔','否','默认false','<span class="tag tag-note">185943 Service Report</span> 特殊场所（如监狱）设为true'],
+    ['最近修改人','updated_by','文本','—','—','自动记录'],
+    ['最近修改时间','updated_at','日期时间','—','—','自动记录'],
+    ['关联工单列表','related_orders','列表','—','—','子表，显示该客户的所有历史工单'],
+  ]
+};
+
+// M1-P3
+data['m1-p3']={
+  title:'M1 客户管理 — 新增/编辑客户',
+  desc:'来源：同客户详情，均为可编辑字段',
+  note:'与客户详情字段基本一致，所有字段均可编辑。新增时无历史工单；编辑时展示已有数据。',
+  fields:[
+    ['客户名称','client_name','文本','是','≤100','—'],
+    ['区域','zone','枚举','是','1P/2P/4P/5P/6P/7P','单选下拉，来源M9区域码管理'],
+    ['地址','address','文本','否','≤200','—'],
+    ['联络人','contact_person','文本','否','≤50','—'],
+    ['联络电话','contact_phone','文本','否','≤20','—'],
+    ['备用联络人','alt_contact','文本','否','≤50','—'],
+    ['备用电话','alt_phone','文本','否','≤20','—'],
+    ['合约编号','contract_no','文本','否','≤64','可多个，用逗号或子表'],
+    ['合约类型','contract_type','枚举','否','—','—'],
+    ['禁止拍照','no_photo','布尔','否','默认false','<span class="tag tag-note">03/26纪要</span> 特殊场所设为true，工单不强制拍照'],
+    ['备注','remark','长文本','否','≤500','—'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M2 报价管理
+// ═══════════════════════════════════════
+
+// M2-P1
+data['m2-p1']={
+  title:'M2 报价管理 — 报价单列表',
+  desc:'来源：<span class="tag tag-img">7张报价单图片(190209~190358)</span><span class="tag tag-note">01/30 纪要(版本控制)</span>',
+  note:'报价员（Eve/Blondie）进入后的主页面。列出所有报价单，支持按状态筛选。每张报价单有版本号(v1,v2,v3)。',
+  fields:[
+    ['报价单编号','our_ref','文本','—','—','系统自动生成：如 4P2601303'],
+    ['客户名称','client_name','文本','—','—','—'],
+    ['项目/场地','site','文本','—','≤200','—'],
+    ['当前版本','version','数字','—','—','v1/v2/v3'],
+    ['总金额','total_amount','金额(HKD)','—','—','—'],
+    ['状态','status','枚举','—','—','草稿/已发出/客户已确认/已作废'],
+    ['发件人','from','文本','—','—','—'],
+    ['创建日期','created_date','日期','—','—','—'],
+    ['最后修改日期','modified_date','日期','—','—','—'],
+  ]
+};
+
+// M2-P2
+data['m2-p2']={
+  title:'M2 报价管理 — 新增报价单',
+  desc:'来源：<span class="tag tag-img">7张报价单图片(190209~190358)</span>',
+  note:'报价员点击新建报价单，填写报价明细。字段从EC InfoTech现有报价单模板（7张图片）提取。支持多行项目明细。预计用宜搭表单+流程实现。',
+  fields:[
+    ['报价单编号','our_ref','文本','是','自动生成','系统自动，格式：区域码+年份+序号，如4P2601303'],
+    ['日期','date','日期','是','默认当天','—'],
+    ['收件客户','to','文本','是','≤100','从M1客户档案中选择，或手动输入'],
+    ['场地/项目名','site','文本','是','≤200','—'],
+    ['联系人','attn','文本','是','≤50','—'],
+    ['联系人电话','attn_phone','文本','否','≤20','—'],
+    ['联系人邮箱','attn_email','文本','否','≤100','—'],
+    ['服务请求编号','sr_no','文本','否','≤32','S/R No.'],
+    ['发件人','from','文本','是','≤50','默认当前用户(Eve/Blondie)'],
+    ['合同编号','contract_no','文本','否','≤64','关联合同'],
+    ['===== 以下为明细行（可多条）=====','','','','',''],
+    ['项目序号','item','文本','—','自动','a/b/c'],
+    ['项目描述','description','长文本','是','≤500','含品牌、型号、安装位置等'],
+    ['品牌','brand','文本','否','≤50','如 HIKVISION, DAHUA, DISS'],
+    ['型号','model','文本','否','≤100','如 DS-2CE56D0T-IRMMF'],
+    ['净单价','net_price','金额(HKD)','是','—','单位港币'],
+    ['数量','qty','数字','是','—','—'],
+    ['单位','unit','枚举','是','No/Job/M/Set/EA','—'],
+    ['折扣','discount','百分比','否','默认0%','如15%'],
+    ['小计金额','amount','金额(HKD)','—','自动计算','net_price × qty × (1-discount)'],
+    ['===== 条款 =====','','','','',''],
+    ['付款方式','payment_terms','枚举','是','—','100%完工后/COD/分期'],
+    ['有效期','validity','数字(天)','是','默认60','报价有效期天数'],
+    ['交货时间','delivery_time','文本','是','≤100','如"订单确认后30天"'],
+    ['保修期','warranty','文本','是','≤100','如"1年"'],
+    ['备注','remark','长文本','否','≤500','补充条款或说明'],
+    ['===== 审批链 =====','','','','',''],
+    ['编制人','prepared_by','文本','—','当前用户','自动记录'],
+    ['审核人','checked_by','文本','否','≤50','Wk Yu/Ngai等'],
+    ['授权签名','authorized_by','文本','否','≤50','—'],
+  ]
+};
+
+// M2-P3
+data['m2-p3']={
+  title:'M2 报价管理 — 报价单详情',
+  desc:'来源：同新增报价单',
+  note:'查看报价单的完整信息，字段与新增页面一致但只读。底部显示版本历史。支持打印/导出PDF。',
+  fields:[
+    ['（同新增报价单所有字段，只读）','','','','',''],
+    ['版本历史','version_history','列表','—','—','底部子表，列出v1/v2/v3及其修改说明'],
+  ]
+};
+
+// M2-P4
+data['m2-p4']={
+  title:'M2 报价管理 — 版本对比',
+  desc:'来源：<span class="tag tag-note">01/30 纪要(版本控制)</span>',
+  note:'<span class="tag tag-note">01/30纪要</span>: "报价修改留版本历史（version 1, 2, 3）。系统记录所有变更日志，包括增删改项，供授权人员在界面直接查阅。确认后不可直接修改，需创建修正版。"',
+  fields:[
+    ['选择对比版本A','version_a','选择','是','—','下拉选择v1/v2/v3'],
+    ['选择对比版本B','version_b','选择','是','—','下拉选择v1/v2/v3'],
+    ['差异明细','diff_rows','列表','—','—','逐行对比：新增(绿)/删除(红)/修改(黄)'],
+    ['修改说明','change_note','文本','—','—','每个版本创建时需填写修改原因'],
+  ]
+};
+
+// M2-P5
+data['m2-p5']={
+  title:'M2 报价管理 — 客户确认页',
+  desc:'来源：<span class="tag tag-img">报价单签名区域</span>',
+  note:'客户查看报价后签名确认。该页面可生成公开链接或QR码供客户在外部查看（无需登录）。签名区参考现有纸质报价单的"Authorized Signature & Company Chop"区域。',
+  fields:[
+    ['报价单内容（只读）','content','—','—','—','展示完整报价单'],
+    ['客户签名','client_sign','签名/图片','是','—','手写签名或盖章图片上传'],
+    ['客户确认日期','confirm_date','日期','是','默认当天','—'],
+    ['客户备注','client_remark','长文本','否','≤500','客户的补充说明'],
+    ['确认后状态变更','status_change','—','—','—','确认后状态变为"客户已确认"'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M3 来电工单
+// ═══════════════════════════════════════
+
+// M3-P1
+data['m3-p1']={
+  title:'M3 来电工单 — 新增来电工单',
+  desc:'来源：<span class="tag tag-img">185546 来電報告表格(空白)</span><span class="tag tag-img">185934 来電報告表格(手写)</span><span class="tag tag-note">185151 流程图(Emergency Team)</span>',
+  note:'<span class="tag tag-yida">宜搭表单</span> 这是系统的核心入口。CS接听电话时填写，完全替代现有纸质"每日來電報告表格(Daily Service Call Form) EC CS001"。字段一对一映射纸质表单。',
+  fields:[
+    ['===== 客户信息 =====','','','','','<span class="tag tag-img">185546 EC CS001</span>'],
+    ['客户','client_name','文本','是','≤100','从M1客户档案选择，或手动输入新客户'],
+    ['联络人','contact_person','文本','是','≤50','—'],
+    ['联络电话','contact_phone','文本','是','≤20','<span class="tag tag-img">185934手写样例</span>: 92609218'],
+    ['合约编号','contract_no','文本','否','≤64','<span class="tag tag-img">185934手写样例</span>: IN2411142'],
+    ['===== 来电信息 =====','','','','',''],
+    ['来电报吿代码','call_code','文本','是','≤32','系统自动生成，<span class="tag tag-img">185934样例</span>: E663002617'],
+    ['接报日期时间','call_datetime','日期时间','是','默认当前','<span class="tag tag-img">185934样例</span>: 30/1 10:51'],
+    ['接报人','received_by','文本','是','当前用户','<span class="tag tag-img">185934样例</span>: ok. (签名)'],
+    ['===== 工单分类 =====','','','','',''],
+    ['区域','zone','枚举','是','1P/2P/4P/5P/6P/7P','<span class="tag tag-note">01/30纪要</span> 按区域码体系'],
+    ['工单类型','wo_type','枚举','是','—','<span class="tag tag-note">03/26纪要</span> 小区类(PM) / 政府合约类(ECA)'],
+    ['业务类型','biz_type','枚举','是','—','<span class="tag tag-note">185151</span> PM(常规维修)/CM(特别任务)/Walk-in Tender/政府EMSC'],
+    ['问题描述','description','长文本','是','≤2000','<span class="tag tag-img">185934</span> "安装台82.83、Viv式、收唔到。建哥问11C"'],
+    ['===== 附件 =====','','','','','<span class="tag tag-note">03/26纪要</span>'],
+    ['附件上传','attachments','文件','否','PDF/图片','支持上传外部系统的派单信息'],
+    ['===== 系统自动字段 =====','','','','',''],
+    ['工单编号','wo_no','文本','—','自动生成','小区: YYYYMMDD-N / 政府: ECA-YYYYMMDD-N'],
+    ['创建时间','created_at','日期时间','—','自动','—'],
+    ['当前状态','status','枚举','—','自动','初始值: "待处理"'],
+  ]
+};
+
+// M3-P2
+data['m3-p2']={
+  title:'M3 来电工单 — 工单列表',
+  desc:'来源：<span class="tag tag-deduced">流程推演</span><span class="tag tag-img">190022 周回收GQ表(格式参考)</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue)</span> 所有工单的汇总看板。CS和Super主要在此查看、筛选、操作工单。展示字段参考了190022周回收GQ表的跟踪表格式。',
+  fields:[
+    ['搜索框','search','文本','否','—','按工单号/客户名/电话/地址模糊搜索'],
+    ['时间范围','date_range','日期范围','否','—','筛选工单的创建时间段'],
+    ['工单编号','wo_no','文本','—','自动','—'],
+    ['工单类型','wo_type','枚举','—','PM/CM/Walk-in/政府','筛选条件'],
+    ['状态','status','枚举','—','—','待处理/已接单/处理中/已完成/已取消/需跟进/未完成'],
+    ['区域','zone','枚举','—','1P-7P','筛选条件'],
+    ['客户名称','client_name','文本','—','—','—'],
+    ['地址','address','文本','—','—','—'],
+    ['问题描述(摘要)','desc_brief','文本','—','≤100','列表只显示前100字符'],
+    ['负责人','assignee','文本','—','—','被指派的师傅/Team Leader'],
+    ['创建时间','created_at','日期时间','—','—','—'],
+    ['最后更新时间','updated_at','日期时间','—','—','—'],
+  ]
+};
+
+// M3-P3
+data['m3-p3']={
+  title:'M3 来电工单 — 工单详情',
+  desc:'来源：工单创建 + 流转全过程',
+  note:'点击工单列表中的某一单进入。展示工单完整信息、流转历史、附件。',
+  fields:[
+    ['（同新增来电工单所有字段，只读）','','','','',''],
+    ['===== 流转历史 =====','','','','',''],
+    ['操作时间','op_time','日期时间','—','—','—'],
+    ['操作人','op_by','文本','—','—','CS/Super/师傅'],
+    ['操作类型','op_type','枚举','—','—','创建/派单/接单/拒单/签到/维修/完工'],
+    ['操作详情','op_detail','文本','—','—','如"拒单：正在执行其他PM任务"'],
+    ['===== 操作按钮 =====','','','','',''],
+    ['派单','action_dispatch','按钮','—','—','CS/Super可见，跳转派单操作页'],
+    ['接单/拒单','action_accept','按钮','—','—','师傅可见，未接单状态'],
+    ['签到','action_checkin','按钮','—','—','师傅可见，已接单状态'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M4 派单调度
+// ═══════════════════════════════════════
+
+// M4-P1
+data['m4-p1']={
+  title:'M4 派单调度 — 派单操作页',
+  desc:'来源：<span class="tag tag-img">185151 Emergency Team流程图</span><span class="tag tag-img">185456 PM/CM流程图</span>',
+  note:'CS或Super在此页面将工单指派给具体师傅/Team Leader。<span class="tag tag-yida">宜搭审批流节点</span>',
+  fields:[
+    ['工单编号(只读)','wo_no','文本','—','—','当前被派的工单'],
+    ['工单类型','wo_type','枚举','是','PM/CM','决定派单方式：PM→固定负责人；CM→按技能指派'],
+    ['派单方式','dispatch_mode','枚举','是','—','<span class="tag tag-img">185151</span> 分配制(Super指定) / 抢单制(工单池)'],
+    ['目标区域','target_zone','枚举','是','1P-7P','按区域推荐对应Team Leader'],
+    ['指派师傅/团队','assignee','选择','是','—','下拉选师傅（按区域过滤），支持多选（跨区/多合约场景）'],
+    ['派单备注','dispatch_note','文本','否','≤200','CS/Super附加给师傅的说明'],
+    ['派单人','dispatched_by','文本','—','当前用户','自动记录'],
+    ['派单时间','dispatched_at','日期时间','—','当前','自动记录'],
+    ['===== PM/CM 特殊处理 =====','','','','','<span class="tag tag-img">185456</span>'],
+    ['员工排程状态','pm_schedule','枚举','—','—','已排程PM/无排程，显示所选师傅的当前排程'],
+    ['是否需放弃原排程','need_reassign','布尔','—','—','若为已排程PM员工接受CM，需确认是否放弃原PM'],
+  ]
+};
+
+// M4-P2
+data['m4-p2']={
+  title:'M4 派单调度 — 师傅端：我的工单',
+  desc:'来源：<span class="tag tag-img">185324 前线员工工单执行流程(Tom)</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue, 移动端)</span> 师傅手机上的核心页面。显示分配给自己或可抢的工单列表。极简设计，首屏1-2个按钮。字段来自185324流程图中"我的工单"标签。',
+  fields:[
+    ['===== 工单卡片 =====','','','','','<span class="tag tag-img">185324</span>'],
+    ['地址','address','文本','—','—','师傅最关心的信息，放第一位'],
+    ['时间','appointment_time','日期时间','—','—','预约时间'],
+    ['联络人姓名','contact_name','文本','—','—','—'],
+    ['联络人电话','contact_phone','文本','—','—','可直接点击拨号'],
+    ['工作内容','work_desc','长文本','—','—','—'],
+    ['工单编号','wo_no','文本','—','—','—'],
+    ['工单类型标识','type_tag','枚举','—','—','PM/CM/紧急 标签'],
+    ['===== 操作按钮 =====','','','','',''],
+    ['接单','btn_accept','按钮','—','—','点击即接单'],
+    ['拒单','btn_reject','按钮','—','—','需弹出原因填写框'],
+    ['===== 拒绝原因弹窗 =====','','','','','<span class="tag tag-img">185324</span>'],
+    ['拒绝原因','reject_reason','长文本','是','≤500','如"正在执行其他PM任务"'],
+    ['===== 状态筛选 =====','','','','',''],
+    ['标签页切换','tab','枚举','—','—','待处理/进行中/已完成'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M5 现场执行
+// ═══════════════════════════════════════
+
+// M5-P1
+data['m5-p1']={
+  title:'M5 现场执行 — 签到打卡',
+  desc:'来源：<span class="tag tag-img">185151(5分钟超时)</span><span class="tag tag-img">185324(签到流程)</span>',
+  note:'<span class="tag tag-yida">宜搭签到组件</span> 师傅到达现场后签到。5分钟未签到→系统通知Super。',
+  fields:[
+    ['工单编号','wo_no','文本','—','只读','关联的工单'],
+    ['签到时间','checkin_time','日期时间','—','自动获取','系统自动记录当前时间'],
+    ['签到位置','checkin_location','定位','是','—','宜搭签到组件自动获取GPS坐标'],
+    ['位置地址','location_addr','文本','—','自动','GPS反解析地址'],
+    ['签到照片','checkin_photo','图片','否','—','拍摄现场入口/门牌，证明已到达'],
+    ['是否补签','is_retroactive','布尔','—','—','超时后补签则标记为true'],
+  ]
+};
+
+// M5-P2
+data['m5-p2']={
+  title:'M5 现场执行 — 维修记录',
+  desc:'来源：<span class="tag tag-img">185151(检查+工具+缺料)</span><span class="tag tag-img">185324(维修执行)</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue)</span> 师傅检查后填写维修内容和所用材料。分为检查和维修两个阶段。',
+  fields:[
+    ['工单编号','wo_no','文本','—','只读','—'],
+    ['检查开始时间','check_start','日期时间','—','自动','—'],
+    ['维修情况判断','repair_judgment','枚举','是','—','<span class="tag tag-img">185151</span>: 可顺利维修/无法即时维修/需要更换材料'],
+    ['使用工具','tools_used','文本','是','≤200','—'],
+    ['是否缺料','material_short','布尔','—','—','缺料→触发采购流程'],
+    ['缺料明细','missing_materials','长文本','否(缺料时必填)','≤500','若缺料，列出缺什么'],
+    ['执行维修内容','repair_detail','长文本','是','≤2000','具体做了什么工作'],
+    ['使用材料','materials_used','文本','否','≤500','已使用的材料/配件'],
+    ['===== 若换材料 =====','','','','','<span class="tag tag-img">185456</span>'],
+    ['客户签名确认更换','replace_confirm','签名','更换时必填','—','客户同意更换的签字'],
+  ]
+};
+
+// M5-P3
+data['m5-p3']={
+  title:'M5 现场执行 — 拍照上传',
+  desc:'来源：<span class="tag tag-img">185151(拍照留痕)</span><span class="tag tag-img">185324(before-after)</span><span class="tag tag-note">01/30纪要(最多各10张)</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue)</span> 支持离线队列+后台重试。before照片(维修前)和after照片(维修后)分两组管理。网络差时先存本地，有网自动上传。',
+  fields:[
+    ['工单编号','wo_no','文本','—','只读','—'],
+    ['===== Before 照片（维修前）=====','','','','','<span class="tag tag-note">最多10张</span>'],
+    ['Before照片(1-10)','before_photo','图片','是','最多10张','逐张标注说明'],
+    ['===== After 照片（维修后）=====','','','','','<span class="tag tag-note">最多10张</span>'],
+    ['After照片(1-10)','after_photo','图片','是','最多10张','逐张标注说明'],
+    ['===== 上传状态 =====','','','','',''],
+    ['待上传数','pending_count','数字','—','—','离线队列中等待上传的照片数'],
+    ['上传进度','upload_progress','进度','—','—','每张照片的上传状态'],
+    ['===== 特殊场所 =====','','','','','<span class="tag tag-note">03/26纪要</span>'],
+    ['是否跳过拍照','skip_photo','布尔','—','自动','若客户档案no_photo=true，自动跳过，不强制'],
+  ]
+};
+
+// M5-P4
+data['m5-p4']={
+  title:'M5 现场执行 — 无法修复/需报价',
+  desc:'来源：<span class="tag tag-img">185151(无法即时维修路径)</span><span class="tag tag-img">185324(故障报告流程)</span>',
+  note:'师傅判断无法当场修复时的处理页面。两条路径：A)取消工单重建 B)填故障报告转报价。',
+  fields:[
+    ['工单编号','wo_no','文本','—','只读','—'],
+    ['处理方式','fail_action','枚举','是','—','<span class="tag tag-img">185151</span>: 取消工单并重新建单 / 填写故障报告提交报价'],
+    ['===== 路径A: 取消工单重建 =====','','','','',''],
+    ['取消原因','cancel_reason','长文本','是','≤500','—'],
+    ['是否重新建单','recreate_wo','布尔','—','—','—'],
+    ['新工单关联','new_wo_ref','文本','—','—','自动关联新生成的工单号'],
+    ['===== 路径B: 故障报告 =====','','','','','<span class="tag tag-img">185151</span>'],
+    ['故障描述','fault_detail','长文本','是','≤2000','—'],
+    ['客户签名','fault_client_sign','签名','是','—','客户确认故障报告的签名'],
+    ['触发报价流程','trigger_quote','布尔','—','—','勾选后自动跳转M2新增报价单'],
+    ['===== 系统通知 =====','','','','','<span class="tag tag-img">185151</span>'],
+    ['通知维修李/经理','notify_manager','布尔','—','自动','系统更新后自动发送手机通知'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M6 完工闭环
+// ═══════════════════════════════════════
+
+// M6-P1
+data['m6-p1']={
+  title:'M6 完工闭环 — 客户签名页',
+  desc:'来源：<span class="tag tag-img">185324(客户签名)</span><span class="tag tag-img">185808 Job Completion</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue, Canvas签名)</span> 师傅维修完成后，让客户在手机上签名确认。',
+  fields:[
+    ['工单编号','wo_no','文本','—','只读','—'],
+    ['维修摘要','repair_summary','文本','—','只读','展示给客户看的维修内容概要'],
+    ['客户签名','client_sign','签名(Canvas)','是','—','HTML5 Canvas手写签名'],
+    ['签名日期时间','sign_datetime','日期时间','—','自动','—'],
+    ['盖章上传','company_chop','图片','否','—','<span class="tag tag-img">185808</span> 客户公司印章'],
+    ['客户满意度','satisfaction','枚举','否','—','<span class="tag tag-img">185943</span>: 非常满意/满意/尚可/有待改善'],
+  ]
+};
+
+// M6-P2
+data['m6-p2']={
+  title:'M6 完工闭环 — 完工单提交',
+  desc:'来源：<span class="tag tag-img">185808 Job Completion</span><span class="tag tag-img">185943 Service Report</span><span class="tag tag-note">185151(竣工表+费用)</span>',
+  note:'<span class="tag tag-yida">宜搭表单</span> 维修完成后师傅提交的完整报告。分为Job Completion(完工单)和Service Report(服务报告)两类，字段大致相同。',
+  fields:[
+    ['===== 基本信息 =====','','','','',''],
+    ['客户名称','client_name','文本','—','只读','自动从工单带入'],
+    ['到达日期/时间','arrival_time','日期时间','是','—','—'],
+    ['完成日期/时间','completion_time','日期时间','是','—','—'],
+    ['===== 服务类型 =====','','','','','<span class="tag tag-img">185943</span>'],
+    ['涉及系统','system_type','多选','是','—','门禁Access Control/CCTV/警报Alarm/IT通讯/对讲机Doorphone/其他'],
+    ['服务目的','purpose','多选','是','—','例行检查/维修通知/紧急维修/收费'],
+    ['===== 工作描述 =====','','','','',''],
+    ['已完成的工作','work_done','长文本','是','≤3000','<span class="tag tag-img">185943</span> 详细描述'],
+    ['===== 竣工表 =====','','','','','<span class="tag tag-img">185151</span>'],
+    ['电子竣工表','e_report','长文本','是','≤3000','系统自动填充基础信息，师傅补充'],
+    ['实际完工表','paper_report','长文本','是','≤3000','线下完工单的电子化版本（可手写拍照后上传）'],
+    ['是否有额外工作','has_extra_work','布尔','—','—','<span class="tag tag-img">185151</span>'],
+    ['额外工作描述','extra_work_desc','长文本','额外工作时必填','≤500','—'],
+    ['离线完工单修改','offline_mod','长文本','否','≤500','—'],
+    ['可接受性证明','acceptance_proof','文本/图片','否','—','辅助/解释说明'],
+    ['是否有特别费用','has_special_fee','布尔','—','—','<span class="tag tag-img">185151</span>'],
+    ['特别费用金额','special_fee','金额(HKD)','特别费用时必填','—','系统自动计算并录入'],
+    ['===== 附件 =====','','','','',''],
+    ['交还附件','returned_attachments','文件','否','—','<span class="tag tag-img">185151</span>'],
+    ['完工照片','completion_photos','图片','否','最多10张','<span class="tag tag-img">185819</span> 更换前后对比照片'],
+    ['备注','remark','长文本','否','≤500','<span class="tag tag-img">185151</span>'],
+    ['===== 确认 =====','','','','',''],
+    ['客户签名','client_sign','签名','是','—','<span class="tag tag-img">185808</span> 含公司盖章区'],
+    ['技术人员签名','tech_sign','签名','是','当前用户','<span class="tag tag-img">185943</span> "We confirm the completion of the above service"'],
+    ['完工单编号','report_no','文本','—','自动生成','No. 0471667 格式'],
+  ]
+};
+
+// M6-P3
+data['m6-p3']={
+  title:'M6 完工闭环 — 完工单详情',
+  desc:'来源：同完工单提交，只读视图',
+  note:'会计部和CS可查看已提交的完工单，核对后触发开票。字段同完工单提交，下方添加工单流转时间线。',
+  fields:[
+    ['（同完工单提交所有字段，只读）','','','','',''],
+    ['===== 会计部核对区 =====','','','','','<span class="tag tag-deduced">流程推演</span>'],
+    ['核对状态','audit_status','枚举','—','—','待核对/已核对/已开票'],
+    ['核对人','audited_by','文本','—','—','会计部人员'],
+    ['核对时间','audited_at','日期时间','—','—','—'],
+    ['发票编号','invoice_no','文本','—','—','<span class="tag tag-img">185755</span> Invoice#26011378格式'],
+    ['开票日期','invoice_date','日期','—','—','—'],
+    ['===== 系统通知记录 =====','','','','','<span class="tag tag-img">185151</span>'],
+    ['已通知CS部','notified_cs','布尔','—','—','—'],
+    ['已通知C-S部','notified_csr','布尔','—','—','—'],
+    ['已通知会计部','notified_acct','布尔','—','—','—'],
+    ['S30/S98通知','notified_sys','布尔','—','—','—'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M7 采购管理
+// ═══════════════════════════════════════
+
+// M7-P1
+data['m7-p1']={
+  title:'M7 采购管理 — PO申请',
+  desc:'来源：<span class="tag tag-img">190409 信和物业PO单</span><span class="tag tag-note">03/26纪要(采购流程)</span>',
+  note:'<span class="tag tag-yida">宜搭表单</span> 采购部根据领料请求创建采购单。<span class="tag tag-note">03/26纪要</span>: PO编号支持自定义前缀和手动输入。',
+  fields:[
+    ['PO编号','po_no','文本','是','≤64','<span class="tag tag-note">03/26纪要</span> 自定义前缀+手动输入，允许手动填写'],
+    ['PO日期','po_date','日期','是','默认当天','—'],
+    ['供应商','supplier','文本','是','≤100','—'],
+    ['关联工单编号','related_wo','文本','否','≤64','—'],
+    ['===== 明细行 =====','','','','',''],
+    ['项目代码','item_code','文本','否','≤32','<span class="tag tag-img">190409</span>: A40501001000'],
+    ['项目描述','description','长文本','是','≤500','<span class="tag tag-img">190409</span>: 含品牌/型号/安装位置'],
+    ['数量','qty','数字','是','—','<span class="tag tag-img">190409</span>: EA单位'],
+    ['单价','unit_price','金额(HKD)','是','—','—'],
+    ['小计','line_total','金额(HKD)','—','自动','—'],
+    ['===== 条款 =====','','','','',''],
+    ['开工日期','commence_date','日期','是','—','收到PO后X天内开工'],
+    ['完成日期','completion_date','日期','是','—','—'],
+    ['总金额','grand_total','金额(HKD)','—','自动','<span class="tag tag-img">190409</span>: HKD 4,600.00'],
+    ['===== 出库绑定 =====','','','','','<span class="tag tag-note">03/26纪要</span>'],
+    ['ML号码','ml_no','文本','否','≤64','出库时绑定，非必填(一期不强制)'],
+  ]
+};
+
+// M7-P2
+data['m7-p2']={
+  title:'M7 采购管理 — PO列表',
+  desc:'来源：<span class="tag tag-deduced">流程推演</span>',
+  note:'采购部的PO管理看板，跟踪所有采购单的状态。',
+  fields:[
+    ['搜索','search','文本','否','—','按PO编号/供应商/关联工单搜索'],
+    ['PO编号','po_no','文本','—','—','—'],
+    ['供应商','supplier','文本','—','—','—'],
+    ['总金额','grand_total','金额','—','—','—'],
+    ['状态','status','枚举','—','—','待审批/已下单/发货中/已到货/已完成'],
+    ['创建日期','created_date','日期','—','—','—'],
+    ['预计到货日期','eta','日期','—','—','—'],
+    ['实际到货日期','actual_arrival','日期','—','—','—'],
+    ['关联工单','related_wo','文本','—','—','—'],
+  ]
+};
+
+// M7-P3
+data['m7-p3']={
+  title:'M7 采购管理 — PO详情',
+  desc:'来源：同PO申请',
+  note:'查看PO的完整信息，含到货登记和ML号码绑定。',
+  fields:[
+    ['（同PO申请所有字段，只读）','','','','',''],
+    ['===== 到货跟踪 =====','','','','','<span class="tag tag-note">03/26纪要</span>'],
+    ['预计到货日期','eta','日期','—','—','采购单需记录预计到货日期，供全公司查询'],
+    ['实际到货日期','actual_arrival','日期','—','—','—'],
+    ['到货确认人','arrival_confirmed_by','文本','—','—','—'],
+    ['===== 领料出库 =====','','','','',''],
+    ['ML号码绑定','ml_no','文本','否','≤64','出库时录入'],
+    ['领料人','picked_by','文本','否','≤50','领料的师傅姓名'],
+    ['领料日期','picked_date','日期','否','—','—'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M8 报表中心
+// ═══════════════════════════════════════
+
+// M8-P1
+data['m8-p1']={
+  title:'M8 报表中心 — 工单进度看板',
+  desc:'来源：<span class="tag tag-img">190041 Project Control List</span><span class="tag tag-img">190341 Project Control List(二)</span><span class="tag tag-img">190022 周回收GQ表</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue)</span> 管理层查看全局工单进度。参考三张报表图片的字段结构。',
+  fields:[
+    ['===== 筛选条件 =====','','','','',''],
+    ['时间范围','date_range','日期范围','否','—','—'],
+    ['区域','zone','枚举','否','—','1P-7P，多选'],
+    ['工单类型','wo_type','枚举','否','—','—'],
+    ['===== 统计卡片 =====','','','','',''],
+    ['今日新增','today_new','数字','—','—','—'],
+    ['待处理数','pending','数字','—','—','—'],
+    ['处理中数','processing','数字','—','—','—'],
+    ['今日完成','today_done','数字','—','—','—'],
+    ['超时工单','overdue','数字','—','—','签到超5分钟的工单数'],
+    ['===== 项目明细列表 =====','','','','','<span class="tag tag-img">190041</span>'],
+    ['工程编号','proj_no','文本','—','—','—'],
+    ['地区','zone','枚举','—','—','—'],
+    ['场地名称','site_name','文本','—','—','—'],
+    ['工程项目描述','proj_desc','文本','—','—','—'],
+    ['收到批工日期','receipt_date','日期','—','—','—'],
+    ['工作保养期','defect_period','文本','—','—','—'],
+    ['物料到货日期','material_arrival','日期','—','—','—'],
+    ['实际完工日期','actual_completion','日期','—','—','—'],
+    ['状态标识','status_flag','枚举','—','—','正常/延迟/完成'],
+  ]
+};
+
+// M8-P2
+data['m8-p2']={
+  title:'M8 报表中心 — Outstanding Report',
+  desc:'来源：<span class="tag tag-img">185611 Outstanding Project List</span><span class="tag tag-img">185640 Outstanding Project List(详细)</span><span class="tag tag-img">190443 已完工次PO表</span>',
+  note:'<span class="tag tag-yida">自定义页面(Vue)</span> 未完成/未结清项目的汇总报表。会计部和管理层核心关注的报表。<span class="tag tag-note">03/26纪要</span>: 按未完成原因分类展示（材料不足/施工中/客户未签等）。',
+  fields:[
+    ['===== 汇总区 =====','','','','','<span class="tag tag-img">185611</span>'],
+    ['CR编号','cr_no','文本','—','—','<span class="tag tag-img">185640</span>'],
+    ['唯一编码','unique_code','文本','—','—','—'],
+    ['中文项目名称','proj_name','文本','—','—','—'],
+    ['分类','category','枚举','—','—','智能卡/视频存储/电源供应器/摄像头等'],
+    ['FMSO合约','fmso_contract','文本','—','—','—'],
+    ['工单创建日期','created_date','日期','—','—','—'],
+    ['客户ID','customer_id','文本','—','—','—'],
+    ['发票总额','invoice_total','金额(HKD)','—','—','—'],
+    ['===== 未完成原因分类 =====','','','','','<span class="tag tag-note">03/26纪要</span>'],
+    ['总工程(control)','total_control','金额','—','—','<span class="tag tag-img">185611</span>'],
+    ['总工程(发)','total_sent','金额','—','—','—'],
+    ['已交文件上12楼','submitted_12f','金额','—','—','—'],
+    ['未印完工纸','not_printed','金额','—','—','<span class="tag tag-img">185611</span>'],
+    ['已印完工纸未交','printed_not_submitted','金额','—','—','<span class="tag tag-img">185611</span>'],
+    ['===== 完工次PO追踪 =====','','','','','<span class="tag tag-img">190443</span>'],
+    ['类别','cat','文本','—','—','已完工次PO'],
+    ['交完工日期','completion_date','日期','—','—','—'],
+    ['项目代码','proj_code','文本','—','—','—'],
+    ['欠款金额','outstanding_amount','金额(HKD)','—','—','—'],
+    ['私盘/政府盘','project_type','枚举','—','—','<span class="tag tag-img">190443</span>'],
+    ['出报价同事','quote_by','文本','—','—','—'],
+    ['CR Team','cr_team','文本','—','—','—'],
+    ['分区','subzone','文本','—','—','<span class="tag tag-img">190443</span>'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// M9 系统设置
+// ═══════════════════════════════════════
+
+// M9-P1
+data['m9-p1']={
+  title:'M9 系统设置 — 区域码管理',
+  desc:'来源：<span class="tag tag-note">01/30纪要(区域码体系)</span>',
+  note:'管理员维护各区域码（1P-7P）。<span class="tag tag-note">01/30纪要</span>: 区域码=P体系，格式为区域码+年份+序列号（如1P2500001）。',
+  fields:[
+    ['区域码','zone_code','文本','是','3-5字符','如: 1P, 2P, 4P, 5P, 6P, 7P'],
+    ['区域名称(中文)','zone_name_cn','文本','是','≤50','如: 香港区/九龙区/新界区/新界火车沿线/车场/葵青区'],
+    ['区域名称(英文)','zone_name_en','文本','否','≤100','—'],
+    ['所属大区','region','枚举','是','—','香港/九龙/新界'],
+    ['是否启用','is_active','布尔','否','默认true','—'],
+  ]
+};
+
+// M9-P2
+data['m9-p2']={
+  title:'M9 系统设置 — 员工管理',
+  desc:'来源：<span class="tag tag-img">190058 员工通讯录</span><span class="tag tag-note">钉钉组织架构</span>',
+  note:'从钉钉组织架构同步或手动维护。<span class="tag tag-img">190058通讯录</span>提供了各区师傅的真实人员结构参考：姓名、电话(公/私)、职位/角色。',
+  fields:[
+    ['员工姓名','name','文本','是','≤50','<span class="tag tag-img">190058</span>'],
+    ['工号','employee_id','文本','是','≤32','系统唯一标识'],
+    ['所属区域','zone','枚举','是','1P-7P','<span class="tag tag-img">190058</span> 师傅按区域分组'],
+    ['角色','role','枚举','是','—','CS/报价员/Super/师傅/采购/会计/管理员/CR'],
+    ['公号电话','work_phone','文本','否','≤20','<span class="tag tag-img">190058</span> 公司配发手机号'],
+    ['私人电话','personal_phone','文本','否','≤20','<span class="tag tag-img">190058</span> 师傅私人号码'],
+    ['职位','position','文本','否','≤50','如: 站长/司机/技工'],
+    ['钉钉UserID','dingtalk_id','文本','否','≤64','对接钉钉账号'],
+    ['是否在职','is_active','布尔','否','默认true','—'],
+    ['技能标签','skills','文本','否','≤200','<span class="tag tag-note">03/26纪要(CM按技能指派)</span> 如: CCTV/门禁/对讲机'],
+  ]
+};
+
+// M9-P3
+data['m9-p3']={
+  title:'M9 系统设置 — 角色权限',
+  desc:'来源：<span class="tag tag-note">01/30纪要(权限控制)</span><span class="tag tag-note">03/26纪要(报价权限绑定专属ID)</span>',
+  note:'<span class="tag tag-note">01/30纪要</span>: 禁止共用账号，报价操作绑定专属ID。<span class="tag tag-note">03/26纪要</span>: 不同角色拥有不同访问权限，外勤人员仅能看到与其相关的工单。',
+  fields:[
+    ['角色名称','role_name','文本','是','≤50','CS/报价员/Super/师傅/采购/会计/管理员/CR'],
+    ['角色描述','role_desc','文本','否','≤200','—'],
+    ['可查看工单范围','view_scope','枚举','是','—','全部/本区/仅自己'],
+    ['可创建工单','can_create_wo','布尔','是','—','—'],
+    ['可派单','can_dispatch','布尔','是','—','—'],
+    ['可报价','can_quote','布尔','是','—','<span class="tag tag-note">03/26纪要</span> 报价权限绑定专属ID'],
+    ['可创建PO','can_create_po','布尔','是','—','—'],
+    ['可查看报表','can_view_report','布尔','是','—','—'],
+    ['可管理系统设置','can_admin','布尔','是','—','—'],
+  ]
+};
+
+// M9-P4
+data['m9-p4']={
+  title:'M9 系统设置 — 编号规则',
+  desc:'来源：<span class="tag tag-note">01/30纪要(编号规则)</span><span class="tag tag-note">03/26纪要(确认编号格式)</span><span class="tag tag-note">06/02纪要(命名优化)</span>',
+  note:'维护各类编号的自动生成规则。<span class="tag tag-note">06/02纪要</span>: 推行多字段拼接生成名称，配套独立维护表单。<span class="tag tag-img">185717文件目录</span>也展示了现有编号规则的命名实践。',
+  fields:[
+    ['编号类型','code_type','枚举','是','—','工单编号/项目编号/PO编号/报价单编号'],
+    ['前缀规则','prefix_rule','文本','是','≤50','如: ECA/PO/WO/区域码'],
+    ['日期格式','date_format','枚举','是','—','YYYYMMDD / YYMMDD / 无日期'],
+    ['序号位数','seq_digits','数字','是','2-6','序号长度，如4位=0001'],
+    ['拼接分隔符','separator','文本','否','≤5','如: - / _'],
+    ['示例','example','文本','—','只读(预览)','自动生成预览: 如 ECA20260326-0001'],
+    ['===== 06/02纪要命名优化 =====','','','','','<span class="tag tag-note">06/02纪要</span>'],
+    ['拼接字段组成','concat_fields','多选','—','—','如: 项目编号+教师姓名(实际业务字段待确认)'],
+    ['维护表单名称','form_name','文本','—','—','独立维护命名规则的表单'],
+  ]
+};
+
+// ═══════════════════════════════════════
+// 渲染
+// ═══════════════════════════════════════
+
+var title=document.getElementById('title');
+var content=document.getElementById('content');
+var nav=document.getElementById('nav');
+var cur='m1-p1';
+
+function render(secId){
+  var d=data[secId];
+  if(!d)return;
+  cur=secId;
+  title.textContent=d.title;
+  var links=nav.querySelectorAll('a');
+  for(var i=0;i<links.length;i++)links[i].classList.toggle('active',links[i].dataset.sec===secId);
+
+  var html='<h3>'+d.title+'</h3>';
+  if(d.desc)html+='<div class="src" style="margin-bottom:16px">来源：'+d.desc+'</div>';
+  if(d.note)html+='<div style="background:#f5f5f5;padding:12px;border-radius:4px;margin-bottom:20px;font-size:13px;color:#666;line-height:1.6">'+d.note+'</div>';
+
+  html+='<table><tr><th>#</th><th>字段名称</th><th>字段标识</th><th>数据类型</th><th>必填</th><th>长度/取值</th><th>备注/来源</th></tr>';
+  for(var i=0;i<d.fields.length;i++){
+    var f=d.fields[i];
+    if(f[0].indexOf('=====')===0){
+      html+='<tr style="background:#f3f5f9"><td colspan="7" style="font-weight:700;font-size:13px;color:#555">'+f[0].replace(/===== /,'').replace(/ =====/,'')+'</td></tr>';
+    }else{
+      var req=f[3]==='是'?'<span class="required">● 必填</span>':(f[3]==='—'?'<span style="color:#999">—</span>':'<span class="optional">'+f[3]+'</span>');
+      html+='<tr>'+
+        '<td>'+(i+1)+'</td>'+
+        '<td><b>'+f[0]+'</b></td>'+
+        '<td><code>'+f[1]+'</code></td>'+
+        '<td>'+f[2]+'</td>'+
+        '<td>'+req+'</td>'+
+        '<td>'+f[4]+'</td>'+
+        '<td>'+f[5]+'</td>'+
+        '</tr>';
+    }
+  }
+  html+='</table>';
+  content.innerHTML=html;
+}
+
+nav.addEventListener('click',function(e){
+  var a=e.target.closest('a[data-sec]');
+  if(!a||a.dataset.sec===cur)return;
+  location.hash='#'+a.dataset.sec;
+  render(a.dataset.sec);
+});
+
+var h=location.hash.slice(1);
+if(!data[h])h='m1-p1';
+render(h);
+location.hash='#'+h;
+window.addEventListener('hashchange',function(){
+  var h2=location.hash.slice(1);
+  if(!data[h2])return;
+  render(h2);
+});
+})();
+</script>
+</body>
+</html>

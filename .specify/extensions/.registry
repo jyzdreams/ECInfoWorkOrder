@@ -1,0 +1,9 @@
+{
+  "extensions": {
+    "agent-context": {
+      "enabled": true,
+      "source": "bundled",
+      "version": "0.10.2"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "workflows": {
+    "speckit": {
+      "description": "Spec Kit workflow",
+      "name": "speckit",
+      "source": "bundled",
+      "version": "0.10.2"
+    }
+  }
+}

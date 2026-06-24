@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EC 工单管理系统 - 完整需求规格</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root{--nav-w:230px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;background:#18181b;color:#a1a1aa;display:flex;height:100vh}
+nav{width:var(--nav-w);background:#1f1f23;height:100vh;overflow-y:auto;flex-shrink:0;border-right:1px solid #27272a}
+nav .brand{padding:16px;font-size:14px;font-weight:700;color:#e4e4e7;border-bottom:1px solid #27272a}
+nav .group{padding:18px 16px 4px;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#71717a;font-weight:600}
+nav a{display:block;padding:6px 16px;font-size:12.5px;text-decoration:none;color:#a1a1aa;border-left:3px solid transparent;transition:.12s;cursor:pointer;line-height:1.5}
+nav a:hover,nav a.active{color:#fafafa;border-left-color:#2563eb;background:rgba(37,99,235,.06)}
+main{flex:1;display:flex;flex-direction:column;min-width:0;height:100vh}
+header{background:#1f1f23;padding:12px 24px;border-bottom:1px solid #27272a;flex-shrink:0}
+header h2{font-size:16px;color:#e4e4e7;font-weight:500}
+#view{flex:1;overflow:auto;padding:20px}
+.card{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.12);padding:28px 32px;color:#333;line-height:1.7;font-size:14px}
+.card svg{background:#fff}
+.card h3{font-size:19px;margin-bottom:6px;color:#18181b;font-weight:600}
+.card h4{font-size:15px;margin:28px 0 10px;color:#3f3f46;border-bottom:1.5px solid #e4e4e7;padding-bottom:8px}
+.card p{margin:8px 0}
+.card table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+.card th{background:#fafafa;padding:9px 10px;text-align:left;font-weight:600;border:1px solid #e4e4e7;font-size:12px;color:#52525b}
+.card td{padding:8px 10px;border:1px solid #e4e4e7;vertical-align:top;font-size:13px}
+.card code{background:#f4f4f5;padding:2px 5px;border-radius:3px;font-size:12px;color:#3f3f46}
+.sep{background:#f5f5f5;font-weight:700;font-size:12px;color:#71717a}
+.tag{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;margin:0 2px}
+.t-page{background:#dbeafe;color:#1d4ed8}
+.t-role{background:#fff7ed;color:#c2410c}
+.t-act{background:#dcfce7;color:#166534}
+.step{background:#fafafa;border-left:3px solid #2563eb;padding:10px 14px;margin:8px 0;border-radius:0 4px 4px 0;font-size:13px}
+.step .n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:#2563eb;color:#fff;border-radius:50%;font-size:11px;font-weight:700;margin-right:10px}
+.req{color:#dc2626;font-weight:700}
+.opt{color:#a1a1aa}
+.note{background:#fefce8;border:1px solid #fde68a;padding:10px 14px;border-radius:4px;margin:12px 0;font-size:13px;color:#713f12}
+.mermaid{overflow-x:auto}
+.mermaid svg{max-width:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#52525b;border-radius:3px}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="brand">EC 工单管理系统<br><span style="font-weight:400;font-size:12px;color:#71717a">完整需求规格文档</span></div>
+  <div class="group">业务流程图</div>
+  <a data-s="f1" class="active">总图：完整流程</a>
+  <a data-s="f2">PM/CM 分类</a>
+  <a data-s="f3">现场三条路径</a>
+  <a data-s="f4">超时与异常</a>
+  <a data-s="f5">完工闭环</a>
+  <a data-s="f6">状态流转</a>
+  <div class="group">新增功能</div>
+  <a data-s="login">M0 登录页</a>
+  <a data-s="notif">通知系统</a>
+  <div class="group">模块与页面</div>
+  <a data-s="mods">9个模块·30个页面</a>
+  <div class="group">页面字段设计</div>
+  <a data-s="p1">M1 客户管理</a><a data-s="p2">M2 报价管理</a>
+  <a data-s="p3">M3 来电工单</a><a data-s="p4">M4 派单调度</a>
+  <a data-s="p5">M5 现场执行</a><a data-s="p6">M6 完工闭环</a>
+  <a data-s="p7">M7 采购管理</a><a data-s="p8">M8 报表中心</a>
+  <a data-s="p9">M9 系统设置</a>
+  <div class="group">原型交互规格</div>
+  <a data-s="i1">流程→页面映射</a>
+  <a data-s="i2">状态×页面行为</a>
+  <a data-s="i3">角色导航路径</a>
+  <a data-s="i4">页面一览表</a>
+</nav>
+<main>
+  <header><h2 id="title">EC 工单管理系统</h2></header>
+  <div id="view"><div class="card" id="content">加载中...</div></div>
+</main>
+<script>
+(function(){
+'use strict';
+mermaid.initialize({startOnLoad:false,theme:'default',flowchart:{useMaxWidth:false,htmlLabels:true,curve:'basis',nodeSpacing:40,rankSpacing:60},securityLevel:'loose'});
+
+var M={};
+M.f1='graph TB\nsubgraph 客户["客户"]\ndirection LR\nCX["来电/WhatsApp/Walk-in/Email"]\nCX2["确认报价签名"]\nCX3["完工验收签名"]\nend\nsubgraph CS客服["CS 客服"]\ndirection TB\nCS_A{"判断来电类型"}\nCS_B["投诉 CR同事处理"]\nCS_C["简单问题 当场解决"]\nCS_D["新建工单 填来電報告表EC CS001"]\nCS_E{"需要先报价?"}\nCS_F["派单 按区域推荐Team Leader"]\nCS_G["接收拒单 重新分配"]\nend\nsubgraph 报价员["报价员 Eve/Blondie"]\nQT["出报价单 品牌/型号/数量/单价/折扣"]\nQT2["客户确认 转为正式工单"]\nend\nsubgraph Super["Super / Team Leader"]\nSP1["收到工单 Pop-Up"]\nSP2{"派单模式"}\nSP3["分配制派单"]\nSP4["工单池抢单"]\nSP5["5分钟未签到 系统通知"]\nSP6["超时/拒单 重新分配SFJ"]\nend\nsubgraph 师傅["师傅"]\nTC1["收到工单 地址/时间/联系人/电话/内容"]\nTC2{"接单?"}\nTC3["拒单 填原因"]\nTC4["接单 系统通知"]\nTC5["签到打卡 定位拍照"]\nTC6["开始检查"]\nTC7{"判断情况"}\nTC8["可顺利维修"]\nTC9{"缺料?"}\nTC10["执行维修"]\nTC11["无法即时维修"]\nTC12["更换材料"]\nTC13["提交领料"]\nTC14["WO报告"]\nTC15["竣工表 客户签名"]\nTC16["交表单组 统计完成"]\nend\nsubgraph 采购部["采购部"]\nPC1["收到领料"]\nPC2["创建PO"]\nPC3["到货登记"]\nPC4["ML绑定出库"]\nend\nsubgraph 会计部["会计部"]\nACC1["收到完工通知"]\nACC2["核对完工单"]\nACC3["开具发票"]\nend\nCX-->CS_A\nCS_A-->|投诉|CS_B\nCS_A-->|简单|CS_C\nCS_A-->|维修|CS_D\nCS_D-->CS_E\nCS_E-->|是|QT\nCS_E-->|否|CS_F\nQT-->CX2-->QT2-->CS_F\nCS_F-->SP1-->SP2\nSP2-->|分配|SP3\nSP2-->|抢单|SP4\nSP3-->TC1\nSP4-->TC1\nTC1-->TC2\nTC2-->|不接|TC3-->CS_G-->SP6-->SP3\nTC2-->|接|TC4\nTC4-.->|超时未签|SP5-.->SP6\nTC4-->TC5-->TC6-->TC7\nTC7-->|可修|TC8-->TC9\nTC9-->|就绪|TC10\nTC9-->|缺料|TC13-->PC1\nTC7-->|无法修|TC11-->TC13\nTC7-->|更换|TC12-->TC13\nPC1-->PC2-->PC3-->PC4-->TC10\nTC11-->|故障|TC14\nTC10-->TC14-->TC15-->TC16\nTC16-->ACC1-->ACC2-->ACC3\nCX3-.->TC15\nclassDef client fill:#e1f5fe,stroke:#01579b\nclassDef cs fill:#f3e5f5,stroke:#7b1fa2\nclassDef quote fill:#fff8e1,stroke:#f57f17\nclassDef super fill:#e8f5e9,stroke:#2e7d32\nclassDef tech fill:#fff3e0,stroke:#e65100\nclassDef purchase fill:#e0f2f1,stroke:#00695c\nclassDef acct fill:#fce4ec,stroke:#c62828\nclassDef d fill:#fff,stroke:#333,stroke-dasharray:3 3\nclass CX,CX2,CX3 client\nclass CS_A,CS_B,CS_C,CS_D,CS_E,CS_F,CS_G cs\nclass QT,QT2 quote\nclass SP1,SP3,SP4,SP5,SP6 super\nclass SP2 d\nclass TC1,TC3,TC4,TC5,TC6,TC8,TC10,TC11,TC12,TC13,TC14,TC15,TC16 tech\nclass TC2,TC7,TC9 d\nclass PC1,PC2,PC3,PC4 purchase\nclass ACC1,ACC2,ACC3 acct';
+M.f2='graph LR\nsubgraph CS["CS"]\nWO{"创建工单类型"}\nend\nsubgraph Super["Super"]\nNotify["通知WhatsApp/电话 含地点/时间/联络人姓名电话/工作内容"]\nend\nsubgraph 师傅PM["师傅 已排程PM"]\nReceive["收到CM工单通知 By SC/Super/CR"]\nChoice{"是否接受CM?"}\nAccept["接受CM 放弃原有PM排程"]\nDecline["不接受CM 继续原PM排程"]\nend\nsubgraph 师傅无排程["师傅 无排程"]\nNoSchedule["没有排程的PM员工 直接开始CM工单"]\nend\nsubgraph CRCSSuper["CR/CS/Super"]\nCancel["取消原有PM排程"]\nFindReplace["找其他前线人员取代PM排程"]\nReassignCM["将CM工单重新分配"]\nend\nWO-->|PM常规维修|PM["PM:固定负责人"]\nWO-->|CM特别任务|CM{"此员工已排程?"}\nCM-->|已排程|Notify-->Receive-->Choice\nChoice-->|接受|Accept-->CMStart["开始CM工单"]\nChoice-->|放弃PM排程|Cancel\nChoice-->|不接受继续PM|Decline\nCancel-->FindReplace\nDecline-->ReassignCM\nCM-->|没有排程|NoSchedule-->CMStart\nPM-->Next["进入派单流程"]\nCMStart-->Next\nclassDef green fill:#e8f5e9,stroke:#2e7d32\nclassDef orange fill:#fff3e0,stroke:#e65100\nclassDef purple fill:#f3e5f5,stroke:#7b1fa2\nclassDef red fill:#fce4ec,stroke:#c62828\nclassDef d fill:#fff,stroke:#333,stroke-dasharray:3 3\nclass WO,PM,CMStart,Next purple\nclass Notify green\nclass Receive,Accept,Decline,NoSchedule orange\nclass Cancel,FindReplace,ReassignCM red\nclass Choice,CM d';
+M.f3='graph LR\nsubgraph A["路径A 顺利维修"]\nA1["使用何种工具?"]\nA2{"是否缺料?"}\nA3["材料已备好"]\nA4["执行维修"]\nA5["缺料 提交领料资料"]\nA6["系统通知 维修李/经理"]\nA7["触发采购流程"]\nend\nsubgraph B["路径B 无法即时维修"]\nB1["系统更新工单状态"]\nB2{"处理方式"}\nB3["取消工单并重新建单"]\nB4["填写故障报告"]\nB5["客户签名"]\nB6["提交报价单"]\nend\nsubgraph C["路径C 需要更换材料"]\nC1["客户签名确认"]\nC2["提交领料资料"]\nC3["系统更新"]\nC4["手机通知 维修李/经理"]\nC5["触发采购流程"]\nend\nStart["开始检查"]-->Judge{"判断维修情况"}\nJudge-->|可以顺利维修|A1-->A2\nA2-->|材料已备好|A3-->A4\nA2-->|缺料|A5-->A6-->A7\nA7-.->|采购到货后|A4\nJudge-->|无法即时维修|B1-->B2\nB2-->|取消重做|B3\nB2-->|故障报告|B4-->B5-->B6\nJudge-->|需要更换材料|C1-->C2-->C3-->C4-->C5\nC5-.->|采购到货后|A4\nA4-->Done["进入完工流程"]\nclassDef green fill:#e8f5e9,stroke:#2e7d32\nclassDef red fill:#fce4ec,stroke:#c62828\nclassDef orange fill:#fff3e0,stroke:#e65100\nclassDef d fill:#fff,stroke:#333,stroke-dasharray:3 3\nclass A1,A2,A3,A4,A5,A6,A7 green\nclass B1,B2,B3,B4,B5,B6 red\nclass C1,C2,C3,C4,C5 orange\nclass Judge d';
+M.f4='graph LR\nsubgraph 正常["正常流程"]\nN1["工单已派发"]\nN2["师傅接单"]\nN3["师傅签到"]\nN4["开始维修"]\nend\nsubgraph 超时["超时场景"]\nT1{"接单后5分钟未签到?"}\nT2["系统通知 Super"]\nT3{"师傅是否补签?"}\nT4["补签 进入签到流程"]\nT5["未签/取消 重新分配 SFJ"]\nend\nsubgraph 联络["联络失败"]\nF1{"能否联络到技术员?"}\nF2["无法联络 转交其他组别 SFJ"]\nend\nsubgraph 到达["到达失败"]\nL1{"能否按时到达?"}\nL2["客户投诉 申请取消工单"]\nend\nN1-->N2-->T1\nT1-->|未签到|T2-->T3\nT3-->|是|T4\nT3-->|放弃|T5\nT1-->|已签到|N3\nN2-->F1-->|不能|F2\nN2-->L1-->|不能|L2\nN3-->N4\nclassDef green fill:#e8f5e9,stroke:#2e7d32\nclassDef red fill:#fce4ec,stroke:#c62828\nclassDef d fill:#fff,stroke:#333,stroke-dasharray:3 3\nclass N1,N2,N3,N4 green\nclass T2,T5,F2,L2 red\nclass T1,T3,F1,L1 d';
+M.f5='graph LR\nsubgraph 师傅["师傅"]\nT1["在WO上报告维修结果"]\nT2["填写电子竣工表"]\nT3["填写实际完工表"]\nT4{"需要额外工作?"}\nT5["客户签名确认额外工作"]\nT6["修改离线完工单"]\nT7["辅助/解释可接受性证明"]\nT8["客户签名/盖章"]\nT9{"是否有特别费用?"}\nT10["系统自动计算费用并录入"]\nT11["交还附件"]\nT12["填写备注"]\nT13["交表单组"]\nT14["统计"]\nT15["完成"]\nend\nsubgraph 通知["系统通知"]\nN1["CS部"]\nN2["C-S部"]\nN3["会计部"]\nN4["S30"]\nN5["S98"]\nend\nsubgraph 会计["会计部"]\nA1["收到完工通知"]\nA2["核对完工单"]\nA3["开具发票 Invoice"]\nend\nT1-->T2\nT1-->T3\nT2-->T4\nT3-->T4\nT4-->|是|T5-->T6-->T7\nT4-->|否|T8\nT7-->T8-->T9\nT9-->|是|T10\nT9-->|否|T11\nT10-->T11-->T12-->T13-->T14-->T15\nT15-->N1\nT15-->N2\nT15-->N3\nT15-->N4\nT15-->N5\nN3-->A1-->A2-->A3\nclassDef tech fill:#fff3e0,stroke:#e65100\nclassDef notify fill:#fce4ec,stroke:#c62828\nclassDef acct fill:#e8eaf6,stroke:#283593\nclassDef d fill:#fff,stroke:#333,stroke-dasharray:3 3\nclass T1,T2,T3,T5,T6,T7,T8,T10,T11,T12,T13,T14,T15 tech\nclass T4,T9 d\nclass N1,N2,N3,N4,N5 notify\nclass A1,A2,A3 acct';
+M.f6='stateDiagram-v2\n[*]-->待处理:CS创建工单\n待处理-->已接单:师傅接单\n待处理-->已取消:投诉取消/拒单无人接/超时\n已接单-->处理中:签到到达现场\n已接单-->已取消:未按时到达/客户取消\n已接单-->待处理:拒单CS重派\nstate 处理中{\n开始检查-->可顺利维修\n开始检查-->无法即时维修\n开始检查-->需要更换材料\n可顺利维修-->执行维修\n执行维修-->填写竣工表\n无法即时维修-->填写故障报告\n无法即时维修-->取消工单重建\n需要更换材料-->提交领料\n提交领料-->采购部\n采购部-->材料到货\n材料到货-->执行维修}\n故障报告-->提交报价单\n提交报价单-->客户确认\n客户确认-->待处理:转为新工单\n填写竣工表-->客户签名\n客户签名-->已完成\n已完成-->系统通知\n系统通知-->会计部开票\n处理中-->需跟进:缺料/等人\n处理中-->未完成:无法修复\n未完成-->待处理:重新建单\n需跟进-->处理中:条件满足';
+
+var titles={
+  f1:'总图：完整业务流程',f2:'PM/CM分类处理',f3:'现场执行三条路径',f4:'超时与异常处理',f5:'完工闭环',f6:'工单状态流转',
+  login:'M0 登录页',notif:'通知系统',
+  mods:'9个模块·29个页面',
+  p1:'M1 客户管理',p2:'M2 报价管理',p3:'M3 来电工单',p4:'M4 派单调度',p5:'M5 现场执行',p6:'M6 完工闭环',p7:'M7 采购管理',p8:'M8 报表中心',p9:'M9 系统设置',
+  i1:'流程→页面映射',i2:'状态×页面行为',i3:'角色导航路径',i4:'29个页面一览表'
+};
+
+var nav=document.getElementById('nav'),title=document.getElementById('title'),content=document.getElementById('content'),view=document.getElementById('view'),cur='f1';
+
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+
+function ftbl(fields){
+  var h='<table><tr><th>字段名称</th><th>字段标识</th><th>数据类型</th><th>必填</th><th>长度/取值</th><th>备注</th></tr>';
+  for(var i=0;i<fields.length;i++){
+    var f=fields[i];
+    if(f[0].indexOf('===')===0){h+='<tr class="sep"><td colspan="6">'+f[0].replace(/===/g,'')+'</td></tr>';continue;}
+    var r=f[3]==='是'?'<span class="req">●</span>':(f[3]==='—'?'—':'<span class="opt">'+f[3]+'</span>');
+    h+='<tr><td><b>'+f[0]+'</b></td><td><code>'+f[1]+'</code></td><td>'+f[2]+'</td><td>'+r+'</td><td>'+f[4]+'</td><td>'+f[5]+'</td></tr>';
+  }
+  return h+'</table>';
+}
+
+function hmod(id,name,desc,psrc,fields){
+  return '<h3>'+name+'</h3><p>'+desc+'</p>'+
+    '<h4>'+id+' 字段</h4>'+ftbl(fields)+
+    (psrc?'<div class="note">来源：'+psrc+'</div>':'');
+}
+
+var H={};
+H.mods=function(){
+  var m=[['M1','客户管理','谁报修？合约信息？禁拍限制？','CS客服',3,['客户列表(L1)','客户详情(L3)','新增/编辑客户(L2)']],
+    ['M2','报价管理','先报价还是先维修？报价版本怎么改？','报价员 Eve/Blondie',5,['报价单列表(L1)','新增报价单(L2)','报价单详情(L3)','版本对比(L4)','客户确认页(L4)']],
+    ['M3','来电工单','CS接电话生成工单——系统入口','CS客服',3,['新增来电工单(L2)','工单列表(L1,CS/Super首页)','工单详情(L3)']],
+    ['M4','派单调度','派给谁？PM/CM？接不接？超时了？','CS+Super+师傅',2,['派单操作页(L4)','我的工单(L1,师傅首页)']],
+    ['M5','现场执行','签到→检查→维修→拍照','师傅',4,['签到打卡(L4)','维修记录(L4)','拍照上传(L4)','无法修复/需报价(L4)']],
+    ['M6','完工闭环','签名→完工单→通知会计部','师傅+会计部',3,['客户签名页(L4)','完工单提交(L4)','完工单详情(L3)']],
+    ['M7','采购管理','维修缺料→采购下单→PO管理','采购部',3,['PO申请(L2)','PO列表(L1,采购首页)','PO详情(L3)']],
+    ['M8','报表中心','Outstanding Report、工单看板','管理层',2,['工单进度看板','Outstanding Report']],
+    ['M9','系统设置','区域码、编号规则、角色权限、员工管理','管理员',4,['区域码管理','员工管理','角色权限','编号规则']]];
+  var h='<h3>9个模块·30个页面</h3><table><tr><th>模块</th><th>页面数</th><th>主要用户</th><th>说明</th></tr>';
+  for(var i=0;i<m.length;i++)h+='<tr><td><b>'+m[i][0]+' '+m[i][1]+'</b></td><td>'+m[i][4]+'</td><td>'+m[i][3]+'</td><td>'+m[i][2]+'</td></tr>';
+  h+='</table><p style="color:#999;font-size:12px">L1=首页 L2=新增/表单页 L3=详情页 L4=子页面/弹窗</p><h4>页面清单</h4>';
+  for(var i=0;i<m.length;i++){
+    h+='<p><b>'+m[i][0]+' '+m[i][1]+'</b> ('+m[i][4]+'页) &nbsp; '+m[i][2]+'</p><ul style="margin:4px 0 12px 20px;font-size:13px">';
+    for(var j=0;j<m[i][5].length;j++)h+='<li>'+m[i][5][j]+'</li>';
+    h+='</ul>';
+  }
+  return h;
+};
+
+// ═══════════ M1 M2 ═══════════
+
+H.login=function(){
+  return '<h3>M0 登录页</h3><p>系统入口，用户选择角色和身份后登录。</p>'+ftbl([
+    ['选择角色','selected_role','枚举','是','CS客服/师傅/Super/报价员/采购部','5个角色按钮'],
+    ['选择用户','selected_user','选择','是','—','从Staff表按角色筛选'],
+    ['快速创建','quickCreate','文本','否','≤50','找不到用户时快速创建并登录'],
+  ]);
+};
+H.notif=function(){
+  return '<h3>通知系统</h3><p>系统内通知，实时推送重要事件。顶部铃铛+未读计数。</p>'+ftbl([
+    ['通知ID','id','文本','—','自动','唯一标识'],
+    ['目标角色','role','文本','—','—','推送目标角色'],
+    ['标题','title','文本','是','≤100','通知标题'],
+    ['消息','message','文本','是','≤200','通知正文'],
+    ['跳转链接','link','文本','是','—','点击后跳转路径'],
+    ['类型','type','枚举','是','info/success/warning/error','圆点颜色'],
+    ['已读','read','布尔','—','默认false','—'],
+  ]);
+};
+H.p1=function(){
+  return hmod('m1-p1','M1 客户管理 — 客户列表','CS人员日常入口，快速查找已有客户。','185546来電報告表格',[
+    ['客户名称','client_name','文本','—','≤100','点击进入详情'],['区域','zone','枚举','—','1P-7P','筛选条件'],['合约编号','contract_no','文本','—','≤64','—'],['联络人','contact_person','文本','—','≤50','—'],['联络电话','contact_phone','文本','—','≤20','—'],['最近工单时间','last_wo_time','日期时间','—','—','自动关联'],['工单总数','wo_count','数字','—','—','—']])+
+  hmod('m1-p2','M1 客户管理 — 客户详情','点击客户列表某行进入，只读视图。','',[
+    ['客户名称','client_name','文本','是','≤100','—'],['区域','zone','枚举','是','1P-7P','—'],['地址','address','文本','否','≤200','—'],['联络人','contact_person','文本','否','≤50','—'],['联络电话','contact_phone','文本','否','≤20','—'],['禁止拍照','no_photo','布尔','否','默认false','特殊场所设为true'],['关联工单','related_orders','列表','—','—','子表：历史工单']])+
+  hmod('m1-p3','M1 客户管理 — 新增/编辑客户','用于新客户建档或修改已有客户信息。','',[
+    ['客户名称','client_name','文本','是','≤100','—'],['区域','zone','枚举','是','1P-7P','—'],['地址','address','文本','否','≤200','—'],['联络人','contact_person','文本','否','≤50','—'],['联络电话','contact_phone','文本','否','≤20','—'],['合约编号','contract_no','文本','否','≤64','可多条'],['合约类型','contract_type','枚举','否','Main/Maintenance/Tender/Walk-in','—'],['禁止拍照','no_photo','布尔','否','默认false','特殊场所不强制拍照'],['备注','remark','长文本','否','≤500','—']]);
+};
+
+H.p2=function(){
+  return hmod('m2-p1','M2 报价管理 — 报价单列表','报价员主页面。每张报价单有版本号(v1,v2,v3)。','7张报价单(190209~190358)',[
+    ['报价单编号','our_ref','文本','—','自动','如4P2601303'],['客户名称','client_name','文本','—','—','—'],['项目/场地','site','文本','—','≤200','—'],['当前版本','version','数字','—','v1/v2/v3','—'],['总金额','total_amount','金额(HKD)','—','—','—'],['状态','status','枚举','—','草稿/已发出/已确认/已作废','—'],['发件人','from','文本','—','—','—'],['创建日期','created_date','日期','—','—','—']])+
+  hmod('m2-p2','M2 报价管理 — 新增报价单','报价员新建报价单，支持多行明细。','7张报价单图片',[
+    ['报价单编号','our_ref','文本','—','自动','区域码+年份+序号'],['日期','date','日期','是','默认当天','—'],['收件客户','to','文本','是','≤100','从M1选择或手动输入'],['场地项目名','site','文本','是','≤200','—'],['联系人','attn','文本','是','≤50','—'],['联系人电话','attn_phone','文本','否','≤20','—'],['发件人','from','文本','是','≤50','默认当前用户'],['服务请求编号','sr_no','文本','否','≤32','S/R No.'],['=== 明细行（可多条） ===','','','','',''],
+    ['项目序号','item','文本','—','auto','a/b/c'],['项目描述','description','长文本','是','≤500','含品牌/型号/位置'],['品牌','brand','文本','否','≤50','HIKVISION/DAHUA等'],['型号','model','文本','否','≤100','—'],['净单价','net_price','金额(HKD)','是','—','—'],['数量','qty','数字','是','—','—'],['单位','unit','枚举','是','No/Job/M/Set/EA','—'],['折扣','discount','百分比','否','默认0%','如15%'],['小计','amount','金额','—','自动','net_price×qty×(1-discount)'],['=== 条款 ===','','','','',''],
+    ['付款方式','payment_terms','枚举','是','100%完工后/COD/分期','—'],['有效期','validity','数字(天)','是','默认60','—'],['交货时间','delivery_time','文本','是','≤100','如"订单确认后30天"'],['保修期','warranty','文本','是','≤100','如"1年"'],['备注','remark','长文本','否','≤500','—'],['编制人','prepared_by','文本','—','自动','—'],['审核人','checked_by','文本','否','≤50','—']])+
+  hmod('m2-p3','M2 报价管理 — 报价单详情','同新增字段只读+底部版本历史列表。','',[])+
+  hmod('m2-p4','M2 报价管理 — 版本对比','"报价修改留版本历史(v1,v2,v3)。确认后不可直接修改，需创建修正版。" — 01/30纪要','01/30纪要',[
+    ['选择版本A','version_a','选择','是','—','—'],['选择版本B','version_b','选择','是','—','—'],['差异明细','diff_rows','列表','—','—','逐行对比新增/删除/修改']])+
+  hmod('m2-p5','M2 报价管理 — 客户确认页','客户查看报价后签名确认。可生成公开链接供外部访问。','',[
+    ['客户签名','client_sign','签名/图片','是','—','手写签名或盖章'],['确认日期','confirm_date','日期','是','默认当天','—'],['客户备注','client_remark','长文本','否','≤500','—']]);
+};
+
+// ═══════════ M3 M4 ═══════════
+H.p3=function(){
+  return hmod('m3-p1','M3 来电工单 — 新增来电工单','系统核心入口。CS接电话时填写，完全替代纸质"每日來電報告表格 EC CS001"。','185546+185934来電報告表格',[
+    ['=== 客户信息 ===','','','','','来自185546 EC CS001'],
+    ['客户','client_name','文本','是','≤100','从M1选择或手动输入'],['联络人','contact_person','文本','是','≤50','—'],['联络电话','contact_phone','文本','是','≤20','185934样例:92609218'],['合约编号','contract_no','文本','否','≤64','185934样例:IN2411142'],
+    ['=== 来电信息 ===','','','','',''],
+    ['来电报告代码','call_code','文本','是','≤32','系统自动生成E663002617格式'],['接报日期时间','call_datetime','日期时间','是','默认当前','185934样例:30/1 10:51'],['接报人','received_by','文本','是','当前用户','—'],
+    ['=== 工单分类 ===','','','','',''],
+    ['区域','zone','枚举','是','1P-7P','按区域码体系'],['工单类型','wo_type','枚举','是','小区/政府合约','—'],['业务类型','biz_type','枚举','是','PM/CM/Walk-in Tender/政府EMSC','来自185151'],['问题描述','description','长文本','是','≤2000','185934样例'],['附件','attachments','文件','否','PDF/图片','—'],
+    ['=== 系统自动 ===','','','','',''],
+    ['工单编号','wo_no','文本','—','自动','小区:YYYYMMDD-N / 政府:ECA-YYYYMMDD-N'],['创建时间','created_at','日期时间','—','自动','—'],['状态','status','枚举','—','初始:待处理','—']])+
+  hmod('m3-p2','M3 来电工单 — 工单列表','L1 CS/Super默认首页。所有工单的汇总看板。','',[
+    ['搜索','search','文本','否','—','工单号/客户名/电话模糊'],['工单编号','wo_no','文本','—','—','—'],['工单类型','wo_type','枚举','—','PM/CM/Walk-in/政府','筛选'],['状态','status','枚举','—','7种状态','筛选'],['区域','zone','枚举','—','1P-7P','筛选'],['客户名称','client_name','文本','—','—','—'],['地址','address','文本','—','—','—'],['问题摘要','desc_brief','文本','—','≤100','—'],['负责人','assignee','文本','—','—','被指派的师傅'],['创建时间','created_at','日期时间','—','—','—']])+
+  hmod('m3-p3','M3 来电工单 — 工单详情','同新增字段只读+流转历史时间线+操作按钮。','',[]);
+};
+
+H.p4=function(){
+  return hmod('m4-p1','M4 派单调度 — 派单操作页','CS或Super在此页面指派师傅。来源：185151 Emergency Team流程图。','185151+185456',[
+    ['工单编号','wo_no','文本','—','只读','—'],['工单类型','wo_type','枚举','是','PM/CM','决定派单方式'],['派单方式','dispatch_mode','枚举','是','分配制/抢单制','来自185151'],['目标区域','target_zone','枚举','是','1P-7P','—'],['指派师傅','assignee','选择','是','—','按区域过滤下拉'],['派单备注','dispatch_note','文本','否','≤200','—'],
+    ['=== PM/CM特殊处理 ===','','','','','来自185456'],
+    ['员工排程状态','pm_schedule','枚举','—','已排程/无排程','—'],['是否放弃原排程','need_reassign','布尔','—','—','已排程PM员工接受CM时确认']])+
+  hmod('m4-p2','M4 派单调度 — 我的工单','L1 师傅默认首页。极简设计，首屏1-2个按钮。来源：185324 Tom前线员工工单执行流程。','185324',[
+    ['=== 工单卡片 ===','','','','','来自185324'],
+    ['地址','address','文本','—','—','师傅最关心的信息'],['时间','appointment_time','日期时间','—','—','预约时间'],['联络人姓名','contact_name','文本','—','—','—'],['联络人电话','contact_phone','文本','—','—','可点击拨号'],['工作内容','work_desc','长文本','—','—','—'],['工单编号','wo_no','文本','—','—','—'],['工单类型','type_tag','枚举','—','PM/CM/紧急','标签'],
+    ['=== 操作 ===','','','','',''],
+    ['接单','btn_accept','按钮','—','—','—'],['拒单','btn_reject','按钮','—','—','弹出原因填写框'],['拒单原因','reject_reason','长文本','拒单时必填','≤500','—'],['标签页','tab','枚举','—','待处理/进行中/已完成','—']]);
+};
+
+// ═══════════ M5 M6 ═══════════
+H.p5=function(){
+  return hmod('m5-p1','M5 现场执行 — 签到打卡','师傅到达现场后签到。5分钟超时→通知Super。','185151(5min超时)',[
+    ['签到时间','checkin_time','日期时间','—','自动','—'],['签到位置','checkin_location','定位','是','自动GPS','—'],['位置地址','location_addr','文本','—','自动','GPS反解析'],['签到照片','checkin_photo','图片','否','—','现场入口/门牌'],['是否补签','is_retroactive','布尔','—','—','超时后补签为true']])+
+  hmod('m5-p2','M5 现场执行 — 维修记录','师傅检查后填写维修内容和所用材料。','185151(检查分支)',[
+    ['检查开始时间','check_start','日期时间','—','自动','—'],['维修判断','repair_judgment','枚举','是','可修/无法修/换材料','来自185151'],['使用工具','tools_used','文本','是','≤200','—'],['是否缺料','material_short','布尔','—','—','缺料→触发采购'],['缺料明细','missing_materials','长文本','缺料时必填','≤500','—'],['维修内容','repair_detail','长文本','是','≤2000','—'],['使用材料','materials_used','文本','否','≤500','—'],['客户确认更换','replace_confirm','签名','换材料时必填','—','—']])+
+  hmod('m5-p3','M5 现场执行 — 拍照上传','离线队列+后台重试。before/after各最多10张。','185324(before-after)',[
+    ['Before照片','before_photo','图片','是','最多10张','逐张标注'],['After照片','after_photo','图片','是','最多10张','逐张标注'],['待上传数','pending_count','数字','—','—','离线队列计数'],['上传进度','upload_progress','进度','—','—','—'],['跳过拍照','skip_photo','布尔','—','自动','客户no_photo=true时']])+
+  hmod('m5-p4','M5 现场执行 — 无法修复/需报价','师傅判断无法当场修复。A:取消重建  B:故障报告→报价。','185151+185324',[
+    ['处理方式','fail_action','枚举','是','取消重建/填故障报告报价','来自185151'],['=== 路径A ===','','','','',''],['取消原因','cancel_reason','长文本','是','≤500','—'],['是否重建','recreate_wo','布尔','—','—','—'],['=== 路径B ===','','','','',''],['故障描述','fault_detail','长文本','是','≤2000','—'],['客户签名','fault_client_sign','签名','是','—','—'],['触发报价','trigger_quote','布尔','—','—','—']]);
+};
+
+H.p6=function(){
+  return hmod('m6-p1','M6 完工闭环 — 客户签名页','师傅让客户在手机上手写签名。HTML5 Canvas。','185324(客户签名)',[
+    ['维修摘要','repair_summary','文本','—','只读','展示给客户看'],['客户签名','client_sign','签名(Canvas)','是','—','HTML5 Canvas'],['签名日期','sign_datetime','日期时间','—','自动','—'],['盖章上传','company_chop','图片','否','—','公司印章'],['客户满意度','satisfaction','枚举','否','非常满意/满意/尚可/有待改善','来自185943']])+
+  hmod('m6-p2','M6 完工闭环 — 完工单提交','维修完成后师傅提交的完整报告。','185808 Job Completion+185943 Service Report',[
+    ['=== 基本信息 ===','','','','',''],
+    ['客户名称','client_name','文本','—','只读','从工单带入'],['到达时间','arrival_time','日期时间','是','—','—'],['完成时间','completion_time','日期时间','是','—','—'],
+    ['=== 服务类型 ===','','','','','来自185943'],
+    ['涉及系统','system_type','多选','是','门禁/CCTV/警报/IT/对讲/其他','—'],['服务目的','purpose','多选','是','例行/维修/紧急/收费','—'],
+    ['=== 竣工表 ===','','','','','来自185151'],
+    ['已完成工作','work_done','长文本','是','≤3000','—'],['电子竣工表','e_report','长文本','是','≤3000','—'],['实际完工表','paper_report','长文本','是','≤3000','—'],['是否有额外工作','has_extra_work','布尔','—','—','—'],['额外工作描述','extra_work_desc','长文本','额外工作时必填','≤500','—'],['是否有特别费','has_special_fee','布尔','—','—','—'],['特别费用金额','special_fee','金额(HKD)','特别费时必填','—','系统自动计算'],['备注','remark','长文本','否','≤500','—'],['完工单编号','report_no','文本','—','自动','No.0471667格式']])+
+  hmod('m6-p3','M6 完工闭环 — 完工单详情','会计部核对、录入发票编号。','185755发票',[
+    ['核对状态','audit_status','枚举','—','待核对/已核对/已开票','—'],['核对人','audited_by','文本','—','—','—'],['核对时间','audited_at','日期时间','—','—','—'],['发票编号','invoice_no','文本','—','—','Invoice#26011378格式'],['已通知CS','notified_cs','布尔','—','—','—'],['已通知会计','notified_acct','布尔','—','—','—']]);
+};
+
+// ═══════════ M7 M8 M9 ═══════════
+H.p7=function(){
+  return hmod('m7-p1','M7 采购管理 — PO申请','采购部根据领料请求创建采购单。PO编号支持自定义前缀。','190409 信和物业PO+03/26纪要',[
+    ['PO编号','po_no','文本','是','≤64','自定义前缀+手动输入'],['PO日期','po_date','日期','是','默认当天','—'],['供应商','supplier','文本','是','≤100','—'],['关联工单','related_wo','文本','否','≤64','—'],
+    ['=== 明细行 ===','','','','',''],
+    ['项目代码','item_code','文本','否','≤32','190409样例:A40501001000'],['项目描述','description','长文本','是','≤500','含品牌/型号/位置'],['数量','qty','数字','是','—','EA单位'],['单价','unit_price','金额(HKD)','是','—','—'],
+    ['=== 条款 ===','','','','',''],
+    ['开工日期','commence_date','日期','是','—','收到PO后X天'],['完成日期','completion_date','日期','是','—','—'],['总金额','grand_total','金额(HKD)','—','自动','—'],['ML号码','ml_no','文本','否','≤64','出库时绑定']])+
+  hmod('m7-p2','M7 采购管理 — PO列表','L1 采购部默认首页。','',[
+    ['PO编号','po_no','文本','—','—','—'],['供应商','supplier','文本','—','—','—'],['总金额','grand_total','金额','—','—','—'],['状态','status','枚举','—','待审批/已下单/发货中/已到货/已完成','—'],['预计到货','eta','日期','—','—','—'],['实际到货','actual_arrival','日期','—','—','—']])+
+  hmod('m7-p3','M7 采购管理 — PO详情','到货登记+ML号码绑定+领料记录。','',[]);
+};
+
+H.p8=function(){
+  return hmod('m8-p1','M8 报表中心 — 工单进度看板','管理层查看全局工单进度。','190041 Project Control List+190022周回收GQ表',[
+    ['=== 统计卡片 ===','','','','',''],
+    ['今日新增','today_new','数字','—','—','—'],['待处理','pending','数字','—','—','—'],['处理中','processing','数字','—','—','—'],['今日完成','today_done','数字','—','—','—'],['超时','overdue','数字','—','—','签到超5分钟'],
+    ['=== 项目明细 ===','','','','','190041'],
+    ['工程编号','proj_no','文本','—','—','—'],['地区','zone','枚举','—','—','—'],['场地名称','site_name','文本','—','—','—'],['描述','proj_desc','文本','—','—','—'],['物料到货日期','material_arrival','日期','—','—','—'],['实际完工日','actual_completion','日期','—','—','—']])+
+  hmod('m8-p2','M8 报表中心 — Outstanding Report','未完成/未结清项目汇总报表。会计部和管理层核心关注。','185611/185640 Outstanding List+190443完工次PO表',[
+    ['CR编号','cr_no','文本','—','—','185640'],['唯一编码','unique_code','文本','—','—','—'],['项目名称','proj_name','文本','—','—','—'],['分类','category','枚举','—','智能卡/视频/电源/摄像头等','—'],['FMSO合约','fmso_contract','文本','—','—','—'],['发票总额','invoice_total','金额(HKD)','—','—','—'],
+    ['=== 未完成原因分类 ===','','','','','来自185611'],
+    ['已交文件上12楼','submitted_12f','金额','—','—','—'],['未印完工纸','not_printed','金额','—','—','—'],['已印未交','printed_not_submitted','金额','—','—','—'],
+    ['=== 完工次PO追踪 ===','','','','','来自190443'],
+    ['欠款金额','outstanding_amount','金额(HKD)','—','—','—'],['私盘/政府盘','project_type','枚举','—','—','—'],['出报价同事','quote_by','文本','—','—','—'],['CR Team','cr_team','文本','—','—','—'],['分区','subzone','文本','—','—','—']]);
+};
+
+H.p9=function(){
+  return hmod('m9-p1','M9 系统设置 — 区域码管理','管理员维护7个区域码（1P-7P）。','01/30纪要(区域码体系)',[
+    ['区域码','zone_code','文本','是','3-5字符','1P/2P/4P/5P/6P/7P'],['区域名(中)','zone_name_cn','文本','是','≤50','香港区/九龙区/新界区等'],['区域名(英)','zone_name_en','文本','否','≤100','—'],['所属大区','region','枚举','是','香港/九龙/新界','—'],['启用','is_active','布尔','否','默认true','—']])+
+  hmod('m9-p2','M9 系统设置 — 员工管理','从钉钉组织架构同步或手动维护。','190058员工通讯录',[
+    ['员工姓名','name','文本','是','≤50','—'],['工号','employee_id','文本','是','≤32','唯一标识'],['所属区域','zone','枚举','是','1P-7P','—'],['角色','role','枚举','是','CS/报价员/Super/师傅/采购/会计/管理员/CR','—'],['公号电话','work_phone','文本','否','≤20','—'],['私人电话','personal_phone','文本','否','≤20','—'],['职位','position','文本','否','≤50','站长/司机/技工'],['钉钉ID','dingtalk_id','文本','否','≤64','—'],['技能标签','skills','文本','否','≤200','CCTV/门禁/对讲机']])+
+  hmod('m9-p3','M9 系统设置 — 角色权限','禁止共用账号，报价操作绑定专属ID。','01/30+03/26纪要',[
+    ['角色名','role_name','文本','是','≤50','—'],['查看范围','view_scope','枚举','是','全部/本区/仅自己','—'],['可创建工单','can_create_wo','布尔','是','—','—'],['可派单','can_dispatch','布尔','是','—','—'],['可报价','can_quote','布尔','是','—','绑定专属ID'],['可创建PO','can_create_po','布尔','是','—','—'],['可查看报表','can_view_report','布尔','是','—','—'],['可管理系统','can_admin','布尔','是','—','—']])+
+  hmod('m9-p4','M9 系统设置 — 编号规则','维护各类编号的自动生成规则。','01/30+03/26+06/02纪要',[
+    ['编号类型','code_type','枚举','是','工单/项目/PO/报价单','—'],['前缀规则','prefix_rule','文本','是','≤50','ECA/PO/WO/区域码'],['日期格式','date_format','枚举','是','YYYYMMDD/YYMMDD/无','—'],['序号位数','seq_digits','数字','是','2-6','—'],['分隔符','separator','文本','否','≤5','-/—'],['示例','example','文本','—','只读预览','自动生成预览']]);
+};
+
+// ═══════════ Interaction ═══════════
+H.i1=function(){
+  return '<h3>流程→页面映射</h3><p>每个业务流程步骤对应哪个<span class="tag t-page">页面</span>，由哪个<span class="tag t-role">角色</span>操作。</p>'+
+    '<div class="step"><span class="n">1</span><b>客户来电</b> → <span class="tag t-page">m3-p1 新增来电工单</span> <span class="tag t-role">CS客服</span></div>'+
+    '<div class="step"><span class="n">2</span><b>CS判断类型</b>：投诉→m3-p1(选"投诉") ｜简单→m3-p1(选"简单")→已解决 ｜维修→继续</div>'+
+    '<div class="step"><span class="n">3</span><b>是否报价？</b> 是→<span class="tag t-page">m2-p2 新增报价单</span> <span class="tag t-role">报价员</span>→<span class="tag t-page">m2-p5 客户确认</span>→转为工单。否→直接进入步骤4</div>'+
+    '<div class="step"><span class="n">4</span><b>派单</b> → <span class="tag t-page">m4-p1 派单操作页</span> <span class="tag t-role">CS/Super</span>。分配制(指定师傅)或抢单制(工单池)</div>'+
+    '<div class="step"><span class="n">5</span><b>师傅接单</b> → <span class="tag t-page">m4-p2 我的工单</span> <span class="tag t-role">师傅</span>。拒单→m3-p2(CS重派) ｜接单→步骤6 ｜超时15分→自动回池</div>'+
+    '<div class="step"><span class="n">6</span><b>签到打卡</b> → <span class="tag t-page">m5-p1 签到打卡</span> <span class="tag t-role">师傅</span>。5分钟内签到→正常 ｜超时→通知Super重派</div>'+
+    '<div class="step"><span class="n">7</span><b>开始检查</b> → <span class="tag t-page">m5-p2 维修记录</span> <span class="tag t-role">师傅</span>。选择：可维修→步骤8 ｜无法修→步骤9 ｜换材料→步骤10</div>'+
+    '<div class="step"><span class="n">8</span><b>拍照</b> → <span class="tag t-page">m5-p3 拍照上传</span> <span class="tag t-role">师傅</span>。before/after各最多10张，离线队列</div>'+
+    '<div class="step"><span class="n">9</span><b>无法修</b> → <span class="tag t-page">m5-p4 无法修复/需报价</span>。A:取消重建 ｜B:故障报告→报价</div>'+
+    '<div class="step"><span class="n">10</span><b>缺料</b> → <span class="tag t-page">m7-p1 PO申请</span> <span class="tag t-role">采购部</span>→m7-p3到货登记→通知师傅→回到步骤8</div>'+
+    '<div class="step"><span class="n">11</span><b>完工提交</b> → m5-p2点"WO报告"→<span class="tag t-page">m6-p2 完工单提交</span> <span class="tag t-role">师傅</span></div>'+
+    '<div class="step"><span class="n">12</span><b>客户签名</b> → <span class="tag t-page">m6-p1 客户签名页</span>(Canvas手写)</div>'+
+    '<div class="step"><span class="n">13</span><b>完成+通知</b> → m6-p2提交→状态=已完成→通知CS/C-S/会计部/S30/S98→<span class="tag t-page">m6-p3</span>会计核对开票</div>';
+};
+
+H.i2=function(){
+  return '<h3>状态×页面行为</h3>'+
+    '<table><tr><th style="width:70px">状态</th><th>m3-p2 工单列表(CS/Super)</th><th>m4-p2 我的工单(师傅)</th><th>m3-p3 工单详情</th></tr>'+
+    '<tr><td><b>待处理</b></td><td>黄标签。可<span class="tag t-act">[派单]</span></td><td>抢单模式显示<span class="tag t-act">[抢单]</span>；分配模式不显示</td><td>所有字段可编辑。可<span class="tag t-act">[派单]</span></td></tr>'+
+    '<tr><td><b>已接单</b></td><td>绿标签，显示师傅名</td><td>"进行中"tab。倒计时5min。<span class="tag t-act">[签到]</span>可用。超时=红+脉冲动画</td><td>只读。底部"等待签到"。m5-p1入口显示</td></tr>'+
+    '<tr><td><b>处理中</b></td><td>蓝标签</td><td>"进行中"tab。<span class="tag t-act">[继续维修][拍照][提交完工]</span></td><td>只读。显示维修记录子表+照片缩略图+流转时间线</td></tr>'+
+    '<tr><td><b>已完成</b></td><td>灰标签，移至"已归档"</td><td>移至"已归档"。只读</td><td>只读。显示完工单+签名截图。可<span class="tag t-act">[查看完工单]</span></td></tr>'+
+    '<tr><td><b>已取消</b></td><td>红标签，显示取消原因</td><td>移至"已归档"。灰显</td><td>只读。显示取消原因+时间线</td></tr>'+
+    '<tr><td><b>未完成</b></td><td>红标签。可<span class="tag t-act">[重新建单]</span></td><td>移至"已归档"。灰显</td><td>只读。显示故障报告+时间线</td></tr>'+
+    '<tr><td><b>需跟进</b></td><td>橙标签。悬停显示原因</td><td>"进行中"tab。条件满足后恢复按钮</td><td>只读。显示跟进原因(如"等待材料到货")</td></tr>'+
+    '</table>'+
+    '<h4>交互约定</h4><table><tr><th style="width:160px">约定</th><th>规则</th></tr>'+
+    '<tr><td>状态标签颜色</td><td>待处理=黄｜已接单=绿｜处理中=蓝｜已完成=灰｜已取消=红｜未完成=红｜需跟进=橙</td></tr>'+
+    '<tr><td>师傅端排序</td><td>按接单时间降序；超时(需签到)置顶+红色脉冲动画</td></tr>'+
+    '<tr><td>工单列表排序</td><td>按创建时间降序；超时工单置顶</td></tr>'+
+    '<tr><td>状态流转</td><td>单向(除拒单/重派/需跟进→处理中)。每次流转追加时间线记录</td></tr>'+
+    '<tr><td>操作确认</td><td>派单/拒单/完工/取消=弹确认框。接单/签到/拍照=直接执行</td></tr>'+
+    '<tr><td>字段只读</td><td>状态≠"待处理"时，m3-p1工单信息字段全部只读</td></tr>'+
+    '<tr><td>Toast通知</td><td>操作成功/失败=顶部Toast 3秒。超时通知=持续显示直到处理</td></tr>'+
+    '</table>';
+};
+
+H.i3=function(){
+  return '<h3>角色导航路径</h3>'+
+    '<h4>CS 客服</h4>'+
+    '<div class="step"><span class="n">1</span><span class="tag t-page">m3-p2 工单列表</span>(默认首页)</div>'+
+    '<div class="step"><span class="n">2</span>点"+新增"→<span class="tag t-page">m3-p1 新增来电工单</span></div>'+
+    '<div class="step"><span class="n">3</span>选择客户(从<span class="tag t-page">m1-p1</span>弹出)或手动输入</div>'+
+    '<div class="step"><span class="n">4</span>需报价→<span class="tag t-page">m2-p2</span>。否则→<span class="tag t-page">m4-p1</span>派单</div>'+
+    '<div class="step"><span class="n">5</span>师傅拒单→列表红色标记→重新派单</div>'+
+    '<div class="step"><span class="n">6</span>收到完工通知→<span class="tag t-page">m6-p3</span>查看</div>'+
+
+    '<h4>Super / Team Leader</h4>'+
+    '<div class="step"><span class="n">1</span><span class="tag t-page">m3-p2</span>(默认首页，仅本区工单)</div>'+
+    '<div class="step"><span class="n">2</span>待派工单→<span class="tag t-page">m4-p1</span>派单</div>'+
+    '<div class="step"><span class="n">3</span>5分钟超时通知→工单红色高亮→重派</div>'+
+    '<div class="step"><span class="n">4</span>查看报表→<span class="tag t-page">m8-p1,m8-p2</span></div>'+
+
+    '<h4>师傅</h4>'+
+    '<div class="step"><span class="n">1</span><span class="tag t-page">m4-p2 我的工单</span>(默认首页)</div>'+
+    '<div class="step"><span class="n">2</span>接单/拒单→接单后状态=已接单</div>'+
+    '<div class="step"><span class="n">3</span>到达→点击工单卡片→<span class="tag t-page">m5-p1 签到</span></div>'+
+    '<div class="step"><span class="n">4</span>签到后→<span class="tag t-page">m5-p2 维修记录</span></div>'+
+    '<div class="step"><span class="n">5</span>拍照→<span class="tag t-page">m5-p3</span>。完工→<span class="tag t-page">m6-p2</span></div>'+
+    '<div class="step"><span class="n">6</span>客户签名→<span class="tag t-page">m6-p1</span>(出示给客户)</div>'+
+    '<div class="step"><span class="n">7</span>提交→工单移至"已归档"tab</div>'+
+
+    '<h4>报价员</h4>'+
+    '<div class="step"><span class="n">1</span><span class="tag t-page">m2-p1 报价单列表</span>(默认首页)</div>'+
+    '<div class="step"><span class="n">2</span>新增→<span class="tag t-page">m2-p2</span></div>'+
+    '<div class="step"><span class="n">3</span>客户确认→<span class="tag t-page">m2-p5</span>→转工单</div>'+
+
+    '<h4>采购部</h4>'+
+    '<div class="step"><span class="n">1</span>领料通知→<span class="tag t-page">m7-p2</span>→新增→<span class="tag t-page">m7-p1</span></div>'+
+    '<div class="step"><span class="n">2</span>到货→<span class="tag t-page">m7-p3</span>登记+ML绑定</div>'+
+
+    '<h4>会计部</h4>'+
+    '<div class="step"><span class="n">1</span>完工通知→<span class="tag t-page">m6-p3</span>→核对→录入发票号→确认开票</div>';
+};
+
+H.i4=function(){
+  var pgs=[
+    ['m1-p1','M1','L1','客户列表','M3-P1中点"选择客户"','点击→m1-p2'],
+    ['m1-p2','M1','L3','客户详情','m1-p1点某行','返回;底部"新建工单"→m3-p1'],
+    ['m1-p3','M1','L2','新增/编辑客户','m1-p1点"新增"','保存→m1-p2'],
+    ['m2-p1','M2','L1','报价单列表','报价员默认首页','新增→m2-p2;点行→m2-p3'],
+    ['m2-p2','M2','L2','新增报价单','m2-p1点"新增"','保存→m2-p3;发送→m2-p5'],
+    ['m2-p3','M2','L3','报价单详情','m2-p1点某行','版本对比→m2-p4;转工单→m3-p1'],
+    ['m2-p4','M2','L4','版本对比','m2-p3点"版本对比"','关闭→m2-p3'],
+    ['m2-p5','M2','L4','客户确认页','m2-p2发送给客户','签名→生成工单→m3-p2'],
+    ['m3-p1','M3','L2','新增来电工单','m3-p2点"+新增"','保存+派单→m4-p1;报价→m2-p2'],
+    ['m3-p2','M3','L1','工单列表','CS/Super默认首页','新增→m3-p1;点行→m3-p3;派单→m4-p1'],
+    ['m3-p3','M3','L3','工单详情','m3-p2点某行','派单→m4-p1;查看完工→m6-p3'],
+    ['m4-p1','M4','L4','派单操作页','m3-p3点"派单"','确认→m3-p2'],
+    ['m4-p2','M4','L1','我的工单','师傅默认首页','签到→m5-p1;故障申报→m3-p1'],
+    ['m5-p1','M5','L4','签到打卡','m4-p2点"签到"','提交→m5-p2'],
+    ['m5-p2','M5','L4','维修记录','m5-p1提交后','拍照→m5-p3;异常→m5-p4;完工→m6-p2'],
+    ['m5-p3','M5','L4','拍照上传','m5-p2点"拍照"','完成→m5-p2'],
+    ['m5-p4','M5','L4','无法修复/需报价','m5-p2选"无法即时维修"','报价→m2-p2;取消→m3-p2'],
+    ['m6-p1','M6','L4','客户签名页','m6-p2点"客户签名"','签名→m6-p2'],
+    ['m6-p2','M6','L4','完工单提交','m5-p2点"完工"','提交→m4-p2;签名→m6-p1'],
+    ['m6-p3','M6','L3','完工单详情','m3-p3点"查看完工单"','会计核对开票'],
+    ['m7-p1','M7','L2','PO申请','m7-p2点"新增"','保存→m7-p3'],
+    ['m7-p2','M7','L1','PO列表','采购部默认首页','新增→m7-p1;点行→m7-p3'],
+    ['m7-p3','M7','L3','PO详情','m7-p2点某行','到货登记→返回'],
+    ['m8-p1','M8','L1','工单进度看板','导航栏"报表"','Tab→m8-p2'],
+    ['m8-p2','M8','L1','Outstanding Report','m8-p1切Tab','Tab→m8-p1'],
+    ['m9-p1','M9','L1','区域码管理','导航栏"设置"','Tab→m9-p2/p3/p4'],
+    ['m9-p2','M9','L1','员工管理','M9中切Tab','增删改员工'],
+    ['m9-p3','M9','L1','角色权限','M9中切Tab','配置权限'],
+    ['m9-p4','M9','L1','编号规则','M9中切Tab','配置编号格式']];
+  var h='<h3>29个页面一览表</h3><table><tr><th>#</th><th>ID</th><th>模块</th><th>层级</th><th>名称</th><th>进入方式</th><th>离开方式</th></tr>';
+  for(var i=0;i<pgs.length;i++)h+='<tr><td>'+(i+1)+'</td><td><code>'+pgs[i][0]+'</code></td><td>'+pgs[i][1]+'</td><td>'+pgs[i][2]+'</td><td><b>'+pgs[i][3]+'</b></td><td>'+pgs[i][4]+'</td><td>'+pgs[i][5]+'</td></tr>';
+  return h+'</table>';
+};
+
+// ═══════════ Render engine ═══════════
+async function render(id){
+  cur=id;
+  title.textContent=titles[id]||'EC工单管理系统';
+  var links=nav.querySelectorAll('a');
+  for(var i=0;i<links.length;i++)links[i].classList.toggle('active',links[i].dataset.s===id);
+
+  // flowchart pages (f1-f6)
+  if(id[0]==='f' && M[id]){
+    content.innerHTML='<div id="fchart" style="background:#fff;overflow-x:auto"></div>';
+    var wrap=document.getElementById('fchart');
+    try{
+      var result=await mermaid.render('mg',M[id]);
+      wrap.innerHTML=result.svg;
+      var svg=wrap.querySelector('svg');
+      if(svg){svg.style.maxWidth='none';svg.style.display='block';svg.style.background='#fff';}
+    }catch(e){
+      wrap.innerHTML='<pre style="color:#dc2626">Mermaid render failed: '+e.message+'</pre>';
+    }
+    view.scrollTo(0,0);
+    return;
+  }
+
+  // normal pages
+  content.innerHTML=H[id]?H[id]():'<p>Coming soon.</p>';
+  view.scrollTo(0,0);
+}
+
+// ═══════════ Events ═══════════
+nav.addEventListener('click',function(e){
+  var a=e.target.closest('a[data-s]');
+  if(!a||a.dataset.s===cur)return;
+  location.hash='#'+a.dataset.s;
+  render(a.dataset.s);
+});
+
+var h=location.hash.slice(1)||'f1';
+if(!M[h]&&!H[h])h='login';
+render(h);
+location.hash='#'+h;
+window.addEventListener('hashchange',function(){
+  var h2=location.hash.slice(1);
+  if(!M[h2]&&!H[h2])return;
+  render(h2);
+});
+})();
+
+</script>
+</body>
+</html>
