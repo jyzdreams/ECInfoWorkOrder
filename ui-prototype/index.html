@@ -3475,7 +3475,48 @@
         updateTicket(id, { status: "待分派", owner: t.tl, master: "", rejectReason: "当前任务冲突，需重新安排。" }, "师傅拒单：当前任务冲突，退回待分派。");
       }
       if (action === "submitResult") {
-        updateTicket(id, { status: "待确认", owner: t.tl }, "师傅提交处理结果和现场记录，等待确认。");
+        // 验证服务报告必填字段
+        const serviceReportNo = document.getElementById('serviceReportNo');
+        const mobileResult = document.getElementById('mobileResult');
+        const paperHolder = document.getElementById('paperHolder');
+        
+        // 检查服务报告编号
+        if (serviceReportNo && !serviceReportNo.value.match(/^\d{6}$/)) {
+          alert('服务报告编号必须是6位数字');
+          serviceReportNo.focus();
+          return;
+        }
+        
+        // 检查处理说明
+        if (mobileResult && !mobileResult.value.trim()) {
+          alert('请填写处理说明');
+          mobileResult.focus();
+          return;
+        }
+        
+        // 检查是否有完工纸需求
+        const hasCompletionPaper = t.quotationId && quotations.find(q => q.id === t.quotationId)?.procurementStatus === "已到货";
+        
+        // 如果需要完工纸，检查完工纸照片
+        if (hasCompletionPaper && !t.completionPaperPhoto) {
+          alert('请上传完工纸照片');
+          return;
+        }
+        
+        // 收集更新数据
+        const updates = { 
+          status: "待确认", 
+          owner: t.tl,
+          serviceReportNo: serviceReportNo ? serviceReportNo.value : t.serviceReportNo,
+          serviceReportText: mobileResult ? mobileResult.value : t.serviceReportText
+        };
+        
+        // 如果有完工纸领取人字段，更新
+        if (paperHolder && paperHolder.value) {
+          updates.paperHolder = paperHolder.value;
+        }
+        
+        updateTicket(id, updates, "师傅提交服务报告和现场记录，等待确认。");
       }
       if (action === "confirmClose") {
         updateTicket(id, { status: "已关闭", owner: currentRole().name }, "确认处理结果通过，工单关闭。");
@@ -6144,18 +6185,188 @@
 
     function renderWorkRecord() {
       const t = ticketById(state.selectedTicketId);
+      const hasCompletionPaper = t.quotationId && quotations.find(q => q.id === t.quotationId)?.procurementStatus === "已到货";
+      
       return `
         <div class="mobile-card">
           <div class="mobile-card-head"><strong>处理记录</strong><span class="${statusClass(t.status)}">${t.status}</span></div>
           <div class="timeline">${t.records.map(r => `<div class="timeline-item"><span class="timeline-dot"></span><strong>${r.time} · ${escapeHtml(r.actor)}</strong><p>${escapeHtml(r.text)}</p></div>`).join("")}</div>
         </div>
+        
         <div class="mobile-card">
-          <strong>上传图片</strong>
-          <div class="photo-grid"><div class="photo-thumb">上传占位</div><div class="photo-thumb">现场照片</div><div class="photo-thumb">完成照片</div></div>
-          <div class="field"><label>处理结果</label><textarea id="mobileResult" placeholder="填写处理说明、异常原因或完成情况"></textarea></div>
-          <button class="secondary-btn" style="width:100%; margin-bottom:8px;">上传照片</button>
-          <button class="primary-btn" style="width:100%;" data-action="submitResult" data-id="${t.id}">提交处理结果</button>
+          <strong style="color:var(--danger);">服务报告（必填）</strong>
+          <div class="field" style="margin-top:8px;">
+            <label>服务报告编号（6位数字）<span style="color:var(--danger);">*</span></label>
+            <input type="text" id="serviceReportNo" maxlength="6" pattern="[0-9]{6}" placeholder="例如：123456" value="${t.serviceReportNo || ""}" required>
+          </div>
+          
+          <div class="field">
+            <label>处理说明（文字或语音）<span style="color:var(--danger);">*</span></label>
+            <textarea id="mobileResult" placeholder="填写处理说明、异常原因或完成情况（可使用语音输入）" required>${t.serviceReportText || ""}</textarea>
+            <button type="button" class="ghost-btn" style="margin-top:4px;font-size:12px;" onclick="startVoiceInput()">🎤 语音输入</button>
+          </div>
+        </div>
+        
+        <div class="mobile-card">
+          <strong>现场照片（最多9张）</strong>
+          <div class="photo-grid" id="photoGrid">
+            ${(t.attachments || []).map((a, i) => `<div class="photo-thumb" style="background:var(--primary-soft);">${escapeHtml(a)}<button type="button" onclick="removePhoto(${i})" style="position:absolute;top:2px;right:2px;background:var(--danger);color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;">×</button></div>`).join("")}
+            ${(t.attachments || []).length < 9 ? `<div class="photo-thumb" onclick="uploadPhoto()" style="cursor:pointer;border:2px dashed var(--border);">+ 上传</div>` : ""}
+          </div>
+        </div>
+        
+        ${hasCompletionPaper ? `
+        <div class="mobile-card" style="border:2px solid var(--warning);">
+          <strong style="color:var(--warning);">完工纸（必填）</strong>
+          <div class="field" style="margin-top:8px;">
+            <label>完工纸照片<span style="color:var(--danger);">*</span></label>
+            <div class="photo-grid" id="completionPaperGrid">
+              ${t.completionPaperPhoto ? `<div class="photo-thumb" style="background:var(--success-soft);">完工纸<button type="button" onclick="removeCompletionPaper()" style="position:absolute;top:2px;right:2px;background:var(--danger);color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;">×</button></div>` : `<div class="photo-thumb" onclick="uploadCompletionPaper()" style="cursor:pointer;border:2px dashed var(--warning);">📄 拍照上传</div>`}
+            </div>
+          </div>
+          <div class="field">
+            <label>完工纸领取人</label>
+            <input type="text" id="paperHolder" value="${t.paperHolder || ""}" placeholder="填写领取完工纸的人员姓名">
+          </div>
+        </div>
+        ` : ""}
+        
+        <div class="mobile-card">
+          <button class="primary-btn" style="width:100%;" data-action="submitResult" data-id="${t.id}">提交服务报告</button>
         </div>`;
+    }
+    
+    // 语音输入功能
+    function startVoiceInput() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('您的浏览器不支持语音输入，请手动输入文字。');
+        return;
+      }
+      
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'zh-CN';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      
+      const textarea = document.getElementById('mobileResult');
+      if (!textarea) return;
+      
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        textarea.value += transcript;
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('语音识别错误:', event.error);
+        alert('语音输入失败，请手动输入文字。');
+      };
+      
+      recognition.start();
+      toast('开始语音输入，请说话...');
+      
+      setTimeout(() => {
+        recognition.stop();
+        toast('语音输入已停止');
+      }, 30000);
+    }
+    
+    // 上传照片
+    function uploadPhoto() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      
+      const photoName = prompt('请输入照片描述（例如：现场故障照片）：');
+      if (!photoName) return;
+      
+      if (!t.attachments) t.attachments = [];
+      if (t.attachments.length >= 9) {
+        alert('最多只能上传9张照片');
+        return;
+      }
+      
+      t.attachments.push(photoName);
+      saveDataToLocalStorage();
+      render();
+      toast('照片已上传');
+    }
+    
+    // 删除照片
+    function removePhoto(index) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t || !t.attachments) return;
+      
+      if (confirm('确定要删除这张照片吗？')) {
+        t.attachments.splice(index, 1);
+        saveDataToLocalStorage();
+        render();
+      }
+    }
+    
+    // 上传完工纸照片
+    function uploadCompletionPaper() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      
+      t.completionPaperPhoto = '完工纸照片_' + new Date().toLocaleDateString('zh-CN');
+      saveDataToLocalStorage();
+      render();
+      toast('完工纸照片已上传');
+    }
+    
+    // 删除完工纸照片
+    function removeCompletionPaper() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      
+      if (confirm('确定要删除完工纸照片吗？')) {
+        delete t.completionPaperPhoto;
+        saveDataToLocalStorage();
+        render();
+      }
+    }
+    
+    // 检查完工纸到期提醒
+    function checkCompletionPaperExpiration() {
+      const today = new Date();
+      const twoWeeksLater = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+      
+      quotations.forEach(q => {
+        if (q.completionPaperStatus === '待制作' || q.completionPaperStatus === '已领取') {
+          const dueDate = q.completionPaperDueDate ? new Date(q.completionPaperDueDate) : null;
+          
+          if (dueDate && dueDate <= twoWeeksLater) {
+            const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+            
+            // 检查是否已经发送过提醒
+            const reminderKey = `completion_paper_reminder_${q.id}`;
+            const lastReminder = localStorage.getItem(reminderKey);
+            const todayStr = today.toISOString().slice(0, 10);
+            
+            if (lastReminder !== todayStr) {
+              // 发送提醒
+              const reminderMsg = daysLeft <= 0 
+                ? `完工纸已超期！报价单 ${q.ourRef} 的完工纸需要立即归还。`
+                : `完工纸将在 ${daysLeft} 天后到期！报价单 ${q.ourRef} 的完工纸请尽快归还。`;
+              
+              // 创建通知
+              addNotification({
+                role: ['TL', 'Master'],
+                module: 'quotation',
+                targetId: q.id,
+                title: '完工纸到期提醒',
+                content: reminderMsg
+              });
+              
+              // 记录今天已发送提醒
+              localStorage.setItem(reminderKey, todayStr);
+            }
+          }
+        }
+      });
     }
 
     function renderHistory() {
@@ -6671,6 +6882,9 @@
     document.documentElement.dataset.theme = savedTheme;
     $("#themeBtn").textContent = savedTheme === "dark" ? "亮色模式" : "暗色模式";
     render();
+    
+    // 检查完工纸到期提醒
+    checkCompletionPaperExpiration();
   </script>
 </body>
 </html>
