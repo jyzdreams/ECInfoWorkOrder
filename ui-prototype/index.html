@@ -2371,6 +2371,8 @@
     const DEFAULT_QUOTATIONS = [
       {
         id: "QT-20260621-002",
+        ourRef: "2P2601285",
+        revision: 0,
         title: "闸机保养服务报价",
         ticketId: "WO-20260615-002",
         customerId: "CUST-0002",
@@ -2379,6 +2381,14 @@
         taxRate: 0.1,
         totalAmount: 13200,
         status: "等待客户确认",
+        bidStatus: "待确认",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "王组长",
         ownerPhone: "+852 9345 6789",
         ownerTeam: "香港团队",
@@ -2386,10 +2396,13 @@
         createdAt: "2026-06-21",
         validUntil: "2026-07-21",
         attachments: ["闸机保养报价.pdf"],
-        remark: "年度保养服务，包含季度检查"
+        remark: "年度保养服务，包含季度检查",
+        revisions: []
       },
       {
         id: "QT-20260621-003",
+        ourRef: "2P2601286",
+        revision: 0,
         title: "监控设备安装报价",
         ticketId: "WO-20260615-003",
         customerId: "CUST-0003",
@@ -2398,6 +2411,14 @@
         taxRate: 0.1,
         totalAmount: 27500,
         status: "待报价",
+        bidStatus: "未中标",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "李组长",
         ownerPhone: "+852 9234 5678",
         ownerTeam: "九龙团队",
@@ -2405,10 +2426,13 @@
         createdAt: "2026-06-21",
         validUntil: "2026-07-21",
         attachments: [],
-        remark: "需要现场勘察后确定最终方案"
+        remark: "需要现场勘察后确定最终方案",
+        revisions: []
       },
       {
         id: "QT-20260621-004",
+        ourRef: "2P2601287",
+        revision: 0,
         title: "CCTV系统升级报价",
         ticketId: "WO-20260615-004",
         customerId: "CUST-0004",
@@ -2417,6 +2441,14 @@
         taxRate: 0.1,
         totalAmount: 49500,
         status: "已确认",
+        bidStatus: "已中标",
+        customerOrder: "PO-2026-001",
+        tenderNo: "T-2026-001",
+        tenderAmount: 49500,
+        procurementStatus: "采购中",
+        completionPaperStatus: "待制作",
+        completionPaperHolder: "",
+        completionPaperDueDate: "2026-07-20",
         owner: "王组长",
         ownerPhone: "+852 9345 6789",
         ownerTeam: "香港团队",
@@ -2424,10 +2456,13 @@
         createdAt: "2026-06-20",
         validUntil: "2026-07-20",
         attachments: ["CCTV升级方案.pdf", "设备清单.xlsx"],
-        remark: "已获客户确认，准备采购设备"
+        remark: "已获客户确认，准备采购设备",
+        revisions: []
       },
       {
         id: "QT-20260621-005",
+        ourRef: "2P2601288",
+        revision: 1,
         title: "广播系统维修报价",
         ticketId: "WO-20260615-005",
         customerId: "CUST-0005",
@@ -2436,6 +2471,14 @@
         taxRate: 0.1,
         totalAmount: 7480,
         status: "需修订",
+        bidStatus: "待确认",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "李组长",
         ownerPhone: "+852 9234 5678",
         ownerTeam: "九龙团队",
@@ -2443,10 +2486,16 @@
         createdAt: "2026-06-19",
         validUntil: "2026-07-19",
         attachments: ["广播系统报价.pdf"],
-        remark: "客户要求增加备用功放设备"
+        remark: "客户要求增加备用功放设备",
+        revisions: [
+          { rev: 0, amount: 6500, date: "2026-06-18", remark: "初版" },
+          { rev: 1, amount: 6800, date: "2026-06-19", remark: "增加备用功放设备" }
+        ]
       },
       {
         id: "QT-20260621-006",
+        ourRef: "2P2601289",
+        revision: 0,
         title: "门禁控制器保养报价",
         ticketId: "WO-20260614-006",
         customerId: "CUST-0001",
@@ -2455,6 +2504,14 @@
         taxRate: 0.1,
         totalAmount: 3850,
         status: "已发出",
+        bidStatus: "待确认",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "王组长",
         ownerPhone: "+852 9345 6789",
         ownerTeam: "香港团队",
@@ -2462,10 +2519,13 @@
         createdAt: "2026-06-14",
         validUntil: "2026-07-14",
         attachments: ["门禁保养报价.pdf"],
-        remark: "季度保养服务"
+        remark: "季度保养服务",
+        revisions: []
       },
       {
         id: "QT-20260621-007",
+        ourRef: "2P2601290",
+        revision: 0,
         title: "水浸报警系统检查报价",
         ticketId: "WO-20260614-008",
         customerId: "CUST-0006",
@@ -2474,6 +2534,14 @@
         taxRate: 0.1,
         totalAmount: 5720,
         status: "待报价",
+        bidStatus: "未中标",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "李组长",
         ownerPhone: "+852 9234 5678",
         ownerTeam: "九龙团队",
@@ -2481,10 +2549,13 @@
         createdAt: "2026-06-14",
         validUntil: "2026-07-14",
         attachments: [],
-        remark: "需要检查所有传感器和报警装置"
+        remark: "需要检查所有传感器和报警装置",
+        revisions: []
       },
       {
         id: "QT-20260621-008",
+        ourRef: "2P2601291",
+        revision: 0,
         title: "摄像头离线故障维修报价",
         ticketId: "WO-20260613-009",
         customerId: "CUST-0003",
@@ -2493,6 +2564,14 @@
         taxRate: 0.1,
         totalAmount: 3080,
         status: "已确认",
+        bidStatus: "已中标",
+        customerOrder: "PO-2026-002",
+        tenderNo: "T-2026-002",
+        tenderAmount: 3080,
+        procurementStatus: "已到货",
+        completionPaperStatus: "已完工",
+        completionPaperHolder: "张师傅",
+        completionPaperDueDate: "2026-07-13",
         owner: "王组长",
         ownerPhone: "+852 9345 6789",
         ownerTeam: "香港团队",
@@ -2500,10 +2579,13 @@
         createdAt: "2026-06-13",
         validUntil: "2026-07-13",
         attachments: ["摄像头维修报价.pdf"],
-        remark: "电源模块更换"
+        remark: "电源模块更换",
+        revisions: []
       },
       {
         id: "QT-20260621-009",
+        ourRef: "2P2601292",
+        revision: 0,
         title: "设备移位服务报价",
         ticketId: "WO-20260613-010",
         customerId: "CUST-0005",
@@ -2512,6 +2594,14 @@
         taxRate: 0.1,
         totalAmount: 4950,
         status: "已取消",
+        bidStatus: "未中标",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "李组长",
         ownerPhone: "+852 9234 5678",
         ownerTeam: "九龙团队",
@@ -2519,10 +2609,13 @@
         createdAt: "2026-06-13",
         validUntil: "2026-07-13",
         attachments: [],
-        remark: "客户取消服务需求"
+        remark: "客户取消服务需求",
+        revisions: []
       },
       {
         id: "QT-20260621-010",
+        ourRef: "2P2601293",
+        revision: 0,
         title: "显示屏维修报价",
         ticketId: "WO-20260612-011",
         customerId: "CUST-0002",
@@ -2531,6 +2624,14 @@
         taxRate: 0.1,
         totalAmount: 8250,
         status: "等待客户确认",
+        bidStatus: "待确认",
+        customerOrder: "",
+        tenderNo: "",
+        tenderAmount: 0,
+        procurementStatus: "无需采购",
+        completionPaperStatus: "无需完工纸",
+        completionPaperHolder: "",
+        completionPaperDueDate: "",
         owner: "王组长",
         ownerPhone: "+852 9345 6789",
         ownerTeam: "香港团队",
@@ -2538,7 +2639,8 @@
         createdAt: "2026-06-12",
         validUntil: "2026-07-12",
         attachments: ["显示屏维修报价.pdf"],
-        remark: "停车场显示屏更换"
+        remark: "停车场显示屏更换",
+        revisions: []
       }
     ];
 
@@ -5417,9 +5519,14 @@
               <div class="qm-detail-title">${quotation.title}</div>
               <span class="tag qm-status-${quotation.status}">${quotation.status}</span>
             </div>
-            <div style="display:flex;gap:6px;">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button class="ghost-btn" data-edit-quotation="${quotation.id}">编辑</button>
               <button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新状态</button>
+              ${quotation.status !== "已取消" && quotation.bidStatus !== "已中标" ? `<button class="primary-btn" data-mark-won="${quotation.id}">标记中标</button>` : ""}
+              ${quotation.status !== "已取消" && quotation.bidStatus !== "未中标" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">创建修订版</button>` : ""}
+              ${quotation.bidStatus === "已中标" && quotation.procurementStatus === "无需采购" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">启动采购</button>` : ""}
+              ${quotation.procurementStatus === "采购中" ? `<button class="secondary-btn" data-mark-arrived="${quotation.id}">标记到货</button>` : ""}
+              ${quotation.procurementStatus === "已到货" && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工纸管理</button>` : ""}
               <button class="danger-btn" data-delete-quotation="${quotation.id}">删除</button>
             </div>
           </div>
@@ -5428,11 +5535,42 @@
             <h4 class="cm-section-title">基本信息</h4>
             <div class="info-list">
               ${infoRow("报价编号", quotation.id)}
+              ${infoRow("Our Ref", `<strong style="color:var(--primary);">${quotation.ourRef || "N/A"}${quotation.revision > 0 ? `R${quotation.revision}` : ""}</strong>`)}
               ${infoRow("报价标题", quotation.title)}
               ${infoRow("报价状态", quotation.status)}
+              ${infoRow("中标状态", `<span class="tag ${quotation.bidStatus === "已中标" ? "success" : quotation.bidStatus === "未中标" ? "danger" : ""}">${quotation.bidStatus || "待确认"}</span>`)}
               ${infoRow("报价日期", quotation.createdAt)}
               ${infoRow("有效期至", quotation.validUntil)}
               ${infoRow("创建时间", quotation.createdAt)}
+            </div>
+          </div>
+
+          <div>
+            <h4 class="cm-section-title">标书/中标信息</h4>
+            <div class="info-list">
+              ${infoRow("客户订单号", quotation.customerOrder || "无")}
+              ${infoRow("标书编号", quotation.tenderNo || "无")}
+              ${infoRow("标书金额", quotation.tenderAmount ? `HKD ${quotation.tenderAmount.toLocaleString()}` : "无")}
+              ${quotation.revisions && quotation.revisions.length > 0 ? `
+                <div style="margin-top:8px;">
+                  <strong>修订历史：</strong>
+                  <div style="margin-top:4px;">
+                    ${quotation.revisions.map(r => `<div style="padding:4px 8px; background:var(--panel-soft); margin-bottom:4px; border-radius:4px; font-size:13px;">
+                      R${r.rev} - ${r.date} - HKD ${r.amount.toLocaleString()} - ${r.remark}
+                    </div>`).join("")}
+                  </div>
+                </div>
+              ` : ""}
+            </div>
+          </div>
+
+          <div>
+            <h4 class="cm-section-title">采购/完工纸状态</h4>
+            <div class="info-list">
+              ${infoRow("采购状态", `<span class="tag ${quotation.procurementStatus === "已到货" ? "success" : quotation.procurementStatus === "采购中" ? "warning" : ""}">${quotation.procurementStatus || "无需采购"}</span>`)}
+              ${infoRow("完工纸状态", `<span class="tag ${quotation.completionPaperStatus === "已完工" ? "success" : quotation.completionPaperStatus === "待制作" ? "warning" : ""}">${quotation.completionPaperStatus || "无需完工纸"}</span>`)}
+              ${quotation.completionPaperHolder ? infoRow("完工纸领取人", quotation.completionPaperHolder) : ""}
+              ${quotation.completionPaperDueDate ? infoRow("完工期限", quotation.completionPaperDueDate) : ""}
             </div>
           </div>
 
@@ -5750,6 +5888,126 @@
         quotationState.selectedQuotationId = null;
       }
       toast("报价已删除");
+      render();
+    }
+
+    // 标记中标
+    function markQuotationWon(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      const customerOrder = prompt("请输入客户订单号（Customer Order/PO）：");
+      if (customerOrder === null) return;
+      
+      const tenderNo = prompt("请输入标书编号（Tender No）：");
+      if (tenderNo === null) return;
+      
+      const tenderAmount = prompt("请输入标书实际金额（HKD）：", quotation.amount);
+      if (tenderAmount === null) return;
+      
+      quotation.bidStatus = "已中标";
+      quotation.customerOrder = customerOrder || "";
+      quotation.tenderNo = tenderNo || "";
+      quotation.tenderAmount = parseFloat(tenderAmount) || 0;
+      quotation.status = "已确认";
+      
+      saveDataToLocalStorage();
+      toast("已标记为中标，CC通知采购部");
+      
+      // 自动创建采购通知
+      if (customerOrder) {
+        setTimeout(() => {
+          if (confirm("是否需要启动采购流程？")) {
+            startProcurement(quotationId);
+          }
+        }, 500);
+      }
+      
+      render();
+    }
+
+    // 创建修订版
+    function createQuotationRevision(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      const newAmount = prompt("请输入修订后的金额（HKD）：", quotation.amount);
+      if (newAmount === null) return;
+      
+      const remark = prompt("请输入修订说明：");
+      if (remark === null) return;
+      
+      // 保存当前版本到修订历史
+      if (!quotation.revisions) quotation.revisions = [];
+      quotation.revisions.push({
+        rev: quotation.revision,
+        amount: quotation.amount,
+        date: quotation.createdAt,
+        remark: quotation.remark || "初版"
+      });
+      
+      // 更新为新版本
+      quotation.revision += 1;
+      quotation.amount = parseFloat(newAmount) || quotation.amount;
+      quotation.totalAmount = quotation.amount * (1 + (quotation.taxRate || 0));
+      quotation.remark = remark;
+      quotation.createdAt = new Date().toISOString().slice(0, 10);
+      
+      saveDataToLocalStorage();
+      toast(`已创建修订版 ${quotation.ourRef}R${quotation.revision}`);
+      render();
+    }
+
+    // 启动采购
+    function startProcurement(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      quotation.procurementStatus = "采购中";
+      quotation.completionPaperStatus = "待制作";
+      quotation.completionPaperDueDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+      
+      saveDataToLocalStorage();
+      toast("已通知采购部启动采购流程，完工期限：2周");
+      render();
+    }
+
+    // 标记到货
+    function markProcurementArrived(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      quotation.procurementStatus = "已到货";
+      
+      saveDataToLocalStorage();
+      toast("已标记到货，通知TL和师傅");
+      render();
+    }
+
+    // 完工纸管理
+    function manageCompletionPaper(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      const action = prompt("请选择操作：\n1. 记录领取人\n2. 标记已完工\n\n请输入数字 1 或 2：");
+      
+      if (action === "1") {
+        const holder = prompt("请输入完工纸领取人姓名：");
+        if (holder === null) return;
+        quotation.completionPaperHolder = holder;
+        quotation.completionPaperStatus = "已领取";
+        saveDataToLocalStorage();
+        toast(`完工纸已领取，领取人：${holder}`);
+      } else if (action === "2") {
+        if (!quotation.completionPaperHolder) {
+          alert("请先记录领取人！");
+          return;
+        }
+        quotation.completionPaperStatus = "已完工";
+        saveDataToLocalStorage();
+        toast("完工纸已归还，工单可关闭");
+      }
+      
       render();
     }
 
@@ -6260,6 +6518,13 @@
       document.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
       document.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       document.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
+      
+      // 新增报价操作事件
+      document.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
+      document.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
+      document.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
+      document.querySelectorAll("[data-mark-arrived]").forEach(btn => btn.addEventListener("click", () => markProcurementArrived(btn.dataset.markArrived)));
+      document.querySelectorAll("[data-manage-paper]").forEach(btn => btn.addEventListener("click", () => manageCompletionPaper(btn.dataset.managePaper)));
       document.querySelectorAll("[data-quotation-page]").forEach(btn => btn.addEventListener("click", () => {
         const page = btn.dataset.quotationPage;
         const totalPages = Math.ceil(filterQuotations().length / quotationState.pageSize);
