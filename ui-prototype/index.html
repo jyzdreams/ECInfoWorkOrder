@@ -650,9 +650,235 @@
 
     .dispatch-grid {
       display: grid;
-      grid-template-columns: 1.05fr 1.15fr .95fr;
-      gap: 14px;
+      grid-template-columns: 3fr 2fr;
+      gap: 20px;
       align-items: start;
+      height: calc(100vh - 180px);
+    }
+    .dispatch-left, .dispatch-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-height: 0;
+    }
+    .dispatch-left {
+      height: calc(100vh - 180px);
+    }
+    .dispatch-right {
+      height: calc(100vh - 180px);
+    }
+    .dispatch-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .dispatch-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dispatch-section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .dispatch-pending-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dispatch-ticket-card {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .dispatch-ticket-card:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .dispatch-ticket-card.active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      box-shadow: 0 0 0 2px rgba(30,107,255,.1);
+    }
+    .dispatch-ticket-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dispatch-ticket-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .dispatch-ticket-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dispatch-ticket-desc {
+      font-size: 11px;
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .dispatch-confirm-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+    }
+    .dispatch-confirm-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .dispatch-confirm-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px 10px;
+      background: var(--panel-soft);
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .dispatch-confirm-item.full-width {
+      grid-column: 1 / -1;
+    }
+    .dispatch-confirm-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .dispatch-confirm-value {
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .dispatch-master-card {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .dispatch-master-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary-strong);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .dispatch-master-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .dispatch-master-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .dispatch-master-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dispatch-recommend-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dispatch-master-recommend {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .dispatch-master-recommend:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .dispatch-master-recommend.active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      box-shadow: 0 0 0 2px rgba(30,107,255,.1);
+    }
+    .dispatch-master-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .dispatch-master-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 4px;
+    }
+    .dispatch-assigned-table {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .dispatch-assigned-table table {
+      width: 100%;
+      font-size: 12px;
+    }
+    .dispatch-assigned-table th {
+      background: var(--panel-soft);
+      padding: 8px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+    }
+    .dispatch-assigned-table td {
+      padding: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .dispatch-assigned-table tr:hover {
+      background: var(--panel-soft);
     }
     .ticket-mini, .master-card {
       border: 1px solid var(--line);
@@ -3049,6 +3275,7 @@
 
     let state = {
       role: "ADMIN",
+      currentPerson: null, // 当前选择的具体人物（用于角色内切换）
       view: "pc",
       page: "dashboard",
       mobilePage: "tasks",
@@ -3080,8 +3307,37 @@
     const $ = (selector) => document.querySelector(selector);
     const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const ticketById = (id) => tickets.find(t => t.id === id) || tickets[0];
-    const currentRole = () => ROLES.find(r => r.key === state.role);
     const statusClass = (status) => `status-pill status-${status}`;
+    
+    // 获取当前角色对应的用户列表
+    function getUsersByRole(roleKey) {
+      const roleCode = {
+        CS: "CS",
+        TL: "TL",
+        MASTER: "MASTER",
+        QUO: "QUO",
+        PUR: "PUR",
+        FIN: "FIN",
+        ADMIN: "ADMIN"
+      }[roleKey];
+      return users.filter(u => u.role === roleCode && u.status === "启用");
+    }
+    
+    // 获取当前角色（支持人物切换）
+    const currentRole = () => {
+      const role = ROLES.find(r => r.key === state.role);
+      if (!role) return ROLES[0];
+      
+      // 如果有选择具体人物，返回该人物的信息
+      if (state.currentPerson) {
+        return {
+          ...role,
+          name: state.currentPerson.name,
+          avatar: state.currentPerson.name.slice(0, 1)
+        };
+      }
+      return role;
+    };
 
     function toast(message) {
       const el = $("#toast");
@@ -3127,6 +3383,10 @@
 
     function setRole(role) {
       state.role = role;
+      // 切换角色时，自动设置该角色下的第一个用户为当前人物
+      const roleUsers = getUsersByRole(role);
+      state.currentPerson = roleUsers.length > 0 ? roleUsers[0] : null;
+      
       if (role === "MASTER") {
         state.view = "mobile";
         state.mobilePage = "tasks";
@@ -3140,7 +3400,18 @@
         if (role === "FIN") state.page = "finance";
       }
       render();
-      toast(`已切换为 ${currentRole().label}`);
+      toast(`已切换为 ${currentRole().label} - ${currentRole().name}`);
+    }
+    
+    // 切换同一角色下的不同人物
+    function switchPerson(personName) {
+      const roleUsers = getUsersByRole(state.role);
+      const person = roleUsers.find(u => u.name === personName);
+      if (person) {
+        state.currentPerson = person;
+        render();
+        toast(`已切换为 ${personName}`);
+      }
     }
 
     function updateTicket(id, patch, note) {
@@ -3168,6 +3439,9 @@
 
     // 获取当前角色对应的用户ID
     function getCurrentUserId() {
+      if (state.currentPerson) {
+        return state.currentPerson.id;
+      }
       const role = currentRole();
       const user = users.find(u => u.name === role.name);
       return user ? user.id : null;
@@ -3778,7 +4052,28 @@
     }
 
     function renderShell() {
+      // 渲染角色切换按钮
       $("#roleSwitch").innerHTML = ROLES.map(r => `<button data-role="${r.key}" class="${state.role === r.key ? "active" : ""}">${r.label}</button>`).join("");
+      
+      // 渲染人物切换下拉框（在角色切换按钮下方）
+      const roleUsers = getUsersByRole(state.role);
+      const personSwitchHtml = roleUsers.length > 1 ? `
+        <div class="person-switch" style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 12px; color: var(--muted);">当前人物：</span>
+          <select id="personSwitch" style="padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer;">
+            ${roleUsers.map(u => `<option value="${u.name}" ${state.currentPerson?.name === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
+          </select>
+        </div>
+      ` : '';
+      
+      // 插入到角色切换按钮下方
+      const roleSwitchContainer = $("#roleSwitch").parentElement;
+      const existingPersonSwitch = roleSwitchContainer.querySelector('.person-switch');
+      if (existingPersonSwitch) existingPersonSwitch.remove();
+      if (personSwitchHtml) {
+        roleSwitchContainer.insertAdjacentHTML('beforeend', personSwitchHtml);
+      }
+      
       $("#viewSwitch").querySelectorAll("button").forEach(btn => btn.classList.toggle("active", btn.dataset.view === state.view));
       const role = currentRole();
       $("#avatarText").textContent = role.avatar;
@@ -4657,37 +4952,140 @@
       return `
         <section class="page active">
           <div class="dispatch-grid">
-            <div class="card">
-              <div class="card-head"><h2>待分派工单</h2><span class="chip">${pending.length} 条</span></div>
-              ${pending.map(t => `<button class="ticket-mini ${state.selectedDispatchId === t.id ? "active" : ""}" data-dispatch-ticket="${t.id}">
-                <strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span><p>${escapeHtml(t.customer)} · ${t.area} · ${t.type}</p><p>${escapeHtml(t.desc)}</p>
-              </button>`).join("") || '<p>暂无待分派工单</p>'}
-            </div>
-            <div class="card">
-              <div class="card-head"><h2>当天已派单</h2><span class="chip">${assigned.length} 条</span></div>
-              ${assigned.map(t => `<div class="ticket-mini">
-                <strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span><p>${escapeHtml(t.customer)} · ${t.master}</p>
-              </div>`).join("") || '<p>暂无当天已派单</p>'}
-            </div>
-            <div class="card">
-              <div class="card-head"><h2>推荐师傅 / 可选师傅</h2><span class="chip">人工选择</span></div>
-              ${masters.map(m => `<button class="master-card ${state.selectedMaster === m.name ? "active" : ""}" data-master="${m.name}">
-                <span class="master-avatar">${m.name.slice(0,1)}</span>
-                <span><strong>${m.name}</strong><p>${m.area} · ${m.skills} · 今日负载 ${m.load}</p></span>
-                <span class="tag">${m.tag}</span>
-              </button>`).join("")}
-            </div>
-            <div class="card">
-              <h2>分派确认</h2>
-              <div class="info-list" style="margin-top:12px;">
-                ${infoRow("工单", selected?.id || "无")}
-                ${infoRow("客户", selected?.customer || "无")}
-                ${infoRow("区域", selected?.area || "无")}
-                ${infoRow("选择师傅", master.name)}
-                ${infoRow("师傅状态", master.status)}
+            <!-- 左侧：待分派工单 + 分派确认 -->
+            <div class="dispatch-left">
+              <div class="dispatch-section" style="flex: 1.2;">
+                <h3 class="dispatch-section-title">待分派工单 <span class="chip" style="margin-left: auto;">${pending.length} 条</span></h3>
+                <div class="dispatch-pending-list">
+                  ${pending.length === 0 ? '<p style="text-align: center; color: var(--muted); padding: 20px;">暂无待分派工单</p>' : pending.map(t => `
+                    <div class="dispatch-ticket-card ${state.selectedDispatchId === t.id ? 'active' : ''}" data-dispatch-ticket="${t.id}">
+                      <div class="dispatch-ticket-info">
+                        <div class="dispatch-ticket-header">
+                          <span>${t.id}</span>
+                          <span class="tag ${statusClass(t.status)}" style="font-size: 10px; padding: 2px 6px;">${t.status}</span>
+                        </div>
+                        <div class="dispatch-ticket-meta">
+                          <span>🏢 ${escapeHtml(t.customer)}</span>
+                          <span>📍 ${t.area}</span>
+                          <span>🔧 ${t.type}</span>
+                        </div>
+                        <div class="dispatch-ticket-desc">${escapeHtml(t.desc)}</div>
+                      </div>
+                      <div style="font-size: 10px; color: var(--muted);">${t.createdAt}</div>
+                    </div>
+                  `).join("")}
+                </div>
               </div>
-              <div class="field" style="margin-top:12px;"><label>分派备注</label><textarea id="assignNote" placeholder="填写派工说明或注意事项"></textarea></div>
-              <button class="primary-btn" id="confirmAssign" style="width:100%;">确认分派</button>
+              
+              <div class="dispatch-section" style="flex: 1;">
+                <h3 class="dispatch-section-title">分派确认</h3>
+                ${selected ? `
+                  <div class="dispatch-confirm-section">
+                    <div class="dispatch-confirm-info">
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">工单编号</span>
+                        <span class="dispatch-confirm-value">${selected.id}</span>
+                      </div>
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">客户名称</span>
+                        <span class="dispatch-confirm-value">${escapeHtml(selected.customer)}</span>
+                      </div>
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">联系人</span>
+                        <span class="dispatch-confirm-value">${escapeHtml(selected.contact)}</span>
+                      </div>
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">联系电话</span>
+                        <span class="dispatch-confirm-value">${escapeHtml(selected.phone)}</span>
+                      </div>
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">区域</span>
+                        <span class="dispatch-confirm-value">${selected.area}</span>
+                      </div>
+                      <div class="dispatch-confirm-item">
+                        <span class="dispatch-confirm-label">工单类型</span>
+                        <span class="dispatch-confirm-value">${selected.type}</span>
+                      </div>
+                      <div class="dispatch-confirm-item full-width">
+                        <span class="dispatch-confirm-label">描述</span>
+                        <span class="dispatch-confirm-value">${escapeHtml(selected.desc)}</span>
+                      </div>
+                    </div>
+                    
+                    ${master ? `
+                      <div class="dispatch-master-card">
+                        <div class="dispatch-master-avatar">${master.name.slice(0,1)}</div>
+                        <div class="dispatch-master-info">
+                          <div class="dispatch-master-name">${master.name}</div>
+                          <div class="dispatch-master-meta">${master.area} · ${master.skills}</div>
+                        </div>
+                        <div class="tag">${master.tag}</div>
+                      </div>
+                    ` : ''}
+                    
+                    <div class="field">
+                      <label>派工备注</label>
+                      <textarea id="assignNote" placeholder="填写派工说明或注意事项" style="min-height: 60px;"></textarea>
+                    </div>
+                    
+                    <button class="primary-btn" id="confirmAssign" style="width: 100%; height: 40px;">确认分派</button>
+                  </div>
+                ` : '<p style="text-align: center; color: var(--muted); padding: 20px;">请选择工单</p>'}
+              </div>
+            </div>
+            
+            <!-- 右侧：推荐师傅 + 当天已派单 -->
+            <div class="dispatch-right">
+              <div class="dispatch-section" style="flex: 1.5;">
+                <h3 class="dispatch-section-title">推荐师傅</h3>
+                <div class="dispatch-recommend-list">
+                  ${masters.map(m => `
+                    <div class="dispatch-master-recommend ${state.selectedMaster === m.name ? 'active' : ''}" data-master="${m.name}">
+                      <div class="dispatch-master-avatar">${m.name.slice(0,1)}</div>
+                      <div class="dispatch-master-info">
+                        <div class="dispatch-master-name">${m.name}</div>
+                        <div class="dispatch-master-meta">${m.area} · 今日负载 ${m.load}</div>
+                        <div class="dispatch-master-tags">
+                          <span class="dispatch-master-tag">${m.skills}</span>
+                          <span class="dispatch-master-tag">区域匹配</span>
+                          <span class="dispatch-master-tag">负载较低</span>
+                        </div>
+                      </div>
+                      <div class="tag">${m.tag}</div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+              
+              <div class="dispatch-section" style="flex: 1;">
+                <h3 class="dispatch-section-title">当天已派单 <span class="chip" style="margin-left: auto;">${assigned.length} 条</span> <a href="#" style="margin-left: 8px; font-size: 11px; color: var(--primary); text-decoration: none;">查看更多</a></h3>
+                <div class="dispatch-assigned-table">
+                  ${assigned.length === 0 ? '<p style="text-align: center; color: var(--muted); padding: 20px;">暂无当天已派单</p>' : `
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>工单号</th>
+                          <th>客户</th>
+                          <th>师傅</th>
+                          <th>派单时间</th>
+                          <th>状态</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${assigned.map(t => `
+                          <tr>
+                            <td>${t.id}</td>
+                            <td>${escapeHtml(t.customer)}</td>
+                            <td>${escapeHtml(t.master)}</td>
+                            <td>${t.updatedAt}</td>
+                            <td><span class="tag ${statusClass(t.status)}">${t.status}</span></td>
+                          </tr>
+                        `).join("")}
+                      </tbody>
+                    </table>
+                  `}
+                </div>
+              </div>
             </div>
           </div>
         </section>`;
@@ -7133,6 +7531,15 @@
 
     function bindEvents() {
       document.querySelectorAll("[data-role]").forEach(btn => btn.addEventListener("click", () => setRole(btn.dataset.role)));
+      
+      // 人物切换事件绑定
+      const personSwitch = document.querySelector("#personSwitch");
+      if (personSwitch) {
+        personSwitch.addEventListener("change", (e) => {
+          switchPerson(e.target.value);
+        });
+      }
+      
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
         state.view = btn.dataset.view;
         if (state.view === "mobile" && state.role !== "MASTER") {
