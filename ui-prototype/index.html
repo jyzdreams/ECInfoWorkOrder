@@ -1447,10 +1447,69 @@
     [data-theme="dark"] .wo-status-待确认 { background: #3a1528; color: #ff9fbb; }
     [data-theme="dark"] .wo-status-已关闭 { background: #252b36; color: #b8c0cc; }
     [data-theme="dark"] .wo-status-已取消 { background: #1e2229; color: #8a92a0; }
+    .wo-td-actions {
+      width: 190px;
+      min-width: 190px;
+      max-width: 190px;
+      white-space: nowrap;
+    }
+    .wo-td-actions > div {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+    }
+    .wo-actions-left {
+      width: 70px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-actions-right {
+      width: 100px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-urge-btn {
+      width: 70px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid #f59e0b;
+      background: #ffffff;
+      color: #f59e0b;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-urge-btn:hover {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #d97706;
+    }
+    [data-theme="dark"] .wo-urge-btn {
+      background: #1a1a1a;
+      color: #fbbf24;
+      border-color: #92400e;
+    }
+    [data-theme="dark"] .wo-urge-btn:hover {
+      background: #422006;
+      color: #fbbf24;
+    }
     .wo-view-btn {
-      padding: 6px 12px;
+      width: 100px;
+      height: 36px;
+      padding: 0;
       border: 1px solid var(--primary);
-      background: transparent;
+      background: #ffffff;
       color: var(--primary);
       border-radius: 6px;
       font-size: 12px;
@@ -1458,44 +1517,20 @@
       cursor: pointer;
       transition: all 0.15s ease;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     .wo-view-btn:hover {
-      background: var(--primary);
-      color: #fff;
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary-strong);
     }
-    .wo-urge-btn {
-      padding: 6px 12px;
-      border: 1px solid #f59e0b;
-      background: #fffbeb;
-      color: #b45309;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
+    [data-theme="dark"] .wo-view-btn {
+      background: #1a1a1a;
     }
-    .wo-urge-btn:hover {
-      background: #f59e0b;
-      color: #fff;
-    }
-    [data-theme="dark"] .wo-urge-btn {
-      background: #422006;
-      color: #fbbf24;
-      border-color: #92400e;
-    }
-    [data-theme="dark"] .wo-urge-btn:hover {
-      background: #f59e0b;
-      color: #fff;
-    }
-    .wo-td-actions {
-      min-width: 180px;
-      white-space: nowrap;
-    }
-    .wo-td-actions > div {
-      display: flex;
-      gap: 6px;
-      align-items: center;
+    [data-theme="dark"] .wo-view-btn:hover {
+      background: var(--primary-soft);
     }
     .wo-drawer {
       background: var(--panel);
@@ -4216,8 +4251,12 @@
                 <td>${t.updatedAt}</td>
                 <td class="wo-td-actions">
                   <div>
-                    ${showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催单</button>` : ''}
-                    <button class="wo-view-btn" data-wo-view="${t.id}">查看详情</button>
+                    <div class="wo-actions-left">
+                      ${showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催单</button>` : '<div style="width:70px;height:36px;visibility:hidden;"></div>'}
+                    </div>
+                    <div class="wo-actions-right">
+                      <button class="wo-view-btn" data-wo-view="${t.id}">查看详情</button>
+                    </div>
                   </div>
                 </td>
               </tr>
