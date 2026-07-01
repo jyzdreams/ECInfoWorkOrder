@@ -4105,7 +4105,7 @@
         // TL编辑工单
         openEditWorkOrderModal(id);
       }
-      if (action === "createQuotationFromTicket") {
+      if (action === "createQuotationFromTicket" || action === "quote") {
         // 报价组从工单创建报价
         openQuotationModalFromTicket(id);
         return;
@@ -4659,7 +4659,7 @@
               if (isQUO) {
                 if (!needQuotation) {
                   quotationBtnHtml = '<div style="width:70px;height:36px;visibility:hidden;"></div>';
-                } else if (quotationStatus === "待报价" || quotationStatus === "需修订") {
+                } else if (!quotationStatus || quotationStatus === "待报价" || quotationStatus === "需修订") {
                   quotationBtnHtml = `<button class="wo-quote-btn wo-quote-primary" data-action="quote" data-id="${t.id}">报价</button>`;
                 } else if (["已发出", "等待客户确认", "已确认", "已取消"].includes(quotationStatus)) {
                   quotationBtnHtml = `<button class="wo-quote-btn wo-quote-secondary" data-action="viewQuote" data-id="${t.id}">查看报价</button>`;
@@ -4878,6 +4878,13 @@
                     <input type="text" value="${currentRole().name}" disabled>
                   </div>
                   <div class="wo-form-group">
+                    <label>负责TL <span class="required">*</span></label>
+                    <select name="tl" required>
+                      <option value="">请选择TL</option>
+                      ${users.filter(u => u.role === 'TL' && u.status === '启用').map(u => `<option value="${u.name}" ${isEdit && ticket.tl === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="wo-form-group">
                     <label>客户 <span class="required">*</span></label>
                     <select name="customerId" id="customerSelect" required>
                       <option value="">请选择客户</option>
@@ -4989,7 +4996,7 @@
         desc: formData.get('desc'),
         status: isEdit ? ticketById(ticketId).status : '待受理',
         owner: isEdit ? ticketById(ticketId).owner : currentRole().name,
-        tl: isEdit ? ticketById(ticketId).tl : currentRole().name,
+        tl: formData.get('tl') || (isEdit ? ticketById(ticketId).tl : currentRole().name),
         master: isEdit ? ticketById(ticketId).master : '',
         createdAt: isEdit ? ticketById(ticketId).createdAt : new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
         updatedAt: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
