@@ -312,28 +312,47 @@
       display: flex;
       flex-direction: column;
     }
-    .topbar {
+    /* 第一层：系统级导航 */
+    .topbar-system {
       position: sticky;
       top: 0;
       z-index: 100;
-      min-height: 66px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 12px 22px;
-      background: rgba(244,247,251,.82);
+      padding: 0 24px;
+      background: rgba(244,247,251,.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
-      flex-wrap: wrap;
+      transition: all 0.25s ease;
     }
-    [data-theme="dark"] .topbar { background: rgba(13,21,35,.82); }
-    .topbar-left, .topbar-right {
+    [data-theme="dark"] .topbar-system { background: rgba(13,21,35,.92); }
+    .topbar-system-left, .topbar-system-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       min-width: 0;
-      flex-wrap: wrap;
+    }
+    /* 第二层：工作区导航 */
+    .topbar-workspace {
+      position: sticky;
+      top: 64px;
+      z-index: 99;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--line);
+      transition: all 0.25s ease;
+    }
+    [data-theme="dark"] .topbar-workspace { background: #1a2332; }
+    .topbar-workspace-left, .topbar-workspace-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .page-heading {
       min-width: 170px;
@@ -777,8 +796,10 @@
     @media (max-width: 860px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { position: relative; height: auto; display: none; }
-      .topbar { position: static; flex-direction: column; align-items: stretch; }
-      .topbar-left, .topbar-right { flex-wrap: wrap; }
+      .topbar-system { position: static; flex-direction: column; align-items: stretch; height: auto; padding: 12px 24px; }
+      .topbar-system-left, .topbar-system-right { flex-wrap: wrap; justify-content: center; }
+      .topbar-workspace { position: static; flex-direction: column; align-items: stretch; height: auto; padding: 12px 24px; }
+      .topbar-workspace-left, .topbar-workspace-right { flex-wrap: wrap; justify-content: center; }
       .content { padding: 14px; }
       .cols-2, .cols-3, .cols-4, .cols-8 { grid-template-columns: 1fr; }
       .filters, .form-grid { grid-template-columns: 1fr; }
@@ -1876,19 +1897,15 @@
     </aside>
 
     <main class="main">
-      <header class="topbar">
-        <div class="topbar-left">
+      <!-- 第一层：系统级导航 -->
+      <header class="topbar-system">
+        <div class="topbar-system-left">
           <div class="page-heading">
             <h1 id="pageTitle">首页 / 工单看板</h1>
             <p id="pageSub">客户流程确认版 UI 原型</p>
           </div>
-          <div class="segmented" id="roleSwitch" aria-label="角色切换"></div>
-          <div class="segmented" id="viewSwitch" aria-label="视图切换">
-            <button data-view="pc" class="active">PC 端</button>
-            <button data-view="mobile">移动端</button>
-          </div>
         </div>
-        <div class="topbar-right">
+        <div class="topbar-system-right">
           <button class="toolbar-btn" id="themeBtn">暗色模式</button>
           <div class="noti-wrapper" id="notiWrapper">
             <button class="noti-bell" id="notiBell" title="通知中心">
@@ -1913,6 +1930,18 @@
               <button>通知设置</button>
               <button>退出登录</button>
             </div>
+          </div>
+        </div>
+      </header>
+      <!-- 第二层：工作区导航 -->
+      <header class="topbar-workspace">
+        <div class="topbar-workspace-left">
+          <div class="segmented" id="roleSwitch" aria-label="角色切换"></div>
+        </div>
+        <div class="topbar-workspace-right">
+          <div class="segmented" id="viewSwitch" aria-label="视图切换">
+            <button data-view="pc" class="active">PC 端</button>
+            <button data-view="mobile">移动端</button>
           </div>
         </div>
       </header>
