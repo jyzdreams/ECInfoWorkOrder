@@ -1939,7 +1939,7 @@
   <script>
     // 本文件为静态 UI 原型：仅使用前端模拟数据，不连接后端、数据库或真实接口。
     const STATUSES = ["待受理", "待分派", "待接单", "处理中", "待确认", "已关闭", "已取消"];
-    const TYPES = ["来电 / 服务记录", "PM / 维修 / 保养", "CM / 特殊任务"];
+    const TYPES = ["保养维修", "工程维修"];
     const REGIONS = ["香港", "九龙", "新界"];
     const CHANNELS = ["电话", "WhatsApp", "现场沟通", "邮件"];
     const ROLES = [
@@ -1974,73 +1974,73 @@
     // 从 localStorage 读取数据，如果没有则使用默认数据
     let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets')) || [
       {
-        id: "WO-20260615-001", customerId: "CUST-0001", type: "来电 / 服务记录", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260615-001", customerId: "CUST-0001", type: "保养维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "电话", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
         desc: "客户来电反馈门禁读卡失败，需要先确认是否可远程处理。", records: [{ time: "09:10", actor: "CS 陈小姐", text: "记录客户来电，待受理判断。" }],
         attachments: [], tags: ["电话记录"], urgent: false
       },
       {
-        id: "WO-20260615-002", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260615-002", customerId: "CUST-0002", type: "保养维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "WhatsApp", area: "九龙", address: "九龙湾宏照道 16 号停车场中控室", status: "待分派", owner: "李组长", tl: "李组长", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
         desc: "停车场出入口闸机保养，现场反馈开合速度变慢。", records: [{ time: "09:28", actor: "CS 陈小姐", text: "WhatsApp 收到服务请求并建单。" }, { time: "09:40", actor: "CS 陈小姐", text: "确认需要派工，进入待分派。" }],
         attachments: ["现场入口照片"], tags: ["保养"], urgent: true
       },
       {
-        id: "WO-20260615-003", customerId: "CUST-0003", type: "CM / 特殊任务", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        id: "WO-20260615-003", customerId: "CUST-0003", type: "工程维修", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
         channel: "现场沟通", area: "新界", address: "沙田科技园 3 座", status: "待接单", owner: "吴师傅", tl: "王组长", master: "吴师傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
         desc: "临时加装临场设备检查，需熟悉视频监控系统的师傅处理。", records: [{ time: "10:02", actor: "王组长", text: "创建特殊任务。" }, { time: "10:18", actor: "王组长", text: "分派给吴师傅，等待接单。" }],
         attachments: [], tags: ["特殊任务"], urgent: false
       },
       {
-        id: "WO-20260615-004", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        id: "WO-20260615-004", customerId: "CUST-0004", type: "保养维修", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
         channel: "电话", area: "新界", address: "荃湾青山公路 200 号", status: "处理中", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
         desc: "CCTV 局部画面不稳定，需现场检查线路和设备。", records: [{ time: "10:20", actor: "CS 陈小姐", text: "电话建单。" }, { time: "10:35", actor: "李组长", text: "分派给周师傅。" }, { time: "10:42", actor: "周师傅", text: "已接单，前往现场。" }, { time: "11:15", actor: "周师傅", text: "已到场检查线路。" }],
         attachments: ["线路照片", "设备照片"], tags: ["图片附件"], urgent: false
       },
       {
-        id: "WO-20260615-005", customerId: "CUST-0005", type: "来电 / 服务记录", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        id: "WO-20260615-005", customerId: "CUST-0005", type: "保养维修", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
         channel: "邮件", area: "香港", address: "湾仔告士打道 55 号", status: "待确认", owner: "李组长", tl: "李组长", master: "黄师傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
         desc: "客户邮件反馈广播系统音量异常，师傅已完成检查并提交记录。", records: [{ time: "08:20", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "09:00", actor: "李组长", text: "分派给黄师傅。" }, { time: "11:35", actor: "黄师傅", text: "已调整音量并提交处理结果。" }],
         attachments: ["调试前照片", "调试后照片"], tags: ["待确认"], urgent: false
       },
       {
-        id: "WO-20260614-006", customerId: "CUST-0001", type: "PM / 维修 / 保养", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260614-006", customerId: "CUST-0001", type: "保养维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "WhatsApp", area: "香港", address: "中环德辅道中 88 号", status: "已关闭", owner: "李组长", tl: "李组长", master: "吴师傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
         desc: "门禁控制器例行保养，已完成。", records: [{ time: "14:10", actor: "CS 陈小姐", text: "创建 PM 工单。" }, { time: "16:40", actor: "吴师傅", text: "完成保养并上传照片。" }, { time: "17:20", actor: "李组长", text: "确认通过，工单关闭。" }],
         attachments: ["保养照片"], tags: ["已完成"], urgent: false
       },
       {
-        id: "WO-20260614-007", customerId: "CUST-0002", type: "CM / 特殊任务", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260614-007", customerId: "CUST-0002", type: "工程维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "电话", area: "九龙", address: "九龙湾宏照道 16 号", status: "已取消", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
         desc: "客户重复报修，确认已有同类工单处理中。", records: [{ time: "15:30", actor: "CS 陈小姐", text: "记录客户来电。" }, { time: "15:50", actor: "CS 陈小姐", text: "确认重复工单，取消处理。" }],
         attachments: [], tags: ["重复工单"], urgent: false, cancelReason: "重复工单"
       },
       {
-        id: "WO-20260614-008", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        id: "WO-20260614-008", customerId: "CUST-0004", type: "保养维修", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
         channel: "现场沟通", area: "新界", address: "荃湾青山公路 200 号", status: "待分派", owner: "王组长", tl: "王组长", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
         desc: "水浸报警设备检查，前次分派被拒单，需要重新分派。", records: [{ time: "16:10", actor: "王组长", text: "创建维修保养工单。" }, { time: "16:26", actor: "黄师傅", text: "拒单：当前现场任务未完成，无法按时到场。" }, { time: "16:40", actor: "王组长", text: "退回待分派，等待重新安排。" }],
         attachments: ["报警设备照片"], tags: ["拒单示例"], urgent: true, rejectReason: "当前现场任务未完成，无法按时到场。"
       },
       {
-        id: "WO-20260613-009", customerId: "CUST-0003", type: "来电 / 服务记录", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        id: "WO-20260613-009", customerId: "CUST-0003", type: "保养维修", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
         channel: "电话", area: "九龙", address: "观塘开源道 72 号", status: "已关闭", owner: "王组长", tl: "王组长", master: "梁师傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
         desc: "来电咨询摄像头离线，CS 协助确认电源重启后恢复。", records: [{ time: "11:10", actor: "CS 陈小姐", text: "电话记录。" }, { time: "13:00", actor: "王组长", text: "确认现场已恢复，关闭。" }],
         attachments: [], tags: ["现场解决"], urgent: false
       },
       {
-        id: "WO-20260613-010", customerId: "CUST-0005", type: "CM / 特殊任务", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        id: "WO-20260613-010", customerId: "CUST-0005", type: "工程维修", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
         channel: "WhatsApp", area: "香港", address: "湾仔告士打道 55 号", status: "处理中", owner: "梁师傅", tl: "李组长", master: "梁师傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
         desc: "临时协助现场设备移位，需补充位置照片后继续处理。", records: [{ time: "14:35", actor: "李组长", text: "创建特殊任务并分派。" }, { time: "15:10", actor: "梁师傅", text: "现场空间受限，需要客户确认设备位置。" }],
         attachments: ["现场位置照片"], tags: ["无法完成示例"], urgent: false
       },
       {
-        id: "WO-20260612-011", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260612-011", customerId: "CUST-0002", type: "保养维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "邮件", area: "九龙", address: "九龙湾宏照道 16 号", status: "待接单", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
         desc: "巡检发现停车场显示屏闪烁，安排师傅处理。", records: [{ time: "10:05", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "10:30", actor: "李组长", text: "分派给周师傅。" }],
         attachments: [], tags: ["待接单"], urgent: false
       },
       {
-        id: "WO-20260612-012", customerId: "CUST-0001", type: "CM / 特殊任务", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260612-012", customerId: "CUST-0001", type: "工程维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "现场沟通", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "王组长", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
         desc: "客户提出临时设备测试需求，需 CS 确认是否进入派工。", records: [{ time: "09:00", actor: "CS 陈小姐", text: "现场沟通记录，待受理。" }],
         attachments: [], tags: ["待确认范围"], urgent: false
@@ -2295,73 +2295,73 @@
     // 默认数据（用于初始化和重置）
     const DEFAULT_TICKETS = [
       {
-        id: "WO-20260615-001", customerId: "CUST-0001", type: "来电 / 服务记录", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260615-001", customerId: "CUST-0001", type: "保养维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "电话", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
         desc: "客户来电反馈门禁读卡失败，需要先确认是否可远程处理。", records: [{ time: "09:10", actor: "CS 陈小姐", text: "记录客户来电，待受理判断。" }],
         attachments: [], tags: ["电话记录"], urgent: false
       },
       {
-        id: "WO-20260615-002", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260615-002", customerId: "CUST-0002", type: "保养维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "WhatsApp", area: "九龙", address: "九龙湾宏照道 16 号停车场中控室", status: "待分派", owner: "李组长", tl: "李组长", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
         desc: "停车场出入口闸机保养，现场反馈开合速度变慢。", records: [{ time: "09:28", actor: "CS 陈小姐", text: "WhatsApp 收到服务请求并建单。" }, { time: "09:40", actor: "CS 陈小姐", text: "确认需要派工，进入待分派。" }],
         attachments: ["现场入口照片"], tags: ["保养"], urgent: true
       },
       {
-        id: "WO-20260615-003", customerId: "CUST-0003", type: "CM / 特殊任务", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        id: "WO-20260615-003", customerId: "CUST-0003", type: "工程维修", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
         channel: "现场沟通", area: "新界", address: "沙田科技园 3 座", status: "待接单", owner: "吴师傅", tl: "王组长", master: "吴师傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
         desc: "临时加装临场设备检查，需熟悉视频监控系统的师傅处理。", records: [{ time: "10:02", actor: "王组长", text: "创建特殊任务。" }, { time: "10:18", actor: "王组长", text: "分派给吴师傅，等待接单。" }],
         attachments: [], tags: ["特殊任务"], urgent: false
       },
       {
-        id: "WO-20260615-004", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        id: "WO-20260615-004", customerId: "CUST-0004", type: "保养维修", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
         channel: "电话", area: "新界", address: "荃湾青山公路 200 号", status: "处理中", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
         desc: "CCTV 局部画面不稳定，需现场检查线路和设备。", records: [{ time: "10:20", actor: "CS 陈小姐", text: "电话建单。" }, { time: "10:35", actor: "李组长", text: "分派给周师傅。" }, { time: "10:42", actor: "周师傅", text: "已接单，前往现场。" }, { time: "11:15", actor: "周师傅", text: "已到场检查线路。" }],
         attachments: ["线路照片", "设备照片"], tags: ["图片附件"], urgent: false
       },
       {
-        id: "WO-20260615-005", customerId: "CUST-0005", type: "来电 / 服务记录", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        id: "WO-20260615-005", customerId: "CUST-0005", type: "保养维修", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
         channel: "邮件", area: "香港", address: "湾仔告士打道 55 号", status: "待确认", owner: "李组长", tl: "李组长", master: "黄师傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
         desc: "客户邮件反馈广播系统音量异常，师傅已完成检查并提交记录。", records: [{ time: "08:20", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "09:00", actor: "李组长", text: "分派给黄师傅。" }, { time: "11:35", actor: "黄师傅", text: "已调整音量并提交处理结果。" }],
         attachments: ["调试前照片", "调试后照片"], tags: ["待确认"], urgent: false
       },
       {
-        id: "WO-20260614-006", customerId: "CUST-0001", type: "PM / 维修 / 保养", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260614-006", customerId: "CUST-0001", type: "保养维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "WhatsApp", area: "香港", address: "中环德辅道中 88 号", status: "已关闭", owner: "李组长", tl: "李组长", master: "吴师傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
         desc: "门禁控制器例行保养，已完成。", records: [{ time: "14:10", actor: "CS 陈小姐", text: "创建 PM 工单。" }, { time: "16:40", actor: "吴师傅", text: "完成保养并上传照片。" }, { time: "17:20", actor: "李组长", text: "确认通过，工单关闭。" }],
         attachments: ["保养照片"], tags: ["已完成"], urgent: false
       },
       {
-        id: "WO-20260614-007", customerId: "CUST-0002", type: "CM / 特殊任务", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260614-007", customerId: "CUST-0002", type: "工程维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "电话", area: "九龙", address: "九龙湾宏照道 16 号", status: "已取消", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
         desc: "客户重复报修，确认已有同类工单处理中。", records: [{ time: "15:30", actor: "CS 陈小姐", text: "记录客户来电。" }, { time: "15:50", actor: "CS 陈小姐", text: "确认重复工单，取消处理。" }],
         attachments: [], tags: ["重复工单"], urgent: false, cancelReason: "重复工单"
       },
       {
-        id: "WO-20260614-008", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        id: "WO-20260614-008", customerId: "CUST-0004", type: "保养维修", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
         channel: "现场沟通", area: "新界", address: "荃湾青山公路 200 号", status: "待分派", owner: "王组长", tl: "王组长", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
         desc: "水浸报警设备检查，前次分派被拒单，需要重新分派。", records: [{ time: "16:10", actor: "王组长", text: "创建维修保养工单。" }, { time: "16:26", actor: "黄师傅", text: "拒单：当前现场任务未完成，无法按时到场。" }, { time: "16:40", actor: "王组长", text: "退回待分派，等待重新安排。" }],
         attachments: ["报警设备照片"], tags: ["拒单示例"], urgent: true, rejectReason: "当前现场任务未完成，无法按时到场。"
       },
       {
-        id: "WO-20260613-009", customerId: "CUST-0003", type: "来电 / 服务记录", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        id: "WO-20260613-009", customerId: "CUST-0003", type: "保养维修", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
         channel: "电话", area: "九龙", address: "观塘开源道 72 号", status: "已关闭", owner: "王组长", tl: "王组长", master: "梁师傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
         desc: "来电咨询摄像头离线，CS 协助确认电源重启后恢复。", records: [{ time: "11:10", actor: "CS 陈小姐", text: "电话记录。" }, { time: "13:00", actor: "王组长", text: "确认现场已恢复，关闭。" }],
         attachments: [], tags: ["现场解决"], urgent: false
       },
       {
-        id: "WO-20260613-010", customerId: "CUST-0005", type: "CM / 特殊任务", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        id: "WO-20260613-010", customerId: "CUST-0005", type: "工程维修", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
         channel: "WhatsApp", area: "香港", address: "湾仔告士打道 55 号", status: "处理中", owner: "梁师傅", tl: "李组长", master: "梁师傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
         desc: "临时协助现场设备移位，需补充位置照片后继续处理。", records: [{ time: "14:35", actor: "李组长", text: "创建特殊任务并分派。" }, { time: "15:10", actor: "梁师傅", text: "现场空间受限，需要客户确认设备位置。" }],
         attachments: ["现场位置照片"], tags: ["无法完成示例"], urgent: false
       },
       {
-        id: "WO-20260612-011", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        id: "WO-20260612-011", customerId: "CUST-0002", type: "保养维修", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
         channel: "邮件", area: "九龙", address: "九龙湾宏照道 16 号", status: "待接单", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
         desc: "巡检发现停车场显示屏闪烁，安排师傅处理。", records: [{ time: "10:05", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "10:30", actor: "李组长", text: "分派给周师傅。" }],
         attachments: [], tags: ["待接单"], urgent: false
       },
       {
-        id: "WO-20260612-012", customerId: "CUST-0001", type: "CM / 特殊任务", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        id: "WO-20260612-012", customerId: "CUST-0001", type: "工程维修", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "现场沟通", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "王组长", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
         desc: "客户提出临时设备测试需求，需 CS 确认是否进入派工。", records: [{ time: "09:00", actor: "CS 陈小姐", text: "现场沟通记录，待受理。" }],
         attachments: [], tags: ["待确认范围"], urgent: false
@@ -3654,6 +3654,15 @@
               <div><h2>新建工单 / 来电记录</h2><p>由 CS 记录电话、WhatsApp、现场沟通或邮件服务请求。</p></div>
               <span class="chip">新建后状态：待受理</span>
             </div>
+            ${formSection("来电判断", `
+              <div class="field wide"><label class="required">是否需要创建工单？</label>
+                <select name="needTicket" id="needTicketSelect" required>
+                  <option value="yes">需要创建工单（需要派工/现场解决/取消）</option>
+                  <option value="no">仅答疑（不创建工单）</option>
+                </select>
+              </div>
+            `)}
+            <div id="ticketFormContent">
             ${formSection("基本信息", `
               <div class="field"><label>工单编号</label><input value="自动生成" disabled></div>
               <div class="field"><label>创建人</label><input value="${currentRole().name}" disabled></div>
@@ -3722,7 +3731,7 @@
                 ${infoRow("地址", t.address)}
                 ${infoRow("Team Leader", t.tl)}
                 ${infoRow("师傅", t.master || "待分派")}
-                ${infoRow("创建时间", t.createdAt)}
+                ${infoRow("开单时间", t.createdAt)}
                 ${infoRow("更新时间", t.updatedAt)}
               </div>
             </div>
@@ -3737,7 +3746,7 @@
               <h2>当前处理信息</h2>
               <div class="info-list" style="margin-top:12px;">
                 ${infoRow("标签", t.tags.join("、") || "无")}
-                ${infoRow("是否紧急", t.urgent ? "是" : "否")}
+                ${infoRow("优先级", t.priority || (t.urgent ? "紧急" : "普通"))}
                 ${infoRow("拒单原因", t.rejectReason || "无")}
                 ${infoRow("取消原因", t.cancelReason || "无")}
               </div>
@@ -3980,7 +3989,7 @@
               <h4>其他信息</h4>
               <div class="wo-detail-grid">
                 <div class="wo-detail-item">
-                  <span class="wo-detail-label">创建时间</span>
+                  <span class="wo-detail-label">开单时间</span>
                   <span class="wo-detail-value">${ticket.createdAt}</span>
                 </div>
                 <div class="wo-detail-item">
@@ -4075,10 +4084,9 @@
                   <div class="wo-form-group">
                     <label>优先级</label>
                     <select name="priority">
-                      <option ${isEdit && !ticket.urgent ? 'selected' : ''}>低</option>
-                      <option selected>中</option>
-                      <option ${isEdit && ticket.urgent ? 'selected' : ''}>高</option>
-                      <option>紧急</option>
+                      <option selected>普通</option>
+                      <option ${isEdit && ticket.urgent ? 'selected' : ''}>紧急</option>
+                      <option ${isEdit && ticket.urgent && ticket.priority === '非常紧急' ? 'selected' : ''}>非常紧急</option>
                     </select>
                   </div>
                   <div class="wo-form-group full-width">
@@ -4155,7 +4163,8 @@
         records: isEdit ? ticketById(ticketId).records : [{ time: new Date().toLocaleString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }), actor: currentRole().name, text: '创建工单' }],
         attachments: formData.get('attachments') ? formData.get('attachments').split(',').map(a => a.trim()).filter(Boolean) : [],
         tags: [],
-        urgent: formData.get('priority') === '紧急' || formData.get('priority') === '高'
+        urgent: formData.get('priority') === '紧急' || formData.get('priority') === '非常紧急',
+        priority: formData.get('priority')
       };
 
       if (isEdit) {
@@ -5945,9 +5954,31 @@
       }));
       const form = $("#createForm");
       if (form) {
+        // 处理来电判断逻辑
+        const needTicketSelect = form.querySelector("#needTicketSelect");
+        const ticketFormContent = form.querySelector("#ticketFormContent");
+        if (needTicketSelect && ticketFormContent) {
+          needTicketSelect.addEventListener("change", () => {
+            if (needTicketSelect.value === "no") {
+              ticketFormContent.style.display = "none";
+            } else {
+              ticketFormContent.style.display = "block";
+            }
+          });
+        }
+        
         form.addEventListener("submit", (event) => {
           event.preventDefault();
           const data = new FormData(form);
+          
+          // 如果选择仅答疑，不创建工单
+          if (data.get("needTicket") === "no") {
+            toast("已记录答疑，未创建工单");
+            state.page = "dashboard";
+            render();
+            return;
+          }
+          
           const id = `WO-20260615-${String(tickets.length + 1).padStart(3, "0")}`;
           const customerId = data.get("customerId");
           const customer = customers.find(c => c.id === customerId);
