@@ -63,10 +63,10 @@
     .app {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 236px 1fr;
-      transition: grid-template-columns .18s ease;
+      grid-template-columns: 260px 1fr;
+      transition: grid-template-columns .3s ease;
     }
-    .app.sidebar-collapsed { grid-template-columns: 72px 1fr; }
+    .app.sidebar-collapsed { grid-template-columns: 92px 1fr; }
 
     .sidebar {
       position: sticky;
@@ -77,6 +77,7 @@
       border-right: 1px solid rgba(255,255,255,.08);
       padding: 14px 10px;
       overflow: hidden;
+      transition: width .3s ease;
     }
     .brand {
       height: 52px;
@@ -104,16 +105,22 @@
     }
     .brand-title strong { display: block; font-size: 14px; line-height: 1.2; }
     .brand-title span { display: block; font-size: 11px; color: rgba(233,241,255,.7); margin-top: 3px; }
-    .collapse-btn {
+    .hamburger-btn {
       width: 100%;
-      height: 34px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 7px;
+      height: 40px;
+      border: 0;
+      border-radius: 8px;
       background: rgba(255,255,255,.06);
       color: #d8e6ff;
       margin: 4px 0 14px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
     }
-    .nav-list { display: grid; gap: 5px; }
+    .hamburger-btn:hover { background: rgba(255,255,255,.12); }
+    .nav-list { display: grid; gap: 10px; }
     .nav-item {
       height: 42px;
       border: 0;
@@ -126,9 +133,61 @@
       gap: 10px;
       padding: 0 12px;
       text-align: left;
+      transition: all .2s;
     }
     .nav-item:hover { background: rgba(255,255,255,.08); }
     .nav-item.active { background: #1768ff; color: #fff; box-shadow: 0 8px 18px rgba(23,104,255,.24); }
+    
+    /* Settings Accordion Styles */
+    .nav-item-parent {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .nav-item-settings {
+      position: relative;
+    }
+    .nav-arrow {
+      margin-left: auto;
+      font-size: 10px;
+      transition: transform 0.3s ease;
+      color: #d7e5f8;
+    }
+    .nav-arrow.expanded {
+      transform: rotate(90deg);
+    }
+    .nav-submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      margin-left: 32px;
+    }
+    .nav-submenu.expanded {
+      max-height: 200px;
+    }
+    .nav-subitem {
+      height: 36px;
+      border: 0;
+      width: 100%;
+      color: #d7e5f8;
+      background: transparent;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      text-align: left;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+    .nav-subitem:hover {
+      background: rgba(30, 107, 255, 0.15);
+    }
+    .nav-subitem.active {
+      background: rgba(30, 107, 255, 0.25);
+      color: #fff;
+      font-weight: 500;
+    }
+    
     .nav-icon {
       width: 22px;
       height: 22px;
@@ -139,11 +198,114 @@
       border-radius: 6px;
       flex: 0 0 auto;
     }
+    
+    /* Collapsed Sidebar Styles */
     .app.sidebar-collapsed .brand-title,
     .app.sidebar-collapsed .nav-label,
-    .app.sidebar-collapsed .collapse-text { display: none; }
+    .app.sidebar-collapsed .nav-arrow { display: none; }
     .app.sidebar-collapsed .brand { justify-content: center; padding: 0; }
-    .app.sidebar-collapsed .nav-item { justify-content: center; padding: 0; }
+    .app.sidebar-collapsed .nav-list { gap: 10px; }
+    .app.sidebar-collapsed .nav-item {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      padding: 0;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    .app.sidebar-collapsed .nav-item-parent {
+      position: relative;
+    }
+    .app.sidebar-collapsed .nav-item-settings {
+      position: relative;
+    }
+    .app.sidebar-collapsed .nav-submenu {
+      display: none;
+    }
+    .app.sidebar-collapsed .nav-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+    }
+    
+    /* Collapsed button with single character */
+    .nav-collapsed-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-collapsed-char {
+      font-size: 18px;
+      font-weight: 600;
+      color: #d7e5f8;
+    }
+    .nav-collapsed-btn.active .nav-collapsed-char {
+      color: #fff;
+    }
+    
+    /* Tooltip for collapsed sidebar */
+    .nav-tooltip {
+      position: fixed;
+      left: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      color: #1e293b;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      white-space: nowrap;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .nav-tooltip.show {
+      opacity: 1;
+    }
+    
+    /* Settings Popover for collapsed sidebar */
+    .settings-popover {
+      position: fixed;
+      left: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      z-index: 1000;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .settings-popover.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .settings-popover-item {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 16px;
+      border: 0;
+      width: 100%;
+      background: transparent;
+      color: #1e293b;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .settings-popover-item:hover {
+      background: rgba(30, 107, 255, 0.08);
+    }
+    .settings-popover-item.active {
+      background: #1e6bff;
+      color: #fff;
+    }
 
     .main {
       min-width: 0;
@@ -1707,7 +1869,7 @@
           <span>DingTalk MVP 原型</span>
         </div>
       </div>
-      <button class="collapse-btn" id="collapseBtn" title="收起 / 展开侧边栏"><span class="collapse-text">收起菜单</span></button>
+      <button class="hamburger-btn" id="hamburgerBtn" title="收起 / 展开侧边栏">☰</button>
       <nav class="nav-list" id="navList"></nav>
     </aside>
 
@@ -1790,11 +1952,9 @@
       { key: "dashboard", label: "首页 / 工单看板", icon: "首", sub: "查看状态、待办、异常和最近动态" },
       { key: "workorder", label: "工单管理", icon: "单", sub: "管理、新建与查看工单" },
       { key: "dispatch", label: "分派中心", icon: "派", sub: "Team Leader 分派，师傅接单 / 拒单" },
-      { key: "users", label: "用户管理", icon: "人", sub: "管理系统用户、角色和权限" },
-      { key: "customers", label: "客户管理", icon: "客", sub: "管理客户信息、联系人和地址" },
       { key: "quotations", label: "报价管理", icon: "报", sub: "管理报价记录、状态和关联工单" },
       { key: "report", label: "统计报表", icon: "统", sub: "MVP 基础统计，不含复杂 BI" },
-      { key: "settings", label: "基础设置", icon: "设", sub: "简化维护类型、区域、人员和通知口径" }
+      { key: "settings", label: "基础设置", icon: "设", sub: "字典管理、客户管理、用户管理" }
     ];
     const MOBILE_PAGES = [
       { key: "tasks", label: "任务", title: "我的任务" },
@@ -1810,7 +1970,9 @@
     ];
     const teamLeaders = ["李组长", "王组长"];
     const now = "2026-06-15";
-    let tickets = [
+
+    // 从 localStorage 读取数据，如果没有则使用默认数据
+    let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets')) || [
       {
         id: "WO-20260615-001", customerId: "CUST-0001", type: "来电 / 服务记录", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
         channel: "电话", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
@@ -1901,7 +2063,7 @@
       SUPERVISOR: ["查看工单", "确认关闭", "统计报表", "用户管理", "操作日志"]
     };
 
-    let users = [
+    let users = JSON.parse(localStorage.getItem('ecinfo_users')) || [
       { id: "U001", name: "陈大文", employeeNo: "EMP0008", role: "MASTER", area: "九龙", phone: "+85291234567", email: "master.chen@ecinfo.com", manager: "TL-001", status: "启用", lastLogin: "2026-06-21 09:32", createdAt: "2026-03-12" },
       { id: "U002", name: "陈小姐", employeeNo: "EMP0001", role: "CS", area: "香港", phone: "+85291001001", email: "cs.chan@ecinfo.com", manager: "TL-001", status: "启用", lastLogin: "2026-06-21 08:15", createdAt: "2026-01-10" },
       { id: "U003", name: "李组长", employeeNo: "EMP0002", role: "TL", area: "九龙", phone: "+85291002002", email: "tl.lee@ecinfo.com", manager: "ADMIN-001", status: "启用", lastLogin: "2026-06-21 08:45", createdAt: "2026-01-10" },
@@ -1932,7 +2094,7 @@
     const CUSTOMER_TYPES = ["全部", "商业", "住宅", "政府", "其他"];
     const CUSTOMER_LEVELS = ["全部", "普通", "VIP", "重要"];
 
-    let customers = [
+    let customers = JSON.parse(localStorage.getItem('ecinfo_customers')) || [
       {
         id: "CUST-0001",
         nameZh: "港岛商业中心",
@@ -2130,26 +2292,83 @@
 
     const QUOTATION_STATUSES = ["待报价", "已发出", "等待客户确认", "已确认", "需修订", "已取消"];
 
-    let quotations = [
+    // 默认数据（用于初始化和重置）
+    const DEFAULT_TICKETS = [
       {
-        id: "QT-20260621-001",
-        title: "门禁系统维修报价",
-        ticketId: "WO-20260615-001",
-        customerId: "CUST-0001",
-        customerName: "港岛商业中心",
-        amount: 8500,
-        taxRate: 0.1,
-        totalAmount: 9350,
-        status: "已发出",
-        owner: "李组长",
-        ownerPhone: "+852 9234 5678",
-        ownerTeam: "九龙团队",
-        srNo: "SR-20260615-001",
-        createdAt: "2026-06-21",
-        validUntil: "2026-07-21",
-        attachments: ["门禁维修报价单.pdf"],
-        remark: "包含门禁读卡器更换和系统调试费用"
+        id: "WO-20260615-001", customerId: "CUST-0001", type: "来电 / 服务记录", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        channel: "电话", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
+        desc: "客户来电反馈门禁读卡失败，需要先确认是否可远程处理。", records: [{ time: "09:10", actor: "CS 陈小姐", text: "记录客户来电，待受理判断。" }],
+        attachments: [], tags: ["电话记录"], urgent: false
       },
+      {
+        id: "WO-20260615-002", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        channel: "WhatsApp", area: "九龙", address: "九龙湾宏照道 16 号停车场中控室", status: "待分派", owner: "李组长", tl: "李组长", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
+        desc: "停车场出入口闸机保养，现场反馈开合速度变慢。", records: [{ time: "09:28", actor: "CS 陈小姐", text: "WhatsApp 收到服务请求并建单。" }, { time: "09:40", actor: "CS 陈小姐", text: "确认需要派工，进入待分派。" }],
+        attachments: ["现场入口照片"], tags: ["保养"], urgent: true
+      },
+      {
+        id: "WO-20260615-003", customerId: "CUST-0003", type: "CM / 特殊任务", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        channel: "现场沟通", area: "新界", address: "沙田科技园 3 座", status: "待接单", owner: "吴师傅", tl: "王组长", master: "吴师傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
+        desc: "临时加装临场设备检查，需熟悉视频监控系统的师傅处理。", records: [{ time: "10:02", actor: "王组长", text: "创建特殊任务。" }, { time: "10:18", actor: "王组长", text: "分派给吴师傅，等待接单。" }],
+        attachments: [], tags: ["特殊任务"], urgent: false
+      },
+      {
+        id: "WO-20260615-004", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        channel: "电话", area: "新界", address: "荃湾青山公路 200 号", status: "处理中", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
+        desc: "CCTV 局部画面不稳定，需现场检查线路和设备。", records: [{ time: "10:20", actor: "CS 陈小姐", text: "电话建单。" }, { time: "10:35", actor: "李组长", text: "分派给周师傅。" }, { time: "10:42", actor: "周师傅", text: "已接单，前往现场。" }, { time: "11:15", actor: "周师傅", text: "已到场检查线路。" }],
+        attachments: ["线路照片", "设备照片"], tags: ["图片附件"], urgent: false
+      },
+      {
+        id: "WO-20260615-005", customerId: "CUST-0005", type: "来电 / 服务记录", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        channel: "邮件", area: "香港", address: "湾仔告士打道 55 号", status: "待确认", owner: "李组长", tl: "李组长", master: "黄师傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
+        desc: "客户邮件反馈广播系统音量异常，师傅已完成检查并提交记录。", records: [{ time: "08:20", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "09:00", actor: "李组长", text: "分派给黄师傅。" }, { time: "11:35", actor: "黄师傅", text: "已调整音量并提交处理结果。" }],
+        attachments: ["调试前照片", "调试后照片"], tags: ["待确认"], urgent: false
+      },
+      {
+        id: "WO-20260614-006", customerId: "CUST-0001", type: "PM / 维修 / 保养", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        channel: "WhatsApp", area: "香港", address: "中环德辅道中 88 号", status: "已关闭", owner: "李组长", tl: "李组长", master: "吴师傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
+        desc: "门禁控制器例行保养，已完成。", records: [{ time: "14:10", actor: "CS 陈小姐", text: "创建 PM 工单。" }, { time: "16:40", actor: "吴师傅", text: "完成保养并上传照片。" }, { time: "17:20", actor: "李组长", text: "确认通过，工单关闭。" }],
+        attachments: ["保养照片"], tags: ["已完成"], urgent: false
+      },
+      {
+        id: "WO-20260614-007", customerId: "CUST-0002", type: "CM / 特殊任务", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        channel: "电话", area: "九龙", address: "九龙湾宏照道 16 号", status: "已取消", owner: "CS 陈小姐", tl: "李组长", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
+        desc: "客户重复报修，确认已有同类工单处理中。", records: [{ time: "15:30", actor: "CS 陈小姐", text: "记录客户来电。" }, { time: "15:50", actor: "CS 陈小姐", text: "确认重复工单，取消处理。" }],
+        attachments: [], tags: ["重复工单"], urgent: false, cancelReason: "重复工单"
+      },
+      {
+        id: "WO-20260614-008", customerId: "CUST-0004", type: "PM / 维修 / 保养", customer: "新界住宅项目", contact: "黄先生", phone: "+852 6999 1200",
+        channel: "现场沟通", area: "新界", address: "荃湾青山公路 200 号", status: "待分派", owner: "王组长", tl: "王组长", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
+        desc: "水浸报警设备检查，前次分派被拒单，需要重新分派。", records: [{ time: "16:10", actor: "王组长", text: "创建维修保养工单。" }, { time: "16:26", actor: "黄师傅", text: "拒单：当前现场任务未完成，无法按时到场。" }, { time: "16:40", actor: "王组长", text: "退回待分派，等待重新安排。" }],
+        attachments: ["报警设备照片"], tags: ["拒单示例"], urgent: true, rejectReason: "当前现场任务未完成，无法按时到场。"
+      },
+      {
+        id: "WO-20260613-009", customerId: "CUST-0003", type: "来电 / 服务记录", customer: "安全监控管理有限公司", contact: "郑经理", phone: "+852 6333 2211",
+        channel: "电话", area: "九龙", address: "观塘开源道 72 号", status: "已关闭", owner: "王组长", tl: "王组长", master: "梁师傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
+        desc: "来电咨询摄像头离线，CS 协助确认电源重启后恢复。", records: [{ time: "11:10", actor: "CS 陈小姐", text: "电话记录。" }, { time: "13:00", actor: "王组长", text: "确认现场已恢复，关闭。" }],
+        attachments: [], tags: ["现场解决"], urgent: false
+      },
+      {
+        id: "WO-20260613-010", customerId: "CUST-0005", type: "CM / 特殊任务", customer: "湾仔商业大厦", contact: "林小姐", phone: "+852 9222 1000",
+        channel: "WhatsApp", area: "香港", address: "湾仔告士打道 55 号", status: "处理中", owner: "梁师傅", tl: "李组长", master: "梁师傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
+        desc: "临时协助现场设备移位，需补充位置照片后继续处理。", records: [{ time: "14:35", actor: "李组长", text: "创建特殊任务并分派。" }, { time: "15:10", actor: "梁师傅", text: "现场空间受限，需要客户确认设备位置。" }],
+        attachments: ["现场位置照片"], tags: ["无法完成示例"], urgent: false
+      },
+      {
+        id: "WO-20260612-011", customerId: "CUST-0002", type: "PM / 维修 / 保养", customer: "九龙屋苑管理处", contact: "何小姐", phone: "+852 6123 9800",
+        channel: "邮件", area: "九龙", address: "九龙湾宏照道 16 号", status: "待接单", owner: "周师傅", tl: "李组长", master: "周师傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
+        desc: "巡检发现停车场显示屏闪烁，安排师傅处理。", records: [{ time: "10:05", actor: "CS 陈小姐", text: "邮件建单。" }, { time: "10:30", actor: "李组长", text: "分派给周师傅。" }],
+        attachments: [], tags: ["待接单"], urgent: false
+      },
+      {
+        id: "WO-20260612-012", customerId: "CUST-0001", type: "CM / 特殊任务", customer: "港岛商业中心", contact: "陈先生", phone: "+852 9123 4567",
+        channel: "现场沟通", area: "香港", address: "中环德辅道中 88 号", status: "待受理", owner: "CS 陈小姐", tl: "王组长", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
+        desc: "客户提出临时设备测试需求，需 CS 确认是否进入派工。", records: [{ time: "09:00", actor: "CS 陈小姐", text: "现场沟通记录，待受理。" }],
+        attachments: [], tags: ["待确认范围"], urgent: false
+      }
+    ];
+
+    const DEFAULT_QUOTATIONS = [
       {
         id: "QT-20260621-002",
         title: "闸机保养服务报价",
@@ -2322,6 +2541,17 @@
         remark: "停车场显示屏更换"
       }
     ];
+
+    // 从 localStorage 读取 quotations 数据
+    let quotations = JSON.parse(localStorage.getItem('ecinfo_quotations')) || DEFAULT_QUOTATIONS;
+
+    // 保存数据到 localStorage
+    function saveDataToLocalStorage() {
+      localStorage.setItem('ecinfo_tickets', JSON.stringify(tickets));
+      localStorage.setItem('ecinfo_customers', JSON.stringify(customers));
+      localStorage.setItem('ecinfo_users', JSON.stringify(users));
+      localStorage.setItem('ecinfo_quotations', JSON.stringify(quotations));
+    }
 
     // Notification System Data
     const NOTIFICATION_MODULES = {
@@ -2544,7 +2774,10 @@
       selectedTicketId: "WO-20260615-001",
       selectedDispatchId: "WO-20260615-002",
       selectedMaster: "梁师傅",
-      settingsTab: "工单类型",
+      settingsTab: "dictionary",
+      isSettingsExpanded: false,
+      isSidebarCollapsed: false,
+      isSettingsPopoverOpen: false,
       filters: { status: "全部", type: "全部", area: "全部", owner: "全部", tl: "全部", customer: "全部", keyword: "" }
     };
 
@@ -2585,8 +2818,23 @@
     }
 
     function setPage(page) {
-      state.page = page;
-      state.view = "pc";
+      // 如果点击的是基础设置且已经在基础设置页面，切换展开/收起状态
+      if (page === "settings" && state.page === "settings") {
+        state.isSettingsExpanded = !state.isSettingsExpanded;
+      } else {
+        state.page = page;
+        state.view = "pc";
+        // 进入基础设置时自动展开并默认显示字典管理
+        if (page === "settings") {
+          state.isSettingsExpanded = true;
+          if (!state.settingsTab) {
+            state.settingsTab = "dictionary";
+          }
+        } else {
+          // 离开基础设置时收起菜单
+          state.isSettingsExpanded = false;
+        }
+      }
       render();
     }
 
@@ -2620,6 +2868,7 @@
       if (note) {
         t.records.push({ time: t.updatedAt.slice(-5), actor: currentRole().name, text: note });
       }
+      saveDataToLocalStorage();
     }
 
     // ==================== Notification Engine ====================
@@ -2776,7 +3025,18 @@
 
       // 跳转到对应页面
       if (notification.targetPage) {
-        state.page = notification.targetPage;
+        // 客户管理和用户管理现在在基础设置下
+        if (notification.targetPage === "customers") {
+          state.page = "settings";
+          state.settingsTab = "customer";
+          state.isSettingsExpanded = true;
+        } else if (notification.targetPage === "users") {
+          state.page = "settings";
+          state.settingsTab = "user";
+          state.isSettingsExpanded = true;
+        } else {
+          state.page = notification.targetPage;
+        }
         state.view = "pc";
 
         // 根据模块设置选中ID
@@ -3171,13 +3431,105 @@
       $("#userRoleLine").textContent = `${role.label} · ${role.dept}`;
       $("#pcShell").classList.toggle("hidden", state.view !== "pc");
       $("#mobileShell").classList.toggle("hidden", state.view !== "mobile");
-      const activePage = state.view === "pc" ? PAGES.find(p => p.key === state.page) : MOBILE_PAGES.find(p => p.key === state.mobilePage);
-      $("#pageTitle").textContent = activePage?.label || activePage?.title || "工单系统";
-      $("#pageSub").textContent = state.view === "pc" ? (activePage?.sub || "客户流程确认版 UI 原型") : "师傅移动端操作模拟";
-      $("#navList").innerHTML = PAGES.map(p => `
-        <button class="nav-item ${state.page === p.key && state.view === "pc" ? "active" : ""}" data-page="${p.key}" title="${p.label}">
-          <span class="nav-icon">${p.icon}</span><span class="nav-label">${p.label}</span>
-        </button>`).join("");
+      
+      // Toggle sidebar collapsed class
+      $("#app").classList.toggle("sidebar-collapsed", state.isSidebarCollapsed);
+      
+      let activePage;
+      if (state.view === "pc") {
+        if (state.page === "settings") {
+          activePage = PAGES.find(p => p.key === "settings");
+          const settingsTabs = [
+            { key: "dictionary", label: "字典管理" },
+            { key: "customer", label: "客户管理" },
+            { key: "user", label: "用户管理" }
+          ];
+          const activeTab = settingsTabs.find(t => t.key === state.settingsTab);
+          $("#pageTitle").textContent = activeTab?.label || "字典管理";
+          $("#pageSub").textContent = state.page === "settings" ? "基础设置 / " + (activeTab?.label || "字典管理") : "";
+        } else {
+          activePage = PAGES.find(p => p.key === state.page);
+          $("#pageTitle").textContent = activePage?.label || "工单系统";
+          $("#pageSub").textContent = activePage?.sub || "客户流程确认版 UI 原型";
+        }
+      } else {
+        activePage = MOBILE_PAGES.find(p => p.key === state.mobilePage);
+        $("#pageTitle").textContent = activePage?.title || "工单系统";
+        $("#pageSub").textContent = "师傅移动端操作模拟";
+      }
+      
+      // Collapsed mode: single character labels
+      const collapsedLabels = {
+        "dashboard": "首",
+        "workorder": "工",
+        "dispatch": "派",
+        "quotations": "报",
+        "report": "统",
+        "settings": "设"
+      };
+      const collapsed = state.isSidebarCollapsed;
+      
+      $("#navList").innerHTML = PAGES.map(p => {
+        if (p.key === "settings") {
+          if (collapsed) {
+            // Collapsed mode: single character button, popover on click
+            return `
+              <div class="nav-item-parent ${state.page === 'settings' ? 'active' : ''}">
+                <button class="nav-item nav-item-settings nav-collapsed-btn" data-page="settings" data-collapsed-label="${p.label}">
+                  <span class="nav-collapsed-char">设</span>
+                </button>
+              </div>
+            `;
+          }
+          return `
+            <div class="nav-item-parent ${state.page === 'settings' ? 'active' : ''}">
+              <button class="nav-item nav-item-settings" data-page="settings" title="${p.label}">
+                <span class="nav-icon">${p.icon}</span>
+                <span class="nav-label">${p.label}</span>
+                <span class="nav-arrow ${state.isSettingsExpanded ? 'expanded' : ''}">▶</span>
+              </button>
+              <div class="nav-submenu ${state.isSettingsExpanded ? 'expanded' : ''}">
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">字典管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">客户管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">用户管理</button>
+              </div>
+            </div>
+          `;
+        }
+        if (collapsed) {
+          return `
+            <button class="nav-item nav-collapsed-btn ${state.page === p.key && state.view === "pc" ? "active" : ""}" data-page="${p.key}" data-collapsed-label="${p.label}">
+              <span class="nav-collapsed-char">${collapsedLabels[p.key]}</span>
+            </button>`;
+        }
+        return `
+          <button class="nav-item ${state.page === p.key && state.view === "pc" ? "active" : ""}" data-page="${p.key}" data-collapsed-label="${p.label}">
+            <span class="nav-icon">${p.icon}</span><span class="nav-label">${p.label}</span>
+          </button>`;
+      }).join("");
+      
+      // Render settings popover if in collapsed mode and popover is open
+      let existingPopover = document.querySelector(".settings-popover");
+      if (existingPopover) existingPopover.remove();
+      if (collapsed && state.isSettingsPopoverOpen) {
+        const popover = document.createElement("div");
+        popover.className = "settings-popover show";
+        popover.id = "settingsPopover";
+        const settingsBtn = document.querySelector(".nav-item-settings");
+        if (settingsBtn) {
+          const rect = settingsBtn.getBoundingClientRect();
+          popover.style.top = rect.top + "px";
+          popover.style.left = (rect.right + 8) + "px";
+          popover.style.transform = "none";
+        }
+        popover.innerHTML = `
+          <button class="settings-popover-item ${state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
+          <button class="settings-popover-item ${state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">🏢 客户管理</button>
+          <button class="settings-popover-item ${state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">👤 用户管理</button>
+        `;
+        document.body.appendChild(popover);
+      }
+      
       // 渲染通知铃铛
       renderNotificationBell();
     }
@@ -3685,18 +4037,18 @@
                   </div>
                   <div class="wo-form-group">
                     <label>客户 <span class="required">*</span></label>
-                    <select name="customerId" required>
+                    <select name="customerId" id="customerSelect" required>
                       <option value="">请选择客户</option>
                       ${customers.map(c => `<option value="${c.id}" ${isEdit && ticket.customerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("")}
                     </select>
                   </div>
                   <div class="wo-form-group">
                     <label>联系人 <span class="required">*</span></label>
-                    <input type="text" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="选择客户后自动填充">
+                    <input type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="选择客户后自动填充">
                   </div>
                   <div class="wo-form-group">
                     <label>联系电话 <span class="required">*</span></label>
-                    <input type="text" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" required placeholder="选择客户后自动填充">
+                    <input type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" required placeholder="选择客户后自动填充">
                   </div>
                   <div class="wo-form-group">
                     <label>来源渠道</label>
@@ -3810,10 +4162,12 @@
         const index = tickets.findIndex(t => t.id === ticketId);
         if (index !== -1) {
           tickets[index] = { ...tickets[index], ...ticketData };
+          saveDataToLocalStorage();
           toast('工单已更新');
         }
       } else {
         tickets.unshift(ticketData);
+        saveDataToLocalStorage();
         toast('工单已创建');
       }
 
@@ -3904,7 +4258,20 @@
     }
 
     function renderSettings() {
+      // 根据 settingsTab 渲染不同的页面
+      if (state.settingsTab === "dictionary") {
+        return renderDictionary();
+      } else if (state.settingsTab === "customer") {
+        return renderCustomerPage();
+      } else if (state.settingsTab === "user") {
+        return renderUsersPage();
+      }
+      return renderDictionary(); // 默认显示字典管理
+    }
+
+    function renderDictionary() {
       const tabs = ["工单类型", "区域", "师傅 / 处理人", "Team Leader", "状态说明", "通知规则"];
+      const activeDictTab = state.dictTab || "工单类型";
       const contentMap = {
         "工单类型": TYPES.map((t, i) => ({ a: t, b: ["CALL", "PM", "CM"][i], c: "启用" })),
         "区域": REGIONS.map(r => ({ a: r, b: "用于分派和统计", c: "启用" })),
@@ -3917,12 +4284,12 @@
           { a: "待确认通知", b: "师傅提交后提醒 TL / 主管", c: "系统内提醒" }
         ]
       };
-      const rows = contentMap[state.settingsTab].map(item => `<tr><td>${item.a}</td><td>${item.b}</td><td><span class="tag">${item.c}</span></td><td><button class="ghost-btn">查看</button></td></tr>`).join("");
+      const rows = contentMap[activeDictTab].map(item => `<tr><td>${item.a}</td><td>${item.b}</td><td><span class="tag">${item.c}</span></td><td><button class="ghost-btn">查看</button></td></tr>`).join("");
       return `
         <section class="page active">
           <div class="card">
-            <div class="card-head"><div><h2>基础设置，简化版</h2><p>只维护 MVP 原型所需基础口径，不做复杂后台。</p></div><span class="chip">主管 / 管理员</span></div>
-            <div class="settings-tabs">${tabs.map(t => `<button class="${state.settingsTab === t ? "active" : ""}" data-setting-tab="${t}">${t}</button>`).join("")}</div>
+            <div class="card-head"><div><h2>字典管理</h2><p>维护系统基础数据字典，包括工单类型、区域、人员等。</p></div><span class="chip">主管 / 管理员</span></div>
+            <div class="settings-tabs">${tabs.map(t => `<button class="${activeDictTab === t ? "active" : ""}" data-dict-tab="${t}">${t}</button>`).join("")}</div>
             <div class="data-table-wrap"><table><thead><tr><th>名称</th><th>说明</th><th>状态 / 规则</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>
           </div>
         </section>`;
@@ -4275,6 +4642,7 @@
           createdAt: new Date().toISOString().slice(0, 10)
         };
         users.unshift(newUser);
+        saveDataToLocalStorage();
         toast("新用户已创建");
       }
       render();
@@ -4285,6 +4653,7 @@
       if (!user) return;
       if (!confirm(`确定要删除用户 "${user.name}" 吗？此操作不可恢复。`)) return;
       users = users.filter(u => u.id !== userId);
+      saveDataToLocalStorage();
       if (userState.selectedUserId === userId) userState.selectedUserId = null;
       toast("用户已删除");
       render();
@@ -4796,6 +5165,7 @@
           createdBy: "CS-001"
         };
         customers.unshift(newCustomer);
+        saveDataToLocalStorage();
         toast("新客户已创建");
       }
       render();
@@ -4806,6 +5176,7 @@
       if (!customer) return;
       if (!confirm(`确定要删除客户 "${customer.nameZh}" 吗？此操作不可恢复。`)) return;
       customers = customers.filter(c => c.id !== customerId);
+      saveDataToLocalStorage();
       if (customerState.selectedCustomerId === customerId) {
         customerState.selectedCustomerId = null;
       }
@@ -5284,6 +5655,7 @@
           remark: formData.get("remark") || ""
         };
         quotations.unshift(newQuotation);
+        saveDataToLocalStorage();
         toast("新报价已创建");
       }
       render();
@@ -5295,13 +5667,9 @@
 
       const newStatus = formData.get("newStatus");
       const remark = formData.get("remark");
-
       quotation.status = newStatus;
-      if (remark) {
-        quotation.remark = (quotation.remark ? quotation.remark + "\n" : "") + `[${new Date().toISOString().slice(0,10)}] 状态变更为${newStatus}: ${remark}`;
-      }
-
-      toast("报价状态已更新");
+      if (remark) quotation.remark = remark;
+      saveDataToLocalStorage();
       render();
     }
 
@@ -5310,6 +5678,7 @@
       if (!quotation) return;
       if (!confirm(`确定要删除报价 "${quotation.id}" 吗？此操作不可恢复。`)) return;
       quotations = quotations.filter(q => q.id !== quotationId);
+      saveDataToLocalStorage();
       if (quotationState.selectedQuotationId === quotationId) {
         quotationState.selectedQuotationId = null;
       }
@@ -5389,6 +5758,9 @@
       const map = {
         dashboard: renderDashboard,
         workorder: renderWorkOrderPage,
+        create: renderCreate,
+        list: renderWorkOrderPage,
+        detail: renderWorkOrderPage,
         dispatch: renderDispatch,
         users: renderUsersPage,
         customers: renderCustomerPage,
@@ -5396,7 +5768,8 @@
         report: renderReport,
         settings: renderSettings
       };
-      $("#pcPages").innerHTML = map[state.page]();
+      const renderer = map[state.page] || renderWorkOrderPage;
+      $("#pcPages").innerHTML = renderer();
     }
 
     function masterTickets(includeHistory = false) {
@@ -5489,8 +5862,43 @@
         }
         render();
       }));
-      document.querySelectorAll("[data-page]").forEach(btn => btn.addEventListener("click", () => setPage(btn.dataset.page)));
+      document.querySelectorAll("[data-page]").forEach(btn => btn.addEventListener("click", function(e) {
+        // In collapsed mode, settings button toggles popover instead of navigating
+        if (state.isSidebarCollapsed && this.dataset.page === "settings") {
+          e.stopPropagation(); // 阻止事件冒泡到 document
+          state.isSettingsPopoverOpen = !state.isSettingsPopoverOpen;
+          render();
+          return;
+        }
+        setPage(this.dataset.page);
+      }));
       document.querySelectorAll("[data-page-target]").forEach(btn => btn.addEventListener("click", () => setPage(btn.dataset.pageTarget)));
+      
+      // 基础设置展开/收起
+      document.querySelectorAll("[data-settings-toggle]").forEach(btn => btn.addEventListener("click", () => {
+        state.isSettingsExpanded = !state.isSettingsExpanded;
+        render();
+      }));
+      
+      // 基础设置二级菜单点击
+      document.querySelectorAll("[data-settings-tab]").forEach(btn => btn.addEventListener("click", () => {
+        state.settingsTab = btn.dataset.settingsTab;
+        state.page = "settings";
+        // 只在展开模式下设置 isSettingsExpanded，收起模式下关闭 Popover
+        if (!state.isSidebarCollapsed) {
+          state.isSettingsExpanded = true;
+        } else {
+          state.isSettingsPopoverOpen = false;
+        }
+        render();
+      }));
+      
+      // 字典管理标签页切换
+      document.querySelectorAll("[data-dict-tab]").forEach(btn => btn.addEventListener("click", () => {
+        state.dictTab = btn.dataset.dictTab;
+        render();
+      }));
+      
       document.querySelectorAll("[data-new-ticket]").forEach(btn => btn.addEventListener("click", () => {
         if (state.role !== "CS") {
           toast("当前角色通常不负责建单，可切换 CS 角色操作");
@@ -5566,6 +5974,7 @@
             urgent: false
           };
           tickets.unshift(newTicket);
+          saveDataToLocalStorage();
           state.selectedTicketId = id;
           state.page = "detail";
           render();
@@ -5575,32 +5984,35 @@
       const draftBtn = $("#draftBtn");
       if (draftBtn) draftBtn.addEventListener("click", () => toast("草稿仅展示，不作为 MVP 主状态"));
 
-      // Customer selector auto-fill logic
-      const customerSelect = $("#customerSelect");
-      if (customerSelect) {
-        customerSelect.addEventListener("change", () => {
-          const customerId = customerSelect.value;
-          const customer = customers.find(c => c.id === customerId);
-          if (customer) {
-            const contactInput = $("#contactInput");
-            const phoneInput = $("#phoneInput");
-            const areaSelect = document.querySelector("[name='area']");
-            const addressInput = document.querySelector("[name='address']");
+      // Customer selector auto-fill logic (scoped to work order modal)
+      const modal = document.querySelector(".wo-modal");
+      if (modal) {
+        const customerSelect = modal.querySelector("#customerSelect");
+        if (customerSelect) {
+          customerSelect.addEventListener("change", () => {
+            const customerId = customerSelect.value;
+            const customer = customers.find(c => c.id === customerId);
+            if (customer) {
+              const contactInput = modal.querySelector("#contactInput");
+              const phoneInput = modal.querySelector("#phoneInput");
+              const areaSelect = modal.querySelector("[name='area']");
+              const addressInput = modal.querySelector("[name='address']");
 
-            if (contactInput && customer.contacts.length > 0) {
-              contactInput.value = customer.contacts[0].name || "";
+              if (contactInput && customer.contacts.length > 0) {
+                contactInput.value = customer.contacts[0].name || "";
+              }
+              if (phoneInput && customer.contacts.length > 0) {
+                phoneInput.value = customer.contacts[0].phone || "";
+              }
+              if (areaSelect && customer.addresses.length > 0) {
+                areaSelect.value = customer.addresses[0].area || "";
+              }
+              if (addressInput && customer.addresses.length > 0) {
+                addressInput.value = customer.addresses[0].addressZh || "";
+              }
             }
-            if (phoneInput && customer.contacts.length > 0) {
-              phoneInput.value = customer.contacts[0].phone || "";
-            }
-            if (areaSelect && customer.addresses.length > 0) {
-              areaSelect.value = customer.addresses[0].area || "";
-            }
-            if (addressInput && customer.addresses.length > 0) {
-              addressInput.value = customer.addresses[0].addressZh || "";
-            }
-          }
-        });
+          });
+        }
       }
 
       // User management events
@@ -5843,9 +6255,50 @@
       bindEvents();
     }
 
-    $("#collapseBtn").addEventListener("click", () => {
-      $("#app").classList.toggle("sidebar-collapsed");
+    // Hamburger toggle: collapse / expand sidebar
+    $("#hamburgerBtn").addEventListener("click", () => {
+      state.isSidebarCollapsed = !state.isSidebarCollapsed;
+      state.isSettingsPopoverOpen = false;
+      render();
     });
+
+    // Tooltip for collapsed sidebar nav items
+    let tooltipEl = null;
+    document.addEventListener("mouseover", (e) => {
+      if (!state.isSidebarCollapsed) return;
+      const navItem = e.target.closest(".nav-item[data-collapsed-label]");
+      if (!navItem) return;
+      const label = navItem.dataset.collapsedLabel;
+      if (!tooltipEl) {
+        tooltipEl = document.createElement("div");
+        tooltipEl.className = "nav-tooltip";
+        document.body.appendChild(tooltipEl);
+      }
+      const rect = navItem.getBoundingClientRect();
+      tooltipEl.textContent = label;
+      tooltipEl.style.top = (rect.top + rect.height / 2) + "px";
+      tooltipEl.style.left = (rect.right + 10) + "px";
+      tooltipEl.style.transform = "translateY(-50%)";
+      tooltipEl.classList.add("show");
+    });
+    document.addEventListener("mouseout", (e) => {
+      const navItem = e.target.closest(".nav-item[data-collapsed-label]");
+      if (navItem && tooltipEl) {
+        tooltipEl.classList.remove("show");
+      }
+    });
+
+    // Settings popover: close on outside click
+    document.addEventListener("click", (e) => {
+      if (!state.isSettingsPopoverOpen) return;
+      const popover = document.getElementById("settingsPopover");
+      const settingsBtn = document.querySelector(".nav-item-settings");
+      if (popover && !popover.contains(e.target) && !(settingsBtn && settingsBtn.contains(e.target))) {
+        state.isSettingsPopoverOpen = false;
+        render();
+      }
+    });
+
     $("#themeBtn").addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = next;
