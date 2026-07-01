@@ -3504,7 +3504,9 @@
         updateTicket(id, { status: "已取消", owner: currentRole().name, cancelReason: "原型模拟取消" }, "工单已取消。");
       }
       if (action === "closeDirect") {
-        updateTicket(id, { status: "已关闭", owner: currentRole().name }, "现场或电话中已解决，直接关闭。");
+        const closeReason = prompt("请输入关单原因（现场解决/电话解决/简单咨询等）：", "现场解决");
+        if (!closeReason) return;
+        updateTicket(id, { status: "已关闭", owner: currentRole().name, closeReason: closeReason }, `CS 直接关单：${closeReason}`);
       }
       if (action === "assign") {
         state.selectedDispatchId = id;
@@ -3609,6 +3611,7 @@
       if (state.role === "CS") {
         if (t.status === "待受理") {
           add("受理", "accept", "primary-btn");
+          add("直接关单", "closeDirect", "secondary-btn");
           add("取消", "cancel", "danger-btn");
         }
         if (["待受理", "处理中"].includes(t.status)) add("补充信息", "note", "secondary-btn");
@@ -3943,7 +3946,7 @@
           </div>
           <div class="split-layout">
             <div class="card">
-              <h2>基础信息</h2>
+              <h2>基础信息 ${["CS", "TL", "ADMIN"].includes(state.role) && !["已关闭", "已取消"].includes(t.status) ? `<button class="ghost-btn" style="float:right;font-size:12px;" data-edit-contact="${t.id}">修改联系人</button>` : ''}</h2>
               <div class="info-list" style="margin-top:12px;">
                 ${infoRow("客户", t.customer)}
                 ${infoRow("联系人", t.contact)}
@@ -4059,6 +4062,7 @@
           <div class="wo-actions-top">
             <button class="secondary-btn" data-wo-reset>重置</button>
             <button class="primary-btn" data-wo-create>+ 新建工单</button>
+            <button class="secondary-btn" data-wo-batch-create>批量生成空白工单</button>
           </div>
         </div>
       `;
@@ -4413,6 +4417,54 @@
       if (!isEdit) {
         workOrderState.selectedWorkOrderId = ticketId;
       }
+      render();
+    }
+
+    // 批量生成空白工单
+    function batchCreateWorkOrders() {
+      const count = prompt('请输入要生成的空白工单数量（1-50）：', '5');
+      if (!count || isNaN(count) || count < 1 || count > 50) {
+        if (count !== null) toast('请输入1-50之间的数字');
+        return;
+      }
+
+      const num = parseInt(count);
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+      const timeStr = now.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-');
+      
+      let created = 0;
+      for (let i = 0; i < num; i++) {
+        const ticketId = `WO-${dateStr}-${String(tickets.length + i + 1).padStart(3, '0')}`;
+        const ticketData = {
+          id: ticketId,
+          customerId: '',
+          customer: '（空白工单）',
+          contact: '',
+          phone: '',
+          channel: '电话',
+          area: '香港',
+          address: '',
+          type: '保养维修',
+          desc: '',
+          status: '待受理',
+          owner: currentRole().name,
+          tl: '',
+          master: '',
+          createdAt: timeStr,
+          updatedAt: timeStr,
+          records: [{ time: timeStr, actor: currentRole().name, text: '批量生成空白工单' }],
+          attachments: [],
+          tags: ['空白工单'],
+          urgent: false,
+          priority: '普通'
+        };
+        tickets.unshift(ticketData);
+        created++;
+      }
+      
+      saveDataToLocalStorage();
+      toast(`已批量生成 ${created} 张空白工单`);
       render();
     }
 
@@ -5703,6 +5755,9 @@
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button class="ghost-btn" data-edit-quotation="${quotation.id}">编辑</button>
               <button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新状态</button>
+              <button class="primary-btn" data-send-email="${quotation.id}">📧 Email发送</button>
+              <button class="secondary-btn" data-send-fax="${quotation.id}">📠 Fax发送</button>
+              <button class="secondary-btn" data-sign-quotation="${quotation.id}">✍️ 电子签名</button>
               ${quotation.status !== "已取消" && quotation.bidStatus !== "已中标" ? `<button class="primary-btn" data-mark-won="${quotation.id}">标记中标</button>` : ""}
               ${quotation.status !== "已取消" && quotation.bidStatus !== "未中标" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">创建修订版</button>` : ""}
               ${quotation.bidStatus === "已中标" && quotation.procurementStatus === "无需采购" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">启动采购</button>` : ""}
@@ -5722,6 +5777,7 @@
               ${infoRow("报价标题", quotation.title)}
               ${infoRow("报价状态", quotation.status)}
               ${infoRow("中标状态", `<span class="tag ${quotation.bidStatus === "已中标" ? "success" : quotation.bidStatus === "未中标" ? "danger" : ""}">${quotation.bidStatus || "待确认"}</span>`)}
+              ${quotation.signed ? infoRow("签名状态", `<span class="tag success">✓ 已签名 - ${quotation.signedBy} (${quotation.signedAt})</span>`) : ""}
               ${infoRow("报价日期", quotation.createdAt)}
               ${infoRow("有效期至", quotation.validUntil)}
               ${infoRow("创建时间", quotation.createdAt)}
@@ -5801,8 +5857,147 @@
               ${infoRow("备注", quotation.remark || "无")}
             </div>
           </div>
+
+          <div>
+            <h4 class="cm-section-title">发送记录</h4>
+            ${quotation.sendRecords && quotation.sendRecords.length > 0 ? `
+              <div class="info-list">
+                ${quotation.sendRecords.map(record => `
+                  <div style="padding:8px; background:var(--panel-soft); margin-bottom:6px; border-radius:4px;">
+                    <div style="font-size:12px; color:var(--muted);">${record.time} · ${record.actor}</div>
+                    <div style="margin-top:4px;">
+                      <span class="tag ${record.method === 'Email' ? 'success' : 'warning'}">${record.method}</span>
+                      <span style="margin-left:8px;">${record.recipient}</span>
+                      ${record.status ? `<span class="tag ${record.status === '已发送' ? 'success' : 'danger'}" style="margin-left:8px;">${record.status}</span>` : ''}
+                    </div>
+                    ${record.remark ? `<div style="margin-top:4px; font-size:13px; color:var(--text);">${record.remark}</div>` : ''}
+                  </div>
+                `).join("")}
+              </div>
+            ` : `<div class="muted">暂无发送记录</div>`}
+          </div>
         </div>
       `;
+    }
+
+    // 通过 Email 发送报价单
+    function sendQuotationEmail(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+
+      const customer = customers.find(c => c.id === quotation.customerId);
+      const defaultEmail = customer?.contacts?.[0]?.email || '';
+      
+      const recipient = prompt('请输入收件人邮箱：', defaultEmail);
+      if (!recipient) return;
+
+      const remark = prompt('请输入备注信息（可选）：', '') || '';
+
+      if (!quotation.sendRecords) quotation.sendRecords = [];
+      
+      quotation.sendRecords.push({
+        time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
+        actor: currentRole().name,
+        method: 'Email',
+        recipient: recipient,
+        status: '已发送',
+        remark: remark
+      });
+
+      saveDataToLocalStorage();
+      toast(`报价单已通过 Email 发送至 ${recipient}`);
+      render();
+    }
+
+    // 通过 Fax 发送报价单
+    function sendQuotationFax(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+
+      const customer = customers.find(c => c.id === quotation.customerId);
+      const defaultFax = customer?.contacts?.[0]?.fax || '';
+      
+      const recipient = prompt('请输入传真号码：', defaultFax);
+      if (!recipient) return;
+
+      const remark = prompt('请输入备注信息（可选）：', '') || '';
+
+      if (!quotation.sendRecords) quotation.sendRecords = [];
+      
+      quotation.sendRecords.push({
+        time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
+        actor: currentRole().name,
+        method: 'Fax',
+        recipient: recipient,
+        status: '已发送',
+        remark: remark
+      });
+
+      saveDataToLocalStorage();
+      toast(`报价单已通过 Fax 发送至 ${recipient}`);
+      render();
+    }
+
+    // 报价单电子签名
+    function signQuotation(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+
+      const signerName = prompt('请输入签名者姓名：', currentRole().name);
+      if (!signerName) return;
+
+      const signDate = new Date().toLocaleString('zh-CN', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: false 
+      }).replace(/\//g, '-');
+
+      if (!quotation.signatures) quotation.signatures = [];
+      
+      quotation.signatures.push({
+        signer: signerName,
+        time: signDate,
+        role: currentRole().name,
+        status: '已签名'
+      });
+
+      quotation.signed = true;
+      quotation.signedBy = signerName;
+      quotation.signedAt = signDate;
+
+      saveDataToLocalStorage();
+      toast(`报价单已由 ${signerName} 签名`);
+      render();
+    }
+
+    // 修改工单联系人信息
+    function editContactInfo(ticketId) {
+      const ticket = tickets.find(t => t.id === ticketId);
+      if (!ticket) return;
+
+      const newContact = prompt('请输入新的联系人姓名：', ticket.contact);
+      if (!newContact) return;
+
+      const newPhone = prompt('请输入新的联系电话：', ticket.phone);
+      if (!newPhone) return;
+
+      ticket.contact = newContact;
+      ticket.phone = newPhone;
+      ticket.updatedAt = new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-');
+
+      if (!ticket.records) ticket.records = [];
+      ticket.records.push({
+        time: ticket.updatedAt,
+        actor: currentRole().name,
+        text: `修改联系人信息：${newContact} / ${newPhone}`
+      });
+
+      saveDataToLocalStorage();
+      toast('联系人信息已更新');
+      render();
     }
 
     function filterQuotations() {
@@ -6793,6 +6988,9 @@
       }));
       document.querySelectorAll("[data-page-target]").forEach(btn => btn.addEventListener("click", () => setPage(btn.dataset.pageTarget)));
       
+      // 批量生成空白工单
+      document.querySelectorAll("[data-wo-batch-create]").forEach(btn => btn.addEventListener("click", batchCreateWorkOrders));
+      
       // 基础设置展开/收起
       document.querySelectorAll("[data-settings-toggle]").forEach(btn => btn.addEventListener("click", () => {
         state.isSettingsExpanded = !state.isSettingsExpanded;
@@ -7116,6 +7314,14 @@
       document.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
       document.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
       document.querySelectorAll("[data-mark-arrived]").forEach(btn => btn.addEventListener("click", () => markProcurementArrived(btn.dataset.markArrived)));
+      
+      // Email/Fax/签名 报价单
+      document.querySelectorAll("[data-send-email]").forEach(btn => btn.addEventListener("click", () => sendQuotationEmail(btn.dataset.sendEmail)));
+      document.querySelectorAll("[data-send-fax]").forEach(btn => btn.addEventListener("click", () => sendQuotationFax(btn.dataset.sendFax)));
+      document.querySelectorAll("[data-sign-quotation]").forEach(btn => btn.addEventListener("click", () => signQuotation(btn.dataset.signQuotation)));
+
+      // 修改联系人
+      document.querySelectorAll("[data-edit-contact]").forEach(btn => btn.addEventListener("click", () => editContactInfo(btn.dataset.editContact)));
       document.querySelectorAll("[data-manage-paper]").forEach(btn => btn.addEventListener("click", () => manageCompletionPaper(btn.dataset.managePaper)));
       document.querySelectorAll("[data-close-procurement]").forEach(btn => btn.addEventListener("click", () => closeProcurement(btn.dataset.closeProcurement)));
       
