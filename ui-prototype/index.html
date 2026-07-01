@@ -1946,6 +1946,9 @@
       { key: "CS", label: "CS", name: "陈小姐", dept: "客户服务部", avatar: "CS" },
       { key: "TL", label: "Team Leader", name: "李组长", dept: "九龙团队", avatar: "TL" },
       { key: "MASTER", label: "师傅", name: "周师傅", dept: "外勤 · 九龙", avatar: "周" },
+      { key: "QUO", label: "报价组", name: "邹组长", dept: "报价组", avatar: "报" },
+      { key: "PUR", label: "采购部", name: "张采购", dept: "采购部", avatar: "采" },
+      { key: "FIN", label: "会计部", name: "陈会计", dept: "会计部", avatar: "会" },
       { key: "ADMIN", label: "主管 / 管理员", name: "林主管", dept: "管理部", avatar: "管" }
     ];
     const PAGES = [
@@ -2647,12 +2650,58 @@
     // 从 localStorage 读取 quotations 数据
     let quotations = JSON.parse(localStorage.getItem('ecinfo_quotations')) || DEFAULT_QUOTATIONS;
 
+    // 发票数据
+    let invoices = JSON.parse(localStorage.getItem('ecinfo_invoices')) || [
+      {
+        id: "INV-20260621-001",
+        quotationId: "QT-20260621-004",
+        customerName: "香港政府大楼",
+        amount: 49500,
+        invoiceDate: "2026-06-25",
+        dueDate: "2026-07-25",
+        status: "已开具",
+        invoiceNo: "INV-2026-001",
+        taxRate: 0.1,
+        remark: "CCTV系统升级项目"
+      },
+      {
+        id: "INV-20260621-002",
+        quotationId: "QT-20260621-008",
+        customerName: "新界花园住宅",
+        amount: 3080,
+        invoiceDate: "2026-06-18",
+        dueDate: "2026-07-18",
+        status: "已收款",
+        invoiceNo: "INV-2026-002",
+        taxRate: 0.1,
+        remark: "摄像头维修"
+      }
+    ];
+
+    // 收款记录
+    let payments = JSON.parse(localStorage.getItem('ecinfo_payments')) || [
+      {
+        id: "PAY-20260621-001",
+        invoiceId: "INV-20260621-002",
+        quotationId: "QT-20260621-008",
+        customerName: "新界花园住宅",
+        amount: 3080,
+        paymentDate: "2026-06-20",
+        paymentMethod: "银行转账",
+        status: "已收款",
+        receiptNo: "REC-2026-001",
+        remark: "摄像头维修项目收款"
+      }
+    ];
+
     // 保存数据到 localStorage
     function saveDataToLocalStorage() {
       localStorage.setItem('ecinfo_tickets', JSON.stringify(tickets));
       localStorage.setItem('ecinfo_customers', JSON.stringify(customers));
       localStorage.setItem('ecinfo_users', JSON.stringify(users));
       localStorage.setItem('ecinfo_quotations', JSON.stringify(quotations));
+      localStorage.setItem('ecinfo_invoices', JSON.stringify(invoices));
+      localStorage.setItem('ecinfo_payments', JSON.stringify(payments));
     }
 
     // Notification System Data
@@ -2958,6 +3007,7 @@
         if (role === "CS") state.page = "create";
         if (role === "TL") state.page = "dispatch";
         if (role === "ADMIN") state.page = "dashboard";
+        if (role === "FIN") state.page = "finance";
       }
       render();
       toast(`已切换为 ${currentRole().label}`);
@@ -4440,6 +4490,42 @@
         acc[name] = (acc[name] || 0) + 1;
         return acc;
       }, {});
+      
+      // 中单报表统计
+      const quotationStats = {
+        total: quotations.length,
+        won: quotations.filter(q => q.bidStatus === '已中标').length,
+        lost: quotations.filter(q => q.bidStatus === '未中标').length,
+        pending: quotations.filter(q => q.bidStatus === '待确认').length
+      };
+      const winRate = quotationStats.total > 0 ? ((quotationStats.won / quotationStats.total) * 100).toFixed(1) : 0;
+      
+      // 按客户统计中单情况
+      const customerQuotationStats = {};
+      quotations.forEach(q => {
+        if (!customerQuotationStats[q.customerName]) {
+          customerQuotationStats[q.customerName] = { total: 0, won: 0 };
+        }
+        customerQuotationStats[q.customerName].total++;
+        if (q.bidStatus === '已中标') {
+          customerQuotationStats[q.customerName].won++;
+        }
+      });
+      
+      // 按区域统计中单情况
+      const areaQuotationStats = {};
+      quotations.forEach(q => {
+        const ticket = tickets.find(t => t.id === q.ticketId);
+        const area = ticket ? ticket.area : '未知';
+        if (!areaQuotationStats[area]) {
+          areaQuotationStats[area] = { total: 0, won: 0 };
+        }
+        areaQuotationStats[area].total++;
+        if (q.bidStatus === '已中标') {
+          areaQuotationStats[area].won++;
+        }
+      });
+      
       return `
         <section class="page active">
           <div class="grid cols-4">
@@ -4457,6 +4543,60 @@
             <div class="card"><h2>按师傅统计</h2>${Object.entries(masterCounts).map(([k,v]) => barRow(k, v, tickets.length)).join("")}</div>
             <div class="card"><h2>按客户统计</h2>${Object.entries(customerCounts).sort((a,b) => b[1] - a[1]).map(([k,v]) => barRow(k, v, tickets.length)).join("")}</div>
           </div>
+          
+          <!-- 中单报表 -->
+          <div class="grid cols-4" style="margin-top:14px;">
+            <div class="card stat-card"><div class="stat-label">报价单总数</div><div class="stat-value">${quotationStats.total}</div><div class="stat-note">所有报价</div></div>
+            <div class="card stat-card"><div class="stat-label">已中单</div><div class="stat-value">${quotationStats.won}</div><div class="stat-note">成功中标</div></div>
+            <div class="card stat-card"><div class="stat-label">未中单</div><div class="stat-value">${quotationStats.lost}</div><div class="stat-note">失去机会</div></div>
+            <div class="card stat-card"><div class="stat-label">中单率</div><div class="stat-value">${winRate}%</div><div class="stat-note">成功率</div></div>
+          </div>
+          
+          <div class="grid cols-2" style="margin-top:14px;">
+            <div class="card">
+              <h2>按客户统计中单情况</h2>
+              <div class="data-table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>客户名称</th><th>报价总数</th><th>中单数</th><th>中单率</th></tr>
+                  </thead>
+                  <tbody>
+                    ${Object.entries(customerQuotationStats).map(([name, stats]) => {
+                      const rate = stats.total > 0 ? ((stats.won / stats.total) * 100).toFixed(1) : 0;
+                      return `<tr>
+                        <td>${name}</td>
+                        <td>${stats.total}</td>
+                        <td>${stats.won}</td>
+                        <td><span class="tag ${rate >= 50 ? 'success' : rate >= 30 ? 'warning' : 'danger'}">${rate}%</span></td>
+                      </tr>`;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <h2>按区域统计中单情况</h2>
+              <div class="data-table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>区域</th><th>报价总数</th><th>中单数</th><th>中单率</th></tr>
+                  </thead>
+                  <tbody>
+                    ${Object.entries(areaQuotationStats).map(([area, stats]) => {
+                      const rate = stats.total > 0 ? ((stats.won / stats.total) * 100).toFixed(1) : 0;
+                      return `<tr>
+                        <td>${area}</td>
+                        <td>${stats.total}</td>
+                        <td>${stats.won}</td>
+                        <td><span class="tag ${rate >= 50 ? 'success' : rate >= 30 ? 'warning' : 'danger'}">${rate}%</span></td>
+                      </tr>`;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
           <div class="grid cols-1" style="margin-top:14px;">
             <div class="card">
               <div class="card-head"><h2>最近 7 天趋势</h2><span class="chip">基础趋势</span></div>
@@ -5568,6 +5708,8 @@
               ${quotation.bidStatus === "已中标" && quotation.procurementStatus === "无需采购" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">启动采购</button>` : ""}
               ${quotation.procurementStatus === "采购中" ? `<button class="secondary-btn" data-mark-arrived="${quotation.id}">标记到货</button>` : ""}
               ${quotation.procurementStatus === "已到货" && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工纸管理</button>` : ""}
+              ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已关单" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">采购部关单</button>` : ""}
+              ${quotation.procurementStatus === "已关单" ? `<span class="tag success">已关单</span>` : ""}
               <button class="danger-btn" data-delete-quotation="${quotation.id}">删除</button>
             </div>
           </div>
@@ -6052,6 +6194,36 @@
       render();
     }
 
+    // 采购部关单
+    function closeProcurement(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      // 检查完工纸是否已归还
+      if (quotation.completionPaperStatus !== "已完工") {
+        alert("完工纸尚未归还，无法关单！");
+        return;
+      }
+      
+      if (!confirm("确定要关单吗？关单后将通知会计部开具发票。")) return;
+      
+      quotation.procurementStatus = "已关单";
+      
+      // 创建通知给会计部
+      createNotification({
+        type: 'invoice_required',
+        title: '新发票待开具',
+        content: `报价单 ${quotation.ourRef} 已完工，请开具发票`,
+        targetId: quotation.id,
+        targetUrl: `?page=quotations&id=${quotation.id}`,
+        recipients: ['FIN']
+      });
+      
+      saveDataToLocalStorage();
+      toast("已关单，已通知会计部");
+      render();
+    }
+
     function bindQuotationModalEvents(modal) {
       modal.querySelectorAll("[data-close-modal]").forEach(btn => {
         btn.addEventListener("click", () => modal.remove());
@@ -6131,11 +6303,220 @@
         users: renderUsersPage,
         customers: renderCustomerPage,
         quotations: renderQuotationPage,
+        finance: renderFinance,
         report: renderReport,
         settings: renderSettings
       };
       const renderer = map[state.page] || renderWorkOrderPage;
       $("#pcPages").innerHTML = renderer();
+    }
+
+    // 会计部页面渲染
+    function renderFinance() {
+      const pendingInvoices = quotations.filter(q => q.bidStatus === '已中标' && !invoices.find(i => i.quotationId === q.id));
+      const pendingPayments = invoices.filter(i => i.status === '已开具');
+      
+      return `
+        <div class="pc-container">
+          <div class="pc-header">
+            <h1>会计部管理</h1>
+            <div class="pc-header-actions">
+              <button class="primary-btn" data-create-invoice>开具发票</button>
+              <button class="secondary-btn" data-record-payment>登记收款</button>
+            </div>
+          </div>
+          
+          <div class="pc-grid">
+            <div class="pc-card">
+              <h3>待开票</h3>
+              <div class="pc-metric">${pendingInvoices.length}</div>
+              <div class="pc-label">已中标未开票</div>
+            </div>
+            <div class="pc-card">
+              <h3>待收款</h3>
+              <div class="pc-metric">${pendingPayments.length}</div>
+              <div class="pc-label">已开票未收款</div>
+            </div>
+            <div class="pc-card">
+              <h3>本月收款</h3>
+              <div class="pc-metric">${payments.filter(p => p.paymentDate.startsWith('2026-06')).reduce((sum, p) => sum + p.amount, 0).toLocaleString()}</div>
+              <div class="pc-label">HKD</div>
+            </div>
+          </div>
+
+          <div class="pc-section">
+            <h2>待开票清单</h2>
+            <div class="pc-table-wrapper">
+              <table class="pc-table">
+                <thead>
+                  <tr>
+                    <th>报价单号</th>
+                    <th>Our Ref</th>
+                    <th>客户</th>
+                    <th>金额</th>
+                    <th>中标日期</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${pendingInvoices.map(q => `
+                    <tr>
+                      <td>${q.id}</td>
+                      <td>${q.ourRef}${q.revision > 0 ? 'R' + q.revision : ''}</td>
+                      <td>${q.customerName}</td>
+                      <td>HKD ${q.tenderAmount.toLocaleString()}</td>
+                      <td>${q.createdAt}</td>
+                      <td><button class="link-btn" data-create-invoice-for="${q.id}">开票</button></td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);">暂无待开票项目</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="pc-section">
+            <h2>发票管理</h2>
+            <div class="pc-table-wrapper">
+              <table class="pc-table">
+                <thead>
+                  <tr>
+                    <th>发票号</th>
+                    <th>报价单号</th>
+                    <th>客户</th>
+                    <th>金额</th>
+                    <th>开票日期</th>
+                    <th>到期日</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${invoices.map(inv => `
+                    <tr>
+                      <td>${inv.invoiceNo}</td>
+                      <td>${inv.quotationId}</td>
+                      <td>${inv.customerName}</td>
+                      <td>HKD ${inv.amount.toLocaleString()}</td>
+                      <td>${inv.invoiceDate}</td>
+                      <td>${inv.dueDate}</td>
+                      <td><span class="tag ${inv.status === '已收款' ? 'success' : 'warning'}">${inv.status}</span></td>
+                      <td>
+                        ${inv.status === '已开具' ? `<button class="link-btn" data-mark-paid="${inv.id}">标记收款</button>` : '<span style="color:var(--muted);">已完成</span>'}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="pc-section">
+            <h2>收款记录</h2>
+            <div class="pc-table-wrapper">
+              <table class="pc-table">
+                <thead>
+                  <tr>
+                    <th>收据号</th>
+                    <th>发票号</th>
+                    <th>客户</th>
+                    <th>金额</th>
+                    <th>收款日期</th>
+                    <th>收款方式</th>
+                    <th>备注</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${payments.map(pay => `
+                    <tr>
+                      <td>${pay.receiptNo}</td>
+                      <td>${pay.invoiceId}</td>
+                      <td>${pay.customerName}</td>
+                      <td>HKD ${pay.amount.toLocaleString()}</td>
+                      <td>${pay.paymentDate}</td>
+                      <td>${pay.paymentMethod}</td>
+                      <td>${pay.remark}</td>
+                    </tr>
+                  `).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted);">暂无收款记录</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 开具发票
+    function createInvoice(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      
+      const invoiceNo = prompt('请输入发票号：', `INV-2026-${String(invoices.length + 1).padStart(3, '0')}`);
+      if (!invoiceNo) return;
+      
+      const invoiceDate = prompt('请输入开票日期：', new Date().toISOString().slice(0, 10));
+      if (!invoiceDate) return;
+      
+      const dueDate = prompt('请输入到期日：', new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
+      if (!dueDate) return;
+      
+      const invoice = {
+        id: `INV-${Date.now()}`,
+        quotationId: quotation.id,
+        customerName: quotation.customerName,
+        amount: quotation.tenderAmount,
+        invoiceDate: invoiceDate,
+        dueDate: dueDate,
+        status: '已开具',
+        invoiceNo: invoiceNo,
+        taxRate: quotation.taxRate || 0.1,
+        remark: quotation.title
+      };
+      
+      invoices.push(invoice);
+      saveDataToLocalStorage();
+      toast('发票已开具');
+      render();
+    }
+
+    // 标记收款
+    function markAsPaid(invoiceId) {
+      const invoice = invoices.find(i => i.id === invoiceId);
+      if (!invoice) return;
+      
+      const paymentDate = prompt('请输入收款日期：', new Date().toISOString().slice(0, 10));
+      if (!paymentDate) return;
+      
+      const paymentMethod = prompt('请输入收款方式：', '银行转账');
+      if (!paymentMethod) return;
+      
+      const receiptNo = prompt('请输入收据号：', `REC-2026-${String(payments.length + 1).padStart(3, '0')}`);
+      if (!receiptNo) return;
+      
+      const payment = {
+        id: `PAY-${Date.now()}`,
+        invoiceId: invoice.id,
+        quotationId: invoice.quotationId,
+        customerName: invoice.customerName,
+        amount: invoice.amount,
+        paymentDate: paymentDate,
+        paymentMethod: paymentMethod,
+        status: '已收款',
+        receiptNo: receiptNo,
+        remark: invoice.remark
+      };
+      
+      payments.push(payment);
+      invoice.status = '已收款';
+      
+      // 更新报价单收款状态
+      const quotation = quotations.find(q => q.id === invoice.quotationId);
+      if (quotation) {
+        quotation.paymentStatus = '已收款';
+      }
+      
+      saveDataToLocalStorage();
+      toast('收款已登记');
+      render();
     }
 
     function masterTickets(includeHistory = false) {
@@ -6736,6 +7117,20 @@
       document.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
       document.querySelectorAll("[data-mark-arrived]").forEach(btn => btn.addEventListener("click", () => markProcurementArrived(btn.dataset.markArrived)));
       document.querySelectorAll("[data-manage-paper]").forEach(btn => btn.addEventListener("click", () => manageCompletionPaper(btn.dataset.managePaper)));
+      document.querySelectorAll("[data-close-procurement]").forEach(btn => btn.addEventListener("click", () => closeProcurement(btn.dataset.closeProcurement)));
+      
+      // Finance events
+      document.querySelectorAll("[data-create-invoice]").forEach(btn => btn.addEventListener("click", () => {
+        const quotationId = prompt('请输入要开票的报价单号：');
+        if (quotationId) createInvoice(quotationId);
+      }));
+      document.querySelectorAll("[data-create-invoice-for]").forEach(btn => btn.addEventListener("click", () => createInvoice(btn.dataset.createInvoiceFor)));
+      document.querySelectorAll("[data-mark-paid]").forEach(btn => btn.addEventListener("click", () => markAsPaid(btn.dataset.markPaid)));
+      document.querySelectorAll("[data-record-payment]").forEach(btn => btn.addEventListener("click", () => {
+        const invoiceId = prompt('请输入要登记收款的发票号：');
+        if (invoiceId) markAsPaid(invoiceId);
+      }));
+      
       document.querySelectorAll("[data-quotation-page]").forEach(btn => btn.addEventListener("click", () => {
         const page = btn.dataset.quotationPage;
         const totalPages = Math.ceil(filterQuotations().length / quotationState.pageSize);
