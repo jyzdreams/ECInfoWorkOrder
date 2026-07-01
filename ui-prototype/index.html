@@ -315,7 +315,7 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 100;
       min-height: 66px;
       display: flex;
       align-items: center;
@@ -325,6 +325,7 @@
       background: rgba(244,247,251,.82);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
     }
     [data-theme="dark"] .topbar { background: rgba(13,21,35,.82); }
     .topbar-left, .topbar-right {
@@ -332,6 +333,7 @@
       align-items: center;
       gap: 10px;
       min-width: 0;
+      flex-wrap: wrap;
     }
     .page-heading {
       min-width: 170px;
