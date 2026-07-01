@@ -1457,10 +1457,45 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
     .wo-view-btn:hover {
       background: var(--primary);
       color: #fff;
+    }
+    .wo-urge-btn {
+      padding: 6px 12px;
+      border: 1px solid #f59e0b;
+      background: #fffbeb;
+      color: #b45309;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .wo-urge-btn:hover {
+      background: #f59e0b;
+      color: #fff;
+    }
+    [data-theme="dark"] .wo-urge-btn {
+      background: #422006;
+      color: #fbbf24;
+      border-color: #92400e;
+    }
+    [data-theme="dark"] .wo-urge-btn:hover {
+      background: #f59e0b;
+      color: #fff;
+    }
+    .wo-td-actions {
+      min-width: 180px;
+      white-space: nowrap;
+    }
+    .wo-td-actions > div {
+      display: flex;
+      gap: 6px;
+      align-items: center;
     }
     .wo-drawer {
       background: var(--panel);
@@ -1518,15 +1553,34 @@
       border-radius: 3px;
     }
     .wo-detail-section {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
-    .wo-detail-section h4 {
+    .wo-detail-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .wo-detail-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 107, 255, 0.08);
+    }
+    .wo-detail-card h4 {
       margin: 0 0 12px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wo-detail-card h4::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 2px;
     }
     .wo-detail-grid {
       display: grid;
@@ -1537,6 +1591,13 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      padding: 8px 12px;
+      background: var(--panel-soft);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .wo-detail-item:hover {
+      background: var(--primary-soft);
     }
     .wo-detail-item.full-width {
       grid-column: 1 / -1;
@@ -1545,11 +1606,14 @@
       font-size: 11px;
       color: var(--muted);
       font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
     .wo-detail-value {
       font-size: 13px;
       color: var(--text);
       line-height: 1.5;
+      font-weight: 500;
     }
     .wo-timeline {
       position: relative;
@@ -4136,7 +4200,9 @@
                   暂无匹配工单
                 </td>
               </tr>
-            ` : filtered.map(t => `
+            ` : filtered.map(t => {
+              const showUrge = state.role === "CS" && ["待分派", "待接单", "处理中"].includes(t.status);
+              return `
               <tr>
                 <td><button class="wo-id-link" data-wo-view="${t.id}">${t.id}</button></td>
                 <td>${t.type}</td>
@@ -4148,9 +4214,14 @@
                 <td><span class="wo-status-tag wo-status-${t.status}">${t.status}</span></td>
                 <td>${escapeHtml(t.owner)}</td>
                 <td>${t.updatedAt}</td>
-                <td><button class="wo-view-btn" data-wo-view="${t.id}">查看详情</button></td>
+                <td class="wo-td-actions">
+                  <div>
+                    ${showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催单</button>` : ''}
+                    <button class="wo-view-btn" data-wo-view="${t.id}">查看详情</button>
+                  </div>
+                </td>
               </tr>
-            `).join("")}
+            `}).join("")}
           </tbody>
         </table>
       `;
@@ -4168,116 +4239,140 @@
           </div>
           <div class="wo-drawer-body">
             <div class="wo-detail-section">
-              <h4>客户信息</h4>
-              <div class="wo-detail-grid">
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">客户名称</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.customer)}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">联系人</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.contact)}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">联系电话</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.phone)}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">地址</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.address)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="wo-detail-section">
-              <h4>工单信息</h4>
-              <div class="wo-detail-grid">
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">工单类型</span>
-                  <span class="wo-detail-value">${ticket.type}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">区域</span>
-                  <span class="wo-detail-value">${ticket.area}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">来源渠道</span>
-                  <span class="wo-detail-value">${ticket.channel}</span>
-                </div>
-                <div class="wo-detail-item full-width">
-                  <span class="wo-detail-label">描述内容</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.desc)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="wo-detail-section">
-              <h4>负责人信息</h4>
-              <div class="wo-detail-grid">
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">当前负责人</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.owner)}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">Team Leader</span>
-                  <span class="wo-detail-value">${escapeHtml(ticket.tl)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="wo-detail-section">
-              <h4>附件</h4>
-              <div class="wo-detail-grid">
-                <div class="wo-detail-item full-width">
-                  <span class="wo-detail-value">
-                    ${ticket.attachments.length > 0 
-                      ? ticket.attachments.map(a => `<div style="padding: 6px 10px; background: var(--panel-soft); border-radius: 6px; margin-bottom: 6px;">${escapeHtml(a)}</div>`).join("")
-                      : '<span style="color: var(--muted);">暂无附件</span>'}
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="wo-detail-section">
-              <h4>处理记录</h4>
-              <div class="wo-timeline">
-                ${ticket.records.map(r => `
-                  <div class="wo-timeline-item">
-                    <div class="wo-timeline-dot"></div>
-                    <div class="wo-timeline-content">
-                      <div class="wo-timeline-time">${r.time}</div>
-                      <div class="wo-timeline-actor">${escapeHtml(r.actor)}</div>
-                      <div class="wo-timeline-text">${escapeHtml(r.text)}</div>
-                    </div>
+              <div class="wo-detail-card">
+                <h4>客户信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客户名称</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.customer)}</span>
                   </div>
-                `).join("")}
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">联系人</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.contact)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">联系电话</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.phone)}</span>
+                  </div>
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-label">地址</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.address)}</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="wo-detail-section">
-              <h4>其他信息</h4>
-              <div class="wo-detail-grid">
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">开单时间</span>
-                  <span class="wo-detail-value">${ticket.createdAt}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">更新时间</span>
-                  <span class="wo-detail-value">${ticket.updatedAt}</span>
-                </div>
-                <div class="wo-detail-item">
-                  <span class="wo-detail-label">是否紧急</span>
-                  <span class="wo-detail-value">${ticket.urgent ? '是' : '否'}</span>
-                </div>
-                ${ticket.rejectReason ? `
+              <div class="wo-detail-card">
+                <h4>工单信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">工单类型</span>
+                    <span class="wo-detail-value">${ticket.type}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">区域</span>
+                    <span class="wo-detail-value">${ticket.area}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">来源渠道</span>
+                    <span class="wo-detail-value">${ticket.channel}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">优先级</span>
+                    <span class="wo-detail-value">${ticket.urgent ? '紧急' : '普通'}</span>
+                  </div>
                   <div class="wo-detail-item full-width">
-                    <span class="wo-detail-label">拒单原因</span>
+                    <span class="wo-detail-label">描述内容</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.desc)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>负责人信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">当前负责人</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.owner)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">Team Leader</span>
+                    <span class="wo-detail-value">${escapeHtml(ticket.tl)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>时间信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">开单时间</span>
+                    <span class="wo-detail-value">${ticket.createdAt}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">更新时间</span>
+                    <span class="wo-detail-value">${ticket.updatedAt}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>附件</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">
+                      ${ticket.attachments.length > 0 
+                        ? ticket.attachments.map(a => `<div style="padding: 6px 10px; background: var(--panel-soft); border-radius: 6px; margin-bottom: 6px;">${escapeHtml(a)}</div>`).join("")
+                        : '<span style="color: var(--muted);">暂无附件</span>'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>处理记录</h4>
+                <div class="wo-timeline">
+                  ${ticket.records.map(r => `
+                    <div class="wo-timeline-item">
+                      <div class="wo-timeline-dot"></div>
+                      <div class="wo-timeline-content">
+                        <div class="wo-timeline-time">${r.time}</div>
+                        <div class="wo-timeline-actor">${escapeHtml(r.actor)}</div>
+                        <div class="wo-timeline-text">${escapeHtml(r.text)}</div>
+                      </div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            </div>
+            ${ticket.rejectReason ? `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>拒单原因</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
                     <span class="wo-detail-value">${escapeHtml(ticket.rejectReason)}</span>
                   </div>
-                ` : ''}
-                ${ticket.cancelReason ? `
-                  <div class="wo-detail-item full-width">
-                    <span class="wo-detail-label">取消原因</span>
-                    <span class="wo-detail-value">${escapeHtml(ticket.cancelReason)}</span>
-                  </div>
-                ` : ''}
+                </div>
               </div>
             </div>
+            ` : ''}
+            ${ticket.cancelReason ? `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>取消原因</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">${escapeHtml(ticket.cancelReason)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ` : ''}
           </div>
           <div class="wo-drawer-footer">
             ${actionButtons(ticket, "drawer")}
