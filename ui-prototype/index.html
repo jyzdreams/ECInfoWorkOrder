@@ -3380,6 +3380,26 @@
       if (action === "note") {
         updateTicket(id, {}, "补充信息：已在原型中记录备注。");
       }
+      if (action === "urge") {
+        // 催单功能
+        const urgeContent = prompt("请输入催单内容：");
+        if (urgeContent) {
+          const urgeRecord = {
+            time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
+            actor: currentRole().name,
+            text: `客户催单：${urgeContent}`
+          };
+          if (!t.urgeRecords) t.urgeRecords = [];
+          t.urgeRecords.push(urgeRecord);
+          t.urgeCount = (t.urgeCount || 0) + 1;
+          updateTicket(id, {}, `客户催单 ${t.urgeCount} 次：${urgeContent}`);
+          toast("催单已记录，已通知TL和师傅");
+        }
+      }
+      if (action === "editTicket") {
+        // TL编辑工单
+        openEditWorkOrderModal(id);
+      }
       render();
       toast("状态已在页面内模拟更新");
     }
@@ -3395,9 +3415,14 @@
           add("取消", "cancel", "danger-btn");
         }
         if (["待受理", "处理中"].includes(t.status)) add("补充信息", "note", "secondary-btn");
+        // 客户催单按钮
+        if (["待分派", "待接单", "处理中"].includes(t.status)) add("催单", "urge", "warning-btn");
       }
       if (state.role === "TL") {
-        if (t.status === "待分派") add("分派", "assign", "primary-btn");
+        if (t.status === "待分派") {
+          add("分派", "assign", "primary-btn");
+          add("编辑工单", "editTicket", "secondary-btn");
+        }
         if (t.status === "待接单") add("重新分派", "assign", "secondary-btn");
         if (t.status === "待确认") {
           add("确认关闭", "confirmClose", "primary-btn");
@@ -3747,9 +3772,16 @@
               <div class="info-list" style="margin-top:12px;">
                 ${infoRow("标签", t.tags.join("、") || "无")}
                 ${infoRow("优先级", t.priority || (t.urgent ? "紧急" : "普通"))}
+                ${infoRow("催单次数", t.urgeCount || 0)}
                 ${infoRow("拒单原因", t.rejectReason || "无")}
                 ${infoRow("取消原因", t.cancelReason || "无")}
               </div>
+              ${t.urgeRecords && t.urgeRecords.length > 0 ? `
+                <h3 style="margin-top:16px;">催单记录</h3>
+                <div class="timeline" style="margin-top:10px;">
+                  ${t.urgeRecords.map(r => `<div class="timeline-item"><span class="timeline-dot"></span><strong>${r.time} · ${escapeHtml(r.actor)}</strong><p>${escapeHtml(r.text)}</p></div>`).join("")}
+                </div>
+              ` : ''}
               <h3 style="margin-top:16px;">附件 / 图片</h3>
               <div class="photo-grid" style="margin-top:10px;">
                 ${(t.attachments.length ? t.attachments : ["暂无附件"]).map((a, idx) => `<div class="photo-thumb">${escapeHtml(a)}${idx < t.attachments.length ? "" : ""}</div>`).join("")}
@@ -4188,10 +4220,26 @@
     }
 
     function renderDispatch() {
-      const pending = tickets.filter(t => t.status === "待分派");
+      // 当天待派单（最新工单置顶）
+      const today = new Date().toISOString().slice(0, 10);
+      const pending = tickets.filter(t => t.status === "待分派").sort((a, b) => {
+        // 最新工单置顶（按创建时间倒序）
+        const timeA = a.createdAt || '';
+        const timeB = b.createdAt || '';
+        return timeB.localeCompare(timeA);
+      });
+      
+      // 当天已派单（状态为待接单、处理中、待确认）
+      const assigned = tickets.filter(t => 
+        ["待接单", "处理中", "待确认"].includes(t.status) && 
+        t.master && 
+        t.createdAt && t.createdAt.startsWith(today.slice(5))
+      );
+      
       if (!pending.find(t => t.id === state.selectedDispatchId) && pending[0]) state.selectedDispatchId = pending[0].id;
       const selected = ticketById(state.selectedDispatchId);
       const master = masters.find(m => m.name === state.selectedMaster) || masters[0];
+      
       return `
         <section class="page active">
           <div class="dispatch-grid">
@@ -4200,6 +4248,12 @@
               ${pending.map(t => `<button class="ticket-mini ${state.selectedDispatchId === t.id ? "active" : ""}" data-dispatch-ticket="${t.id}">
                 <strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span><p>${escapeHtml(t.customer)} · ${t.area} · ${t.type}</p><p>${escapeHtml(t.desc)}</p>
               </button>`).join("") || '<p>暂无待分派工单</p>'}
+            </div>
+            <div class="card">
+              <div class="card-head"><h2>当天已派单</h2><span class="chip">${assigned.length} 条</span></div>
+              ${assigned.map(t => `<div class="ticket-mini">
+                <strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span><p>${escapeHtml(t.customer)} · ${t.master}</p>
+              </div>`).join("") || '<p>暂无当天已派单</p>'}
             </div>
             <div class="card">
               <div class="card-head"><h2>推荐师傅 / 可选师傅</h2><span class="chip">人工选择</span></div>
@@ -5937,10 +5991,11 @@
       if (confirmAssign) {
         confirmAssign.addEventListener("click", () => {
           const t = ticketById(state.selectedDispatchId);
-          updateTicket(t.id, { status: "待接单", owner: state.selectedMaster, master: state.selectedMaster }, `Team Leader 已分派给 ${state.selectedMaster}。`);
+          const assignNote = document.querySelector("#assignNote")?.value || "";
+          updateTicket(t.id, { status: "待接单", owner: state.selectedMaster, master: state.selectedMaster }, `Team Leader 已分派给 ${state.selectedMaster}。${assignNote ? '备注：' + assignNote : ''}`);
           state.selectedTicketId = t.id;
           render();
-          toast("已模拟分派，状态变为待接单");
+          toast("已分派，状态变为待接单，已CC通知CS");
         });
       }
       document.querySelectorAll("[data-setting-tab]").forEach(btn => btn.addEventListener("click", () => {
