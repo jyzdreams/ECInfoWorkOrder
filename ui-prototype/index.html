@@ -7126,35 +7126,32 @@
       const draftBtn = $("#draftBtn");
       if (draftBtn) draftBtn.addEventListener("click", () => toast("草稿仅展示，不作为 MVP 主状态"));
 
-      // Customer selector auto-fill logic (scoped to work order modal)
-      const modal = document.querySelector(".wo-modal");
-      if (modal) {
-        const customerSelect = modal.querySelector("#customerSelect");
-        if (customerSelect) {
-          customerSelect.addEventListener("change", () => {
-            const customerId = customerSelect.value;
-            const customer = customers.find(c => c.id === customerId);
-            if (customer) {
-              const contactInput = modal.querySelector("#contactInput");
-              const phoneInput = modal.querySelector("#phoneInput");
-              const areaSelect = modal.querySelector("[name='area']");
-              const addressInput = modal.querySelector("[name='address']");
+      // Customer selector auto-fill logic (for both modal and create form)
+      const customerSelect = document.querySelector("#customerSelect");
+      if (customerSelect) {
+        customerSelect.addEventListener("change", () => {
+          const customerId = customerSelect.value;
+          const customer = customers.find(c => c.id === customerId);
+          if (customer) {
+            const contactInput = document.querySelector("#contactInput");
+            const phoneInput = document.querySelector("#phoneInput");
+            const areaSelect = document.querySelector("[name='area']");
+            const addressInput = document.querySelector("[name='address']");
 
-              if (contactInput && customer.contacts.length > 0) {
-                contactInput.value = customer.contacts[0].name || "";
-              }
-              if (phoneInput && customer.contacts.length > 0) {
-                phoneInput.value = customer.contacts[0].phone || "";
-              }
-              if (areaSelect && customer.addresses.length > 0) {
-                areaSelect.value = customer.addresses[0].area || "";
-              }
-              if (addressInput && customer.addresses.length > 0) {
-                addressInput.value = customer.addresses[0].addressZh || "";
-              }
+            if (contactInput && customer.contacts.length > 0) {
+              contactInput.value = customer.contacts[0].name || "";
             }
-          });
-        }
+            if (phoneInput && customer.contacts.length > 0) {
+              phoneInput.value = customer.contacts[0].phone || "";
+            }
+            if (areaSelect && customer.addresses.length > 0) {
+              areaSelect.value = customer.addresses[0].area || "";
+            }
+            if (addressInput && customer.addresses.length > 0) {
+              addressInput.value = customer.addresses[0].addressZh || "";
+            }
+          }
+        });
       }
 
       // User management events
