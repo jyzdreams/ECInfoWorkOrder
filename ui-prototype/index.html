@@ -3363,7 +3363,11 @@
         return;
       }
       if (action === "take") {
-        updateTicket(id, { status: "处理中", owner: currentRole().name, master: currentRole().name }, "师傅已接单，进入处理中。");
+        const eta = prompt("请输入预计到达时间（例如：30分钟、14:30、下午3点）：");
+        if (eta === null) return;
+        const updates = { status: "处理中", owner: currentRole().name, master: currentRole().name };
+        if (eta) updates.estimatedArrival = eta;
+        updateTicket(id, updates, eta ? `师傅已接单，预计 ${eta} 到达。` : "师傅已接单，进入处理中。");
       }
       if (action === "reject") {
         updateTicket(id, { status: "待分派", owner: t.tl, master: "", rejectReason: "当前任务冲突，需重新安排。" }, "师傅拒单：当前任务冲突，退回待分派。");
@@ -5851,6 +5855,7 @@
           <strong>${t.type}</strong>
           <div class="muted">${escapeHtml(t.customer)} · ${t.area}</div>
           <div>${escapeHtml(t.address)}</div>
+          <div style="margin-top:6px;"><strong>联系人：</strong>${escapeHtml(t.contact)} <strong>电话：</strong>${escapeHtml(t.phone)}</div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">${t.urgent ? '<span class="tag urgent">紧急</span>' : ''}<span class="chip">${t.channel}</span></div>
           <div class="mobile-actions">
             ${t.status === "待接单" ? `<button class="primary-btn" data-action="take" data-id="${t.id}">接单</button><button class="danger-btn" data-action="reject" data-id="${t.id}">拒单</button>` : `<button class="secondary-btn" data-mobile-open="${t.id}">查看详情</button>`}
@@ -5868,6 +5873,7 @@
           ${infoRow("来源", t.channel)}
           ${infoRow("区域", t.area)}
           ${infoRow("地址", t.address)}
+          ${t.estimatedArrival ? infoRow("预计到达", t.estimatedArrival) : ""}
           <p>${escapeHtml(t.desc)}</p>
           <div class="photo-grid">${(t.attachments.length ? t.attachments : ["暂无附件"]).map(a => `<div class="photo-thumb">${escapeHtml(a)}</div>`).join("")}</div>
         </div>
