@@ -1673,10 +1673,81 @@
     [data-theme="dark"] .wo-status-待确认 { background: #3a1528; color: #ff9fbb; }
     [data-theme="dark"] .wo-status-已关闭 { background: #252b36; color: #b8c0cc; }
     [data-theme="dark"] .wo-status-已取消 { background: #1e2229; color: #8a92a0; }
+    
+    /* 双状态标签容器 */
+    .wo-status-double {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
+    
+    /* 报价状态标签样式 */
+    .wo-quotation-status-待报价 { background: #fff7ed; color: #ea580c; }
+    .wo-quotation-status-报价中 { background: #eff6ff; color: #2563eb; }
+    .wo-quotation-status-已发出 { background: #ecfeff; color: #0891b2; }
+    .wo-quotation-status-等待客户确认 { background: #faf5ff; color: #9333ea; }
+    .wo-quotation-status-需修订 { background: #fef2f2; color: #dc2626; }
+    .wo-quotation-status-已确认 { background: #f0fdf4; color: #16a34a; }
+    .wo-quotation-status-已取消 { background: #f5f5f5; color: #757575; }
+    [data-theme="dark"] .wo-quotation-status-待报价 { background: #431407; color: #fb923c; }
+    [data-theme="dark"] .wo-quotation-status-报价中 { background: #172554; color: #60a5fa; }
+    [data-theme="dark"] .wo-quotation-status-已发出 { background: #083344; color: #22d3ee; }
+    [data-theme="dark"] .wo-quotation-status-等待客户确认 { background: #3b0764; color: #c084fc; }
+    [data-theme="dark"] .wo-quotation-status-需修订 { background: #450a0a; color: #f87171; }
+    [data-theme="dark"] .wo-quotation-status-已确认 { background: #052e16; color: #4ade80; }
+    [data-theme="dark"] .wo-quotation-status-已取消 { background: #252b36; color: #b8c0cc; }
+    
+    /* 报价按钮样式 */
+    .wo-quote-btn {
+      width: 70px;
+      height: 36px;
+      padding: 0;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-quote-primary {
+      border: 1px solid var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .wo-quote-primary:hover {
+      background: var(--primary-strong);
+      border-color: var(--primary-strong);
+    }
+    [data-theme="dark"] .wo-quote-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    [data-theme="dark"] .wo-quote-primary:hover {
+      background: var(--primary-strong);
+    }
+    .wo-quote-secondary {
+      border: 1px solid var(--primary);
+      background: #ffffff;
+      color: var(--primary);
+    }
+    .wo-quote-secondary:hover {
+      background: var(--primary-soft);
+    }
+    [data-theme="dark"] .wo-quote-secondary {
+      background: #1a1a1a;
+      color: var(--primary);
+    }
+    [data-theme="dark"] .wo-quote-secondary:hover {
+      background: var(--primary-soft);
+    }
     .wo-td-actions {
-      width: 190px;
-      min-width: 190px;
-      max-width: 190px;
+      width: 260px;
+      min-width: 260px;
+      max-width: 260px;
       white-space: nowrap;
     }
     .wo-td-actions > div {
@@ -1686,6 +1757,13 @@
       width: 100%;
     }
     .wo-actions-left {
+      width: 70px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-actions-middle {
       width: 70px;
       flex-shrink: 0;
       display: flex;
@@ -4544,6 +4622,7 @@
 
     function renderWorkOrderTable() {
       const filtered = filterWorkOrders();
+      const isQUO = state.role === "QUO";
       
       return `
         <table class="wo-table">
@@ -4553,7 +4632,8 @@
               <th>工单类型</th>
               <th>客户 / 联系人</th>
               <th>区域</th>
-              <th>状态</th>
+              <th>工单状态</th>
+              ${isQUO ? '<th>报价状态</th>' : ''}
               <th>当前负责人</th>
               <th>更新时间</th>
               <th>操作</th>
@@ -4562,12 +4642,32 @@
           <tbody>
             ${filtered.length === 0 ? `
               <tr>
-                <td colspan="8" style="text-align: center; padding: 40px; color: var(--muted);">
+                <td colspan="${isQUO ? 9 : 8}" style="text-align: center; padding: 40px; color: var(--muted);">
                   暂无匹配工单
                 </td>
               </tr>
             ` : filtered.map(t => {
               const showUrge = state.role === "CS" && ["待分派", "待接单", "处理中"].includes(t.status);
+              
+              // 获取报价状态
+              const ticketQuotation = quotations.find(q => q.ticketId === t.id);
+              const quotationStatus = ticketQuotation?.status || '';
+              const needQuotation = t.needQuotation;
+              
+              // 报价按钮逻辑（仅报价组显示）
+              let quotationBtnHtml = '';
+              if (isQUO) {
+                if (!needQuotation) {
+                  quotationBtnHtml = '<div style="width:70px;height:36px;visibility:hidden;"></div>';
+                } else if (quotationStatus === "待报价" || quotationStatus === "需修订") {
+                  quotationBtnHtml = `<button class="wo-quote-btn wo-quote-primary" data-action="quote" data-id="${t.id}">报价</button>`;
+                } else if (["已发出", "等待客户确认", "已确认", "已取消"].includes(quotationStatus)) {
+                  quotationBtnHtml = `<button class="wo-quote-btn wo-quote-secondary" data-action="viewQuote" data-id="${t.id}">查看报价</button>`;
+                } else {
+                  quotationBtnHtml = '<div style="width:70px;height:36px;visibility:hidden;"></div>';
+                }
+              }
+              
               return `
               <tr>
                 <td><button class="wo-id-link" data-wo-view="${t.id}">${t.id}</button></td>
@@ -4578,12 +4678,16 @@
                 </td>
                 <td>${t.area}</td>
                 <td><span class="wo-status-tag wo-status-${t.status}">${t.status}</span></td>
+                ${isQUO ? `<td>${quotationStatus ? `<span class="wo-status-tag wo-quotation-status-${quotationStatus}">${quotationStatus}</span>` : '<span style="color: var(--muted);">-</span>'}</td>` : ''}
                 <td>${escapeHtml(t.owner)}</td>
                 <td>${t.updatedAt}</td>
                 <td class="wo-td-actions">
                   <div>
                     <div class="wo-actions-left">
                       ${showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催单</button>` : '<div style="width:70px;height:36px;visibility:hidden;"></div>'}
+                    </div>
+                    <div class="wo-actions-middle">
+                      ${quotationBtnHtml}
                     </div>
                     <div class="wo-actions-right">
                       <button class="wo-view-btn" data-wo-view="${t.id}">查看详情</button>
