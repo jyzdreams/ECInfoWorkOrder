@@ -7279,8 +7279,7 @@
 
     function masterTickets(includeHistory = false) {
       const roleName = currentRole().name;
-      let list = tickets.filter(t => t.master === roleName || t.owner === roleName);
-      if (!list.length) list = tickets.filter(t => ["周师傅", "吴师傅", "梁师傅", "黄师傅"].includes(t.master));
+      const list = tickets.filter(t => t.master === roleName || t.owner === roleName);
       return includeHistory ? list.filter(t => ["已关闭", "已取消"].includes(t.status)) : list.filter(t => ["待接单", "处理中", "待确认"].includes(t.status));
     }
 
@@ -7620,8 +7619,25 @@
           const assignNote = document.querySelector("#assignNote")?.value || "";
           updateTicket(t.id, { status: "待接单", owner: state.selectedMaster, master: state.selectedMaster }, `Team Leader 已分派给 ${state.selectedMaster}。${assignNote ? '备注：' + assignNote : ''}`);
           state.selectedTicketId = t.id;
+          
+          // 创建通知给被分派的师傅
+          const masterUser = users.find(u => u.name === state.selectedMaster && u.role === "MASTER");
+          if (masterUser) {
+            createNotification({
+              module: "ticket",
+              level: "action",
+              title: "新工单待接单",
+              content: t.id,
+              subContent: t.customer,
+              targetPage: "workorder",
+              targetId: t.id,
+              receiverId: masterUser.id,
+              receiverRole: "MASTER"
+            });
+          }
+          
           render();
-          toast("已分派，状态变为待接单，已CC通知CS");
+          toast("已分派，状态变为待接单，已通知师傅");
         });
       }
       document.querySelectorAll("[data-setting-tab]").forEach(btn => btn.addEventListener("click", () => {
