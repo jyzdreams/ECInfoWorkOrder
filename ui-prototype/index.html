@@ -3972,6 +3972,30 @@
           updates.paperHolder = paperHolder.value;
         }
         
+        // 处理是否需要报价字段
+        const needQuotationCheckbox = document.getElementById('needQuotation');
+        if (needQuotationCheckbox) {
+          updates.needQuotation = needQuotationCheckbox.checked;
+          
+          // 如果需要报价，通知报价组
+          if (needQuotationCheckbox.checked && !t.needQuotation) {
+            const quotationUsers = users.filter(u => u.role === "QUO" && u.status === "启用");
+            quotationUsers.forEach(user => {
+              createNotification({
+                module: "ticket",
+                level: "action",
+                title: "工单需要报价",
+                content: t.id,
+                subContent: t.customer,
+                targetPage: "workorder",
+                targetId: t.id,
+                receiverId: user.id,
+                receiverRole: "QUO"
+              });
+            });
+          }
+        }
+        
         updateTicket(id, updates, "师傅提交服务报告和现场记录，等待确认。");
       }
       if (action === "confirmClose") {
@@ -4003,6 +4027,11 @@
         // TL编辑工单
         openEditWorkOrderModal(id);
       }
+      if (action === "createQuotationFromTicket") {
+        // 报价组从工单创建报价
+        openQuotationModalFromTicket(id);
+        return;
+      }
       render();
       toast("状态已在页面内模拟更新");
     }
@@ -4011,6 +4040,13 @@
       const buttons = [];
       const add = (label, action, cls = "secondary-btn") => buttons.push(`<button class="${cls}" data-action="${action}" data-id="${t.id}">${label}</button>`);
       if (context === "list") add("查看详情", "view", "ghost-btn");
+      
+      // 报价组特殊处理：已关闭且需要报价的工单显示报价按钮
+      if (state.role === "QUO" && t.status === "已关闭" && t.needQuotation) {
+        add("创建报价", "createQuotationFromTicket", "primary-btn");
+        return buttons.join("");
+      }
+      
       if (["已关闭", "已取消"].includes(t.status)) return buttons.join("");
       if (state.role === "CS") {
         if (t.status === "待受理") {
@@ -6603,6 +6639,68 @@
       return amount * (1 + taxRate);
     }
 
+    function openQuotationModalFromTicket(ticketId) {
+      const ticket = tickets.find(t => t.id === ticketId);
+      if (!ticket) {
+        toast("工单不存在");
+        return;
+      }
+      
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <div class="um-modal" style="max-width:680px;">
+          <div class="um-modal-head">
+            <h2>从工单创建报价</h2>
+            <button class="um-modal-close" data-close-modal>×</button>
+          </div>
+          <form id="createQuotationForm">
+            <div class="um-form-grid">
+              <div class="field"><label class="required">报价标题</label><input name="title" required placeholder="请输入报价标题" value="${ticket.customer} - ${ticket.type}"></div>
+              <div class="field"><label>报价编号</label><input name="id" value="QT-${new Date().toISOString().slice(0,10).replace(/-/g,"")}-${String(quotations.length + 1).padStart(3,"0")}" readonly></div>
+              <div class="field"><label class="required">关联工单</label>
+                <select name="ticketId" required>
+                  <option value="${ticket.id}" selected>${ticket.id} - ${ticket.customer}</option>
+                </select>
+              </div>
+              <div class="field"><label>关联客户</label><input name="customerName" readonly value="${ticket.customer}"></div>
+              <div class="field"><label>S/R编号</label><input name="srNo" placeholder="Service Report编号" value="${ticket.serviceReportNo || ''}"></div>
+              <div class="field"><label class="required">报价负责人</label>
+                <select name="owner" required>
+                  <option value="">请选择负责人</option>
+                  ${users.filter(u => u.role === "TL" || u.role === "ADMIN").map(u => `<option value="${u.name}">${u.name}</option>`).join("")}
+                </select>
+              </div>
+              <div class="field"><label class="required">报价日期</label><input name="createdAt" type="date" value="${new Date().toISOString().slice(0,10)}" required></div>
+              <div class="field"><label>有效期至</label><input name="validUntil" type="date" value="${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0,10)}"></div>
+              <div class="field"><label class="required">总金额</label><input name="amount" type="number" step="0.01" required placeholder="请输入金额"></div>
+              <div class="field"><label>币种</label>
+                <select name="currency">
+                  <option value="HKD" selected>HKD</option>
+                  <option value="USD">USD</option>
+                  <option value="CNY">CNY</option>
+                </select>
+              </div>
+              <div class="field"><label>税率</label><input name="taxRate" type="number" step="0.01" value="0.1" placeholder="0.1 = 10%"></div>
+              <div class="field"><label>含税金额</label><input name="totalAmount" readonly placeholder="自动计算"></div>
+              <div class="field"><label>报价状态</label>
+                <select name="status">
+                  ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${s === "待报价" ? "selected" : ""}>${s}</option>`).join("")}
+                </select>
+              </div>
+              <div class="field" style="grid-column:span 2;"><label>备注</label><textarea name="remark" rows="3" placeholder="请输入报价备注"></textarea></div>
+            </div>
+            <div class="um-modal-actions">
+              <button type="button" class="ghost-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn">保存</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      bindQuotationModalEvents(modal);
+    }
+
     function openCreateQuotation() {
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
@@ -7350,6 +7448,16 @@
           <div class="photo-grid" id="photoGrid">
             ${(t.attachments || []).map((a, i) => `<div class="photo-thumb" style="background:var(--primary-soft);">${escapeHtml(a)}<button type="button" onclick="removePhoto(${i})" style="position:absolute;top:2px;right:2px;background:var(--danger);color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;">×</button></div>`).join("")}
             ${(t.attachments || []).length < 9 ? `<div class="photo-thumb" onclick="uploadPhoto()" style="cursor:pointer;border:2px dashed var(--border);">+ 上传</div>` : ""}
+          </div>
+        </div>
+        
+        <div class="mobile-card">
+          <strong>是否需要报价</strong>
+          <div class="field" style="margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+              <input type="checkbox" id="needQuotation" ${t.needQuotation ? 'checked' : ''} style="width:18px;height:18px;cursor:pointer;">
+              <span>需要报价（需要更换零件或额外服务）</span>
+            </label>
           </div>
         </div>
         
