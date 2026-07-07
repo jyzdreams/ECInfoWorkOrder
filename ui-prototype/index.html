@@ -995,6 +995,75 @@
       background: linear-gradient(180deg, transparent, var(--bg) 18%);
     }
 
+    /* ===== Mobile Dispatch Center (md- prefix) ===== */
+    .md-page { display: flex; flex-direction: column; gap: 16px; }
+    .md-section { display: flex; flex-direction: column; gap: 12px; }
+    .md-section-title { font-size: 14px; font-weight: 700; color: var(--sidebar); padding: 2px 0; }
+    .md-empty {
+      background: var(--panel); border: 1px dashed var(--line); border-radius: 10px;
+      padding: 24px 14px; text-align: center; color: var(--muted); font-size: 13px;
+    }
+    .md-ticket-card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 14px; cursor: pointer; transition: border-color .15s, background .15s;
+      display: flex; flex-direction: column; gap: 6px; min-height: 110px; max-height: 130px; overflow: hidden;
+    }
+    .md-ticket-card.selected { border-color: var(--primary); background: var(--primary-soft); }
+    .md-ticket-head { display: flex; align-items: center; justify-content: space-between; }
+    .md-ticket-head strong { font-size: 14px; color: var(--sidebar); }
+    .md-ticket-info { font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .md-dot { color: var(--muted); }
+    .md-ticket-meta { font-size: 12px; color: var(--muted); }
+    .md-ticket-desc {
+      font-size: 12px; color: var(--muted); overflow: hidden;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4;
+    }
+    .md-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .md-tag-warning { background: var(--warning-soft); color: var(--warning); }
+    .md-tag-primary { background: var(--primary-soft); color: var(--primary); }
+    .md-master-card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .md-master-card.selected { border-color: var(--primary); background: var(--primary-soft); }
+    .md-master-avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #fff;
+      display: grid; place-items: center; font-size: 16px; font-weight: 700; flex-shrink: 0;
+    }
+    .md-master-body { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .md-master-head { display: flex; align-items: center; gap: 8px; }
+    .md-master-head strong { font-size: 14px; color: var(--sidebar); }
+    .md-master-skills { font-size: 12px; color: var(--muted); }
+    .md-master-stats { font-size: 12px; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .md-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); flex-shrink: 0; position: relative; }
+    .md-radio.checked { border-color: var(--primary); }
+    .md-radio.checked::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--primary); }
+    .md-confirm-card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      padding: 14px; display: flex; flex-direction: column; gap: 14px;
+    }
+    .md-confirm-group { display: flex; flex-direction: column; gap: 8px; }
+    .md-confirm-label { font-size: 13px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+    .md-confirm-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; gap: 10px; }
+    .md-confirm-row span { color: var(--muted); flex-shrink: 0; }
+    .md-confirm-row strong { color: var(--text); font-weight: 600; text-align: right; }
+    .md-textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 10px;
+      font-size: 13px; font-family: inherit; background: var(--bg); color: var(--text);
+      resize: vertical; box-sizing: border-box;
+    }
+    .md-textarea:focus { outline: none; border-color: var(--primary); }
+    .md-submit-bar {
+      position: sticky; bottom: 0; left: 0; right: 0; padding: 12px 0 4px;
+      background: linear-gradient(180deg, transparent, var(--bg) 18%); z-index: 5;
+    }
+    .md-submit-btn {
+      width: 100%; padding: 14px; border: 0; border-radius: 10px;
+      background: var(--primary); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer;
+    }
+    .md-submit-btn:active { opacity: .9; }
+
     .toast {
       position: fixed;
       right: 22px;
@@ -1204,6 +1273,7 @@
       border-radius: 50%;
       transition: transform .2s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      pointer-events: none;
     }
     .sr-switch.active::after { transform: translateX(20px); }
     .sr-switch-label { font-size: 13px; font-weight: 700; }
@@ -3085,15 +3155,15 @@
     // Sync dictData back to legacy arrays and callCodes
     function syncDictToLegacy() {
       const wtItems = dictData["工單類型"] || [];
-      const newTypes = wtItems.filter(d => d.status === "啓用").map(d => d.name);
+      const newTypes = wtItems.filter(d => isEnabled(d.status)).map(d => d.name);
       if (newTypes.length > 0) { TYPES.length = 0; newTypes.forEach(t => TYPES.push(t)); }
 
       const rgItems = dictData["區域"] || [];
-      const newRegions = rgItems.filter(d => d.status === "啓用").map(d => d.name);
+      const newRegions = rgItems.filter(d => isEnabled(d.status)).map(d => d.name);
       if (newRegions.length > 0) { REGIONS.length = 0; newRegions.forEach(r => REGIONS.push(r)); }
 
       const stItems = dictData["狀態說明"] || [];
-      const newStatuses = stItems.filter(d => d.status === "啓用").map(d => d.name);
+      const newStatuses = stItems.filter(d => isEnabled(d.status)).map(d => d.name);
       if (newStatuses.length > 0) { STATUSES.length = 0; newStatuses.forEach(s => STATUSES.push(s)); }
 
       const ccItems = dictData["Call代碼"] || [];
@@ -3131,7 +3201,8 @@
       { key: "tasks", label: "任務", title: "我的任務" },
       { key: "mobileDetail", label: "工單", title: "工單詳情" },
       { key: "workRecord", label: "處理", title: "處理記錄" },
-      { key: "history", label: "歷史", title: "歷史工單" }
+      { key: "history", label: "歷史", title: "歷史工單" },
+      { key: "dispatch", label: "分派", title: "分派中心" }
     ];
     const masters = [
       { name: "周師傅", area: "九龍", skills: "PM、弱電維修", load: 3, status: "可接單", tag: "區域匹配" },
@@ -3143,9 +3214,24 @@
     const now = "2026-06-15";
 
     // 從 localStorage 讀取數據，如果沒有則使用默認數據
-    // 清除舊緩存（狀態已更新）
-    localStorage.removeItem('ecinfo_tickets');
-    
+    // 遷移：清除簡體中文時期的舊 localStorage 數據，改用繁體中文默認數據
+    // 原因：getUsersByRole 等函數檢查 status === "啓用"（繁體），但舊數據中是 "启用"（簡體）
+    // v2: 新增清除 ecinfo_dict_data（Call代碼等字典數據）
+    if (!localStorage.getItem('ecinfo_traditional_migrated_v2')) {
+      localStorage.removeItem('ecinfo_users');
+      localStorage.removeItem('ecinfo_customers');
+      localStorage.removeItem('ecinfo_quotations');
+      localStorage.removeItem('ecinfo_invoices');
+      localStorage.removeItem('ecinfo_payments');
+      localStorage.removeItem('ecinfo_suppliers');
+      localStorage.removeItem('ecinfo_purchase_orders');
+      localStorage.removeItem('ecinfo_dict_data');
+      localStorage.setItem('ecinfo_traditional_migrated_v2', 'true');
+    }
+
+    // 通用狀態檢查：兼容繁體「啓用」和簡體「启用」，防止舊數據遺留導致過濾為空
+    const isEnabled = (status) => status === "啓用" || status === "启用";
+
     let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets')) || [
       {
         id: "WO-20260615-001", customerId: "CUST-0001", type: "保養維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
@@ -4259,7 +4345,8 @@
         FIN: "FIN",
         ADMIN: "ADMIN"
       }[roleKey];
-      return users.filter(u => u.role === roleCode && u.status === "啓用");
+      // 使用 isEnabled 兼容繁簡，防止舊數據遷移不完全
+      return users.filter(u => u.role === roleCode && isEnabled(u.status));
     }
     
     // 獲取當前角色（支持人物切換）
@@ -4334,6 +4421,12 @@
         state.mobilePage = "tasks";
         const own = tickets.find(t => t.master === currentRole().name && ["待接單", "待處理", "處理中"].includes(t.status));
         if (own) state.selectedTicketId = own.id;
+      } else if (role === "TL") {
+        state.view = "mobile";
+        state.mobilePage = "dispatch";
+        const pending = tickets.find(t => t.status === "待分派");
+        if (pending) state.mdSelectedTicketId = pending.id;
+        state.mdSelectedMaster = masters[0]?.name || null;
       } else {
         state.view = "pc";
         if (role === "CS") state.page = "create";
@@ -4882,7 +4975,6 @@
         const serviceReportNo = get("serviceReportNo");
         const arrivalTime = get("arrivalTime");
         const completionTime = get("completionTime");
-        const callCode = get("callCode");
         const completedWork = get("completedWork");
         const faultResult = get("faultResult");
         const quotationNote = get("quotationNote");
@@ -4892,14 +4984,6 @@
         if (!serviceReportNo.match(/^\d{6}$/)) {
           alert("服務報告編號必須是6位數字");
           document.getElementById("serviceReportNo")?.focus();
-          return;
-        }
-
-        // Validation: Call代碼 required for government customers
-        const customer = customers.find(c => c.id === t.customerId);
-        if (customer && customer.type === "政府" && !callCode) {
-          alert("請選擇 Call代碼");
-          document.getElementById("callCode")?.focus();
           return;
         }
 
@@ -4946,7 +5030,6 @@
           serviceReportNo: serviceReportNo,
           arrivalTime: arrivalTime,
           completionTime: completionTime,
-          callCode: callCode,
           serviceTypes: [...state.srServiceTypes],
           workNature: state.srWorkNature,
           completedWork: completedWork,
@@ -4968,7 +5051,7 @@
 
         // Notify quotation team if newly marked as needing quotation
         if (state.srNeedQuotation && !t.needQuotation) {
-          const quotationUsers = users.filter(u => u.role === "QUO" && u.status === "啓用");
+          const quotationUsers = users.filter(u => u.role === "QUO" && isEnabled(u.status));
           quotationUsers.forEach(user => {
             createNotification({
               module: "ticket",
@@ -5353,7 +5436,7 @@
                 <div style="display:flex;gap:6px;align-items:center;">
                   <select name="callCode" id="callCodeSelect" style="flex:1;">
                     <option value="">請選擇Call代碼</option>
-                    ${callCodes.filter(cc => cc.status === "啓用").sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}">${cc.code} - ${cc.name}</option>`).join("")}
+                    ${callCodes.filter(cc => isEnabled(cc.status)).sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}">${cc.code} - ${cc.name}</option>`).join("")}
                   </select>
                   <button type="button" class="secondary-btn" id="addCallCodeBtn" title="新增 Call代碼" style="padding:8px 10px;min-width:36px;font-size:16px;">+</button>
                 </div>
@@ -5803,7 +5886,7 @@
                     <label>負責TL <span class="required">*</span></label>
                     <select name="tl" required>
                       <option value="">請選擇TL</option>
-                      ${users.filter(u => u.role === 'TL' && u.status === '啓用').map(u => `<option value="${u.name}" ${isEdit && ticket.tl === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
+                      ${users.filter(u => u.role === 'TL' && isEnabled(u.status)).map(u => `<option value="${u.name}" ${isEdit && ticket.tl === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
                     </select>
                   </div>
                   <div class="wo-form-group">
@@ -5822,7 +5905,7 @@
                     <div style="display:flex;gap:6px;align-items:center;">
                       <select name="callCode" id="callCodeSelect" style="flex:1;">
                         <option value="">請選擇Call代碼</option>
-                        ${callCodes.filter(cc => cc.status === "啓用").sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}" ${isEdit && ticket.callCode === cc.code ? 'selected' : ''}>${cc.code} - ${cc.name}</option>`).join("")}
+                        ${callCodes.filter(cc => isEnabled(cc.status)).sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}" ${isEdit && ticket.callCode === cc.code ? 'selected' : ''}>${cc.code} - ${cc.name}</option>`).join("")}
                       </select>
                       <button type="button" class="secondary-btn" id="addCallCodeBtn" title="新增 Call代碼" style="padding:8px 10px;min-width:36px;font-size:16px;">+</button>
                     </div>
@@ -6024,20 +6107,22 @@
     }
 
     function renderDispatch() {
-      // 當天待派單（最新工單置頂）
+      // 當天待派單（最新工單置頂）- TL 角色根據當前人物過濾
       const today = new Date().toISOString().slice(0, 10);
-      const pending = tickets.filter(t => t.status === "待分派").sort((a, b) => {
+      const currentTLName = state.role === "TL" ? currentRole().name : null;
+      const pending = tickets.filter(t => t.status === "待分派" && (!currentTLName || t.tl === currentTLName)).sort((a, b) => {
         // 最新工單置頂（按創建時間倒序）
         const timeA = a.createdAt || '';
         const timeB = b.createdAt || '';
         return timeB.localeCompare(timeA);
       });
-      
-      // 當天已派單（狀態爲待接單、待處理、處理中）
+
+      // 當天已派單（狀態爲待接單、待處理、處理中）- TL 角色根據當前人物過濾
       const assigned = tickets.filter(t =>
         ["待接單", "待處理", "處理中"].includes(t.status) &&
-        t.master && 
-        t.createdAt && t.createdAt.startsWith(today.slice(5))
+        t.master &&
+        t.createdAt && t.createdAt.startsWith(today.slice(5)) &&
+        (!currentTLName || t.tl === currentTLName)
       );
       
       if (!pending.find(t => t.id === state.selectedDispatchId) && pending[0]) state.selectedDispatchId = pending[0].id;
@@ -6912,7 +6997,7 @@
               <div class="field"><label>直屬主管</label><input name="manager" value="${escapeHtml(user.manager)}"></div>
               <div class="field wide"><label>狀態</label>
                 <select name="status">
-                  <option value="啓用" ${user.status === "啓用" ? "selected" : ""}>啓用</option>
+                  <option value="啓用" ${isEnabled(user.status) ? "selected" : ""}>啓用</option>
                   <option value="禁用" ${user.status === "禁用" ? "selected" : ""}>禁用</option>
                   <option value="離職" ${user.status === "離職" ? "selected" : ""}>離職</option>
                 </select>
@@ -7406,7 +7491,7 @@
               </div>
               <div class="field"><label>客戶狀態</label>
                 <select name="status">
-                  <option value="啓用" ${customer.status === "啓用" ? "selected" : ""}>啟用</option>
+                  <option value="啓用" ${isEnabled(customer.status) ? "selected" : ""}>啟用</option>
                   <option value="禁用" ${customer.status === "禁用" ? "selected" : ""}>禁用</option>
                 </select>
               </div>
@@ -7991,7 +8076,12 @@
         toast("工單不存在");
         return;
       }
-      
+
+      // 從字典管理中讀取區域編號映射
+      const areaDict = dictData["區域"] || [];
+      const areaCode = (areaDict.find(a => a.name === ticket.area) || {}).code || "XX";
+      const quotationId = `${areaCode}M${String(quotations.length + 1).padStart(6, "0")}`;
+
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -8003,14 +8093,15 @@
           <form id="createQuotationForm">
             <div class="um-form-grid">
               <div class="field"><label class="required">報價標題</label><input name="title" required placeholder="請輸入報價標題" value="${ticket.customer} - ${ticket.type}"></div>
-              <div class="field"><label>報價編號</label><input name="id" value="QT-${new Date().toISOString().slice(0,10).replace(/-/g,"")}-${String(quotations.length + 1).padStart(3,"0")}" readonly></div>
+              <div class="field"><label>報價編號</label><input name="id" value="${quotationId}" readonly></div>
               <div class="field"><label class="required">關聯工單</label>
                 <select name="ticketId" required>
                   <option value="${ticket.id}" selected>${ticket.id} - ${ticket.customer}</option>
                 </select>
               </div>
               <div class="field"><label>關聯客戶</label><input name="customerName" readonly value="${ticket.customer}"></div>
-              <div class="field"><label>S/R編號</label><input name="srNo" placeholder="Service Report編號" value="${ticket.serviceReportNo || ''}"></div>
+              <div class="field"><label>區域</label><input name="area" readonly value="${ticket.area || ''}"></div>
+              <div class="field"><label>S/R編號</label><input name="srNo" readonly value="${ticket.serviceReportNo || ''}" placeholder="無"></div>
               <div class="field"><label class="required">報價負責人</label>
                 <select name="owner" required>
                   <option value="">請選擇負責人</option>
@@ -8059,7 +8150,7 @@
           <form id="createQuotationForm">
             <div class="um-form-grid">
               <div class="field"><label class="required">報價標題</label><input name="title" required placeholder="請輸入報價標題"></div>
-              <div class="field"><label>報價編號</label><input name="id" value="QT-${new Date().toISOString().slice(0,10).replace(/-/g,"")}-${String(quotations.length + 1).padStart(3,"0")}" readonly></div>
+              <div class="field"><label>報價編號</label><input name="id" value="選擇工單後自動生成" readonly></div>
               <div class="field"><label class="required">關聯工單</label>
                 <select name="ticketId" required>
                   <option value="">請選擇工單</option>
@@ -8067,7 +8158,8 @@
                 </select>
               </div>
               <div class="field"><label>關聯客戶</label><input name="customerName" readonly placeholder="選擇工單後自動填充"></div>
-              <div class="field"><label>S/R編號</label><input name="srNo" placeholder="Service Report編號"></div>
+              <div class="field"><label>區域</label><input name="area" readonly placeholder="選擇工單後自動填充"></div>
+              <div class="field"><label>S/R編號</label><input name="srNo" readonly placeholder="選擇工單後自動填充"></div>
               <div class="field"><label class="required">報價負責人</label>
                 <select name="owner" required>
                   <option value="">請選擇負責人</option>
@@ -8231,6 +8323,7 @@
           ticketId: ticketId,
           customerId: ticket?.customerId || "",
           customerName: customer?.nameZh || "",
+          area: formData.get("area") || ticket?.area || "",
           amount: amount,
           taxRate: taxRate,
           totalAmount: totalAmount,
@@ -8280,35 +8373,68 @@
     function markQuotationWon(quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
-      
-      const customerOrder = prompt("請輸入客戶訂單號（Customer Order/PO）：");
-      if (customerOrder === null) return;
-      
-      const tenderNo = prompt("請輸入標書編號（Tender No）：");
-      if (tenderNo === null) return;
-      
-      const tenderAmount = prompt("請輸入標書實際金額（HKD）：", quotation.amount);
-      if (tenderAmount === null) return;
-      
-      quotation.bidStatus = "已中標";
-      quotation.customerOrder = customerOrder || "";
-      quotation.tenderNo = tenderNo || "";
-      quotation.tenderAmount = parseFloat(tenderAmount) || 0;
-      quotation.status = "已確認";
-      
-      saveDataToLocalStorage();
-      toast("已標記爲中標，CC通知採購部");
-      
-      // 自動創建採購通知
-      if (customerOrder) {
-        setTimeout(() => {
-          if (confirm("是否需要啓動採購流程？")) {
-            startProcurement(quotationId);
-          }
-        }, 500);
-      }
-      
-      render();
+
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <div class="um-modal" style="max-width:520px;">
+          <div class="um-modal-head">
+            <h2>標記中標 - ${escapeHtml(quotation.id)}</h2>
+            <button class="um-modal-close" data-close-modal>×</button>
+          </div>
+          <form id="markWonForm">
+            <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;">
+              <div class="field">
+                <label class="required">客戶訂單號 (Customer Order/PO)</label>
+                <input name="customerOrder" required placeholder="請輸入客戶訂單號">
+              </div>
+              <div class="field">
+                <label class="required">標書編號 (Tender No)</label>
+                <input name="tenderNo" required placeholder="請輸入標書編號">
+              </div>
+              <div class="field">
+                <label class="required">標書實際金額 (HKD)</label>
+                <input name="tenderAmount" type="number" step="0.01" min="0" required value="${quotation.amount || 0}" placeholder="請輸入金額">
+              </div>
+              <div class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row;">
+                <input type="checkbox" name="startProcurement" id="startProcurementChk" style="width:auto;">
+                <label for="startProcurementChk" style="margin:0;cursor:pointer;">同時啓動採購流程</label>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border);">
+              <button type="button" class="secondary-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn">確認中標</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+      const form = modal.querySelector("#markWonForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const customerOrder = formData.get("customerOrder").trim();
+        const tenderNo = formData.get("tenderNo").trim();
+        const tenderAmount = parseFloat(formData.get("tenderAmount")) || 0;
+        const startProc = formData.get("startProcurement") === "on";
+
+        quotation.bidStatus = "已中標";
+        quotation.customerOrder = customerOrder;
+        quotation.tenderNo = tenderNo;
+        quotation.tenderAmount = tenderAmount;
+        quotation.status = "已確認";
+
+        saveDataToLocalStorage();
+        toast("已標記爲中標，CC通知採購部");
+        modal.remove();
+        render();
+
+        if (startProc) {
+          setTimeout(() => startProcurement(quotationId), 300);
+        }
+      });
     }
 
     // 創建修訂版
@@ -8434,15 +8560,31 @@
         if (e.target === modal) modal.remove();
       });
 
-      // Auto-fill customer when ticket is selected
+      // Auto-fill customer, area, SR No and quotation ID when ticket is selected
       const ticketSelect = modal.querySelector("[name='ticketId']");
       const customerInput = modal.querySelector("[name='customerName']");
-      if (ticketSelect && customerInput) {
+      const areaInput = modal.querySelector("[name='area']");
+      const srNoInput = modal.querySelector("[name='srNo']");
+      const idInput = modal.querySelector("[name='id']");
+      // 區域編號映射：從字典管理中讀取
+      const areaDict = dictData["區域"] || [];
+      const AREA_CODE_MAP = {};
+      areaDict.forEach(item => { AREA_CODE_MAP[item.name] = item.code; });
+      if (ticketSelect) {
         ticketSelect.addEventListener("change", () => {
           const ticket = tickets.find(t => t.id === ticketSelect.value);
           const customer = customers.find(c => c.id === ticket?.customerId);
           if (customerInput) {
-            customerInput.value = customer?.nameZh || "";
+            customerInput.value = customer?.nameZh || ticket?.customer || "";
+          }
+          const area = ticket?.area || "";
+          if (areaInput) areaInput.value = area;
+          if (srNoInput) srNoInput.value = ticket?.serviceReportNo || "";
+          // 生成報價編號：區域編號 + M + 六位數字
+          if (idInput) {
+            const areaCode = AREA_CODE_MAP[area] || "XX";
+            const seq = String(quotations.length + 1).padStart(6, "0");
+            idInput.value = `${areaCode}M${seq}`;
           }
         });
       }
@@ -8684,54 +8826,200 @@
       if (step.field) po[step.field] = step.value;
       saveDataToLocalStorage();
       toast(step.msg);
+
+      // 採購驗收完成時，通知對應工單的 TL 採購完畢可派出工單
+      if (action === "verify" && po.ticketId) {
+        const ticket = tickets.find(t => t.id === po.ticketId);
+        if (ticket) {
+          const tlUser = users.find(u => u.name === ticket.tl && u.role === "TL" && isEnabled(u.status));
+          if (tlUser) {
+            createNotification({
+              module: "ticket",
+              level: "action",
+              title: "採購完畢，可派出工單",
+              content: `工單 ${ticket.id} - ${ticket.customer}`,
+              subContent: `採購單 ${po.id} 已驗收完成，客戶 ${ticket.customer}（區域：${ticket.area}）的工單可派工處理。聯繫人：${ticket.contact || "無"}，電話：${ticket.phone || "無"}`,
+              targetPage: "dispatch",
+              targetId: ticket.id,
+              receiverId: tlUser.id,
+              receiverRole: "TEAM_LEADER"
+            });
+          }
+        }
+      }
+
       render();
     }
 
     // 新建採購單
     function createPurchaseOrder() {
-      const supplierOptions = suppliers.filter(s => s.status === "合作中")
-        .map(s => `${s.id}:${s.name}`).join("|");
-      const supplierStr = prompt(`選擇供應商（輸入編號）:\n${suppliers.filter(s => s.status === "合作中").map(s => `${s.id} - ${s.name}`).join('\n')}`);
-      if (!supplierStr) return;
-      const supplier = suppliers.find(s => s.id === supplierStr.trim());
-      if (!supplier) { toast("供應商編號無效", "error"); return; }
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      const defaultExpectedDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+      modal.innerHTML = `
+        <div class="um-modal" style="max-width:800px;">
+          <div class="um-modal-head">
+            <h2>新建採購單</h2>
+            <button class="um-modal-close" data-close-modal>×</button>
+          </div>
+          <form id="createPOForm">
+            <div style="padding:20px 24px;">
+              <div class="um-form-grid" style="gap:16px;">
+                <div class="field">
+                  <label class="required">供應商</label>
+                  <select name="supplierId" required>
+                    <option value="">請選擇供應商</option>
+                    ${suppliers.filter(s => s.status === "合作中").map(s => `<option value="${s.id}">${s.id} - ${s.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field">
+                  <label>關聯工單</label>
+                  <select name="ticketId">
+                    <option value="">請選擇工單（可選）</option>
+                    ${tickets.map(t => `<option value="${t.id}">${t.id} - ${t.customer}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field">
+                  <label>關聯報價</label>
+                  <select name="quotationId">
+                    <option value="">請選擇報價（可選）</option>
+                    ${quotations.map(q => `<option value="${q.id}">${q.id} - ${q.title}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="required">預計到貨日期</label>
+                  <input name="expectedDate" type="date" value="${defaultExpectedDate}" required>
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label>備註</label>
+                  <textarea name="remark" rows="2" placeholder="請輸入備註（選填）"></textarea>
+                </div>
+              </div>
+              <div style="margin-top:20px;border:1px solid var(--line);border-radius:10px;overflow:hidden;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg);border-bottom:1px solid var(--line);">
+                  <strong style="font-size:14px;color:var(--sidebar);">物料明細</strong>
+                  <button type="button" class="primary-btn" id="poAddItemBtn" style="padding:6px 14px;font-size:13px;">+ 添加物料</button>
+                </div>
+                <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                  <thead>
+                    <tr style="background:var(--bg);">
+                      <th style="text-align:left;padding:10px 12px;font-weight:600;color:var(--muted);font-size:12px;">物料名稱</th>
+                      <th style="width:90px;text-align:center;padding:10px 8px;font-weight:600;color:var(--muted);font-size:12px;">數量</th>
+                      <th style="width:90px;text-align:center;padding:10px 8px;font-weight:600;color:var(--muted);font-size:12px;">單位</th>
+                      <th style="width:130px;text-align:right;padding:10px 12px;font-weight:600;color:var(--muted);font-size:12px;">單價(HKD)</th>
+                      <th style="width:130px;text-align:right;padding:10px 12px;font-weight:600;color:var(--muted);font-size:12px;">小計</th>
+                      <th style="width:50px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="poItemsBody"></tbody>
+                  <tfoot>
+                    <tr style="border-top:2px solid var(--line);background:var(--primary-soft);">
+                      <td colspan="4" style="text-align:right;padding:12px 16px;font-weight:700;color:var(--sidebar);font-size:14px;">合計 HKD</td>
+                      <td id="poTotalAmount" style="text-align:right;padding:12px 16px;font-weight:700;color:var(--primary);font-size:15px;">0.00</td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
+              <button type="button" class="ghost-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn" style="padding:8px 24px;">創建採購單</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
 
-      const ticketId = prompt("關聯工單號（可留空）:", "");
-      const remark = prompt("備註:", "");
-      const expectedDate = prompt("預計到貨日期 (YYYY-MM-DD):", new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10));
-      if (!expectedDate) return;
-
-      const items = [];
-      while (true) {
-        const name = prompt("物料名稱（留空結束）:", "");
-        if (!name) break;
-        const qty = parseInt(prompt("數量:", "1")) || 1;
-        const unit = prompt("單位:", "個") || "個";
-        const unitPrice = parseFloat(prompt("單價 (HKD):", "100")) || 0;
-        items.push({ name, qty, unit, unitPrice, amount: qty * unitPrice });
-      }
-      if (items.length === 0) { toast("未添加任何物料", "error"); return; }
-
-      const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
-      const po = {
-        id: `PO-${Date.now().toString().slice(-8)}`,
-        quotationId: "",
-        ticketId: ticketId || "",
-        supplierId: supplier.id,
-        supplierName: supplier.name,
-        items,
-        totalAmount,
-        status: "待下單",
-        orderDate: "",
-        expectedDate,
-        arrivedDate: "",
-        remark: remark || "",
-        createdBy: currentRole().name
+      // 物料明細管理
+      const itemsBody = modal.querySelector("#poItemsBody");
+      const totalEl = modal.querySelector("#poTotalAmount");
+      const recalcTotal = () => {
+        let total = 0;
+        itemsBody.querySelectorAll("tr").forEach(tr => {
+          const qty = parseFloat(tr.querySelector("[data-po-qty]")?.value) || 0;
+          const price = parseFloat(tr.querySelector("[data-po-price]")?.value) || 0;
+          const subtotal = qty * price;
+          const subtotalEl = tr.querySelector("[data-po-subtotal]");
+          if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+          total += subtotal;
+        });
+        totalEl.textContent = total.toFixed(2);
       };
-      purchaseOrders.push(po);
-      saveDataToLocalStorage();
-      toast("採購單已創建");
-      render();
+      const addItemRow = (item = {}) => {
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid var(--line)";
+        tr.style.transition = "background .15s";
+        tr.innerHTML = `
+          <td style="padding:8px 12px;"><input data-po-name style="width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font-size:13px;" value="${item.name || ""}" placeholder="請輸入物料名稱"></td>
+          <td style="padding:8px 8px;"><input data-po-qty type="number" min="1" value="${item.qty || 1}" style="width:70px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;text-align:center;background:var(--panel);color:var(--text);font-size:13px;"></td>
+          <td style="padding:8px 8px;"><select data-po-unit style="padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font-size:13px;"><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
+          <td style="padding:8px 12px;"><input data-po-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}" style="width:110px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;text-align:right;background:var(--panel);color:var(--text);font-size:13px;"></td>
+          <td data-po-subtotal style="text-align:right;padding:8px 12px;font-weight:600;color:var(--sidebar);">0.00</td>
+          <td style="padding:8px;text-align:center;"><button type="button" data-po-remove style="border:none;background:none;color:#d33;cursor:pointer;font-size:18px;padding:4px 8px;border-radius:4px;">×</button></td>
+        `;
+        itemsBody.appendChild(tr);
+        tr.querySelector("[data-po-qty]").addEventListener("input", recalcTotal);
+        tr.querySelector("[data-po-price]").addEventListener("input", recalcTotal);
+        tr.querySelector("[data-po-remove]").addEventListener("click", () => { tr.remove(); recalcTotal(); });
+        if (item.unit) tr.querySelector("[data-po-unit]").value = item.unit;
+        recalcTotal();
+      };
+      modal.querySelector("#poAddItemBtn").addEventListener("click", () => addItemRow());
+      addItemRow();
+
+      // 選擇工單後自動帶出關聯報價
+      const ticketSelect = modal.querySelector("[name='ticketId']");
+      const quotationSelect = modal.querySelector("[name='quotationId']");
+      ticketSelect.addEventListener("change", () => {
+        const ticket = tickets.find(t => t.id === ticketSelect.value);
+        if (ticket) {
+          const relatedQuotation = quotations.find(q => q.ticketId === ticket.id);
+          if (relatedQuotation) quotationSelect.value = relatedQuotation.id;
+        }
+      });
+
+      const form = modal.querySelector("#createPOForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const supplierId = formData.get("supplierId");
+        const supplier = suppliers.find(s => s.id === supplierId);
+        if (!supplier) { toast("請選擇供應商", "error"); return; }
+        const items = [];
+        itemsBody.querySelectorAll("tr").forEach(tr => {
+          const name = tr.querySelector("[data-po-name]").value.trim();
+          if (!name) return;
+          const qty = parseInt(tr.querySelector("[data-po-qty]").value) || 1;
+          const unit = tr.querySelector("[data-po-unit]").value;
+          const unitPrice = parseFloat(tr.querySelector("[data-po-price]").value) || 0;
+          items.push({ name, qty, unit, unitPrice, amount: qty * unitPrice });
+        });
+        if (items.length === 0) { toast("請添加至少一項物料", "error"); return; }
+        const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
+        const po = {
+          id: `PO-${Date.now().toString().slice(-8)}`,
+          quotationId: formData.get("quotationId") || "",
+          ticketId: formData.get("ticketId") || "",
+          supplierId: supplier.id,
+          supplierName: supplier.name,
+          items,
+          totalAmount,
+          status: "待下單",
+          orderDate: "",
+          expectedDate: formData.get("expectedDate"),
+          arrivedDate: "",
+          remark: formData.get("remark") || "",
+          createdBy: currentRole().name
+        };
+        purchaseOrders.push(po);
+        saveDataToLocalStorage();
+        toast("採購單已創建");
+        modal.remove();
+        render();
+      });
     }
 
     // 供應商操作
@@ -8940,74 +9228,176 @@
     function createInvoice(quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
-      
-      const invoiceNo = prompt('請輸入發票號：', `INV-2026-${String(invoices.length + 1).padStart(3, '0')}`);
-      if (!invoiceNo) return;
-      
-      const invoiceDate = prompt('請輸入開票日期：', new Date().toISOString().slice(0, 10));
-      if (!invoiceDate) return;
-      
-      const dueDate = prompt('請輸入到期日：', new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
-      if (!dueDate) return;
-      
-      const invoice = {
-        id: `INV-${Date.now()}`,
-        quotationId: quotation.id,
-        customerName: quotation.customerName,
-        amount: quotation.tenderAmount,
-        invoiceDate: invoiceDate,
-        dueDate: dueDate,
-        status: '已開具',
-        invoiceNo: invoiceNo,
-        taxRate: quotation.taxRate || 0.1,
-        remark: quotation.title
-      };
-      
-      invoices.push(invoice);
-      saveDataToLocalStorage();
-      toast('發票已開具');
-      render();
+
+      const defaultInvoiceNo = `INV-2026-${String(invoices.length + 1).padStart(3, '0')}`;
+      const defaultDate = new Date().toISOString().slice(0, 10);
+      const defaultDueDate = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <div class="um-modal" style="max-width:560px;">
+          <div class="um-modal-head">
+            <h2>開具發票</h2>
+            <button class="um-modal-close" data-close-modal>×</button>
+          </div>
+          <form id="createInvoiceForm">
+            <div style="padding:20px 24px;">
+              <div class="um-form-grid" style="gap:16px;">
+                <div class="field">
+                  <label class="required">發票號</label>
+                  <input name="invoiceNo" required value="${defaultInvoiceNo}">
+                </div>
+                <div class="field">
+                  <label>客戶名稱</label>
+                  <input value="${escapeHtml(quotation.customerName)}" readonly style="background:var(--bg);">
+                </div>
+                <div class="field">
+                  <label class="required">開票日期</label>
+                  <input name="invoiceDate" type="date" required value="${defaultDate}">
+                </div>
+                <div class="field">
+                  <label class="required">到期日</label>
+                  <input name="dueDate" type="date" required value="${defaultDueDate}">
+                </div>
+                <div class="field">
+                  <label>發票金額 (HKD)</label>
+                  <input value="${(quotation.tenderAmount || quotation.amount || 0).toFixed(2)}" readonly style="background:var(--bg);text-align:right;">
+                </div>
+                <div class="field">
+                  <label>稅率</label>
+                  <input value="${(quotation.taxRate || 0.1) * 100}%" readonly style="background:var(--bg);">
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label>備註</label>
+                  <input name="remark" value="${escapeHtml(quotation.title || '')}" placeholder="可修改備註">
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
+              <button type="button" class="ghost-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn" style="padding:8px 24px;">確認開具</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+      const form = modal.querySelector("#createInvoiceForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const invoice = {
+          id: `INV-${Date.now()}`,
+          quotationId: quotation.id,
+          customerName: quotation.customerName,
+          amount: quotation.tenderAmount || quotation.amount || 0,
+          invoiceDate: formData.get("invoiceDate"),
+          dueDate: formData.get("dueDate"),
+          status: '已開具',
+          invoiceNo: formData.get("invoiceNo"),
+          taxRate: quotation.taxRate || 0.1,
+          remark: formData.get("remark") || quotation.title
+        };
+        invoices.push(invoice);
+        saveDataToLocalStorage();
+        toast('發票已開具');
+        modal.remove();
+        render();
+      });
     }
 
     // 標記收款
     function markAsPaid(invoiceId) {
       const invoice = invoices.find(i => i.id === invoiceId);
       if (!invoice) return;
-      
-      const paymentDate = prompt('請輸入收款日期：', new Date().toISOString().slice(0, 10));
-      if (!paymentDate) return;
-      
-      const paymentMethod = prompt('請輸入收款方式：', '銀行轉賬');
-      if (!paymentMethod) return;
-      
-      const receiptNo = prompt('請輸入收據號：', `REC-2026-${String(payments.length + 1).padStart(3, '0')}`);
-      if (!receiptNo) return;
-      
-      const payment = {
-        id: `PAY-${Date.now()}`,
-        invoiceId: invoice.id,
-        quotationId: invoice.quotationId,
-        customerName: invoice.customerName,
-        amount: invoice.amount,
-        paymentDate: paymentDate,
-        paymentMethod: paymentMethod,
-        status: '已收款',
-        receiptNo: receiptNo,
-        remark: invoice.remark
-      };
-      
-      payments.push(payment);
-      invoice.status = '已收款';
-      
-      // 更新報價單收款狀態
-      const quotation = quotations.find(q => q.id === invoice.quotationId);
-      if (quotation) {
-        quotation.paymentStatus = '已收款';
-      }
-      
-      saveDataToLocalStorage();
-      toast('收款已登記');
-      render();
+
+      const defaultDate = new Date().toISOString().slice(0, 10);
+      const defaultReceiptNo = `REC-2026-${String(payments.length + 1).padStart(3, '0')}`;
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <div class="um-modal" style="max-width:560px;">
+          <div class="um-modal-head">
+            <h2>登記收款</h2>
+            <button class="um-modal-close" data-close-modal>×</button>
+          </div>
+          <form id="recordPaymentForm">
+            <div style="padding:20px 24px;">
+              <div class="um-form-grid" style="gap:16px;">
+                <div class="field">
+                  <label>發票號</label>
+                  <input value="${escapeHtml(invoice.invoiceNo)}" readonly style="background:var(--bg);">
+                </div>
+                <div class="field">
+                  <label>客戶名稱</label>
+                  <input value="${escapeHtml(invoice.customerName)}" readonly style="background:var(--bg);">
+                </div>
+                <div class="field">
+                  <label>收款金額 (HKD)</label>
+                  <input value="${(invoice.amount || 0).toFixed(2)}" readonly style="background:var(--bg);text-align:right;">
+                </div>
+                <div class="field">
+                  <label class="required">收款日期</label>
+                  <input name="paymentDate" type="date" required value="${defaultDate}">
+                </div>
+                <div class="field">
+                  <label class="required">收款方式</label>
+                  <select name="paymentMethod" required>
+                    <option value="銀行轉賬" selected>銀行轉賬</option>
+                    <option value="現金">現金</option>
+                    <option value="支票">支票</option>
+                    <option value="信用卡">信用卡</option>
+                    <option value="其他">其他</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="required">收據號</label>
+                  <input name="receiptNo" required value="${defaultReceiptNo}">
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label>備註</label>
+                  <input name="remark" value="${escapeHtml(invoice.remark || '')}" placeholder="可修改備註">
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
+              <button type="button" class="ghost-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn" style="padding:8px 24px;">確認收款</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+      const form = modal.querySelector("#recordPaymentForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const payment = {
+          id: `PAY-${Date.now()}`,
+          invoiceId: invoice.id,
+          quotationId: invoice.quotationId,
+          customerName: invoice.customerName,
+          amount: invoice.amount,
+          paymentDate: formData.get("paymentDate"),
+          paymentMethod: formData.get("paymentMethod"),
+          status: '已收款',
+          receiptNo: formData.get("receiptNo"),
+          remark: formData.get("remark") || invoice.remark
+        };
+        payments.push(payment);
+        invoice.status = '已收款';
+        const quotation = quotations.find(q => q.id === invoice.quotationId);
+        if (quotation) {
+          quotation.paymentStatus = '已收款';
+        }
+        saveDataToLocalStorage();
+        toast('收款已登記');
+        modal.remove();
+        render();
+      });
     }
 
     function masterTickets(includeHistory = false) {
@@ -9059,7 +9449,7 @@
       const hasCompletionPaper = t.quotationId && quotations.find(q => q.id === t.quotationId)?.procurementStatus === "已到貨";
       const customer = customers.find(c => c.id === t.customerId);
       const isGovCustomer = customer && customer.type === "政府";
-      const callCodeList = (dictData["Call代碼"] || []).filter(cc => cc.status === "啓用");
+      const callCodeList = (dictData["Call代碼"] || []).filter(cc => isEnabled(cc.status));
 
       // Initialize SR state from ticket when ticket changes
       if (!state.srInitialized || state.srTicketId !== t.id) {
@@ -9100,15 +9490,6 @@
             <label class="sr-label">服務報告編號<span class="sr-required">*</span></label>
             <input type="text" class="sr-input" id="serviceReportNo" maxlength="6" pattern="[0-9]{6}" placeholder="6位數字，例如：123456" value="${escapeHtml(t.serviceReportNo || "")}">
           </div>
-          ${isGovCustomer ? `
-          <div class="sr-field">
-            <label class="sr-label">Call代碼<span class="sr-required">*</span></label>
-            <select class="sr-select" id="callCode">
-              <option value="">請選擇Call代碼</option>
-              ${callCodeList.map(cc => `<option value="${escapeHtml(cc.code)}" ${t.callCode === cc.code ? "selected" : ""}>${escapeHtml(cc.code)} - ${escapeHtml(cc.name)}</option>`).join("")}
-            </select>
-          </div>
-          ` : ""}
           <div class="sr-field">
             <label class="sr-label">到場時間</label>
             <input type="datetime-local" class="sr-input" id="arrivalTime" value="${escapeHtml(arrivalTime)}">
@@ -9183,9 +9564,9 @@
 
         <!-- 是否需要報價 -->
         <div class="sr-card">
-          <div class="sr-switch-row">
+          <div class="sr-switch-row" data-sr-toggle-quotation style="cursor:pointer;user-select:none;">
             <span class="sr-switch-label">是否需要報價</span>
-            <div class="sr-switch ${state.srNeedQuotation ? "active" : ""}" data-sr-toggle-quotation"></div>
+            <div class="sr-switch ${state.srNeedQuotation ? "active" : ""}"></div>
           </div>
           ${state.srNeedQuotation ? `
           <div class="sr-quotation-section">
@@ -9260,7 +9641,6 @@
       if (!t) return;
       const get = (id) => { const el = document.getElementById(id); return el ? el.value : ""; };
       t.serviceReportNo = get("serviceReportNo");
-      t.callCode = get("callCode");
       t.arrivalTime = get("arrivalTime");
       t.completionTime = get("completionTime");
       t.completedWork = get("completedWork");
@@ -9543,6 +9923,131 @@
       });
     }
 
+    // ===== 移動端分派中心（TL 角色）=====
+    function renderMobileDispatch() {
+      // 區塊①：取得待分派工單列表（根據當前 TL 人物過濾）
+      const currentTLName = currentRole().name;
+      const pendingTickets = tickets.filter(t => t.status === "待分派" && t.tl === currentTLName);
+
+      // 若未選中工單，預設選中第一張待分派工單
+      if (pendingTickets.length > 0 && !pendingTickets.find(t => t.id === state.mdSelectedTicketId)) {
+        state.mdSelectedTicketId = pendingTickets[0].id;
+      }
+      const selectedTicket = pendingTickets.find(t => t.id === state.mdSelectedTicketId) || pendingTickets[0];
+
+      // 區塊②：推薦師傅：基於 masters 數組加上模擬的評分、匹配率、距離
+      const recommendedMasters = masters.map((m, idx) => {
+        const rating = (4.9 - idx * 0.1).toFixed(1);                 // 本月評分（模擬）
+        const matchRate = 98 - idx * 4;                                // 技能匹配率（模擬）
+        const sameArea = selectedTicket && m.area === selectedTicket.area;
+        const distance = sameArea ? (2 + idx) : (8 + idx * 3);         // 距離 km（模擬）
+        return { ...m, rating, matchRate, distance };
+      });
+
+      // 預設選中第一位推薦師傅
+      if (recommendedMasters.length > 0 && !recommendedMasters.find(m => m.name === state.mdSelectedMaster)) {
+        state.mdSelectedMaster = recommendedMasters[0].name;
+      }
+      const selectedMaster = recommendedMasters.find(m => m.name === state.mdSelectedMaster) || recommendedMasters[0];
+
+      // 待分派工單列表
+      const ticketsHtml = pendingTickets.length === 0
+        ? `<div class="md-empty">暫無待分派工單</div>`
+        : pendingTickets.map(t => `
+          <div class="md-ticket-card ${state.mdSelectedTicketId === t.id ? "selected" : ""}" data-md-ticket="${t.id}">
+            <div class="md-ticket-head">
+              <strong>${escapeHtml(t.id)}</strong>
+              <span class="md-tag md-tag-warning">待分派</span>
+            </div>
+            <div class="md-ticket-info">
+              <span>${escapeHtml(t.customer)}</span>
+              <span class="md-dot">·</span>
+              <span>${escapeHtml(t.area)}</span>
+              <span class="md-dot">·</span>
+              <span>${escapeHtml(t.type)}</span>
+            </div>
+            <div class="md-ticket-meta">${escapeHtml(t.createdAt)}</div>
+            <div class="md-ticket-desc">${escapeHtml(t.desc)}</div>
+          </div>
+        `).join("");
+
+      // 推薦師傅列表
+      const mastersHtml = recommendedMasters.length === 0
+        ? `<div class="md-empty">暫無可用師傅</div>`
+        : recommendedMasters.map(m => `
+          <div class="md-master-card ${state.mdSelectedMaster === m.name ? "selected" : ""}" data-md-master="${escapeHtml(m.name)}">
+            <div class="md-master-avatar">${escapeHtml(m.name.slice(0, 1))}</div>
+            <div class="md-master-body">
+              <div class="md-master-head">
+                <strong>${escapeHtml(m.name)}</strong>
+                <span class="md-tag md-tag-primary">${escapeHtml(m.tag)}</span>
+              </div>
+              <div class="md-master-skills">${escapeHtml(m.skills)}</div>
+              <div class="md-master-stats">
+                <span>今日負載 ${m.load}</span>
+                <span class="md-dot">·</span>
+                <span>評分 ${m.rating}</span>
+                <span class="md-dot">·</span>
+                <span>匹配 ${m.matchRate}%</span>
+                <span class="md-dot">·</span>
+                <span>${m.distance} km</span>
+              </div>
+            </div>
+            <div class="md-radio ${state.mdSelectedMaster === m.name ? "checked" : ""}"></div>
+          </div>
+        `).join("");
+
+      // 區塊③：分派確認（選擇師傅後顯示）
+      const confirmHtml = (selectedTicket && selectedMaster) ? `
+        <div class="md-confirm-card">
+          <div class="md-section-title">分派確認</div>
+          <div class="md-confirm-group">
+            <div class="md-confirm-label">工單信息</div>
+            <div class="md-confirm-row"><span>客戶</span><strong>${escapeHtml(selectedTicket.customer)}</strong></div>
+            <div class="md-confirm-row"><span>聯繫人</span><strong>${escapeHtml(selectedTicket.contact)}</strong></div>
+            <div class="md-confirm-row"><span>聯繫電話</span><strong>${escapeHtml(selectedTicket.phone)}</strong></div>
+            <div class="md-confirm-row"><span>區域</span><strong>${escapeHtml(selectedTicket.area)}</strong></div>
+            <div class="md-confirm-row"><span>工單類型</span><strong>${escapeHtml(selectedTicket.type)}</strong></div>
+          </div>
+          <div class="md-confirm-group">
+            <div class="md-confirm-label">已選師傅</div>
+            <div class="md-confirm-row"><span>姓名</span><strong>${escapeHtml(selectedMaster.name)}</strong></div>
+            <div class="md-confirm-row"><span>技能</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div>
+            <div class="md-confirm-row"><span>今日負載</span><strong>${selectedMaster.load}</strong></div>
+            <div class="md-confirm-row"><span>本月評分</span><strong>${selectedMaster.rating}</strong></div>
+          </div>
+          <div class="md-confirm-group">
+            <div class="md-confirm-label">派工備註</div>
+            <textarea id="mdRemark" class="md-textarea" placeholder="請輸入派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea>
+          </div>
+        </div>
+      ` : "";
+
+      // 底部固定確認分派按鈕（sticky bottom）
+      const submitBtn = (selectedTicket && selectedMaster) ? `
+        <div class="md-submit-bar">
+          <button class="md-submit-btn" data-md-submit>確認分派</button>
+        </div>
+      ` : "";
+
+      return `
+        <div class="md-page">
+          <div class="md-section">
+            <div class="md-section-title">待分派工單 (${pendingTickets.length})</div>
+            ${ticketsHtml}
+          </div>
+          ${selectedTicket ? `
+          <div class="md-section">
+            <div class="md-section-title">推薦師傅</div>
+            ${mastersHtml}
+          </div>
+          ` : ""}
+          ${confirmHtml}
+          ${submitBtn}
+        </div>
+      `;
+    }
+
     function renderHistory() {
       const list = masterTickets(true);
       return `
@@ -9556,12 +10061,23 @@
     }
 
     function renderMobile() {
-      const map = { tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, history: renderHistory };
+      const map = { tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, history: renderHistory, dispatch: renderMobileDispatch };
       const page = MOBILE_PAGES.find(p => p.key === state.mobilePage);
       $("#mobileTitle").textContent = page.title;
-      $("#mobileSub").textContent = `師傅移動端 · ${currentRole().name}`;
+      $("#mobileSub").textContent = `${state.role === "TL" ? "TL 移動端" : "師傅移動端"} · ${currentRole().name}`;
+      // 依角色過濾 tabs：TL 只顯示分派頁，MASTER 只顯示其他頁
+      const visiblePages = state.role === "TL"
+        ? MOBILE_PAGES.filter(p => p.key === "dispatch")
+        : MOBILE_PAGES.filter(p => p.key !== "dispatch");
       $("#mobileBody").innerHTML = map[state.mobilePage]();
-      $("#mobileTabs").innerHTML = MOBILE_PAGES.map(p => `<button class="${state.mobilePage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
+      // TL 分派中心不顯示底部 TabBar；其他角色正常顯示
+      if (state.role === "TL") {
+        $("#mobileTabs").innerHTML = "";
+        $("#mobileTabs").style.display = "none";
+      } else {
+        $("#mobileTabs").style.display = "";
+        $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${state.mobilePage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
+      }
     }
 
     function bindEvents() {
@@ -9577,7 +10093,7 @@
       
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
         state.view = btn.dataset.view;
-        if (state.view === "mobile" && state.role !== "MASTER") {
+        if (state.view === "mobile" && state.role !== "MASTER" && state.role !== "TL") {
           state.role = "MASTER";
           toast("移動端默認切換爲師傅視角");
         }
@@ -9679,6 +10195,45 @@
         state.selectedTicketId = btn.dataset.mobileOpen;
         setMobilePage("mobileDetail");
       }));
+      // ===== 移動端分派中心事件綁定 =====
+      document.querySelectorAll("[data-md-ticket]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdSelectedTicketId = btn.dataset.mdTicket;
+        // 切換工單後重置師傅選擇爲第一位推薦
+        state.mdSelectedMaster = masters[0]?.name || null;
+        render();
+      }));
+      document.querySelectorAll("[data-md-master]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdSelectedMaster = btn.dataset.mdMaster;
+        render();
+      }));
+      const mdRemarkEl = $("#mdRemark");
+      if (mdRemarkEl) {
+        mdRemarkEl.addEventListener("input", () => {
+          state.mdRemark = mdRemarkEl.value;
+        });
+      }
+      const mdSubmit = document.querySelector("[data-md-submit]");
+      if (mdSubmit) {
+        mdSubmit.addEventListener("click", () => {
+          const t = tickets.find(tk => tk.id === state.mdSelectedTicketId);
+          if (!t || !state.mdSelectedMaster) {
+            toast("請選擇工單和師傅", "error");
+            return;
+          }
+          const masterName = state.mdSelectedMaster;
+          const remark = state.mdRemark || "";
+          const note = `分派給${masterName}` + (remark ? `，備註：${remark}` : "");
+          // 更新工單狀態爲待接單，設置 owner 與 master
+          updateTicket(t.id, { status: "待接單", owner: masterName, master: masterName }, note);
+          toast("已分派，狀態變爲待接單", "success");
+          // 重置選中，重新查找下一張待分派工單
+          const nextPending = tickets.find(tk => tk.status === "待分派");
+          state.mdSelectedTicketId = nextPending ? nextPending.id : null;
+          state.mdSelectedMaster = masters[0]?.name || null;
+          state.mdRemark = "";
+          render();
+        });
+      }
       const form = $("#createForm");
       if (form) {
         // 處理來電判斷邏輯
@@ -9963,14 +10518,84 @@
       
       // Finance events
       document.querySelectorAll("[data-create-invoice]").forEach(btn => btn.addEventListener("click", () => {
-        const quotationId = prompt('請輸入要開票的報價單號：');
-        if (quotationId) createInvoice(quotationId);
+        const unpaidQuotations = quotations.filter(q => q.bidStatus === "已中標" && !invoices.find(i => i.quotationId === q.id));
+        if (unpaidQuotations.length === 0) { toast("暫無待開票的已中標報價", "error"); return; }
+        const modal = document.createElement("div");
+        modal.className = "um-modal-overlay";
+        modal.innerHTML = `
+          <div class="um-modal" style="max-width:480px;">
+            <div class="um-modal-head">
+              <h2>開具發票</h2>
+              <button class="um-modal-close" data-close-modal>×</button>
+            </div>
+            <form id="selectQuotationForm">
+              <div style="padding:20px 24px;">
+                <div class="field">
+                  <label class="required">選擇報價單</label>
+                  <select name="quotationId" required>
+                    <option value="">請選擇報價單</option>
+                    ${unpaidQuotations.map(q => `<option value="${q.id}">${q.id} - ${q.customerName} (${q.title})</option>`).join("")}
+                  </select>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
+                <button type="button" class="ghost-btn" data-close-modal>取消</button>
+                <button type="submit" class="primary-btn">下一步</button>
+              </div>
+            </form>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", () => modal.remove()));
+        modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+        const form = modal.querySelector("#selectQuotationForm");
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const qId = new FormData(form).get("quotationId");
+          modal.remove();
+          if (qId) createInvoice(qId);
+        });
       }));
       document.querySelectorAll("[data-create-invoice-for]").forEach(btn => btn.addEventListener("click", () => createInvoice(btn.dataset.createInvoiceFor)));
       document.querySelectorAll("[data-mark-paid]").forEach(btn => btn.addEventListener("click", () => markAsPaid(btn.dataset.markPaid)));
       document.querySelectorAll("[data-record-payment]").forEach(btn => btn.addEventListener("click", () => {
-        const invoiceId = prompt('請輸入要登記收款的發票號：');
-        if (invoiceId) markAsPaid(invoiceId);
+        const unpaidInvoices = invoices.filter(i => i.status === "已開具");
+        if (unpaidInvoices.length === 0) { toast("暫無待收款的發票", "error"); return; }
+        const modal = document.createElement("div");
+        modal.className = "um-modal-overlay";
+        modal.innerHTML = `
+          <div class="um-modal" style="max-width:480px;">
+            <div class="um-modal-head">
+              <h2>登記收款</h2>
+              <button class="um-modal-close" data-close-modal>×</button>
+            </div>
+            <form id="selectInvoiceForm">
+              <div style="padding:20px 24px;">
+                <div class="field">
+                  <label class="required">選擇發票</label>
+                  <select name="invoiceId" required>
+                    <option value="">請選擇發票</option>
+                    ${unpaidInvoices.map(i => `<option value="${i.id}">${i.invoiceNo} - ${i.customerName} (HKD ${i.amount.toFixed(2)})</option>`).join("")}
+                  </select>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
+                <button type="button" class="ghost-btn" data-close-modal>取消</button>
+                <button type="submit" class="primary-btn">下一步</button>
+              </div>
+            </form>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", () => modal.remove()));
+        modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+        const form = modal.querySelector("#selectInvoiceForm");
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const invId = new FormData(form).get("invoiceId");
+          modal.remove();
+          if (invId) markAsPaid(invId);
+        });
       }));
 
       // 採購管理事件
@@ -10000,7 +10625,8 @@
 
       // Notification events
       const notiBell = $("#notiBell");
-      if (notiBell) {
+      if (notiBell && !notiBell.dataset.bound) {
+        notiBell.dataset.bound = "1";
         notiBell.addEventListener("click", (e) => {
           e.stopPropagation();
           toggleNotificationPanel();
@@ -10013,13 +10639,16 @@
         e.stopPropagation();
         markAllAsRead();
       }));
-      // 點擊頁面其他地方時關閉通知面板
-      document.addEventListener("click", (e) => {
-        const notiWrapper = $("#notiWrapper");
-        if (notiWrapper && !notiWrapper.contains(e.target) && notificationState.panelOpen) {
-          closeNotificationPanel();
-        }
-      });
+      // 點擊頁面其他地方時關閉通知面板（只綁定一次，防止 render 累加）
+      if (!window._notiCloseBound) {
+        window._notiCloseBound = true;
+        document.addEventListener("click", (e) => {
+          const notiWrapper = $("#notiWrapper");
+          if (notiWrapper && !notiWrapper.contains(e.target) && notificationState.panelOpen) {
+            closeNotificationPanel();
+          }
+        });
+      }
 
       // Work Order Management events
       document.querySelectorAll("[data-wo-view]").forEach(btn => btn.addEventListener("click", () => {
