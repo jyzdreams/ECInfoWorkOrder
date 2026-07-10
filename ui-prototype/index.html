@@ -3126,6 +3126,13 @@
       deleteTarget: null
     };
 
+    // 報價組通訊錄狀態（#37）：drawerOpen 控制新增/編輯抽屜，editIndex 為 null 代表新增
+    let addressBookState = {
+      drawerOpen: false,
+      editIndex: null,
+      deleteTarget: null
+    };
+
     // Initialize dictionary data from localStorage or defaults
     function initDictData() {
       const defaults = {
@@ -5286,7 +5293,8 @@
           const settingsTabs = [
             { key: "dictionary", label: "字典管理" },
             { key: "customer", label: "客戶管理" },
-            { key: "user", label: "用戶管理" }
+            { key: "user", label: "用戶管理" },
+            { key: "addressBook", label: "報價組通訊錄" }
           ];
           const activeTab = settingsTabs.find(t => t.key === state.settingsTab);
           $("#pageTitle").textContent = activeTab?.label || "字典管理";
@@ -5338,6 +5346,7 @@
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">字典管理</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">客戶管理</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">用戶管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">報價組通訊錄</button>
               </div>
             </div>
           `;
@@ -5372,6 +5381,7 @@
           <button class="settings-popover-item ${state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
           <button class="settings-popover-item ${state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">🏢 客戶管理</button>
           <button class="settings-popover-item ${state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">👤 用戶管理</button>
+          <button class="settings-popover-item ${state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
         `;
         document.body.appendChild(popover);
       }
@@ -5428,7 +5438,7 @@
 
     function filteredTickets() {
       const f = state.filters;
-      return tickets.filter(t => {
+      const result = tickets.filter(t => {
         const keyword = f.keyword.trim().toLowerCase();
         const jNo = (f.jNumber || "").trim().toLowerCase();
         return (f.status === "全部" || t.status === f.status)
@@ -5441,13 +5451,34 @@
           && (!jNo || (t.jNumber || "").toLowerCase().includes(jNo))
           && (!keyword || `${t.id} ${t.customer} ${t.contact} ${t.desc} ${t.jNumber || ""}`.toLowerCase().includes(keyword));
       });
+      // 排序：未完成和需跟進工單置頂（#34 客服CS視圖要求）
+      const priorityStatus = ["待分派", "待處理", "處理中", "需跟進"];
+      return result.sort((a, b) => {
+        const aPriority = priorityStatus.includes(a.status) ? 0 : 1;
+        const bPriority = priorityStatus.includes(b.status) ? 0 : 1;
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return 0;
+      });
     }
 
     function renderList() {
       const ownerOptions = [...new Set(tickets.flatMap(t => [t.owner, t.master]).filter(Boolean))];
       const masterOptions = [...new Set(tickets.map(t => t.master).filter(Boolean))];
       const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh }));
-      const rows = filteredTickets().map(t => `
+
+      // 視圖模式快速篩選（#33 區域主管視圖）
+      const unfinishedStatuses = ["待分派", "待處理", "處理中", "需跟進"];
+      const viewMode = state.filters.viewMode || "全部";
+      let displayTickets = filteredTickets();
+      if (viewMode === "未完成") {
+        displayTickets = displayTickets.filter(t => unfinishedStatuses.includes(t.status));
+      } else if (viewMode === "已完成") {
+        displayTickets = displayTickets.filter(t => t.status === "已完成");
+      }
+      const unfinishedCount = filteredTickets().filter(t => unfinishedStatuses.includes(t.status)).length;
+      const completedCount = filteredTickets().filter(t => t.status === "已完成").length;
+
+      const rows = displayTickets.map(t => `
         <tr>
           <td><button class="link-btn" data-open="${t.id}">${t.id}</button>${t.jNumber ? `<div class="muted" style="font-size:11px;">J: ${escapeHtml(t.jNumber)}</div>` : ''}</td>
           <td>${t.type}</td>
@@ -5463,8 +5494,13 @@
         <section class="page active">
           <div class="card">
             <div class="card-head">
-              <div><h2>工單列表</h2><p>按狀態、類型、區域、負責人、師傅、J No. 和關鍵詞篩選工單。</p></div>
+              <div><h2>工單列表</h2><p>按狀態、類型、區域、負責人、師傅、J No. 和關鍵詞篩選工單。未完成和需跟進工單自動置頂。</p></div>
               <button class="primary-btn" data-new-ticket>新建工單</button>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <button class="${viewMode === '全部' ? 'primary-btn' : 'ghost-btn'}" data-view-mode="全部">全部 (${filteredTickets().length})</button>
+              <button class="${viewMode === '未完成' ? 'primary-btn' : 'ghost-btn'}" data-view-mode="未完成">未完成 (${unfinishedCount})</button>
+              <button class="${viewMode === '已完成' ? 'primary-btn' : 'ghost-btn'}" data-view-mode="已完成">已完成 (${completedCount})</button>
             </div>
             <div class="filters">
               ${selectFilter("status", "狀態", ["全部", ...STATUSES])}
@@ -5606,6 +5642,7 @@
                 ${infoRow("Team Leader", t.tl)}
                 ${infoRow("師傅", t.master || "待分派")}
                 ${t.srGroupNo ? infoRow("SR 組編號", t.srGroupNo) : ""}
+                ${t.maintenanceType ? infoRow("保養類型", `<span class="tag warning">${t.maintenanceType}</span>`) : ""}
                 ${infoRow("開單時間", t.createdAt)}
                 ${infoRow("更新時間", t.updatedAt)}
               </div>
@@ -6436,6 +6473,38 @@
             <div class="card stat-card"><div class="stat-label">待處理</div><div class="stat-value">${statusCounts["待處理"] || 0}</div><div class="stat-note">需 TL / 主管處理</div></div>
             <div class="card stat-card"><div class="stat-label">已取消</div><div class="stat-value">${statusCounts["已取消"] || 0}</div><div class="stat-note">進入基礎統計</div></div>
           </div>
+
+          <!-- Outstanding 檢查提醒 -->
+          ${(() => {
+            const unfinished = tickets.filter(t => ["待分派", "待處理", "處理中"].includes(t.status));
+            const srPendingSig = tickets.filter(t => t.serviceReportNo && !t.signatureOriginalPhoto && t.status !== "已取消");
+            const pmPending = tickets.filter(t => t.type === "PM" && !t.maintenanceType && t.status !== "已完成" && t.status !== "已取消");
+            const totalOutstanding = unfinished.length + srPendingSig.length + pmPending.length;
+            if (totalOutstanding === 0) return "";
+            return `
+            <div class="card" style="margin-top:14px;border:2px solid var(--warning);background:var(--warning-soft,#fff8e1);">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                <span style="font-size:20px;">⚠</span>
+                <h2 style="margin:0;color:var(--warning);">Outstanding 檢查提醒</h2>
+                <span style="font-size:12px;color:var(--muted);margin-left:auto;">每月一號自動提醒</span>
+              </div>
+              <div class="grid cols-3">
+                <div style="padding:10px;background:var(--panel);border-radius:8px;">
+                  <div style="font-size:24px;font-weight:700;color:var(--warning);">${unfinished.length}</div>
+                  <div style="font-size:13px;color:var(--muted);">未完成工單（待分派/處理中）</div>
+                </div>
+                <div style="padding:10px;background:var(--panel);border-radius:8px;">
+                  <div style="font-size:24px;font-weight:700;color:var(--warning);">${srPendingSig.length}</div>
+                  <div style="font-size:13px;color:var(--muted);">SR 待上傳簽名正本</div>
+                </div>
+                <div style="padding:10px;background:var(--panel);border-radius:8px;">
+                  <div style="font-size:24px;font-weight:700;color:var(--warning);">${pmPending.length}</div>
+                  <div style="font-size:13px;color:var(--muted);">保養工單未標記保養類型</div>
+                </div>
+              </div>
+              ${unfinished.length > 0 ? `<div style="margin-top:10px;font-size:13px;"><strong>待跟進工單：</strong>${unfinished.slice(0,5).map(t => `<span style="margin-right:8px;"><button class="link-btn" data-open="${t.id}">${t.id}</button></span>`).join("")}${unfinished.length > 5 ? ` 等 ${unfinished.length} 項` : ""}</div>` : ""}
+            </div>`;
+          })()}
           <div class="grid cols-3" style="margin-top:14px;">
             <div class="card"><h2>按狀態統計</h2>${STATUSES.map(s => barRow(s, statusCounts[s] || 0, tickets.length)).join("")}</div>
             <div class="card"><h2>按工單類型統計</h2>${TYPES.map(t => barRow(t, typeCounts[t] || 0, tickets.length)).join("")}</div>
@@ -6517,6 +6586,8 @@
         return renderCustomerPage();
       } else if (state.settingsTab === "user") {
         return renderUsersPage();
+      } else if (state.settingsTab === "addressBook") {
+        return renderAddressBook();
       }
       return renderDictionary(); // 默認顯示字典管理
     }
@@ -6625,6 +6696,134 @@
             </div>
           </div>
         </section>`;
+    }
+
+    // 讀取通訊錄聯繫人列表（#37）：優先從 localStorage 載入，否則使用預設樣本
+    function getAddressBookContacts() {
+      return JSON.parse(localStorage.getItem("ec_quotation_contacts") || "null") || [
+        { id: "QC001", name: "張工程師", email: "engineer.zhang@ecinfo.com", fax: "+852-21000001", phone: "+852-91000001", company: "EC Info Ltd", remark: "保養報價負責人", status: "啓用", createdAt: "2026-01-01" },
+        { id: "QC002", name: "李報價員", email: "quote.li@ecinfo.com", fax: "+852-21000002", phone: "+852-91000002", company: "EC Info Ltd", remark: "工程報價負責人", status: "啓用", createdAt: "2026-01-01" },
+        { id: "QC003", name: "王招標專員", email: "tender.wang@ecinfo.com", fax: "+852-21000003", phone: "+852-91000003", company: "EC Info Ltd", remark: "招標項目對接", status: "啓用", createdAt: "2026-01-01" }
+      ];
+    }
+
+    // 儲存通訊錄聯繫人列表到 localStorage（#37）
+    function saveAddressBookContacts(list) {
+      localStorage.setItem("ec_quotation_contacts", JSON.stringify(list));
+    }
+
+    // 渲染報價組通訊錄頁面（#37）
+    function renderAddressBook() {
+      const contacts = getAddressBookContacts();
+
+      const rows = contacts.map((c, i) => `<tr>
+        <td>${c.id}</td>
+        <td><strong>${escapeHtml(c.name)}</strong></td>
+        <td>${escapeHtml(c.email || "-")}</td>
+        <td>${escapeHtml(c.fax || "-")}</td>
+        <td>${escapeHtml(c.phone || "-")}</td>
+        <td>${escapeHtml(c.company || "-")}</td>
+        <td>${escapeHtml(c.remark || "-")}</td>
+        <td><span class="tag">${c.status || "啓用"}</span></td>
+        <td>
+          <button class="text-btn" data-ab-edit="${i}">編輯</button>
+          <span class="text-divider">｜</span>
+          <button class="text-btn danger" data-ab-delete="${i}">刪除</button>
+        </td>
+      </tr>`).join("");
+
+      return `
+        <section class="page active">
+          <div class="card">
+            <div class="card-head">
+              <div><h2>報價組通訊錄</h2><p>管理報價組聯繫人，按姓名、郵箱、傳真進行分類。</p></div>
+              <button class="primary-btn" data-ab-add>新增聯繫人</button>
+            </div>
+            <div class="data-table-wrap">
+              <table>
+                <thead><tr><th>編號</th><th>姓名 (Name)</th><th>郵箱 (Email)</th><th>傳真 (Fax)</th><th>電話</th><th>公司</th><th>備註</th><th>狀態</th><th>操作</th></tr></thead>
+                <tbody>${rows || '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">暫無聯繫人</td></tr>'}</tbody>
+              </table>
+            </div>
+          </div>
+        </section>`;
+    }
+
+    // 渲染通訊錄新增/編輯抽屜（#37）：復用 dm-drawer 樣式
+    function renderAddressBookDrawer() {
+      if (!addressBookState.drawerOpen) return "";
+      const contacts = getAddressBookContacts();
+      const isEdit = addressBookState.editIndex !== null && addressBookState.editIndex !== undefined;
+      const item = isEdit ? contacts[addressBookState.editIndex] : { status: "啓用" };
+
+      return `
+        <div class="dm-drawer-overlay" data-ab-drawer-close>
+          <div class="dm-drawer">
+            <div class="dm-drawer-head">
+              <h3>${isEdit ? "編輯聯繫人" : "新增聯繫人"}</h3>
+              <button class="dm-drawer-close" data-ab-drawer-close>×</button>
+            </div>
+            <div class="dm-drawer-body">
+              <form id="addressBookForm" onsubmit="return false;">
+                <div class="form-row">
+                  <label>姓名 *</label>
+                  <input type="text" name="name" value="${escapeHtml(item.name || "")}" required placeholder="請輸入姓名">
+                </div>
+                <div class="form-row">
+                  <label>郵箱</label>
+                  <input type="email" name="email" value="${escapeHtml(item.email || "")}" placeholder="name@company.com">
+                </div>
+                <div class="form-row">
+                  <label>傳真</label>
+                  <input type="text" name="fax" value="${escapeHtml(item.fax || "")}" placeholder="+852-xxxxxxxx">
+                </div>
+                <div class="form-row">
+                  <label>電話</label>
+                  <input type="text" name="phone" value="${escapeHtml(item.phone || "")}" placeholder="+852-xxxxxxxx">
+                </div>
+                <div class="form-row">
+                  <label>公司</label>
+                  <input type="text" name="company" value="${escapeHtml(item.company || "")}" placeholder="公司名稱">
+                </div>
+                <div class="form-row">
+                  <label>備註</label>
+                  <input type="text" name="remark" value="${escapeHtml(item.remark || "")}" placeholder="負責範圍 / 職位等">
+                </div>
+                <div class="form-row">
+                  <label>狀態</label>
+                  <select name="status">
+                    <option value="啓用" ${item.status !== "停用" ? "selected" : ""}>啓用</option>
+                    <option value="停用" ${item.status === "停用" ? "selected" : ""}>停用</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="dm-drawer-foot">
+              <button class="ghost-btn" data-ab-drawer-close>取消</button>
+              <button class="primary-btn" data-ab-save>保存</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // 渲染通訊錄刪除確認框（#37）：復用 dm-confirm 樣式
+    function renderAddressBookDeleteConfirm() {
+      if (addressBookState.deleteTarget === null || addressBookState.deleteTarget === undefined) return "";
+      const contacts = getAddressBookContacts();
+      const item = contacts[addressBookState.deleteTarget];
+      if (!item) return "";
+
+      return `
+        <div class="dm-confirm-overlay" data-ab-confirm-close>
+          <div class="dm-confirm">
+            <h3>確定刪除該聯繫人？</h3>
+            <p>刪除後將無法恢復聯繫人「${escapeHtml(item.name)}」的資料。</p>
+            <div class="dm-confirm-actions">
+              <button class="ghost-btn" data-ab-confirm-close>取消</button>
+              <button class="danger-btn" data-ab-confirm-delete>確定</button>
+            </div>
+          </div>
+        </div>`;
     }
 
     // 渲染編輯抽屜（420px）
@@ -7790,6 +7989,8 @@
                     <span>👤 ${q.owner}</span>
                     <span>📅 ${q.createdAt}</span>
                     ${q.category ? `<span class="tag">${q.category}</span>` : ""}
+                    ${q.isInviteTender ? `<span class="tag warning">Invite Tender</span>` : ""}
+                    ${q.projectJobNo ? `<span class="tag">${q.projectJobNo}</span>` : ""}
                   </div>
                   <div class="qm-quotation-amount">HKD ${q.totalAmount.toLocaleString()}${q.bargainAmount ? `<span style="font-size:12px;color:var(--warning);margin-left:8px;">議價: HKD ${q.bargainAmount.toLocaleString()}</span>` : ""}</div>
                   <div class="qm-quotation-actions">
@@ -7876,6 +8077,8 @@
               ${infoRow("報價標題", quotation.title)}
               ${infoRow("類別", quotation.category ? `${quotation.category}${quotation.category === "M" ? "（保養）" : quotation.category === "P" ? "（工程）" : "（保養＋工程）"}` : "未設定")}
               ${infoRow("報價狀態", quotation.status)}
+              ${quotation.isInviteTender ? infoRow("招標邀請", `<span class="tag warning">✓ Invite Tender</span>`) : ""}
+              ${quotation.projectJobNo ? infoRow("Project Job 編號", `<strong style="color:var(--primary);">${quotation.projectJobNo}</strong>`) : ""}
               ${infoRow("中標狀態", `<span class="tag ${quotation.bidStatus === "已中標" ? "success" : quotation.bidStatus === "未中標" || quotation.bidStatus === "不投標" ? "danger" : ""}">${quotation.bidStatus || "待確認"}</span>`)}
               ${quotation.signed ? infoRow("簽名狀態", `<span class="tag success">✓ 已簽名 - ${quotation.signedBy} (${quotation.signedAt})</span>`) : ""}
               ${infoRow("報價日期", quotation.createdAt)}
@@ -8200,6 +8403,11 @@
                   <option value="其他">其他</option>
                 </select>
               </div>
+              <div class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row;">
+                <input type="checkbox" name="isInviteTender" id="isInviteTenderChk" style="width:auto;" onchange="if(this.checked){const f=this.closest('form');const yy=String(new Date().getFullYear()).slice(-2);const seq=String(quotations.length+1).padStart(5,'0');f.querySelector('[name=projectJobNo]').value='PJ'+yy+seq;}else{this.closest('form').querySelector('[name=projectJobNo]').value='';}">
+                <label for="isInviteTenderChk" style="margin:0;cursor:pointer;">招標邀請 (Invite Tender)</label>
+              </div>
+              <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label class="required">總金額</label><input name="amount" type="number" step="0.01" required placeholder="請輸入金額"></div>
               <div class="field"><label>幣種</label>
                 <select name="currency">
@@ -8276,6 +8484,11 @@
                   <option value="其他">其他</option>
                 </select>
               </div>
+              <div class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row;">
+                <input type="checkbox" name="isInviteTender" id="isInviteTenderChk" style="width:auto;" onchange="if(this.checked){const f=this.closest('form');const yy=String(new Date().getFullYear()).slice(-2);const seq=String(quotations.length+1).padStart(5,'0');f.querySelector('[name=projectJobNo]').value='PJ'+yy+seq;}else{this.closest('form').querySelector('[name=projectJobNo]').value='';}">
+                <label for="isInviteTenderChk" style="margin:0;cursor:pointer;">招標邀請 (Invite Tender)</label>
+              </div>
+              <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label class="required">總金額</label><input name="amount" type="number" step="0.01" required placeholder="請輸入金額"></div>
               <div class="field"><label>幣種</label>
                 <select name="currency">
@@ -8349,6 +8562,11 @@
                   <option value="其他" ${quotation.source === "其他" ? "selected" : ""}>其他</option>
                 </select>
               </div>
+              <div class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row;">
+                <input type="checkbox" name="isInviteTender" id="isInviteTenderChk" style="width:auto;" ${quotation.isInviteTender ? "checked" : ""} onchange="if(this.checked){const f=this.closest('form');if(!f.querySelector('[name=projectJobNo]').value){const yy=String(new Date().getFullYear()).slice(-2);const seq=String(quotations.length+1).padStart(5,'0');f.querySelector('[name=projectJobNo]').value='PJ'+yy+seq;}}else{this.closest('form').querySelector('[name=projectJobNo]').value='';}">
+                <label for="isInviteTenderChk" style="margin:0;cursor:pointer;">招標邀請 (Invite Tender)</label>
+              </div>
+              <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly value="${quotation.projectJobNo || ""}" placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label>總金額</label><input name="amount" type="number" step="0.01" value="${quotation.amount}"></div>
               <div class="field"><label>幣種</label>
                 <select name="currency">
@@ -8444,6 +8662,10 @@
           quotation.bargainAmount = parseFloat(formData.get("bargainAmount")) || null;
           quotation.status = formData.get("status") || quotation.status;
           quotation.remark = formData.get("remark") || quotation.remark;
+          quotation.deadline = formData.get("deadline") || quotation.deadline;
+          quotation.source = formData.get("source") || quotation.source;
+          quotation.isInviteTender = formData.get("isInviteTender") === "on";
+          quotation.projectJobNo = formData.get("projectJobNo") || quotation.projectJobNo || "";
           toast("報價信息已更新");
         }
       } else {
@@ -8468,6 +8690,8 @@
           validUntil: formData.get("validUntil"),
           deadline: formData.get("deadline"),
           source: formData.get("source") || "",
+          isInviteTender: formData.get("isInviteTender") === "on",
+          projectJobNo: formData.get("projectJobNo") || "",
           attachments: [],
           remark: formData.get("remark") || ""
         };
@@ -8508,6 +8732,11 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
+      // 自動生成 Tender 編號：TD + 年份後兩位 + 5位序號（如 TD2600001）
+      const tdYy = String(new Date().getFullYear()).slice(-2);
+      const tenderSeq = String(quotations.filter(q => q.bidStatus === "已中標").length + 1).padStart(5, "0");
+      const autoTenderNo = `TD${tdYy}${tenderSeq}`;
+
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -8523,8 +8752,8 @@
                 <input name="customerOrder" required placeholder="請輸入客戶訂單號">
               </div>
               <div class="field">
-                <label class="required">標書編號 (Tender No)</label>
-                <input name="tenderNo" required placeholder="請輸入標書編號">
+                <label class="required">標書編號 (Tender No) <span style="font-size:11px;color:var(--muted);">系統自動生成，可修改</span></label>
+                <input name="tenderNo" required value="${autoTenderNo}">
               </div>
               <div class="field">
                 <label class="required">標書實際金額 (HKD)</label>
@@ -8799,7 +9028,7 @@
         settings: renderSettings
       };
       const renderer = map[state.page] || renderWorkOrderPage;
-      $("#pcPages").innerHTML = renderer() + renderDictEditDrawer() + renderDictDeleteConfirm();
+      $("#pcPages").innerHTML = renderer() + renderDictEditDrawer() + renderDictDeleteConfirm() + renderAddressBookDrawer() + renderAddressBookDeleteConfirm();
     }
 
     // 採購管理頁面渲染
@@ -9657,6 +9886,17 @@
             <label class="sr-label">SR 組編號</label>
             <input type="text" class="sr-input" id="srGroupNo" value="${escapeHtml(t.srGroupNo || "")}" placeholder="關聯的 SR 組編號，例如：SRG-001">
           </div>
+          <div class="sr-field">
+            <label class="sr-label">保養類型</label>
+            <select class="sr-input" id="maintenanceType" onchange="state.srMaintenanceType = this.value;">
+              <option value="" ${!t.maintenanceType ? "selected" : ""}>非保養</option>
+              <option value="月檢" ${t.maintenanceType === "月檢" ? "selected" : ""}>月檢</option>
+              <option value="季檢" ${t.maintenanceType === "季檢" ? "selected" : ""}>季檢</option>
+              <option value="半年檢" ${t.maintenanceType === "半年檢" ? "selected" : ""}>半年檢</option>
+              <option value="年檢" ${t.maintenanceType === "年檢" ? "selected" : ""}>年檢</option>
+            </select>
+            <div class="sr-hint">師傅前往保養檢查及開單時需標記保養類型</div>
+          </div>
         </div>
 
         <!-- 服務內容 -->
@@ -9786,6 +10026,27 @@
           </div>
         </div>
 
+        <!-- 簽名正本上傳 + 電子版發送 -->
+        <div class="sr-card" style="border:2px solid var(--success);">
+          <div class="sr-card-title" style="border-left-color:var(--success);color:var(--success);">簽名正本 + 電子版發送</div>
+          <div class="sr-field">
+            <label class="sr-label">客戶簽名/蓋章正本照片</label>
+            <div class="sr-photo-area">
+              ${t.signatureOriginalPhoto ? `<div class="sr-photo-thumb" style="background:var(--success-soft);">${t.signatureOriginalPhoto.startsWith('data:image') ? `<img src="${t.signatureOriginalPhoto}" alt="簽名正本">` : escapeHtml(t.signatureOriginalPhoto)}<button type="button" class="sr-photo-remove" data-sr-remove-signature-original>×</button></div>` : `<div class="sr-photo-thumb sr-photo-add" data-sr-upload-signature-original style="border-color:var(--success);color:var(--success);">+</div>`}
+            </div>
+            <div class="sr-hint">上傳客戶簽名或蓋章的正本照片（SR 正本）</div>
+          </div>
+          <div class="sr-field">
+            <label class="sr-label">電子版 (Softcopy) 發送</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="secondary-btn" data-sr-send-email>📧 Email 發送</button>
+              <button type="button" class="secondary-btn" data-sr-send-whatsapp>💬 WhatsApp 發送</button>
+            </div>
+            <div class="sr-hint">將 SR 電子版發送給客戶（CR 部門需先與客戶確認接受電子版）</div>
+            ${t.srSoftcopySent ? `<div style="margin-top:6px;"><span class="tag success">✓ 電子版已發送 (${t.srSoftcopySentMethod || "Email"}) - ${t.srSoftcopySent}</span></div>` : ""}
+          </div>
+        </div>
+
         ${hasCompletionPaper ? `
         <div class="sr-card" style="border:2px solid var(--warning);">
           <div class="sr-card-title" style="border-left-color:var(--warning);color:var(--warning);">完工紙（必填）</div>
@@ -9816,6 +10077,7 @@
       const get = (id) => { const el = document.getElementById(id); return el ? el.value : ""; };
       t.serviceReportNo = get("serviceReportNo");
       t.srGroupNo = get("srGroupNo");
+      t.maintenanceType = get("maintenanceType");
       t.arrivalTime = get("arrivalTime");
       t.completionTime = get("completionTime");
       t.completedWork = get("completedWork");
@@ -9974,6 +10236,58 @@
       delete t.completionPaperPhoto;
       saveDataToLocalStorage();
       render();
+    }
+
+    // 上傳客戶簽名/蓋章正本照片
+    function srUploadSignatureOriginal() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          srSyncInputs();
+          t.signatureOriginalPhoto = ev.target.result;
+          saveDataToLocalStorage();
+          render();
+          toast("簽名正本照片已上傳");
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    }
+
+    // 刪除簽名正本照片
+    function srRemoveSignatureOriginal() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      if (!confirm("確定要刪除簽名正本照片嗎？")) return;
+      srSyncInputs();
+      delete t.signatureOriginalPhoto;
+      saveDataToLocalStorage();
+      render();
+    }
+
+    // 發送 SR 電子版 (Softcopy) 給客戶
+    function srSendSoftcopy(method) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      if (!t.signatureOriginalPhoto && !t.serviceReportNo) {
+        toast("請先填寫 SR 編號或上傳簽名正本");
+        return;
+      }
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+      srSyncInputs();
+      t.srSoftcopySent = dateStr;
+      t.srSoftcopySentMethod = method;
+      saveDataToLocalStorage();
+      render();
+      toast(`SR 電子版已通過 ${method} 發送給客戶`);
     }
 
     // ===== Signature Canvas =====
@@ -10355,6 +10669,11 @@
       }));
       document.querySelectorAll("[data-filter]").forEach(el => el.addEventListener("change", () => {
         state.filters[el.dataset.filter] = el.value;
+        render();
+      }));
+      // 視圖模式快速切換（#33 區域主管視圖）
+      document.querySelectorAll("[data-view-mode]").forEach(btn => btn.addEventListener("click", () => {
+        state.filters.viewMode = btn.dataset.viewMode;
         render();
       }));
       document.querySelectorAll("[data-dispatch-ticket]").forEach(btn => btn.addEventListener("click", () => {
@@ -10948,6 +11267,10 @@
       document.querySelectorAll("[data-sr-remove-report-photo]").forEach(btn => btn.addEventListener("click", () => srRemoveReportPhoto(parseInt(btn.dataset.srRemoveReportPhoto))));
       document.querySelectorAll("[data-sr-upload-paper]").forEach(btn => btn.addEventListener("click", srUploadCompletionPaper));
       document.querySelectorAll("[data-sr-remove-paper]").forEach(btn => btn.addEventListener("click", srRemoveCompletionPaper));
+      document.querySelectorAll("[data-sr-upload-signature-original]").forEach(btn => btn.addEventListener("click", srUploadSignatureOriginal));
+      document.querySelectorAll("[data-sr-remove-signature-original]").forEach(btn => btn.addEventListener("click", srRemoveSignatureOriginal));
+      document.querySelectorAll("[data-sr-send-email]").forEach(btn => btn.addEventListener("click", () => srSendSoftcopy("Email")));
+      document.querySelectorAll("[data-sr-send-whatsapp]").forEach(btn => btn.addEventListener("click", () => srSendSoftcopy("WhatsApp")));
       document.querySelectorAll("[data-sr-clear-signature]").forEach(btn => btn.addEventListener("click", srClearSignature));
       // Initialize signature canvas if present
       srInitSignature();
@@ -11054,6 +11377,107 @@
           toast("刪除成功");
         }
         dictState.deleteTarget = null;
+        render();
+        return;
+      }
+    });
+
+    // 報價組通訊錄事件委託（#37）：處理新增/編輯/刪除/保存
+    document.addEventListener("click", function(e) {
+      const target = e.target;
+
+      // 關閉抽屜（僅點擊遮罩本身或關閉按鈕時觸發）
+      if (target.matches("[data-ab-drawer-close]")) {
+        addressBookState.drawerOpen = false;
+        addressBookState.editIndex = null;
+        render();
+        return;
+      }
+      // 關閉刪除確認框
+      if (target.matches("[data-ab-confirm-close]")) {
+        addressBookState.deleteTarget = null;
+        render();
+        return;
+      }
+
+      // 新增聯繫人
+      if (target.closest("[data-ab-add]")) {
+        addressBookState.drawerOpen = true;
+        addressBookState.editIndex = null;
+        render();
+        return;
+      }
+
+      // 編輯聯繫人
+      const editBtn = target.closest("[data-ab-edit]");
+      if (editBtn) {
+        addressBookState.drawerOpen = true;
+        addressBookState.editIndex = parseInt(editBtn.dataset.abEdit);
+        render();
+        return;
+      }
+
+      // 刪除聯繫人（打開確認框）
+      const deleteBtn = target.closest("[data-ab-delete]");
+      if (deleteBtn) {
+        addressBookState.deleteTarget = parseInt(deleteBtn.dataset.abDelete);
+        render();
+        return;
+      }
+
+      // 保存聯繫人（新增或編輯）
+      const saveBtn = target.closest("[data-ab-save]");
+      if (saveBtn) {
+        const form = document.getElementById("addressBookForm");
+        if (!form) return;
+        const formData = new FormData(form);
+        const name = (formData.get("name") || "").trim();
+        if (!name) { toast("請填寫姓名"); return; }
+        const contacts = getAddressBookContacts();
+        const isEdit = addressBookState.editIndex !== null && addressBookState.editIndex !== undefined;
+        const entry = {
+          name: name,
+          email: formData.get("email") || "",
+          fax: formData.get("fax") || "",
+          phone: formData.get("phone") || "",
+          company: formData.get("company") || "",
+          remark: formData.get("remark") || "",
+          status: formData.get("status") || "啓用"
+        };
+        if (isEdit) {
+          const idx = addressBookState.editIndex;
+          entry.id = contacts[idx].id;
+          entry.createdAt = contacts[idx].createdAt;
+          contacts[idx] = entry;
+        } else {
+          // 自動生成編號：QC + 3位序號
+          const maxSeq = contacts.reduce((max, c) => {
+            const m = String(c.id || "").match(/^QC(\d+)$/);
+            return m ? Math.max(max, parseInt(m[1])) : max;
+          }, 0);
+          entry.id = "QC" + String(maxSeq + 1).padStart(3, "0");
+          entry.createdAt = new Date().toISOString().split("T")[0];
+          contacts.push(entry);
+        }
+        saveAddressBookContacts(contacts);
+        addressBookState.drawerOpen = false;
+        addressBookState.editIndex = null;
+        toast(isEdit ? "保存成功" : "新增成功");
+        render();
+        return;
+      }
+
+      // 確認刪除
+      const confirmBtn = target.closest("[data-ab-confirm-delete]");
+      if (confirmBtn) {
+        const contacts = getAddressBookContacts();
+        const idx = addressBookState.deleteTarget;
+        if (idx !== null && idx !== undefined && contacts[idx]) {
+          contacts.splice(idx, 1);
+          saveAddressBookContacts(contacts);
+          toast("刪除成功");
+        }
+        addressBookState.deleteTarget = null;
         render();
         return;
       }
