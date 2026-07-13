@@ -9119,10 +9119,6 @@
         return;
       }
 
-      // 報價編號格式：XP + 年份後兩位 + 5位序號（如 XP2600001）
-      const yy = String(new Date().getFullYear()).slice(-2);
-      const quotationId = `XP${yy}${String(quotations.length + 1).padStart(5, "0")}`;
-
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -9134,17 +9130,22 @@
           <form id="createQuotationForm">
             <div class="um-form-grid">
               <div class="field"><label class="required">報價標題</label><input name="title" required placeholder="請輸入報價標題" value="${ticket.customer} - ${ticket.type}"></div>
-              <div class="field"><label>報價編號</label><input name="id" value="${quotationId}" readonly></div>
+              <div class="field"><label>報價編號</label><input name="id" value="選擇類別和區域後自動生成" readonly></div>
               <div class="field"><label class="required">關聯工單</label>
                 <select name="ticketId" required>
                   <option value="${ticket.id}" selected>${ticket.id} - ${ticket.customer}</option>
                 </select>
               </div>
               <div class="field"><label>關聯客戶</label><input name="customerName" readonly value="${ticket.customer}"></div>
-              <div class="field"><label>區域</label><input name="area" readonly value="${ticket.area || ''}"></div>
+              <div class="field"><label class="required">區域</label>
+                <select name="area" required onchange="generateQuotationNo(this.closest('form'))">
+                  <option value="">請選擇區域</option>
+                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}" ${r.name === ticket.area ? "selected" : ""}>${r.name}${r.code ? ` (${r.code})` : ''}</option>`).join("")}
+                </select>
+              </div>
               <div class="field"><label>S/R編號</label><input name="srNo" readonly value="${ticket.serviceReportNo || ''}" placeholder="無"></div>
               <div class="field"><label class="required">類別</label>
-                <select name="category" required>
+                <select name="category" required onchange="generateQuotationNo(this.closest('form'))">
                   <option value="">請選擇類別</option>
                   ${(dictData["報價類別"] || []).filter(c => isEnabled(c.status)).map(c => `<option value="${c.code}">${c.name}</option>`).join("")}
                 </select>
@@ -9209,7 +9210,7 @@
       bindQuotationModalEvents(modal);
     }
 
-    // 生成報價編號：區域代碼 + 類別代碼 + 年份後2位 + 5位序號（#14）
+    // 生成報價編號：區域編號 + 類別代碼 + 年份後2位 + 5位序號（從字典管理讀取區域編號）
     function generateQuotationNo(form) {
       const area = form.querySelector('[name=area]')?.value || "";
       const category = form.querySelector('[name=category]')?.value || "";
@@ -9217,8 +9218,10 @@
         form.querySelector('[name=id]').value = "選擇類別和區域後自動生成";
         return;
       }
-      const regionCodes = { "1區":"D1","2區":"D2","3區":"D3","4區":"D4","5區":"D5","6區":"D6","7區":"D7","8區":"D8","MTR":"MTR","EMSD":"EMSD","ASD":"ASD","軟件組":"SW","EV Charge":"EV","香港":"HK","九龍":"KL","新界":"NT" };
-      const areaCode = regionCodes[area] || area;
+      // 從字典管理中讀取區域編號
+      const areaDict = dictData["區域"] || [];
+      const areaItem = areaDict.find(r => r.name === area);
+      const areaCode = areaItem?.code || area;
       const catCode = category.replace("+", "");
       const yy = String(new Date().getFullYear()).slice(-2);
       const seq = String(quotations.length + 1).padStart(5, "0");
@@ -9239,7 +9242,7 @@
               <div class="field"><label class="required">報價標題</label><input name="title" required placeholder="請輸入報價標題"></div>
               <div class="field"><label>報價編號</label><input name="id" value="選擇類別和區域後自動生成" readonly></div>
               <div class="field"><label>關聯工單（選填）</label>
-                <select name="ticketId" onchange="if(this.value){const t=tickets.find(x=>x.id===this.value);if(t){this.closest('form').querySelector('[name=customerName]').value=t.customer;this.closest('form').querySelector('[name=area]').value=t.area;this.closest('form').querySelector('[name=srNo]').value=t.serviceReportNo||'';}}">
+                <select name="ticketId" onchange="if(this.value){const t=tickets.find(x=>x.id===this.value);if(t){this.closest('form').querySelector('[name=customerName]').value=t.customer;this.closest('form').querySelector('[name=area]').value=t.area;this.closest('form').querySelector('[name=srNo]').value=t.serviceReportNo||'';generateQuotationNo(this.closest('form'));}}">
                   <option value="">不關聯工單</option>
                   ${tickets.map(t => `<option value="${t.id}">${t.id} - ${t.customer}</option>`).join("")}
                 </select>
@@ -9248,7 +9251,7 @@
               <div class="field"><label class="required">區域</label>
                 <select name="area" required onchange="generateQuotationNo(this.closest('form'))">
                   <option value="">請選擇區域</option>
-                  ${REGIONS.map(r => `<option value="${r}">${r}</option>`).join("")}
+                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}${r.code ? ` (${r.code})` : ''}</option>`).join("")}
                 </select>
               </div>
               <div class="field"><label>S/R編號</label><input name="srNo" placeholder="選填"></div>
@@ -9749,13 +9752,8 @@
       // Auto-fill customer, area, SR No and quotation ID when ticket is selected
       const ticketSelect = modal.querySelector("[name='ticketId']");
       const customerInput = modal.querySelector("[name='customerName']");
-      const areaInput = modal.querySelector("[name='area']");
+      const areaSelect = modal.querySelector("[name='area']");
       const srNoInput = modal.querySelector("[name='srNo']");
-      const idInput = modal.querySelector("[name='id']");
-      // 區域編號映射：從字典管理中讀取
-      const areaDict = dictData["區域"] || [];
-      const AREA_CODE_MAP = {};
-      areaDict.forEach(item => { AREA_CODE_MAP[item.name] = item.code; });
       if (ticketSelect) {
         ticketSelect.addEventListener("change", () => {
           const ticket = tickets.find(t => t.id === ticketSelect.value);
@@ -9763,15 +9761,13 @@
           if (customerInput) {
             customerInput.value = customer?.nameZh || ticket?.customer || "";
           }
-          const area = ticket?.area || "";
-          if (areaInput) areaInput.value = area;
-          if (srNoInput) srNoInput.value = ticket?.serviceReportNo || "";
-          // 生成報價編號：XP + 年份後兩位 + 5位序號（如 XP2600001）
-          if (idInput) {
-            const yy = String(new Date().getFullYear()).slice(-2);
-            const seq = String(quotations.length + 1).padStart(5, "0");
-            idInput.value = `XP${yy}${seq}`;
+          // 設置區域下拉框的值
+          if (areaSelect && ticket?.area) {
+            areaSelect.value = ticket.area;
           }
+          if (srNoInput) srNoInput.value = ticket?.serviceReportNo || "";
+          // 區域和類別都選中後動態生成報價編號
+          generateQuotationNo(modal.querySelector('form'));
         });
       }
 
