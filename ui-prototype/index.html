@@ -78,6 +78,8 @@
       padding: 14px 10px;
       overflow: hidden;
       transition: width .3s ease;
+      display: flex;
+      flex-direction: column;
     }
     .brand {
       height: 52px;
@@ -86,6 +88,7 @@
       gap: 10px;
       padding: 0 10px;
       margin-bottom: 10px;
+      flex-shrink: 0;
     }
     .logo-mark {
       width: 34px;
@@ -118,9 +121,21 @@
       align-items: center;
       justify-content: center;
       transition: background .2s;
+      flex-shrink: 0;
     }
     .hamburger-btn:hover { background: rgba(255,255,255,.12); }
-    .nav-list { display: grid; gap: 10px; }
+    .nav-list {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      /* 完全隱藏 nav-list 滾動條，用戶感知不到整體滾動 */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .nav-list::-webkit-scrollbar { display: none; }
     .nav-item {
       height: 42px;
       border: 0;
@@ -159,14 +174,39 @@
     .nav-submenu {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease;
+      transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       margin-left: 32px;
     }
     .nav-submenu.expanded {
-      max-height: 200px;
+      max-height: 240px;
+      overflow-y: auto;
+      /* 細滾動條：預設隱藏，hover 顯示 */
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    .nav-submenu.expanded:hover {
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+    }
+    .nav-submenu.expanded::-webkit-scrollbar {
+      width: 6px;
+    }
+    .nav-submenu.expanded::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 3px;
+    }
+    .nav-submenu.expanded::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .nav-submenu.expanded:hover::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+    }
+    .nav-submenu.expanded:hover::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.35);
     }
     .nav-subitem {
-      height: 36px;
+      height: 40px;
       border: 0;
       width: 100%;
       color: #d7e5f8;
@@ -178,6 +218,7 @@
       text-align: left;
       font-size: 13px;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .nav-subitem:hover {
       background: rgba(30, 107, 255, 0.15);
@@ -276,11 +317,18 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0,0,0,.12);
       z-index: 1000;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       opacity: 0;
       pointer-events: none;
       transition: opacity .2s;
+      /* 細滾動條樣式 */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.15) transparent;
     }
+    .settings-popover::-webkit-scrollbar { width: 6px; }
+    .settings-popover::-webkit-scrollbar-track { background: transparent; }
+    .settings-popover::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
     .settings-popover.show {
       opacity: 1;
       pointer-events: auto;
@@ -4627,6 +4675,22 @@
         }
       }
       render();
+      // 展開後自動定位到當前選中項
+      if (state.isSettingsExpanded) scrollSettingsToActive();
+    }
+
+    // 基礎設置子菜單自動定位到當前選中項
+    function scrollSettingsToActive() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const submenu = document.querySelector(".nav-submenu.expanded");
+          if (!submenu) return;
+          const active = submenu.querySelector(".nav-subitem.active");
+          if (active) {
+            active.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          }
+        });
+      });
     }
 
     function setMobilePage(page) {
@@ -5508,9 +5572,33 @@
         const settingsBtn = document.querySelector(".nav-item-settings");
         if (settingsBtn) {
           const rect = settingsBtn.getBoundingClientRect();
-          popover.style.top = rect.top + "px";
+          // 計算 popover 最大高度，確保不超出視口
+          const popoverHeight = 6 * 44 + 16; // 6個項目各44px + padding
+          const belowSpace = window.innerHeight - rect.top - 20; // 按鈕下方空間
+          const aboveSpace = rect.bottom - 20; // 按鈕上方空間
+          // 優先向下展開，空間不足時向上偏移
+          let topPos = rect.top;
+          let maxHeight;
+          if (belowSpace >= popoverHeight) {
+            // 下方空間足夠，正常向下展開
+            maxHeight = popoverHeight;
+          } else if (aboveSpace >= popoverHeight) {
+            // 下方不夠但上方夠，向上展開
+            topPos = rect.bottom - popoverHeight;
+            maxHeight = popoverHeight;
+          } else {
+            // 上下都不夠，取較大的一邊
+            if (belowSpace >= aboveSpace) {
+              maxHeight = belowSpace;
+            } else {
+              topPos = 20;
+              maxHeight = aboveSpace;
+            }
+          }
+          popover.style.top = topPos + "px";
           popover.style.left = (rect.right + 8) + "px";
           popover.style.transform = "none";
+          popover.style.maxHeight = maxHeight + "px";
         }
         popover.innerHTML = `
           <button class="settings-popover-item ${state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
@@ -12749,6 +12837,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-settings-toggle]").forEach(btn => btn.addEventListener("click", () => {
         state.isSettingsExpanded = !state.isSettingsExpanded;
         render();
+        // 展開後自動定位到當前選中項
+        if (state.isSettingsExpanded) scrollSettingsToActive();
       }));
       
       // 基礎設置二級菜單點擊
