@@ -987,7 +987,7 @@
       box-shadow: 0 18px 54px rgba(15,23,42,.24);
       overflow: hidden;
       display: grid;
-      grid-template-rows: 54px 1fr 64px;
+      grid-template-rows: 1fr 64px;
     }
     .phone-top {
       display: flex;
@@ -1138,7 +1138,7 @@
     .toast.toast-error { background: var(--danger); }
     .toast.toast-success { background: var(--success); }
 
-    /* ===== Service Report Module (sr- prefix) ===== */
+    /* ===== 服務報告 Module (sr- prefix) ===== */
     .sr-card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -1436,18 +1436,58 @@
       margin-top: 4px;
     }
     .sr-submit-bar {
-      position: sticky;
-      bottom: 0;
+      position: fixed;
+      bottom: 64px;
       left: 0;
       right: 0;
-      padding: 10px 0;
+      padding: 10px 12px;
       background: linear-gradient(180deg, transparent, var(--bg) 18%);
       z-index: 5;
+      max-width: 370px;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
     .sr-submit-bar .primary-btn {
       width: 100%;
       padding: 12px;
       font-size: 15px;
+    }
+    /* 提交成功頁面樣式 */
+    .sr-success-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 60vh;
+    }
+    .sr-success-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--success, #10b981);
+      color: white;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .sr-success-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .sr-success-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .sr-success-countdown {
+      font-size: 13px;
+      color: var(--muted);
     }
     .sr-hidden { display: none !important; }
 
@@ -2032,119 +2072,36 @@
       .um-layout { grid-template-columns: 1fr; }
     }
 
-    /* Quotation Management Styles */
-    .qm-layout { display: grid; grid-template-columns: 20% 45% 35%; gap: 14px; min-height: 600px; }
-    .qm-category-panel { display: grid; gap: 6px; align-content: start; }
-    .qm-category-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all .15s ease;
-      font-size: 13px;
-      background: var(--panel-soft);
-      border: 1px solid transparent;
-    }
-    .qm-category-item:hover { background: var(--panel); border-color: var(--line); }
-    .qm-category-item.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); font-weight: 600; }
-    .qm-category-item .cat-name { font-size: 13px; }
-    .qm-category-item .cat-count {
-      font-size: 12px;
-      background: var(--panel);
-      padding: 2px 8px;
-      border-radius: 999px;
-      color: var(--muted);
-      min-width: 28px;
-      text-align: center;
-    }
-    .qm-category-item.active .cat-count { background: var(--primary); color: #fff; }
-    .qm-list-panel { display: grid; gap: 12px; align-content: start; }
-    .qm-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .qm-toolbar input, .qm-toolbar select {
-      flex: 1;
-      min-width: 120px;
-      min-height: 34px;
-      font-size: 13px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--text);
-      border-radius: 7px;
-      padding: 6px 10px;
-      outline: none;
-    }
-    .qm-toolbar input:focus, .qm-toolbar select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,107,255,.12); }
-    .qm-quotation-card {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all .15s ease;
-      background: var(--panel);
-    }
-    .qm-quotation-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(30,107,255,.08); }
-    .qm-quotation-card.selected { border-color: var(--primary); background: var(--primary-soft); }
-    .qm-quotation-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .qm-quotation-id {
-      font-size: 14px;
-      font-weight: 700;
-      margin: 0;
-      color: var(--primary);
-    }
-    .qm-quotation-title {
-      font-size: 13px;
-      color: var(--text);
-      margin: 4px 0;
-    }
-    .qm-quotation-meta {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .qm-quotation-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .qm-quotation-amount {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--primary);
-      margin: 8px 0;
-    }
-    .qm-quotation-actions {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .qm-detail-panel { display: grid; gap: 14px; align-content: start; }
-    .qm-detail-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-    .qm-detail-id { font-size: 18px; font-weight: 700; margin: 0; color: var(--primary); }
-    .qm-detail-title { font-size: 14px; color: var(--text); margin: 4px 0; }
-    .qm-empty-detail {
+    /* Quotation Management Styles - 列表+抽屉布局（参考工单管理） */
+    .qm-layout {
       display: grid;
-      place-items: center;
-      min-height: 300px;
-      color: var(--muted);
-      text-align: center;
-      gap: 8px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      min-height: calc(100vh - 180px);
+      transition: grid-template-columns 0.3s ease;
+      width: 100%;
     }
-    .qm-empty-detail .icon { font-size: 36px; opacity: .4; }
+    .qm-layout.with-drawer {
+      /* 抽屜使用 fixed 定位浮於頁面之上，不壓縮原有列表 */
+      grid-template-columns: 1fr;
+    }
+    .qm-list-section {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 20px;
+      overflow: auto;
+      min-width: 0;
+      max-width: 100%;
+      height: fit-content;
+    }
+    .qm-list-section .qm-table {
+      table-layout: auto;
+      word-break: break-word;
+    }
+    @media (max-width: 1180px) {
+      .qm-layout.with-drawer { grid-template-columns: 1fr; }
+    }
+    /* 報價狀態顏色標籤 */
     .qm-status-待報價 { background: var(--panel-soft); color: var(--muted); }
     .qm-status-已發出 { background: var(--primary-soft); color: var(--primary); }
     .qm-status-等待客戶確認 { background: var(--warning-soft); color: var(--warning); }
@@ -2158,21 +2115,17 @@
     [data-theme="dark"] .qm-status-需修訂 { background: #3a1518; color: #ff9fbb; }
     [data-theme="dark"] .qm-status-已取消 { background: #252b36; color: #b8c0cc; }
 
-    @media (max-width: 1180px) {
-      .qm-layout { grid-template-columns: 1fr; }
-    }
-
     /* Work Order Management Styles */
     .wo-layout {
       display: grid;
       grid-template-columns: 1fr;
       gap: 16px;
       min-height: calc(100vh - 180px);
-      transition: grid-template-columns 0.3s ease;
       width: 100%;
     }
     .wo-layout.with-drawer {
-      grid-template-columns: 1fr 420px;
+      /* 抽屜使用 fixed 定位浮於頁面之上，不壓縮原有列表 */
+      grid-template-columns: 1fr;
     }
     .wo-list-section {
       background: var(--panel);
@@ -2458,13 +2411,22 @@
       background: var(--primary-soft);
     }
     .wo-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 420px;
+      max-width: 100vw;
       background: var(--panel);
       border-left: 1px solid var(--line);
       box-shadow: -4px 0 12px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      z-index: 999;
     }
+    /* 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動 */
+    body.drawer-open { overflow: hidden; }
     .wo-drawer-header {
       padding: 20px;
       border-bottom: 1px solid var(--line);
@@ -2730,17 +2692,9 @@
       flex-shrink: 0;
     }
     @media (max-width: 1180px) {
-      .wo-layout.with-drawer {
-        grid-template-columns: 1fr;
-      }
+      /* 抽屜在小螢幕下全螢幕顯示 */
       .wo-drawer {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 420px;
-        max-width: 100vw;
-        z-index: 999;
+        width: 100vw;
       }
     }
 
@@ -3007,7 +2961,7 @@
               <span class="avatar" id="avatarText">管</span>
               <span class="user-meta">
                 <strong id="userName">林主管</strong>
-                <span id="userRoleLine">主管 / 管理員 · 管理部</span>
+                <span id="userRoleLine">管理員 · 管理部</span>
               </span>
               <span>⌄</span>
             </button>
@@ -3040,13 +2994,6 @@
 
       <section class="mobile-stage hidden" id="mobileShell">
         <div class="phone">
-          <div class="phone-top">
-            <div class="phone-title">
-              <strong id="mobileTitle">我的任務</strong>
-              <span id="mobileSub">師傅移動端 · 周師傅</span>
-            </div>
-            <button id="networkToggle" class="status-pill status-處理中" style="cursor:pointer;border:none;font-weight:600;" title="點擊切換在線/離線狀態">在線</button>
-          </div>
           <div class="phone-body" id="mobileBody"></div>
           <div class="phone-tabs" id="mobileTabs"></div>
         </div>
@@ -3058,8 +3005,8 @@
   <script>
     // 本文件爲靜態 UI 原型：僅使用前端模擬數據，不連接後端、數據庫或真實接口。
     const STATUSES = ["待分派", "待確認", "待處理", "處理中", "已完成", "已取消"];
-    const TYPES = ["保養維修", "工程維修"];
-    const REGIONS = ["1區", "2區", "3區", "4區", "5區", "6區", "7區", "8區", "MTR", "EMSD", "ASD", "軟件組", "EV Charge", "香港", "九龍", "新界"];
+    const TYPES = ["DLP 保養維修", "工程維修", "工程項目"];
+    const REGIONS = ["1區", "2區", "3區", "4區", "5區", "6區", "7區", "7A區", "8區", "MTR", "EMSD", "ASD", "軟件組", "EV Charge", "Maintenance-HTCL", "Project 1(生)", "Project 1 MTR", "Project 1(Sam)", "Project 1(Johnny)", "Project 1(Roy)", "Project 1(Eric)", "Project 2(Joe)", "Project 1-1541", "Project 1-1962EM20T", "Project 1-1105", "Project 1-2489", "Project 1-2458", "Project/Maintenance"];
     const CHANNELS = ["電話", "WhatsApp", "現場溝通", "郵件"];
 
     // ===== Unified Dictionary Management System =====
@@ -3164,6 +3111,60 @@
           { key: "status", label: "狀態", width: "80px" },
           { key: "createdAt", label: "創建時間", width: "160px" }
         ]
+      },
+      "標書來源": {
+        title: "標書來源管理",
+        subtitle: "維護標書的來源渠道（電子郵件、電話、傳真等）。",
+        fields: [
+          { key: "name", label: "來源名稱", required: true },
+          { key: "code", label: "來源代碼", required: true },
+          { key: "description", label: "描述" },
+          { key: "status", label: "狀態", type: "switch" }
+        ],
+        tableColumns: [
+          { key: "id", label: "編號", width: "80px" },
+          { key: "name", label: "名稱" },
+          { key: "code", label: "代碼", width: "120px" },
+          { key: "description", label: "說明" },
+          { key: "status", label: "狀態", width: "80px" },
+          { key: "createdAt", label: "創建時間", width: "160px" }
+        ]
+      },
+      "回標方式": {
+        title: "回標方式管理",
+        subtitle: "維護回標的方式（電子郵件、電話、傳真等）。",
+        fields: [
+          { key: "name", label: "方式名稱", required: true },
+          { key: "code", label: "方式代碼", required: true },
+          { key: "description", label: "描述" },
+          { key: "status", label: "狀態", type: "switch" }
+        ],
+        tableColumns: [
+          { key: "id", label: "編號", width: "80px" },
+          { key: "name", label: "名稱" },
+          { key: "code", label: "代碼", width: "120px" },
+          { key: "description", label: "說明" },
+          { key: "status", label: "狀態", width: "80px" },
+          { key: "createdAt", label: "創建時間", width: "160px" }
+        ]
+      },
+      "標書狀態": {
+        title: "標書狀態管理",
+        subtitle: "維護標書的狀態選項。",
+        fields: [
+          { key: "name", label: "狀態名稱", required: true },
+          { key: "code", label: "狀態代碼", required: true },
+          { key: "description", label: "描述" },
+          { key: "status", label: "狀態", type: "switch" }
+        ],
+        tableColumns: [
+          { key: "id", label: "編號", width: "80px" },
+          { key: "name", label: "名稱" },
+          { key: "code", label: "代碼", width: "120px" },
+          { key: "description", label: "說明" },
+          { key: "status", label: "狀態", width: "80px" },
+          { key: "createdAt", label: "創建時間", width: "160px" }
+        ]
       }
     };
 
@@ -3187,8 +3188,9 @@
     function initDictData() {
       const defaults = {
         "工單類型": [
-          { id: "DT001", name: "保養維修", code: "CALL", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DT002", name: "工程維修", code: "PM", status: "啓用", createdAt: "2026-01-01" }
+          { id: "DT001", name: "DLP 保養維修", code: "CALL", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT002", name: "工程維修", code: "PM", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT003", name: "工程項目", code: "PRJ", status: "啓用", createdAt: "2026-01-01" }
         ],
         "區域": [
           { id: "DR001", name: "1區", code: "D1", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
@@ -3198,15 +3200,27 @@
           { id: "DR005", name: "5區", code: "D5", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
           { id: "DR006", name: "6區", code: "D6", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
           { id: "DR007", name: "7區", code: "D7", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR008", name: "8區", code: "D8", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR009", name: "MTR", code: "MTR", description: "港鐵", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR010", name: "EMSD", code: "EMSD", description: "機電署", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR011", name: "ASD", code: "ASD", description: "建築署", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR012", name: "軟件組", code: "SW", description: "軟件組", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR013", name: "EV Charge", code: "EV", description: "電動車充電組", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR014", name: "香港", code: "HK", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR015", name: "九龍", code: "KL", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR016", name: "新界", code: "NT", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" }
+          { id: "DR008", name: "7A區", code: "D7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR009", name: "8區", code: "D8", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR010", name: "MTR", code: "MTR", description: "港鐵", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR011", name: "EMSD", code: "EMSD", description: "機電署", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR012", name: "ASD", code: "ASD", description: "建築署", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR013", name: "軟件組", code: "SW", description: "軟件組", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR014", name: "EV Charge", code: "EV", description: "電動車充電組", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR015", name: "Maintenance-HTCL", code: "HTCL", description: "保養-HTCL", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR016", name: "Project 1(生)", code: "P1S", description: "Project 1(生)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR017", name: "Project 1 MTR", code: "P1M", description: "Project 1 MTR", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR018", name: "Project 1(Sam)", code: "P1SM", description: "Project 1(Sam)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR019", name: "Project 1(Johnny)", code: "P1J", description: "Project 1(Johnny)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR020", name: "Project 1(Roy)", code: "P1R", description: "Project 1(Roy)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR021", name: "Project 1(Eric)", code: "P1E", description: "Project 1(Eric)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR022", name: "Project 2(Joe)", code: "P2J", description: "Project 2(Joe)", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR023", name: "Project 1-1541", code: "P11541", description: "Project 1-1541", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR024", name: "Project 1-1962EM20T", code: "P11962", description: "Project 1-1962EM20T", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR025", name: "Project 1-1105", code: "P11105", description: "Project 1-1105", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR026", name: "Project 1-2489", code: "P12489", description: "Project 1-2489", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR027", name: "Project 1-2458", code: "P12458", description: "Project 1-2458", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR028", name: "Project/Maintenance", code: "PM", description: "Project/Maintenance", status: "啓用", createdAt: "2026-01-01" }
         ],
         "Call代碼": callCodes.map((cc, i) => ({
           id: cc.id, name: cc.name, code: cc.code, description: "", status: cc.status,
@@ -3225,6 +3239,24 @@
           { id: "DC001", name: "M（保養）", code: "M", description: "保養類別", status: "啓用", createdAt: "2026-01-01" },
           { id: "DC002", name: "P（工程）", code: "P", description: "工程類別", status: "啓用", createdAt: "2026-01-01" },
           { id: "DC003", name: "M+P（保養＋工程）", code: "M+P", description: "保養加工程類別", status: "啓用", createdAt: "2026-01-01" }
+        ],
+        "標書來源": [
+          { id: "DT-S01", name: "電子郵件", code: "EMAIL", description: "透過電子郵件接收標書", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-S02", name: "電話", code: "TEL", description: "透過電話接收標書", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-S03", name: "傳真", code: "FAX", description: "透過傳真接收標書", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-S04", name: "郵寄", code: "MAIL", description: "透過郵寄接收標書", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-S05", name: "專人遞送", code: "COURIER", description: "專人遞送標書", status: "啓用", createdAt: "2026-01-01" }
+        ],
+        "回標方式": [
+          { id: "DT-R01", name: "電子郵件", code: "EMAIL", description: "透過電子郵件回標", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-R02", name: "電話", code: "TEL", description: "透過電話回標", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-R03", name: "傳真", code: "FAX", description: "透過傳真回標", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-R04", name: "郵寄", code: "MAIL", description: "透過郵寄回標", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-R05", name: "專人遞送", code: "COURIER", description: "專人遞送回標", status: "啓用", createdAt: "2026-01-01" }
+        ],
+        "標書狀態": [
+          { id: "DT-ST01", name: "待投標", code: "PENDING", description: "尚未投標", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT-ST02", name: "不投標", code: "NOBID", description: "決定不參與投標", status: "啓用", createdAt: "2026-01-01" }
         ]
       };
 
@@ -3232,31 +3264,35 @@
       if (stored) {
         // 遷移：確保區域數據有 code 字段
         if (stored["區域"] && Array.isArray(stored["區域"])) {
-          const regionCodes = { "1區": "D1", "2區": "D2", "3區": "D3", "4區": "D4", "5區": "D5", "6區": "D6", "7區": "D7", "8區": "D8", "MTR": "MTR", "EMSD": "EMSD", "ASD": "ASD", "軟件組": "SW", "EV Charge": "EV", "香港": "HK", "九龍": "KL", "新界": "NT" };
+          // 遷移：移除已廢棄的區域（香港、九龍、新界）
+          stored["區域"] = stored["區域"].filter(r => !["香港", "九龍", "新界"].includes(r.name));
+          const regionCodes = { "1區": "D1", "2區": "D2", "3區": "D3", "4區": "D4", "5區": "D5", "6區": "D6", "7區": "D7", "7A區": "D7A", "8區": "D8", "MTR": "MTR", "EMSD": "EMSD", "ASD": "ASD", "軟件組": "SW", "EV Charge": "EV", "Maintenance-HTCL": "HTCL", "Project 1(生)": "P1S", "Project 1 MTR": "P1M", "Project 1(Sam)": "P1SM", "Project 1(Johnny)": "P1J", "Project 1(Roy)": "P1R", "Project 1(Eric)": "P1E", "Project 2(Joe)": "P2J", "Project 1-1541": "P11541", "Project 1-1962EM20T": "P11962", "Project 1-1105": "P11105", "Project 1-2489": "P12489", "Project 1-2458": "P12458", "Project/Maintenance": "PM" };
           stored["區域"] = stored["區域"].map(r => ({
             ...r,
             code: r.code || regionCodes[r.name] || ""
           }));
-          // 遷移：補全新增區域（1-8區、MTR、EMSD、ASD、軟件組、EV Charge）
+          // 遷移：補全新增區域
           const existingNames = stored["區域"].map(r => r.name);
           const newRegions = [
-            { id: "DR001", name: "1區", code: "D1", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR002", name: "2區", code: "D2", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR003", name: "3區", code: "D3", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR004", name: "4區", code: "D4", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR005", name: "5區", code: "D5", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR006", name: "6區", code: "D6", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR007", name: "7區", code: "D7", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR008", name: "8區", code: "D8", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR009", name: "MTR", code: "MTR", description: "港鐵", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR010", name: "EMSD", code: "EMSD", description: "機電署", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR011", name: "ASD", code: "ASD", description: "建築署", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR012", name: "軟件組", code: "SW", description: "軟件組", status: "啓用", createdAt: "2026-01-01" },
-            { id: "DR013", name: "EV Charge", code: "EV", description: "電動車充電組", status: "啓用", createdAt: "2026-01-01" }
+            { id: "DR008", name: "7A區", code: "D7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR015", name: "Maintenance-HTCL", code: "HTCL", description: "保養-HTCL", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR016", name: "Project 1(生)", code: "P1S", description: "Project 1(生)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR017", name: "Project 1 MTR", code: "P1M", description: "Project 1 MTR", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR018", name: "Project 1(Sam)", code: "P1SM", description: "Project 1(Sam)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR019", name: "Project 1(Johnny)", code: "P1J", description: "Project 1(Johnny)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR020", name: "Project 1(Roy)", code: "P1R", description: "Project 1(Roy)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR021", name: "Project 1(Eric)", code: "P1E", description: "Project 1(Eric)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR022", name: "Project 2(Joe)", code: "P2J", description: "Project 2(Joe)", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR023", name: "Project 1-1541", code: "P11541", description: "Project 1-1541", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR024", name: "Project 1-1962EM20T", code: "P11962", description: "Project 1-1962EM20T", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR025", name: "Project 1-1105", code: "P11105", description: "Project 1-1105", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR026", name: "Project 1-2489", code: "P12489", description: "Project 1-2489", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR027", name: "Project 1-2458", code: "P12458", description: "Project 1-2458", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR028", name: "Project/Maintenance", code: "PM", description: "Project/Maintenance", status: "啓用", createdAt: "2026-01-01" }
           ];
           newRegions.forEach(nr => {
             if (!existingNames.includes(nr.name)) {
-              stored["區域"].unshift(nr);
+              stored["區域"].push(nr);
             }
           });
         }
@@ -3270,6 +3306,33 @@
             { id: "DC001", name: "M（保養）", code: "M", description: "保養類別", status: "啓用", createdAt: "2026-01-01" },
             { id: "DC002", name: "P（工程）", code: "P", description: "工程類別", status: "啓用", createdAt: "2026-01-01" },
             { id: "DC003", name: "M+P（保養＋工程）", code: "M+P", description: "保養加工程類別", status: "啓用", createdAt: "2026-01-01" }
+          ];
+        }
+        // 遷移：補充「標書來源」字典（新功能）
+        if (!stored["標書來源"] || !Array.isArray(stored["標書來源"]) || stored["標書來源"].length === 0) {
+          stored["標書來源"] = [
+            { id: "DT-S01", name: "電子郵件", code: "EMAIL", description: "透過電子郵件接收標書", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-S02", name: "電話", code: "TEL", description: "透過電話接收標書", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-S03", name: "傳真", code: "FAX", description: "透過傳真接收標書", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-S04", name: "郵寄", code: "MAIL", description: "透過郵寄接收標書", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-S05", name: "專人遞送", code: "COURIER", description: "專人遞送標書", status: "啓用", createdAt: "2026-01-01" }
+          ];
+        }
+        // 遷移：補充「回標方式」字典（新功能）
+        if (!stored["回標方式"] || !Array.isArray(stored["回標方式"]) || stored["回標方式"].length === 0) {
+          stored["回標方式"] = [
+            { id: "DT-R01", name: "電子郵件", code: "EMAIL", description: "透過電子郵件回標", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-R02", name: "電話", code: "TEL", description: "透過電話回標", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-R03", name: "傳真", code: "FAX", description: "透過傳真回標", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-R04", name: "郵寄", code: "MAIL", description: "透過郵寄回標", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-R05", name: "專人遞送", code: "COURIER", description: "專人遞送回標", status: "啓用", createdAt: "2026-01-01" }
+          ];
+        }
+        // 遷移：補充「標書狀態」字典（新功能）
+        if (!stored["標書狀態"] || !Array.isArray(stored["標書狀態"]) || stored["標書狀態"].length === 0) {
+          stored["標書狀態"] = [
+            { id: "DT-ST01", name: "待投標", code: "PENDING", description: "尚未投標", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DT-ST02", name: "不投標", code: "NOBID", description: "決定不參與投標", status: "啓用", createdAt: "2026-01-01" }
           ];
         }
         return stored;
@@ -3308,26 +3371,27 @@
     }
 
     const ROLES = [
-      { key: "CS", label: "CS", name: "陳小姐", dept: "客戶服務部", avatar: "CS" },
-      { key: "TL", label: "Team Leader", name: "李組長", dept: "九龍團隊", avatar: "TL" },
+      { key: "CS", label: "客戶服務部", name: "陳小姐", dept: "客戶服務部", avatar: "CS" },
+      { key: "TL", label: "主管", name: "李組長", dept: "九龍團隊", avatar: "TL" },
       { key: "MASTER", label: "師傅", name: "周師傅", dept: "外勤 · 九龍", avatar: "周" },
       { key: "QUO", label: "報價組", name: "鄒組長", dept: "報價組", avatar: "報" },
       { key: "PUR", label: "採購部", name: "張採購", dept: "採購部", avatar: "採" },
       { key: "FIN", label: "會計部", name: "陳會計", dept: "會計部", avatar: "會" },
-      { key: "ADMIN", label: "主管 / 管理員", name: "林主管", dept: "管理部", avatar: "管" },
-      { key: "BOSS", label: "老闆", name: "黃老闆", dept: "管理部", avatar: "闆" }
+      { key: "ADMIN", label: "管理員", name: "林主管", dept: "管理部", avatar: "管" },
+      { key: "BOSS", label: "老闆", name: "黃老闆", dept: "管理部", avatar: "闆" },
+      { key: "CR", label: "客戶關係部", name: "何關係", dept: "客戶關係部", avatar: "CR", area: "九龍" }
     ];
     const PAGES = [
-      { key: "dashboard", label: "首頁", icon: "首", sub: "查看狀態、待辦、異常和最近動態" },
-      { key: "workorder", label: "工單管理", icon: "單", sub: "管理、新建與查看工單" },
-      { key: "srFolder", label: "SR文件夾", icon: "件", sub: "Service Report 檔案查詢與管理" },
-      { key: "dispatch", label: "分派中心", icon: "派", sub: "Team Leader 分派，師傅接單" },
-      { key: "quotations", label: "報價管理", icon: "報", sub: "管理報價記錄、狀態和關聯工單" },
-      { key: "tender", label: "標書管理", icon: "標", sub: "管理招標項目、投標狀態和中標記錄" },
-      { key: "procurement", label: "採購管理", icon: "採", sub: "管理採購單、供應商和物流到貨" },
-      { key: "finance", label: "會計管理", icon: "會", sub: "發票開具、收款登記和財務報表" },
-      { key: "report", label: "統計報表", icon: "統", sub: "MVP 基礎統計，不含複雜 BI" },
-      { key: "settings", label: "基礎設置", icon: "設", sub: "字典管理、客戶管理、用戶管理" }
+      { key: "dashboard", label: "首頁", icon: "🏠", sub: "查看狀態、待辦、異常和最近動態" },
+      { key: "workorder", label: "CALL管理", icon: "📋", sub: "管理、新建與查看工單" },
+      { key: "srFolder", label: "SR文件夾", icon: "📁", sub: "服務報告 檔案查詢與管理" },
+      { key: "dispatch", label: "分派中心", icon: "📤", sub: "Team Leader 分派，師傅接單" },
+      { key: "quotations", label: "報價管理", icon: "💰", sub: "管理報價記錄、狀態和關聯工單" },
+      { key: "tender", label: "標書管理", icon: "📑", sub: "管理招標項目、投標狀態和中標記錄" },
+      { key: "procurement", label: "採購管理", icon: "🛒", sub: "管理採購單、供應商和物流到貨" },
+      { key: "finance", label: "會計管理", icon: "💵", sub: "發票開具、收款登記和財務報表" },
+      { key: "report", label: "統計報表", icon: "📊", sub: "MVP 基礎統計，不含複雜 BI" },
+      { key: "settings", label: "基礎設置", icon: "⚙️", sub: "字典管理、客戶管理、用戶管理" }
     ];
     const MOBILE_PAGES = [
       { key: "tasks", label: "任務", title: "我的任務" },
@@ -3363,7 +3427,7 @@
       localStorage.setItem('ecinfo_traditional_migrated_v2', 'true');
     }
 
-    // v3 遷移：為已存在於 localStorage 的工單補充 Service Report 示例數據
+    // v3 遷移：為已存在於 localStorage 的工單補充 服務報告 示例數據
     // 目的：讓 SR 文件夾模塊有數據可展示，不影響用戶已創建的 SR 數據
     if (!localStorage.getItem('ecinfo_sr_folder_migrated_v3')) {
       const storedTickets = JSON.parse(localStorage.getItem('ecinfo_tickets') || '[]');
@@ -3484,10 +3548,12 @@
     const ROLE_PERMISSIONS = {
       CS: ["查看工單", "新建工單", "受理工單", "取消工單", "查看客戶信息", "操作日誌"],
       TL: ["查看工單", "分派工單", "改派工單", "確認關閉", "退回處理", "查看客戶信息", "操作日誌"],
-      MASTER: ["查看工單", "接單", "提交結果", "上傳附件", "查看客戶信息"],
+      MASTER: ["查看工單", "收到", "提交結果", "上傳附件", "查看客戶信息"],
       ADMIN: ["查看工單", "新建工單", "分派工單", "確認關閉", "用戶管理", "基礎設置", "統計報表", "操作日誌"],
       SUPERVISOR: ["查看工單", "確認關閉", "統計報表", "用戶管理", "操作日誌"],
-      BOSS: ["查看工單", "新建工單", "指派工單", "查看客戶信息", "操作日誌"]
+      BOSS: ["查看工單", "新建工單", "指派工單", "查看客戶信息", "操作日誌"],
+      // CR 客戶關係部：所屬區域的 Call 系統、報價/標書、採購倉庫、分派中心；可直接分派給師傅
+      CR: ["查看工單", "新建工單", "分派工單", "查看報價", "查看標書", "查看採購", "查看客戶信息", "操作日誌"]
     };
 
     let users = JSON.parse(localStorage.getItem('ecinfo_users')) || [
@@ -3506,7 +3572,8 @@
       { id: "U013", name: "鄭小姐", employeeNo: "EMP0013", role: "CS", area: "九龍", phone: "+85291013013", email: "cs.cheng@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:10", createdAt: "2026-04-01" },
       { id: "U014", name: "蔡小姐", employeeNo: "EMP0014", role: "CS", area: "新界", phone: "+85291014014", email: "tsai@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 18:00", createdAt: "2026-04-10" },
       { id: "U015", name: "馬師傅", employeeNo: "EMP0015", role: "MASTER", area: "九龍", phone: "+85291015015", email: "master.ma@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:30", createdAt: "2026-05-01" },
-      { id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "香港", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" }
+      { id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "香港", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" },
+      { id: "U017", name: "何關係", employeeNo: "EMP0017", role: "CR", area: "九龍", phone: "+85291017017", email: "cr.ho@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 09:15", createdAt: "2026-04-20" }
     ];
     // 遷移：確保老闆角色用戶存在
     if (!users.find(u => u.role === "BOSS")) {
@@ -3535,8 +3602,37 @@
       { id: "CC002", code: "CALL-002", name: "CCTV監控維修", status: "啓用", sortOrder: 2 },
       { id: "CC003", code: "CALL-003", name: "廣播系統維修", status: "啓用", sortOrder: 3 },
       { id: "CC004", code: "CALL-004", name: "停車場閘機維修", status: "啓用", sortOrder: 4 },
-      { id: "CC005", code: "CALL-005", name: "水浸報警檢查", status: "啓用", sortOrder: 5 }
+      { id: "CC005", code: "CALL-005", name: "警報/水浸檢查", status: "啓用", sortOrder: 5 },
+      { id: "CC006", code: "CALL-006", name: "拍卡系統維修", status: "啓用", sortOrder: 6 },
+      { id: "CC007", code: "CALL-007", name: "天線系統維修", status: "啓用", sortOrder: 7 },
+      { id: "CC008", code: "CALL-008", name: "對講機維修", status: "啓用", sortOrder: 8 }
     ];
+
+    // 遷移 callCodes：更新 CALL-005 名稱，補充 CALL-006/007/008
+    if (Array.isArray(callCodes)) {
+      let callCodesChanged = false;
+      // 更新 CALL-005 名稱
+      const cc005 = callCodes.find(cc => cc.code === "CALL-005");
+      if (cc005 && cc005.name === "水浸報警檢查") {
+        cc005.name = "警報/水浸檢查";
+        callCodesChanged = true;
+      }
+      // 補充 CALL-006/007/008
+      const newCallCodes = [
+        { id: "CC006", code: "CALL-006", name: "拍卡系統維修", status: "啓用", sortOrder: 6 },
+        { id: "CC007", code: "CALL-007", name: "天線系統維修", status: "啓用", sortOrder: 7 },
+        { id: "CC008", code: "CALL-008", name: "對講機維修", status: "啓用", sortOrder: 8 }
+      ];
+      newCallCodes.forEach(nc => {
+        if (!callCodes.find(cc => cc.code === nc.code)) {
+          callCodes.push(nc);
+          callCodesChanged = true;
+        }
+      });
+      if (callCodesChanged) {
+        localStorage.setItem('ecinfo_call_codes', JSON.stringify(callCodes));
+      }
+    }
 
     // callCodes 已定義，現在初始化 dictData
     let dictData = initDictData();
@@ -4532,6 +4628,8 @@
 
     let quotationState = {
       statusFilter: "全部",
+      categoryFilter: "全部",
+      areaFilter: "全部",
       searchKeyword: "",
       filterTicketStatus: "全部",
       filterCustomer: "全部",
@@ -4575,7 +4673,7 @@
       crSearch: "",
       crSelectedTicketId: null,
       filters: { status: "全部", type: "全部", area: "全部", owner: "全部", tl: "全部", customer: "全部", master: "全部", jNumber: "", keyword: "" },
-      // Service Report UI state
+      // 服務報告 UI state
       srInitialized: false,
       srTicketId: null,
       srServiceTypes: [],
@@ -4583,7 +4681,12 @@
       srParts: [],
       srSatisfaction: "",
       srNeedQuotation: false,
-      srSignature: ""
+      srSignature: "",
+      // 提交成功頁面狀態
+      srSubmitted: false,
+      srSubmittedTicketId: null,
+      srSubmitCountdown: 5,
+      srSubmitCountdownTimer: null
     };
 
     // Work Order Management State
@@ -4597,6 +4700,8 @@
         customer: "全部",
         keyword: ""
       },
+      currentPage: 1,
+      pageSize: 10,
       modalOpen: false,
       modalMode: "create" // "create" or "edit"
     };
@@ -5221,9 +5326,9 @@
     function performAction(action, id) {
       const t = ticketById(id);
       if (action === "view") {
+        // 在當前頁面以側邊欄形式打開工單詳情（不跳轉）
         state.selectedTicketId = id;
-        state.page = "detail";
-        state.view = "pc";
+        workOrderState.selectedWorkOrderId = id;
         render();
         return;
       }
@@ -5247,11 +5352,9 @@
         return;
       }
       if (action === "take") {
-        const eta = prompt("請輸入預計到達時間（例如：30分鐘、14:30、下午3點）：");
-        if (eta === null) return;
-        const updates = { status: "待處理", owner: currentRole().name, master: currentRole().name };
-        if (eta) updates.estimatedArrival = eta;
-        updateTicket(id, updates, eta ? `師傅已接單，預計 ${eta} 到達。` : "師傅已接單，進入待處理。");
+        // 彈出到達時間選擇窗口（精確到分鐘）
+        openArrivalTimeModal(id);
+        return;
       }
       if (action === "submitResult") {
         // Sync current DOM values to ticket/state before reading
@@ -5358,11 +5461,35 @@
             ...updates
           });
           toast(`📱 已離線保存處理記錄（SR: ${serviceReportNo}），待恢復網絡後自動上傳`, "success");
-          setMobilePage("tasks");
-          return;
+        } else {
+          updateTicket(id, updates, "師傅提交服務報告和現場記錄，工單已完成。");
         }
 
-        updateTicket(id, updates, "師傅提交服務報告和現場記錄，工單已完成。");
+        // 顯示提交成功頁面，5 秒後自動跳轉到任務版面
+        state.srSubmitted = true;
+        state.srSubmittedTicketId = id;
+        state.srSubmitCountdown = 5;
+        render();
+
+        // 啟動倒計時
+        if (state.srSubmitCountdownTimer) clearInterval(state.srSubmitCountdownTimer);
+        state.srSubmitCountdownTimer = setInterval(() => {
+          state.srSubmitCountdown--;
+          if (state.srSubmitCountdown <= 0) {
+            clearInterval(state.srSubmitCountdownTimer);
+            state.srSubmitCountdownTimer = null;
+            // 跳轉到任務版面並顯示剛提交的項目
+            const submittedId = state.srSubmittedTicketId;
+            state.srSubmitted = false;
+            state.srSubmittedTicketId = null;
+            state.selectedTicketId = submittedId;
+            setMobilePage("tasks");
+          } else {
+            // 更新倒計時顯示
+            const cdEl = document.getElementById("srSuccessCountdown");
+            if (cdEl) cdEl.textContent = `${state.srSubmitCountdown} 秒後自動跳轉到任務版面`;
+          }
+        }, 1000);
       }
       if (action === "confirmClose") {
         updateTicket(id, { status: "已完成", owner: currentRole().name }, "確認處理結果通過，工單已完成。");
@@ -5436,13 +5563,19 @@
       }
       if (state.role === "MASTER") {
         if (t.status === "待確認") {
-          add("接單", "take", "primary-btn");
+          add("收到", "take", "primary-btn");
         }
         if (t.status === "待處理") add("開始處理", "startWork", "primary-btn");
         if (t.status === "處理中") add("提交處理結果", "submitResult", "primary-btn");
       }
       if (state.role === "ADMIN") {
         if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("取消", "cancel", "danger-btn");
+      }
+      // CR 客戶關係部：可直接分派給師傅，不用經主管
+      if (state.role === "CR") {
+        if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("分派給師傅", "assign", "primary-btn");
+        if (t.status === "待分派") add("編輯工單", "editTicket", "secondary-btn");
+        if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("補充信息", "note", "secondary-btn");
       }
       return buttons.join("");
     }
@@ -5505,29 +5638,29 @@
         $("#pageSub").textContent = "師傅移動端操作模擬";
       }
       
-      // Collapsed mode: single character labels
+      // Collapsed mode: emoji icons
       const collapsedLabels = {
-        "dashboard": "首",
-        "workorder": "工",
-        "srFolder": "件",
-        "dispatch": "派",
-        "quotations": "報",
-        "tender": "標",
-        "procurement": "採",
-        "finance": "會",
-        "report": "統",
-        "settings": "設"
+        "dashboard": "🏠",
+        "workorder": "📋",
+        "srFolder": "📁",
+        "dispatch": "📤",
+        "quotations": "💰",
+        "tender": "📑",
+        "procurement": "🛒",
+        "finance": "💵",
+        "report": "📊",
+        "settings": "⚙️"
       };
       const collapsed = state.isSidebarCollapsed;
       
       $("#navList").innerHTML = PAGES.map(p => {
         if (p.key === "settings") {
           if (collapsed) {
-            // Collapsed mode: single character button, popover on click
+            // Collapsed mode: emoji icon button, popover on click
             return `
               <div class="nav-item-parent ${state.page === 'settings' ? 'active' : ''}">
                 <button class="nav-item nav-item-settings nav-collapsed-btn" data-page="settings" data-collapsed-label="${p.label}">
-                  <span class="nav-collapsed-char">設</span>
+                  <span class="nav-collapsed-char">${collapsedLabels["settings"]}</span>
                 </button>
               </div>
             `;
@@ -5540,12 +5673,12 @@
                 <span class="nav-arrow ${state.isSettingsExpanded ? 'expanded' : ''}">▶</span>
               </button>
               <div class="nav-submenu ${state.isSettingsExpanded ? 'expanded' : ''}">
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">字典管理</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">客戶管理</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">用戶管理</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">報價組通訊錄</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">服務器空間</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">Excel 導入</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">🏢 客戶管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">👤 用戶管理</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">🖥️ 服務器空間</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">📊 Excel 導入</button>
               </div>
             </div>
           `;
@@ -5630,11 +5763,11 @@
           <div class="grid cols-3" style="margin-top:14px;">
             <div class="card">
               <div class="card-head"><h2>今日待辦</h2><button class="secondary-btn" data-page-target="list">查看列表</button></div>
-              ${todo.map(t => `<div class="ticket-mini"><div><button class="link-btn" data-open="${t.id}">${t.id}</button> <span class="${statusClass(t.status)}">${t.status}</span></div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.desc)}</p></div>`).join("")}
+              ${todo.map(t => `<div class="ticket-mini" data-open="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button">${t.id}</button> <span class="${statusClass(t.status)}">${t.status}</span></div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
               <div class="card-head"><h2>異常 / 需關注工單</h2><span class="chip">${focus.length} 條</span></div>
-              ${focus.map(t => `<div class="ticket-mini"><div><button class="link-btn" data-open="${t.id}">${t.id}</button> ${t.urgent ? '<span class="tag urgent">緊急</span>' : '<span class="tag">需關注</span>'}</div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.rejectReason || t.desc)}</p></div>`).join("")}
+              ${focus.map(t => `<div class="ticket-mini" data-open="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button">${t.id}</button> ${t.urgent ? '<span class="tag urgent">緊急</span>' : '<span class="tag">需關注</span>'}</div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.rejectReason || t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
               <div class="card-head"><h2>最近動態</h2><span class="chip">${now}</span></div>
@@ -5917,18 +6050,55 @@
     function renderWorkOrderPage() {
       const hasDrawer = workOrderState.selectedWorkOrderId !== null;
       const selectedTicket = hasDrawer ? ticketById(workOrderState.selectedWorkOrderId) : null;
-      
+
       return `
         <section class="page active">
           <div class="wo-layout ${hasDrawer ? 'with-drawer' : ''}">
             <div class="wo-list-section">
               ${renderWorkOrderFilters()}
               ${renderWorkOrderTable()}
+              ${renderWorkOrderPagination()}
             </div>
             ${hasDrawer ? renderWorkOrderDrawer(selectedTicket) : ''}
           </div>
           ${workOrderState.modalOpen ? renderWorkOrderModal() : ''}
         </section>
+      `;
+    }
+
+    // 工單管理分頁組件
+    function renderWorkOrderPagination() {
+      const filtered = filterWorkOrders();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / workOrderState.pageSize));
+      const current = workOrderState.currentPage;
+      // 生成頁碼按鈕（最多顯示 7 個頁碼，超出用省略號）
+      const pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (current > 3) pages.push("...");
+        const start = Math.max(2, current - 1);
+        const end = Math.min(totalPages - 1, current + 1);
+        for (let i = start; i <= end; i++) pages.push(i);
+        if (current < totalPages - 2) pages.push("...");
+        pages.push(totalPages);
+      }
+
+      return `
+        <div class="um-pagination">
+          <span>共 ${filtered.length} 條記錄，每頁
+            <select data-wo-page-size style="min-height:auto;padding:2px 6px;font-size:12px;">
+              ${[10, 20, 50].map(n => `<option value="${n}" ${workOrderState.pageSize === n ? "selected" : ""}>${n}</option>`).join("")}
+            </select>
+            條，第 ${current}/${totalPages} 頁
+          </span>
+          <div class="um-pg-btns">
+            <button data-wo-page="prev" ${current <= 1 ? "disabled" : ""}>‹</button>
+            ${pages.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${current === p ? "active" : ""}" data-wo-page="${p}">${p}</button>`).join("")}
+            <button data-wo-page="next" ${current >= totalPages ? "disabled" : ""}>›</button>
+          </div>
+        </div>
       `;
     }
 
@@ -6002,16 +6172,21 @@
     function renderWorkOrderTable() {
       const filtered = filterWorkOrders();
       const isQUO = state.role === "QUO";
-      
+      // 分頁計算
+      const totalPages = Math.max(1, Math.ceil(filtered.length / workOrderState.pageSize));
+      if (workOrderState.currentPage > totalPages) workOrderState.currentPage = totalPages;
+      const start = (workOrderState.currentPage - 1) * workOrderState.pageSize;
+      const paginated = filtered.slice(start, start + workOrderState.pageSize);
+
       return `
         <table class="wo-table">
           <thead>
             <tr>
               <th>工單編號</th>
-              <th>工單類型</th>
+              <th>CALL類型</th>
               <th>客戶 / 聯繫人</th>
               <th>區域</th>
-              <th>工單狀態</th>
+              <th>CALL狀態</th>
               ${isQUO ? '<th>報價狀態</th>' : ''}
               <th>當前負責人</th>
               <th>更新時間</th>
@@ -6025,7 +6200,7 @@
                   暫無匹配工單
                 </td>
               </tr>
-            ` : filtered.map(t => {
+            ` : paginated.map(t => {
               const showUrge = state.role === "CS" && ["待分派", "待確認", "處理中"].includes(t.status);
               
               // 獲取報價狀態
@@ -6110,10 +6285,10 @@
             </div>
             <div class="wo-detail-section">
               <div class="wo-detail-card">
-                <h4>工單信息</h4>
+                <h4>CALL信息</h4>
                 <div class="wo-detail-grid">
                   <div class="wo-detail-item">
-                    <span class="wo-detail-label">工單類型</span>
+                    <span class="wo-detail-label">CALL信息</span>
                     <span class="wo-detail-value">${ticket.type}</span>
                   </div>
                   <div class="wo-detail-item">
@@ -6236,7 +6411,7 @@
         <div class="wo-modal">
           <div class="wo-modal-content">
             <div class="wo-modal-header">
-              <h3>${isEdit ? '編輯工單' : '新增工單'}</h3>
+              <h3>${isEdit ? '編輯工單' : '新增Call'}</h3>
               <button class="wo-drawer-close" data-wo-modal-close>×</button>
             </div>
             <div class="wo-modal-body">
@@ -6251,10 +6426,20 @@
                     <input type="text" value="${currentRole().name}" disabled>
                   </div>
                   <div class="wo-form-group">
-                    <label>負責TL <span class="required"></span></label>
-                    <select name="tl" required>
-                      <option value="">請選擇TL</option>
-                      ${users.filter(u => u.role === 'TL' && isEnabled(u.status)).map(u => `<option value="${u.name}" ${isEdit && ticket.tl === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
+                    <label>區域 <span class="required"></span></label>
+                    <select name="area" id="modalAreaSelect" required onchange="filterModalTLsByArea(this.value, ${isEdit ? `'${ticket.tl}'` : 'null'})">
+                      ${REGIONS.map(r => `<option ${isEdit && ticket.area === r ? 'selected' : ''}>${r}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="wo-form-group">
+                    <label>主管 <span class="required"></span></label>
+                    <select name="tl" id="modalTLSelect" required>
+                      <option value="">請先選擇區域</option>
+                      ${isEdit && ticket.tl ? (() => {
+                        const tlUser = users.find(u => u.name === ticket.tl);
+                        const tlArea = tlUser ? tlUser.area : '';
+                        return users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === tlArea).map(u => `<option value="${u.name}" ${ticket.tl === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
+                      })() : ''}
                     </select>
                   </div>
                   <div class="wo-form-group">
@@ -6286,16 +6471,16 @@
                     </div>
                   </div>
                   <div class="wo-form-group ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="jNumberField">
-                    <label>J No. <span class="required"></span></label>
-                    <input type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : ''}" placeholder="如：J 12345" ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? 'required' : ''}>
+                    <label>J No.</label>
+                    <input type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : ''}" placeholder="如：J 12345">
                   </div>
                   <div class="wo-form-group">
                     <label>聯繫人 <span class="required"></span></label>
                     <input type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="選擇客戶後自動填充">
                   </div>
                   <div class="wo-form-group">
-                    <label>聯繫電話 <span class="required"></span></label>
-                    <input type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" required placeholder="選擇客戶後自動填充">
+                    <label>聯繫電話</label>
+                    <input type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" placeholder="選擇客戶後自動填充">
                   </div>
                   <div class="wo-form-group">
                     <label>來源渠道</label>
@@ -6304,17 +6489,11 @@
                     </select>
                   </div>
                   <div class="wo-form-group">
-                    <label>區域 <span class="required"></span></label>
-                    <select name="area" required>
-                      ${REGIONS.map(r => `<option ${isEdit && ticket.area === r ? 'selected' : ''}>${r}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
                     <label>地址</label>
                     <input type="text" name="address" value="${isEdit ? escapeHtml(ticket.address) : ''}" placeholder="請輸入服務地點">
                   </div>
                   <div class="wo-form-group">
-                    <label>工單類型 <span class="required"></span></label>
+                    <label>Call類型 <span class="required"></span></label>
                     <select name="type" required>
                       ${TYPES.map(t => `<option ${isEdit && ticket.type === t ? 'selected' : ''}>${t}</option>`).join("")}
                     </select>
@@ -6332,8 +6511,17 @@
                     <textarea name="desc" required placeholder="請記錄客戶問題、現場情況或服務請求">${isEdit ? escapeHtml(ticket.desc) : ''}</textarea>
                   </div>
                   <div class="wo-form-group full-width">
-                    <label>附件說明</label>
-                    <input type="text" name="attachments" value="${isEdit && ticket.attachments.length > 0 ? escapeHtml(ticket.attachments.join(', ')) : ''}" placeholder="可填寫照片、PDF 或客戶資料名稱">
+                    <label>附件上傳</label>
+                    <div id="fileUploadArea" style="border:2px dashed var(--line); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--panel-soft);" onclick="document.getElementById('fileInput').click()">
+                      <input type="file" id="fileInput" name="files" multiple style="display:none;" onchange="handleFileUpload(this)">
+                      <div id="fileUploadHint">
+                        <div style="font-size:24px; margin-bottom:8px;">📁</div>
+                        <div style="font-size:13px; color:var(--muted);">點擊上傳或將文件拖入此區域</div>
+                        <div style="font-size:12px; color:var(--muted); margin-top:4px;">支持圖片、PDF 等格式</div>
+                      </div>
+                      <div id="fileList" style="text-align:left; margin-top:10px;"></div>
+                    </div>
+                    <input type="hidden" name="attachments" id="attachmentsInput" value="${isEdit && ticket.attachments.length > 0 ? escapeHtml(ticket.attachments.join(', ')) : ''}">
                   </div>
                 </div>
               </form>
@@ -6355,6 +6543,70 @@
     function closeWorkOrderDrawer() {
       workOrderState.selectedWorkOrderId = null;
       render();
+    }
+
+    // 彈出到達時間選擇窗口（精確到分鐘），用於師傅"收到"工單
+    function openArrivalTimeModal(ticketId) {
+      // 關閉已存在的 modal
+      const existing = document.getElementById("arrivalTimeModal");
+      if (existing) existing.remove();
+
+      // 預設時間為當前時間 + 30 分鐘
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 30);
+      const pad = (n) => String(n).padStart(2, '0');
+      const defaultValue = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+      const modalHtml = `
+        <div id="arrivalTimeModal" class="um-modal-overlay" style="position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:9999;">
+          <div class="um-modal" style="background:var(--panel);border-radius:12px;padding:24px;width:min(420px,92vw);box-shadow:0 20px 60px rgba(15,23,42,.3);">
+            <div style="margin-bottom:16px;">
+              <h3 style="margin:0 0 6px;font-size:18px;">選擇到達時間</h3>
+              <p style="margin:0;color:var(--muted);font-size:13px;">請選擇預計到達現場的時間（精確到分鐘）</p>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label style="display:block;margin-bottom:6px;font-size:13px;font-weight:600;">到達時間</label>
+              <input type="datetime-local" id="arrivalTimeInput" value="${defaultValue}" style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-size:14px;background:var(--bg);color:var(--text);">
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;">
+              <button type="button" id="arrivalTimeCancel" class="secondary-btn">取消</button>
+              <button type="button" id="arrivalTimeConfirm" class="primary-btn">確認收到</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", modalHtml);
+
+      const modal = document.getElementById("arrivalTimeModal");
+      const input = document.getElementById("arrivalTimeInput");
+      const cancelBtn = document.getElementById("arrivalTimeCancel");
+      const confirmBtn = document.getElementById("arrivalTimeConfirm");
+
+      // 取消按鈕：關閉 modal
+      cancelBtn.addEventListener("click", () => modal.remove());
+      // 點擊遮罩關閉
+      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+
+      // 確認按鈕：更新工單狀態
+      confirmBtn.addEventListener("click", () => {
+        const value = input.value;
+        if (!value) {
+          alert("請選擇到達時間");
+          return;
+        }
+        // 格式化顯示時間（YYYY-MM-DD HH:mm）
+        const dt = new Date(value);
+        const pad2 = (n) => String(n).padStart(2, '0');
+        const formatted = `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())} ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+        const updates = {
+          status: "待處理",
+          owner: currentRole().name,
+          master: currentRole().name,
+          estimatedArrival: formatted
+        };
+        updateTicket(ticketId, updates, `師傅已收到，預計 ${formatted} 到達。`);
+        modal.remove();
+      });
     }
 
     // 按客戶類型篩選客戶下拉選項（新建工單時聯動）
@@ -6379,6 +6631,55 @@
       }
       const filtered = customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}" ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("");
+    }
+
+    // 根據區域篩選主管（TL）下拉選項
+    function filterModalTLsByArea(area, preselectedTL) {
+      const select = document.getElementById("modalTLSelect");
+      if (!select) return;
+      if (!area) {
+        select.innerHTML = '<option value="">請先選擇區域</option>';
+        return;
+      }
+      const filtered = users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === area);
+      if (filtered.length === 0) {
+        select.innerHTML = '<option value="">該區域暫無主管</option>';
+      } else {
+        select.innerHTML = '<option value="">請選擇主管</option>' + filtered.map(u => `<option value="${u.name}" ${preselectedTL === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
+      }
+    }
+
+    // 處理文件上傳（點擊上傳）
+    function handleFileUpload(input) {
+      const files = Array.from(input.files);
+      updateFileList(files);
+    }
+
+    // 更新文件列表顯示
+    function updateFileList(files) {
+      const fileListEl = document.getElementById("fileList");
+      const attachmentsInput = document.getElementById("attachmentsInput");
+      if (!fileListEl) return;
+
+      const fileNames = files.map(f => f.name);
+      attachmentsInput.value = fileNames.join(', ');
+
+      fileListEl.innerHTML = files.map((f, i) => `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 10px; background:var(--panel); border-radius:4px; margin-bottom:4px; font-size:13px;">
+          <span>📎 ${escapeHtml(f.name)} <span style="color:var(--muted); font-size:11px;">(${(f.size / 1024).toFixed(1)} KB)</span></span>
+          <button type="button" class="link-btn" onclick="removeFile(${i})" style="color:var(--danger);">移除</button>
+        </div>
+      `).join("");
+
+      // 存儲文件列表到全局變量供後續使用
+      window._uploadedFiles = files;
+    }
+
+    // 移除已選文件
+    function removeFile(index) {
+      if (!window._uploadedFiles) return;
+      window._uploadedFiles = Array.from(window._uploadedFiles).filter((_, i) => i !== index);
+      updateFileList(window._uploadedFiles);
     }
 
     function openCreateWorkOrderModal() {
@@ -8699,291 +9000,462 @@
 
     // ========== 報價管理模塊 ==========
     function renderQuotationPage() {
+      // 判斷是否打開抽屜
+      const hasDrawer = quotationState.selectedQuotationId !== null;
+      const selectedQuotation = hasDrawer ? quotations.find(q => q.id === quotationState.selectedQuotationId) : null;
+
       return `
         <section class="page active">
-          <div class="page-head">
-            <h2>報價管理</h2>
-            <p>管理報價記錄、狀態和關聯工單</p>
-          </div>
-          <div class="qm-layout">
-            ${renderQuotationSidebar()}
-            ${renderQuotationList()}
-            ${renderQuotationDetail()}
+          <div class="qm-layout ${hasDrawer ? 'with-drawer' : ''}">
+            <div class="qm-list-section">
+              ${renderQuotationFilters()}
+              ${renderQuotationTable()}
+              ${renderQuotationPagination()}
+            </div>
+            ${hasDrawer && selectedQuotation ? renderQuotationDrawer(selectedQuotation) : ''}
           </div>
         </section>
       `;
     }
 
-    function renderQuotationSidebar() {
-      const categories = [
-        { key: "全部", label: "全部報價", count: quotations.length },
-        { key: "待報價", label: "待報價", count: quotations.filter(q => q.status === "待報價").length },
-        { key: "已發出", label: "已發出", count: quotations.filter(q => q.status === "已發出").length },
-        { key: "等待客戶確認", label: "等待客戶確認", count: quotations.filter(q => q.status === "等待客戶確認").length },
-        { key: "已確認", label: "已確認", count: quotations.filter(q => q.status === "已確認").length },
-        { key: "需修訂", label: "需修訂", count: quotations.filter(q => q.status === "需修訂").length },
-        { key: "已取消", label: "已取消", count: quotations.filter(q => q.status === "已取消").length }
-      ];
-
-      return `
-        <div class="qm-category-panel">
-          <h3 class="cm-sidebar-title">報價狀態</h3>
-          ${categories.map(cat => `
-            <button class="qm-category-item ${quotationState.statusFilter === cat.key ? "active" : ""}" data-quotation-category="${cat.key}">
-              <span class="cat-name">${cat.label}</span>
-              <span class="cat-count">${cat.count}</span>
-            </button>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    function renderQuotationList() {
+    // 報價管理分頁組件
+    function renderQuotationPagination() {
       const filtered = filterQuotations();
-      const paginated = paginateQuotations(filtered);
-      const totalPages = Math.ceil(filtered.length / quotationState.pageSize);
+      const totalPages = Math.max(1, Math.ceil(filtered.length / quotationState.pageSize));
+      const current = quotationState.currentPage;
+      // 生成頁碼按鈕（最多顯示 7 個頁碼，超出用省略號）
+      const pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (current > 3) pages.push("...");
+        const start = Math.max(2, current - 1);
+        const end = Math.min(totalPages - 1, current + 1);
+        for (let i = start; i <= end; i++) pages.push(i);
+        if (current < totalPages - 2) pages.push("...");
+        pages.push(totalPages);
+      }
 
       return `
-        <div class="qm-list-panel">
-          <div class="qm-toolbar">
-            <input type="text" placeholder="搜索報價編號/工單編號/客戶名稱" value="${quotationState.searchKeyword}" data-quotation-search>
-            <select data-quotation-filter-ticket-status>
-              <option value="全部" ${quotationState.filterTicketStatus === "全部" ? "selected" : ""}>全部工單狀態</option>
-              <option value="待分派" ${quotationState.filterTicketStatus === "待分派" ? "selected" : ""}>待分派</option>
-              <option value="處理中" ${quotationState.filterTicketStatus === "處理中" ? "selected" : ""}>處理中</option>
-              <option value="已完成" ${quotationState.filterTicketStatus === "已完成" ? "selected" : ""}>已完成</option>
+        <div class="um-pagination">
+          <span>共 ${filtered.length} 條記錄，每頁
+            <select data-qm-page-size style="min-height:auto;padding:2px 6px;font-size:12px;">
+              ${[10, 20, 50].map(n => `<option value="${n}" ${quotationState.pageSize === n ? "selected" : ""}>${n}</option>`).join("")}
             </select>
-            <select data-quotation-filter-customer>
-              <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
-              ${customers.map(c => `<option value="${c.id}" ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.nameZh}</option>`).join("")}
-            </select>
-            <button class="primary-btn" data-create-quotation>新增報價</button>
-          </div>
-          <div class="qm-quotation-list">
-            ${paginated.map(q => {
-              const ticket = tickets.find(t => t.id === q.ticketId);
-              return `
-                <div class="qm-quotation-card ${quotationState.selectedQuotationId === q.id ? "selected" : ""}" data-quotation-row="${q.id}">
-                  <div class="qm-quotation-header">
-                    <h3 class="qm-quotation-id">${q.id}</h3>
-                    <span class="tag qm-status-${q.status}">${q.status}</span>
-                  </div>
-                  <div class="qm-quotation-title">${q.title}</div>
-                  <div class="qm-quotation-meta">
-                    <span>📋 ${q.ticketId}</span>
-                    <span>🏢 ${q.customerName}</span>
-                    <span>👤 ${q.owner}</span>
-                    <span>📅 ${q.createdAt}</span>
-                    ${q.category ? `<span class="tag">${q.category}</span>` : ""}
-                    ${q.isInviteTender ? `<span class="tag warning">Invite Tender</span>` : ""}
-                    ${q.projectJobNo ? `<span class="tag">${q.projectJobNo}</span>` : ""}
-                  </div>
-                  <div class="qm-quotation-amount">HKD ${q.totalAmount.toLocaleString()}${q.bargainAmount ? `<span style="font-size:12px;color:var(--warning);margin-left:8px;">議價: HKD ${q.bargainAmount.toLocaleString()}</span>` : ""}</div>
-                  <div class="qm-quotation-actions">
-                    <button class="ghost-btn" data-view-quotation="${q.id}">查看</button>
-                    <button class="ghost-btn" data-edit-quotation="${q.id}">編輯</button>
-                  </div>
-                </div>
-              `;
-            }).join("")}
-          </div>
-          <div class="um-pagination">
-            <span>共 ${filtered.length} 條記錄，第 ${quotationState.currentPage}/${totalPages || 1} 頁</span>
-            <div class="um-pg-btns">
-              <button data-quotation-page="prev" ${quotationState.currentPage <= 1 ? "disabled" : ""}>‹</button>
-              ${Array.from({ length: totalPages }, (_, i) => i + 1).map(p => `
-                <button class="${quotationState.currentPage === p ? "active" : ""}" data-quotation-page="${p}">${p}</button>
-              `).join("")}
-              <button data-quotation-page="next" ${quotationState.currentPage >= totalPages ? "disabled" : ""}>›</button>
-            </div>
+            條，第 ${current}/${totalPages} 頁
+          </span>
+          <div class="um-pg-btns">
+            <button data-qm-page="prev" ${current <= 1 ? "disabled" : ""}>‹</button>
+            ${pages.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${current === p ? "active" : ""}" data-qm-page="${p}">${p}</button>`).join("")}
+            <button data-qm-page="next" ${current >= totalPages ? "disabled" : ""}>›</button>
           </div>
         </div>
       `;
     }
 
-    function renderQuotationDetail() {
-      if (!quotationState.selectedQuotationId) {
-        return `
-          <div class="qm-detail-panel">
-            <div class="qm-empty-detail">
-              <div class="icon">💰</div>
-              <div>點擊左側報價查看詳情</div>
-            </div>
-          </div>
-        `;
-      }
-
-      const quotation = quotations.find(q => q.id === quotationState.selectedQuotationId);
-      if (!quotation) {
-        return `
-          <div class="qm-detail-panel">
-            <div class="qm-empty-detail">
-              <div class="icon">❌</div>
-              <div>報價不存在</div>
-            </div>
-          </div>
-        `;
-      }
-
-      const ticket = tickets.find(t => t.id === quotation.ticketId);
-      const customer = customers.find(c => c.id === quotation.customerId);
+    // 報價管理篩選區域（模仿工單管理）
+    function renderQuotationFilters() {
+      const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
+      const areaOptions = (dictData["區域"] || []).filter(r => isEnabled(r.status));
+      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh }));
 
       return `
-        <div class="qm-detail-panel">
-          <div class="qm-detail-header">
-            <div style="flex:1;">
-              <h3 class="qm-detail-id">${quotation.id}</h3>
-              <div class="qm-detail-title">${quotation.title}</div>
-              <span class="tag qm-status-${quotation.status}">${quotation.status}</span>
-            </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="ghost-btn" data-edit-quotation="${quotation.id}">編輯</button>
-              <button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新狀態</button>
-              <button class="primary-btn" data-export-pdf="${quotation.id}">📄 導出PDF</button>
-              <button class="primary-btn" data-send-email="${quotation.id}">📧 Email發送</button>
-              <button class="secondary-btn" data-send-fax="${quotation.id}">📠 Fax發送</button>
-              <button class="secondary-btn" data-sign-quotation="${quotation.id}">✍️ 電子簽名</button>
-              ${quotation.status !== "已取消" && quotation.bidStatus !== "已中標" && quotation.bidStatus !== "不投標" ? `<button class="primary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
-              ${quotation.status !== "已取消" && quotation.bidStatus !== "已中標" && quotation.bidStatus !== "不投標" && quotation.bidStatus !== "未中標" ? `<button class="danger-btn" data-mark-no-offer="${quotation.id}">不投標</button>` : ""}
-              ${quotation.status !== "已取消" && quotation.bidStatus !== "未中標" && quotation.bidStatus !== "不投標" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">創建修訂版</button>` : ""}
-              ${quotation.bidStatus === "已中標" && quotation.procurementStatus === "無需採購" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">啓動採購</button>` : ""}
-              ${quotation.procurementStatus === "採購中" ? `<button class="secondary-btn" data-mark-arrived="${quotation.id}">標記到貨</button>` : ""}
-              ${quotation.procurementStatus === "已到貨" && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
-              ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
-              ${quotation.procurementStatus === "已關單" ? `<span class="tag success">已關單</span>` : ""}
-              <button class="danger-btn" data-delete-quotation="${quotation.id}">刪除</button>
-            </div>
+        <div class="wo-filters">
+          <div class="wo-filter-group">
+            <label>報價狀態</label>
+            <select data-qm-filter="statusFilter">
+              <option value="全部" ${quotationState.statusFilter === "全部" ? "selected" : ""}>全部</option>
+              ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${quotationState.statusFilter === s ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
           </div>
-
-          <div>
-            <h4 class="cm-section-title">基本信息</h4>
-            <div class="info-list">
-              ${infoRow("報價編號", quotation.id)}
-              ${infoRow("Our Ref", `<strong style="color:var(--primary);">${quotation.ourRef || "N/A"}${quotation.revision > 0 ? `R${quotation.revision}` : ""}</strong>`)}
-              ${infoRow("客戶編號", `<strong style="color:var(--primary);">${quotation.customerId || "未設定"}</strong>`)}
-              ${infoRow("報價標題", quotation.title)}
-              ${infoRow("類別", quotation.category ? `${quotation.category}${quotation.category === "M" ? "（保養）" : quotation.category === "P" ? "（工程）" : "（保養＋工程）"}` : "未設定")}
-              ${infoRow("報價狀態", quotation.status)}
-              ${quotation.isInviteTender ? infoRow("招標邀請", `<span class="tag warning">✓ Invite Tender</span>`) : ""}
-              ${quotation.projectJobNo ? infoRow("Project Job 編號", `<strong style="color:var(--primary);">${quotation.projectJobNo}</strong>`) : ""}
-              ${infoRow("中標狀態", `<span class="tag ${quotation.bidStatus === "已中標" ? "success" : quotation.bidStatus === "未中標" || quotation.bidStatus === "不投標" ? "danger" : ""}">${quotation.bidStatus || "待確認"}</span>`)}
-              ${quotation.signed ? infoRow("簽名狀態", `<span class="tag success">✓ 已簽名 - ${quotation.signedBy} (${quotation.signedAt})</span>`) : ""}
-              ${infoRow("報價日期", quotation.createdAt)}
-              ${quotation.deadline ? infoRow("回覆截止日期", `<span style="color:var(--warning);">${quotation.deadline}</span>`) : ""}
-              ${quotation.source ? infoRow("接收來源", quotation.source) : ""}
-              ${infoRow("有效期至", quotation.validUntil)}
-              ${infoRow("議價", quotation.bargainAmount ? `HKD ${quotation.bargainAmount.toLocaleString()}` : "無")}
-              ${infoRow("創建時間", quotation.createdAt)}
-            </div>
+          <div class="wo-filter-group">
+            <label>類別</label>
+            <select data-qm-filter="categoryFilter">
+              <option value="全部" ${quotationState.categoryFilter === "全部" ? "selected" : ""}>全部</option>
+              ${categoryOptions.map(c => `<option value="${c.code}" ${quotationState.categoryFilter === c.code ? "selected" : ""}>${c.name}</option>`).join("")}
+            </select>
           </div>
-
-          <div>
-            <h4 class="cm-section-title">標書/中標信息</h4>
-            <div class="info-list">
-              ${infoRow("客戶訂單號", quotation.customerOrder || "無")}
-              ${infoRow("標書編號", quotation.tenderNo || "無")}
-              ${infoRow("標書金額", quotation.tenderAmount ? `HKD ${quotation.tenderAmount.toLocaleString()}` : "無")}
-              ${quotation.revisions && quotation.revisions.length > 0 ? `
-                <div style="margin-top:8px;">
-                  <strong>修訂歷史：</strong>
-                  <div style="margin-top:4px;">
-                    ${quotation.revisions.map(r => `<div style="padding:4px 8px; background:var(--panel-soft); margin-bottom:4px; border-radius:4px; font-size:13px;">
-                      R${r.rev} - ${r.date} - HKD ${r.amount.toLocaleString()} - ${r.remark}
-                    </div>`).join("")}
-                  </div>
-                </div>
-              ` : ""}
-            </div>
+          <div class="wo-filter-group">
+            <label>區域</label>
+            <select data-qm-filter="areaFilter">
+              <option value="全部" ${quotationState.areaFilter === "全部" ? "selected" : ""}>全部</option>
+              ${areaOptions.map(r => `<option value="${r.name}" ${quotationState.areaFilter === r.name ? "selected" : ""}>${r.name}</option>`).join("")}
+            </select>
           </div>
-
-          <div>
-            <h4 class="cm-section-title">採購/完工紙狀態</h4>
-            <div class="info-list">
-              ${infoRow("採購狀態", `<span class="tag ${quotation.procurementStatus === "已到貨" ? "success" : quotation.procurementStatus === "採購中" ? "warning" : ""}">${quotation.procurementStatus || "無需採購"}</span>`)}
-              ${infoRow("完工紙狀態", `<span class="tag ${quotation.completionPaperStatus === "已完工" ? "success" : quotation.completionPaperStatus === "待制作" ? "warning" : ""}">${quotation.completionPaperStatus || "無需完工紙"}</span>`)}
-              ${quotation.completionPaperHolder ? infoRow("完工紙領取人", quotation.completionPaperHolder) : ""}
-              ${quotation.completionPaperDueDate ? infoRow("完工期限", quotation.completionPaperDueDate) : ""}
-            </div>
+          <div class="wo-filter-group">
+            <label>客戶</label>
+            <select data-qm-filter="filterCustomer">
+              <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
+              ${customerOptions.map(c => `<option value="${c.id}" ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
+            </select>
           </div>
-
-          <div>
-            <h4 class="cm-section-title">關聯信息</h4>
-            <div class="info-list">
-              ${infoRow("關聯工單", `<button class="link-btn" data-open="${quotation.ticketId}">${quotation.ticketId}</button>`)}
-              ${infoRow("工單狀態", ticket ? ticket.status : "未知")}
-              ${infoRow("客戶名稱", quotation.customerName)}
-              ${infoRow("S/R編號", quotation.srNo || "無")}
-            </div>
+          <div class="wo-filter-group">
+            <label>關鍵詞搜索</label>
+            <input type="text" data-qm-filter="searchKeyword" value="${escapeHtml(quotationState.searchKeyword)}" placeholder="報價編號、工單編號、客戶名稱、標題">
           </div>
-
-          <div>
-            <h4 class="cm-section-title">金額信息</h4>
-            <div class="info-list">
-              ${infoRow("總金額", `<strong style="font-size:18px;color:var(--primary);">HKD ${quotation.amount.toLocaleString()}</strong>`)}
-              ${infoRow("幣種", "HKD")}
-              ${infoRow("稅率", `${(quotation.taxRate * 100).toFixed(0)}%`)}
-              ${infoRow("含稅金額", `<strong style="font-size:18px;color:var(--primary);">HKD ${quotation.totalAmount.toLocaleString()}</strong>`)}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="cm-section-title">負責人信息</h4>
-            <div class="info-list">
-              ${infoRow("負責人", quotation.owner)}
-              ${infoRow("聯繫電話", quotation.ownerPhone)}
-              ${infoRow("所屬團隊", quotation.ownerTeam)}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="cm-section-title">附件</h4>
-            ${quotation.attachments.length > 0 ? `
-              <div class="info-list">
-                ${quotation.attachments.map(att => infoRow("文件", `<span>${att} <button class="link-btn">下載</button></span>`)).join("")}
-              </div>
-            ` : `<div class="muted">暫無附件</div>`}
-          </div>
-
-          <div>
-            <h4 class="cm-section-title">備註</h4>
-            <div class="info-list">
-              ${infoRow("備註", quotation.remark || "無")}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="cm-section-title">發送記錄</h4>
-            ${quotation.sendRecords && quotation.sendRecords.length > 0 ? `
-              <div class="info-list">
-                ${quotation.sendRecords.map(record => `
-                  <div style="padding:8px; background:var(--panel-soft); margin-bottom:6px; border-radius:4px;">
-                    <div style="font-size:12px; color:var(--muted);">${record.time} · ${record.actor}</div>
-                    <div style="margin-top:4px;">
-                      <span class="tag ${record.method === 'Email' ? 'success' : 'warning'}">${record.method}</span>
-                      <span style="margin-left:8px;">${record.recipient}</span>
-                      ${record.status ? `<span class="tag ${record.status === '已發送' ? 'success' : 'danger'}" style="margin-left:8px;">${record.status}</span>` : ''}
-                    </div>
-                    ${record.remark ? `<div style="margin-top:4px; font-size:13px; color:var(--text);">${record.remark}</div>` : ''}
-                  </div>
-                `).join("")}
-              </div>
-            ` : `<div class="muted">暫無發送記錄</div>`}
-          </div>
-
-          <div>
-            <h4 class="cm-section-title">操作歷史記錄</h4>
-            ${(quotation.history && quotation.history.length > 0) ? `
-              <div class="info-list">
-                ${quotation.history.map(h => `
-                  <div style="padding:8px; background:var(--panel-soft); margin-bottom:6px; border-radius:4px;">
-                    <div style="font-size:12px; color:var(--muted);">${h.time} · ${escapeHtml(h.actor)}</div>
-                    <div style="margin-top:4px;"><strong>${escapeHtml(h.action)}</strong>${h.changes ? ` - ${escapeHtml(h.changes)}` : ""}</div>
-                  </div>
-                `).join("")}
-              </div>
-            ` : `<div class="muted">暫無歷史記錄</div>`}
+          <div class="wo-actions-top">
+            <button class="secondary-btn" data-qm-reset>重置</button>
+            <button class="primary-btn" data-create-quotation>+ 新增報價</button>
           </div>
         </div>
+      `;
+    }
+
+    // 報價列表表格（模仿工單管理的表格樣式）
+    function renderQuotationTable() {
+      const filtered = filterQuotations();
+      // 分頁計算
+      const totalPages = Math.max(1, Math.ceil(filtered.length / quotationState.pageSize));
+      if (quotationState.currentPage > totalPages) quotationState.currentPage = totalPages;
+      const start = (quotationState.currentPage - 1) * quotationState.pageSize;
+      const paginated = filtered.slice(start, start + quotationState.pageSize);
+
+      return `
+        <table class="wo-table qm-table">
+          <thead>
+            <tr>
+              <th>報價編號</th>
+              <th>報價標題</th>
+              <th>關聯工單</th>
+              <th>客戶名稱</th>
+              <th>類別</th>
+              <th>報價狀態</th>
+              <th>中標狀態</th>
+              <th>負責人</th>
+              <th>報價日期</th>
+              <th>含稅金額</th>
+              <th style="text-align:center;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.length === 0 ? `
+              <tr>
+                <td colspan="11" style="text-align: center; padding: 40px; color: var(--muted);">
+                  暫無匹配報價
+                </td>
+              </tr>
+            ` : paginated.map(q => {
+              return `
+              <tr>
+                <td><button class="wo-id-link" data-view-quotation="${q.id}">${q.id}</button></td>
+                <td>${escapeHtml(q.title)}</td>
+                <td>${q.ticketId ? `<button class="wo-id-link" data-open="${q.ticketId}">${q.ticketId}</button>` : '<span style="color: var(--muted);">-</span>'}</td>
+                <td>
+                  <div class="wo-customer-name">${escapeHtml(q.customerName)}</div>
+                </td>
+                <td>${q.category ? `<span class="tag">${q.category}</span>` : '<span style="color: var(--muted);">-</span>'}</td>
+                <td><span class="wo-status-tag qm-status-${q.status}">${q.status}</span></td>
+                <td>${q.bidStatus ? `<span class="tag ${q.bidStatus === '已中標' ? 'success' : q.bidStatus === '未中標' || q.bidStatus === '不投標' ? 'danger' : ''}">${q.bidStatus}</span>` : '<span style="color: var(--muted);">-</span>'}</td>
+                <td>${escapeHtml(q.owner)}</td>
+                <td>${q.createdAt}</td>
+                <td><strong style="color: var(--primary);">HKD ${q.totalAmount.toLocaleString()}</strong></td>
+                <td class="wo-td-actions">
+                  <div class="wo-actions-group">
+                    <button class="wo-view-btn" data-view-quotation="${q.id}">查看詳情</button>
+                  </div>
+                </td>
+              </tr>
+            `}).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    // 報價詳情抽屜（模仿工單管理的 drawer 樣式）
+    function renderQuotationDrawer(quotation) {
+      const ticket = tickets.find(t => t.id === quotation.ticketId);
+
+      return `
+        <aside class="wo-drawer">
+          <div class="wo-drawer-header">
+            <div class="wo-drawer-title">
+              <h3>${quotation.id}</h3>
+              <span class="wo-status-tag qm-status-${quotation.status}">${quotation.status}</span>
+            </div>
+            <button class="wo-drawer-close" data-qm-close>×</button>
+          </div>
+          <div class="wo-drawer-body">
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>基本信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">報價標題</span>
+                    <span class="wo-detail-value">${escapeHtml(quotation.title)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">Our Ref</span>
+                    <span class="wo-detail-value" style="color: var(--primary); font-weight: 600;">${quotation.ourRef || "N/A"}${quotation.revision > 0 ? `R${quotation.revision}` : ""}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">類別</span>
+                    <span class="wo-detail-value">${quotation.category ? `${quotation.category}${quotation.category === "M" ? "（保養）" : quotation.category === "P" ? "（工程）" : "（保養＋工程）"}` : "未設定"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">報價狀態</span>
+                    <span class="wo-detail-value"><span class="wo-status-tag qm-status-${quotation.status}">${quotation.status}</span></span>
+                  </div>
+                  ${quotation.isInviteTender ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">招標邀請</span>
+                    <span class="wo-detail-value"><span class="tag warning">✓ Invite Tender</span></span>
+                  </div>
+                  ` : ""}
+                  ${quotation.projectJobNo ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">Project Job 編號</span>
+                    <span class="wo-detail-value" style="color: var(--primary); font-weight: 600;">${quotation.projectJobNo}</span>
+                  </div>
+                  ` : ""}
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">中標狀態</span>
+                    <span class="wo-detail-value"><span class="tag ${quotation.bidStatus === "已中標" ? "success" : quotation.bidStatus === "未中標" || quotation.bidStatus === "不投標" ? "danger" : ""}">${quotation.bidStatus || "待確認"}</span></span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">報價日期</span>
+                    <span class="wo-detail-value">${quotation.createdAt}</span>
+                  </div>
+                  ${quotation.deadline ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">回覆截止日期</span>
+                    <span class="wo-detail-value" style="color: var(--warning);">${quotation.deadline}</span>
+                  </div>
+                  ` : ""}
+                  ${quotation.source ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">接收來源</span>
+                    <span class="wo-detail-value">${quotation.source}</span>
+                  </div>
+                  ` : ""}
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">有效期至</span>
+                    <span class="wo-detail-value">${quotation.validUntil}</span>
+                  </div>
+                  ${quotation.bargainAmount ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">議價</span>
+                    <span class="wo-detail-value">HKD ${quotation.bargainAmount.toLocaleString()}</span>
+                  </div>
+                  ` : ""}
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>關聯信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">關聯工單</span>
+                    <span class="wo-detail-value">${quotation.ticketId ? `<button class="link-btn" data-open="${quotation.ticketId}">${quotation.ticketId}</button>` : "無"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">工單狀態</span>
+                    <span class="wo-detail-value">${ticket ? ticket.status : "未知"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客戶編號</span>
+                    <span class="wo-detail-value" style="color: var(--primary); font-weight: 600;">${quotation.customerId || "未設定"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客戶名稱</span>
+                    <span class="wo-detail-value">${escapeHtml(quotation.customerName)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">S/R編號</span>
+                    <span class="wo-detail-value">${quotation.srNo || "無"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>金額信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">總金額</span>
+                    <span class="wo-detail-value" style="font-size: 18px; color: var(--primary); font-weight: 700;">HKD ${quotation.amount.toLocaleString()}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">幣種</span>
+                    <span class="wo-detail-value">${quotation.currency || "HKD"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">稅率</span>
+                    <span class="wo-detail-value">${(quotation.taxRate * 100).toFixed(0)}%</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">含稅金額</span>
+                    <span class="wo-detail-value" style="font-size: 18px; color: var(--primary); font-weight: 700;">HKD ${quotation.totalAmount.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>標書/中標信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客戶訂單號</span>
+                    <span class="wo-detail-value">${quotation.customerOrder || "無"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">標書編號</span>
+                    <span class="wo-detail-value">${quotation.tenderNo || "無"}</span>
+                  </div>
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-label">標書金額</span>
+                    <span class="wo-detail-value">${quotation.tenderAmount ? `HKD ${quotation.tenderAmount.toLocaleString()}` : "無"}</span>
+                  </div>
+                  ${quotation.revisions && quotation.revisions.length > 0 ? `
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-label">修訂歷史</span>
+                    <span class="wo-detail-value">
+                      ${quotation.revisions.map(r => `<div style="padding:4px 8px; background:var(--panel-soft); margin-bottom:4px; border-radius:4px; font-size:13px;">R${r.rev} - ${r.date} - HKD ${r.amount.toLocaleString()} - ${r.remark}</div>`).join("")}
+                    </span>
+                  </div>
+                  ` : ""}
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>採購/完工紙狀態</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">採購狀態</span>
+                    <span class="wo-detail-value"><span class="tag ${quotation.procurementStatus === "已到貨" ? "success" : quotation.procurementStatus === "採購中" ? "warning" : ""}">${quotation.procurementStatus || "無需採購"}</span></span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">完工紙狀態</span>
+                    <span class="wo-detail-value"><span class="tag ${quotation.completionPaperStatus === "已完工" ? "success" : quotation.completionPaperStatus === "待制作" ? "warning" : ""}">${quotation.completionPaperStatus || "無需完工紙"}</span></span>
+                  </div>
+                  ${quotation.completionPaperHolder ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">完工紙領取人</span>
+                    <span class="wo-detail-value">${quotation.completionPaperHolder}</span>
+                  </div>
+                  ` : ""}
+                  ${quotation.completionPaperDueDate ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">完工期限</span>
+                    <span class="wo-detail-value">${quotation.completionPaperDueDate}</span>
+                  </div>
+                  ` : ""}
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>負責人信息</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">負責人</span>
+                    <span class="wo-detail-value">${escapeHtml(quotation.owner)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">聯繫電話</span>
+                    <span class="wo-detail-value">${quotation.ownerPhone || "無"}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">所屬團隊</span>
+                    <span class="wo-detail-value">${quotation.ownerTeam || "無"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>附件</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">
+                      ${quotation.attachments && quotation.attachments.length > 0
+                        ? quotation.attachments.map(a => `<div style="padding: 6px 10px; background: var(--panel-soft); border-radius: 6px; margin-bottom: 6px;">${escapeHtml(a)}</div>`).join("")
+                        : '<span style="color: var(--muted);">暫無附件</span>'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            ${quotation.remark ? `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>備註</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">${escapeHtml(quotation.remark)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ` : ''}
+
+            ${quotation.sendRecords && quotation.sendRecords.length > 0 ? `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>發送記錄</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">
+                      ${quotation.sendRecords.map(record => `
+                        <div style="padding:8px; background:var(--panel-soft); margin-bottom:6px; border-radius:4px;">
+                          <div style="font-size:12px; color:var(--muted);">${record.time} · ${record.actor}</div>
+                          <div style="margin-top:4px;">
+                            <span class="tag ${record.method === 'Email' ? 'success' : 'warning'}">${record.method}</span>
+                            <span style="margin-left:8px;">${record.recipient}</span>
+                            ${record.status ? `<span class="tag ${record.status === '已發送' ? 'success' : 'danger'}" style="margin-left:8px;">${record.status}</span>` : ''}
+                          </div>
+                          ${record.remark ? `<div style="margin-top:4px; font-size:13px; color:var(--text);">${record.remark}</div>` : ''}
+                        </div>
+                      `).join("")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ` : ''}
+
+            ${quotation.history && quotation.history.length > 0 ? `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>操作歷史記錄</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item full-width">
+                    <span class="wo-detail-value">
+                      ${quotation.history.map(h => `
+                        <div style="padding:8px; background:var(--panel-soft); margin-bottom:6px; border-radius:4px;">
+                          <div style="font-size:12px; color:var(--muted);">${h.time} · ${escapeHtml(h.actor)}</div>
+                          <div style="margin-top:4px;"><strong>${escapeHtml(h.action)}</strong>${h.changes ? ` - ${escapeHtml(h.changes)}` : ""}</div>
+                        </div>
+                      `).join("")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ` : ''}
+          </div>
+
+          <div class="wo-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+            <button class="ghost-btn" data-edit-quotation="${quotation.id}">編輯</button>
+            ${quotation.status !== "已取消" && quotation.bidStatus !== "已中標" && quotation.bidStatus !== "不投標" ? `<button class="primary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
+            ${quotation.status !== "已取消" && quotation.bidStatus !== "已中標" && quotation.bidStatus !== "不投標" && quotation.bidStatus !== "未中標" ? `<button class="danger-btn" data-mark-no-offer="${quotation.id}">不投標</button>` : ""}
+            ${quotation.status !== "已取消" && quotation.bidStatus !== "未中標" && quotation.bidStatus !== "不投標" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">創建修訂版</button>` : ""}
+            ${quotation.bidStatus === "已中標" && quotation.procurementStatus === "無需採購" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">啓動採購</button>` : ""}
+            ${quotation.procurementStatus === "已到貨" && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
+            ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
+            ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
+            <button class="danger-btn" data-delete-quotation="${quotation.id}">刪除</button>
+          </div>
+        </aside>
       `;
     }
 
@@ -9162,19 +9634,28 @@
 
     function filterQuotations() {
       return quotations.filter(q => {
-        // Status filter
+        // 報價狀態篩選
         if (quotationState.statusFilter !== "全部" && q.status !== quotationState.statusFilter) return false;
 
-        // Ticket status filter
+        // 類別篩選
+        if (quotationState.categoryFilter !== "全部" && q.category !== quotationState.categoryFilter) return false;
+
+        // 區域篩選（按關聯工單的區域匹配）
+        if (quotationState.areaFilter !== "全部") {
+          const ticket = tickets.find(t => t.id === q.ticketId);
+          if (!ticket || ticket.area !== quotationState.areaFilter) return false;
+        }
+
+        // 工單狀態篩選
         if (quotationState.filterTicketStatus !== "全部") {
           const ticket = tickets.find(t => t.id === q.ticketId);
           if (!ticket || ticket.status !== quotationState.filterTicketStatus) return false;
         }
 
-        // Customer filter
+        // 客戶篩選
         if (quotationState.filterCustomer !== "全部" && q.customerId !== quotationState.filterCustomer) return false;
 
-        // Search filter
+        // 關鍵詞搜索（報價編號、工單編號、客戶名稱、標題）
         if (quotationState.searchKeyword) {
           const keyword = quotationState.searchKeyword.toLowerCase();
           const searchFields = [
@@ -9184,7 +9665,7 @@
             q.title
           ].map(f => (f || "").toLowerCase());
 
-          return searchFields.some(f => f.includes(keyword));
+          if (!searchFields.some(f => f.includes(keyword))) return false;
         }
 
         return true;
@@ -9228,10 +9709,10 @@
               <div class="field"><label class="required">區域</label>
                 <select name="area" required onchange="generateQuotationNo(this.closest('form'))">
                   <option value="">請選擇區域</option>
-                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}" ${r.name === ticket.area ? "selected" : ""}>${r.name}${r.code ? ` (${r.code})` : ''}</option>`).join("")}
+                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}" ${r.name === ticket.area ? "selected" : ""}>${r.name}</option>`).join("")}
                 </select>
               </div>
-              <div class="field"><label>S/R編號</label><input name="srNo" readonly value="${ticket.serviceReportNo || ''}" placeholder="無"></div>
+              <div class="field"><label>S/R編號</label><input name="srNo" readonly value="${ticket.serviceReportNo ? 'SR-' + ticket.serviceReportNo : ''}" placeholder="無"></div>
               <div class="field"><label class="required">類別</label>
                 <select name="category" required onchange="generateQuotationNo(this.closest('form'))">
                   <option value="">請選擇類別</option>
@@ -9271,20 +9752,6 @@
               </div>
               <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label class="required">總金額</label><input name="amount" type="number" step="0.01" required placeholder="請輸入金額"></div>
-              <div class="field"><label>幣種</label>
-                <select name="currency">
-                  <option value="HKD" selected>HKD</option>
-                  <option value="USD">USD</option>
-                  <option value="CNY">CNY</option>
-                </select>
-              </div>
-              <div class="field"><label>稅率</label><input name="taxRate" type="number" step="0.01" value="0.1" placeholder="0.1 = 10%"></div>
-              <div class="field"><label>含稅金額</label><input name="totalAmount" readonly placeholder="自動計算"></div>
-              <div class="field"><label>報價狀態</label>
-                <select name="status">
-                  ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${s === "待報價" ? "selected" : ""}>${s}</option>`).join("")}
-                </select>
-              </div>
               <div class="field" style="grid-column:span 2;"><label>備註</label><textarea name="remark" rows="3" placeholder="請輸入報價備註"></textarea></div>
             </div>
             <div class="um-modal-actions">
@@ -9339,7 +9806,7 @@
               <div class="field"><label class="required">區域</label>
                 <select name="area" required onchange="generateQuotationNo(this.closest('form'))">
                   <option value="">請選擇區域</option>
-                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}${r.code ? ` (${r.code})` : ''}</option>`).join("")}
+                  ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
                 </select>
               </div>
               <div class="field"><label>S/R編號</label><input name="srNo" placeholder="選填"></div>
@@ -9382,21 +9849,6 @@
               </div>
               <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label class="required">總金額</label><input name="amount" type="number" step="0.01" required placeholder="請輸入金額"></div>
-              <div class="field"><label>幣種</label>
-                <select name="currency">
-                  <option value="HKD" selected>HKD</option>
-                  <option value="USD">USD</option>
-                  <option value="CNY">CNY</option>
-                </select>
-              </div>
-              <div class="field"><label>稅率</label><input name="taxRate" type="number" step="0.01" value="0.1" placeholder="0.1 = 10%"></div>
-              <div class="field"><label>含稅金額</label><input name="totalAmount" readonly placeholder="自動計算"></div>
-              <div class="field"><label>議價（HKD）</label><input name="bargainAmount" type="number" step="0.01" placeholder="議價後金額（選填）"></div>
-              <div class="field"><label>報價狀態</label>
-                <select name="status">
-                  ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${s === "待報價" ? "selected" : ""}>${s}</option>`).join("")}
-                </select>
-              </div>
               <div class="field" style="grid-column:span 2;"><label>備註</label><textarea name="remark" rows="3" placeholder="請輸入報價備註"></textarea></div>
             </div>
             <div class="um-modal-actions">
@@ -9460,21 +9912,6 @@
               </div>
               <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly value="${quotation.projectJobNo || ""}" placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label>總金額</label><input name="amount" type="number" step="0.01" value="${quotation.amount}"></div>
-              <div class="field"><label>幣種</label>
-                <select name="currency">
-                  <option value="HKD" ${quotation.currency === "HKD" ? "selected" : ""}>HKD</option>
-                  <option value="USD" ${quotation.currency === "USD" ? "selected" : ""}>USD</option>
-                  <option value="CNY" ${quotation.currency === "CNY" ? "selected" : ""}>CNY</option>
-                </select>
-              </div>
-              <div class="field"><label>稅率</label><input name="taxRate" type="number" step="0.01" value="${quotation.taxRate}"></div>
-              <div class="field"><label>含稅金額</label><input name="totalAmount" readonly value="${quotation.totalAmount}"></div>
-              <div class="field"><label>議價（HKD）</label><input name="bargainAmount" type="number" step="0.01" value="${quotation.bargainAmount || ''}" placeholder="議價後金額（選填）"></div>
-              <div class="field"><label>報價狀態</label>
-                <select name="status">
-                  ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${s === quotation.status ? "selected" : ""}>${s}</option>`).join("")}
-                </select>
-              </div>
               <div class="field" style="grid-column:span 2;"><label>備註</label><textarea name="remark" rows="3">${quotation.remark || ""}</textarea></div>
             </div>
             <div class="um-modal-actions">
@@ -9925,7 +10362,19 @@
         settings: renderSettings
       };
       const renderer = map[state.page] || renderWorkOrderPage;
-      $("#pcPages").innerHTML = renderer() + renderDictEditDrawer() + renderDictDeleteConfirm() + renderAddressBookDrawer() + renderAddressBookDeleteConfirm();
+      // 工單管理頁已自帶抽屜，其他頁面需全局渲染抽屜
+      const globalDrawer = (state.page !== "workorder" && workOrderState.selectedWorkOrderId !== null)
+        ? renderGlobalWorkOrderDrawer()
+        : '';
+      $("#pcPages").innerHTML = renderer() + globalDrawer + renderDictEditDrawer() + renderDictDeleteConfirm() + renderAddressBookDrawer() + renderAddressBookDeleteConfirm();
+    }
+
+    // 全局工單詳情抽屜（用於首頁、報價管理、採購等非工單管理頁面）
+    function renderGlobalWorkOrderDrawer() {
+      const ticket = ticketById(workOrderState.selectedWorkOrderId);
+      if (!ticket) return '';
+      // 復用 renderWorkOrderDrawer 結構
+      return renderWorkOrderDrawer(ticket);
     }
 
     // 採購管理頁面渲染
@@ -10964,7 +11413,26 @@
       if (filtered.length === 0) {
         return `<div style="text-align:center;padding:40px 20px;color:var(--muted);background:var(--bg);border-radius:10px;border:1px dashed var(--border);">暫無符合條件的標書記錄</div>`;
       }
-      const statusColor = (s) => s === "已中標" ? "success" : s === "未中標" || s === "不投標" ? "danger" : s === "投標中" ? "warning" : "";
+      const statusColor = (s) => s === "已中標" ? "success" : s === "未中標" || s === "不投標" ? "danger" : s === "投標中" || s === "待投標" ? "warning" : "";
+      // 計算距離截止日期的剩餘天數（倒數機制）
+      const calcCountdown = (deadline) => {
+        if (!deadline) return { days: null, label: "-", color: "var(--muted)" };
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        const dl = new Date(deadline);
+        dl.setHours(0, 0, 0, 0);
+        const diffMs = dl.getTime() - now.getTime();
+        const diffDays = Math.ceil(diffMs / 86400000);
+        if (diffDays < 0) return { days: diffDays, label: "已逾期", color: "var(--danger)" };
+        if (diffDays === 0) return { days: 0, label: "今天截止", color: "var(--danger)" };
+        // 5 天起開始倒數，不同天數不同顏色
+        if (diffDays === 1) return { days: 1, label: "剩 1 天", color: "var(--danger)" };
+        if (diffDays === 2) return { days: 2, label: "剩 2 天", color: "#dc2626" };
+        if (diffDays === 3) return { days: 3, label: "剩 3 天", color: "#ea580c" };
+        if (diffDays === 4) return { days: 4, label: "剩 4 天", color: "#d97706" };
+        if (diffDays === 5) return { days: 5, label: "剩 5 天", color: "#ca8a04" };
+        return { days: diffDays, label: `剩 ${diffDays} 天`, color: "var(--muted)" };
+      };
       return `
         <div class="pc-table-wrapper">
           <table class="pc-table">
@@ -10974,11 +11442,12 @@
                 <th>項目名稱</th>
                 <th>客戶</th>
                 <th>標書金額</th>
-                <th>投標日期</th>
-                <th>截止日期</th>
-                <th>狀態</th>
-                <th>負責人</th>
-                <th>關聯報價</th>
+                <th>接受標書日期</th>
+                <th>截止時間</th>
+                <th>距離截止日期</th>
+                <th>標書狀態</th>
+                <th>EC負責人</th>
+                <th>已發出報價編號</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -10986,6 +11455,7 @@
               ${filtered.map(t => {
                 const linkedQuotation = t.relatedQuotationId ? quotations.find(q => q.id === t.relatedQuotationId) : null;
                 const isOverdue = t.status === "投標中" && t.deadline && new Date(t.deadline) < new Date();
+                const countdown = calcCountdown(t.deadline);
                 return `
                 <tr style="${state.selectedTenderId === t.id ? 'background:var(--primary-soft);' : ''}">
                   <td><button class="link-btn" data-tender-row="${t.id}"><strong>${escapeHtml(t.id)}</strong></button></td>
@@ -10994,6 +11464,7 @@
                   <td>HKD ${(t.tenderValue || 0).toLocaleString()}</td>
                   <td>${escapeHtml(t.tenderDate || '-')}</td>
                   <td>${escapeHtml(t.deadline || '-')}</td>
+                  <td><strong style="color:${countdown.color};">${countdown.label}</strong></td>
                   <td><span class="tag ${statusColor(t.status)}">${escapeHtml(t.status)}</span></td>
                   <td>${escapeHtml(t.owner || '-')}</td>
                   <td>${linkedQuotation ? `<button class="link-btn" data-jump-quotation="${linkedQuotation.id}">${escapeHtml(linkedQuotation.id)}</button>` : '<span style="color:var(--muted);">無</span>'}</td>
@@ -11088,7 +11559,13 @@
     function openTenderModal(tenderId = null) {
       const isEdit = !!tenderId;
       const t = isEdit ? (tenders.find(x => x.id === tenderId) || {}) : {};
-      const defaultDeadline = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      const defaultDeadline = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 16);
+      // 從字典獲取選項
+      const sourceOptions = (dictData["標書來源"] || []).filter(s => isEnabled(s.status));
+      const replyOptions = (dictData["回標方式"] || []).filter(r => isEnabled(r.status));
+      const regionOptions = (dictData["區域"] || []).filter(r => isEnabled(r.status));
+      const tenderStatusOptions = (dictData["標書狀態"] || []).filter(s => isEnabled(s.status));
+
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -11100,6 +11577,20 @@
           <form id="tenderForm">
             <div style="padding:20px 24px;">
               <div class="um-form-grid" style="gap:16px;">
+                <div class="field" style="grid-column:span 2;">
+                  <label class="required">標書類別</label>
+                  <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+                    <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                      <input type="radio" name="tenderCategory" value="M" ${t.tenderCategory === "M" ? "checked" : ""} style="width:auto;"> M（保養）
+                    </label>
+                    <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                      <input type="radio" name="tenderCategory" value="P" ${t.tenderCategory === "P" ? "checked" : ""} style="width:auto;"> P（工程）
+                    </label>
+                    <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                      <input type="radio" name="tenderCategory" value="M+P" ${t.tenderCategory === "M+P" ? "checked" : ""} style="width:auto;"> M+P（保養+工程）
+                    </label>
+                  </div>
+                </div>
                 <div class="field">
                   <label class="required">標書編號</label>
                   <input name="id" value="${escapeHtml(t.id || generateTenderNo())}" ${isEdit ? 'readonly' : 'required'} style="${isEdit ? 'background:var(--bg);color:var(--muted);' : ''}">
@@ -11113,53 +11604,63 @@
                   <input name="client" value="${escapeHtml(t.client || '')}" required placeholder="請輸入招標客戶">
                 </div>
                 <div class="field">
-                  <label class="required">負責人</label>
-                  <input name="owner" value="${escapeHtml(t.owner || '')}" required placeholder="請輸入負責人">
+                  <label class="required">EC負責人</label>
+                  <input name="owner" value="${escapeHtml(t.owner || '')}" required placeholder="請輸入EC負責人">
                 </div>
                 <div class="field">
                   <label class="required">標書金額 (HKD)</label>
                   <input name="tenderValue" type="number" min="0" step="100" value="${t.tenderValue || ''}" required placeholder="0">
                 </div>
                 <div class="field">
-                  <label class="required">狀態</label>
+                  <label class="required">標書狀態</label>
                   <select name="status" required>
-                    ${["投標中", "已中標", "未中標", "不投標"].map(s => `<option value="${s}" ${t.status === s ? 'selected' : ''}>${s}</option>`).join("")}
+                    ${tenderStatusOptions.length > 0 ? tenderStatusOptions.map(s => `<option value="${escapeHtml(s.name)}" ${t.status === s.name ? 'selected' : ''}>${escapeHtml(s.name)}</option>`).join("") : `<option value="待投標" ${t.status === "待投標" || !t.status ? 'selected' : ''}>待投標</option><option value="不投標" ${t.status === "不投標" ? 'selected' : ''}>不投標</option>`}
                   </select>
                 </div>
                 <div class="field">
-                  <label>投標日期</label>
-                  <input name="tenderDate" type="date" value="${escapeHtml(t.tenderDate || new Date().toISOString().slice(0, 10))}">
+                  <label>接受標書日期</label>
+                  <input name="tenderDate" type="datetime-local" value="${escapeHtml(t.tenderDate || new Date().toISOString().slice(0, 16))}">
                 </div>
                 <div class="field">
-                  <label>截止日期</label>
-                  <input name="deadline" type="date" value="${escapeHtml(t.deadline || defaultDeadline)}">
+                  <label>截止時間</label>
+                  <input name="deadline" type="datetime-local" value="${escapeHtml(t.deadline || defaultDeadline)}">
                 </div>
                 <div class="field">
-                  <label>投遞日期</label>
-                  <input name="submittedDate" type="date" value="${escapeHtml(t.submittedDate || '')}">
+                  <label>投票日期</label>
+                  <input name="submittedDate" type="datetime-local" value="${escapeHtml(t.submittedDate || '')}">
                 </div>
                 <div class="field">
                   <label>揭曉日期</label>
-                  <input name="resultDate" type="date" value="${escapeHtml(t.resultDate || '')}">
+                  <input name="resultDate" type="datetime-local" value="${escapeHtml(t.resultDate || '')}">
                 </div>
                 <div class="field">
                   <label>競爭對手數量</label>
                   <input name="competitorCount" type="number" min="0" value="${t.competitorCount || 0}">
                 </div>
-                <div class="field">
-                  <label>關聯報價</label>
-                  <select name="relatedQuotationId">
-                    <option value="">不關聯報價</option>
+                <div class="field" style="grid-column:span 2;">
+                  <label>標書來源</label>
+                  <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+                    ${sourceOptions.map(s => `<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;"><input type="radio" name="tenderSource" value="${escapeHtml(s.name)}" ${t.tenderSource === s.name ? "checked" : ""} style="width:auto;"> ${escapeHtml(s.name)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label>回標方式</label>
+                  <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+                    ${replyOptions.map(r => `<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;"><input type="radio" name="replyMethod" value="${escapeHtml(r.name)}" ${t.replyMethod === r.name ? "checked" : ""} style="width:auto;"> ${escapeHtml(r.name)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label>區域</label>
+                  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px;">
+                    ${regionOptions.map(r => `<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;"><input type="radio" name="tenderRegion" value="${escapeHtml(r.name)}" ${t.tenderRegion === r.name ? "checked" : ""} style="width:auto;"> ${escapeHtml(r.name)}</label>`).join("")}
+                  </div>
+                </div>
+                <div class="field" style="grid-column:span 2;">
+                  <label class="required">已發出報價編號</label>
+                  <select name="relatedQuotationId" required>
+                    <option value="">請選擇已發出報價</option>
                     ${quotations.map(q => `<option value="${q.id}" ${t.relatedQuotationId === q.id ? 'selected' : ''}>${q.id} - ${escapeHtml(q.title || '')}</option>`).join("")}
                   </select>
-                </div>
-                <div class="field" style="grid-column:span 2;">
-                  <label>項目描述</label>
-                  <textarea name="description" rows="3" placeholder="請輸入項目描述（選填）">${escapeHtml(t.description || '')}</textarea>
-                </div>
-                <div class="field" style="grid-column:span 2;">
-                  <label>備註</label>
-                  <textarea name="remark" rows="2" placeholder="請輸入備註（選填）">${escapeHtml(t.remark || '')}</textarea>
                 </div>
               </div>
             </div>
@@ -11189,15 +11690,18 @@
         client: (formData.get("client") || "").trim(),
         owner: (formData.get("owner") || "").trim(),
         tenderValue: parseFloat(formData.get("tenderValue") || 0),
-        status: formData.get("status"),
+        status: formData.get("status") || "待投標",
         tenderDate: formData.get("tenderDate") || "",
         deadline: formData.get("deadline") || "",
         submittedDate: formData.get("submittedDate") || "",
         resultDate: formData.get("resultDate") || "",
         competitorCount: parseInt(formData.get("competitorCount") || 0, 10),
         relatedQuotationId: formData.get("relatedQuotationId") || "",
-        description: (formData.get("description") || "").trim(),
-        remark: (formData.get("remark") || "").trim()
+        // 新增字段
+        tenderCategory: formData.get("tenderCategory") || "",
+        tenderSource: formData.get("tenderSource") || "",
+        replyMethod: formData.get("replyMethod") || "",
+        tenderRegion: formData.get("tenderRegion") || ""
       };
 
       if (isEdit) {
@@ -11261,7 +11765,7 @@
     }
 
     // ============ SR 文件夾模塊 ============
-    // 渲染 Service Report 文件夾（支持按編號或名稱搜索）
+    // 渲染 服務報告 文件夾（支持按編號或名稱搜索）
     function renderSrFolder() {
       // 收集所有有 serviceReportNo 的工單
       const srTickets = tickets.filter(t => t.serviceReportNo).slice().sort((a, b) => {
@@ -11309,7 +11813,7 @@
           <div class="pc-header">
             <h1>SR 文件夾</h1>
             <div class="pc-header-actions">
-              <span style="color:var(--muted);font-size:13px;">共 ${totalSR} 份 Service Report</span>
+              <span style="color:var(--muted);font-size:13px;">共 ${totalSR} 份 服務報告</span>
             </div>
           </div>
 
@@ -11365,7 +11869,7 @@
       const sendLogs = JSON.parse(localStorage.getItem('ecinfo_sr_send_logs') || '[]');
       if (sendLogs.length === 0) {
         return `<div style="text-align:center;padding:20px;color:var(--muted);background:var(--bg);border-radius:8px;border:1px dashed var(--border);">
-          暫無發送記錄。點擊 SR 列表中的「📧 發送」按鈕發送 Service Report 給客戶。
+          暫無發送記錄。點擊 SR 列表中的「📧 發送」按鈕發送 服務報告 給客戶。
         </div>`;
       }
       return `
@@ -11407,7 +11911,7 @@
       if (filtered.length === 0) {
         return `<div style="text-align:center;padding:40px 20px;color:var(--muted);background:var(--bg);border-radius:10px;border:1px dashed var(--border);">
           <div style="font-size:32px;margin-bottom:8px;">📄</div>
-          <div>暫無符合條件的 Service Report</div>
+          <div>暫無符合條件的 服務報告</div>
           <div style="font-size:12px;margin-top:4px;">可在「工單管理」中打開工單詳情，於「處理頁面」填寫 SR 編號以建立服務報告</div>
         </div>`;
       }
@@ -11432,7 +11936,7 @@
             <tbody>
               ${filtered.map(t => `
                 <tr>
-                  <td><strong style="color:var(--primary);">${escapeHtml(t.serviceReportNo)}</strong></td>
+                  <td><strong style="color:var(--primary);">SR-${escapeHtml(t.serviceReportNo)}</strong></td>
                   <td><button class="link-btn" data-sr-folder-open-ticket="${t.id}">${escapeHtml(t.id)}</button></td>
                   <td>${escapeHtml(t.customer)}</td>
                   <td>${escapeHtml(t.srArea || t.area || '-')}</td>
@@ -11456,7 +11960,7 @@
       `;
     }
 
-    // 打開 SR 發送對話框（Email/WhatsApp 發送 Service Report 給客戶）
+    // 打開 SR 發送對話框（Email/WhatsApp 發送 服務報告 給客戶）
     function openSrSendModal(ticketId, defaultMethod) {
       const t = ticketById(ticketId);
       if (!t) { toast("找不到工單記錄", "error"); return; }
@@ -11472,12 +11976,12 @@
       modal.innerHTML = `
         <div class="um-modal" style="max-width:560px;">
           <div class="um-modal-head">
-            <h2>📧 發送 Service Report</h2>
+            <h2>📧 發送 服務報告</h2>
             <button class="um-modal-close" data-close-modal>×</button>
           </div>
           <form id="srSendForm" style="padding:16px 20px;">
             <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:13px;">
-              <strong>SR 編號：</strong>${escapeHtml(t.serviceReportNo)}　
+              <strong>SR 編號：</strong>SR-${escapeHtml(t.serviceReportNo)}　
               <strong>工單：</strong>${escapeHtml(t.id)}　
               <strong>客戶：</strong>${escapeHtml(t.customer)}
             </div>
@@ -11501,13 +12005,13 @@
               </div>
               <div class="field" style="margin-bottom:12px;">
                 <label class="required">郵件主題</label>
-                <input name="subject" value="Service Report ${escapeHtml(t.serviceReportNo)} - ${escapeHtml(t.customer)}" required>
+                <input name="subject" value="服務報告 ${escapeHtml(t.serviceReportNo)} - ${escapeHtml(t.customer)}" required>
               </div>
               <div class="field" style="margin-bottom:12px;">
                 <label>郵件內容</label>
                 <textarea name="body" rows="4" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;">尊敬的 ${escapeHtml(t.customer)}：
 
-附件為本次服務的 Service Report（編號：${escapeHtml(t.serviceReportNo)}），對應工單 ${escapeHtml(t.id)}。
+附件為本次服務的 服務報告（編號：${escapeHtml(t.serviceReportNo)}），對應工單 ${escapeHtml(t.id)}。
 請查閱，如有疑問請隨時聯繫我們。
 
 此致
@@ -11530,7 +12034,7 @@ EC Info 工程團隊</textarea>
                 <label class="required">消息內容</label>
                 <textarea name="message" rows="4" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;font-family:inherit;">您好 ${escapeHtml(t.customer)}，
 
-我們已完成工單 ${escapeHtml(t.id)} 的服務，Service Report 編號：${escapeHtml(t.serviceReportNo)}。
+我們已完成工單 ${escapeHtml(t.id)} 的服務，服務報告 編號：${escapeHtml(t.serviceReportNo)}。
 請點擊以下連結查看完整報告：
 https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
@@ -11787,22 +12291,24 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function renderMobileTasks() {
       const list = masterTickets(false);
       return `
-        <div class="segmented" style="width:100%; margin-bottom:10px;"><button class="active">待確認</button><button>待處理</button><button>處理中</button><button>歷史</button></div>
+        <div class="segmented" style="width:100%; margin-bottom:10px;"><button class="active">待確認</button><button>待處理</button><button>處理中</button><button>已完成</button></div>
         ${list.map(t => `<div class="mobile-card">
-          <div class="mobile-card-head"><button class="link-btn" data-mobile-open="${t.id}">${t.id}</button><span class="${statusClass(t.status)}">${t.status}</span></div>
+          <div class="mobile-card-head"><button class="link-btn" data-mobile-open="${t.id}">${t.id}</button>${t.urgent ? '<span class="tag urgent">緊急</span>' : ''}<span class="${statusClass(t.status)}">${t.status}</span></div>
           <strong>${t.type}</strong>
           <div class="muted">${escapeHtml(t.customer)} · ${t.area}</div>
           <div>${escapeHtml(t.address)}</div>
           <div style="margin-top:6px;"><strong>聯繫人：</strong>${escapeHtml(t.contact)} <strong>電話：</strong>${escapeHtml(t.phone)}</div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">${t.urgent ? '<span class="tag urgent">緊急</span>' : ''}<span class="chip">${t.channel}</span></div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;"><span class="chip">${t.channel}</span></div>
           <div class="mobile-actions">
-            ${t.status === "待確認" ? `<button class="primary-btn" data-action="take" data-id="${t.id}">接單</button>` : `<button class="secondary-btn" data-mobile-open="${t.id}">查看詳情</button>`}
+            ${t.status === "待確認" ? `<button class="primary-btn" data-action="take" data-id="${t.id}">收到</button>` : `<button class="secondary-btn" data-mobile-open="${t.id}">已完成</button>`}
           </div>
         </div>`).join("") || '<div class="mobile-card">暫無待處理任務</div>'}`;
     }
 
     function renderMobileDetail() {
       const t = ticketById(state.selectedTicketId);
+      // 當狀態為待處理/處理中時，將處理記錄（workRecord）內容合併到工單詳情頁，下拉可見可編輯
+      const showWorkRecord = ["待處理", "處理中"].includes(t.status);
       return `
         <div class="mobile-card">
           <div class="mobile-card-head"><strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span></div>
@@ -11815,11 +12321,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <p>${escapeHtml(t.desc)}</p>
           <div class="photo-grid">${(t.attachments.length ? t.attachments : ["暫無附件"]).map(a => `<div class="photo-thumb">${escapeHtml(a)}</div>`).join("")}</div>
         </div>
-        <div class="fixed-mobile-actions">
-          ${t.status === "待確認" ? `<button class="primary-btn" data-action="take" data-id="${t.id}">接單</button>` : ""}
-          ${t.status === "處理中" ? `<button class="primary-btn" data-mobile-page="workRecord">開始處理</button><button class="secondary-btn" data-mobile-page="tasks">返回</button>` : ""}
-          ${!["待確認", "處理中"].includes(t.status) ? `<button class="secondary-btn" data-mobile-page="tasks">返回任務</button><button class="ghost-btn" data-mobile-page="history">查看歷史</button>` : ""}
-        </div>`;
+        ${showWorkRecord ? renderWorkRecord() : ''}
+        ${t.status === "待確認" ? `<div class="fixed-mobile-actions"><button class="primary-btn" data-action="take" data-id="${t.id}">收到</button></div>` : ""}`;
     }
 
     function renderWorkRecord() {
@@ -11857,24 +12360,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const completionTime = t.completionTime || nowLocal;
 
       return `
-        <div class="mobile-card">
-          <div class="mobile-card-head"><strong>處理記錄</strong><span class="${statusClass(t.status)}">${t.status}</span></div>
-          <div class="timeline">${t.records.map(r => `<div class="timeline-item"><span class="timeline-dot"></span><strong>${r.time} · ${escapeHtml(r.actor)}</strong><p>${escapeHtml(r.text)}</p></div>`).join("")}</div>
-        </div>
-
-        <!-- 簽名正本提醒 -->
-        <div class="sr-card" style="border:2px solid var(--warning);background:var(--warning-soft,#fff8e1);">
-          <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
-            <span style="font-size:18px;">⚠</span>
-            <span style="color:var(--warning);font-weight:600;">提醒：SR 必須獲取客戶簽名正本（蓋章版本），請於完工後上傳簽名正本照片。</span>
-          </div>
-        </div>
-
-        <!-- OCR 紙質報告識別入口（#10：先做入口，功能後續） -->
+        <!-- 服務報告上傳入口 -->
         <div class="sr-card" style="border:2px dashed var(--primary);">
-          <div class="sr-card-title" style="border-left-color:var(--primary);color:var(--primary);">📱 紙質報告 OCR 識別</div>
-          <div class="sr-hint" style="margin-bottom:8px;">上傳紙質 Service Report 照片，系統將自動識別並填充對應字段（功能開發中）</div>
-          <button type="button" class="primary-btn" data-sr-ocr-upload style="width:100%;">📷 上傳紙質報告圖片</button>
+          <div class="sr-card-title" style="border-left-color:var(--primary);color:var(--primary);">📄 服務報告</div>
+          <div class="sr-hint" style="margin-bottom:8px;">上傳服務報告照片，系統將自動識別並填充下方對應文字內容（功能開發中）</div>
+          <button type="button" class="primary-btn" data-sr-ocr-upload style="width:100%;">📷 上傳</button>
         </div>
 
         <!-- 處理前照片（師傅到場拍攝） -->
@@ -11918,33 +12408,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             <label class="sr-label">地址</label>
             <input type="text" class="sr-input" value="${escapeHtml(t.address || '')}" readonly style="background:var(--bg);color:var(--muted);">
           </div>
-          <div class="sr-field">
-            <label class="sr-label">區域<span class="sr-required">*</span></label>
-            <select class="sr-input" id="srArea" onchange="ticketById(state.selectedTicketId).srArea = this.value;">
-              <option value="">請選擇區域</option>
-              ${["1區","2區","3區","4區","5區","6區","7區","8區","軟件組"].map(r => `<option value="${r}" ${t.srArea === r ? "selected" : ""}>${r}</option>`).join("")}
-            </select>
-            <div class="sr-hint">師傅需選擇本次服務所在區域</div>
-          </div>
-          <div class="sr-field">
-            <label class="sr-label">到場時間</label>
-            <input type="datetime-local" class="sr-input" id="arrivalTime" value="${escapeHtml(arrivalTime)}">
-          </div>
-          <div class="sr-field">
-            <label class="sr-label">完成時間</label>
-            <input type="datetime-local" class="sr-input" id="completionTime" value="${escapeHtml(completionTime)}">
-          </div>
-          <div class="sr-field">
-            <label class="sr-label">保養類型</label>
-            <select class="sr-input" id="maintenanceType" onchange="state.srMaintenanceType = this.value;">
-              <option value="" ${!t.maintenanceType ? "selected" : ""}>非保養</option>
-              <option value="月檢" ${t.maintenanceType === "月檢" ? "selected" : ""}>月檢</option>
-              <option value="季檢" ${t.maintenanceType === "季檢" ? "selected" : ""}>季檢</option>
-              <option value="半年檢" ${t.maintenanceType === "半年檢" ? "selected" : ""}>半年檢</option>
-              <option value="年檢" ${t.maintenanceType === "年檢" ? "selected" : ""}>年檢</option>
-            </select>
-            <div class="sr-hint">師傅前往保養檢查及開單時需標記保養類型</div>
-          </div>
         </div>
 
         <!-- 服務內容 -->
@@ -11967,16 +12430,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             ${(t.srObjectives || []).includes("Others") ? `
             <input type="text" class="sr-input" data-sr-input="srObjectiveOther" value="${escapeHtml(t.srObjectiveOther || '')}" placeholder="請填寫其他目的" style="margin-top:8px;">
             ` : ""}
-            <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
-              <label class="sr-label" style="margin:0; white-space:nowrap;">HK$</label>
-              <input type="number" class="sr-input" data-sr-input="srObjectiveAmount" value="${escapeHtml(t.srObjectiveAmount || '')}" placeholder="0.00" min="0" step="0.01" style="flex:1;">
-            </div>
           </div>
         </div>
 
-        <!-- 需跟進事項 -->
+        <!-- 已完成的工作 -->
         <div class="sr-card">
-          <div class="sr-card-title">需跟進事項</div>
+          <div class="sr-card-title">已完成的工作</div>
           <div class="sr-field">
             <label class="sr-label">完成工作<span class="sr-required">*</span></label>
             <div class="sr-textarea-wrap">
@@ -12013,11 +12472,19 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           </div>
         </div>
 
-        <!-- 是否需要報價 -->
+        <!-- 是否需要報價（是/否單選，默認否，必填） -->
         <div class="sr-card">
-          <div class="sr-switch-row" data-sr-toggle-quotation style="cursor:pointer;user-select:none;">
-            <span class="sr-switch-label">是否需要報價</span>
-            <div class="sr-switch ${state.srNeedQuotation ? "active" : ""}"></div>
+          <div class="sr-field">
+            <label class="sr-label">是否需要報價<span class="sr-required">*</span></label>
+            <div class="sr-radio-group" style="display:flex;gap:16px;align-items:center;margin-top:6px;">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="radio" name="srNeedQuotation" value="false" ${!state.srNeedQuotation ? "checked" : ""} data-sr-quotation-radio="false" style="width:auto;"> 否
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
+                <input type="radio" name="srNeedQuotation" value="true" ${state.srNeedQuotation ? "checked" : ""} data-sr-quotation-radio="true" style="width:auto;"> 是
+              </label>
+            </div>
+            <div class="sr-hint">默認為「否」，如需報價請選擇「是」</div>
           </div>
           ${state.srNeedQuotation ? `
           <div class="sr-quotation-section">
@@ -12047,8 +12514,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           </div>
         </div>
 
-        <!-- 簽名正本上傳 + 電子版發送 -->
-        <div class="sr-card" style="border:2px solid var(--success);">
+        <!-- 簽名正本上傳 + 電子版發送（保留但現階段不顯示） -->
+        <div class="sr-card sr-hidden" style="border:2px solid var(--success);">
           <div class="sr-card-title" style="border-left-color:var(--success);color:var(--success);">簽名正本 + 電子版發送</div>
           <div class="sr-field">
             <label class="sr-label">客戶簽名/蓋章正本照片</label>
@@ -12089,7 +12556,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         </div>`;
     }
 
-    // ===== Service Report Helper Functions =====
+    // ===== 服務報告 Helper Functions =====
 
     // Sync current DOM input values back to ticket/state before re-render
     function srSyncInputs() {
@@ -12572,14 +13039,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         <div class="mobile-card" style="padding:12px;">
           <input type="text" placeholder="搜索 SR 編號 / 工單號 / 客戶..." value="${escapeHtml(state.crSearch || '')}" data-cr-search style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);">
-            <span>共 ${srTickets.length} 份 Service Report</span>
+            <span>共 ${srTickets.length} 份 服務報告</span>
           </div>
         </div>
-        ${srTickets.length === 0 ? '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的 Service Report</div>' :
+        ${srTickets.length === 0 ? '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的 服務報告</div>' :
           srTickets.map(t => `
             <div class="mobile-card">
               <div class="mobile-card-head">
-                <button class="link-btn" data-cr-open="${t.id}"><strong>SR ${escapeHtml(t.serviceReportNo)}</strong></button>
+                <button class="link-btn" data-cr-open="${t.id}"><strong>SR-${escapeHtml(t.serviceReportNo)}</strong></button>
                 <span class="${statusClass(t.status)}">${t.status}</span>
               </div>
               <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">工單：${escapeHtml(t.id)}</div>
@@ -12641,21 +13108,48 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         </div>`).join("") || '<div class="mobile-card">暫無歷史工單</div>'}`;
     }
 
+    // 渲染提交成功頁面（5 秒倒計時跳轉）
+    function renderSrSuccessPage() {
+      const ticketId = state.srSubmittedTicketId || "";
+      const t = ticketId ? ticketById(ticketId) : null;
+      return `
+        <div class="sr-success-page">
+          <div class="sr-success-icon">✓</div>
+          <div class="sr-success-title">提交成功</div>
+          <div class="sr-success-desc">
+            ${t ? `工單 <strong style="color:var(--primary);">${escapeHtml(t.id)}</strong> 已完成提交` : '工單已完成提交'}
+            ${t && t.serviceReportNo ? `<br>服務報告編號：<strong>SR-${escapeHtml(t.serviceReportNo)}</strong>` : ''}
+          </div>
+          <div class="sr-success-countdown" id="srSuccessCountdown">${state.srSubmitCountdown} 秒後自動跳轉到任務版面</div>
+        </div>
+      `;
+    }
+
     function renderMobile() {
       const map = { tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, history: renderHistory, dispatch: renderMobileDispatch };
       const page = MOBILE_PAGES.find(p => p.key === state.mobilePage);
-      $("#mobileTitle").textContent = page ? page.title : "移動端";
-      $("#mobileSub").textContent = `${state.role === "TL" ? "TL 移動端" : state.role === "CS" ? "CS 移動端" : "師傅移動端"} · ${currentRole().name}`;
+      // phone-top 已刪除，標題由各頁面自行渲染
       // 更新網絡狀態指示器
       updateNetworkIndicator();
       // 依角色過濾 tabs：TL 只顯示分派頁，其他角色顯示除分派外的所有頁面
       const visiblePages = state.role === "TL"
         ? MOBILE_PAGES.filter(p => p.key === "dispatch")
         : MOBILE_PAGES.filter(p => p.key !== "dispatch");
-      // 離線時在頁面頂部插入離線提示和待上傳數據
+      // 離線時在頁面頂部插入離線提示和待上傳數據；工單詳情頁改為顯示工單編號
       const outbox = JSON.parse(localStorage.getItem('ecinfo_offline_outbox') || '[]');
       let offlineBanner = '';
-      if (!state.online) {
+      // 工單詳情頁：顯示工單編號，右上角放狀態標籤
+      if (state.mobilePage === "mobileDetail" && state.selectedTicketId) {
+        const detailTicket = ticketById(state.selectedTicketId);
+        if (detailTicket) {
+          offlineBanner = `
+            <div style="background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:14px;color:var(--text);position:relative;">
+              <strong>${detailTicket.id}</strong>
+              <span class="${statusClass(detailTicket.status)}" style="position:absolute;top:8px;right:12px;">${detailTicket.status}</span>
+            </div>
+          `;
+        }
+      } else if (!state.online) {
         offlineBanner = `
           <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:#92400e;">
             <strong>📱 離線模式</strong>　數據將保存在本地，恢復網絡後自動上傳
@@ -12671,7 +13165,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         `;
       }
       const pageContent = map[state.mobilePage] ? map[state.mobilePage]() : '<div class="mobile-card">頁面不存在</div>';
-      $("#mobileBody").innerHTML = offlineBanner + pageContent;
+      // 提交成功頁面：覆蓋正常內容顯示
+      const finalContent = state.srSubmitted ? renderSrSuccessPage() : pageContent;
+      $("#mobileBody").innerHTML = offlineBanner + finalContent;
       // TL 分派中心不顯示底部 TabBar；其他角色正常顯示
       if (state.role === "TL") {
         $("#mobileTabs").innerHTML = "";
@@ -13309,38 +13805,56 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       // Quotation management events
       document.querySelectorAll("[data-create-quotation]").forEach(btn => btn.addEventListener("click", openCreateQuotation));
-      document.querySelectorAll("[data-quotation-category]").forEach(btn => btn.addEventListener("click", () => {
-        quotationState.statusFilter = btn.dataset.quotationCategory;
+      // 篩選事件（下拉框 change）
+      document.querySelectorAll("[data-qm-filter]").forEach(el => {
+        const filterKey = el.dataset.qmFilter;
+        if (filterKey === "searchKeyword") {
+          // 關鍵詞搜索使用 input 事件
+          el.addEventListener("input", () => {
+            quotationState.searchKeyword = el.value;
+            // 搜索時重置到第一頁
+            quotationState.currentPage = 1;
+            render();
+          });
+        } else {
+          el.addEventListener("change", () => {
+            quotationState[filterKey] = el.value;
+            // 篩選變化時重置到第一頁
+            quotationState.currentPage = 1;
+            render();
+          });
+        }
+      });
+      // 重置篩選
+      document.querySelectorAll("[data-qm-reset]").forEach(btn => btn.addEventListener("click", () => {
+        quotationState.statusFilter = "全部";
+        quotationState.categoryFilter = "全部";
+        quotationState.areaFilter = "全部";
+        quotationState.filterTicketStatus = "全部";
+        quotationState.filterCustomer = "全部";
+        quotationState.searchKeyword = "";
         quotationState.currentPage = 1;
         render();
       }));
-      const quotationSearch = document.querySelector("[data-quotation-search]");
-      if (quotationSearch) {
-        quotationSearch.addEventListener("input", () => {
-          quotationState.searchKeyword = quotationSearch.value;
-          quotationState.currentPage = 1;
-          render();
-        });
-      }
-      const quotationFilterTicketStatus = document.querySelector("[data-quotation-filter-ticket-status]");
-      if (quotationFilterTicketStatus) {
-        quotationFilterTicketStatus.addEventListener("change", () => {
-          quotationState.filterTicketStatus = quotationFilterTicketStatus.value;
-          quotationState.currentPage = 1;
-          render();
-        });
-      }
-      const quotationFilterCustomer = document.querySelector("[data-quotation-filter-customer]");
-      if (quotationFilterCustomer) {
-        quotationFilterCustomer.addEventListener("change", () => {
-          quotationState.filterCustomer = quotationFilterCustomer.value;
-          quotationState.currentPage = 1;
-          render();
-        });
-      }
-      document.querySelectorAll("[data-quotation-row]").forEach(row => row.addEventListener("click", (e) => {
-        if (e.target.closest("button")) return;
-        quotationState.selectedQuotationId = row.dataset.quotationRow;
+      // 關閉抽屜
+      document.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", () => {
+        quotationState.selectedQuotationId = null;
+        render();
+      }));
+      // 報價管理分頁事件
+      document.querySelectorAll("[data-qm-page]").forEach(btn => btn.addEventListener("click", () => {
+        const page = btn.dataset.qmPage;
+        const filtered = filterQuotations();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / quotationState.pageSize));
+        if (page === "prev" && quotationState.currentPage > 1) quotationState.currentPage--;
+        else if (page === "next" && quotationState.currentPage < totalPages) quotationState.currentPage++;
+        else if (page !== "prev" && page !== "next") quotationState.currentPage = parseInt(page);
+        render();
+      }));
+      // 報價管理每頁顯示數量變更
+      document.querySelectorAll("[data-qm-page-size]").forEach(sel => sel.addEventListener("change", () => {
+        quotationState.pageSize = parseInt(sel.value);
+        quotationState.currentPage = 1;
         render();
       }));
       document.querySelectorAll("[data-view-quotation]").forEach(btn => btn.addEventListener("click", () => {
@@ -13348,21 +13862,13 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
-      document.querySelectorAll("[data-export-pdf]").forEach(btn => btn.addEventListener("click", () => exportQuotationPdf(btn.dataset.exportPdf)));
-      document.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       document.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
-      
-      // 新增報價操作事件
+
+      // 報價操作事件（保留：標記中標、不投標、創建修訂版、啟動採購、完工紙管理、採購部關單）
       document.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
       document.querySelectorAll("[data-mark-no-offer]").forEach(btn => btn.addEventListener("click", () => markNoOffer(btn.dataset.markNoOffer)));
       document.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
       document.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
-      document.querySelectorAll("[data-mark-arrived]").forEach(btn => btn.addEventListener("click", () => markProcurementArrived(btn.dataset.markArrived)));
-      
-      // Email/Fax/簽名 報價單
-      document.querySelectorAll("[data-send-email]").forEach(btn => btn.addEventListener("click", () => sendQuotationEmail(btn.dataset.sendEmail)));
-      document.querySelectorAll("[data-send-fax]").forEach(btn => btn.addEventListener("click", () => sendQuotationFax(btn.dataset.sendFax)));
-      document.querySelectorAll("[data-sign-quotation]").forEach(btn => btn.addEventListener("click", () => signQuotation(btn.dataset.signQuotation)));
 
       // 修改聯繫人
       document.querySelectorAll("[data-edit-contact]").forEach(btn => btn.addEventListener("click", () => editContactInfo(btn.dataset.editContact)));
@@ -13553,15 +14059,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sup-create]").forEach(btn => btn.addEventListener("click", createSupplier));
       document.querySelectorAll("[data-sup-edit]").forEach(btn => btn.addEventListener("click", () => editSupplier(btn.dataset.supEdit)));
       document.querySelectorAll("[data-sup-toggle]").forEach(btn => btn.addEventListener("click", () => toggleSupplier(btn.dataset.supToggle)));
-      
-      document.querySelectorAll("[data-quotation-page]").forEach(btn => btn.addEventListener("click", () => {
-        const page = btn.dataset.quotationPage;
-        const totalPages = Math.ceil(filterQuotations().length / quotationState.pageSize);
-        if (page === "prev" && quotationState.currentPage > 1) quotationState.currentPage--;
-        else if (page === "next" && quotationState.currentPage < totalPages) quotationState.currentPage++;
-        else if (page !== "prev" && page !== "next") quotationState.currentPage = parseInt(page);
-        render();
-      }));
 
       // Notification events
       const notiBell = $("#notiBell");
@@ -13603,6 +14100,33 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-wo-modal-close]").forEach(btn => btn.addEventListener("click", () => {
         closeWorkOrderModal();
       }));
+      // 附件拖放上傳事件
+      const fileUploadArea = document.getElementById("fileUploadArea");
+      if (fileUploadArea) {
+        fileUploadArea.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--primary)";
+          fileUploadArea.style.background = "var(--primary-soft)";
+        });
+        fileUploadArea.addEventListener("dragleave", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--line)";
+          fileUploadArea.style.background = "var(--panel-soft)";
+        });
+        fileUploadArea.addEventListener("drop", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--line)";
+          fileUploadArea.style.background = "var(--panel-soft)";
+          const files = Array.from(e.dataTransfer.files);
+          const fileInput = document.getElementById("fileInput");
+          if (fileInput) {
+            const dt = new DataTransfer();
+            files.forEach(f => dt.items.add(f));
+            fileInput.files = dt.files;
+          }
+          updateFileList(files);
+        });
+      }
       document.querySelectorAll("[data-wo-save]").forEach(btn => btn.addEventListener("click", () => {
         const form = $("#workOrderForm");
         if (form && form.checkValidity()) {
@@ -13615,10 +14139,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-wo-filter]").forEach(el => el.addEventListener("change", () => {
         const filterKey = el.dataset.woFilter;
         workOrderState.filters[filterKey] = el.value;
+        // 篩選變化時重置到第一頁
+        workOrderState.currentPage = 1;
         render();
       }));
       document.querySelectorAll("[data-wo-filter=\"keyword\"]").forEach(el => el.addEventListener("input", () => {
         workOrderState.filters.keyword = el.value;
+        // 搜索時重置到第一頁
+        workOrderState.currentPage = 1;
         render();
       }));
       document.querySelectorAll("[data-wo-reset]").forEach(btn => btn.addEventListener("click", () => {
@@ -13630,6 +14158,23 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           customer: "全部",
           keyword: ""
         };
+        workOrderState.currentPage = 1;
+        render();
+      }));
+      // 工單管理分頁事件
+      document.querySelectorAll("[data-wo-page]").forEach(btn => btn.addEventListener("click", () => {
+        const page = btn.dataset.woPage;
+        const filtered = filterWorkOrders();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / workOrderState.pageSize));
+        if (page === "prev" && workOrderState.currentPage > 1) workOrderState.currentPage--;
+        else if (page === "next" && workOrderState.currentPage < totalPages) workOrderState.currentPage++;
+        else if (page !== "prev" && page !== "next") workOrderState.currentPage = parseInt(page);
+        render();
+      }));
+      // 工單管理每頁顯示數量變更
+      document.querySelectorAll("[data-wo-page-size]").forEach(sel => sel.addEventListener("change", () => {
+        workOrderState.pageSize = parseInt(sel.value);
+        workOrderState.currentPage = 1;
         render();
       }));
       // Drawer action buttons
@@ -13637,7 +14182,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         openEditWorkOrderModal(btn.dataset.id);
       }));
 
-      // ===== Service Report events =====
+      // ===== 服務報告 events =====
       document.querySelectorAll("[data-voice-target]").forEach(btn => btn.addEventListener("click", () => startVoiceInput(btn.dataset.voiceTarget)));
       document.querySelectorAll("[data-sr-chip]").forEach(chip => chip.addEventListener("click", () => srToggleChip(chip.dataset.srChip)));
       document.querySelectorAll("[data-sr-system-chip]").forEach(chip => chip.addEventListener("click", () => srToggleSystem(chip.dataset.srSystemChip)));
@@ -13646,6 +14191,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-radio]").forEach(radio => radio.addEventListener("click", () => srSetWorkNature(radio.dataset.srRadio)));
       document.querySelectorAll("[data-sr-satisfaction]").forEach(btn => btn.addEventListener("click", () => srSetSatisfaction(btn.dataset.srSatisfaction)));
       document.querySelectorAll("[data-sr-toggle-quotation]").forEach(sw => sw.addEventListener("click", srToggleQuotation));
+      // 是否需要報價：是/否單選按鈕
+      document.querySelectorAll("[data-sr-quotation-radio]").forEach(radio => radio.addEventListener("change", () => {
+        srSyncInputs();
+        state.srNeedQuotation = radio.value === "true";
+        render();
+      }));
       document.querySelectorAll("[data-sr-add-part]").forEach(btn => btn.addEventListener("click", srAddPart));
       document.querySelectorAll("[data-sr-remove-part]").forEach(btn => btn.addEventListener("click", () => srRemovePart(parseInt(btn.dataset.srRemovePart))));
       document.querySelectorAll("[data-sr-upload-photo]").forEach(btn => btn.addEventListener("click", srUploadPhoto));
@@ -13872,6 +14423,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (state.view === "pc") renderPc();
       if (state.view === "mobile") renderMobile();
       bindEvents();
+      // 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動
+      const isDrawerOpen =
+        (workOrderState.selectedWorkOrderId !== null) ||
+        (state.page === "quotations" && quotationState.selectedQuotationId !== null);
+      document.body.classList.toggle("drawer-open", isDrawerOpen);
     }
 
     // Hamburger toggle: collapse / expand sidebar
