@@ -1,17 +1,19 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-HK">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ECInfo × DingTalk 工單系統 MVP UI 原型</title>
+  <title>ECInfo CALL 系統 UI 原型</title>
   <style>
     :root {
       --bg: #f4f7fb;
+      --font-sans: "PingFang HK", "PingFang TC", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       --panel: #ffffff;
       --panel-soft: #f8fafd;
       --text: #1f2937;
       --muted: #687386;
       --line: #dde5f0;
+      --border: #dde5f0;
       --primary: #1e6bff;
       --primary-strong: #0b55df;
       --primary-soft: #eaf1ff;
@@ -26,7 +28,33 @@
       --cyan: #0ea5b7;
       --purple: #7c5cff;
       --shadow: 0 12px 32px rgba(16, 35, 58, .08);
+      --shadow-1: 0 1px 3px rgba(15, 23, 42, .08);
       --radius: 8px;
+      --radius-control: 6px;
+      --radius-surface: 8px;
+      --radius-overlay: 12px;
+      --radius-pill: 999px;
+      --text-xs: 11px;
+      --text-sm: 12px;
+      --text-md: 13px;
+      --text-lg: 16px;
+      --text-xl: 20px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --height-compact: 30px;
+      --control-height: 34px;
+      --height-table-action: 32px;
+      --height-mobile-action: 40px;
+      --control-radius: 7px;
+      --surface-radius: 8px;
+      --overlay-radius: 12px;
+      --surface-padding: 16px;
+      --section-gap: 14px;
+      --focus-ring: 0 0 0 3px rgba(30, 107, 255, .12);
     }
 
     [data-theme="dark"] {
@@ -36,6 +64,7 @@
       --text: #e8edf6;
       --muted: #9aa7bb;
       --line: #26354b;
+      --border: #26354b;
       --primary: #5b8fff;
       --primary-strong: #82a9ff;
       --primary-soft: #16294b;
@@ -53,7 +82,7 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      font-family: var(--font-sans);
       letter-spacing: 0;
     }
     button, input, select, textarea { font: inherit; }
@@ -63,7 +92,7 @@
     .app {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 200px 1fr;
       transition: grid-template-columns .3s ease;
     }
     .app.sidebar-collapsed { grid-template-columns: 92px 1fr; }
@@ -109,13 +138,14 @@
     .brand-title strong { display: block; font-size: 14px; line-height: 1.2; }
     .brand-title span { display: block; font-size: 11px; color: rgba(233,241,255,.7); margin-top: 3px; }
     .hamburger-btn {
+      order: 3;
       width: 100%;
       height: 40px;
       border: 0;
       border-radius: 8px;
       background: rgba(255,255,255,.06);
       color: #d8e6ff;
-      margin: 4px 0 14px;
+      margin: 14px 0 0;
       font-size: 20px;
       display: flex;
       align-items: center;
@@ -125,6 +155,7 @@
     }
     .hamburger-btn:hover { background: rgba(255,255,255,.12); }
     .nav-list {
+      order: 2;
       display: grid;
       gap: 10px;
       align-content: start;
@@ -382,28 +413,32 @@
       gap: 12px;
       min-width: 0;
     }
-    /* 第二層：工作區導航 */
-    .topbar-workspace {
-      position: sticky;
-      top: 64px;
-      z-index: 99;
-      height: 56px;
+    .topbar-system-left { flex: 1; }
+    .workspace-controls {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--line);
-      transition: all 0.25s ease;
+      gap: 8px;
+      min-width: 0;
     }
-    [data-theme="dark"] .topbar-workspace { background: #1a2332; }
-    .topbar-workspace-left, .topbar-workspace-right {
+    .person-switch {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .person-switch span { font-size: 12px; color: var(--muted); }
+    .person-switch select {
+      height: 30px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 12px;
+      cursor: pointer;
     }
     .page-heading {
-      min-width: 170px;
+      min-width: max-content;
       display: grid;
       gap: 2px;
     }
@@ -426,6 +461,11 @@
       height: 30px;
       padding: 0 11px;
       white-space: nowrap;
+    }
+    #roleSwitch button,
+    #viewSwitch button {
+      padding: 0 3px;
+      font-size: 13px;
     }
     .segmented button.active { background: var(--primary); color: #fff; }
     .toolbar-btn, .primary-btn, .secondary-btn, .danger-btn, .ghost-btn {
@@ -519,7 +559,7 @@
     .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .cols-8 { grid-template-columns: repeat(8, minmax(118px, 1fr)); }
+    .cols-8 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -564,21 +604,6 @@
     .chip { background: var(--panel-soft); color: var(--muted); border-color: var(--line); }
     .tag { background: var(--primary-soft); color: var(--primary-strong); }
     .urgent { background: var(--danger-soft); color: var(--danger); }
-    .status-待分派 { background: #fff5df; color: #bf7600; }
-    .status-待確認 { background: #e8fbff; color: #08798a; }
-    .status-待處理 { background: #e8f5e9; color: #2e7d32; }
-    .status-處理中 { background: #eef0ff; color: #6550d9; }
-    .status-待確認 { background: #fff3e0; color: #e65100; }
-    .status-已完成 { background: #e8f8f1; color: #08764a; }
-    .status-已取消 { background: #f0f2f5; color: #667085; }
-    [data-theme="dark"] .status-待分派 { background: #3a2b11; color: #ffc96b; }
-    [data-theme="dark"] .status-待確認 { background: #123641; color: #73d9e6; }
-    [data-theme="dark"] .status-待處理 { background: #1a3a1a; color: #81c784; }
-    [data-theme="dark"] .status-處理中 { background: #28244e; color: #b6adff; }
-    [data-theme="dark"] .status-待確認 { background: #3e2723; color: #ffab91; }
-    [data-theme="dark"] .status-已完成 { background: #123726; color: #7be0b4; }
-    [data-theme="dark"] .status-已取消 { background: #252b36; color: #b8c0cc; }
-
     .data-table-wrap { width: 100%; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; min-width: 760px; }
     th, td {
@@ -680,6 +705,102 @@
     }
     .timeline-item strong { font-size: 13px; }
     .timeline-item p { margin: 0; font-size: 12px; color: var(--muted); }
+    .dashboard-timeline { margin-top: 2px; }
+    .timeline-ticket-link {
+      padding: 0;
+      font-size: inherit;
+      font-weight: inherit;
+    }
+
+    /* 分派中心：先看清單，再於彈窗完成派工 */
+    .dispatch-list-section { display: grid; gap: 16px; }
+    .dispatch-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .dispatch-summary-card {
+      border: 1px solid var(--line);
+      border-radius: var(--surface-radius);
+      background: var(--panel);
+      padding: 14px;
+    }
+    .dispatch-summary-card span { display: block; color: var(--muted); font-size: 12px; }
+    .dispatch-summary-card strong { display: block; margin: 6px 0 4px; font-size: 24px; }
+    .dispatch-summary-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .dispatch-table td { white-space: nowrap; }
+    .dispatch-table .dispatch-customer { display: block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+    .dispatch-table .dispatch-desc { display: block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 12px; }
+    .dispatch-actions { display: flex; justify-content: center; gap: 6px; white-space: nowrap; }
+    .dispatch-actions button { height: var(--height-table-action); padding: 0 9px; font-size: 12px; }
+    .dispatch-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(15, 23, 42, .42);
+      backdrop-filter: blur(3px);
+      animation: fade .12s ease-out;
+    }
+    .dispatch-modal {
+      width: min(820px, 100%);
+      max-height: min(780px, calc(100vh - 40px));
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--overlay-radius);
+      box-shadow: 0 24px 64px rgba(15, 23, 42, .24);
+    }
+    .dispatch-modal-head,
+    .dispatch-modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .dispatch-modal-head h2 { margin: 0; font-size: 16px; }
+    .dispatch-modal-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .dispatch-modal-body { overflow-y: auto; padding: 20px; }
+    .dispatch-modal-footer { justify-content: flex-end; border-top: 1px solid var(--line); border-bottom: 0; }
+    .dispatch-ticket-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .dispatch-ticket-summary > div {
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: var(--control-radius);
+      background: var(--panel-soft);
+    }
+    .dispatch-ticket-summary .wide { grid-column: 1 / -1; }
+    .dispatch-ticket-summary span { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+    .dispatch-ticket-summary strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+    .dispatch-master-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .dispatch-master-option {
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--surface-radius);
+      background: var(--panel);
+      text-align: left;
+      color: var(--text);
+    }
+    .dispatch-master-option:hover,
+    .dispatch-master-option.active { border-color: var(--primary); background: var(--primary-soft); }
+    .dispatch-master-option:disabled { cursor: not-allowed; opacity: .55; }
+    .dispatch-master-option:disabled:hover { border-color: var(--line); background: var(--panel); }
+    .dispatch-master-option .dispatch-master-avatar { width: 36px; height: 36px; }
+    .dispatch-master-option .tag { justify-self: end; }
+    @media (max-width: 760px) {
+      .dispatch-summary, .dispatch-ticket-summary, .dispatch-master-options { grid-template-columns: 1fr; }
+    }
 
     .photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
     .photo-thumb {
@@ -1491,18 +1612,28 @@
     }
     .sr-hidden { display: none !important; }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1000px) {
       .cols-8 { grid-template-columns: repeat(4, minmax(130px, 1fr)); }
       .filters { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
       .split-layout, .dispatch-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1400px) {
+      .topbar-system {
+        height: auto;
+        min-height: 64px;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 24px;
+      }
+      .topbar-system-left { width: 100%; }
+      .topbar-system-right { margin-left: auto; }
     }
     @media (max-width: 860px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { position: relative; height: auto; display: none; }
       .topbar-system { position: static; flex-direction: column; align-items: stretch; height: auto; padding: 12px 24px; }
       .topbar-system-left, .topbar-system-right { flex-wrap: wrap; justify-content: center; }
-      .topbar-workspace { position: static; flex-direction: column; align-items: stretch; height: auto; padding: 12px 24px; }
-      .topbar-workspace-left, .topbar-workspace-right { flex-wrap: wrap; justify-content: center; }
+      .workspace-controls { flex-wrap: wrap; justify-content: center; }
       .content { padding: 14px; }
       .cols-2, .cols-3, .cols-4, .cols-8 { grid-template-columns: 1fr; }
       .filters, .form-grid { grid-template-columns: 1fr; }
@@ -2101,20 +2232,6 @@
     @media (max-width: 1180px) {
       .qm-layout.with-drawer { grid-template-columns: 1fr; }
     }
-    /* 報價狀態顏色標籤 */
-    .qm-status-待報價 { background: var(--panel-soft); color: var(--muted); }
-    .qm-status-已發出 { background: var(--primary-soft); color: var(--primary); }
-    .qm-status-等待客戶確認 { background: var(--warning-soft); color: var(--warning); }
-    .qm-status-已確認 { background: var(--success-soft); color: var(--success); }
-    .qm-status-需修訂 { background: var(--danger-soft); color: var(--danger); }
-    .qm-status-已取消 { background: var(--panel-soft); color: var(--muted); }
-    [data-theme="dark"] .qm-status-待報價 { background: #252b36; color: #b8c0cc; }
-    [data-theme="dark"] .qm-status-已發出 { background: #0a2247; color: #7fb3ff; }
-    [data-theme="dark"] .qm-status-等待客戶確認 { background: #35270c; color: #ffc96b; }
-    [data-theme="dark"] .qm-status-已確認 { background: #0a2e1a; color: #7fd9a8; }
-    [data-theme="dark"] .qm-status-需修訂 { background: #3a1518; color: #ff9fbb; }
-    [data-theme="dark"] .qm-status-已取消 { background: #252b36; color: #b8c0cc; }
-
     /* Work Order Management Styles */
     .wo-layout {
       display: grid;
@@ -2176,6 +2293,14 @@
       gap: 10px;
       margin-left: auto;
     }
+    .wo-actions-top [data-wo-reset],
+    .wo-actions-top [data-wo-create],
+    .wo-actions-top [data-wo-batch-create] {
+      width: 118px;
+      height: 30px;
+      padding: 0 8px;
+      font-size: 12px;
+    }
     .wo-table {
       width: 100%;
       border-collapse: collapse;
@@ -2229,53 +2354,6 @@
       color: var(--muted);
       margin-top: 2px;
     }
-    .wo-status-tag {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .wo-status-待分派 { background: #fff3e0; color: #f57c00; }
-    .wo-status-待確認 { background: #e0f2f1; color: #00897b; }
-    .wo-status-待處理 { background: #e8f5e9; color: #2e7d32; }
-    .wo-status-處理中 { background: #f3e5f5; color: #8e24aa; }
-    .wo-status-待確認 { background: #fff3e0; color: #e65100; }
-    .wo-status-已完成 { background: #e8f8f1; color: #08764a; }
-    .wo-status-已取消 { background: #fafafa; color: #9e9e9e; }
-    [data-theme="dark"] .wo-status-待分派 { background: #35270c; color: #ffc96b; }
-    [data-theme="dark"] .wo-status-待確認 { background: #0a2e2a; color: #7fd9c8; }
-    [data-theme="dark"] .wo-status-待處理 { background: #1a3a1a; color: #81c784; }
-    [data-theme="dark"] .wo-status-處理中 { background: #2a1a3a; color: #d4a5ff; }
-    [data-theme="dark"] .wo-status-待確認 { background: #3e2723; color: #ffab91; }
-    [data-theme="dark"] .wo-status-已完成 { background: #123726; color: #7be0b4; }
-    [data-theme="dark"] .wo-status-已取消 { background: #1e2229; color: #8a92a0; }
-    
-    /* 雙狀態標籤容器 */
-    .wo-status-double {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-start;
-    }
-    
-    /* 報價狀態標籤樣式 */
-    .wo-quotation-status-待報價 { background: #fff7ed; color: #ea580c; }
-    .wo-quotation-status-報價中 { background: #eff6ff; color: #2563eb; }
-    .wo-quotation-status-已發出 { background: #ecfeff; color: #0891b2; }
-    .wo-quotation-status-等待客戶確認 { background: #faf5ff; color: #9333ea; }
-    .wo-quotation-status-需修訂 { background: #fef2f2; color: #dc2626; }
-    .wo-quotation-status-已確認 { background: #f0fdf4; color: #16a34a; }
-    .wo-quotation-status-已取消 { background: #f5f5f5; color: #757575; }
-    [data-theme="dark"] .wo-quotation-status-待報價 { background: #431407; color: #fb923c; }
-    [data-theme="dark"] .wo-quotation-status-報價中 { background: #172554; color: #60a5fa; }
-    [data-theme="dark"] .wo-quotation-status-已發出 { background: #083344; color: #22d3ee; }
-    [data-theme="dark"] .wo-quotation-status-等待客戶確認 { background: #3b0764; color: #c084fc; }
-    [data-theme="dark"] .wo-quotation-status-需修訂 { background: #450a0a; color: #f87171; }
-    [data-theme="dark"] .wo-quotation-status-已確認 { background: #052e16; color: #4ade80; }
-    [data-theme="dark"] .wo-quotation-status-已取消 { background: #252b36; color: #b8c0cc; }
-    
     /* 報價按鈕樣式 */
     .wo-quote-btn {
       width: 70px;
@@ -2419,11 +2497,27 @@
       max-width: 100vw;
       background: var(--panel);
       border-left: 1px solid var(--line);
-      box-shadow: -4px 0 12px rgba(0,0,0,0.05);
+      box-shadow: -18px 0 40px rgba(15, 23, 42, 0.16);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       z-index: 999;
+      animation: wo-drawer-enter 0.24s cubic-bezier(.2, .8, .2, 1) both;
+    }
+    .wo-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.32);
+      z-index: 998;
+      animation: wo-drawer-backdrop-enter 0.2s ease-out both;
+    }
+    @keyframes wo-drawer-enter {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    @keyframes wo-drawer-backdrop-enter {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     /* 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動 */
     body.drawer-open { overflow: hidden; }
@@ -2903,6 +2997,178 @@
     .pc-table .tag.danger { background: var(--danger-soft); color: var(--danger); }
     .pc-table .tag.info { background: var(--primary-soft); color: var(--primary); }
 
+    /* 統一清單表格：所有業務表格沿用 CALL 管理的資料密度與操作節奏 */
+    .data-table-wrap,
+    .pc-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .data-table-wrap > table:not(.wo-table),
+    .pc-table-wrapper > table {
+      min-width: 760px;
+      margin: 0;
+    }
+    .data-table-wrap > table:not(.wo-table) thead,
+    .pc-table-wrapper > table thead {
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--line);
+    }
+    .data-table-wrap > table:not(.wo-table) th,
+    .pc-table-wrapper > table th {
+      height: 42px;
+      padding: 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      vertical-align: middle;
+    }
+    .data-table-wrap > table:not(.wo-table) td,
+    .pc-table-wrapper > table td {
+      min-height: 56px;
+      padding: 12px 10px;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--line);
+    }
+    .data-table-wrap > table:not(.wo-table) tbody tr,
+    .pc-table-wrapper > table tbody tr { transition: background .15s ease; }
+    .data-table-wrap > table:not(.wo-table) tbody tr:hover,
+    .pc-table-wrapper > table tbody tr:hover { background: var(--panel-soft); }
+    .data-table-wrap > table:not(.wo-table) tbody tr:last-child td,
+    .pc-table-wrapper > table tbody tr:last-child td { border-bottom: 0; }
+
+    /* 組件庫：前端頁面可直接參照的固定視覺規格 */
+    .component-library { display: grid; gap: 16px; }
+    .component-library .component-section {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .component-library .component-section h3 { margin: 0 0 6px; font-size: 15px; }
+    .component-library .component-section > p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+    .component-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .component-status-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .component-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .component-card-preview {
+      padding: 14px;
+      min-height: 112px;
+      border: 1px solid var(--line);
+      border-radius: var(--surface-radius, 8px);
+      background: var(--panel);
+      display: grid;
+      align-content: space-between;
+      gap: 8px;
+    }
+    .component-card-preview strong { font-size: 14px; }
+    .component-card-preview span { color: var(--muted); font-size: 12px; }
+    .component-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .component-overlay-preview {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px;
+      gap: 12px;
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: var(--surface-radius, 8px);
+      background: var(--panel-soft);
+    }
+    .component-modal-preview,
+    .component-drawer-preview {
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 12px;
+    }
+    .component-modal-preview { border-radius: var(--overlay-radius, 12px); }
+    .component-drawer-preview { border-radius: 0; border-right: 3px solid var(--primary); }
+    .component-overlay-preview strong { display: block; margin-bottom: 8px; font-size: 13px; }
+    .component-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+    .component-filter-grid .wo-filter-group { min-width: 0; }
+    .component-filter-grid .wo-filter-group input { min-width: 0; width: 100%; }
+    .component-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+    .component-table-caption { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 10px; }
+    .component-rule-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .component-rule-list li { padding: 10px; border-radius: 6px; background: var(--panel-soft); color: var(--muted); font-size: 12px; }
+    .component-rule-list strong { display: block; margin-bottom: 3px; color: var(--text); font-size: 13px; }
+    @media (max-width: 900px) {
+      .component-filter-grid { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      .component-rule-list { grid-template-columns: 1fr; }
+      .component-card-grid { grid-template-columns: 1fr; }
+      .component-form-grid, .component-overlay-preview { grid-template-columns: 1fr; }
+    }
+    .sr-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sr-filter-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .sr-filter-controls select {
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      background: var(--panel);
+      color: var(--text);
+    }
+    .sr-folder-search {
+      width: 340px;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, .08);
+    }
+    .sr-folder-search:focus {
+      outline: 0;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 107, 255, .12);
+    }
+    .sr-folder-table { table-layout: fixed; min-width: 1080px; }
+    .sr-folder-table th,
+    .sr-folder-table td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+    .sr-folder-table .sr-cell {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sr-folder-table .link-btn {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sr-folder-table .sr-actions {
+      display: flex;
+      gap: 4px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .sr-folder-table .sr-actions button {
+      height: 28px;
+      padding: 0 7px;
+      font-size: 12px;
+    }
+
     /* 採購 Tab */
     .proc-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 2px solid var(--border); }
     .proc-tab {
@@ -2922,6 +3188,146 @@
     [data-theme="dark"] .pc-section { background: #1e252e; border-color: #2d3540; }
     [data-theme="dark"] .pc-table thead th { background: #252b36; }
     [data-theme="dark"] .pc-table tbody tr:hover { background: #252b36; }
+
+    /* ===== 統一設計系統：所有業務模組共用 ===== */
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: none;
+      border-color: var(--primary) !important;
+      box-shadow: var(--focus-ring) !important;
+    }
+    .card,
+    .pc-section,
+    .wo-list-section,
+    .qm-list-section,
+    .um-role-sidebar,
+    .um-list-panel,
+    .um-detail-panel,
+    .cm-sidebar,
+    .cm-list-panel,
+    .cm-detail-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--surface-radius);
+      box-shadow: var(--shadow);
+    }
+    .pc-section,
+    .wo-list-section,
+    .qm-list-section { padding: var(--surface-padding); }
+    .card-head,
+    .page-head,
+    .pc-section > .pc-section-head { margin-bottom: var(--section-gap); }
+    .card h2,
+    .pc-section h2,
+    .page-head h2 { font-size: 16px; line-height: 1.4; }
+    .card p,
+    .page-head p { font-size: 13px; line-height: 1.5; }
+
+    .toolbar-btn,
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn,
+    .ghost-btn,
+    .wo-view-btn,
+    .wo-quote-btn,
+    .wo-urge-btn {
+      min-height: var(--control-height);
+      border-radius: var(--control-radius);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .toolbar-btn,
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn,
+    .ghost-btn { height: var(--control-height); }
+    .primary-btn { box-shadow: none; }
+    .primary-btn:hover { box-shadow: 0 4px 10px rgba(30, 107, 255, .18); }
+    .secondary-btn { border: 1px solid transparent; }
+
+    .field input,
+    .field select,
+    .field textarea,
+    .wo-filter-group input,
+    .wo-filter-group select,
+    .um-toolbar input,
+    .um-toolbar select,
+    .cm-toolbar input,
+    .cm-toolbar select,
+    .sr-filter-controls select,
+    .sr-folder-search,
+    .tender-search-input,
+    .form-row input[type="text"],
+    .form-row textarea,
+    .dm-form-group input,
+    .dm-form-group select,
+    .dm-form-group textarea {
+      border-color: var(--line);
+      border-radius: var(--control-radius);
+      background: var(--panel);
+      color: var(--text);
+    }
+    .field input,
+    .field select,
+    .wo-filter-group input,
+    .wo-filter-group select,
+    .um-toolbar input,
+    .um-toolbar select,
+    .cm-toolbar input,
+    .cm-toolbar select,
+    .sr-filter-controls select,
+    .sr-folder-search,
+    .tender-search-input { min-height: var(--control-height); }
+
+    .chip,
+    .status-pill,
+    .tag {
+      height: 24px;
+      border-radius: 999px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .status-badge.tone-neutral { background: var(--panel-soft); color: var(--muted); }
+    .status-badge.tone-info { background: var(--primary-soft); color: var(--primary-strong); }
+    .status-badge.tone-warning { background: var(--warning-soft); color: var(--warning); }
+    .status-badge.tone-success { background: var(--success-soft); color: var(--success); }
+    .status-badge.tone-danger { background: var(--danger-soft); color: var(--danger); }
+
+    .um-modal,
+    .dm-modal,
+    .dm-confirm,
+    .wo-modal-content,
+    .wo-drawer,
+    .dm-drawer {
+      border-radius: var(--overlay-radius);
+    }
+    .wo-drawer,
+    .dm-drawer { border-radius: 0; }
+    .um-modal-head,
+    .dm-modal-head,
+    .wo-modal-header,
+    .wo-drawer-header,
+    .dm-drawer-head { min-height: 64px; }
+    .um-modal-actions,
+    .dm-drawer-footer,
+    .wo-modal-footer,
+    .wo-drawer-footer { gap: 8px; }
   </style>
 </head>
 <body>
@@ -2930,8 +3336,7 @@
       <div class="brand">
         <div class="logo-mark">EC</div>
         <div class="brand-title">
-          <strong>ECInfo 工單系統</strong>
-          <span>DingTalk MVP 原型</span>
+          <strong>ECInfo Call系統</strong>
         </div>
       </div>
       <button class="hamburger-btn" id="hamburgerBtn" title="收起 / 展開側邊欄">☰</button>
@@ -2944,7 +3349,13 @@
         <div class="topbar-system-left">
           <div class="page-heading">
             <h1 id="pageTitle">首頁</h1>
-            <p id="pageSub">客戶流程確認版 UI 原型</p>
+          </div>
+          <div class="workspace-controls" aria-label="工作區控制項">
+            <div class="segmented" id="roleSwitch" aria-label="角色切換"></div>
+            <div class="segmented" id="viewSwitch" aria-label="視圖切換">
+              <button data-view="pc" class="active">PC 端</button>
+              <button data-view="mobile">移動端</button>
+            </div>
           </div>
         </div>
         <div class="topbar-system-right">
@@ -2975,19 +3386,6 @@
           </div>
         </div>
       </header>
-      <!-- 第二層：工作區導航 -->
-      <header class="topbar-workspace">
-        <div class="topbar-workspace-left">
-          <div class="segmented" id="roleSwitch" aria-label="角色切換"></div>
-        </div>
-        <div class="topbar-workspace-right">
-          <div class="segmented" id="viewSwitch" aria-label="視圖切換">
-            <button data-view="pc" class="active">PC 端</button>
-            <button data-view="mobile">移動端</button>
-          </div>
-        </div>
-      </header>
-
       <section class="content" id="pcShell">
         <div id="pcPages"></div>
       </section>
@@ -3372,19 +3770,19 @@
 
     const ROLES = [
       { key: "CS", label: "客戶服務部", name: "陳小姐", dept: "客戶服務部", avatar: "CS" },
+      { key: "CR", label: "客戶關係部", name: "何關係", dept: "客戶關係部", avatar: "CR", area: "九龍" },
       { key: "TL", label: "主管", name: "李組長", dept: "九龍團隊", avatar: "TL" },
       { key: "MASTER", label: "師傅", name: "周師傅", dept: "外勤 · 九龍", avatar: "周" },
       { key: "QUO", label: "報價組", name: "鄒組長", dept: "報價組", avatar: "報" },
       { key: "PUR", label: "採購部", name: "張採購", dept: "採購部", avatar: "採" },
       { key: "FIN", label: "會計部", name: "陳會計", dept: "會計部", avatar: "會" },
       { key: "ADMIN", label: "管理員", name: "林主管", dept: "管理部", avatar: "管" },
-      { key: "BOSS", label: "老闆", name: "黃老闆", dept: "管理部", avatar: "闆" },
-      { key: "CR", label: "客戶關係部", name: "何關係", dept: "客戶關係部", avatar: "CR", area: "九龍" }
+      { key: "BOSS", label: "老闆", name: "黃老闆", dept: "管理部", avatar: "闆" }
     ];
     const PAGES = [
       { key: "dashboard", label: "首頁", icon: "🏠", sub: "查看狀態、待辦、異常和最近動態" },
       { key: "workorder", label: "CALL管理", icon: "📋", sub: "管理、新建與查看工單" },
-      { key: "srFolder", label: "SR文件夾", icon: "📁", sub: "服務報告 檔案查詢與管理" },
+      { key: "srFolder", label: "服務報告", icon: "📁", sub: "服務報告 檔案查詢與管理" },
       { key: "dispatch", label: "分派中心", icon: "📤", sub: "Team Leader 分派，師傅接單" },
       { key: "quotations", label: "報價管理", icon: "💰", sub: "管理報價記錄、狀態和關聯工單" },
       { key: "tender", label: "標書管理", icon: "📑", sub: "管理招標項目、投標狀態和中標記錄" },
@@ -4658,6 +5056,7 @@
       selectedTicketId: "WO-20260615-001",
       selectedDispatchId: "WO-20260615-002",
       selectedMaster: "梁師傅",
+      dispatchModalOpen: false,
       settingsTab: "dictionary",
       isSettingsExpanded: false,
       isSidebarCollapsed: false,
@@ -4667,6 +5066,7 @@
       tenderTab: "all",
       tenderSearch: "",
       selectedTenderId: null,
+      callDetailTicketId: null,
       srFolderSearch: "",
       srFolderArea: "全部",
       srFolderStatus: "全部",
@@ -4709,7 +5109,16 @@
     const $ = (selector) => document.querySelector(selector);
     const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const ticketById = (id) => tickets.find(t => t.id === id) || tickets[0];
-    const statusClass = (status) => `status-pill status-${status}`;
+    // 唯一狀態色階映射：所有流程狀態都先映射為語意色，而非以頁面專屬 class 決定外觀。
+    const STATUS_TONES = {
+      "待分派": "warning", "待確認": "warning", "待處理": "info", "處理中": "info", "需跟進": "danger",
+      "已完成": "success", "已關閉": "success", "已確認": "success", "已收款": "success", "已到貨": "success", "已發送": "success",
+      "已取消": "neutral", "待報價": "neutral", "未啟用": "neutral", "離職": "neutral",
+      "已發出": "info", "合作中": "info", "等待客戶確認": "warning", "需修訂": "danger", "未中標": "danger", "不投標": "danger"
+    };
+    const statusTone = (status) => STATUS_TONES[status] || "neutral";
+    const statusClass = (status) => `status-badge tone-${statusTone(status)}`;
+    const statusBadge = (status, extraClass = "") => `<span class="${statusClass(status)} ${extraClass}">${escapeHtml(status)}</span>`;
     
     // 獲取當前角色對應的用戶列表
     function getUsersByRole(roleKey) {
@@ -5333,7 +5742,7 @@
         return;
       }
       if (action === "accept") {
-        updateTicket(id, { status: "待確認", owner: t.tl || "李組長" }, "CS 已受理，確認需要派工，進入待確認。");
+        updateTicket(id, { status: "待分派", owner: t.tl || "李組長" }, "CS 已受理，確認需要派工，進入待分派。");
       }
       if (action === "cancel") {
         updateTicket(id, { status: "已取消", owner: currentRole().name, cancelReason: "原型模擬取消" }, "工單已取消。");
@@ -5345,10 +5754,14 @@
       }
       if (action === "assign") {
         state.selectedDispatchId = id;
+        const ticket = ticketById(id);
+        const recommendedMaster = getRecommendedDispatchMaster(ticket);
+        state.selectedMaster = recommendedMaster?.name || "";
+        state.dispatchModalOpen = true;
         state.page = "dispatch";
         state.view = "pc";
         render();
-        toast("請在分派中心選擇師傅並確認分派");
+        toast("請選擇師傅並確認分派");
         return;
       }
       if (action === "take") {
@@ -5584,18 +5997,18 @@
       // 渲染角色切換按鈕
       $("#roleSwitch").innerHTML = ROLES.map(r => `<button data-role="${r.key}" class="${state.role === r.key ? "active" : ""}">${r.label}</button>`).join("");
       
-      // 渲染人物切換下拉框（在角色切換按鈕下方）
+      // 渲染目前角色可切換的人物
       const roleUsers = getUsersByRole(state.role);
       const personSwitchHtml = roleUsers.length > 1 ? `
-        <div class="person-switch" style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 12px; color: var(--muted);">當前人物：</span>
-          <select id="personSwitch" style="padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer;">
+        <div class="person-switch">
+          <span>當前人物：</span>
+          <select id="personSwitch">
             ${roleUsers.map(u => `<option value="${u.name}" ${state.currentPerson?.name === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
           </select>
         </div>
       ` : '';
       
-      // 插入到角色切換按鈕下方
+      // 插入到角色切換後方
       const roleSwitchContainer = $("#roleSwitch").parentElement;
       const existingPersonSwitch = roleSwitchContainer.querySelector('.person-switch');
       if (existingPersonSwitch) existingPersonSwitch.remove();
@@ -5622,20 +6035,18 @@
             { key: "dictionary", label: "字典管理" },
             { key: "customer", label: "客戶管理" },
             { key: "user", label: "用戶管理" },
-            { key: "addressBook", label: "報價組通訊錄" }
+            { key: "addressBook", label: "報價組通訊錄" },
+            { key: "components", label: "組件庫" }
           ];
           const activeTab = settingsTabs.find(t => t.key === state.settingsTab);
           $("#pageTitle").textContent = activeTab?.label || "字典管理";
-          $("#pageSub").textContent = state.page === "settings" ? "基礎設置 / " + (activeTab?.label || "字典管理") : "";
         } else {
           activePage = PAGES.find(p => p.key === state.page);
           $("#pageTitle").textContent = activePage?.label || "工單系統";
-          $("#pageSub").textContent = activePage?.sub || "客戶流程確認版 UI 原型";
         }
       } else {
         activePage = MOBILE_PAGES.find(p => p.key === state.mobilePage);
         $("#pageTitle").textContent = activePage?.title || "工單系統";
-        $("#pageSub").textContent = "師傅移動端操作模擬";
       }
       
       // Collapsed mode: emoji icons
@@ -5679,6 +6090,7 @@
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">🖥️ 服務器空間</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">📊 Excel 導入</button>
+                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'components' ? 'active' : ''}" data-settings-tab="components">🧩 組件庫</button>
               </div>
             </div>
           `;
@@ -5706,7 +6118,7 @@
         if (settingsBtn) {
           const rect = settingsBtn.getBoundingClientRect();
           // 計算 popover 最大高度，確保不超出視口
-          const popoverHeight = 6 * 44 + 16; // 6個項目各44px + padding
+          const popoverHeight = 7 * 44 + 16; // 7個項目各44px + padding
           const belowSpace = window.innerHeight - rect.top - 20; // 按鈕下方空間
           const aboveSpace = rect.bottom - 20; // 按鈕上方空間
           // 優先向下展開，空間不足時向上偏移
@@ -5740,6 +6152,7 @@
           <button class="settings-popover-item ${state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
           <button class="settings-popover-item ${state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">🖥️ 服務器空間</button>
           <button class="settings-popover-item ${state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">📊 Excel 導入</button>
+          <button class="settings-popover-item ${state.settingsTab === 'components' ? 'active' : ''}" data-settings-tab="components">🧩 組件庫</button>
         `;
         document.body.appendChild(popover);
       }
@@ -5757,21 +6170,23 @@
       return `
         <section class="page active">
           <div class="grid cols-8">
-            <div class="card stat-card"><div class="stat-label">工單總數<span class="chip">全部</span></div><div class="stat-value">${tickets.length}</div><div class="stat-note">MVP 模擬數據</div></div>
+            <div class="card stat-card"><div class="stat-label">CALL總數<span class="chip">全部</span></div><div class="stat-value">${tickets.length}</div><div class="stat-note">點擊列表篩選查看</div></div>
             ${STATUSES.map(s => `<div class="card stat-card"><div class="stat-label">${s}<span class="${statusClass(s)}">${s}</span></div><div class="stat-value">${counts[s] || 0}</div><div class="stat-note">點擊列表篩選查看</div></div>`).join("")}
           </div>
           <div class="grid cols-3" style="margin-top:14px;">
             <div class="card">
               <div class="card-head"><h2>今日待辦</h2><button class="secondary-btn" data-page-target="list">查看列表</button></div>
-              ${todo.map(t => `<div class="ticket-mini" data-open="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button">${t.id}</button> <span class="${statusClass(t.status)}">${t.status}</span></div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.desc)}</p></div>`).join("")}
+              ${todo.map(t => `<div class="ticket-mini" data-call-detail="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button" data-call-detail="${t.id}">${t.id}</button> <span class="${statusClass(t.status)}">${t.status}</span></div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
-              <div class="card-head"><h2>異常 / 需關注工單</h2><span class="chip">${focus.length} 條</span></div>
-              ${focus.map(t => `<div class="ticket-mini" data-open="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button">${t.id}</button> ${t.urgent ? '<span class="tag urgent">緊急</span>' : '<span class="tag">需關注</span>'}</div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.rejectReason || t.desc)}</p></div>`).join("")}
+              <div class="card-head"><h2>異常CALL</h2><button class="secondary-btn" data-page-target="list">查看列表</button></div>
+              ${focus.map(t => `<div class="ticket-mini" data-call-detail="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button" data-call-detail="${t.id}">${t.id}</button> ${t.urgent ? '<span class="tag urgent">緊急</span>' : '<span class="tag">需關注</span>'}</div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.rejectReason || t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
               <div class="card-head"><h2>最近動態</h2><span class="chip">${now}</span></div>
-              ${tickets.slice(0, 5).map(t => `<div class="timeline-item"><span class="timeline-dot"></span><strong>${t.updatedAt} · ${t.id}</strong><p>${escapeHtml(t.records[t.records.length - 1]?.text || t.desc)}</p></div>`).join("")}
+              <div class="timeline dashboard-timeline">
+                ${tickets.slice(0, 5).map(t => `<div class="timeline-item"><span class="timeline-dot"></span><strong>${t.updatedAt} · <button class="link-btn timeline-ticket-link" type="button" data-open="${t.id}" aria-label="開啟 ${t.id}">${t.id}</button></strong><p>${escapeHtml(t.records[t.records.length - 1]?.text || t.desc)}</p></div>`).join("")}
+              </div>
             </div>
           </div>
           <div class="grid cols-3" style="margin-top:14px;">
@@ -5786,7 +6201,47 @@
               </div>
             </div>
           </div>
+          ${state.callDetailTicketId ? renderCallDetailModal(ticketById(state.callDetailTicketId)) : ""}
         </section>`;
+    }
+
+    function renderCallDetailModal(ticket) {
+      if (!ticket) return "";
+      const latestRecord = ticket.records?.[ticket.records.length - 1];
+      return `
+        <div class="um-modal-overlay" data-call-detail-close>
+          <div class="um-modal" style="max-width:720px;" role="dialog" aria-modal="true" aria-label="CALL詳情">
+            <div class="um-modal-head">
+              <h2>CALL詳情</h2>
+              <button class="um-modal-close" type="button" data-call-detail-close>×</button>
+            </div>
+            <div class="um-modal-body">
+              <div class="info-row"><span>CALL編號</span><strong>${ticket.id}</strong></div>
+              <div class="info-row"><span>CALL狀態</span><strong><span class="${statusClass(ticket.status)}">${ticket.status}</span></strong></div>
+              <div class="info-row"><span>客戶</span><strong>${escapeHtml(ticket.customer)}</strong></div>
+              <div class="info-row"><span>聯絡人</span><strong>${escapeHtml(ticket.contact)} / ${escapeHtml(ticket.phone)}</strong></div>
+              <div class="info-row"><span>地址</span><strong>${escapeHtml(ticket.address)}</strong></div>
+              <div class="info-row"><span>來源</span><strong>${escapeHtml(ticket.channel)}</strong></div>
+              <div class="info-row"><span>區域</span><strong>${escapeHtml(ticket.area)}</strong></div>
+              <div class="info-row"><span>負責人</span><strong>${escapeHtml(ticket.owner || "-")}</strong></div>
+              <div class="info-row"><span>Team Leader</span><strong>${escapeHtml(ticket.tl || "-")}</strong></div>
+              <div class="info-row"><span>師傅</span><strong>${escapeHtml(ticket.master || "待分派")}</strong></div>
+              <div class="info-row"><span>建立時間</span><strong>${escapeHtml(ticket.createdAt)}</strong></div>
+              <div class="info-row"><span>最後更新</span><strong>${escapeHtml(ticket.updatedAt)}</strong></div>
+              <div style="margin-top:14px;">
+                <h3 style="font-size:15px;margin:0 0 8px;">CALL內容</h3>
+                <p style="margin:0;color:var(--text);line-height:1.7;">${escapeHtml(ticket.desc)}</p>
+              </div>
+              <div style="margin-top:14px;">
+                <h3 style="font-size:15px;margin:0 0 8px;">最新記錄</h3>
+                <p style="margin:0;color:var(--muted);line-height:1.7;">${latestRecord ? `${escapeHtml(latestRecord.time)} · ${escapeHtml(latestRecord.actor)}：${escapeHtml(latestRecord.text)}` : "暫無記錄"}</p>
+              </div>
+            </div>
+            <div class="um-modal-actions">
+              <button type="button" class="secondary-btn" data-call-detail-close>關閉</button>
+            </div>
+          </div>
+        </div>`;
     }
 
     function barRow(label, value, total) {
@@ -6149,8 +6604,8 @@
           </div>
           <div class="wo-actions-top">
             <button class="secondary-btn" data-wo-reset>重置</button>
-            <button class="primary-btn" data-wo-create>+ 新建工單</button>
-            <button class="secondary-btn" data-wo-batch-create>批量生成空白工單</button>
+            <button class="primary-btn" data-wo-create>+ 新建CALL</button>
+            <button class="secondary-btn" data-wo-batch-create>批量生成空白CALL</button>
           </div>
         </div>
       `;
@@ -6182,9 +6637,10 @@
         <table class="wo-table">
           <thead>
             <tr>
-              <th>工單編號</th>
+              <th>CALL編號</th>
               <th>CALL類型</th>
-              <th>客戶 / 聯繫人</th>
+              <th>客戶</th>
+              <th>聯繫人</th>
               <th>區域</th>
               <th>CALL狀態</th>
               ${isQUO ? '<th>報價狀態</th>' : ''}
@@ -6196,7 +6652,7 @@
           <tbody>
             ${filtered.length === 0 ? `
               <tr>
-                <td colspan="${isQUO ? 9 : 8}" style="text-align: center; padding: 40px; color: var(--muted);">
+                <td colspan="${isQUO ? 10 : 9}" style="text-align: center; padding: 40px; color: var(--muted);">
                   暫無匹配工單
                 </td>
               </tr>
@@ -6226,13 +6682,11 @@
               <tr>
                 <td><button class="wo-id-link" data-wo-view="${t.id}">${t.id}</button></td>
                 <td>${t.type}</td>
-                <td>
-                  <div class="wo-customer-name">${escapeHtml(t.customer)}</div>
-                  <div class="wo-customer-contact">${escapeHtml(t.contact)}</div>
-                </td>
+                <td><div class="wo-customer-name">${escapeHtml(t.customer)}</div></td>
+                <td><div class="wo-customer-contact">${escapeHtml(t.contact)}</div></td>
                 <td>${t.area}</td>
-                <td><span class="wo-status-tag wo-status-${t.status}">${t.status}</span></td>
-                ${isQUO ? `<td>${quotationStatus ? `<span class="wo-status-tag wo-quotation-status-${quotationStatus}">${quotationStatus}</span>` : '<span style="color: var(--muted);">-</span>'}</td>` : ''}
+                <td>${statusBadge(t.status)}</td>
+                ${isQUO ? `<td>${quotationStatus ? statusBadge(quotationStatus) : '<span class="muted">-</span>'}</td>` : ''}
                 <td>${escapeHtml(t.owner)}</td>
                 <td>${t.updatedAt}</td>
                 <td class="wo-td-actions">
@@ -6251,11 +6705,12 @@
 
     function renderWorkOrderDrawer(ticket) {
       return `
-        <aside class="wo-drawer">
+        <div class="wo-drawer-backdrop" data-wo-close aria-hidden="true"></div>
+        <aside class="wo-drawer" role="dialog" aria-modal="true" aria-label="CALL詳情">
           <div class="wo-drawer-header">
             <div class="wo-drawer-title">
               <h3>${ticket.id}</h3>
-              <span class="wo-status-tag wo-status-${ticket.status}">${ticket.status}</span>
+              ${statusBadge(ticket.status)}
             </div>
             <button class="wo-drawer-close" data-wo-close>×</button>
           </div>
@@ -6810,169 +7265,109 @@
       render();
     }
 
+    function getRecommendedDispatchMaster(ticket) {
+      const available = masters.filter(m => m.status === "可接單");
+      return available.filter(m => m.area === ticket?.area).sort((a, b) => a.load - b.load)[0]
+        || available.sort((a, b) => a.load - b.load)[0]
+        || masters[0];
+    }
+
     function renderDispatch() {
-      // 當天待派單（最新工單置頂）- TL 角色根據當前人物過濾
-      const today = new Date().toISOString().slice(0, 10);
       const currentTLName = state.role === "TL" ? currentRole().name : null;
       const pending = tickets.filter(t => t.status === "待分派" && (!currentTLName || t.tl === currentTLName)).sort((a, b) => {
-        // 最新工單置頂（按創建時間倒序）
         const timeA = a.createdAt || '';
         const timeB = b.createdAt || '';
         return timeB.localeCompare(timeA);
       });
-
-      // 當天已派單（狀態爲待確認、待處理、處理中）- TL 角色根據當前人物過濾
       const assigned = tickets.filter(t =>
         ["待確認", "待處理", "處理中"].includes(t.status) &&
         t.master &&
-        t.createdAt && t.createdAt.startsWith(today.slice(5)) &&
         (!currentTLName || t.tl === currentTLName)
-      );
-      
-      if (!pending.find(t => t.id === state.selectedDispatchId) && pending[0]) state.selectedDispatchId = pending[0].id;
-      const selected = ticketById(state.selectedDispatchId);
-      const master = masters.find(m => m.name === state.selectedMaster) || masters[0];
-      
+      ).sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+      const dispatchRows = [...pending, ...assigned];
+
       return `
         <section class="page active">
-          <div class="dispatch-grid">
-            <!-- 左側：待分派工單 + 分派確認 -->
-            <div class="dispatch-left">
-              <div class="dispatch-section" style="flex: 1.2;">
-                <h3 class="dispatch-section-title">待分派工單 <span class="chip" style="margin-left: auto;">${pending.length} 條</span></h3>
-                <div class="dispatch-pending-list">
-                  ${pending.length === 0 ? '<p style="text-align: center; color: var(--muted); padding: 20px;">暫無待分派工單</p>' : pending.map(t => `
-                    <div class="dispatch-ticket-card ${state.selectedDispatchId === t.id ? 'active' : ''}" data-dispatch-ticket="${t.id}">
-                      <div class="dispatch-ticket-info">
-                        <div class="dispatch-ticket-header">
-                          <span>${t.id}</span>
-                          <span class="tag ${statusClass(t.status)}" style="font-size: 10px; padding: 2px 6px;">${t.status}</span>
-                        </div>
-                        <div class="dispatch-ticket-meta">
-                          <span>🏢 ${escapeHtml(t.customer)}</span>
-                          <span>📍 ${t.area}</span>
-                          <span>🔧 ${t.type}</span>
-                        </div>
-                        <div class="dispatch-ticket-desc">${escapeHtml(t.desc)}</div>
-                      </div>
-                      <div style="font-size: 10px; color: var(--muted);">${t.createdAt}</div>
-                    </div>
-                  `).join("")}
-                </div>
-              </div>
-              
-              <div class="dispatch-section" style="flex: 1;">
-                <h3 class="dispatch-section-title">分派確認</h3>
-                ${selected ? `
-                  <div class="dispatch-confirm-section">
-                    <div class="dispatch-confirm-info">
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">工單編號</span>
-                        <span class="dispatch-confirm-value">${selected.id}</span>
-                      </div>
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">客戶名稱</span>
-                        <span class="dispatch-confirm-value">${escapeHtml(selected.customer)}</span>
-                      </div>
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">聯繫人</span>
-                        <span class="dispatch-confirm-value">${escapeHtml(selected.contact)}</span>
-                      </div>
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">聯繫電話</span>
-                        <span class="dispatch-confirm-value">${escapeHtml(selected.phone)}</span>
-                      </div>
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">區域</span>
-                        <span class="dispatch-confirm-value">${selected.area}</span>
-                      </div>
-                      <div class="dispatch-confirm-item">
-                        <span class="dispatch-confirm-label">工單類型</span>
-                        <span class="dispatch-confirm-value">${selected.type}</span>
-                      </div>
-                      <div class="dispatch-confirm-item full-width">
-                        <span class="dispatch-confirm-label">描述</span>
-                        <span class="dispatch-confirm-value">${escapeHtml(selected.desc)}</span>
-                      </div>
-                    </div>
-                    
-                    ${master ? `
-                      <div class="dispatch-master-card">
-                        <div class="dispatch-master-avatar">${master.name.slice(0,1)}</div>
-                        <div class="dispatch-master-info">
-                          <div class="dispatch-master-name">${master.name}</div>
-                          <div class="dispatch-master-meta">${master.area} · ${master.skills}</div>
-                        </div>
-                        <div class="tag">${master.tag}</div>
-                      </div>
-                    ` : ''}
-                    
-                    <div class="field">
-                      <label>派工備註</label>
-                      <textarea id="assignNote" placeholder="填寫派工說明或注意事項" style="min-height: 60px;"></textarea>
-                    </div>
-                    
-                    <button class="primary-btn" id="confirmAssign" style="width: 100%; height: 40px;">確認分派</button>
-                  </div>
-                ` : '<p style="text-align: center; color: var(--muted); padding: 20px;">請選擇工單</p>'}
-              </div>
+          <div class="dispatch-list-section">
+            <div class="dispatch-summary">
+              <div class="dispatch-summary-card"><span>待分派</span><strong>${pending.length}</strong><p>需要安排師傅的 CALL</p></div>
+              <div class="dispatch-summary-card"><span>已分派</span><strong>${assigned.length}</strong><p>等待接單或處理中的 CALL</p></div>
+              <div class="dispatch-summary-card"><span>可接單師傅</span><strong>${masters.filter(m => m.status === "可接單").length}</strong><p>目前可安排的外勤人員</p></div>
             </div>
-            
-            <!-- 右側：推薦師傅 + 當天已派單 -->
-            <div class="dispatch-right">
-              <div class="dispatch-section" style="flex: 1.5;">
-                <h3 class="dispatch-section-title">推薦師傅</h3>
-                <div class="dispatch-recommend-list">
-                  ${masters.map(m => `
-                    <div class="dispatch-master-recommend ${state.selectedMaster === m.name ? 'active' : ''}" data-master="${m.name}">
-                      <div class="dispatch-master-avatar">${m.name.slice(0,1)}</div>
-                      <div class="dispatch-master-info">
-                        <div class="dispatch-master-name">${m.name}</div>
-                        <div class="dispatch-master-meta">${m.area} · 今日負載 ${m.load}</div>
-                        <div class="dispatch-master-tags">
-                          <span class="dispatch-master-tag">${m.skills}</span>
-                          <span class="dispatch-master-tag">區域匹配</span>
-                          <span class="dispatch-master-tag">負載較低</span>
-                        </div>
-                      </div>
-                      <div class="tag">${m.tag}</div>
-                    </div>
-                  `).join("")}
-                </div>
+            <div class="pc-section">
+              <div class="card-head">
+                <div><h2>分派明細</h2><p>待分派 CALL 可直接開啟分派彈窗；已分派 CALL 可查看目前安排與處理狀態。</p></div>
+                <span class="chip">${dispatchRows.length} 條</span>
               </div>
-              
-              <div class="dispatch-section" style="flex: 1;">
-                <h3 class="dispatch-section-title">當天已派單 <span class="chip" style="margin-left: auto;">${assigned.length} 條</span> <a href="#" style="margin-left: 8px; font-size: 11px; color: var(--primary); text-decoration: none;">查看更多</a></h3>
-                <div class="dispatch-assigned-table">
-                  ${assigned.length === 0 ? '<p style="text-align: center; color: var(--muted); padding: 20px;">暫無當天已派單</p>' : `
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>工單號</th>
-                          <th>客戶</th>
-                          <th>師傅</th>
-                          <th>派單時間</th>
-                          <th>狀態</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        ${assigned.map(t => `
-                          <tr>
-                            <td>${t.id}</td>
-                            <td>${escapeHtml(t.customer)}</td>
-                            <td>${escapeHtml(t.master)}</td>
-                            <td>${t.updatedAt}</td>
-                            <td><span class="tag ${statusClass(t.status)}">${t.status}</span></td>
-                          </tr>
-                        `).join("")}
-                      </tbody>
-                    </table>
-                  `}
-                </div>
+              <div class="pc-table-wrapper">
+                <table class="pc-table dispatch-table">
+                  <thead><tr><th>CALL編號</th><th>客戶／聯繫人</th><th>區域</th><th>CALL類型</th><th>內容摘要</th><th>目前師傅</th><th>狀態</th><th>分派時間</th><th>派工備註</th><th>更新時間</th><th style="text-align:center;">操作</th></tr></thead>
+                  <tbody>
+                    ${dispatchRows.length ? dispatchRows.map(t => `
+                      <tr>
+                        <td><button class="link-btn" data-dispatch-view="${t.id}">${t.id}</button></td>
+                        <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong><span class="muted">${escapeHtml(t.contact || '-')}</span></td>
+                        <td>${escapeHtml(t.area)}</td>
+                        <td>${escapeHtml(t.type)}</td>
+                        <td><span class="dispatch-desc" title="${escapeHtml(t.desc)}">${escapeHtml(t.desc)}</span></td>
+                        <td>${escapeHtml(t.master || '-')}</td>
+                        <td>${statusBadge(t.status)}</td>
+                        <td>${escapeHtml(t.assignedAt || '-')}</td>
+                        <td><span class="dispatch-desc" title="${escapeHtml(t.assignNote || '')}">${escapeHtml(t.assignNote || '-')}</span></td>
+                        <td>${escapeHtml(t.updatedAt || t.createdAt || '-')}</td>
+                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : `<button class="ghost-btn" data-dispatch-view="${t.id}">查看</button>`}</div></td>
+                      </tr>`).join("") : '<tr><td colspan="11" class="muted" style="text-align:center;padding:40px;">暫無需要分派的 CALL</td></tr>'}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+          ${renderDispatchAssignModal()}
         </section>`;
+    }
+
+    function renderDispatchAssignModal() {
+      if (!state.dispatchModalOpen) return "";
+      const ticket = ticketById(state.selectedDispatchId);
+      if (!ticket || ticket.status !== "待分派") return "";
+      const sortedMasters = [...masters].sort((a, b) => {
+        const aAvailable = a.status === "可接單" ? 0 : 1;
+        const bAvailable = b.status === "可接單" ? 0 : 1;
+        const aMatch = a.area === ticket.area ? 0 : 1;
+        const bMatch = b.area === ticket.area ? 0 : 1;
+        return aAvailable - bAvailable || aMatch - bMatch || a.load - b.load;
+      });
+      if (!sortedMasters.some(m => m.name === state.selectedMaster && m.status === "可接單")) state.selectedMaster = getRecommendedDispatchMaster(ticket)?.name || "";
+      return `
+        <div class="dispatch-modal-overlay" data-dispatch-modal-close>
+          <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="分派 CALL">
+            <header class="dispatch-modal-head">
+              <div><h2>分派 CALL</h2><p>${ticket.id} · ${statusBadge(ticket.status)}</p></div>
+              <button class="ghost-btn" data-dispatch-modal-close>關閉</button>
+            </header>
+            <div class="dispatch-modal-body">
+              <div class="dispatch-ticket-summary">
+                <div><span>客戶</span><strong title="${escapeHtml(ticket.customer)}">${escapeHtml(ticket.customer)}</strong></div>
+                <div><span>聯繫人</span><strong>${escapeHtml(ticket.contact || '-')}</strong></div>
+                <div><span>聯繫電話</span><strong>${escapeHtml(ticket.phone || '-')}</strong></div>
+                <div><span>區域</span><strong>${escapeHtml(ticket.area)}</strong></div>
+                <div><span>CALL類型</span><strong>${escapeHtml(ticket.type)}</strong></div>
+                <div><span>建立時間</span><strong>${escapeHtml(ticket.createdAt || '-')}</strong></div>
+                <div class="wide"><span>CALL內容</span><strong title="${escapeHtml(ticket.desc)}">${escapeHtml(ticket.desc)}</strong></div>
+              </div>
+              <div class="card-head"><div><h3>選擇師傅</h3><p>優先顯示同區及負載較低的師傅。</p></div></div>
+              <div class="dispatch-master-options">
+                ${sortedMasters.map(m => `<button class="dispatch-master-option ${state.selectedMaster === m.name ? 'active' : ''}" data-dispatch-master="${m.name}" ${m.status !== "可接單" ? 'disabled title="目前忙碌，暫不可分派"' : ''}>
+                  <span class="dispatch-master-avatar">${m.name.slice(0, 1)}</span>
+                  <span><strong class="dispatch-master-name">${m.name}</strong><span class="dispatch-master-meta">${m.area} · 今日負載 ${m.load} · ${m.skills}</span></span>
+                  <span class="tag">${m.status !== "可接單" ? '忙碌' : m.area === ticket.area ? '區域匹配' : m.tag}</span>
+                </button>`).join("")}
+              </div>
+              <div class="field" style="margin-top:18px;"><label>派工備註</label><textarea id="dispatchAssignNote" placeholder="填寫派工說明或現場注意事項"></textarea></div>
+            </div>
+            <footer class="dispatch-modal-footer"><button class="ghost-btn" data-dispatch-modal-close>取消</button><button class="primary-btn" data-dispatch-confirm>確認分派</button></footer>
+          </section>
+        </div>`;
     }
 
     function renderReport() {
@@ -7153,8 +7548,108 @@
         return renderServerConfig();
       } else if (state.settingsTab === "excelImport") {
         return renderExcelImport();
+      } else if (state.settingsTab === "components") {
+        return renderComponentLibrary();
       }
       return renderDictionary(); // 默認顯示字典管理
+    }
+
+    function renderComponentLibrary() {
+      return `
+        <section class="page active">
+          <div class="card component-library">
+            <div class="card-head">
+              <div>
+                <h2>組件庫</h2>
+                <p>系統前端統一使用的基礎組件與資料表規格。後續模組新增頁面時，請以 CALL 管理的篩選、操作及清單結構為準。</p>
+              </div>
+              <span class="chip">v1.0</span>
+            </div>
+
+            <section class="component-section">
+              <h3>按鈕</h3>
+              <p>主要操作使用藍色主按鈕；次要操作使用淺色按鈕；危險操作只在確認流程中使用。</p>
+              <div class="component-row">
+                <button class="primary-btn" type="button">+ 新建CALL</button>
+                <button class="secondary-btn" type="button">重置</button>
+                <button class="ghost-btn" type="button">取消</button>
+                <button class="danger-btn" type="button">刪除</button>
+                <button class="link-btn" type="button">查看詳情</button>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <h3>狀態與資訊卡</h3>
+              <p>流程狀態以固定顏色呈現；資訊卡只承載一個明確指標或一組同類資料，避免混用不同層級的文字。</p>
+              <div class="component-status-grid">
+                ${["待分派", "待確認", "待處理", "處理中", "已完成", "已取消"].map(statusBadge).join("")}
+              </div>
+              <div class="component-card-grid" style="margin-top:14px;">
+                <div class="component-card-preview"><span>待分派</span><strong>4</strong><span>點擊列表篩選查看</span></div>
+                <div class="component-card-preview"><span>今日待辦</span><strong>8</strong><span>需要優先處理的 CALL</span></div>
+                <div class="component-card-preview"><span>最近更新</span><strong>06-15 11:35</strong><span>WO-20260615-005</span></div>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <h3>篩選與操作列</h3>
+              <p>清單頁的篩選欄位靠左排列，常用操作固定靠右，欄位標籤位於控制項上方。</p>
+              <div class="component-filter-grid">
+                <div class="wo-filter-group"><label>狀態</label><select><option>全部</option><option>待分派</option></select></div>
+                <div class="wo-filter-group"><label>CALL類型</label><select><option>全部</option><option>保養維修</option></select></div>
+                <div class="wo-filter-group"><label>區域</label><select><option>全部</option><option>九龍</option></select></div>
+                <div class="wo-filter-group"><label>關鍵詞搜索</label><input placeholder="CALL編號、客戶、聯繫人"></div>
+              </div>
+              <div class="component-actions">
+                <button class="secondary-btn" type="button">重置</button>
+                <button class="primary-btn" type="button">+ 新建CALL</button>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <h3>表單欄位</h3>
+              <p>所有桌面端欄位使用 12px 標籤、34px 控制項、4px 標籤間距與一致的 focus ring。</p>
+              <div class="component-form-grid">
+                <div class="wo-filter-group"><label>客戶名稱</label><input value="港島商業中心"></div>
+                <div class="wo-filter-group"><label>服務區域</label><select><option>香港</option></select></div>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <div class="component-table-caption">
+                <div><h3>標準資料表</h3><p>所有業務清單使用同一套表頭、行高、狀態與操作欄規格。</p></div>
+                <span class="chip">CALL 管理標準</span>
+              </div>
+              <div class="data-table-wrap">
+                <table class="wo-table">
+                  <thead><tr><th>CALL編號</th><th>客戶</th><th>聯繫人</th><th>區域</th><th>CALL狀態</th><th>更新時間</th><th style="text-align:center;">操作</th></tr></thead>
+                  <tbody>
+                    <tr><td><button class="wo-id-link" type="button">WO-20260615-001</button></td><td><strong>港島商業中心</strong></td><td>陳先生</td><td>香港</td><td>${statusBadge("待分派")}</td><td>06-15 09:10</td><td style="text-align:center;"><button class="secondary-btn" type="button">查看詳情</button></td></tr>
+                    <tr><td><button class="wo-id-link" type="button">WO-20260615-002</button></td><td><strong>九龍屋苑管理處</strong></td><td>何小姐</td><td>九龍</td><td>${statusBadge("處理中")}</td><td>06-15 09:40</td><td style="text-align:center;"><button class="secondary-btn" type="button">查看詳情</button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <h3>彈窗與抽屜</h3>
+              <p>新建或編輯使用置中彈窗；查看詳情使用右側抽屜；不可逆操作使用確認彈窗。</p>
+              <div class="component-overlay-preview">
+                <div class="component-modal-preview"><strong>新增／編輯彈窗</strong>標題、表單內容與底部操作列保持固定順序。</div>
+                <div class="component-drawer-preview"><strong>詳情抽屜</strong>由右側滑出，不壓縮原清單。</div>
+              </div>
+            </section>
+
+            <section class="component-section">
+              <h3>使用規則</h3>
+              <ul class="component-rule-list">
+                <li><strong>資料表</strong>表頭固定淺色底，資料行以 56px 為最小高度，支援橫向捲動。</li>
+                <li><strong>狀態</strong>一律使用圓角狀態標籤，顏色依流程狀態保持一致。</li>
+                <li><strong>長文字</strong>表格內容單行截斷並以 title 顯示完整文字，避免撐高列高。</li>
+              </ul>
+            </section>
+          </div>
+        </section>`;
     }
 
     // 渲染服務器空間配置頁面（#9：配置上傳 PDF/附件的服務器空間）
@@ -9145,7 +9640,7 @@
                   <div class="wo-customer-name">${escapeHtml(q.customerName)}</div>
                 </td>
                 <td>${q.category ? `<span class="tag">${q.category}</span>` : '<span style="color: var(--muted);">-</span>'}</td>
-                <td><span class="wo-status-tag qm-status-${q.status}">${q.status}</span></td>
+                <td>${statusBadge(q.status)}</td>
                 <td>${q.bidStatus ? `<span class="tag ${q.bidStatus === '已中標' ? 'success' : q.bidStatus === '未中標' || q.bidStatus === '不投標' ? 'danger' : ''}">${q.bidStatus}</span>` : '<span style="color: var(--muted);">-</span>'}</td>
                 <td>${escapeHtml(q.owner)}</td>
                 <td>${q.createdAt}</td>
@@ -9171,7 +9666,7 @@
           <div class="wo-drawer-header">
             <div class="wo-drawer-title">
               <h3>${quotation.id}</h3>
-              <span class="wo-status-tag qm-status-${quotation.status}">${quotation.status}</span>
+              ${statusBadge(quotation.status)}
             </div>
             <button class="wo-drawer-close" data-qm-close>×</button>
           </div>
@@ -9194,7 +9689,7 @@
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">報價狀態</span>
-                    <span class="wo-detail-value"><span class="wo-status-tag qm-status-${quotation.status}">${quotation.status}</span></span>
+                    <span class="wo-detail-value">${statusBadge(quotation.status)}</span>
                   </div>
                   ${quotation.isInviteTender ? `
                   <div class="wo-detail-item">
@@ -9949,7 +10444,7 @@
             <button class="um-modal-close" data-close-modal>×</button>
           </div>
           <form id="updateQuotationStatusForm" data-quotation-id="${quotationId}">
-            <div class="field"><label>當前狀態</label><span class="tag qm-status-${quotation.status}">${quotation.status}</span></div>
+            <div class="field"><label>當前狀態</label>${statusBadge(quotation.status)}</div>
             <div class="field"><label>目標狀態</label>
               <select name="newStatus" required>
                 <option value="">請選擇目標狀態</option>
@@ -11810,18 +12305,16 @@
 
       return `
         <div class="pc-container">
-          <div class="pc-header">
-            <h1>SR 文件夾</h1>
-            <div class="pc-header-actions">
-              <span style="color:var(--muted);font-size:13px;">共 ${totalSR} 份 服務報告</span>
-            </div>
-          </div>
-
           <div class="pc-grid">
             <div class="pc-card">
-              <h3>SR 總數</h3>
+              <h3>服務報告總數</h3>
               <div class="pc-metric">${totalSR}</div>
               <div class="pc-label">已建立的服務報告</div>
+            </div>
+            <div class="pc-card">
+              <h3>待處理</h3>
+              <div class="pc-metric">${pending}</div>
+              <div class="pc-label">等待師傅處理</div>
             </div>
             <div class="pc-card">
               <h3>處理中</h3>
@@ -11833,32 +12326,22 @@
               <div class="pc-metric">${completed}</div>
               <div class="pc-label">已完工的服務報告</div>
             </div>
-            <div class="pc-card">
-              <h3>待處理</h3>
-              <div class="pc-metric">${pending}</div>
-              <div class="pc-label">等待師傅處理</div>
-            </div>
           </div>
 
           <div class="pc-section">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-                <select data-sr-folder-area style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--card);">
+            <div class="sr-filter-bar">
+              <div class="sr-filter-controls">
+                <select data-sr-folder-area>
                   ${allAreas.map(a => `<option value="${escapeHtml(a)}" ${areaFilter === a ? 'selected' : ''}>${a === '全部' ? '全部區域' : escapeHtml(a)}</option>`).join("")}
                 </select>
-                <select data-sr-folder-status style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--card);">
+                <select data-sr-folder-status>
                   ${["全部", "待確認", "待處理", "處理中", "已完成", "已取消"].map(s => `<option value="${s}" ${statusFilter === s ? 'selected' : ''}>${s === '全部' ? '全部狀態' : s}</option>`).join("")}
                 </select>
               </div>
-              <input type="text" placeholder="搜索 SR 編號 / 工單號 / 客戶 / 系統 / 目的..." value="${escapeHtml(state.srFolderSearch || '')}" data-sr-folder-search style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;width:340px;">
+              <input class="sr-folder-search" type="text" placeholder="搜索 SR 編號 / 工單號 / 客戶 / 系統 / 目的..." value="${escapeHtml(state.srFolderSearch || '')}" data-sr-folder-search>
             </div>
 
             ${renderSrFolderList(filtered)}
-          </div>
-
-          <div class="pc-section" style="margin-top:16px;">
-            <h3 style="margin:0 0 12px;">📤 SR 發送記錄</h3>
-            ${renderSrSendLogs()}
           </div>
         </div>
       `;
@@ -11916,9 +12399,17 @@
         </div>`;
       }
       const statusColor = (s) => s === "已完成" ? "success" : s === "已取消" ? "danger" : s === "處理中" ? "warning" : "";
+      const cell = (value) => {
+        const text = String(value || '-');
+        return `<span class="sr-cell" title="${escapeHtml(text)}">${escapeHtml(text)}</span>`;
+      };
       return `
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table sr-folder-table">
+            <colgroup>
+              <col style="width:8%"><col style="width:12%"><col style="width:12%"><col style="width:6%"><col style="width:10%">
+              <col style="width:10%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:18%">
+            </colgroup>
             <thead>
               <tr>
                 <th>SR 編號</th>
@@ -11936,20 +12427,19 @@
             <tbody>
               ${filtered.map(t => `
                 <tr>
-                  <td><strong style="color:var(--primary);">SR-${escapeHtml(t.serviceReportNo)}</strong></td>
-                  <td><button class="link-btn" data-sr-folder-open-ticket="${t.id}">${escapeHtml(t.id)}</button></td>
-                  <td>${escapeHtml(t.customer)}</td>
-                  <td>${escapeHtml(t.srArea || t.area || '-')}</td>
-                  <td>${(t.srSystems && t.srSystems.length > 0) ? t.srSystems.map(s => `<span class="chip" style="margin:1px;">${escapeHtml(s)}</span>`).join('') : '<span style="color:var(--muted);">-</span>'}</td>
-                  <td>${(t.srObjectives && t.srObjectives.length > 0) ? t.srObjectives.map(s => `<span class="chip" style="margin:1px;">${escapeHtml(s)}</span>`).join('') : '<span style="color:var(--muted);">-</span>'}</td>
-                  <td>${escapeHtml(t.maintenanceType || '非保養')}</td>
+                  <td>${cell(`SR-${t.serviceReportNo}`)}</td>
+                  <td><button class="link-btn" title="${escapeHtml(t.id)}" data-sr-folder-open-ticket="${t.id}">${escapeHtml(t.id)}</button></td>
+                  <td>${cell(t.customer)}</td>
+                  <td>${cell(t.srArea || t.area || '-')}</td>
+                  <td>${cell((t.srSystems || []).join('、'))}</td>
+                  <td>${cell((t.srObjectives || []).join('、'))}</td>
+                  <td>${cell(t.maintenanceType || '非保養')}</td>
                   <td><span class="tag ${statusColor(t.status)}">${escapeHtml(t.status)}</span></td>
-                  <td>${escapeHtml(t.createdAt || '-')}</td>
+                  <td>${cell(t.createdAt || '-')}</td>
                   <td>
-                    <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                    <div class="sr-actions">
                       <button class="ghost-btn" data-sr-folder-open-ticket="${t.id}">查看工單</button>
                       <button class="secondary-btn" data-sr-folder-open-sr="${t.id}">查看 SR</button>
-                      <button class="ghost-btn" data-sr-send="${t.id}">📧 發送</button>
                     </div>
                   </td>
                 </tr>
@@ -13185,11 +13675,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (state.online === undefined) state.online = true; // 默認在線
       if (state.online) {
         toggle.textContent = "在線";
-        toggle.className = "status-pill status-處理中";
+        toggle.className = "status-badge tone-info";
         toggle.style.background = "";
       } else {
         toggle.textContent = "離線";
-        toggle.className = "status-pill status-待處理";
+        toggle.className = "status-badge tone-warning";
         toggle.style.background = "#fef3c7";
         toggle.style.color = "#92400e";
       }
@@ -13325,6 +13815,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         setPage(this.dataset.page);
       }));
       document.querySelectorAll("[data-page-target]").forEach(btn => btn.addEventListener("click", () => setPage(btn.dataset.pageTarget)));
+      document.querySelectorAll("[data-call-detail]").forEach(el => el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        state.callDetailTicketId = el.dataset.callDetail;
+        render();
+      }));
+      document.querySelectorAll("[data-call-detail-close]").forEach(el => el.addEventListener("click", (e) => {
+        if (e.target !== el && el.classList.contains("um-modal-overlay")) return;
+        state.callDetailTicketId = null;
+        render();
+      }));
       
       // 批量生成空白工單
       document.querySelectorAll("[data-wo-batch-create]").forEach(btn => btn.addEventListener("click", batchCreateWorkOrders));
@@ -13372,42 +13872,50 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.filters.viewMode = btn.dataset.viewMode;
         render();
       }));
-      document.querySelectorAll("[data-dispatch-ticket]").forEach(btn => btn.addEventListener("click", () => {
-        state.selectedDispatchId = btn.dataset.dispatchTicket;
+      document.querySelectorAll("[data-dispatch-open]").forEach(btn => btn.addEventListener("click", () => {
+        const ticket = ticketById(btn.dataset.dispatchOpen);
+        const recommendedMaster = getRecommendedDispatchMaster(ticket);
+        state.selectedDispatchId = btn.dataset.dispatchOpen;
+        state.selectedMaster = recommendedMaster?.name || "";
+        state.dispatchModalOpen = true;
         render();
       }));
-      document.querySelectorAll("[data-master]").forEach(btn => btn.addEventListener("click", () => {
-        state.selectedMaster = btn.dataset.master;
+      document.querySelectorAll("[data-dispatch-view]").forEach(btn => btn.addEventListener("click", () => {
+        state.selectedTicketId = btn.dataset.dispatchView;
+        workOrderState.selectedWorkOrderId = btn.dataset.dispatchView;
         render();
       }));
-      const confirmAssign = $("#confirmAssign");
-      if (confirmAssign) {
-        confirmAssign.addEventListener("click", () => {
-          const t = ticketById(state.selectedDispatchId);
-          const assignNote = document.querySelector("#assignNote")?.value || "";
-          updateTicket(t.id, { status: "待確認", owner: state.selectedMaster, master: state.selectedMaster }, `Team Leader 已分派給 ${state.selectedMaster}。${assignNote ? '備註：' + assignNote : ''}`);
-          state.selectedTicketId = t.id;
-          
-          // 創建通知給被分派的師傅
-          const masterUser = users.find(u => u.name === state.selectedMaster && u.role === "MASTER");
-          if (masterUser) {
-            createNotification({
-              module: "ticket",
-              level: "action",
-              title: "新工單待確認",
-              content: t.id,
-              subContent: t.customer,
-              targetPage: "workorder",
-              targetId: t.id,
-              receiverId: masterUser.id,
-              receiverRole: "MASTER"
-            });
-          }
-          
-          render();
-          toast("已分派，狀態變爲待確認，已通知師傅");
-        });
-      }
+      document.querySelectorAll("[data-dispatch-master]").forEach(btn => btn.addEventListener("click", () => {
+        state.selectedMaster = btn.dataset.dispatchMaster;
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-modal-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        state.dispatchModalOpen = false;
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-confirm]").forEach(btn => btn.addEventListener("click", () => {
+        const t = ticketById(state.selectedDispatchId);
+        if (!t || t.status !== "待分派" || !state.selectedMaster) return;
+        const assignNote = document.querySelector("#dispatchAssignNote")?.value.trim() || "";
+        const assignedAt = new Date().toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\//g, "-");
+        const previousMaster = t.master || "";
+        const assignment = { time: assignedAt, assignedBy: currentRole().name, master: state.selectedMaster, note: assignNote, previousMaster };
+        updateTicket(t.id, {
+          status: "待確認",
+          owner: state.selectedMaster,
+          master: state.selectedMaster,
+          assignedAt,
+          assignedBy: currentRole().name,
+          assignNote,
+          assignmentHistory: [...(t.assignmentHistory || []), assignment]
+        }, `Team Leader 已分派給 ${state.selectedMaster}。${assignNote ? '備註：' + assignNote : ''}`);
+        state.selectedTicketId = t.id;
+        state.dispatchModalOpen = false;
+        triggerNotification("ticket.assigned", { ticketId: t.id });
+        render();
+        toast("已分派，狀態變為待確認，已通知師傅");
+      }));
       document.querySelectorAll("[data-setting-tab]").forEach(btn => btn.addEventListener("click", () => {
         state.settingsTab = btn.dataset.settingTab;
         render();
@@ -13491,10 +13999,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       // CR 移動端：WhatsApp 發送 SR（打開發送對話框）
       document.querySelectorAll("[data-cr-send-wa]").forEach(btn => btn.addEventListener("click", () => {
         openSrSendModal(btn.dataset.crSendWa, 'whatsapp');
-      }));
-      // SR 文件夾：發送 SR（PC 端）
-      document.querySelectorAll("[data-sr-send]").forEach(btn => btn.addEventListener("click", () => {
-        openSrSendModal(btn.dataset.srSend, 'email');
       }));
       // ===== 移動端分派中心事件綁定 =====
       document.querySelectorAll("[data-md-ticket]").forEach(btn => btn.addEventListener("click", () => {

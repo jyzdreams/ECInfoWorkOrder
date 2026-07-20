@@ -16,6 +16,12 @@ Thumbs.db
 
 # Node
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm-cache/
+ui-prototype-v2-complete-flow/.npmrc
 
 # Tools cache
 .tools/
