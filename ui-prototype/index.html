@@ -468,6 +468,8 @@
       font-size: 13px;
     }
     .segmented button.active { background: var(--primary); color: #fff; }
+    .mobile-call-segmented { display: flex; width: 100%; gap: 3px; }
+    .mobile-call-segmented button { flex: 1; min-width: 0; padding: 0 3px; text-align: center; }
     .toolbar-btn, .primary-btn, .secondary-btn, .danger-btn, .ghost-btn {
       height: 34px;
       border-radius: 7px;
@@ -589,6 +591,15 @@
     .stat-card .stat-label { color: var(--muted); font-size: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .stat-card .stat-value { font-size: 24px; font-weight: 800; }
     .stat-card .stat-note { font-size: 11px; color: var(--muted); }
+    .dashboard-stat-card {
+      width: 100%;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .dashboard-stat-card:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .dashboard-stat-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .24); outline-offset: 2px; }
 
     .chip, .status-pill, .tag {
       display: inline-flex;
@@ -713,17 +724,50 @@
     }
 
     /* 分派中心：先看清單，再於彈窗完成派工 */
-    .dispatch-list-section { display: grid; gap: 16px; }
-    .dispatch-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .dispatch-list-section { display: grid; gap: 10px; }
+    .dispatch-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
     .dispatch-summary-card {
       border: 1px solid var(--line);
+      border-left: 3px solid var(--primary);
       border-radius: var(--surface-radius);
       background: var(--panel);
-      padding: 14px;
+      padding: 9px 12px;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
     }
-    .dispatch-summary-card span { display: block; color: var(--muted); font-size: 12px; }
-    .dispatch-summary-card strong { display: block; margin: 6px 0 4px; font-size: 24px; }
-    .dispatch-summary-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .dispatch-summary-card::after {
+      content: "查看明細 >";
+      display: block;
+      margin-top: 4px;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .dispatch-summary-card:nth-child(1) { border-left-color: #d97706; }
+    .dispatch-summary-card:nth-child(1)::after { color: #b45309; }
+    .dispatch-summary-card:nth-child(1):hover { background: #fffbeb; border-color: #f59e0b; }
+    .dispatch-summary-card:nth-child(2) { border-left-color: #2563eb; }
+    .dispatch-summary-card:nth-child(2)::after { color: #2563eb; }
+    .dispatch-summary-card:nth-child(2):hover { background: #eff6ff; border-color: #60a5fa; }
+    .dispatch-summary-card:nth-child(3) { border-left-color: #16a34a; }
+    .dispatch-summary-card:nth-child(3)::after { color: #15803d; }
+    .dispatch-summary-card:nth-child(3):hover { background: #f0fdf4; border-color: #4ade80; }
+    .dispatch-summary-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+    .dispatch-summary-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
+    .dispatch-summary-card span { display: block; color: var(--muted); font-size: 11px; }
+    .dispatch-summary-card strong { display: block; margin: 2px 0; font-size: 22px; }
+    .dispatch-summary-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .dispatch-list-section .pc-section { padding: 12px 14px; margin-bottom: 0; }
+    .dispatch-toolbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    .dispatch-toolbar h2 { margin: 0; white-space: nowrap; }
+    .dispatch-toolbar .dispatch-filters { flex: 1; margin: 0; gap: 8px; justify-content: flex-end; }
+    .dispatch-toolbar .wo-filter-group { min-width: 112px; gap: 3px; }
+    .dispatch-toolbar .wo-filter-group select { height: 32px; }
+    .dispatch-toolbar .wo-actions-top { margin-left: 0; }
+    .dispatch-toolbar .wo-actions-top button { height: 32px; padding: 0 12px; font-size: 12px; }
     .dispatch-table td { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
     .dispatch-table .dispatch-desc { display: block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 12px; }
@@ -811,6 +855,8 @@
     .dispatch-master-option .tag { justify-self: end; }
     @media (max-width: 760px) {
       .dispatch-summary, .dispatch-ticket-summary, .dispatch-master-options { grid-template-columns: 1fr; }
+      .dispatch-toolbar { align-items: stretch; flex-direction: column; gap: 8px; }
+      .dispatch-toolbar .dispatch-filters { justify-content: flex-start; }
     }
 
     /* ============ 新增報價：企業級 SaaS 卡片式佈局 ============ */
@@ -1267,6 +1313,7 @@
       padding: 28px 18px;
     }
     .phone {
+      position: relative;
       width: min(390px, 100%);
       height: 844px;
       max-height: calc(100vh - 92px);
@@ -1327,6 +1374,53 @@
     .mobile-card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
     .mobile-actions { display: flex; gap: 8px; }
     .mobile-actions button { flex: 1; }
+    .master-home { display: grid; gap: 12px; }
+    .master-home-hero { padding: 16px; border-radius: 10px; background: var(--primary); color: #fff; }
+    .master-home-hero span { display: block; font-size: 12px; opacity: .82; }
+    .master-home-hero h2 { margin: 4px 0; font-size: 22px; }
+    .master-home-hero p { margin: 0; font-size: 12px; opacity: .9; }
+    .master-home-hero button { margin-top: 12px; height: 30px; padding: 0 10px; border: 0; border-radius: 6px; background: #fff; color: var(--primary-strong); font-size: 12px; font-weight: 700; }
+    .master-home-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .master-home-stat { min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); text-align: left; }
+    .master-home-stat span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 11px; }
+    .master-home-stat strong { display: block; margin-top: 3px; font-size: 20px; }
+    .master-home-section { display: grid; gap: 8px; }
+    .master-home-section-head { display: flex; align-items: center; justify-content: space-between; }
+    .master-home-section-head h2 { margin: 0; font-size: 14px; }
+    .master-home-ticket { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); text-align: left; }
+    .master-home-ticket + .master-home-ticket { margin-top: 8px; }
+    .master-home-ticket strong, .master-home-ticket span { display: block; }
+    .master-home-ticket span { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .mobile-sheet-portal { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+    .mobile-process-overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; background: rgba(15, 23, 42, .42); pointer-events: auto; }
+    .mobile-process-sheet { width: 100%; max-height: 88%; display: flex; flex-direction: column; overflow: hidden; border-radius: 18px 18px 0 0; background: var(--panel); box-shadow: 0 -18px 36px rgba(15, 23, 42, .2); }
+    .mobile-process-sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 14px; border-bottom: 1px solid var(--line); }
+    .mobile-process-sheet-head h2 { margin: 0; font-size: 16px; }
+    .mobile-process-sheet-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .mobile-process-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 8px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+    .mobile-process-step { height: 32px; padding: 0 4px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font: inherit; font-size: 12px; font-weight: 700; }
+    .mobile-process-step.active { background: var(--primary); color: #fff; }
+    .mobile-process-step:disabled { cursor: not-allowed; opacity: .48; }
+    .mobile-process-sheet-body { display: grid; gap: 12px; overflow-y: auto; padding: 14px; background: var(--bg); }
+    .mobile-process-block { padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+    .mobile-process-block h3 { margin: 0 0 8px; font-size: 13px; }
+    .mobile-process-block p { margin: 0; color: var(--muted); font-size: 12px; }
+    .mobile-process-time { margin-top: 8px !important; color: var(--success) !important; font-weight: 700; }
+    .mobile-process-upload { display: inline-flex; align-items: center; justify-content: center; height: 32px; margin-top: 10px; padding: 0 10px; border: 1px dashed var(--primary); border-radius: 6px; background: var(--primary-soft); color: var(--primary-strong); font-size: 12px; font-weight: 700; }
+    .mobile-process-upload { cursor: pointer; }
+    .mobile-process-upload input { display: none; }
+    .mobile-process-demo { height: 32px; margin: 10px 0 0 6px; padding: 0 8px; border: 0; background: transparent; color: var(--muted); font-size: 12px; text-decoration: underline; }
+    .mobile-process-required { color: var(--danger); }
+    .mobile-process-photos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
+    .mobile-process-photo { aspect-ratio: 1; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-soft); }
+    .mobile-process-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .mobile-process-textarea { width: 100%; min-height: 76px; box-sizing: border-box; padding: 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; font-size: 13px; resize: vertical; }
+    .mobile-process-sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); background: var(--panel); }
+    .mobile-process-save-hint { color: var(--success); font-size: 11px; }
+    .mobile-process-required-hint { color: var(--warning); font-size: 11px; }
+    .mobile-process-foot-actions { display: flex; gap: 8px; align-items: center; }
+    .mobile-process-foot-actions .primary-btn,
+    .mobile-process-foot-actions .secondary-btn { padding: 7px 10px; font-size: 12px; white-space: nowrap; }
     .fixed-mobile-actions {
       position: sticky;
       bottom: 0;
@@ -1351,6 +1445,7 @@
       display: flex; flex-direction: column; gap: 6px; min-height: 110px; max-height: 130px; overflow: hidden;
     }
     .md-ticket-card.selected { border-color: var(--primary); background: var(--primary-soft); }
+    .md-ticket-card.readonly { cursor: default; opacity: .72; }
     .md-ticket-head { display: flex; align-items: center; justify-content: space-between; }
     .md-ticket-head strong { font-size: 14px; color: var(--sidebar); }
     .md-ticket-info { font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -3379,6 +3474,24 @@
       padding: 0 7px;
       font-size: 12px;
     }
+    .sr-folder-metrics { gap: 8px; margin-bottom: 12px; }
+    .sr-folder-metrics .pc-card {
+      min-height: 82px;
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+    .sr-folder-metrics .pc-card h3 { margin-bottom: 2px; font-size: 12px; }
+    .sr-folder-metrics .pc-card .pc-metric { font-size: 22px; }
+    .sr-folder-metrics .pc-card .pc-label { margin-top: 2px; font-size: 11px; }
+    .sr-folder-metrics .pc-card::after { content: "查看明細 >"; display: block; margin-top: 4px; color: var(--primary); font-size: 11px; font-weight: 600; }
+    .sr-folder-metrics .pc-card:nth-child(2)::after { color: #b45309; }
+    .sr-folder-metrics .pc-card:nth-child(3)::after { color: #15803d; }
+    .sr-folder-metrics .pc-card:nth-child(4)::after { color: #7e22ce; }
+    .sr-folder-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
+    .sr-folder-metrics + .pc-section { padding: 14px; }
 
     /* 採購 Tab */
     .proc-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 2px solid var(--border); }
@@ -3605,6 +3718,7 @@
         <div class="phone">
           <div class="phone-body" id="mobileBody"></div>
           <div class="phone-tabs" id="mobileTabs"></div>
+          <div class="mobile-sheet-portal" id="mobileSheetPortal"></div>
         </div>
       </section>
     </main>
@@ -4011,11 +4125,11 @@
       { key: "settings", label: "基礎設置", icon: "⚙️", sub: "字典管理、客戶管理、用戶管理" }
     ];
     const MOBILE_PAGES = [
-      { key: "tasks", label: "任務", title: "我的任務" },
+      { key: "masterHome", label: "首頁", title: "師傅首頁" },
+      { key: "tasks", label: "CALL", title: "CALL" },
       { key: "mobileDetail", label: "工單", title: "工單詳情" },
       { key: "workRecord", label: "處理", title: "處理記錄" },
       { key: "cr", label: "CR", title: "客戶報告" },
-      { key: "history", label: "歷史", title: "歷史工單" },
       { key: "dispatch", label: "分派", title: "分派中心" }
     ];
     const masters = [
@@ -5298,10 +5412,16 @@
       view: "pc",
       page: "dashboard",
       mobilePage: "tasks",
+      mobileTaskStatus: "",
+      mobileProcessTicketId: null,
+      mobileProcessStep: "checkin",
+      mobileDetailTicketId: null,
       selectedTicketId: "WO-20260615-001",
       selectedDispatchId: "WO-20260615-002",
       selectedMaster: "梁師傅",
       dispatchModalOpen: false,
+      dispatchMetricModal: null,
+      dispatchFilters: { status: "全部", area: "全部", customer: "全部", type: "全部" },
       dispatchMasterKeyword: "", // 分派彈窗：師傅搜索關鍵詞
       dispatchMasterStatusFilter: "全部", // 分派彈窗：師傅狀態篩選
       dispatchPaperType: "", // 分派彈窗：領取單據類型（完工單/服務報告，互斥選擇）
@@ -5315,9 +5435,11 @@
       tenderSearch: "",
       selectedTenderId: null,
       callDetailTicketId: null,
+      dashboardMetricModal: null,
       srFolderSearch: "",
       srFolderArea: "全部",
       srFolderStatus: "全部",
+      srFolderMetricModal: null,
       crSearch: "",
       crSelectedTicketId: null,
       filters: { status: "全部", type: "全部", area: "全部", owner: "全部", tl: "全部", customer: "全部", master: "全部", jNumber: "", keyword: "" },
@@ -5334,7 +5456,13 @@
       srSubmitted: false,
       srSubmittedTicketId: null,
       srSubmitCountdown: 5,
-      srSubmitCountdownTimer: null
+      srSubmitCountdownTimer: null,
+      mdSelectedTicketId: null,
+      mdSelectedMaster: null,
+      mdRemark: "",
+      mdDispatchSheetOpen: false,
+      mdMasterKeyword: "",
+      mdMasterStatus: "全部"
     };
 
     // Work Order Management State
@@ -5490,18 +5618,24 @@
     function setMobilePage(page) {
       state.mobilePage = page;
       state.view = "mobile";
+      state.mobileDetailTicketId = null;
+      state.mobileProcessTicketId = null;
       render();
     }
 
     function setRole(role) {
       state.role = role;
-      // 切換角色時，自動設置該角色下的第一個用戶爲當前人物
+      // 師傅原型優先選擇有在辦 CALL 的帳號，避免進入頁面即出現空資料。
       const roleUsers = getUsersByRole(role);
-      state.currentPerson = roleUsers.length > 0 ? roleUsers[0] : null;
+      const activeMaster = role === "MASTER"
+        ? roleUsers.find(user => tickets.some(t => t.master === user.name && ["待確認", "待處理", "處理中"].includes(t.status)))
+        : null;
+      state.currentPerson = activeMaster || (roleUsers.length > 0 ? roleUsers[0] : null);
       
       if (role === "MASTER") {
         state.view = "mobile";
-        state.mobilePage = "tasks";
+        state.mobilePage = "masterHome";
+        state.mobileTaskStatus = "";
         const own = tickets.find(t => t.master === currentRole().name && ["待確認", "待處理", "處理中"].includes(t.status));
         if (own) state.selectedTicketId = own.id;
       } else if (role === "TL") {
@@ -6094,6 +6228,12 @@
           return;
         }
 
+        const customerAbsent = document.getElementById("srCustomerAbsent")?.checked;
+        if (!customerAbsent && !(state.srSignature || t.signature)) {
+          alert("請完成客戶電子簽名，或勾選客戶負責人未能簽署");
+          return;
+        }
+
         // Validation: completion paper
         const hasCompletionPaper = t.quotationId && quotations.find(q => q.id === t.quotationId)?.procurementStatus === "已到貨";
         if (hasCompletionPaper && !t.completionPaperPhoto) {
@@ -6123,6 +6263,8 @@
           quotationNote: state.srNeedQuotation ? quotationNote : "",
           parts: state.srNeedQuotation ? state.srParts.map(p => ({ name: p.name, qty: parseInt(p.qty) || 1 })) : [],
           satisfaction: state.srSatisfaction,
+          signature: state.srSignature || t.signature || "",
+          customerAbsent: Boolean(customerAbsent),
           transportFee: parseFloat($('[data-sr-input="transportFee"]')?.value) || 0
         };
 
@@ -6484,15 +6626,13 @@
 
     function renderDashboard() {
       const counts = Object.fromEntries(STATUSES.map(s => [s, tickets.filter(t => t.status === s).length]));
-      const typeCounts = countBy("type");
-      const areaCounts = countBy("area");
       const todo = tickets.filter(t => ["待分派", "待確認", "待處理"].includes(t.status)).slice(0, 5);
       const focus = tickets.filter(t => t.urgent || t.rejectReason || t.tags.includes("無法完成示例")).slice(0, 4);
       return `
         <section class="page active">
           <div class="grid cols-8">
-            <div class="card stat-card"><div class="stat-label">CALL總數<span class="chip">全部</span></div><div class="stat-value">${tickets.length}</div><div class="stat-note">點擊列表篩選查看</div></div>
-            ${STATUSES.map(s => `<div class="card stat-card"><div class="stat-label">${s}<span class="${statusClass(s)}">${s}</span></div><div class="stat-value">${counts[s] || 0}</div><div class="stat-note">點擊列表篩選查看</div></div>`).join("")}
+            <button type="button" class="card stat-card dashboard-stat-card" data-dashboard-metric="全部" aria-label="查看全部 CALL"><div class="stat-label">CALL總數<span class="chip">全部</span></div><div class="stat-value">${tickets.length}</div><div class="stat-note">點擊列表篩選查看</div></button>
+            ${STATUSES.map(s => `<button type="button" class="card stat-card dashboard-stat-card" data-dashboard-metric="${s}" aria-label="查看${s} CALL"><div class="stat-label">${s}<span class="${statusClass(s)}">${s}</span></div><div class="stat-value">${counts[s] || 0}</div><div class="stat-note">點擊列表篩選查看</div></button>`).join("")}
           </div>
           <div class="grid cols-3" style="margin-top:14px;">
             <div class="card">
@@ -6510,20 +6650,24 @@
               </div>
             </div>
           </div>
-          <div class="grid cols-3" style="margin-top:14px;">
-            <div class="card"><h2>工單類型分佈</h2>${TYPES.map(type => barRow(type, typeCounts[type] || 0, tickets.length)).join("")}</div>
-            <div class="card"><h2>區域分佈</h2>${REGIONS.map(area => barRow(area, areaCounts[area] || 0, tickets.length)).join("")}</div>
-            <div class="card">
-              <h2>快捷操作</h2>
-              <p>用於演示從建單、查詢到分派的主流程入口。</p>
-              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-                <button class="primary-btn" data-new-ticket>新建工單</button>
-                <button class="secondary-btn" data-page-target="list">查看工單列表</button>
-              </div>
-            </div>
-          </div>
+          ${renderDashboardMetricModal()}
           ${state.callDetailTicketId ? renderCallDetailModal(ticketById(state.callDetailTicketId)) : ""}
         </section>`;
+    }
+
+    function renderDashboardMetricModal() {
+      if (!state.dashboardMetricModal) return "";
+      const status = state.dashboardMetricModal;
+      const rows = status === "全部" ? tickets : tickets.filter(t => t.status === status);
+      const title = status === "全部" ? "全部 CALL" : `${status} CALL`;
+      return `
+        <div class="dispatch-modal-overlay" data-dashboard-metric-close>
+          <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="${title}">
+            <header class="dispatch-modal-head"><h2>${title}</h2><button class="ghost-btn" data-dashboard-metric-close>關閉</button></header>
+            <div class="dispatch-modal-body"><div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>CALL編號</th><th>客戶</th><th>區域</th><th>CALL類型</th><th>狀態</th><th>目前負責人</th><th>更新時間</th></tr></thead><tbody>${rows.length ? rows.map(t => `<tr><td><button class="link-btn" type="button" data-dashboard-metric-open="${t.id}">${t.id}</button></td><td>${escapeHtml(t.customer)}</td><td>${escapeHtml(t.area)}</td><td>${escapeHtml(t.type)}</td><td>${statusBadge(t.status)}</td><td>${escapeHtml(t.master || t.owner || "-")}</td><td>${escapeHtml(t.updatedAt || t.createdAt || "-")}</td></tr>`).join("") : '<tr><td colspan="7" class="muted" style="text-align:center;padding:32px;">暫無對應 CALL</td></tr>'}</tbody></table></div></div>
+            <footer class="dispatch-modal-footer"><button class="secondary-btn" data-dashboard-metric-close>關閉</button></footer>
+          </section>
+        </div>`;
     }
 
     function renderCallDetailModal(ticket) {
@@ -7675,44 +7819,66 @@
         (!currentTLName || t.tl === currentTLName)
       ).sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
       const dispatchRows = [...pending, ...assigned];
+      const filter = state.dispatchFilters;
+      const uniqueValues = (key) => [...new Set(dispatchRows.map(t => t[key]).filter(Boolean))].sort();
+      const filterOptions = {
+        status: ["全部", ...uniqueValues("status")],
+        area: ["全部", ...uniqueValues("area")],
+        customer: ["全部", ...uniqueValues("customer")],
+        type: ["全部", ...uniqueValues("type")]
+      };
+      const filteredRows = dispatchRows.filter(t =>
+        (filter.status === "全部" || t.status === filter.status) &&
+        (filter.area === "全部" || t.area === filter.area) &&
+        (filter.customer === "全部" || t.customer === filter.customer) &&
+        (filter.type === "全部" || t.type === filter.type)
+      );
 
       return `
         <section class="page active">
           <div class="dispatch-list-section">
             <div class="dispatch-summary">
-              <div class="dispatch-summary-card"><span>待分派</span><strong>${pending.length}</strong><p>需要安排師傅的 CALL</p></div>
-              <div class="dispatch-summary-card"><span>已分派</span><strong>${assigned.length}</strong><p>等待接單或處理中的 CALL</p></div>
-              <div class="dispatch-summary-card"><span>可接單師傅</span><strong>${getMastersForDispatch().filter(m => m.status === "可接單").length}</strong><p>目前可安排的外勤人員</p></div>
+              <button class="dispatch-summary-card" data-dispatch-metric="pending"><span>待分派</span><strong>${pending.length}</strong><p>需要安排師傅的 CALL</p></button>
+              <button class="dispatch-summary-card" data-dispatch-metric="assigned"><span>已分派</span><strong>${assigned.length}</strong><p>等待接單或處理中的 CALL</p></button>
+              <button class="dispatch-summary-card" data-dispatch-metric="masters"><span>可接單師傅</span><strong>${getMastersForDispatch().filter(m => m.status === "可接單").length}</strong><p>目前可安排的外勤人員</p></button>
             </div>
             <div class="pc-section">
-              <div class="card-head">
-                <div><h2>分派明細</h2><p>待分派 CALL 可直接開啟分派彈窗；已分派 CALL 可查看目前安排與處理狀態。</p></div>
-                <span class="chip">${dispatchRows.length} 條</span>
+              <div class="dispatch-toolbar">
+                <h2>分派明細</h2>
+                <div class="wo-filters dispatch-filters">
+                  ${[
+                    ["status", "狀態"],
+                    ["area", "區域"],
+                    ["customer", "客戶"],
+                    ["type", "CALL類型"]
+                  ].map(([key, label]) => `<label class="wo-filter-group">${label}<select data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></label>`).join("")}
+                  <div class="wo-actions-top"><button class="secondary-btn" data-dispatch-filter-reset>重置</button></div>
+                </div>
               </div>
               <div class="pc-table-wrapper">
                 <table class="pc-table dispatch-table">
-                  <thead><tr><th>CALL編號</th><th>客戶／聯繫人</th><th>區域</th><th>CALL類型</th><th>內容摘要</th><th>目前師傅</th><th>狀態</th><th>分派時間</th><th>派工備註</th><th>更新時間</th><th style="text-align:center;">操作</th></tr></thead>
+                  <thead><tr><th>CALL編號</th><th>客戶</th><th>區域</th><th>CALL類型</th><th>內容摘要</th><th>目前師傅</th><th>狀態</th><th>分派時間</th><th>更新時間</th><th style="text-align:center;">操作</th></tr></thead>
                   <tbody>
-                    ${dispatchRows.length ? dispatchRows.map(t => `
+                    ${filteredRows.length ? filteredRows.map(t => `
                       <tr>
                         <td><button class="link-btn" data-dispatch-view="${t.id}">${t.id}</button></td>
-                        <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong><span class="muted">${escapeHtml(t.contact || '-')}</span></td>
+                        <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong></td>
                         <td>${escapeHtml(t.area)}</td>
                         <td>${escapeHtml(t.type)}</td>
                         <td><span class="dispatch-desc" title="${escapeHtml(t.desc)}">${escapeHtml(t.desc)}</span></td>
                         <td>${escapeHtml(t.master || '-')}</td>
                         <td>${statusBadge(t.status)}</td>
                         <td>${escapeHtml(t.assignedAt || '-')}</td>
-                        <td><span class="dispatch-desc" title="${escapeHtml(t.assignNote || '')}">${escapeHtml(t.assignNote || '-')}</span></td>
                         <td>${escapeHtml(t.updatedAt || t.createdAt || '-')}</td>
-                        <td><div class="dispatch-actions"><button class="ghost-btn" data-dispatch-view="${t.id}">查看</button>${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : ''}</div></td>
-                      </tr>`).join("") : '<tr><td colspan="11" class="muted" style="text-align:center;padding:40px;">暫無需要分派的 CALL</td></tr>'}
+                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : ''}<button class="ghost-btn" data-dispatch-view="${t.id}">查看</button></div></td>
+                      </tr>`).join("") : '<tr><td colspan="10" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的 CALL</td></tr>'}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           ${renderDispatchAssignModal()}
+          ${renderDispatchMetricModal(pending, assigned)}
         </section>`;
     }
 
@@ -7785,6 +7951,28 @@
               <div class="field" style="margin-top:18px;"><label>派工備註</label><textarea id="dispatchAssignNote" placeholder="填寫派工說明或現場注意事項"></textarea></div>
             </div>
             <footer class="dispatch-modal-footer"><button class="ghost-btn" data-dispatch-modal-close>取消</button><button class="primary-btn" data-dispatch-confirm>確認分派</button></footer>
+          </section>
+        </div>`;
+    }
+
+    function renderDispatchMetricModal(pending, assigned) {
+      if (!state.dispatchMetricModal) return "";
+      const views = {
+        pending: { title: "待分派明細", rows: pending, type: "calls" },
+        assigned: { title: "已分派明細", rows: assigned, type: "calls" },
+        masters: { title: "可接單師傅", rows: getMastersForDispatch().filter(m => m.status === "可接單"), type: "masters" }
+      };
+      const view = views[state.dispatchMetricModal];
+      if (!view) return "";
+      const table = view.type === "calls"
+        ? `<table class="pc-table"><thead><tr><th>CALL編號</th><th>客戶</th><th>區域</th><th>狀態</th><th>目前師傅</th><th>更新時間</th></tr></thead><tbody>${view.rows.length ? view.rows.map(t => `<tr><td><button class="link-btn" data-dispatch-view="${t.id}">${t.id}</button></td><td>${escapeHtml(t.customer)}</td><td>${escapeHtml(t.area)}</td><td>${statusBadge(t.status)}</td><td>${escapeHtml(t.master || "-")}</td><td>${escapeHtml(t.updatedAt || t.createdAt || "-")}</td></tr>`).join("") : '<tr><td colspan="6" class="muted" style="text-align:center;padding:32px;">暫無資料</td></tr>'}</tbody></table>`
+        : `<table class="pc-table"><thead><tr><th>師傅</th><th>區域</th><th>技能</th><th>今日負載</th><th>狀態</th></tr></thead><tbody>${view.rows.length ? view.rows.map(m => `<tr><td>${escapeHtml(m.name)}</td><td>${escapeHtml(m.area)}</td><td>${escapeHtml(m.skills)}</td><td>${m.load}</td><td><span class="tag">${escapeHtml(m.status)}</span></td></tr>`).join("") : '<tr><td colspan="5" class="muted" style="text-align:center;padding:32px;">暫無資料</td></tr>'}</tbody></table>`;
+      return `
+        <div class="dispatch-modal-overlay" data-dispatch-metric-close>
+          <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="${view.title}">
+            <header class="dispatch-modal-head"><h2>${view.title}</h2><button class="ghost-btn" data-dispatch-metric-close>關閉</button></header>
+            <div class="dispatch-modal-body"><div class="pc-table-wrapper">${table}</div></div>
+            <footer class="dispatch-modal-footer"><button class="secondary-btn" data-dispatch-metric-close>關閉</button></footer>
           </section>
         </div>`;
     }
@@ -14102,27 +14290,27 @@
 
       return `
         <div class="pc-container">
-          <div class="pc-grid">
-            <div class="pc-card">
+          <div class="pc-grid sr-folder-metrics">
+            <button class="pc-card" data-sr-folder-metric="total">
               <h3>服務報告總數</h3>
               <div class="pc-metric">${totalSR}</div>
               <div class="pc-label">已建立的服務報告</div>
-            </div>
-            <div class="pc-card">
+            </button>
+            <button class="pc-card" data-sr-folder-metric="pending">
               <h3>待處理</h3>
               <div class="pc-metric">${pending}</div>
               <div class="pc-label">等待師傅處理</div>
-            </div>
-            <div class="pc-card">
+            </button>
+            <button class="pc-card" data-sr-folder-metric="processing">
               <h3>處理中</h3>
               <div class="pc-metric">${inProgress}</div>
               <div class="pc-label">師傅處理中的工單</div>
-            </div>
-            <div class="pc-card">
+            </button>
+            <button class="pc-card" data-sr-folder-metric="completed">
               <h3>已完成</h3>
               <div class="pc-metric">${completed}</div>
               <div class="pc-label">已完工的服務報告</div>
-            </div>
+            </button>
           </div>
 
           <div class="pc-section">
@@ -14140,8 +14328,36 @@
 
             ${renderSrFolderList(filtered)}
           </div>
+          ${renderSrFolderMetricModal(srTickets)}
         </div>
       `;
+    }
+
+    function renderSrFolderMetricModal(srTickets) {
+      if (!state.srFolderMetricModal) return "";
+      const views = {
+        total: { title: "全部服務報告", rows: srTickets },
+        pending: { title: "待處理服務報告", rows: srTickets.filter(t => t.status === "待處理") },
+        processing: { title: "處理中服務報告", rows: srTickets.filter(t => t.status === "處理中") },
+        completed: { title: "已完成服務報告", rows: srTickets.filter(t => t.status === "已完成") }
+      };
+      const view = views[state.srFolderMetricModal];
+      if (!view) return "";
+      return `
+        <div class="dispatch-modal-overlay" data-sr-folder-metric-close>
+          <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="${view.title}">
+            <header class="dispatch-modal-head"><h2>${view.title}</h2><button class="ghost-btn" data-sr-folder-metric-close>關閉</button></header>
+            <div class="dispatch-modal-body">
+              <div class="pc-table-wrapper">
+                <table class="pc-table">
+                  <thead><tr><th>SR 編號</th><th>CALL編號</th><th>客戶</th><th>區域</th><th>狀態</th><th>建立時間</th></tr></thead>
+                  <tbody>${view.rows.length ? view.rows.map(t => `<tr><td>SR-${escapeHtml(t.serviceReportNo)}</td><td><button class="link-btn" data-sr-folder-open-ticket="${t.id}">${escapeHtml(t.id)}</button></td><td>${escapeHtml(t.customer)}</td><td>${escapeHtml(t.srArea || t.area || "-")}</td><td>${statusBadge(t.status)}</td><td>${escapeHtml(t.createdAt || "-")}</td></tr>`).join("") : '<tr><td colspan="6" class="muted" style="text-align:center;padding:32px;">暫無資料</td></tr>'}</tbody>
+                </table>
+              </div>
+            </div>
+            <footer class="dispatch-modal-footer"><button class="secondary-btn" data-sr-folder-metric-close>關閉</button></footer>
+          </section>
+        </div>`;
     }
 
     // 渲染 SR 發送記錄表格
@@ -14236,7 +14452,7 @@
                   <td>
                     <div class="sr-actions">
                       <button class="ghost-btn" data-sr-folder-open-ticket="${t.id}">查看工單</button>
-                      <button class="secondary-btn" data-sr-folder-open-sr="${t.id}">查看 SR</button>
+                      <button class="secondary-btn" data-sr-folder-open-sr="${t.id}">查看報告</button>
                     </div>
                   </td>
                 </tr>
@@ -14575,10 +14791,151 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       return includeHistory ? list.filter(t => ["已完成", "已取消"].includes(t.status)) : list.filter(t => ["待確認", "待處理", "處理中"].includes(t.status));
     }
 
-    function renderMobileTasks() {
-      const list = masterTickets(false);
+    function masterTaskTickets() {
+      const taskStatuses = ["待確認", "待處理", "處理中", "已完成"];
+      const roleName = currentRole().name;
+      return tickets.filter(t => (t.master === roleName || t.owner === roleName) && taskStatuses.includes(t.status));
+    }
+
+    function mobileProcessTime() {
+      return new Date().toLocaleString("zh-HK", {
+        year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false
+      }).replace(/\//g, "-");
+    }
+
+    function renderMobileProcessSheet() {
+      const ticketId = state.mobileProcessTicketId;
+      if (!ticketId) return "";
+      const t = ticketById(ticketId);
+      if (!t || !["待處理", "處理中"].includes(t.status)) return "";
+      const beforePhotos = t.beforeServicePhotos || [];
+      const afterPhotos = t.afterServicePhotos || [];
+      const isProcessing = t.status === "處理中";
+      const canStartProcessing = Boolean(t.serviceCheckInAt && beforePhotos.length);
+      const activeStep = isProcessing ? state.mobileProcessStep || "service" : "checkin";
+      const photoGrid = (photos) => photos.length
+        ? `<div class="mobile-process-photos">${photos.map(photo => `<div class="mobile-process-photo">${String(photo).startsWith("data:image") ? `<img src="${photo}" alt="服務照片">` : escapeHtml(photo)}</div>`).join("")}</div>`
+        : "";
+      const checkinContent = `
+        <section class="mobile-process-block">
+          <h3>1. 現場打卡 <span class="mobile-process-required">*</span></h3>
+          <p>${t.serviceCheckInAt ? "已完成現場打卡" : "到場後請先完成打卡，系統會自動記錄時間。"}</p>
+          ${t.serviceCheckInAt ? `<p class="mobile-process-time">打卡時間：${escapeHtml(t.serviceCheckInAt)}</p>` : `<button class="primary-btn" style="margin-top:10px;" data-mobile-process-checkin>點擊打卡</button>`}
+        </section>
+        <section class="mobile-process-block">
+          <h3>2. Before Service 照片 <span class="mobile-process-required">*</span></h3>
+          <p>上傳開始處理前的現場照片，提交開始處理前至少需要一張。</p>
+          <label class="mobile-process-upload">上傳 Before Service<input type="file" accept="image/*" multiple data-mobile-process-file="before"></label><button class="mobile-process-demo" data-mobile-process-demo-photo="before">加入示例照片</button>
+          ${photoGrid(beforePhotos)}
+        </section>`;
+      const serviceContent = `
+        <section class="mobile-process-block">
+          <h3>3. 處理記錄</h3>
+          <textarea class="mobile-process-textarea" placeholder="填寫本次現場處理內容，內容會即時保存" data-mobile-process-field="processNote">${escapeHtml(t.processNote || "")}</textarea>
+        </section>
+        <section class="mobile-process-block">
+          <h3>4. After Service 照片</h3>
+          <p>完成處理後上傳結果照片，照片會即時保存。</p>
+          <label class="mobile-process-upload">上傳 After Service<input type="file" accept="image/*" multiple data-mobile-process-file="after"></label><button class="mobile-process-demo" data-mobile-process-demo-photo="after">加入示例照片</button>
+          ${photoGrid(afterPhotos)}
+        </section>`;
+      const stepContent = activeStep === "report" ? renderWorkRecord() : activeStep === "service" ? serviceContent : checkinContent;
+      const footer = !isProcessing
+        ? `<span class="mobile-process-required-hint">${canStartProcessing ? "已完成必填項" : "請完成打卡及 Before Service 照片"}</span><button class="primary-btn" data-mobile-process-submit ${canStartProcessing ? "" : "disabled"}>提交並開始處理</button>`
+        : activeStep === "report"
+          ? '<span class="mobile-process-save-hint">提交報告後會完成 CALL</span><button class="secondary-btn" data-mobile-process-step="service">返回服務中</button>'
+          : activeStep === "service"
+            ? '<span class="mobile-process-save-hint">已即時保存</span><button class="primary-btn" data-mobile-process-step="report">下一步：服務報告</button>'
+            : '<span class="mobile-process-save-hint">已完成簽到資料</span><button class="primary-btn" data-mobile-process-step="service">下一步：服務中</button>';
       return `
-        <div class="segmented" style="width:100%; margin-bottom:10px;"><button class="active">待確認</button><button>待處理</button><button>處理中</button><button>已完成</button></div>
+        <div class="mobile-process-overlay" data-mobile-process-close>
+          <section class="mobile-process-sheet" role="dialog" aria-modal="true" aria-label="現場處理">
+            <header class="mobile-process-sheet-head">
+              <div><h2>${isProcessing ? "處理 CALL" : "開始處理"}</h2><p>${escapeHtml(t.id)} · ${escapeHtml(t.customer)}</p></div>
+              <button class="ghost-btn" data-mobile-process-close>關閉</button>
+            </header>
+            <nav class="mobile-process-steps" aria-label="服務處理步驟">
+              ${[["checkin", "簽到"], ["service", "服務中"], ["report", "服務報告"]].map(([key, label]) => `<button class="mobile-process-step ${activeStep === key ? "active" : ""}" data-mobile-process-step="${key}" ${!isProcessing && key !== "checkin" ? "disabled" : ""}>${label}</button>`).join("")}
+            </nav>
+            <div class="mobile-process-sheet-body" data-mobile-process-body="${activeStep}">
+              ${stepContent}
+            </div>
+            <footer class="mobile-process-sheet-foot">
+              ${footer}
+            </footer>
+          </section>
+        </div>`;
+    }
+
+    function saveMobileProcessPhotos(type, files) {
+      const t = ticketById(state.mobileProcessTicketId);
+      if (!t) return;
+      const key = type === "after" ? "afterServicePhotos" : "beforeServicePhotos";
+      const selectedFiles = Array.from(files || []);
+      if (!selectedFiles.length) return;
+      const photos = [...(t[key] || [])];
+      let remaining = selectedFiles.length;
+      selectedFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (loadEvent) => {
+          photos.push(loadEvent.target.result);
+          remaining -= 1;
+          if (remaining === 0) {
+            updateTicket(t.id, { [key]: photos });
+            render();
+            toast("照片已即時保存", "success");
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function addMobileProcessDemoPhoto(type) {
+      const t = ticketById(state.mobileProcessTicketId);
+      if (!t) return;
+      const key = type === "after" ? "afterServicePhotos" : "beforeServicePhotos";
+      const label = type === "after" ? "After Service" : "Before Service";
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240"><rect width="100%" height="100%" fill="#dbeafe"/><text x="50%" y="46%" text-anchor="middle" font-family="Arial" font-size="20" fill="#1d4ed8">${label}</text><text x="50%" y="60%" text-anchor="middle" font-family="Arial" font-size="14" fill="#475569">${mobileProcessTime()}</text></svg>`;
+      const photo = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+      updateTicket(t.id, { [key]: [...(t[key] || []), photo] });
+      render();
+      toast("示例照片已即時保存", "success");
+    }
+
+    function renderMasterHome() {
+      const ownTickets = masterTaskTickets();
+      const counts = Object.fromEntries(["待確認", "待處理", "處理中"].map(status => [status, ownTickets.filter(t => t.status === status).length]));
+      const priorityTickets = [...ownTickets]
+        .filter(t => t.status !== "已完成")
+        .sort((a, b) => Number(b.urgent) - Number(a.urgent) || (b.updatedAt || "").localeCompare(a.updatedAt || ""))
+        .slice(0, 3);
+      return `
+        <div class="master-home">
+          <section class="master-home-hero">
+            <span>${escapeHtml(currentRole().name)} · ${escapeHtml(currentRole().dept || "外勤")}</span>
+            <h2>今日工作</h2>
+            <p>目前有 ${ownTickets.filter(t => t.status !== "已完成").length} 項 CALL 需要跟進</p>
+            <button data-master-home-calls>查看全部 CALL</button>
+          </section>
+          <div class="master-home-stats">
+            ${["待確認", "待處理", "處理中"].map(status => `<button class="master-home-stat" data-master-home-status="${status}"><span>${status}</span><strong>${counts[status]}</strong></button>`).join("")}
+          </div>
+          <section class="master-home-section">
+            <div class="master-home-section-head"><h2>優先處理</h2><button class="link-btn" data-master-home-calls>全部 CALL</button></div>
+            ${priorityTickets.length ? priorityTickets.map(t => `<button class="master-home-ticket" data-mobile-open="${t.id}"><strong>${escapeHtml(t.id)} · ${escapeHtml(t.customer)}</strong><span>${escapeHtml(t.type)} · ${escapeHtml(t.area)} · ${escapeHtml(t.status)}</span></button>`).join("") : '<div class="mobile-card">今日暫無需要處理的 CALL</div>'}
+          </section>
+        </div>`;
+    }
+
+    function renderMobileTasks() {
+      const taskStatuses = ["待確認", "待處理", "處理中", "已完成"];
+      const ownTickets = masterTaskTickets();
+      const initialStatus = taskStatuses.find(status => ownTickets.some(t => t.status === status)) || "待確認";
+      const selectedStatus = state.mobileTaskStatus || initialStatus;
+      if (!state.mobileTaskStatus) state.mobileTaskStatus = selectedStatus;
+      const list = ownTickets.filter(t => t.status === selectedStatus);
+      return `
+        <div class="segmented mobile-call-segmented" style="margin-bottom:10px;">${taskStatuses.map(status => `<button class="${selectedStatus === status ? "active" : ""}" data-mobile-task-status="${status}">${status}</button>`).join("")}</div>
         ${list.map(t => `<div class="mobile-card">
           <div class="mobile-card-head"><button class="link-btn" data-mobile-open="${t.id}">${t.id}</button>${t.urgent ? '<span class="tag urgent">緊急</span>' : ''}<span class="${statusClass(t.status)}">${t.status}</span></div>
           <strong>${t.type}</strong>
@@ -14587,16 +14944,17 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <div style="margin-top:6px;"><strong>聯繫人：</strong>${escapeHtml(t.contact)} <strong>電話：</strong>${escapeHtml(t.phone)}</div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;"><span class="chip">${t.channel}</span></div>
           <div class="mobile-actions">
-            ${t.status === "待確認" ? `<button class="primary-btn" data-action="take" data-id="${t.id}">收到</button>` : `<button class="secondary-btn" data-mobile-open="${t.id}">已完成</button>`}
+            ${t.status === "待確認"
+              ? `<button class="primary-btn" data-mobile-take="${t.id}">收到</button>`
+              : t.status === "待處理" || t.status === "處理中"
+                ? `<button class="${t.status === "待處理" ? "primary-btn" : "secondary-btn"}" data-mobile-process-open="${t.id}">${t.status === "待處理" ? "開始處理" : "繼續處理"}</button>`
+                : `<button class="secondary-btn" data-mobile-open="${t.id}">查看詳情</button>`}
           </div>
-        </div>`).join("") || '<div class="mobile-card">暫無待處理任務</div>'}`;
+        </div>`).join("") || `<div class="mobile-card">暫無${selectedStatus}任務</div>`}`;
     }
 
     function renderMobileDetail() {
       const t = ticketById(state.selectedTicketId);
-      // 當狀態為待處理/處理中時，將處理記錄（workRecord）內容合併到工單詳情頁，下拉可見可編輯
-      // 注意：若分派類型為「完工單」，完工單頁面只在【處理】tab 顯示，不在工單詳情頁合併
-      const showWorkRecord = ["待處理", "處理中"].includes(t.status) && t.dispatchPaperType !== "完工單";
       return `
         <div class="mobile-card">
           <div class="mobile-card-head"><strong>${t.id}</strong><span class="${statusClass(t.status)}">${t.status}</span></div>
@@ -14609,8 +14967,53 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <p>${escapeHtml(t.desc)}</p>
           <div class="photo-grid">${(t.attachments.length ? t.attachments : ["暫無附件"]).map(a => `<div class="photo-thumb">${escapeHtml(a)}</div>`).join("")}</div>
         </div>
-        ${showWorkRecord ? renderWorkRecord() : ''}
-        ${t.status === "待確認" ? `<div class="fixed-mobile-actions"><button class="primary-btn" data-action="take" data-id="${t.id}">收到</button></div>` : ""}`;
+        ${t.status === "待確認" ? `<div class="fixed-mobile-actions"><button class="primary-btn" data-mobile-take="${t.id}">收到</button></div>` : ["待處理", "處理中"].includes(t.status) ? `<div class="fixed-mobile-actions"><button class="primary-btn" data-mobile-process-open="${t.id}">${t.status === "待處理" ? "開始處理" : "繼續處理"}</button></div>` : ""}`;
+    }
+
+    function renderMobileDetailSheet() {
+      const t = ticketById(state.mobileDetailTicketId);
+      if (!t) return "";
+      const detailRow = (label, value) => `<div style="display:grid;grid-template-columns:88px minmax(0,1fr);gap:8px;font-size:13px;"><span class="muted">${label}</span><strong style="min-width:0;overflow-wrap:anywhere;">${escapeHtml(value || "-")}</strong></div>`;
+      const photoGrid = (label, photos) => photos?.length ? `<div><span class="muted" style="display:block;margin:10px 0 6px;font-size:12px;">${label}</span><div class="mobile-process-photos">${photos.map(photo => `<div class="mobile-process-photo">${String(photo).startsWith("data:image") ? `<img src="${photo}" alt="${label}">` : escapeHtml(photo)}</div>`).join("")}</div></div>` : "";
+      const records = Array.isArray(t.history) ? t.history.slice(-3).reverse() : [];
+      return `
+        <div class="mobile-process-overlay" data-mobile-detail-close>
+          <section class="mobile-process-sheet" role="dialog" aria-modal="true" aria-label="CALL 詳情">
+            <header class="mobile-process-sheet-head">
+              <div><h2>CALL 詳情</h2><p>${escapeHtml(t.id)} · ${escapeHtml(t.status)}</p></div>
+              <button class="ghost-btn" data-mobile-detail-close>關閉</button>
+            </header>
+            <div class="mobile-process-sheet-body" data-mobile-process-body="detail">
+              <section class="mobile-process-block">
+                <h3>客戶資料</h3>
+                <div style="display:grid;gap:8px;">${detailRow("客戶", t.customer)}${detailRow("聯繫人", t.contact)}${detailRow("聯繫電話", t.phone)}${detailRow("地址", t.address)}</div>
+              </section>
+              <section class="mobile-process-block">
+                <h3>CALL 資料</h3>
+                <div style="display:grid;gap:8px;">${detailRow("CALL 類型", t.type)}${detailRow("區域", t.area)}${detailRow("狀態", t.status)}${detailRow("目前師傅", t.master || t.owner)}${detailRow("內容", t.desc)}</div>
+              </section>
+              <section class="mobile-process-block">
+                <h3>服務紀錄</h3>
+                <div style="display:grid;gap:8px;">
+                  ${t.serviceCheckInAt ? detailRow("簽到時間", t.serviceCheckInAt) : ""}
+                  ${t.processStartedAt ? detailRow("開始服務", t.processStartedAt) : ""}
+                  ${t.status === "已完成" ? detailRow("完成時間", t.updatedAt) : ""}
+                  ${t.processNote ? detailRow("服務中備註", t.processNote) : ""}
+                  ${t.completedWork ? detailRow("完成工作", t.completedWork) : ""}
+                  ${t.faultResult ? detailRow("跟進結果", t.faultResult) : ""}
+                  ${t.serviceReportNo ? detailRow("服務報告", `SR-${t.serviceReportNo}`) : ""}
+                  ${t.satisfaction ? detailRow("客戶滿意度", t.satisfaction) : ""}
+                  ${t.needQuotation ? detailRow("需要報價", "是") : ""}
+                </div>
+                ${photoGrid("Before Service 照片", t.beforeServicePhotos)}
+                ${photoGrid("After Service 照片", t.afterServicePhotos)}
+                ${photoGrid("已提交服務報告", t.serviceReportSourceImage ? [t.serviceReportSourceImage] : [])}
+                ${photoGrid("客戶電子簽名", t.signature ? [t.signature] : [])}
+              </section>
+              ${records.length ? `<section class="mobile-process-block"><h3>流轉紀錄</h3><div style="display:grid;gap:10px;">${records.map(record => `<div style="font-size:12px;"><strong>${escapeHtml(record.action || "更新")}</strong><div class="muted">${escapeHtml(record.time || "")} · ${escapeHtml(record.actor || "")}</div>${record.changes ? `<div style="margin-top:3px;">${escapeHtml(record.changes)}</div>` : ""}</div>`).join("")}</div></section>` : ""}
+            </div>
+          </section>
+        </div>`;
     }
 
     // 渲染完工單提交頁面（移動端，卡片式 UI）
@@ -14794,21 +15197,18 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const completionTime = t.completionTime || nowLocal;
 
       return `
-        <!-- 服務報告上傳入口 -->
-        <div class="sr-card" style="border:2px dashed var(--primary);">
-          <div class="sr-card-title" style="border-left-color:var(--primary);color:var(--primary);">📄 服務報告</div>
-          <div class="sr-hint" style="margin-bottom:8px;">上傳服務報告照片，系統將自動識別並填充下方對應文字內容（功能開發中）</div>
-          <button type="button" class="primary-btn" data-sr-ocr-upload style="width:100%;">📷 上傳</button>
-        </div>
-
-        <!-- 處理前照片（師傅到場拍攝） -->
         <div class="sr-card">
-          <div class="sr-card-title">處理前照片</div>
-          <div class="sr-photo-area">
-            ${(t.attachments || []).map((a, i) => `<div class="sr-photo-thumb">${a.startsWith('data:image') ? `<img src="${a}" alt="照片">` : escapeHtml(a)}<button type="button" class="sr-photo-remove" data-sr-remove-photo="${i}">×</button></div>`).join("")}
-            ${(t.attachments || []).length < 20 ? `<div class="sr-photo-thumb sr-photo-add" data-sr-upload-photo>+</div>` : ""}
+          <div class="sr-card-title">上傳服務報告</div>
+          <div class="sr-field">
+            <label class="sr-label">服務報告圖片<span class="sr-required">*</span></label>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              ${t.serviceReportSourceImage ? `<img src="${t.serviceReportSourceImage}" alt="服務報告" style="width:72px;height:72px;object-fit:cover;border:1px solid var(--line);border-radius:6px;">` : ""}
+              <button type="button" class="primary-btn" data-sr-upload-service-report>${t.serviceReportSourceImage ? "重新上傳服務報告" : "上傳服務報告圖片"}</button>
+              <button type="button" class="secondary-btn" data-sr-demo-service-report>加入示例報告</button>
+            </div>
+            <div class="sr-hint">上傳後會模擬識別，並帶入下方服務報告字段。</div>
+            ${t.serviceReportImportedAt ? `<div style="margin-top:8px;"><span class="tag success">已帶入報告資料 · ${escapeHtml(t.serviceReportImportedAt)}</span></div>` : ""}
           </div>
-          <div class="sr-hint">師傅到場後拍攝的現場情況照片（最多20張）</div>
         </div>
 
         <!-- 基本信息 -->
@@ -14886,16 +15286,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           </div>
         </div>
 
-        <!-- 處理後照片（完工後拍攝） -->
-        <div class="sr-card">
-          <div class="sr-card-title">處理後照片</div>
-          <div class="sr-photo-area">
-            ${(t.serviceReportPhotos || []).map((a, i) => `<div class="sr-photo-thumb">${a.startsWith('data:image') ? `<img src="${a}" alt="照片">` : escapeHtml(a)}<button type="button" class="sr-photo-remove" data-sr-remove-report-photo="${i}">×</button></div>`).join("")}
-            ${(t.serviceReportPhotos || []).length < 20 ? `<div class="sr-photo-thumb sr-photo-add" data-sr-upload-report-photo>+</div>` : ""}
-          </div>
-          <div class="sr-hint">完工後拍攝的處理結果照片（最多20張）</div>
-        </div>
-
         <!-- 其他附件 -->
         <div class="sr-card">
           <div class="sr-card-title">其他附件</div>
@@ -14946,6 +15336,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             </label>
             <div class="sr-hint">勾選表示客戶負責人不在場，無法當場簽署</div>
           </div>
+          <div class="sr-field">
+            <label class="sr-label">客戶電子簽名${t.customerAbsent ? "" : '<span class="sr-required">*</span>'}</label>
+            <div class="sr-signature">
+              ${t.signature
+                ? `<img src="${t.signature}" alt="客戶簽名" style="display:block;width:100%;height:150px;object-fit:contain;background:var(--panel-soft);">`
+                : '<canvas class="sr-signature-canvas" data-sr-signature-canvas width="640" height="300" aria-label="客戶電子簽名"></canvas>'}
+              <div class="sr-signature-toolbar"><span>${t.signature ? "已完成客戶簽名" : "請由客戶在框內手寫簽名"}</span><button type="button" class="sr-signature-clear" data-sr-clear-signature ${t.signature ? "" : "disabled"}>清除</button></div>
+            </div>
+          </div>
         </div>
 
         <!-- 簽名正本上傳 + 電子版發送（保留但現階段不顯示） -->
@@ -14986,7 +15385,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         ` : ""}
 
         <div class="sr-submit-bar">
-          <button class="primary-btn" data-action="submitResult" data-id="${t.id}">${state.online === false ? '📱 離線保存' : '提交處理'}</button>
+          <button class="primary-btn" data-action="submitResult" data-id="${t.id}">${state.online === false ? "📱 離線保存" : state.mobileProcessTicketId ? "完成並提交服務報告" : "提交處理"}</button>
         </div>`;
     }
 
@@ -15058,6 +15457,56 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     // OCR 上傳入口（#10：目前僅提示，功能後續開發）
     function srOcrUpload() {
       toast("OCR 識別功能開發中，請手動填寫字段");
+    }
+
+    function importServiceReportData(sourceImage) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      srSyncInputs();
+      const sourceSystems = t.srSystems || [];
+      const system = sourceSystems.length ? sourceSystems : [
+        String(t.system || "").includes("CCTV") ? "CCTV" :
+        String(t.system || "").includes("Access") ? "Access Control" : "Others"
+      ];
+      const sourceObjectives = t.srObjectives || [];
+      const objective = sourceObjectives.length ? sourceObjectives : [t.type === "保養維修" ? "Routine Check" : "Fault Report"];
+      const reportNo = String(t.id || "").replace(/\D/g, "").slice(-6).padStart(6, "0");
+      const importedAt = mobileProcessTime();
+      const updates = {
+        serviceReportSourceImage: sourceImage,
+        serviceReportImportedAt: importedAt,
+        serviceReportNo: t.serviceReportNo || reportNo,
+        srSystems: system,
+        srObjectives: objective,
+        completedWork: t.completedWork || t.processNote || "已完成現場檢查及系統功能測試。",
+        faultResult: t.faultResult || "現場測試正常，暫無需跟進事項。",
+        satisfaction: t.satisfaction || "滿意"
+      };
+      updateTicket(t.id, updates, "已上傳服務報告，系統已帶入表單資料。");
+      state.srSatisfaction = updates.satisfaction;
+      state.srInitialized = true;
+      render();
+      toast("服務報告已上傳，資料已帶入表單", "success");
+    }
+
+    function srUploadServiceReport() {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (loadEvent) => importServiceReportData(loadEvent.target.result);
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    }
+
+    function srAddDemoServiceReport() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640"><rect width="100%" height="100%" fill="#ffffff"/><rect x="28" y="28" width="424" height="584" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/><text x="240" y="92" text-anchor="middle" font-family="Arial" font-size="28" fill="#1d4ed8">SERVICE REPORT</text><text x="62" y="160" font-family="Arial" font-size="18" fill="#334155">Customer: ECInfo Client</text><text x="62" y="210" font-family="Arial" font-size="18" fill="#334155">Work: Routine Check</text><text x="62" y="260" font-family="Arial" font-size="18" fill="#334155">Result: Completed</text><path d="M80 510 C145 450 220 560 310 480" fill="none" stroke="#0f172a" stroke-width="5"/></svg>`;
+      const sourceImage = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+      importServiceReportData(sourceImage);
     }
 
     function srSetWorkNature(value) {
@@ -15224,6 +15673,61 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       render();
     }
 
+    function initialiseSrSignaturePad(canvas) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      const context = canvas.getContext("2d");
+      context.lineWidth = 4;
+      context.lineCap = "round";
+      context.strokeStyle = "#0f172a";
+      let drawing = false;
+      let hasStroke = false;
+
+      const point = (event) => {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: (event.clientX - rect.left) * (canvas.width / rect.width),
+          y: (event.clientY - rect.top) * (canvas.height / rect.height)
+        };
+      };
+      const saveSignature = () => {
+        if (!hasStroke) return;
+        const signature = canvas.toDataURL("image/png");
+        state.srSignature = signature;
+        updateTicket(t.id, { signature });
+      };
+      canvas.addEventListener("pointerdown", (event) => {
+        drawing = true;
+        hasStroke = true;
+        const p = point(event);
+        context.beginPath();
+        context.moveTo(p.x, p.y);
+        canvas.setPointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointermove", (event) => {
+        if (!drawing) return;
+        const p = point(event);
+        context.lineTo(p.x, p.y);
+        context.stroke();
+      });
+      const stopDrawing = (event) => {
+        if (!drawing) return;
+        drawing = false;
+        if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+        saveSignature();
+      };
+      canvas.addEventListener("pointerup", stopDrawing);
+      canvas.addEventListener("pointercancel", stopDrawing);
+    }
+
+    function srClearSignature() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      state.srSignature = "";
+      updateTicket(t.id, { signature: "" });
+      render();
+    }
+
     // 發送 SR 電子版 (Softcopy) 給客戶
     function srSendSoftcopy(method) {
       const t = ticketById(state.selectedTicketId);
@@ -15321,39 +15825,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
     // ===== 移動端分派中心（TL 角色）=====
     function renderMobileDispatch() {
-      // 區塊①：取得待分派工單列表（根據當前 TL 人物過濾）
       const currentTLName = currentRole().name;
-      const pendingTickets = tickets.filter(t => t.status === "待分派" && t.tl === currentTLName);
-
-      // 若未選中工單，預設選中第一張待分派工單
-      if (pendingTickets.length > 0 && !pendingTickets.find(t => t.id === state.mdSelectedTicketId)) {
-        state.mdSelectedTicketId = pendingTickets[0].id;
-      }
-      const selectedTicket = pendingTickets.find(t => t.id === state.mdSelectedTicketId) || pendingTickets[0];
-
-      // 區塊②：推薦師傅：基於用戶表實時計算的師傅列表，加上模擬的評分、匹配率、距離
-      const recommendedMasters = getMastersForDispatch().map((m, idx) => {
-        const rating = (4.9 - idx * 0.1).toFixed(1);                 // 本月評分（模擬）
-        const matchRate = 98 - idx * 4;                                // 技能匹配率（模擬）
-        const sameArea = selectedTicket && m.area === selectedTicket.area;
-        const distance = sameArea ? (2 + idx) : (8 + idx * 3);         // 距離 km（模擬）
-        return { ...m, rating, matchRate, distance };
-      });
-
-      // 預設選中第一位推薦師傅
-      if (recommendedMasters.length > 0 && !recommendedMasters.find(m => m.name === state.mdSelectedMaster)) {
-        state.mdSelectedMaster = recommendedMasters[0].name;
-      }
-      const selectedMaster = recommendedMasters.find(m => m.name === state.mdSelectedMaster) || recommendedMasters[0];
-
-      // 待分派工單列表
-      const ticketsHtml = pendingTickets.length === 0
-        ? `<div class="md-empty">暫無待分派工單</div>`
-        : pendingTickets.map(t => `
-          <div class="md-ticket-card ${state.mdSelectedTicketId === t.id ? "selected" : ""}" data-md-ticket="${t.id}">
+      const activeTickets = tickets.filter(t => t.tl === currentTLName && !["已完成", "已取消"].includes(t.status));
+      const pendingCount = activeTickets.filter(t => t.status === "待分派").length;
+      const ticketsHtml = activeTickets.length === 0
+        ? `<div class="md-empty">暫無 CALL</div>`
+        : activeTickets.map(t => `
+          <div class="md-ticket-card ${t.status === "待分派" ? "" : "readonly"}" ${t.status === "待分派" ? `data-md-ticket="${t.id}" role="button" tabindex="0"` : ""}>
             <div class="md-ticket-head">
               <strong>${escapeHtml(t.id)}</strong>
-              <span class="md-tag md-tag-warning">待分派</span>
+              <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
             </div>
             <div class="md-ticket-info">
               <span>${escapeHtml(t.customer)}</span>
@@ -15366,82 +15847,51 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             <div class="md-ticket-desc">${escapeHtml(t.desc)}</div>
           </div>
         `).join("");
-
-      // 推薦師傅列表
-      const mastersHtml = recommendedMasters.length === 0
-        ? `<div class="md-empty">暫無可用師傅</div>`
-        : recommendedMasters.map(m => `
-          <div class="md-master-card ${state.mdSelectedMaster === m.name ? "selected" : ""}" data-md-master="${escapeHtml(m.name)}">
-            <div class="md-master-avatar">${escapeHtml(m.name.slice(0, 1))}</div>
-            <div class="md-master-body">
-              <div class="md-master-head">
-                <strong>${escapeHtml(m.name)}</strong>
-                <span class="md-tag md-tag-primary">${escapeHtml(m.tag)}</span>
-              </div>
-              <div class="md-master-skills">${escapeHtml(m.skills)}</div>
-              <div class="md-master-stats">
-                <span>今日負載 ${m.load}</span>
-                <span class="md-dot">·</span>
-                <span>評分 ${m.rating}</span>
-                <span class="md-dot">·</span>
-                <span>匹配 ${m.matchRate}%</span>
-                <span class="md-dot">·</span>
-                <span>${m.distance} km</span>
-              </div>
-            </div>
-            <div class="md-radio ${state.mdSelectedMaster === m.name ? "checked" : ""}"></div>
-          </div>
-        `).join("");
-
-      // 區塊③：分派確認（選擇師傅後顯示）
-      const confirmHtml = (selectedTicket && selectedMaster) ? `
-        <div class="md-confirm-card">
-          <div class="md-section-title">分派確認</div>
-          <div class="md-confirm-group">
-            <div class="md-confirm-label">工單信息</div>
-            <div class="md-confirm-row"><span>客戶</span><strong>${escapeHtml(selectedTicket.customer)}</strong></div>
-            <div class="md-confirm-row"><span>聯繫人</span><strong>${escapeHtml(selectedTicket.contact)}</strong></div>
-            <div class="md-confirm-row"><span>聯繫電話</span><strong>${escapeHtml(selectedTicket.phone)}</strong></div>
-            <div class="md-confirm-row"><span>區域</span><strong>${escapeHtml(selectedTicket.area)}</strong></div>
-            <div class="md-confirm-row"><span>工單類型</span><strong>${escapeHtml(selectedTicket.type)}</strong></div>
-          </div>
-          <div class="md-confirm-group">
-            <div class="md-confirm-label">已選師傅</div>
-            <div class="md-confirm-row"><span>姓名</span><strong>${escapeHtml(selectedMaster.name)}</strong></div>
-            <div class="md-confirm-row"><span>技能</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div>
-            <div class="md-confirm-row"><span>今日負載</span><strong>${selectedMaster.load}</strong></div>
-            <div class="md-confirm-row"><span>本月評分</span><strong>${selectedMaster.rating}</strong></div>
-          </div>
-          <div class="md-confirm-group">
-            <div class="md-confirm-label">派工備註</div>
-            <textarea id="mdRemark" class="md-textarea" placeholder="請輸入派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea>
-          </div>
-        </div>
-      ` : "";
-
-      // 底部固定確認分派按鈕（sticky bottom）
-      const submitBtn = (selectedTicket && selectedMaster) ? `
-        <div class="md-submit-bar">
-          <button class="md-submit-btn" data-md-submit>確認分派</button>
-        </div>
-      ` : "";
-
       return `
         <div class="md-page">
           <div class="md-section">
-            <div class="md-section-title">待分派工單 (${pendingTickets.length})</div>
+            <div class="md-section-title">CALL 清單（待分派 ${pendingCount} 張）</div>
             ${ticketsHtml}
           </div>
-          ${selectedTicket ? `
-          <div class="md-section">
-            <div class="md-section-title">推薦師傅</div>
-            ${mastersHtml}
-          </div>
-          ` : ""}
-          ${confirmHtml}
-          ${submitBtn}
         </div>
       `;
+    }
+
+    function renderMobileDispatchSheet() {
+      const t = ticketById(state.mdSelectedTicketId);
+      if (!state.mdDispatchSheetOpen || !t || t.status !== "待分派") return "";
+      const keyword = (state.mdMasterKeyword || "").trim().toLowerCase();
+      const masters = getMastersForDispatch().map((master, idx) => {
+        const sameArea = master.area === t.area;
+        return { ...master, rating: (4.9 - idx * 0.1).toFixed(1), matchRate: 98 - idx * 4, distance: sameArea ? 2 + idx : 8 + idx * 3 };
+      }).filter(master =>
+        (state.mdMasterStatus === "全部" || master.status === state.mdMasterStatus) &&
+        (!keyword || [master.name, master.skills, master.area, master.tag].join(" ").toLowerCase().includes(keyword))
+      );
+      const selectedMaster = masters.find(master => master.name === state.mdSelectedMaster);
+      return `
+        <div class="mobile-process-overlay" data-md-sheet-close>
+          <section class="mobile-process-sheet" role="dialog" aria-modal="true" aria-label="分派 CALL">
+            <header class="mobile-process-sheet-head">
+              <div><h2>分派 CALL</h2><p>${escapeHtml(t.id)} · ${escapeHtml(t.customer)}</p></div>
+              <button class="ghost-btn" data-md-sheet-close>關閉</button>
+            </header>
+            <div class="mobile-process-sheet-body" data-mobile-process-body="dispatch">
+              <section class="mobile-process-block">
+                <h3>CALL 資料</h3>
+                <p>${escapeHtml(t.type)} · ${escapeHtml(t.area)} · ${escapeHtml(t.contact || "-")}</p>
+                <p style="margin-top:8px;">${escapeHtml(t.desc)}</p>
+              </section>
+              <section class="mobile-process-block">
+                <h3>選擇師傅</h3>
+                <div style="display:grid;grid-template-columns:1fr 112px;gap:8px;margin-bottom:10px;"><input class="sr-input" value="${escapeHtml(state.mdMasterKeyword)}" placeholder="搜尋姓名或技能" data-md-master-keyword><select class="sr-input" data-md-master-status><option value="全部" ${state.mdMasterStatus === "全部" ? "selected" : ""}>全部狀態</option><option value="可接單" ${state.mdMasterStatus === "可接單" ? "selected" : ""}>可接單</option><option value="忙碌" ${state.mdMasterStatus === "忙碌" ? "selected" : ""}>忙碌</option></select></div>
+                ${masters.length ? masters.map(master => `<div class="md-master-card ${state.mdSelectedMaster === master.name ? "selected" : ""}" data-md-master="${escapeHtml(master.name)}"><div class="md-master-avatar">${escapeHtml(master.name.slice(0, 1))}</div><div class="md-master-body"><div class="md-master-head"><strong>${escapeHtml(master.name)}</strong><span class="md-tag md-tag-primary">${escapeHtml(master.tag)}</span></div><div class="md-master-skills">${escapeHtml(master.skills)}</div><div class="md-master-stats"><span>${escapeHtml(master.status)}</span><span class="md-dot">·</span><span>負載 ${master.load}</span><span class="md-dot">·</span><span>匹配 ${master.matchRate}%</span><span class="md-dot">·</span><span>${master.distance} km</span></div></div><div class="md-radio ${state.mdSelectedMaster === master.name ? "checked" : ""}"></div></div>`).join("") : '<div class="md-empty">沒有符合篩選條件的師傅</div>'}
+              </section>
+              ${selectedMaster ? `<section class="mobile-process-block"><h3>分派確認</h3><div style="display:grid;gap:8px;font-size:13px;"><div><span class="muted">已選師傅：</span><strong>${escapeHtml(selectedMaster.name)}</strong></div><div><span class="muted">技能：</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div><textarea id="mdRemark" class="md-textarea" placeholder="派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea></div></section>` : ""}
+            </div>
+            <footer class="mobile-process-sheet-foot"><span class="mobile-process-required-hint">${selectedMaster ? "確認後通知師傅接單" : "請選擇一位師傅"}</span><button class="primary-btn" data-md-submit ${selectedMaster ? "" : "disabled"}>確認分派</button></footer>
+          </section>
+        </div>`;
     }
 
     // 渲染移動端 CR（客戶報告）頁面 — 支持按 SR 編號或客戶名稱搜索
@@ -15560,19 +16010,24 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     }
 
     function renderMobile() {
-      const map = { tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, history: renderHistory, dispatch: renderMobileDispatch };
+      const previousProcessBody = document.querySelector(".mobile-process-sheet-body");
+      const previousProcessStep = previousProcessBody?.dataset.mobileProcessBody;
+      const previousProcessScrollTop = previousProcessBody?.scrollTop || 0;
+      const map = { masterHome: renderMasterHome, tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, dispatch: renderMobileDispatch };
+      if (state.mobilePage === "history") state.mobilePage = "tasks";
       const page = MOBILE_PAGES.find(p => p.key === state.mobilePage);
       // phone-top 已刪除，標題由各頁面自行渲染
       // 更新網絡狀態指示器
       updateNetworkIndicator();
       // 依角色過濾 tabs：TL 只顯示分派頁，CR 角色顯示 CR 頁面，其他角色不顯示分派和 CR
-      const visiblePages = state.role === "TL"
+      const visiblePages = state.role === "MASTER"
+        ? MOBILE_PAGES.filter(p => ["masterHome", "tasks"].includes(p.key))
+        : state.role === "TL"
         ? MOBILE_PAGES.filter(p => p.key === "dispatch")
         : state.role === "CR"
-          ? MOBILE_PAGES.filter(p => p.key !== "dispatch")
-          : MOBILE_PAGES.filter(p => p.key !== "dispatch" && p.key !== "cr");
-      // 離線時在頁面頂部插入離線提示和待上傳數據；工單詳情頁改為顯示工單編號
-      const outbox = JSON.parse(localStorage.getItem('ecinfo_offline_outbox') || '[]');
+          ? MOBILE_PAGES.filter(p => !["dispatch", "masterHome"].includes(p.key))
+          : MOBILE_PAGES.filter(p => !["dispatch", "cr", "masterHome"].includes(p.key));
+      // 工單詳情頁保留工單編號與狀態；離線資訊不在原型主畫面顯示。
       let offlineBanner = '';
       // 工單詳情頁：顯示工單編號，右上角放狀態標籤
       if (state.mobilePage === "mobileDetail" && state.selectedTicketId) {
@@ -15585,32 +16040,28 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             </div>
           `;
         }
-      } else if (!state.online) {
-        offlineBanner = `
-          <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:#92400e;">
-            <strong>📱 離線模式</strong>　數據將保存在本地，恢復網絡後自動上傳
-            ${outbox.length > 0 ? `<div style="margin-top:4px;font-size:12px;">待上傳數據：<strong>${outbox.length}</strong> 條</div>` : ''}
-          </div>
-        `;
-      } else if (outbox.length > 0) {
-        offlineBanner = `
-          <div style="background:#dbeafe;border:1px solid #93c5fd;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:13px;color:#1e40af;">
-            <strong>🌐 已恢復在線</strong>　有待上傳數據 <strong>${outbox.length}</strong> 條
-            <button class="link-btn" data-offline-sync style="color:#1e40af;text-decoration:underline;margin-left:8px;">立即上傳</button>
-          </div>
-        `;
       }
       const pageContent = map[state.mobilePage] ? map[state.mobilePage]() : '<div class="mobile-card">頁面不存在</div>';
       // 提交成功頁面：覆蓋正常內容顯示
       const finalContent = state.srSubmitted ? renderSrSuccessPage() : pageContent;
       $("#mobileBody").innerHTML = offlineBanner + finalContent;
+      $("#mobileSheetPortal").innerHTML = state.mobileDetailTicketId
+        ? renderMobileDetailSheet()
+        : state.mobileProcessTicketId
+          ? renderMobileProcessSheet()
+          : renderMobileDispatchSheet();
+      const nextProcessBody = document.querySelector(".mobile-process-sheet-body");
+      if (nextProcessBody && previousProcessStep === nextProcessBody.dataset.mobileProcessBody) {
+        requestAnimationFrame(() => { nextProcessBody.scrollTop = previousProcessScrollTop; });
+      }
       // TL 分派中心不顯示底部 TabBar；其他角色正常顯示
       if (state.role === "TL") {
         $("#mobileTabs").innerHTML = "";
         $("#mobileTabs").style.display = "none";
       } else {
         $("#mobileTabs").style.display = "";
-        $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${state.mobilePage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
+        const tabPage = state.role === "MASTER" && ["mobileDetail", "workRecord"].includes(state.mobilePage) ? "tasks" : state.mobilePage;
+        $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${tabPage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
       }
     }
 
@@ -15771,6 +16222,20 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.callDetailTicketId = null;
         render();
       }));
+      document.querySelectorAll("[data-dashboard-metric]").forEach(btn => btn.addEventListener("click", () => {
+        state.dashboardMetricModal = btn.dataset.dashboardMetric;
+        render();
+      }));
+      document.querySelectorAll("[data-dashboard-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        state.dashboardMetricModal = null;
+        render();
+      }));
+      document.querySelectorAll("[data-dashboard-metric-open]").forEach(btn => btn.addEventListener("click", () => {
+        state.dashboardMetricModal = null;
+        state.callDetailTicketId = btn.dataset.dashboardMetricOpen;
+        render();
+      }));
       
       // 批量生成空白工單
       document.querySelectorAll("[data-wo-batch-create]").forEach(btn => btn.addEventListener("click", batchCreateWorkOrders));
@@ -15826,12 +16291,31 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         // 打開分派彈窗時重置搜索與篩選條件
         state.dispatchMasterKeyword = "";
         state.dispatchMasterStatusFilter = "全部";
+        state.dispatchMetricModal = null;
         state.dispatchModalOpen = true;
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-filter]").forEach(select => select.addEventListener("change", () => {
+        state.dispatchFilters[select.dataset.dispatchFilter] = select.value;
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
+        state.dispatchFilters = { status: "全部", area: "全部", customer: "全部", type: "全部" };
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-metric]").forEach(btn => btn.addEventListener("click", () => {
+        state.dispatchMetricModal = btn.dataset.dispatchMetric;
+        render();
+      }));
+      document.querySelectorAll("[data-dispatch-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        state.dispatchMetricModal = null;
         render();
       }));
       document.querySelectorAll("[data-dispatch-view]").forEach(btn => btn.addEventListener("click", () => {
         state.selectedTicketId = btn.dataset.dispatchView;
         workOrderState.selectedWorkOrderId = btn.dataset.dispatchView;
+        state.dispatchMetricModal = null;
         render();
       }));
       document.querySelectorAll("[data-dispatch-master]").forEach(btn => btn.addEventListener("click", () => {
@@ -15886,6 +16370,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           return;
         }
         const assignNote = document.querySelector("#dispatchAssignNote")?.value.trim() || "";
+        const dispatchPaperType = state.dispatchPaperType;
         const assignedAt = new Date().toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\//g, "-");
         const previousMaster = t.master || "";
         const assignment = { time: assignedAt, assignedBy: currentRole().name, master: state.selectedMaster, note: assignNote, previousMaster };
@@ -15896,15 +16381,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           assignedAt,
           assignedBy: currentRole().name,
           assignNote,
-          dispatchPaperType: state.dispatchPaperType,
+          dispatchPaperType,
           assignmentHistory: [...(t.assignmentHistory || []), assignment]
-        }, `Team Leader 已分派給 ${state.selectedMaster}，領取${state.dispatchPaperType}。${assignNote ? '備註：' + assignNote : ''}`);
+        }, `Team Leader 已分派給 ${state.selectedMaster}，領取${dispatchPaperType}。${assignNote ? '備註：' + assignNote : ''}`);
         state.selectedTicketId = t.id;
         state.dispatchModalOpen = false;
         state.dispatchPaperType = "";
         triggerNotification("ticket.assigned", { ticketId: t.id });
         render();
-        toast(`已分派，狀態變為待確認，已通知師傅領取${state.dispatchPaperType}`);
+        toast(`已分派，狀態變為待確認，已通知師傅領取${dispatchPaperType}`);
       }));
       document.querySelectorAll("[data-setting-tab]").forEach(btn => btn.addEventListener("click", () => {
         state.settingsTab = btn.dataset.settingTab;
@@ -15949,9 +16434,110 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         }
       });
       document.querySelectorAll("[data-mobile-page]").forEach(btn => btn.addEventListener("click", () => setMobilePage(btn.dataset.mobilePage)));
+      document.querySelectorAll("[data-mobile-task-status]").forEach(btn => btn.addEventListener("click", () => {
+        state.mobileTaskStatus = btn.dataset.mobileTaskStatus;
+        render();
+      }));
+      document.querySelectorAll("[data-master-home-calls]").forEach(btn => btn.addEventListener("click", () => {
+        state.mobilePage = "tasks";
+        state.mobileTaskStatus = "";
+        render();
+      }));
+      document.querySelectorAll("[data-master-home-status]").forEach(btn => btn.addEventListener("click", () => {
+        state.mobileTaskStatus = btn.dataset.masterHomeStatus;
+        state.mobilePage = "tasks";
+        render();
+      }));
       document.querySelectorAll("[data-mobile-open]").forEach(btn => btn.addEventListener("click", () => {
         state.selectedTicketId = btn.dataset.mobileOpen;
-        setMobilePage("mobileDetail");
+        state.mobileProcessTicketId = null;
+        state.mobileDetailTicketId = btn.dataset.mobileOpen;
+        render();
+      }));
+      document.querySelectorAll("[data-mobile-take]").forEach(btn => btn.addEventListener("click", () => {
+        const ticketId = btn.dataset.mobileTake;
+        const t = ticketById(ticketId);
+        if (!t) return;
+        updateTicket(ticketId, {
+          status: "待處理",
+          master: currentRole().name,
+          owner: currentRole().name,
+          acceptedAt: mobileProcessTime()
+        }, "師傅已收到 CALL，進入待處理。");
+        state.selectedTicketId = ticketId;
+        state.mobileTaskStatus = "待處理";
+        render();
+        toast("已收到 CALL，現可開始處理", "success");
+      }));
+      document.querySelectorAll("[data-mobile-process-open]").forEach(btn => btn.addEventListener("click", () => {
+        state.selectedTicketId = btn.dataset.mobileProcessOpen;
+        state.mobileDetailTicketId = null;
+        state.mobileProcessTicketId = btn.dataset.mobileProcessOpen;
+        state.mobileProcessStep = ticketById(btn.dataset.mobileProcessOpen)?.status === "處理中" ? "service" : "checkin";
+        render();
+      }));
+      document.querySelectorAll("[data-mobile-process-step]").forEach(btn => btn.addEventListener("click", () => {
+        const ticketId = state.mobileProcessTicketId;
+        const t = ticketById(ticketId);
+        const step = btn.dataset.mobileProcessStep;
+        if (!t || (!t.serviceCheckInAt && step !== "checkin")) return;
+        if (step === "report") {
+          updateTicket(t.id, {
+            dispatchPaperType: "服務報告",
+            attachments: (t.attachments || []).length ? t.attachments : [...(t.beforeServicePhotos || [])],
+            serviceReportPhotos: (t.serviceReportPhotos || []).length ? t.serviceReportPhotos : [...(t.afterServicePhotos || [])],
+            completedWork: t.completedWork || t.processNote || ""
+          }, "師傅開始填寫服務報告。");
+        }
+        state.selectedTicketId = ticketId;
+        state.mobileProcessStep = step;
+        render();
+      }));
+      document.querySelectorAll("[data-mobile-process-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
+        state.mobileProcessTicketId = null;
+        state.mobileProcessStep = "checkin";
+        render();
+      }));
+      document.querySelectorAll("[data-mobile-detail-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
+        state.mobileDetailTicketId = null;
+        render();
+      }));
+      document.querySelectorAll("[data-mobile-process-checkin]").forEach(btn => btn.addEventListener("click", () => {
+        const t = ticketById(state.mobileProcessTicketId);
+        if (!t || t.serviceCheckInAt) return;
+        updateTicket(t.id, { serviceCheckInAt: mobileProcessTime() }, "師傅已完成現場打卡");
+        render();
+        toast("已打卡並記錄到場時間", "success");
+      }));
+      document.querySelectorAll("[data-mobile-process-file]").forEach(input => input.addEventListener("change", () => {
+        saveMobileProcessPhotos(input.dataset.mobileProcessFile, input.files);
+      }));
+      document.querySelectorAll("[data-mobile-process-demo-photo]").forEach(btn => btn.addEventListener("click", () => {
+        addMobileProcessDemoPhoto(btn.dataset.mobileProcessDemoPhoto);
+      }));
+      document.querySelectorAll("[data-mobile-process-field]").forEach(input => input.addEventListener("input", () => {
+        const t = ticketById(state.mobileProcessTicketId);
+        if (!t) return;
+        updateTicket(t.id, { [input.dataset.mobileProcessField]: input.value });
+      }));
+      document.querySelectorAll("[data-mobile-process-submit]").forEach(btn => btn.addEventListener("click", () => {
+        const t = ticketById(state.mobileProcessTicketId);
+        if (!t) return;
+        if (!t.serviceCheckInAt) {
+          toast("請先完成現場打卡", "error");
+          return;
+        }
+        if (!(t.beforeServicePhotos || []).length) {
+          toast("請至少上傳一張 Before Service 照片", "error");
+          return;
+        }
+        updateTicket(t.id, { status: "處理中", processStartedAt: mobileProcessTime() }, "已提交 Before Service，開始現場處理");
+        state.mobileTaskStatus = "處理中";
+        state.mobileProcessTicketId = null;
+        render();
+        toast("已開始處理，資料已即時保存", "success");
       }));
       // 網絡狀態切換按鈕
       const networkToggle = document.getElementById("networkToggle");
@@ -15993,12 +16579,34 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       // ===== 移動端分派中心事件綁定 =====
       document.querySelectorAll("[data-md-ticket]").forEach(btn => btn.addEventListener("click", () => {
         state.mdSelectedTicketId = btn.dataset.mdTicket;
-        // 切換工單後重置師傅選擇爲第一位推薦
-        state.mdSelectedMaster = getMastersForDispatch()[0]?.name || null;
+        state.mdSelectedMaster = null;
+        state.mdRemark = "";
+        state.mdMasterKeyword = "";
+        state.mdMasterStatus = "全部";
+        state.mdDispatchSheetOpen = true;
         render();
       }));
       document.querySelectorAll("[data-md-master]").forEach(btn => btn.addEventListener("click", () => {
         state.mdSelectedMaster = btn.dataset.mdMaster;
+        render();
+      }));
+      document.querySelectorAll("[data-md-master-keyword]").forEach(input => input.addEventListener("input", () => {
+        state.mdMasterKeyword = input.value;
+        render();
+        requestAnimationFrame(() => {
+          const nextInput = document.querySelector("[data-md-master-keyword]");
+          if (!nextInput) return;
+          nextInput.focus();
+          nextInput.setSelectionRange(nextInput.value.length, nextInput.value.length);
+        });
+      }));
+      document.querySelectorAll("[data-md-master-status]").forEach(select => select.addEventListener("change", () => {
+        state.mdMasterStatus = select.value;
+        render();
+      }));
+      document.querySelectorAll("[data-md-sheet-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
+        state.mdDispatchSheetOpen = false;
         render();
       }));
       const mdRemarkEl = $("#mdRemark");
@@ -16021,10 +16629,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           // 更新工單狀態爲待確認，設置 owner 與 master
           updateTicket(t.id, { status: "待確認", owner: masterName, master: masterName }, note);
           toast("已分派，狀態變爲待確認", "success");
-          // 重置選中，重新查找下一張待分派工單
-          const nextPending = tickets.find(tk => tk.status === "待分派");
-          state.mdSelectedTicketId = nextPending ? nextPending.id : null;
-          state.mdSelectedMaster = getMastersForDispatch()[0]?.name || null;
+          state.mdDispatchSheetOpen = false;
+          state.mdSelectedTicketId = null;
+          state.mdSelectedMaster = null;
           state.mdRemark = "";
           render();
         });
@@ -16585,6 +17192,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         quotationState.selectedQuotationId = btn.dataset.jumpQuotation;
         render();
       }));
+      document.querySelectorAll("[data-sr-folder-metric]").forEach(btn => btn.addEventListener("click", () => {
+        state.srFolderMetricModal = btn.dataset.srFolderMetric;
+        render();
+      }));
+      document.querySelectorAll("[data-sr-folder-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        state.srFolderMetricModal = null;
+        render();
+      }));
       // SR 文件夾：區域篩選
       document.querySelectorAll("[data-sr-folder-area]").forEach(sel => sel.addEventListener("change", (e) => {
         state.srFolderArea = e.target.value;
@@ -16609,11 +17225,13 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       });
       // SR 文件夾：查看工單（PC 詳情抽屜）
       document.querySelectorAll("[data-sr-folder-open-ticket]").forEach(btn => btn.addEventListener("click", () => {
+        state.srFolderMetricModal = null;
         performAction("view", btn.dataset.srFolderOpenTicket);
       }));
       // SR 文件夾：查看 SR（切換到移動端處理頁面）
       document.querySelectorAll("[data-sr-folder-open-sr]").forEach(btn => btn.addEventListener("click", () => {
         const id = btn.dataset.srFolderOpenSr;
+        state.srFolderMetricModal = null;
         state.selectedTicketId = id;
         state.view = "mobile";
         state.mobilePage = "workRecord";
@@ -16753,6 +17371,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-system-chip]").forEach(chip => chip.addEventListener("click", () => srToggleSystem(chip.dataset.srSystemChip)));
       document.querySelectorAll("[data-sr-objective-chip]").forEach(chip => chip.addEventListener("click", () => srToggleObjective(chip.dataset.srObjectiveChip)));
       document.querySelectorAll("[data-sr-ocr-upload]").forEach(btn => btn.addEventListener("click", srOcrUpload));
+      document.querySelectorAll("[data-sr-upload-service-report]").forEach(btn => btn.addEventListener("click", srUploadServiceReport));
+      document.querySelectorAll("[data-sr-demo-service-report]").forEach(btn => btn.addEventListener("click", srAddDemoServiceReport));
       document.querySelectorAll("[data-sr-radio]").forEach(radio => radio.addEventListener("click", () => srSetWorkNature(radio.dataset.srRadio)));
       document.querySelectorAll("[data-sr-satisfaction]").forEach(btn => btn.addEventListener("click", () => srSetSatisfaction(btn.dataset.srSatisfaction)));
       document.querySelectorAll("[data-sr-toggle-quotation]").forEach(sw => sw.addEventListener("click", srToggleQuotation));
@@ -16774,6 +17394,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-remove-signature-original]").forEach(btn => btn.addEventListener("click", srRemoveSignatureOriginal));
       document.querySelectorAll("[data-sr-send-email]").forEach(btn => btn.addEventListener("click", () => srSendSoftcopy("Email")));
       document.querySelectorAll("[data-sr-send-whatsapp]").forEach(btn => btn.addEventListener("click", () => srSendSoftcopy("WhatsApp")));
+      document.querySelectorAll("[data-sr-signature-canvas]").forEach(initialiseSrSignaturePad);
+      document.querySelectorAll("[data-sr-clear-signature]").forEach(btn => btn.addEventListener("click", srClearSignature));
 
       // ===== 完工單頁面事件 =====
       // 新增施工項目
