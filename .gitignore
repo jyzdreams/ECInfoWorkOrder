@@ -25,3 +25,19 @@ ui-prototype-v2-complete-flow/.npmrc
 
 # Tools cache
 .tools/
+
+# Debug logs and temporary output
+*.log
+debug.log
+pdf_output.txt
+pdf_text.txt
+
+# Backup files
+*.bak
+*.bak.*
+
+# Temporary development scripts
+extract_pdf.py
+test_opencc.py
+ui-prototype/check_brackets*.js
+ui-prototype/check_syntax*.js
