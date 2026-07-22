@@ -4124,9 +4124,11 @@
       { key: "report", label: "統計報表", icon: "📊", sub: "MVP 基礎統計，不含複雜 BI" },
       { key: "settings", label: "基礎設置", icon: "⚙️", sub: "字典管理、客戶管理、用戶管理" }
     ];
+    const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動工作台", icon: "📱", sub: "師傅服務與主管分派工作台" };
     const MOBILE_PAGES = [
       { key: "masterHome", label: "首頁", title: "師傅首頁" },
       { key: "tasks", label: "CALL", title: "CALL" },
+      { key: "tlHome", label: "首頁", title: "主管首頁" },
       { key: "mobileDetail", label: "工單", title: "工單詳情" },
       { key: "workRecord", label: "處理", title: "處理記錄" },
       { key: "cr", label: "CR", title: "客戶報告" },
@@ -5623,6 +5625,21 @@
       render();
     }
 
+    function openMobileWorkspace() {
+      if (!["MASTER", "TL"].includes(state.role)) {
+        state.role = "MASTER";
+        const masterUsers = getUsersByRole("MASTER");
+        state.currentPerson = masterUsers.find(user => tickets.some(t => t.master === user.name && ["待確認", "待處理", "處理中"].includes(t.status))) || masterUsers[0] || null;
+      }
+      state.view = "mobile";
+      state.mobilePage = state.role === "TL" ? "tlHome" : "masterHome";
+      state.mobileTaskStatus = "";
+      state.mobileDetailTicketId = null;
+      state.mobileProcessTicketId = null;
+      state.mdDispatchSheetOpen = false;
+      render();
+    }
+
     function setRole(role) {
       state.role = role;
       // 師傅原型優先選擇有在辦 CALL 的帳號，避免進入頁面即出現空資料。
@@ -5633,17 +5650,11 @@
       state.currentPerson = activeMaster || (roleUsers.length > 0 ? roleUsers[0] : null);
       
       if (role === "MASTER") {
-        state.view = "mobile";
-        state.mobilePage = "masterHome";
-        state.mobileTaskStatus = "";
         const own = tickets.find(t => t.master === currentRole().name && ["待確認", "待處理", "處理中"].includes(t.status));
         if (own) state.selectedTicketId = own.id;
+        openMobileWorkspace();
       } else if (role === "TL") {
-        state.view = "mobile";
-        state.mobilePage = "dispatch";
-        const pending = tickets.find(t => t.status === "待分派");
-        if (pending) state.mdSelectedTicketId = pending.id;
-        state.mdSelectedMaster = getMastersForDispatch()[0]?.name || null;
+        openMobileWorkspace();
       } else {
         state.view = "pc";
         if (role === "CS") state.page = "create";
@@ -6515,6 +6526,7 @@
       // Collapsed mode: emoji icons
       const collapsedLabels = {
         "dashboard": "🏠",
+        "mobileWorkspace": "📱",
         "workorder": "📋",
         "srFolder": "📁",
         "dispatch": "📤",
@@ -6527,7 +6539,13 @@
       };
       const collapsed = state.isSidebarCollapsed;
       
-      $("#navList").innerHTML = PAGES.map(p => {
+      $("#navList").innerHTML = [...PAGES.slice(0, 1), MOBILE_WORKSPACE, ...PAGES.slice(1)].map(p => {
+        if (p.key === "mobileWorkspace") {
+          if (collapsed) {
+            return `<button class="nav-item nav-collapsed-btn ${state.view === "mobile" ? "active" : ""}" data-mobile-workspace data-collapsed-label="${p.label}"><span class="nav-collapsed-char">${collapsedLabels[p.key]}</span></button>`;
+          }
+          return `<button class="nav-item ${state.view === "mobile" ? "active" : ""}" data-mobile-workspace data-collapsed-label="${p.label}"><span class="nav-icon">${p.icon}</span><span class="nav-label">${p.label}</span></button>`;
+        }
         if (p.key === "settings") {
           if (collapsed) {
             // Collapsed mode: emoji icon button, popover on click
@@ -14927,6 +14945,33 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         </div>`;
     }
 
+    function renderTlMobileHome() {
+      const tlName = currentRole().name;
+      const activeTickets = tickets.filter(t => t.tl === tlName && !["已完成", "已取消"].includes(t.status));
+      const pending = activeTickets.filter(t => t.status === "待分派");
+      const assigned = activeTickets.filter(t => ["待確認", "待處理", "處理中"].includes(t.status));
+      const availableMasters = getMastersForDispatch().filter(master => master.status === "可接單");
+      const priorityTickets = [...pending, ...assigned].slice(0, 3);
+      return `
+        <div class="master-home">
+          <section class="master-home-hero">
+            <span>${escapeHtml(tlName)} · ${escapeHtml(currentRole().dept || "團隊主管")}</span>
+            <h2>分派工作台</h2>
+            <p>目前有 ${pending.length} 張 CALL 等待安排師傅</p>
+            <button data-tl-home-dispatch>查看 CALL 清單</button>
+          </section>
+          <div class="master-home-stats">
+            <button class="master-home-stat" data-tl-home-dispatch><span>待分派</span><strong>${pending.length}</strong></button>
+            <button class="master-home-stat" data-tl-home-dispatch><span>已分派</span><strong>${assigned.length}</strong></button>
+            <button class="master-home-stat" data-tl-home-dispatch><span>可接單師傅</span><strong>${availableMasters.length}</strong></button>
+          </div>
+          <section class="master-home-section">
+            <div class="master-home-section-head"><h2>優先跟進</h2><button class="link-btn" data-tl-home-dispatch>全部 CALL</button></div>
+            ${priorityTickets.length ? priorityTickets.map(t => `<button class="master-home-ticket" data-tl-home-dispatch><strong>${escapeHtml(t.id)} · ${escapeHtml(t.customer)}</strong><span>${escapeHtml(t.type)} · ${escapeHtml(t.area)} · ${escapeHtml(t.status)}</span></button>`).join("") : '<div class="mobile-card">暫無需要分派或跟進的 CALL</div>'}
+          </section>
+        </div>`;
+    }
+
     function renderMobileTasks() {
       const taskStatuses = ["待確認", "待處理", "處理中", "已完成"];
       const ownTickets = masterTaskTickets();
@@ -15850,7 +15895,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       return `
         <div class="md-page">
           <div class="md-section">
-            <div class="md-section-title">CALL 清單（待分派 ${pendingCount} 張）</div>
+            <div class="md-section-title">CALL 清單（${activeTickets.length} 張）</div>
+            <div class="muted" style="margin:-4px 0 10px;font-size:12px;">待分派 ${pendingCount} 張 · 已分派 ${activeTickets.length - pendingCount} 張</div>
             ${ticketsHtml}
           </div>
         </div>
@@ -16013,17 +16059,17 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const previousProcessBody = document.querySelector(".mobile-process-sheet-body");
       const previousProcessStep = previousProcessBody?.dataset.mobileProcessBody;
       const previousProcessScrollTop = previousProcessBody?.scrollTop || 0;
-      const map = { masterHome: renderMasterHome, tasks: renderMobileTasks, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, dispatch: renderMobileDispatch };
+      const map = { masterHome: renderMasterHome, tasks: renderMobileTasks, tlHome: renderTlMobileHome, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, dispatch: renderMobileDispatch };
       if (state.mobilePage === "history") state.mobilePage = "tasks";
       const page = MOBILE_PAGES.find(p => p.key === state.mobilePage);
       // phone-top 已刪除，標題由各頁面自行渲染
       // 更新網絡狀態指示器
       updateNetworkIndicator();
-      // 依角色過濾 tabs：TL 只顯示分派頁，CR 角色顯示 CR 頁面，其他角色不顯示分派和 CR
+      // 依角色顯示對應的移動工作台入口。
       const visiblePages = state.role === "MASTER"
         ? MOBILE_PAGES.filter(p => ["masterHome", "tasks"].includes(p.key))
         : state.role === "TL"
-        ? MOBILE_PAGES.filter(p => p.key === "dispatch")
+        ? MOBILE_PAGES.filter(p => ["tlHome", "dispatch"].includes(p.key))
         : state.role === "CR"
           ? MOBILE_PAGES.filter(p => !["dispatch", "masterHome"].includes(p.key))
           : MOBILE_PAGES.filter(p => !["dispatch", "cr", "masterHome"].includes(p.key));
@@ -16054,15 +16100,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (nextProcessBody && previousProcessStep === nextProcessBody.dataset.mobileProcessBody) {
         requestAnimationFrame(() => { nextProcessBody.scrollTop = previousProcessScrollTop; });
       }
-      // TL 分派中心不顯示底部 TabBar；其他角色正常顯示
-      if (state.role === "TL") {
-        $("#mobileTabs").innerHTML = "";
-        $("#mobileTabs").style.display = "none";
-      } else {
-        $("#mobileTabs").style.display = "";
-        const tabPage = state.role === "MASTER" && ["mobileDetail", "workRecord"].includes(state.mobilePage) ? "tasks" : state.mobilePage;
-        $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${tabPage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
-      }
+      $("#mobileTabs").style.display = "";
+      const tabPage = state.role === "MASTER" && ["mobileDetail", "workRecord"].includes(state.mobilePage) ? "tasks" : state.mobilePage;
+      $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${tabPage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
     }
 
     // 更新網絡狀態指示器（在線/離線）
@@ -16194,13 +16234,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
       
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
-        state.view = btn.dataset.view;
-        if (state.view === "mobile" && state.role !== "MASTER" && state.role !== "TL" && state.role !== "CS") {
-          state.role = "MASTER";
-          toast("移動端默認切換爲師傅視角");
+        if (btn.dataset.view === "mobile") {
+          const needsDefaultRole = !["MASTER", "TL"].includes(state.role);
+          openMobileWorkspace();
+          if (needsDefaultRole) toast("移動工作台已切換為師傅視角");
+          return;
         }
+        state.view = "pc";
         render();
       }));
+      document.querySelectorAll("[data-mobile-workspace]").forEach(btn => btn.addEventListener("click", () => openMobileWorkspace()));
       document.querySelectorAll("[data-page]").forEach(btn => btn.addEventListener("click", function(e) {
         // In collapsed mode, settings button toggles popover instead of navigating
         if (state.isSidebarCollapsed && this.dataset.page === "settings") {
@@ -16446,6 +16489,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-master-home-status]").forEach(btn => btn.addEventListener("click", () => {
         state.mobileTaskStatus = btn.dataset.masterHomeStatus;
         state.mobilePage = "tasks";
+        render();
+      }));
+      document.querySelectorAll("[data-tl-home-dispatch]").forEach(btn => btn.addEventListener("click", () => {
+        state.mobilePage = "dispatch";
+        state.mdDispatchSheetOpen = false;
         render();
       }));
       document.querySelectorAll("[data-mobile-open]").forEach(btn => btn.addEventListener("click", () => {
