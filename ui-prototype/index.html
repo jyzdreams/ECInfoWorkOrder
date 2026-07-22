@@ -3802,15 +3802,15 @@
           { id: "DT003", name: "工程項目", code: "PRJ", status: "啓用", createdAt: "2026-01-01" }
         ],
         "區域": [
-          { id: "DR001", name: "1區", code: "D1", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR002", name: "2區", code: "D2", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR003", name: "3區", code: "D3", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR004", name: "4區", code: "D4", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR005", name: "5區", code: "D5", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR006", name: "6區", code: "D6", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR007", name: "7區", code: "D7", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR008", name: "7A區", code: "D7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DR009", name: "8區", code: "D8", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR001", name: "1區", code: "1", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR002", name: "2區", code: "2", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR003", name: "3區", code: "3", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR004", name: "4區", code: "4", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR005", name: "5區", code: "5", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR006", name: "6區", code: "6", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR007", name: "7區", code: "7", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR008", name: "7A區", code: "7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DR009", name: "8區", code: "8", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
           { id: "DR010", name: "MTR", code: "MTR", description: "港鐵", status: "啓用", createdAt: "2026-01-01" },
           { id: "DR011", name: "EMSD", code: "EMSD", description: "機電署", status: "啓用", createdAt: "2026-01-01" },
           { id: "DR012", name: "ASD", code: "ASD", description: "建築署", status: "啓用", createdAt: "2026-01-01" },
@@ -3875,15 +3875,21 @@
         if (stored["區域"] && Array.isArray(stored["區域"])) {
           // 遷移：移除已廢棄的區域（香港、九龍、新界）
           stored["區域"] = stored["區域"].filter(r => !["香港", "九龍", "新界"].includes(r.name));
-          const regionCodes = { "1區": "D1", "2區": "D2", "3區": "D3", "4區": "D4", "5區": "D5", "6區": "D6", "7區": "D7", "7A區": "D7A", "8區": "D8", "MTR": "MTR", "EMSD": "EMSD", "ASD": "ASD", "軟件組": "SW", "EV Charge": "EV", "Maintenance-HTCL": "HTCL", "Project 1(生)": "P1S", "Project 1 MTR": "P1M", "Project 1(Sam)": "P1SM", "Project 1(Johnny)": "P1J", "Project 1(Roy)": "P1R", "Project 1(Eric)": "P1E", "Project 2(Joe)": "P2J", "Project 1-1541": "P11541", "Project 1-1962EM20T": "P11962", "Project 1-1105": "P11105", "Project 1-2489": "P12489", "Project 1-2458": "P12458", "Project/Maintenance": "PM" };
+          const regionCodes = { "1區": "1", "2區": "2", "3區": "3", "4區": "4", "5區": "5", "6區": "6", "7區": "7", "7A區": "7A", "8區": "8", "MTR": "MTR", "EMSD": "EMSD", "ASD": "ASD", "軟件組": "SW", "EV Charge": "EV", "Maintenance-HTCL": "HTCL", "Project 1(生)": "P1S", "Project 1 MTR": "P1M", "Project 1(Sam)": "P1SM", "Project 1(Johnny)": "P1J", "Project 1(Roy)": "P1R", "Project 1(Eric)": "P1E", "Project 2(Joe)": "P2J", "Project 1-1541": "P11541", "Project 1-1962EM20T": "P11962", "Project 1-1105": "P11105", "Project 1-2489": "P12489", "Project 1-2458": "P12458", "Project/Maintenance": "PM" };
           stored["區域"] = stored["區域"].map(r => ({
             ...r,
             code: r.code || regionCodes[r.name] || ""
           }));
+          // 遷移：將舊區域編號（D1~D8, D7A）更新為新編號（1~8, 7A），去除字母 D
+          const oldToNewCodes = { "D1": "1", "D2": "2", "D3": "3", "D4": "4", "D5": "5", "D6": "6", "D7": "7", "D7A": "7A", "D8": "8" };
+          stored["區域"] = stored["區域"].map(r => ({
+            ...r,
+            code: oldToNewCodes[r.code] || r.code
+          }));
           // 遷移：補全新增區域
           const existingNames = stored["區域"].map(r => r.name);
           const newRegions = [
-            { id: "DR008", name: "7A區", code: "D7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
+            { id: "DR008", name: "7A區", code: "7A", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
             { id: "DR015", name: "Maintenance-HTCL", code: "HTCL", description: "保養-HTCL", status: "啓用", createdAt: "2026-01-01" },
             { id: "DR016", name: "Project 1(生)", code: "P1S", description: "Project 1(生)", status: "啓用", createdAt: "2026-01-01" },
             { id: "DR017", name: "Project 1 MTR", code: "P1M", description: "Project 1 MTR", status: "啓用", createdAt: "2026-01-01" },
@@ -3944,6 +3950,8 @@
             { id: "DT-ST02", name: "不投標", code: "NOBID", description: "決定不參與投標", status: "啓用", createdAt: "2026-01-01" }
           ];
         }
+        // 遷移完成後立即保存到 localStorage，確保下次啟動服務不需要重新遷移
+        localStorage.setItem('ecinfo_dict_data', JSON.stringify(stored));
         return stored;
       }
 
