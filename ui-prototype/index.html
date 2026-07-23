@@ -656,6 +656,101 @@
     }
     .field textarea { min-height: 86px; resize: vertical; line-height: 1.5; }
     .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,107,255,.12); }
+    /* 共用可搜尋下拉：保留原生 select 作為資料來源與表單值。 */
+    .search-select {
+      position: relative;
+      display: inline-block;
+      min-width: 0;
+      vertical-align: top;
+    }
+    .search-select.search-select-fluid { display: block; width: 100%; }
+    .search-select-native {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      clip: rect(0 0 0 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .search-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: var(--control-height);
+      padding: 0 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--control-radius);
+      background: var(--panel);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .search-select-trigger:hover { border-color: var(--primary); }
+    .search-select-trigger:focus-visible { outline: 0; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 107, 255, .12); }
+    .search-select-trigger:disabled { cursor: not-allowed; opacity: .6; }
+    .search-select-value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .search-select-caret { color: var(--muted); font-size: 12px; }
+    .search-select-menu {
+      position: absolute;
+      z-index: 1300;
+      top: calc(100% + 4px);
+      left: 0;
+      /* 選單與觸發框等寬；長選項在框內省略，避免窄欄位出現左右不齊。 */
+      width: 100%;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .16);
+    }
+    .search-select-menu[hidden] { display: none; }
+    .search-select-search {
+      width: 100%;
+      height: 32px;
+      margin-bottom: 6px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+      color: var(--text);
+      font: inherit;
+      font-size: 12px;
+      outline: 0;
+    }
+    .search-select-search:focus { border-color: var(--primary); background: var(--panel); }
+    .search-select-options { max-height: 256px; overflow-y: auto; overscroll-behavior: contain; }
+    .search-select-option {
+      display: block;
+      width: 100%;
+      min-height: 32px;
+      padding: 6px 9px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      line-height: 20px;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .search-select-option:hover,
+    .search-select-option.active { background: var(--primary-soft); color: var(--primary-strong); }
+    .search-select-option:disabled { cursor: not-allowed; color: var(--muted); }
+    .search-select-empty { padding: 10px 8px; color: var(--muted); font-size: 12px; text-align: center; }
     .required::after { content: " *"; color: var(--danger); }
     .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .form-grid .wide { grid-column: 1 / -1; }
@@ -761,15 +856,15 @@
     .dispatch-summary-card strong { display: block; margin: 2px 0; font-size: 22px; }
     .dispatch-summary-card p { margin: 0; color: var(--muted); font-size: 11px; }
     .dispatch-list-section .pc-section { padding: 12px 14px; margin-bottom: 0; }
-    .dispatch-toolbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
-    .dispatch-toolbar h2 { margin: 0; white-space: nowrap; }
-    .dispatch-toolbar .dispatch-filters { flex: 1; margin: 0; gap: 8px; justify-content: flex-end; }
-    .dispatch-toolbar .wo-filter-group { min-width: 112px; gap: 3px; }
-    .dispatch-toolbar .wo-filter-group select { height: 32px; }
+    .dispatch-toolbar { display: grid; gap: 12px; margin-bottom: 12px; }
+    .dispatch-toolbar h2 { margin: 0; }
+    .dispatch-toolbar .dispatch-filters { width: 100%; margin: 0; gap: 12px; justify-content: flex-start; }
+    .dispatch-toolbar .wo-filter-group { min-width: 140px; gap: 4px; }
+    .dispatch-toolbar .wo-filter-group select { height: 34px; font-size: 13px; }
     .dispatch-toolbar .wo-filter-group input { min-width: 160px; }
-    .dispatch-toolbar .wo-search-btn { height: 32px; padding: 0 12px; font-size: 12px; }
-    .dispatch-toolbar .wo-actions-top { margin-left: 0; }
-    .dispatch-toolbar .wo-actions-top button { height: 32px; padding: 0 12px; font-size: 12px; }
+    .dispatch-toolbar .wo-search-btn { height: 34px; padding: 0 12px; font-size: 13px; }
+    .dispatch-toolbar .wo-actions-top { margin-left: auto; }
+    .dispatch-toolbar .wo-actions-top button { height: 34px; min-width: 78px; padding: 0 12px; font-size: 13px; }
     .dispatch-table td { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
     .dispatch-table .dispatch-desc { display: block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 12px; }
@@ -1488,6 +1583,17 @@
     .md-page { display: flex; flex-direction: column; gap: 16px; }
     .md-section { display: flex; flex-direction: column; gap: 12px; }
     .md-section-title { font-size: 14px; font-weight: 700; color: var(--sidebar); padding: 2px 0; }
+    .md-dispatch-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .md-dispatch-tabs { display: grid; flex: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-soft); }
+    .md-dispatch-tabs button { min-height: 32px; padding: 0 7px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font: inherit; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .md-dispatch-tabs button.active { background: var(--panel); color: var(--primary); box-shadow: 0 1px 2px rgba(15, 23, 42, .1); }
+    .md-dispatch-filter-toggle { min-height: 38px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); font: inherit; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .md-dispatch-filter-toggle.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+    .md-dispatch-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-soft); }
+    .md-filter-group { display: grid; gap: 4px; min-width: 0; }
+    .md-filter-group label { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .md-filter-group .search-select { width: 100%; }
+    .md-filter-reset { grid-column: 1 / -1; justify-self: end; min-height: 28px; padding: 0 8px; border: 0; background: transparent; color: var(--primary); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
     .md-empty {
       background: var(--panel); border: 1px dashed var(--line); border-radius: 10px;
       padding: 24px 14px; text-align: center; color: var(--muted); font-size: 13px;
@@ -1498,7 +1604,7 @@
       display: flex; flex-direction: column; gap: 6px; min-height: 110px; max-height: 130px; overflow: hidden;
     }
     .md-ticket-card.selected { border-color: var(--primary); background: var(--primary-soft); }
-    .md-ticket-card.readonly { cursor: default; opacity: .72; }
+    .md-ticket-card.readonly { cursor: default; }
     .md-ticket-head { display: flex; align-items: center; justify-content: space-between; }
     .md-ticket-head strong { font-size: 14px; color: var(--sidebar); }
     .md-ticket-info { font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -3041,6 +3147,28 @@
       gap: 10px;
       flex-shrink: 0;
     }
+    /* CALL 詳情抽屜：操作按鈕使用同一尺寸，僅以顏色區分操作語意。 */
+    .wo-call-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+    .wo-call-actions button {
+      width: 100%;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .wo-call-actions .warning-btn {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #c2410c;
+    }
+    .wo-call-actions .warning-btn:hover { background: #ffedd5; border-color: #fdba74; }
     /* 標書管理側邊欄底部操作區 - Sticky Footer 企業級 SaaS 風格（Ant Design Mobile） */
     /* 僅優化佈局與視覺效果，不改變任何按鈕業務邏輯、權限邏輯、顯示邏輯、按鈕文案、按鈕顏色 */
     .tender-drawer-footer {
@@ -3586,6 +3714,51 @@
     .sr-folder-metrics .pc-card:nth-child(4)::after { color: #7e22ce; }
     .sr-folder-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
     .sr-folder-metrics + .pc-section { padding: 14px; }
+    .sr-report-modal { width: min(920px, 100%); }
+    .sr-report-modal .dispatch-modal-body { padding: 18px 20px; }
+    .sr-report-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .sr-report-summary > div,
+    .sr-report-section {
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .sr-report-summary span,
+    .sr-report-detail span { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+    .sr-report-summary strong,
+    .sr-report-detail strong { display: block; overflow-wrap: anywhere; font-size: 13px; }
+    .sr-report-detail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .sr-report-section { margin-top: 12px; }
+    .sr-report-section h3 { margin: 0 0 10px; font-size: 14px; }
+    .sr-report-text { margin: 0; white-space: pre-wrap; line-height: 1.55; font-size: 13px; }
+    .sr-report-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sr-report-photo-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sr-report-photo {
+      display: grid;
+      place-items: center;
+      width: 104px;
+      min-height: 72px;
+      padding: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+    .sr-report-photo img { width: 100%; height: 100%; max-height: 100px; object-fit: cover; }
+    @media (max-width: 680px) {
+      .sr-report-summary, .sr-report-detail { grid-template-columns: 1fr; }
+    }
 
     /* 採購 Tab */
     .proc-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 2px solid var(--border); }
@@ -4209,16 +4382,16 @@
     const PAGES = [
       { key: "dashboard", label: "首頁", icon: "🏠", sub: "查看狀態、待辦、異常和最近動態" },
       { key: "workorder", label: "CALL管理", icon: "📋", sub: "管理、新建與查看工單" },
-      { key: "srFolder", label: "服務報告", icon: "📁", sub: "服務報告 檔案查詢與管理" },
       { key: "dispatch", label: "分派中心", icon: "📤", sub: "Team Leader 分派，師傅接單" },
       { key: "quotations", label: "報價管理", icon: "💰", sub: "管理報價記錄、狀態和關聯工單" },
       { key: "tender", label: "標書管理", icon: "📑", sub: "管理招標項目、投標狀態和中標記錄" },
       { key: "procurement", label: "採購管理", icon: "🛒", sub: "管理採購單、供應商和物流到貨" },
       { key: "finance", label: "會計管理", icon: "💵", sub: "發票開具、收款登記和財務報表" },
+      { key: "srFolder", label: "服務報告", icon: "📁", sub: "服務報告 檔案查詢與管理" },
       { key: "report", label: "統計報表", icon: "📊", sub: "MVP 基礎統計，不含複雜 BI" },
       { key: "settings", label: "基礎設置", icon: "⚙️", sub: "字典管理、客戶管理、用戶管理" }
     ];
-    const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動工作台", icon: "📱", sub: "師傅服務與主管分派工作台" };
+    const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動端", icon: "📱", sub: "師傅服務與主管分派工作台" };
     const MOBILE_PAGES = [
       { key: "masterHome", label: "首頁", title: "師傅首頁" },
       { key: "tasks", label: "CALL", title: "CALL" },
@@ -5537,6 +5710,7 @@
       srFolderArea: "全部",
       srFolderStatus: "全部",
       srFolderMetricModal: null,
+      srFolderReportTicketId: null,
       crSearch: "",
       crSelectedTicketId: null,
       filters: { status: "全部", type: "全部", area: "全部", owner: "全部", tl: "全部", customer: "全部", master: "全部", jNumber: "", keyword: "" },
@@ -5559,7 +5733,10 @@
       mdRemark: "",
       mdDispatchSheetOpen: false,
       mdMasterKeyword: "",
-      mdMasterStatus: "全部"
+      mdMasterStatus: "全部",
+      mdDispatchTab: "已分派",
+      mdDispatchFiltersOpen: false,
+      mdDispatchFilters: { area: "全部", customer: "全部", type: "全部" }
     };
 
     // Work Order Management State
@@ -5752,7 +5929,8 @@
         openMobileWorkspace();
       } else {
         state.view = "pc";
-        if (role === "CS") state.page = "create";
+        // 客戶服務部的 PC 預設入口是 CALL 管理；新增表單僅由列表的新增操作開啟。
+        if (role === "CS") state.page = "workorder";
         if (role === "TL") state.page = "dispatch";
         if (role === "ADMIN") state.page = "dashboard";
         if (role === "FIN") state.page = "finance";
@@ -6646,7 +6824,8 @@
       };
       const collapsed = state.isSidebarCollapsed;
       
-      $("#navList").innerHTML = [...PAGES.slice(0, 1), MOBILE_WORKSPACE, ...PAGES.slice(1)].map(p => {
+      // 移動端是獨立工作入口，固定放在所有 PC 模組（含基礎設置）之後。
+      $("#navList").innerHTML = [...PAGES, MOBILE_WORKSPACE].map(p => {
         if (p.key === "mobileWorkspace") {
           if (collapsed) {
             return `<button class="nav-item nav-collapsed-btn ${state.view === "mobile" ? "active" : ""}" data-mobile-workspace data-collapsed-label="${p.label}"><span class="nav-collapsed-char">${collapsedLabels[p.key]}</span></button>`;
@@ -7443,7 +7622,7 @@
             </div>
             ` : ''}
           </div>
-          <div class="wo-drawer-footer">
+          <div class="wo-drawer-footer wo-call-actions">
             ${actionButtons(ticket, "drawer")}
           </div>
         </aside>
@@ -7717,6 +7896,131 @@
       setTimeout(() => confirmBtn.focus(), 50);
     }
 
+    let searchableSelectDismissBound = false;
+
+    function closeSearchableSelects(except) {
+      document.querySelectorAll(".search-select-menu:not([hidden])").forEach(menu => {
+        if (menu !== except) menu.hidden = true;
+      });
+    }
+
+    function refreshSearchableSelect(select) {
+      const wrapper = select?.closest(".search-select");
+      if (wrapper) {
+        wrapper.parentNode.insertBefore(select, wrapper);
+        wrapper.remove();
+      }
+      select?.removeAttribute("data-search-select-enhanced");
+      select?.classList.remove("search-select-native");
+      enhanceSearchableSelects();
+    }
+
+    function enhanceSearchableSelects(root = document) {
+      root.querySelectorAll("select:not([data-search-select-enhanced]):not([multiple])").forEach(select => {
+        if (select.closest(".search-select")) return;
+        select.dataset.searchSelectEnhanced = "true";
+
+        const rect = select.getBoundingClientRect();
+        const isFluid = Boolean(select.closest(".field, .wo-filter-group, .dm-form-group, .wo-form-group, .qf-field, .md-filter-group"));
+        const wrapper = document.createElement("div");
+        wrapper.className = `search-select${isFluid ? " search-select-fluid" : ""}`;
+        if (!isFluid && rect.width) wrapper.style.width = `${Math.ceil(rect.width)}px`;
+
+        const trigger = document.createElement("button");
+        trigger.type = "button";
+        trigger.className = "search-select-trigger";
+        trigger.setAttribute("aria-haspopup", "listbox");
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.disabled = select.disabled;
+
+        const value = document.createElement("span");
+        value.className = "search-select-value";
+        const caret = document.createElement("span");
+        caret.className = "search-select-caret";
+        caret.textContent = "⌄";
+        trigger.append(value, caret);
+
+        const menu = document.createElement("div");
+        menu.className = "search-select-menu";
+        menu.hidden = true;
+        menu.setAttribute("role", "listbox");
+        const search = document.createElement("input");
+        search.type = "text";
+        search.className = "search-select-search";
+        search.placeholder = "輸入關鍵詞搜尋";
+        search.autocomplete = "off";
+        const options = document.createElement("div");
+        options.className = "search-select-options";
+        menu.append(search, options);
+
+        const updateValue = () => {
+          const selected = select.options[select.selectedIndex];
+          value.textContent = selected?.textContent.trim() || "請選擇";
+          trigger.disabled = select.disabled;
+        };
+        const renderOptions = (keyword = "") => {
+          const query = keyword.trim().toLocaleLowerCase();
+          const matched = Array.from(select.options).filter(option => option.textContent.trim().toLocaleLowerCase().includes(query));
+          options.innerHTML = "";
+          if (!matched.length) {
+            options.innerHTML = '<div class="search-select-empty">沒有符合的選項</div>';
+            return;
+          }
+          matched.forEach(option => {
+            const item = document.createElement("button");
+            item.type = "button";
+            item.className = `search-select-option${option.selected ? " active" : ""}`;
+            item.textContent = option.textContent.trim();
+            item.disabled = option.disabled;
+            item.dataset.value = option.value;
+            item.addEventListener("click", () => {
+              if (option.disabled) return;
+              select.value = option.value;
+              updateValue();
+              menu.hidden = true;
+              trigger.setAttribute("aria-expanded", "false");
+              select.dispatchEvent(new Event("input", { bubbles: true }));
+              select.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+            options.appendChild(item);
+          });
+        };
+        const open = () => {
+          if (select.disabled) return;
+          closeSearchableSelects(menu);
+          search.value = "";
+          renderOptions();
+          menu.hidden = false;
+          trigger.setAttribute("aria-expanded", "true");
+          requestAnimationFrame(() => search.focus());
+        };
+
+        trigger.addEventListener("click", () => menu.hidden ? open() : (menu.hidden = true, trigger.setAttribute("aria-expanded", "false")));
+        search.addEventListener("input", () => renderOptions(search.value));
+        search.addEventListener("keydown", event => {
+          if (event.key === "Escape") {
+            menu.hidden = true;
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.focus();
+          }
+        });
+        select.addEventListener("change", updateValue);
+
+        select.parentNode.insertBefore(wrapper, select);
+        wrapper.append(trigger, menu, select);
+        select.classList.add("search-select-native");
+        updateValue();
+        renderOptions();
+      });
+
+      if (!searchableSelectDismissBound) {
+        searchableSelectDismissBound = true;
+        document.addEventListener("pointerdown", event => {
+          if (!event.target.closest(".search-select")) closeSearchableSelects();
+        });
+      }
+    }
+
     // 按客戶類型篩選客戶下拉選項（新建工單時聯動）
     // 客戶投訴類型不限制客戶類別，顯示所有客戶
     function filterCustomersByType(type) {
@@ -7724,10 +8028,12 @@
       if (!select) return;
       if (!type) {
         select.innerHTML = '<option value="">請先選擇客戶類型</option>';
+        refreshSearchableSelect(select);
         return;
       }
       const filtered = type === "客戶投訴" ? customers : customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}">${c.nameZh} (${c.nameEn})</option>`).join("");
+      refreshSearchableSelect(select);
     }
 
     // 彈窗式工單的客戶類型篩選（支持編輯時預選客戶）
@@ -7737,10 +8043,12 @@
       if (!select) return;
       if (!type) {
         select.innerHTML = '<option value="">請先選擇客戶類型</option>';
+        refreshSearchableSelect(select);
         return;
       }
       const filtered = type === "客戶投訴" ? customers : customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}" ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("");
+      refreshSearchableSelect(select);
     }
 
     // 根據區域篩選主管（TL）下拉選項
@@ -7749,6 +8057,7 @@
       if (!select) return;
       if (!area) {
         select.innerHTML = '<option value="">請先選擇區域</option>';
+        refreshSearchableSelect(select);
         return;
       }
       const filtered = users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === area);
@@ -7757,6 +8066,7 @@
       } else {
         select.innerHTML = '<option value="">請選擇主管</option>' + filtered.map(u => `<option value="${u.name}" ${preselectedTL === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
       }
+      refreshSearchableSelect(select);
     }
 
     // 處理文件上傳（點擊上傳）
@@ -14930,6 +15240,7 @@
             ${renderSrFolderList(filtered)}
           </div>
           ${renderSrFolderMetricModal(srTickets)}
+          ${renderSrFolderReportModal()}
         </div>
       `;
     }
@@ -14957,6 +15268,74 @@
               </div>
             </div>
             <footer class="dispatch-modal-footer"><button class="secondary-btn" data-sr-folder-metric-close>關閉</button></footer>
+          </section>
+        </div>`;
+    }
+
+    function renderSrFolderReportModal() {
+      const t = ticketById(state.srFolderReportTicketId);
+      if (!t || !t.serviceReportNo) return "";
+      const detail = (label, value) => `<div><span>${label}</span><strong>${escapeHtml(value || "-")}</strong></div>`;
+      const tagList = (items, empty) => items?.length
+        ? `<div class="sr-report-tags">${items.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join("")}</div>`
+        : `<span class="muted">${empty}</span>`;
+      const photoSection = (title, photos) => {
+        if (!photos?.length) return "";
+        return `<section class="sr-report-section"><h3>${title}</h3><div class="sr-report-photo-list">${photos.map(photo => {
+          const value = String(photo || "");
+          return `<div class="sr-report-photo">${value.startsWith("data:image") ? `<img src="${value}" alt="${title}">` : escapeHtml(value)}</div>`;
+        }).join("")}</div></section>`;
+      };
+      const reportPhotos = t.serviceReportSourceImage ? [t.serviceReportSourceImage] : [];
+      const signaturePhotos = t.signature ? [t.signature] : [];
+      const records = Array.isArray(t.records) ? t.records.slice().reverse() : [];
+      return `
+        <div class="dispatch-modal-overlay" data-sr-folder-report-close>
+          <section class="dispatch-modal sr-report-modal" role="dialog" aria-modal="true" aria-label="服務報告詳情">
+            <header class="dispatch-modal-head">
+              <div><h2>服務報告詳情</h2><p>SR-${escapeHtml(t.serviceReportNo)} · ${escapeHtml(t.id)}</p></div>
+              <button class="ghost-btn" data-sr-folder-report-close>關閉</button>
+            </header>
+            <div class="dispatch-modal-body">
+              <div class="sr-report-summary">
+                <div><span>客戶</span><strong>${escapeHtml(t.customer)}</strong></div>
+                <div><span>CALL 狀態</span>${statusBadge(t.status)}</div>
+                <div><span>師傅</span><strong>${escapeHtml(t.master || t.owner || "-")}</strong></div>
+              </div>
+              <section class="sr-report-section">
+                <h3>基本資料</h3>
+                <div class="sr-report-detail">
+                  ${detail("聯繫人", t.contact)}${detail("聯繫電話", t.phone)}${detail("服務區域", t.srArea || t.area)}${detail("保養類型", t.maintenanceType || "非保養")}${detail("地址", t.address)}${detail("建立時間", t.createdAt)}
+                </div>
+              </section>
+              <section class="sr-report-section">
+                <h3>服務內容</h3>
+                <div class="sr-report-detail">
+                  <div><span>系統</span>${tagList(t.srSystems, "未填寫")}</div>
+                  <div><span>目的</span>${tagList(t.srObjectives, "未填寫")}</div>
+                </div>
+              </section>
+              <section class="sr-report-section">
+                <h3>服務紀錄</h3>
+                <div class="sr-report-detail">
+                  ${detail("簽到時間", t.serviceCheckInAt || t.arrivalTime)}${detail("完成時間", t.completionTime || (t.status === "已完成" ? t.updatedAt : ""))}${detail("客戶滿意度", t.satisfaction)}${detail("需要報價", t.needQuotation ? "是" : "否")}
+                </div>
+                <div style="display:grid;gap:10px;margin-top:10px;">
+                  <div><span class="muted" style="font-size:12px;">完成工作</span><p class="sr-report-text">${escapeHtml(t.completedWork || t.processNote || "暫無服務紀錄")}</p></div>
+                  <div><span class="muted" style="font-size:12px;">跟進結果</span><p class="sr-report-text">${escapeHtml(t.faultResult || "暫無需跟進事項")}</p></div>
+                </div>
+              </section>
+              ${photoSection("Before Service 照片", t.beforeServicePhotos)}
+              ${photoSection("服務中照片", t.processPhotos)}
+              ${photoSection("After Service 照片", t.afterServicePhotos)}
+              ${photoSection("已提交服務報告", reportPhotos)}
+              ${photoSection("客戶電子簽名", signaturePhotos)}
+              ${records.length ? `<section class="sr-report-section"><h3>流轉紀錄</h3><div style="display:grid;gap:10px;">${records.map(record => `<div><strong style="font-size:13px;">${escapeHtml(record.actor || "系統")}</strong><div class="muted" style="margin:2px 0;font-size:12px;">${escapeHtml(record.time || "")}</div><p class="sr-report-text">${escapeHtml(record.text || "")}</p></div>`).join("")}</div></section>` : ""}
+            </div>
+            <footer class="dispatch-modal-footer">
+              <button class="secondary-btn" data-sr-folder-open-ticket="${t.id}">查看 CALL</button>
+              <button class="primary-btn" data-sr-folder-report-close>關閉</button>
+            </footer>
           </section>
         </div>`;
     }
@@ -16455,10 +16834,20 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function renderMobileDispatch() {
       const currentTLName = currentRole().name;
       const activeTickets = tickets.filter(t => t.tl === currentTLName && !["已完成", "已取消"].includes(t.status));
-      const pendingCount = activeTickets.filter(t => t.status === "待分派").length;
-      const ticketsHtml = activeTickets.length === 0
-        ? `<div class="md-empty">暫無 CALL</div>`
-        : activeTickets.map(t => `
+      const pendingTickets = activeTickets.filter(t => t.status === "待分派");
+      const assignedTickets = activeTickets.filter(t => t.status !== "待分派");
+      const filter = state.mdDispatchFilters;
+      const uniqueValues = key => [...new Set(activeTickets.map(t => t[key]).filter(Boolean))].sort();
+      const tabTickets = state.mdDispatchTab === "待分派" ? pendingTickets : assignedTickets;
+      const visibleTickets = tabTickets.filter(t =>
+        (filter.area === "全部" || t.area === filter.area) &&
+        (filter.customer === "全部" || t.customer === filter.customer) &&
+        (filter.type === "全部" || t.type === filter.type)
+      );
+      const filterSelect = (key, label) => `<div class="md-filter-group"><label>${label}</label><select data-md-dispatch-filter="${key}"><option value="全部">全部</option>${uniqueValues(key).map(value => `<option value="${escapeHtml(value)}" ${filter[key] === value ? "selected" : ""}>${escapeHtml(value)}</option>`).join("")}</select></div>`;
+      const ticketsHtml = visibleTickets.length === 0
+        ? `<div class="md-empty">暫無${state.mdDispatchTab} CALL</div>`
+        : visibleTickets.map(t => `
           <div class="md-ticket-card ${t.status === "待分派" ? "" : "readonly"}" ${t.status === "待分派" ? `data-md-ticket="${t.id}" role="button" tabindex="0"` : ""}>
             <div class="md-ticket-head">
               <strong>${escapeHtml(t.id)}</strong>
@@ -16478,8 +16867,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       return `
         <div class="md-page">
           <div class="md-section">
-            <div class="md-section-title">CALL 清單（${activeTickets.length} 張）</div>
-            <div class="muted" style="margin:-4px 0 10px;font-size:12px;">待分派 ${pendingCount} 張 · 已分派 ${activeTickets.length - pendingCount} 張</div>
+            <div class="md-section-title">CALL 清單（${visibleTickets.length} 張）</div>
+            <div class="md-dispatch-toolbar">
+              <div class="md-dispatch-tabs" role="tablist" aria-label="CALL 分派狀態">
+                <button type="button" class="${state.mdDispatchTab === "待分派" ? "active" : ""}" data-md-dispatch-tab="待分派" aria-pressed="${state.mdDispatchTab === "待分派"}">待分派 ${pendingTickets.length}</button>
+                <button type="button" class="${state.mdDispatchTab === "已分派" ? "active" : ""}" data-md-dispatch-tab="已分派" aria-pressed="${state.mdDispatchTab === "已分派"}">已分派 ${assignedTickets.length}</button>
+              </div>
+              <button type="button" class="md-dispatch-filter-toggle ${state.mdDispatchFiltersOpen ? "active" : ""}" data-md-dispatch-filter-toggle aria-expanded="${state.mdDispatchFiltersOpen}">篩選 ${state.mdDispatchFiltersOpen ? "⌃" : "⌄"}</button>
+            </div>
+            ${state.mdDispatchFiltersOpen ? `<div class="md-dispatch-filters">${filterSelect("area", "區域")}${filterSelect("customer", "客戶")}${filterSelect("type", "CALL 類型")}<button type="button" class="md-filter-reset" data-md-dispatch-filter-reset>重置篩選</button></div>` : ""}
             ${ticketsHtml}
           </div>
         </div>
@@ -17290,6 +17686,22 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         openSrSendModal(btn.dataset.crSendWa, 'whatsapp');
       }));
       // ===== 移動端分派中心事件綁定 =====
+      document.querySelectorAll("[data-md-dispatch-tab]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdDispatchTab = btn.dataset.mdDispatchTab;
+        render();
+      }));
+      document.querySelectorAll("[data-md-dispatch-filter-toggle]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdDispatchFiltersOpen = !state.mdDispatchFiltersOpen;
+        render();
+      }));
+      document.querySelectorAll("[data-md-dispatch-filter]").forEach(select => select.addEventListener("change", () => {
+        state.mdDispatchFilters[select.dataset.mdDispatchFilter] = select.value;
+        render();
+      }));
+      document.querySelectorAll("[data-md-dispatch-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdDispatchFilters = { area: "全部", customer: "全部", type: "全部" };
+        render();
+      }));
       document.querySelectorAll("[data-md-ticket]").forEach(btn => btn.addEventListener("click", () => {
         state.mdSelectedTicketId = btn.dataset.mdTicket;
         state.mdSelectedMaster = null;
@@ -17919,15 +18331,18 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       // SR 文件夾：查看工單（PC 詳情抽屜）
       document.querySelectorAll("[data-sr-folder-open-ticket]").forEach(btn => btn.addEventListener("click", () => {
         state.srFolderMetricModal = null;
+        state.srFolderReportTicketId = null;
         performAction("view", btn.dataset.srFolderOpenTicket);
       }));
-      // SR 文件夾：查看 SR（切換到移動端處理頁面）
+      // SR 文件夾：查看報告（在 PC 中央彈窗呈現只讀詳情）
       document.querySelectorAll("[data-sr-folder-open-sr]").forEach(btn => btn.addEventListener("click", () => {
-        const id = btn.dataset.srFolderOpenSr;
         state.srFolderMetricModal = null;
-        state.selectedTicketId = id;
-        state.view = "mobile";
-        state.mobilePage = "workRecord";
+        state.srFolderReportTicketId = btn.dataset.srFolderOpenSr;
+        render();
+      }));
+      document.querySelectorAll("[data-sr-folder-report-close]").forEach(btn => btn.addEventListener("click", (event) => {
+        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        state.srFolderReportTicketId = null;
         render();
       }));
       document.querySelectorAll("[data-po-create]").forEach(btn => btn.addEventListener("click", createPurchaseOrder));
@@ -18566,6 +18981,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       bindEvents();
       // 增強當前渲染範圍內所有下拉框
       enhanceAllSelects(document);
+      enhanceSearchableSelects();
       // 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動
       const isDrawerOpen =
         (workOrderState.selectedWorkOrderId !== null) ||
