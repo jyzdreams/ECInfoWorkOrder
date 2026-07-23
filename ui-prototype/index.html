@@ -766,6 +766,8 @@
     .dispatch-toolbar .dispatch-filters { flex: 1; margin: 0; gap: 8px; justify-content: flex-end; }
     .dispatch-toolbar .wo-filter-group { min-width: 112px; gap: 3px; }
     .dispatch-toolbar .wo-filter-group select { height: 32px; }
+    .dispatch-toolbar .wo-filter-group input { min-width: 160px; }
+    .dispatch-toolbar .wo-search-btn { height: 32px; padding: 0 12px; font-size: 12px; }
     .dispatch-toolbar .wo-actions-top { margin-left: 0; }
     .dispatch-toolbar .wo-actions-top button { height: 32px; padding: 0 12px; font-size: 12px; }
     .dispatch-table td { white-space: nowrap; }
@@ -923,6 +925,57 @@
     .qf-textarea { height: auto; min-height: 80px; padding: 10px 12px; resize: vertical; line-height: 1.5; }
     .qf-readonly { background: #f3f4f6 !important; color: #6b7280 !important; cursor: not-allowed; }
     .qf-readonly:focus { border-color: #e5e7eb; box-shadow: none; }
+    /* 自定義下拉框：隱藏原生 select（保留業務邏輯），用自定義 UI 顯示，最多顯示 6 個選項可滾動 */
+    .qf-select-wrap { position: relative; width: 100%; }
+    .qf-select-wrap > select.qf-select {
+      position: absolute !important; opacity: 0; pointer-events: none;
+      width: 1px !important; height: 1px !important; left: -9999px; top: 0;
+      border: 0 !important; padding: 0 !important; box-shadow: none !important;
+    }
+    .qf-select-trigger {
+      width: 100%; height: 40px; padding: 8px 32px 8px 12px;
+      border: 1px solid #e5e7eb; border-radius: 10px;
+      font-size: 13px; color: #1f2937; background: #fff;
+      cursor: pointer; display: flex; align-items: center;
+      position: relative; transition: border-color .15s, box-shadow .15s;
+      font-family: inherit; text-align: left; box-sizing: border-box;
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .qf-select-trigger::after {
+      content: ''; position: absolute; right: 12px; top: 50%;
+      width: 0; height: 0; border-left: 4px solid transparent;
+      border-right: 4px solid transparent; border-top: 5px solid #6b7280;
+      transform: translateY(-50%); pointer-events: none;
+    }
+    .qf-select-trigger.open {
+      border-color: var(--primary, #1e6bff);
+      box-shadow: 0 0 0 3px rgba(30,107,255,.12);
+    }
+    .qf-select-trigger.placeholder { color: #9ca3af; }
+    .qf-select-panel {
+      position: fixed;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(15,23,42,.12);
+      max-height: 216px; overflow-y: auto; z-index: 100000;
+      display: none; padding: 4px 0; box-sizing: border-box;
+    }
+    .qf-select-panel.open { display: block; }
+    .qf-select-opt {
+      padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1f2937;
+      min-height: 36px; display: flex; align-items: center;
+      box-sizing: border-box;
+    }
+    .qf-select-opt:hover { background: #f3f4f6; }
+    .qf-select-opt.selected { background: #eff6ff; color: var(--primary, #1e6bff); font-weight: 600; }
+    .qf-select-opt.disabled { color: #d1d5db; cursor: not-allowed; }
+    .qf-select-opt.disabled:hover { background: transparent; }
+    .qf-select-wrap.qf-readonly .qf-select-trigger { background: #f3f4f6 !important; color: #6b7280 !important; cursor: not-allowed; }
+    .qf-select-wrap.qf-readonly .qf-select-trigger::after { display: none; }
+    /* 工單模態框淡入動畫：避免 backdrop-filter 突然應用導致閃爍 */
+    #woModalOverlay .qf-overlay { animation: woOverlayFadeIn .16s ease-out; }
+    #woModalOverlay .qf-modal { animation: woModalSlideIn .2s ease-out; }
+    @keyframes woOverlayFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes woModalSlideIn { from { opacity: 0; transform: translateY(-10px) scale(.985); } to { opacity: 1; transform: none; } }
     .qf-amount-display {
       display: flex; align-items: center; gap: 8px;
       padding: 10px 14px; background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
@@ -2547,6 +2600,25 @@
     .wo-filter-group input {
       min-width: 200px;
     }
+    /* 統一搜索框包裹：輸入框 + 搜索按鈕並排 */
+    .wo-search-wrap {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .wo-search-wrap input {
+      flex: 1;
+      min-width: 160px;
+    }
+    /* 統一搜索按鈕樣式 */
+    .wo-search-btn {
+      height: 34px;
+      padding: 0 16px;
+      font-size: 13px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     .wo-actions-top {
       display: flex;
       gap: 10px;
@@ -2747,6 +2819,27 @@
     [data-theme="dark"] .wo-view-btn:hover {
       background: var(--primary-soft);
     }
+    /* 列表行刪除按鈕（與 wo-view-btn 尺寸一致，紅色警示樣式） */
+    .wo-delete-btn {
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--danger);
+      background: var(--danger-soft);
+      color: var(--danger);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wo-delete-btn:hover {
+      background: var(--danger);
+      color: #fff;
+    }
     .wo-drawer {
       position: fixed;
       top: 0;
@@ -2780,6 +2873,7 @@
     }
     /* 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動 */
     body.drawer-open { overflow: hidden; }
+    body.modal-open { overflow: hidden; }
     .wo-drawer-header {
       padding: 20px;
       border-bottom: 1px solid var(--line);
@@ -5424,6 +5518,7 @@
       dispatchModalOpen: false,
       dispatchMetricModal: null,
       dispatchFilters: { status: "全部", area: "全部", customer: "全部", type: "全部" },
+      dispatchSearch: "", // 分派中心：關鍵詞搜索
       dispatchMasterKeyword: "", // 分派彈窗：師傅搜索關鍵詞
       dispatchMasterStatusFilter: "全部", // 分派彈窗：師傅狀態篩選
       dispatchPaperType: "", // 分派彈窗：領取單據類型（完工單/服務報告，互斥選擇）
@@ -6391,20 +6486,9 @@
         updateTicket(id, { status: "處理中", owner: currentRole().name }, "師傅開始現場處理，進入處理中。");
       }
       if (action === "urge") {
-        // 催單功能
-        const urgeContent = prompt("請輸入催單內容：");
-        if (urgeContent) {
-          const urgeRecord = {
-            time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
-            actor: currentRole().name,
-            text: `客戶催單：${urgeContent}`
-          };
-          if (!t.urgeRecords) t.urgeRecords = [];
-          t.urgeRecords.push(urgeRecord);
-          t.urgeCount = (t.urgeCount || 0) + 1;
-          updateTicket(id, {}, `客戶催單 ${t.urgeCount} 次：${urgeContent}`);
-          toast("催單已記錄，已通知TL和師傅");
-        }
+        // 催單功能（使用自定義輸入彈窗）
+        handleUrge(id);
+        return;
       }
       if (action === "editTicket") {
         // TL編輯工單
@@ -6417,6 +6501,30 @@
       }
       render();
       toast("狀態已在頁面內模擬更新");
+    }
+
+    // 催單處理（使用自定義輸入彈窗替代原生 prompt）
+    async function handleUrge(id) {
+      const t = ticketById(id);
+      if (!t) return;
+      const urgeContent = await showPromptDialog({
+        title: "催單",
+        message: `請輸入催單內容（工單：${t.id}，客戶：${t.customer}）`,
+        placeholder: "請輸入催單內容...",
+        confirmText: "確認催單",
+        multiline: true
+      });
+      if (!urgeContent) return;
+      const urgeRecord = {
+        time: new Date().toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\//g, '-'),
+        actor: currentRole().name,
+        text: `客戶催單：${urgeContent}`
+      };
+      if (!t.urgeRecords) t.urgeRecords = [];
+      t.urgeRecords.push(urgeRecord);
+      t.urgeCount = (t.urgeCount || 0) + 1;
+      updateTicket(id, {}, `客戶催單 ${t.urgeCount} 次：${urgeContent}`);
+      toast("催單已記錄，已通知TL和師傅");
     }
 
     function actionButtons(t, context = "detail") {
@@ -6509,7 +6617,6 @@
             { key: "dictionary", label: "字典管理" },
             { key: "customer", label: "客戶管理" },
             { key: "user", label: "用戶管理" },
-            { key: "addressBook", label: "報價組通訊錄" },
             { key: "components", label: "組件庫" }
           ];
           const activeTab = settingsTabs.find(t => t.key === state.settingsTab);
@@ -6568,7 +6675,6 @@
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">🏢 客戶管理</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">👤 用戶管理</button>
-                <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">🖥️ 服務器空間</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">📊 Excel 導入</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'components' ? 'active' : ''}" data-settings-tab="components">🧩 組件庫</button>
@@ -6630,7 +6736,6 @@
           <button class="settings-popover-item ${state.settingsTab === 'dictionary' ? 'active' : ''}" data-settings-tab="dictionary">📖 字典管理</button>
           <button class="settings-popover-item ${state.settingsTab === 'customer' ? 'active' : ''}" data-settings-tab="customer">🏢 客戶管理</button>
           <button class="settings-popover-item ${state.settingsTab === 'user' ? 'active' : ''}" data-settings-tab="user">👤 用戶管理</button>
-          <button class="settings-popover-item ${state.settingsTab === 'addressBook' ? 'active' : ''}" data-settings-tab="addressBook">📞 報價組通訊錄</button>
           <button class="settings-popover-item ${state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server">🖥️ 服務器空間</button>
           <button class="settings-popover-item ${state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport">📊 Excel 導入</button>
           <button class="settings-popover-item ${state.settingsTab === 'components' ? 'active' : ''}" data-settings-tab="components">🧩 組件庫</button>
@@ -7000,7 +7105,6 @@
             </div>
             ${hasDrawer ? renderWorkOrderDrawer(selectedTicket) : ''}
           </div>
-          ${workOrderState.modalOpen ? renderWorkOrderModal() : ''}
         </section>
       `;
     }
@@ -7084,7 +7188,10 @@
           </div>
           <div class="wo-filter-group">
             <label>關鍵詞搜索</label>
-            <input type="text" data-wo-filter="keyword" value="${escapeHtml(workOrderState.filters.keyword)}" placeholder="工單編號、客戶名稱、聯繫人、地址">
+            <div class="wo-search-wrap">
+              <input type="text" data-wo-filter="keyword" value="${escapeHtml(workOrderState.filters.keyword)}">
+              <button type="button" class="primary-btn wo-search-btn" data-wo-search>搜索</button>
+            </div>
           </div>
           <div class="wo-actions-top">
             <button class="secondary-btn" data-wo-reset>重置</button>
@@ -7178,6 +7285,7 @@
                     ${state.role === "CS" ? (showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催單</button>` : '<button class="wo-btn-disabled" disabled>催單</button>') : ''}
                     ${isQUO ? (quotationBtnHtml || '<button class="wo-btn-disabled" disabled>報價</button>') : ''}
                     <button class="wo-view-btn" data-wo-view="${t.id}">查看詳情</button>
+                    <button class="wo-delete-btn" data-wo-delete="${t.id}">刪除</button>
                   </div>
                 </td>
               </tr>
@@ -7347,130 +7455,144 @@
       const ticket = isEdit ? ticketById(workOrderState.selectedWorkOrderId) : null;
       
       return `
-        <div class="wo-modal">
-          <div class="wo-modal-content">
-            <div class="wo-modal-header">
-              <h3>${isEdit ? '編輯工單' : '新增Call'}</h3>
-              <button class="wo-drawer-close" data-wo-modal-close>×</button>
+        <div class="qf-overlay">
+          <div class="qf-modal">
+            <div class="qf-header">
+              <div>
+                <h3>${isEdit ? '編輯工單' : '新增Call'}</h3>
+                <div class="qf-sub">填寫工單資訊，提交後將自動派發至相應主管</div>
+              </div>
+              <button type="button" class="qf-close" data-wo-modal-close aria-label="關閉">×</button>
             </div>
-            <div class="wo-modal-body">
-              <form id="workOrderForm">
-                <div class="wo-form-grid">
-                  <div class="wo-form-group">
-                    <label>工單編號</label>
-                    <input type="text" value="${isEdit ? ticket.id : '自動生成'}" disabled>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>創建人</label>
-                    <input type="text" value="${currentRole().name}" disabled>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>區域 <span class="required"></span></label>
-                    <select name="area" id="modalAreaSelect" required onchange="filterModalTLsByArea(this.value, ${isEdit ? `'${ticket.tl}'` : 'null'})">
-                      <option value="">請選擇區域</option>
-                      ${REGIONS.map(r => `<option ${isEdit && ticket.area === r ? 'selected' : ''}>${r}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>主管 <span class="required"></span></label>
-                    <select name="tl" id="modalTLSelect" required>
-                      <option value="">請先選擇區域</option>
-                      ${isEdit && ticket.tl ? (() => {
-                        const tlUser = users.find(u => u.name === ticket.tl);
-                        const tlArea = tlUser ? tlUser.area : '';
-                        return users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === tlArea).map(u => `<option value="${u.name}" ${ticket.tl === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
-                      })() : ''}
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>客戶類型 <span class="required"></span></label>
-                    <select name="customerType" id="modalCustomerTypeSelect" required onchange="filterModalCustomersByType(this.value, ${isEdit ? `'${ticket.customerId}'` : 'null'})">
-                      <option value="">請選擇客戶類型</option>
-                      <option value="政府" ${isEdit && (ticket.customerType === '政府' || customers.find(c => c.id === ticket.customerId)?.type === '政府') ? 'selected' : ''}>政府 (EMSD)</option>
-                      <option value="私人" ${isEdit && (ticket.customerType === '私人' || customers.find(c => c.id === ticket.customerId)?.type === '私人') ? 'selected' : ''}>私人</option>
-                      <option value="客戶投訴" ${isEdit && (ticket.customerType === '客戶投訴') ? 'selected' : ''}>客戶投訴</option>
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>客戶 <span class="required"></span></label>
-                    <select name="customerId" id="customerSelect" required>
-                      <option value="">請先選擇客戶類型</option>
-                      ${isEdit && ticket.customerId ? (() => {
-                        const c = customers.find(c => c.id === ticket.customerId);
-                        return c ? `<option value="${c.id}" selected>${c.nameZh} (${c.nameEn})</option>` : '';
-                      })() : ''}
-                    </select>
-                  </div>
-                  <div class="wo-form-group ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="callCodeFieldWrap">
-                    <label>Call代碼 <span class="required"></span></label>
-                    <div style="display:flex;gap:6px;align-items:center;">
-                      <select name="callCode" id="callCodeSelect" style="flex:1;">
-                        <option value="">請選擇Call代碼</option>
-                        ${callCodes.filter(cc => isEnabled(cc.status)).sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}" ${isEdit && ticket.callCode === cc.code ? 'selected' : ''}>${cc.code} - ${cc.name}</option>`).join("")}
+            <form id="workOrderForm">
+              <div class="qf-body">
+                <!-- 卡片 1：基本資訊 -->
+                <div class="qf-card">
+                  <div class="qf-card-title">基本資訊<span class="qf-card-sub">工單主要資料</span></div>
+                  <div class="qf-grid">
+                    <div class="qf-field">
+                      <label class="qf-label">工單編號</label>
+                      <input class="qf-input qf-readonly" type="text" value="${isEdit ? ticket.id : '自動生成'}" disabled>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">創建人</label>
+                      <input class="qf-input qf-readonly" type="text" value="${currentRole().name}" disabled>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">區域<span class="req">*</span></label>
+                      <select class="qf-select" name="area" id="modalAreaSelect" required onchange="filterModalTLsByArea(this.value, ${isEdit ? `'${ticket.tl}'` : 'null'})">
+                        <option value="">請選擇區域</option>
+                        ${REGIONS.map(r => `<option ${isEdit && ticket.area === r ? 'selected' : ''}>${r}</option>`).join("")}
                       </select>
-                      <button type="button" class="secondary-btn" id="addCallCodeBtn" title="新增 Call代碼" style="padding:8px 10px;min-width:36px;font-size:16px;">+</button>
                     </div>
-                  </div>
-                  <div class="wo-form-group ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="jNumberField">
-                    <label>J No.</label>
-                    <input type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : ''}" placeholder="如：J 12345">
-                  </div>
-                  <div class="wo-form-group">
-                    <label>聯繫人 <span class="required"></span></label>
-                    <input type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="選擇客戶後自動填充">
-                  </div>
-                  <div class="wo-form-group">
-                    <label>聯繫電話</label>
-                    <input type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" placeholder="選擇客戶後自動填充">
-                  </div>
-                  <div class="wo-form-group">
-                    <label>來源渠道</label>
-                    <select name="channel">
-                      ${CHANNELS.map(c => `<option ${isEdit && ticket.channel === c ? 'selected' : ''}>${c}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>地址</label>
-                    <input type="text" name="address" value="${isEdit ? escapeHtml(ticket.address) : ''}" placeholder="請輸入服務地點">
-                  </div>
-                  <div class="wo-form-group">
-                    <label>Call類型 <span class="required"></span></label>
-                    <select name="type" required>
-                      ${TYPES.map(t => `<option ${isEdit && ticket.type === t ? 'selected' : ''}>${t}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="wo-form-group">
-                    <label>優先級</label>
-                    <select name="priority">
-                      <option selected>普通</option>
-                      <option ${isEdit && ticket.urgent ? 'selected' : ''}>緊急</option>
-                      <option ${isEdit && ticket.urgent && ticket.priority === '非常緊急' ? 'selected' : ''}>非常緊急</option>
-                    </select>
-                  </div>
-                  <div class="wo-form-group full-width">
-                    <label>工單描述 <span class="required"></span></label>
-                    <textarea name="desc" required placeholder="請記錄客戶問題、現場情況或服務請求">${isEdit ? escapeHtml(ticket.desc) : ''}</textarea>
-                  </div>
-                  <div class="wo-form-group full-width">
-                    <label>附件上傳</label>
-                    <div id="fileUploadArea" style="border:2px dashed var(--line); border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--panel-soft);" onclick="document.getElementById('fileInput').click()">
-                      <input type="file" id="fileInput" name="files" multiple style="display:none;" onchange="handleFileUpload(this)">
-                      <div id="fileUploadHint">
-                        <div style="font-size:24px; margin-bottom:8px;">📁</div>
-                        <div style="font-size:13px; color:var(--muted);">點擊上傳或將文件拖入此區域</div>
-                        <div style="font-size:12px; color:var(--muted); margin-top:4px;">支持圖片、PDF 等格式</div>
+                    <div class="qf-field">
+                      <label class="qf-label">主管<span class="req">*</span></label>
+                      <select class="qf-select" name="tl" id="modalTLSelect" required>
+                        <option value="">請先選擇區域</option>
+                        ${isEdit && ticket.tl ? (() => {
+                          const tlUser = users.find(u => u.name === ticket.tl);
+                          const tlArea = tlUser ? tlUser.area : '';
+                          return users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === tlArea).map(u => `<option value="${u.name}" ${ticket.tl === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
+                        })() : ''}
+                      </select>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">客戶類型<span class="req">*</span></label>
+                      <select class="qf-select" name="customerType" id="modalCustomerTypeSelect" required onchange="filterModalCustomersByType(this.value, ${isEdit ? `'${ticket.customerId}'` : 'null'})">
+                        <option value="">請選擇客戶類型</option>
+                        <option value="政府" ${isEdit && (ticket.customerType === '政府' || customers.find(c => c.id === ticket.customerId)?.type === '政府') ? 'selected' : ''}>政府 (EMSD)</option>
+                        <option value="私人" ${isEdit && (ticket.customerType === '私人' || customers.find(c => c.id === ticket.customerId)?.type === '私人') ? 'selected' : ''}>私人</option>
+                        <option value="客戶投訴" ${isEdit && (ticket.customerType === '客戶投訴') ? 'selected' : ''}>客戶投訴</option>
+                      </select>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">客戶<span class="req">*</span></label>
+                      <select class="qf-select" name="customerId" id="customerSelect" required>
+                        <option value="">請先選擇客戶類型</option>
+                        ${isEdit && ticket.customerId ? (() => {
+                          const c = customers.find(c => c.id === ticket.customerId);
+                          return c ? `<option value="${c.id}" selected>${c.nameZh} (${c.nameEn})</option>` : '';
+                        })() : ''}
+                      </select>
+                    </div>
+                    <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="callCodeFieldWrap">
+                      <label class="qf-label">Call代碼<span class="req">*</span></label>
+                      <div style="display:flex;gap:6px;align-items:center;">
+                        <select class="qf-select" name="callCode" id="callCodeSelect" style="flex:1;">
+                          <option value="">請選擇Call代碼</option>
+                          ${callCodes.filter(cc => isEnabled(cc.status)).sort((a,b) => a.sortOrder - b.sortOrder).map(cc => `<option value="${cc.code}" ${isEdit && ticket.callCode === cc.code ? 'selected' : ''}>${cc.code} - ${cc.name}</option>`).join("")}
+                        </select>
+                        <button type="button" class="secondary-btn" id="addCallCodeBtn" title="新增 Call代碼" style="padding:8px 10px;min-width:36px;font-size:16px;">+</button>
                       </div>
-                      <div id="fileList" style="text-align:left; margin-top:10px;"></div>
                     </div>
-                    <input type="hidden" name="attachments" id="attachmentsInput" value="${isEdit && ticket.attachments.length > 0 ? escapeHtml(ticket.attachments.join(', ')) : ''}">
+                    <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="jNumberField">
+                      <label class="qf-label">J No.</label>
+                      <input class="qf-input" type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : ''}" placeholder="如：J 12345">
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">聯繫人<span class="req">*</span></label>
+                      <input class="qf-input" type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="選擇客戶後自動填充">
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">聯繫電話</label>
+                      <input class="qf-input" type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" placeholder="選擇客戶後自動填充">
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">來源渠道</label>
+                      <select class="qf-select" name="channel">
+                        ${CHANNELS.map(c => `<option ${isEdit && ticket.channel === c ? 'selected' : ''}>${c}</option>`).join("")}
+                      </select>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">地址</label>
+                      <input class="qf-input" type="text" name="address" value="${isEdit ? escapeHtml(ticket.address) : ''}" placeholder="請輸入服務地點">
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">Call類型<span class="req">*</span></label>
+                      <select class="qf-select" name="type" required>
+                        ${TYPES.map(t => `<option ${isEdit && ticket.type === t ? 'selected' : ''}>${t}</option>`).join("")}
+                      </select>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">優先級</label>
+                      <select class="qf-select" name="priority">
+                        <option selected>普通</option>
+                        <option ${isEdit && ticket.urgent ? 'selected' : ''}>緊急</option>
+                        <option ${isEdit && ticket.urgent && ticket.priority === '非常緊急' ? 'selected' : ''}>非常緊急</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="wo-modal-footer">
-              <button class="secondary-btn" data-wo-modal-close>取消</button>
-              <button class="primary-btn" data-wo-save>${isEdit ? '保存' : '提交工單'}</button>
-            </div>
+
+                <!-- 卡片 2：工單描述與附件 -->
+                <div class="qf-card">
+                  <div class="qf-card-title">工單描述與附件<span class="qf-card-sub">問題描述及相關文件</span></div>
+                  <div class="qf-grid">
+                    <div class="qf-field wide">
+                      <label class="qf-label">工單描述<span class="req">*</span></label>
+                      <textarea class="qf-textarea" name="desc" required placeholder="請記錄客戶問題、現場情況或服務請求">${isEdit ? escapeHtml(ticket.desc) : ''}</textarea>
+                    </div>
+                    <div class="qf-field wide">
+                      <label class="qf-label">附件上傳</label>
+                      <div id="fileUploadArea" style="border:2px dashed var(--line); border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:all .2s; background:var(--panel-soft);" onclick="document.getElementById('fileInput').click()">
+                        <input type="file" id="fileInput" name="files" multiple style="display:none;" onchange="handleFileUpload(this)">
+                        <div id="fileUploadHint">
+                          <div style="font-size:24px; margin-bottom:8px;">📁</div>
+                          <div style="font-size:13px; color:var(--muted);">點擊上傳或將文件拖入此區域</div>
+                          <div style="font-size:12px; color:var(--muted); margin-top:4px;">支持圖片、PDF 等格式</div>
+                        </div>
+                        <div id="fileList" style="text-align:left; margin-top:10px;"></div>
+                      </div>
+                      <input type="hidden" name="attachments" id="attachmentsInput" value="${isEdit && ticket.attachments.length > 0 ? escapeHtml(ticket.attachments.join(', ')) : ''}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="qf-footer">
+                <button type="button" class="qf-btn qf-btn-cancel" data-wo-modal-close>取消</button>
+                <button type="button" class="qf-btn qf-btn-save" data-wo-save>${isEdit ? '保存' : '提交工單'}</button>
+              </div>
+            </form>
           </div>
         </div>
       `;
@@ -7670,23 +7792,90 @@
       updateFileList(window._uploadedFiles);
     }
 
+    // 開啟新建工單模態框（直接附加到 body，避免全頁重渲染導致閃爍）
     function openCreateWorkOrderModal() {
-      workOrderState.modalOpen = true;
       workOrderState.modalMode = "create";
       workOrderState.selectedWorkOrderId = null;
-      render();
+      showWorkOrderModal();
     }
 
+    // 開啟編輯工單模態框
     function openEditWorkOrderModal(ticketId) {
-      workOrderState.modalOpen = true;
       workOrderState.modalMode = "edit";
       workOrderState.selectedWorkOrderId = ticketId;
-      render();
+      showWorkOrderModal();
     }
 
+    // 統一：生成模態框 HTML 並附加到 body，綁定事件
+    // 使用雙 rAF 技巧確保淡入動畫正確觸發，並鎖定背景滾動避免閃動
+    function showWorkOrderModal() {
+      const existing = document.getElementById("woModalOverlay");
+      if (existing) existing.remove();
+      const overlay = document.createElement("div");
+      overlay.id = "woModalOverlay";
+      // 先以字串方式替換掉 qf-select 類，避免 DOM 插入後才移除類名觸發重排
+      const html = renderWorkOrderModal().replace(/class="qf-select"/g, 'class="qf-input"');
+      overlay.innerHTML = html;
+      // 鎖定背景滾動，避免雙滾動條造成頁面跳動
+      document.body.classList.add("modal-open");
+      document.body.appendChild(overlay);
+      bindWorkOrderModalEvents(overlay);
+      // 附加已上傳檔案清單
+      if (window._uploadedFiles) {
+        updateFileList(window._uploadedFiles);
+      }
+    }
+
+    // 關閉工單模態框（移除 overlay 並解鎖背景滾動，不觸發全頁重渲染）
     function closeWorkOrderModal() {
-      workOrderState.modalOpen = false;
-      render();
+      const overlay = document.getElementById("woModalOverlay");
+      if (overlay) overlay.remove();
+      document.body.classList.remove("modal-open");
+      workOrderState.modalMode = "";
+      workOrderState.selectedWorkOrderId = null;
+    }
+
+    // 綁定工單模態框內的事件（close 按鈕、保存按鈕、附件拖放）
+    function bindWorkOrderModalEvents(container) {
+      // 關閉按鈕
+      container.querySelectorAll("[data-wo-modal-close]").forEach(btn => btn.addEventListener("click", closeWorkOrderModal));
+      // 保存按鈕
+      container.querySelectorAll("[data-wo-save]").forEach(btn => btn.addEventListener("click", () => {
+        const form = container.querySelector("#workOrderForm");
+        if (form && form.checkValidity()) {
+          const formData = new FormData(form);
+          saveWorkOrder(formData);
+        } else if (form) {
+          form.reportValidity();
+        }
+      }));
+      // 附件拖放上傳
+      const fileUploadArea = container.querySelector("#fileUploadArea");
+      if (fileUploadArea) {
+        fileUploadArea.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--primary)";
+          fileUploadArea.style.background = "var(--primary-soft)";
+        });
+        fileUploadArea.addEventListener("dragleave", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--line)";
+          fileUploadArea.style.background = "var(--panel-soft)";
+        });
+        fileUploadArea.addEventListener("drop", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--line)";
+          fileUploadArea.style.background = "var(--panel-soft)";
+          const files = Array.from(e.dataTransfer.files);
+          const fileInput = container.querySelector("#fileInput");
+          if (fileInput) {
+            const dt = new DataTransfer();
+            files.forEach(f => dt.items.add(f));
+            fileInput.files = dt.files;
+          }
+          updateFileList(files);
+        });
+      }
     }
 
     function generateWorkOrderId(customer) {
@@ -7762,8 +7951,11 @@
         }
       }
 
-      workOrderState.modalOpen = false;
-      // 提交後不自動打開詳情抽屜，回到工單列表
+      // 關閉模態框並刷新工單列表
+      const overlay = document.getElementById("woModalOverlay");
+      if (overlay) overlay.remove();
+      document.body.classList.remove("modal-open");
+      workOrderState.modalMode = "";
       workOrderState.selectedWorkOrderId = null;
       render();
     }
@@ -7849,7 +8041,13 @@
         (filter.status === "全部" || t.status === filter.status) &&
         (filter.area === "全部" || t.area === filter.area) &&
         (filter.customer === "全部" || t.customer === filter.customer) &&
-        (filter.type === "全部" || t.type === filter.type)
+        (filter.type === "全部" || t.type === filter.type) &&
+        (function() {
+          // 關鍵詞搜索：匹配 CALL編號、客戶、內容摘要、師傅
+          const kw = (state.dispatchSearch || "").toLowerCase().trim();
+          if (!kw) return true;
+          return `${t.id || ''} ${t.customer || ''} ${t.desc || ''} ${t.master || ''}`.toLowerCase().includes(kw);
+        })()
       );
 
       return `
@@ -7869,7 +8067,14 @@
                     ["area", "區域"],
                     ["customer", "客戶"],
                     ["type", "CALL類型"]
-                  ].map(([key, label]) => `<label class="wo-filter-group">${label}<select data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></label>`).join("")}
+                  ].map(([key, label]) => `<div class="wo-filter-group"><label>${label}</label><select data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></div>`).join("")}
+                  <div class="wo-filter-group">
+                    <label>關鍵詞搜索</label>
+                    <div class="wo-search-wrap">
+                      <input type="text" value="${escapeHtml(state.dispatchSearch || '')}" data-dispatch-search>
+                      <button type="button" class="primary-btn wo-search-btn" data-dispatch-search-btn>搜索</button>
+                    </div>
+                  </div>
                   <div class="wo-actions-top"><button class="secondary-btn" data-dispatch-filter-reset>重置</button></div>
                 </div>
               </div>
@@ -7888,7 +8093,7 @@
                         <td>${statusBadge(t.status)}</td>
                         <td>${escapeHtml(t.assignedAt || '-')}</td>
                         <td>${escapeHtml(t.updatedAt || t.createdAt || '-')}</td>
-                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : ''}<button class="ghost-btn" data-dispatch-view="${t.id}">查看</button></div></td>
+                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : ''}<button class="ghost-btn" data-dispatch-view="${t.id}">查看</button><button class="wo-delete-btn" data-dispatch-delete="${t.id}">刪除</button></div></td>
                       </tr>`).join("") : '<tr><td colspan="10" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的 CALL</td></tr>'}
                   </tbody>
                 </table>
@@ -8168,7 +8373,10 @@
       } else if (state.settingsTab === "user") {
         return renderUsersPage();
       } else if (state.settingsTab === "addressBook") {
-        return renderAddressBook();
+        // 報價組通訊錄已合併到用戶管理中的報價組，自動重定向
+        state.settingsTab = "user";
+        userState.roleFilter = "QUO";
+        return renderUsersPage();
       } else if (state.settingsTab === "server") {
         return renderServerConfig();
       } else if (state.settingsTab === "excelImport") {
@@ -9329,21 +9537,35 @@
 
     function openAddCallCodeModal() {
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal" style="max-width:480px;">
-          <div class="um-modal-head">
-            <h2>新增 Call代碼</h2>
-            <button class="um-modal-close" data-close-modal>×</button>
+        <div class="qf-modal" style="max-width:480px;">
+          <div class="qf-header">
+            <div>
+              <h3>新增 Call代碼</h3>
+              <div class="qf-sub">新增字典管理中的 Call 代碼</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal>×</button>
           </div>
           <form id="addCallCodeForm">
-            <div class="um-form-grid">
-              <div class="field"><label class="required">Call代碼</label><input name="code" required placeholder="例如：CALL-006"></div>
-              <div class="field"><label>名稱/說明</label><input name="name" placeholder="可選，例如：門禁系統維修"></div>
+            <div class="qf-body">
+              <div class="qf-card">
+                <div class="qf-card-title">代碼資訊<span class="qf-card-sub">Call 代碼與名稱</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">Call代碼<span class="req">*</span></label>
+                    <input class="qf-input" name="code" required placeholder="例如：CALL-006">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">名稱/說明</label>
+                    <input class="qf-input" name="name" placeholder="可選，例如：門禁系統維修">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border);">
-              <button type="button" class="secondary-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">保存</button>
             </div>
           </form>
         </div>
@@ -9390,43 +9612,51 @@
 
     function openCreateUser() {
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal">
-          <div class="um-modal-head">
-            <h2>新增用戶</h2>
-            <button class="um-modal-close" data-close-modal>×</button>
+        <div class="qf-modal">
+          <div class="qf-header">
+            <div>
+              <h3>新增用戶</h3>
+              <div class="qf-sub">填寫用戶基本資訊</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal>×</button>
           </div>
           <form id="createUserForm">
-            <div class="um-form-grid">
-              <div class="field"><label class="required">姓名</label><input name="name" required placeholder="請輸入姓名"></div>
-              <div class="field"><label class="required">工號</label><input name="employeeNo" required placeholder="例如：EMP0016"></div>
-              <div class="field"><label class="required">手機號</label><input name="phone" required placeholder="+852..."></div>
-              <div class="field"><label>郵箱</label><input name="email" type="email" placeholder="user@ecinfo.com"></div>
-              <div class="field"><label class="required">角色</label>
-                <select name="role" required>
-                  <option value="">請選擇角色</option>
-                  ${USER_ROLES.map(r => `<option value="${r.code}">${r.name}</option>`).join("")}
-                </select>
-              </div>
-              <div class="field"><label>所屬區域</label>
-                <select name="area">
-                  <option value="">請選擇區域</option>
-                  ${REGIONS.map(r => `<option value="${r}">${r}</option>`).join("")}
-                </select>
-              </div>
-              <div class="field"><label>直屬主管</label><input name="manager" placeholder="例如：TL-001"></div>
-              <div class="field"><label>初始密碼</label><input name="password" type="password" placeholder="留空則使用默認密碼"></div>
-              <div class="field wide"><label>狀態</label>
-                <select name="status">
-                  <option value="啓用">啓用</option>
-                  <option value="禁用">禁用</option>
-                </select>
+            <div class="qf-body">
+              <div class="qf-card">
+                <div class="qf-card-title">基本資訊<span class="qf-card-sub">用戶個人與帳號</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field"><label class="qf-label">姓名<span class="req">*</span></label><input class="qf-input" name="name" required placeholder="請輸入姓名"></div>
+                  <div class="qf-field"><label class="qf-label">工號<span class="req">*</span></label><input class="qf-input" name="employeeNo" required placeholder="例如：EMP0016"></div>
+                  <div class="qf-field"><label class="qf-label">手機號<span class="req">*</span></label><input class="qf-input" name="phone" required placeholder="+852..."></div>
+                  <div class="qf-field"><label class="qf-label">郵箱</label><input class="qf-input" name="email" type="email" placeholder="user@ecinfo.com"></div>
+                  <div class="qf-field"><label class="qf-label">角色<span class="req">*</span></label>
+                    <select class="qf-select" name="role" required>
+                      <option value="">請選擇角色</option>
+                      ${USER_ROLES.map(r => `<option value="${r.code}">${r.name}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field"><label class="qf-label">所屬區域</label>
+                    <select class="qf-select" name="area">
+                      <option value="">請選擇區域</option>
+                      ${REGIONS.map(r => `<option value="${r}">${r}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field"><label class="qf-label">直屬主管</label><input class="qf-input" name="manager" placeholder="例如：TL-001"></div>
+                  <div class="qf-field"><label class="qf-label">初始密碼</label><input class="qf-input" name="password" type="password" placeholder="留空則使用默認密碼"></div>
+                  <div class="qf-field wide"><label class="qf-label">狀態</label>
+                    <select class="qf-select" name="status">
+                      <option value="啓用">啓用</option>
+                      <option value="禁用">禁用</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="um-modal-actions">
-              <button type="button" class="ghost-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">保存</button>
             </div>
           </form>
         </div>`;
@@ -9438,44 +9668,52 @@
       const user = users.find(u => u.id === userId);
       if (!user) return;
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal">
-          <div class="um-modal-head">
-            <h2>編輯用戶</h2>
-            <button class="um-modal-close" data-close-modal>×</button>
+        <div class="qf-modal">
+          <div class="qf-header">
+            <div>
+              <h3>編輯用戶</h3>
+              <div class="qf-sub">修改用戶基本資訊</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal>×</button>
           </div>
           <form id="editUserForm" data-user-id="${userId}">
-            <div class="um-form-grid">
-              <div class="field"><label>姓名</label><input name="name" value="${escapeHtml(user.name)}"></div>
-              <div class="field"><label>手機號</label><input name="phone" value="${escapeHtml(user.phone)}"></div>
-              <div class="field"><label>郵箱</label><input name="email" type="email" value="${escapeHtml(user.email)}"></div>
-              <div class="field"><label>角色</label>
-                <select name="role">
-                  ${USER_ROLES.map(r => `<option value="${r.code}" ${user.role === r.code ? "selected" : ""}>${r.name}</option>`).join("")}
-                </select>
-              </div>
-              <div class="field"><label>所屬區域</label>
-                <select name="area">
-                  ${REGIONS.map(r => `<option value="${r}" ${user.area === r ? "selected" : ""}>${r}</option>`).join("")}
-                </select>
-              </div>
-              <div class="field"><label>直屬主管</label><input name="manager" value="${escapeHtml(user.manager)}"></div>
-              <div class="field wide"><label>狀態</label>
-                <select name="status">
-                  <option value="啓用" ${isEnabled(user.status) ? "selected" : ""}>啓用</option>
-                  <option value="禁用" ${user.status === "禁用" ? "selected" : ""}>禁用</option>
-                  <option value="離職" ${user.status === "離職" ? "selected" : ""}>離職</option>
-                </select>
-              </div>
-              <div class="field wide">
-                <label>重置密碼</label>
-                <input name="password" type="password" placeholder="留空則不修改密碼">
+            <div class="qf-body">
+              <div class="qf-card">
+                <div class="qf-card-title">基本資訊<span class="qf-card-sub">用戶個人與帳號</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field"><label class="qf-label">姓名</label><input class="qf-input" name="name" value="${escapeHtml(user.name)}"></div>
+                  <div class="qf-field"><label class="qf-label">手機號</label><input class="qf-input" name="phone" value="${escapeHtml(user.phone)}"></div>
+                  <div class="qf-field"><label class="qf-label">郵箱</label><input class="qf-input" name="email" type="email" value="${escapeHtml(user.email)}"></div>
+                  <div class="qf-field"><label class="qf-label">角色</label>
+                    <select class="qf-select" name="role">
+                      ${USER_ROLES.map(r => `<option value="${r.code}" ${user.role === r.code ? "selected" : ""}>${r.name}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field"><label class="qf-label">所屬區域</label>
+                    <select class="qf-select" name="area">
+                      ${REGIONS.map(r => `<option value="${r}" ${user.area === r ? "selected" : ""}>${r}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field"><label class="qf-label">直屬主管</label><input class="qf-input" name="manager" value="${escapeHtml(user.manager)}"></div>
+                  <div class="qf-field wide"><label class="qf-label">狀態</label>
+                    <select class="qf-select" name="status">
+                      <option value="啓用" ${isEnabled(user.status) ? "selected" : ""}>啓用</option>
+                      <option value="禁用" ${user.status === "禁用" ? "selected" : ""}>禁用</option>
+                      <option value="離職" ${user.status === "離職" ? "selected" : ""}>離職</option>
+                    </select>
+                  </div>
+                  <div class="qf-field wide">
+                    <label class="qf-label">重置密碼</label>
+                    <input class="qf-input" name="password" type="password" placeholder="留空則不修改密碼">
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="um-modal-actions">
-              <button type="button" class="ghost-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">保存</button>
             </div>
           </form>
         </div>`;
@@ -9842,76 +10080,142 @@
     }
 
     function openCreateCustomer() {
+      // 企業級 SaaS 卡片式佈局：分區卡片 + 兩欄 Grid + Sticky Footer
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal">
-          <div class="um-modal-head">
-            <h2>新增客戶</h2>
-            <button class="um-modal-close" data-close-modal>×</button>
+        <div class="qf-modal">
+          <div class="qf-header">
+            <div>
+              <h3>新增客戶</h3>
+              <div class="qf-sub">填寫客戶與聯繫人資訊</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal aria-label="關閉">×</button>
           </div>
           <form id="createCustomerForm">
-            <div class="um-form-grid">
-              <div class="field"><label class="required">客戶名稱（中文）</label><input name="nameZh" required placeholder="請輸入中文名稱"></div>
-              <div class="field"><label class="required">客戶名稱（英文）</label><input name="nameEn" required placeholder="Please enter English name"></div>
-              <div class="field"><label class="required">客戶類型</label>
-                <select name="type" required data-customer-type-select>
-                  <option value="">請選擇類型</option>
-                  <option value="政府">政府</option>
-                  <option value="私人">私人</option>
-                </select>
+            <div class="qf-body">
+              <!-- 卡片 1：客戶資訊 -->
+              <div class="qf-card">
+                <div class="qf-card-title">客戶資訊<span class="qf-card-sub">基本客戶資料</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">客戶名稱（中文）<span class="req">*</span></label>
+                    <input class="qf-input" name="nameZh" required placeholder="請輸入中文名稱">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶名稱（英文）<span class="req">*</span></label>
+                    <input class="qf-input" name="nameEn" required placeholder="Please enter English name">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶類型<span class="req">*</span></label>
+                    <select class="qf-select" name="type" required data-customer-type-select>
+                      <option value="">請選擇類型</option>
+                      <option value="政府">政府</option>
+                      <option value="私人">私人</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">Peachtree Customer ID</label>
+                    <input class="qf-input" name="peachtreeId" placeholder="與 Peachtree 系統保持一致（如 PT-0001）">
+                  </div>
+                  <div class="qf-field hidden" id="govPrefixField">
+                    <label class="qf-label">政府工單前綴<span class="req">*</span></label>
+                    <select class="qf-select" name="governmentPrefix">
+                      <option value="">請選擇前綴</option>
+                      <option value="ECA">ECA</option>
+                      <option value="ECB">ECB</option>
+                      <option value="ECP">ECP</option>
+                      <option value="ECS">ECS</option>
+                    </select>
+                  </div>
+                  <div class="qf-field hidden" id="govContractField">
+                    <label class="qf-label">合約編號</label>
+                    <input class="qf-input" name="contractNumber" placeholder="如：0471667">
+                  </div>
+                  <div class="qf-field hidden" id="govJNumberField">
+                    <label class="qf-label">J Number</label>
+                    <input class="qf-input" name="jNumber" placeholder="如：J 12345">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶等級<span class="req">*</span></label>
+                    <select class="qf-select" name="level" required>
+                      <option value="">請選擇等級</option>
+                      <option value="普通">普通</option>
+                      <option value="VIP">VIP</option>
+                      <option value="重要">重要</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶狀態</label>
+                    <select class="qf-select" name="status">
+                      <option value="啓用">啟用</option>
+                      <option value="禁用">禁用</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="field"><label>Peachtree Customer ID</label><input name="peachtreeId" placeholder="與 Peachtree 系統保持一致（如 PT-0001）"></div>
-              <div class="field hidden" id="govPrefixField"><label class="required">政府工單前綴</label>
-                <select name="governmentPrefix">
-                  <option value="">請選擇前綴</option>
-                  <option value="ECA">ECA</option>
-                  <option value="ECB">ECB</option>
-                  <option value="ECP">ECP</option>
-                  <option value="ECS">ECS</option>
-                </select>
+
+              <!-- 卡片 2：聯繫人資訊 -->
+              <div class="qf-card">
+                <div class="qf-card-title">聯繫人資訊<span class="qf-card-sub">主要聯繫窗口</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">主聯繫人<span class="req">*</span></label>
+                    <input class="qf-input" name="contactName" required placeholder="請輸入聯繫人姓名">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">聯繫電話<span class="req">*</span></label>
+                    <input class="qf-input" name="contactPhone" required placeholder="+852...">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">WhatsApp</label>
+                    <input class="qf-input" name="contactWhatsapp" placeholder="+852...">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">郵箱</label>
+                    <input class="qf-input" name="contactEmail" type="email" placeholder="email@example.com">
+                  </div>
+                </div>
               </div>
-              <div class="field hidden" id="govContractField"><label>合約編號</label><input name="contractNumber" placeholder="如：0471667"></div>
-              <div class="field hidden" id="govJNumberField"><label>J Number</label><input name="jNumber" placeholder="如：J 12345"></div>
-              <div class="field"><label class="required">客戶等級</label>
-                <select name="level" required>
-                  <option value="">請選擇等級</option>
-                  <option value="普通">普通</option>
-                  <option value="VIP">VIP</option>
-                  <option value="重要">重要</option>
-                </select>
+
+              <!-- 卡片 3：地址與其他 -->
+              <div class="qf-card">
+                <div class="qf-card-title">地址與其他<span class="qf-card-sub">地址及拍照設定</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">區域</label>
+                    <select class="qf-select" name="area">
+                      <option value="">請選擇區域</option>
+                      <option value="香港">香港</option>
+                      <option value="九龍">九龍</option>
+                      <option value="新界">新界</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">中文地址</label>
+                    <input class="qf-input" name="addressZh" placeholder="請輸入中文地址">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">英文地址</label>
+                    <input class="qf-input" name="addressEn" placeholder="Please enter English address">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">是否不可拍照</label>
+                    <select class="qf-select" name="noPhoto">
+                      <option value="false">否</option>
+                      <option value="true">是</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">不可拍照原因</label>
+                    <input class="qf-input" name="noPhotoReason" placeholder="如適用">
+                  </div>
+                </div>
               </div>
-              <div class="field"><label>客戶狀態</label>
-                <select name="status">
-                  <option value="啓用">啟用</option>
-                  <option value="禁用">禁用</option>
-                </select>
-              </div>
-              <div class="field"><label class="required">主聯繫人</label><input name="contactName" required placeholder="請輸入聯繫人姓名"></div>
-              <div class="field"><label class="required">聯繫電話</label><input name="contactPhone" required placeholder="+852..."></div>
-              <div class="field"><label>WhatsApp</label><input name="contactWhatsapp" placeholder="+852..."></div>
-              <div class="field"><label>郵箱</label><input name="contactEmail" type="email" placeholder="email@example.com"></div>
-              <div class="field"><label>區域</label>
-                <select name="area">
-                  <option value="">請選擇區域</option>
-                  <option value="香港">香港</option>
-                  <option value="九龍">九龍</option>
-                  <option value="新界">新界</option>
-                </select>
-              </div>
-              <div class="field"><label>中文地址</label><input name="addressZh" placeholder="請輸入中文地址"></div>
-              <div class="field"><label>英文地址</label><input name="addressEn" placeholder="Please enter English address"></div>
-              <div class="field"><label>是否不可拍照</label>
-                <select name="noPhoto">
-                  <option value="false">否</option>
-                  <option value="true">是</option>
-                </select>
-              </div>
-              <div class="field"><label>不可拍照原因</label><input name="noPhotoReason" placeholder="如適用"></div>
             </div>
-            <div class="um-modal-actions">
-              <button type="button" class="ghost-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">保存</button>
             </div>
           </form>
         </div>
@@ -9924,72 +10228,138 @@
       const customer = customers.find(c => c.id === customerId);
       if (!customer) return;
 
+      // 企業級 SaaS 卡片式佈局：分區卡片 + 兩欄 Grid + Sticky Footer
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal">
-          <div class="um-modal-head">
-            <h2>編輯客戶</h2>
-            <button class="um-modal-close" data-close-modal>×</button>
+        <div class="qf-modal">
+          <div class="qf-header">
+            <div>
+              <h3>編輯客戶</h3>
+              <div class="qf-sub">更新客戶與聯繫人資訊</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal aria-label="關閉">×</button>
           </div>
           <form id="editCustomerForm" data-customer-id="${customerId}">
-            <div class="um-form-grid">
-              <div class="field"><label>客戶名稱（中文）</label><input name="nameZh" value="${customer.nameZh}"></div>
-              <div class="field"><label>客戶名稱（英文）</label><input name="nameEn" value="${customer.nameEn}"></div>
-              <div class="field"><label>客戶類型</label>
-                <select name="type" data-customer-type-select>
-                  <option value="政府" ${customer.type === "政府" ? "selected" : ""}>政府</option>
-                  <option value="私人" ${customer.type === "私人" ? "selected" : ""}>私人</option>
-                </select>
+            <div class="qf-body">
+              <!-- 卡片 1：客戶資訊 -->
+              <div class="qf-card">
+                <div class="qf-card-title">客戶資訊<span class="qf-card-sub">基本客戶資料</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">客戶名稱（中文）</label>
+                    <input class="qf-input" name="nameZh" value="${customer.nameZh}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶名稱（英文）</label>
+                    <input class="qf-input" name="nameEn" value="${customer.nameEn}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶類型</label>
+                    <select class="qf-select" name="type" data-customer-type-select>
+                      <option value="政府" ${customer.type === "政府" ? "selected" : ""}>政府</option>
+                      <option value="私人" ${customer.type === "私人" ? "selected" : ""}>私人</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">Peachtree Customer ID</label>
+                    <input class="qf-input" name="peachtreeId" value="${customer.peachtreeId || ''}" placeholder="與 Peachtree 系統保持一致（如 PT-0001）">
+                  </div>
+                  <div class="qf-field ${customer.type === "政府" ? "" : "hidden"}" id="govPrefixField">
+                    <label class="qf-label">政府工單前綴<span class="req">*</span></label>
+                    <select class="qf-select" name="governmentPrefix">
+                      <option value="ECA" ${customer.governmentPrefix === "ECA" ? "selected" : ""}>ECA</option>
+                      <option value="ECB" ${customer.governmentPrefix === "ECB" ? "selected" : ""}>ECB</option>
+                      <option value="ECP" ${customer.governmentPrefix === "ECP" ? "selected" : ""}>ECP</option>
+                      <option value="ECS" ${customer.governmentPrefix === "ECS" ? "selected" : ""}>ECS</option>
+                    </select>
+                  </div>
+                  <div class="qf-field ${customer.type === "政府" ? "" : "hidden"}" id="govContractField">
+                    <label class="qf-label">合約編號</label>
+                    <input class="qf-input" name="contractNumber" value="${customer.contractNumber || ""}" placeholder="如：0471667">
+                  </div>
+                  <div class="qf-field ${customer.type === "政府" ? "" : "hidden"}" id="govJNumberField">
+                    <label class="qf-label">J Number</label>
+                    <input class="qf-input" name="jNumber" value="${customer.jNumber || ""}" placeholder="如：J 12345">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶等級</label>
+                    <select class="qf-select" name="level">
+                      <option value="普通" ${customer.level === "普通" ? "selected" : ""}>普通</option>
+                      <option value="VIP" ${customer.level === "VIP" ? "selected" : ""}>VIP</option>
+                      <option value="重要" ${customer.level === "重要" ? "selected" : ""}>重要</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">客戶狀態</label>
+                    <select class="qf-select" name="status">
+                      <option value="啓用" ${isEnabled(customer.status) ? "selected" : ""}>啟用</option>
+                      <option value="禁用" ${customer.status === "禁用" ? "selected" : ""}>禁用</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="field"><label>Peachtree Customer ID</label><input name="peachtreeId" value="${customer.peachtreeId || ''}" placeholder="與 Peachtree 系統保持一致（如 PT-0001）"></div>
-              <div class="field ${customer.type === "政府" ? "" : "hidden"}" id="govPrefixField"><label class="required">政府工單前綴</label>
-                <select name="governmentPrefix">
-                  <option value="ECA" ${customer.governmentPrefix === "ECA" ? "selected" : ""}>ECA</option>
-                  <option value="ECB" ${customer.governmentPrefix === "ECB" ? "selected" : ""}>ECB</option>
-                  <option value="ECP" ${customer.governmentPrefix === "ECP" ? "selected" : ""}>ECP</option>
-                  <option value="ECS" ${customer.governmentPrefix === "ECS" ? "selected" : ""}>ECS</option>
-                </select>
+
+              <!-- 卡片 2：聯繫人資訊 -->
+              <div class="qf-card">
+                <div class="qf-card-title">聯繫人資訊<span class="qf-card-sub">主要聯繫窗口</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">主聯繫人</label>
+                    <input class="qf-input" name="contactName" value="${customer.contacts[0]?.name || ""}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">聯繫電話</label>
+                    <input class="qf-input" name="contactPhone" value="${customer.contacts[0]?.phone || ""}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">WhatsApp</label>
+                    <input class="qf-input" name="contactWhatsapp" value="${customer.contacts[0]?.whatsapp || ""}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">郵箱</label>
+                    <input class="qf-input" name="contactEmail" type="email" value="${customer.contacts[0]?.email || ""}">
+                  </div>
+                </div>
               </div>
-              <div class="field ${customer.type === "政府" ? "" : "hidden"}" id="govContractField"><label>合約編號</label><input name="contractNumber" value="${customer.contractNumber || ""}" placeholder="如：0471667"></div>
-              <div class="field ${customer.type === "政府" ? "" : "hidden"}" id="govJNumberField"><label>J Number</label><input name="jNumber" value="${customer.jNumber || ""}" placeholder="如：J 12345"></div>
-              <div class="field"><label>客戶等級</label>
-                <select name="level">
-                  <option value="普通" ${customer.level === "普通" ? "selected" : ""}>普通</option>
-                  <option value="VIP" ${customer.level === "VIP" ? "selected" : ""}>VIP</option>
-                  <option value="重要" ${customer.level === "重要" ? "selected" : ""}>重要</option>
-                </select>
+
+              <!-- 卡片 3：地址與其他 -->
+              <div class="qf-card">
+                <div class="qf-card-title">地址與其他<span class="qf-card-sub">地址及拍照設定</span></div>
+                <div class="qf-grid">
+                  <div class="qf-field">
+                    <label class="qf-label">區域</label>
+                    <select class="qf-select" name="area">
+                      <option value="香港" ${customer.addresses[0]?.area === "香港" ? "selected" : ""}>香港</option>
+                      <option value="九龍" ${customer.addresses[0]?.area === "九龍" ? "selected" : ""}>九龍</option>
+                      <option value="新界" ${customer.addresses[0]?.area === "新界" ? "selected" : ""}>新界</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">中文地址</label>
+                    <input class="qf-input" name="addressZh" value="${customer.addresses[0]?.addressZh || ""}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">英文地址</label>
+                    <input class="qf-input" name="addressEn" value="${customer.addresses[0]?.addressEn || ""}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">是否不可拍照</label>
+                    <select class="qf-select" name="noPhoto">
+                      <option value="false" ${!customer.addresses[0]?.noPhoto ? "selected" : ""}>否</option>
+                      <option value="true" ${customer.addresses[0]?.noPhoto ? "selected" : ""}>是</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">不可拍照原因</label>
+                    <input class="qf-input" name="noPhotoReason" value="${customer.addresses[0]?.noPhotoReason || ""}">
+                  </div>
+                </div>
               </div>
-              <div class="field"><label>客戶狀態</label>
-                <select name="status">
-                  <option value="啓用" ${isEnabled(customer.status) ? "selected" : ""}>啟用</option>
-                  <option value="禁用" ${customer.status === "禁用" ? "selected" : ""}>禁用</option>
-                </select>
-              </div>
-              <div class="field"><label>主聯繫人</label><input name="contactName" value="${customer.contacts[0]?.name || ""}"></div>
-              <div class="field"><label>聯繫電話</label><input name="contactPhone" value="${customer.contacts[0]?.phone || ""}"></div>
-              <div class="field"><label>WhatsApp</label><input name="contactWhatsapp" value="${customer.contacts[0]?.whatsapp || ""}"></div>
-              <div class="field"><label>郵箱</label><input name="contactEmail" type="email" value="${customer.contacts[0]?.email || ""}"></div>
-              <div class="field"><label>區域</label>
-                <select name="area">
-                  <option value="香港" ${customer.addresses[0]?.area === "香港" ? "selected" : ""}>香港</option>
-                  <option value="九龍" ${customer.addresses[0]?.area === "九龍" ? "selected" : ""}>九龍</option>
-                  <option value="新界" ${customer.addresses[0]?.area === "新界" ? "selected" : ""}>新界</option>
-                </select>
-              </div>
-              <div class="field"><label>中文地址</label><input name="addressZh" value="${customer.addresses[0]?.addressZh || ""}"></div>
-              <div class="field"><label>英文地址</label><input name="addressEn" value="${customer.addresses[0]?.addressEn || ""}"></div>
-              <div class="field"><label>是否不可拍照</label>
-                <select name="noPhoto">
-                  <option value="false" ${!customer.addresses[0]?.noPhoto ? "selected" : ""}>否</option>
-                  <option value="true" ${customer.addresses[0]?.noPhoto ? "selected" : ""}>是</option>
-                </select>
-              </div>
-              <div class="field"><label>不可拍照原因</label><input name="noPhotoReason" value="${customer.addresses[0]?.noPhotoReason || ""}"></div>
             </div>
-            <div class="um-modal-actions">
-              <button type="button" class="ghost-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">保存</button>
             </div>
           </form>
         </div>
@@ -10213,7 +10583,10 @@
           </div>
           <div class="wo-filter-group">
             <label>關鍵詞搜索</label>
-            <input type="text" data-qm-filter="searchKeyword" value="${escapeHtml(quotationState.searchKeyword)}" placeholder="報價編號、工單編號、客戶名稱、標題">
+            <div class="wo-search-wrap">
+              <input type="text" data-qm-filter="searchKeyword" value="${escapeHtml(quotationState.searchKeyword)}">
+              <button type="button" class="primary-btn wo-search-btn" data-qm-search>搜索</button>
+            </div>
           </div>
           <div class="wo-actions-top">
             <button class="secondary-btn" data-qm-reset>重置</button>
@@ -10276,6 +10649,7 @@
                 <td class="wo-td-actions">
                   <div class="wo-actions-group">
                     <button class="wo-view-btn" data-view-quotation="${q.id}">查看詳情</button>
+                    <button class="wo-delete-btn" data-delete-quotation="${q.id}">刪除</button>
                   </div>
                 </td>
               </tr>
@@ -10580,6 +10954,73 @@
           </div>
         </aside>
       `;
+    }
+
+    // 打開報價詳情抽屜（直接操作 DOM，避免全頁重渲染導致閃動）
+    function openQuotationDrawer(quotationId) {
+      quotationState.selectedQuotationId = quotationId;
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+
+      const layout = document.querySelector(".qm-layout");
+      // 找不到佈局容器時退回全量渲染
+      if (!layout) { render(); return; }
+
+      const existingDrawer = layout.querySelector(".wo-drawer");
+      // 生成新抽屜 DOM
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = renderQuotationDrawer(quotation);
+      const newDrawer = wrapper.firstElementChild;
+
+      if (existingDrawer) {
+        // 切換不同報價：僅替換抽屜內容，保留滾動位置，避免重播入場動畫造成閃動
+        const oldBody = existingDrawer.querySelector(".wo-drawer-body");
+        const scrollTop = oldBody ? oldBody.scrollTop : 0;
+        existingDrawer.replaceWith(newDrawer);
+        const newBody = newDrawer.querySelector(".wo-drawer-body");
+        if (newBody) newBody.scrollTop = scrollTop;
+        // 停用入場動畫（切換時不應再次滑入）
+        newDrawer.style.animation = "none";
+      } else {
+        // 首次打開：加入 with-drawer 樣式並插入抽屜（播放入場動畫）
+        layout.classList.add("with-drawer");
+        layout.appendChild(newDrawer);
+      }
+
+      // 綁定抽屜內事件（DOM 直接插入後需手動綁定）
+      bindQuotationDrawerEvents();
+      // 禁止外部頁面滾動，僅抽屜內部可滾動
+      document.body.classList.add("drawer-open");
+    }
+
+    // 關閉報價詳情抽屜（直接操作 DOM，避免全頁重渲染導致閃動）
+    function closeQuotationDrawer() {
+      quotationState.selectedQuotationId = null;
+      const layout = document.querySelector(".qm-layout");
+      if (layout) {
+        layout.classList.remove("with-drawer");
+        const drawer = layout.querySelector(".wo-drawer");
+        if (drawer) drawer.remove();
+      }
+      document.body.classList.remove("drawer-open");
+    }
+
+    // 綁定報價抽屜內的事件（DOM 直接插入後舊監聽器未綁定，需重新綁定）
+    function bindQuotationDrawerEvents() {
+      const drawer = document.querySelector(".qm-layout .wo-drawer");
+      if (!drawer) return;
+
+      drawer.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", closeQuotationDrawer));
+      drawer.querySelectorAll("[data-open]").forEach(btn => btn.addEventListener("click", () => performAction("view", btn.dataset.open)));
+      drawer.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
+      drawer.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
+      drawer.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
+      drawer.querySelectorAll("[data-mark-no-offer]").forEach(btn => btn.addEventListener("click", () => markNoOffer(btn.dataset.markNoOffer)));
+      drawer.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
+      drawer.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
+      drawer.querySelectorAll("[data-edit-contact]").forEach(btn => btn.addEventListener("click", () => editContactInfo(btn.dataset.editContact)));
+      drawer.querySelectorAll("[data-manage-paper]").forEach(btn => btn.addEventListener("click", () => manageCompletionPaper(btn.dataset.managePaper)));
+      drawer.querySelectorAll("[data-close-procurement]").forEach(btn => btn.addEventListener("click", () => closeProcurement(btn.dataset.closeProcurement)));
     }
 
     // 導出報價單為 PDF（#16：使用瀏覽器列印功能生成 PDF）
@@ -11248,16 +11689,158 @@
       render();
     }
 
-    function deleteQuotation(quotationId) {
+    // 通用自定義確認彈窗（替代原生 confirm，頁面內彈出樣式美觀的確認窗口）
+    // 參數：{ title: 標題, message: 提示訊息, confirmText: 確認按鈕文字, cancelText: 取消按鈕文字 }
+    // 返回：Promise<boolean>，true 表示確認，false 表示取消
+    function showConfirmDialog({ title = "確認操作", message = "", confirmText = "確定", cancelText = "取消" } = {}) {
+      return new Promise((resolve) => {
+        // 建立遮罩層（複用 dm-confirm-overlay 樣式，但提高 z-index 確保蓋過抽屜）
+        const overlay = document.createElement("div");
+        overlay.className = "dm-confirm-overlay";
+        overlay.style.zIndex = "9999";
+
+        // 建立確認對話框（複用 dm-confirm 樣式）
+        const dialog = document.createElement("div");
+        dialog.className = "dm-confirm";
+        dialog.innerHTML = `
+          <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--danger-soft);color:var(--danger);display:grid;place-items:center;font-size:20px;flex-shrink:0;">⚠</div>
+            <div>
+              <h3 style="margin:0 0 8px;font-size:16px;">${escapeHtml(title)}</h3>
+              <p style="margin:0;font-size:13px;color:var(--muted);line-height:1.6;">${escapeHtml(message)}</p>
+            </div>
+          </div>
+          <div class="dm-confirm-actions">
+            <button class="ghost-btn" type="button" data-confirm-cancel>${escapeHtml(cancelText)}</button>
+            <button class="danger-btn" type="button" data-confirm-ok>${escapeHtml(confirmText)}</button>
+          </div>
+        `;
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+
+        // 關閉彈窗並回傳結果
+        const close = (result) => {
+          overlay.remove();
+          resolve(result);
+        };
+
+        // 確認按鈕
+        dialog.querySelector("[data-confirm-ok]").addEventListener("click", () => close(true));
+        // 取消按鈕
+        dialog.querySelector("[data-confirm-cancel]").addEventListener("click", () => close(false));
+        // 點擊遮罩區域取消
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) close(false);
+        });
+        // ESC 鍵取消
+        const escHandler = (e) => {
+          if (e.key === "Escape") {
+            document.removeEventListener("keydown", escHandler);
+            close(false);
+          }
+        };
+        document.addEventListener("keydown", escHandler);
+      });
+    }
+
+    // 通用自定義輸入彈窗（替代原生 prompt，頁面內彈出帶輸入框的確認窗口）
+    // 參數：{ title: 標題, message: 提示訊息, placeholder: 輸入框佔位文字, confirmText: 確認按鈕文字, cancelText: 取消按鈕文字, multiline: 是否多行輸入 }
+    // 返回：Promise<string|null>，使用者輸入的字串（確認），null（取消）
+    function showPromptDialog({ title = "請輸入", message = "", placeholder = "", confirmText = "確定", cancelText = "取消", multiline = false } = {}) {
+      return new Promise((resolve) => {
+        // 建立遮罩層
+        const overlay = document.createElement("div");
+        overlay.className = "dm-confirm-overlay";
+        overlay.style.zIndex = "9999";
+
+        // 建立對話框
+        const dialog = document.createElement("div");
+        dialog.className = "dm-confirm";
+        dialog.innerHTML = `
+          <div style="margin-bottom:16px;">
+            <h3 style="margin:0 0 8px;font-size:16px;">${escapeHtml(title)}</h3>
+            ${message ? `<p style="margin:0 0 12px;font-size:13px;color:var(--muted);line-height:1.6;">${escapeHtml(message)}</p>` : ''}
+          </div>
+          ${multiline
+            ? `<textarea data-prompt-input placeholder="${escapeHtml(placeholder)}" style="width:100%;min-height:80px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);resize:vertical;font-family:inherit;"></textarea>`
+            : `<input type="text" data-prompt-input placeholder="${escapeHtml(placeholder)}" style="width:100%;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--bg);color:var(--text);" />`
+          }
+          <div class="dm-confirm-actions" style="margin-top:18px;">
+            <button class="ghost-btn" type="button" data-prompt-cancel>${escapeHtml(cancelText)}</button>
+            <button class="primary-btn" type="button" data-prompt-ok>${escapeHtml(confirmText)}</button>
+          </div>
+        `;
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+
+        const input = dialog.querySelector("[data-prompt-input]");
+        // 自動聚焦輸入框
+        setTimeout(() => input.focus(), 0);
+
+        // 關閉彈窗並回傳結果
+        const close = (result) => {
+          overlay.remove();
+          resolve(result);
+        };
+
+        // 確認按鈕
+        dialog.querySelector("[data-prompt-ok]").addEventListener("click", () => close(input.value || ""));
+        // 取消按鈕
+        dialog.querySelector("[data-prompt-cancel]").addEventListener("click", () => close(null));
+        // 點擊遮罩區域取消
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) close(null);
+        });
+        // Enter 鍵確認（僅單行輸入時），ESC 鍵取消
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !multiline) {
+            e.preventDefault();
+            close(input.value || "");
+          }
+          if (e.key === "Escape") {
+            e.preventDefault();
+            close(null);
+          }
+        });
+      });
+    }
+
+    // 刪除報價（使用自定義確認彈窗）
+    async function deleteQuotation(quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
-      if (!confirm(`確定要刪除報價 "${quotation.id}" 嗎？此操作不可恢復。`)) return;
+      const confirmed = await showConfirmDialog({
+        title: "刪除報價",
+        message: `確定要刪除報價「${quotation.id}」嗎？此操作不可恢復。`,
+        confirmText: "確認刪除"
+      });
+      if (!confirmed) return;
       quotations = quotations.filter(q => q.id !== quotationId);
       saveDataToLocalStorage();
       if (quotationState.selectedQuotationId === quotationId) {
         quotationState.selectedQuotationId = null;
       }
       toast("報價已刪除");
+      render();
+    }
+
+    // 刪除工單（CALL管理、分派中心共用同一份 tickets 數據，使用自定義確認彈窗）
+    async function deleteTicket(ticketId) {
+      const ticket = ticketById(ticketId);
+      if (!ticket) return;
+      const confirmed = await showConfirmDialog({
+        title: "刪除工單",
+        message: `確定要刪除工單「${ticket.id}」嗎？此操作不可恢復。`,
+        confirmText: "確認刪除"
+      });
+      if (!confirmed) return;
+      tickets = tickets.filter(t => t.id !== ticketId);
+      saveDataToLocalStorage();
+      // 若刪除的工單正打開抽屜，一併清空選中狀態
+      if (workOrderState.selectedWorkOrderId === ticketId) {
+        workOrderState.selectedWorkOrderId = null;
+      }
+      toast("工單已刪除");
       render();
     }
 
@@ -13389,7 +13972,10 @@
                 <button class="proc-tab ${tab === '未中標' ? 'active' : ''}" data-tender-tab="未中標">未中標 (${counts["未中標"]})</button>
                 <button class="proc-tab ${tab === '不投標' ? 'active' : ''}" data-tender-tab="不投標">不投標 (${counts["不投標"]})</button>
               </div>
-              <input type="text" class="tender-search-input" placeholder="搜索編號 / 項目 / 客戶 / 負責人..." value="${escapeHtml(state.tenderSearch || '')}" data-tender-search style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;width:280px;">
+              <div class="wo-search-wrap">
+                <input type="text" class="tender-search-input" value="${escapeHtml(state.tenderSearch || '')}" data-tender-search style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;width:280px;">
+                <button type="button" class="primary-btn wo-search-btn" data-tender-search-btn>搜索</button>
+              </div>
             </div>
 
             ${renderTenderList(filtered)}
@@ -13440,7 +14026,7 @@
                 <th>標書狀態</th>
                 <th>EC負責人</th>
                 <th>已發出報價編號</th>
-                <th>操作</th>
+                <th style="text-align:center;">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -13460,8 +14046,11 @@
                   <td><span class="tag ${statusColor(t.status)}">${escapeHtml(t.status)}</span></td>
                   <td>${escapeHtml(t.owner || '-')}</td>
                   <td>${linkedQuotation ? `<button class="link-btn" data-jump-quotation="${linkedQuotation.id}">${escapeHtml(linkedQuotation.id)}</button>` : '<span style="color:var(--muted);">無</span>'}</td>
-                  <td>
-                    <button class="wo-view-btn" data-tender-view="${t.id}">查看詳情</button>
+                  <td class="wo-td-actions">
+                    <div class="wo-actions-group">
+                      <button class="wo-view-btn" data-tender-view="${t.id}">查看詳情</button>
+                      <button class="wo-delete-btn" data-tender-delete="${t.id}">刪除</button>
+                    </div>
                   </td>
                 </tr>
                 `;
@@ -13776,23 +14365,8 @@
       const tenderStatusOptions = (dictData["標書狀態"] || []).filter(s => isEnabled(s.status));
       const tenderNo = t.id || generateTenderNo();
 
-      // 卡片樣式（現代企業 SaaS 風格）
-      const cardStyle = 'background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:16px;';
-      const cardHeadStyle = 'display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);';
-      const cardTitleStyle = 'font-size:15px;font-weight:700;color:var(--text);margin:0;';
-      const cardIconStyle = 'display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--primary-soft);color:var(--primary);font-size:15px;';
-      // 2 欄 Grid（桌面版每列兩個欄位）
-      const gridStyle = 'display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;';
-      // 欄位全寬
-      const fullField = 'grid-column:span 2;';
-      // Label 樣式
-      const labelStyle = 'display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;';
-      const requiredStar = '<span style="color:var(--danger);">*</span>';
-      // 輸入框統一樣式：44px 高、10px 圓角
-      const inputStyle = 'width:100%;height:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--panel);color:var(--text);box-sizing:border-box;transition:border-color .15s;';
-      const readonlyStyle = 'background:var(--bg);color:var(--muted);cursor:not-allowed;';
-      // Textarea 樣式
-      const textareaStyle = 'width:100%;min-height:100px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--panel);color:var(--text);box-sizing:border-box;resize:vertical;font-family:inherit;';
+      // 企業級 SaaS 卡片式佈局（與新增報價風格一致，使用 qf- class 結構）
+      const requiredStar = '<span class="req">*</span>';
 
       // Card Radio 樣式（標書類別）
       const cardRadioItems = [
@@ -13811,133 +14385,123 @@
       }).join('');
 
       const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
+      modal.className = "qf-overlay";
       modal.innerHTML = `
-        <div class="um-modal" style="max-width:920px;width:min(920px,96vw);max-height:92vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
-          <!-- Modal Header -->
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line);background:var(--panel);">
+        <div class="qf-modal">
+          <div class="qf-header">
             <div>
-              <h2 style="margin:0;font-size:18px;font-weight:700;color:var(--text);">${isEdit ? '編輯標書' : '新建標書'}</h2>
-              <p style="margin:4px 0 0;font-size:12px;color:var(--muted);">填寫標書基本資訊、金額、關聯報價與附件</p>
+              <h3>${isEdit ? '編輯標書' : '新建標書'}</h3>
+              <div class="qf-sub">填寫標書基本資訊、金額、關聯報價與附件</div>
             </div>
-            <button class="um-modal-close" data-close-modal>×</button>
+            <button type="button" class="qf-close" data-close-modal aria-label="關閉">×</button>
           </div>
-          <!-- 可滾動的表單內容區 -->
-          <form id="tenderForm" style="flex:1;overflow-y:auto;padding:20px 24px;background:var(--bg);">
+          <form id="tenderForm">
+            <div class="qf-body">
             <!-- ① 基本資訊 -->
-            <div style="${cardStyle}">
-              <div style="${cardHeadStyle}">
-                <span style="${cardIconStyle}">①</span>
-                <h3 style="${cardTitleStyle}">基本資訊</h3>
-              </div>
-              <div style="${gridStyle}">
+            <div class="qf-card">
+              <div class="qf-card-title">基本資訊<span class="qf-card-sub">標書主要資料</span></div>
+              <div class="qf-grid">
                 <!-- 標書類別（Card Radio，全寬） -->
-                <div style="${fullField}">
-                  <label style="${labelStyle}">標書類別 ${requiredStar}</label>
+                <div class="qf-field wide">
+                  <label class="qf-label">標書類別 ${requiredStar}</label>
                   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px;">
                     ${cardRadioHtml}
                   </div>
                 </div>
                 <!-- 標書編號（唯讀） -->
-                <div>
-                  <label style="${labelStyle}">標書編號 ${requiredStar}</label>
-                  <input name="id" value="${escapeHtml(tenderNo)}" ${isEdit ? 'readonly' : 'required'} style="${inputStyle}${isEdit ? readonlyStyle : ''}" placeholder="系統自動生成">
+                <div class="qf-field">
+                  <label class="qf-label">標書編號 ${requiredStar}</label>
+                  <input class="qf-input${isEdit ? ' qf-readonly' : ''}" name="id" value="${escapeHtml(tenderNo)}" ${isEdit ? 'readonly' : 'required'} placeholder="系統自動生成">
                 </div>
                 <!-- 項目名稱 -->
-                <div>
-                  <label style="${labelStyle}">項目名稱 ${requiredStar}</label>
-                  <input name="projectName" value="${escapeHtml(t.projectName || '')}" required placeholder="請輸入項目名稱" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">項目名稱 ${requiredStar}</label>
+                  <input class="qf-input" name="projectName" value="${escapeHtml(t.projectName || '')}" required placeholder="請輸入項目名稱">
                 </div>
                 <!-- 客戶 -->
-                <div>
-                  <label style="${labelStyle}">客戶 ${requiredStar}</label>
-                  <input name="client" value="${escapeHtml(t.client || '')}" required placeholder="請輸入招標客戶" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">客戶 ${requiredStar}</label>
+                  <input class="qf-input" name="client" value="${escapeHtml(t.client || '')}" required placeholder="請輸入招標客戶">
                 </div>
                 <!-- EC負責人 -->
-                <div>
-                  <label style="${labelStyle}">EC負責人 ${requiredStar}</label>
-                  <input name="owner" value="${escapeHtml(t.owner || '')}" required placeholder="請輸入EC負責人" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">EC負責人 ${requiredStar}</label>
+                  <input class="qf-input" name="owner" value="${escapeHtml(t.owner || '')}" required placeholder="請輸入EC負責人">
                 </div>
               </div>
             </div>
 
             <!-- ② 標書資訊 -->
-            <div style="${cardStyle}">
-              <div style="${cardHeadStyle}">
-                <span style="${cardIconStyle}">②</span>
-                <h3 style="${cardTitleStyle}">標書資訊</h3>
-              </div>
-              <div style="${gridStyle}">
+            <div class="qf-card">
+              <div class="qf-card-title">標書資訊<span class="qf-card-sub">金額與日期</span></div>
+              <div class="qf-grid">
                 <!-- 標書金額 -->
-                <div>
-                  <label style="${labelStyle}">標書金額 (HKD) ${requiredStar}</label>
-                  <input name="tenderValue" type="number" min="0" step="100" value="${t.tenderValue || ''}" required placeholder="0" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">標書金額 (HKD) ${requiredStar}</label>
+                  <input class="qf-input" name="tenderValue" type="number" min="0" step="100" value="${t.tenderValue || ''}" required placeholder="0">
                 </div>
                 <!-- 標書狀態 -->
-                <div>
-                  <label style="${labelStyle}">標書狀態 ${requiredStar}</label>
-                  <select name="status" required style="${inputStyle}appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2364748b%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+                <div class="qf-field">
+                  <label class="qf-label">標書狀態 ${requiredStar}</label>
+                  <select class="qf-select" name="status" required>
                     ${tenderStatusOptions.length > 0 ? tenderStatusOptions.map(s => `<option value="${escapeHtml(s.name)}" ${t.status === s.name ? 'selected' : ''}>${escapeHtml(s.name)}</option>`).join("") : `<option value="待投標" ${t.status === "待投標" || !t.status ? 'selected' : ''}>待投標</option><option value="不投標" ${t.status === "不投標" ? 'selected' : ''}>不投標</option>`}
                   </select>
                 </div>
                 <!-- 接受標書日期 -->
-                <div>
-                  <label style="${labelStyle}">接受標書日期</label>
-                  <input name="tenderDate" type="datetime-local" value="${escapeHtml(t.tenderDate || new Date().toISOString().slice(0, 16))}" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">接受標書日期</label>
+                  <input class="qf-input" name="tenderDate" type="datetime-local" value="${escapeHtml(t.tenderDate || new Date().toISOString().slice(0, 16))}">
                 </div>
                 <!-- 截止時間 -->
-                <div>
-                  <label style="${labelStyle}">截止時間</label>
-                  <input name="deadline" type="datetime-local" value="${escapeHtml(t.deadline || defaultDeadline)}" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">截止時間</label>
+                  <input class="qf-input" name="deadline" type="datetime-local" value="${escapeHtml(t.deadline || defaultDeadline)}">
                 </div>
                 <!-- 投票日期 -->
-                <div>
-                  <label style="${labelStyle}">投票日期</label>
-                  <input name="submittedDate" type="datetime-local" value="${escapeHtml(t.submittedDate || '')}" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">投票日期</label>
+                  <input class="qf-input" name="submittedDate" type="datetime-local" value="${escapeHtml(t.submittedDate || '')}">
                 </div>
                 <!-- 揭曉日期 -->
-                <div>
-                  <label style="${labelStyle}">揭曉日期</label>
-                  <input name="resultDate" type="datetime-local" value="${escapeHtml(t.resultDate || '')}" style="${inputStyle}">
+                <div class="qf-field">
+                  <label class="qf-label">揭曉日期</label>
+                  <input class="qf-input" name="resultDate" type="datetime-local" value="${escapeHtml(t.resultDate || '')}">
                 </div>
               </div>
             </div>
 
             <!-- ③ 關聯資訊 -->
-            <div style="${cardStyle}">
-              <div style="${cardHeadStyle}">
-                <span style="${cardIconStyle}">③</span>
-                <h3 style="${cardTitleStyle}">關聯資訊</h3>
-              </div>
-              <div style="${gridStyle}">
+            <div class="qf-card">
+              <div class="qf-card-title">關聯資訊<span class="qf-card-sub">來源、方式與報價</span></div>
+              <div class="qf-grid">
                 <!-- 標書來源 -->
-                <div>
-                  <label style="${labelStyle}">標書來源</label>
-                  <select name="tenderSource" style="${inputStyle}appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2364748b%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+                <div class="qf-field">
+                  <label class="qf-label">標書來源</label>
+                  <select class="qf-select" name="tenderSource">
                     <option value="">請選擇標書來源</option>
                     ${sourceOptions.map(s => `<option value="${escapeHtml(s.name)}" ${t.tenderSource === s.name ? "selected" : ""}>${escapeHtml(s.name)}</option>`).join("")}
                   </select>
                 </div>
                 <!-- 回標方式 -->
-                <div>
-                  <label style="${labelStyle}">回標方式</label>
-                  <select name="replyMethod" style="${inputStyle}appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2364748b%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+                <div class="qf-field">
+                  <label class="qf-label">回標方式</label>
+                  <select class="qf-select" name="replyMethod">
                     <option value="">請選擇回標方式</option>
                     ${replyOptions.map(r => `<option value="${escapeHtml(r.name)}" ${t.replyMethod === r.name ? "selected" : ""}>${escapeHtml(r.name)}</option>`).join("")}
                   </select>
                 </div>
                 <!-- 區域 -->
-                <div>
-                  <label style="${labelStyle}">區域</label>
-                  <select name="tenderRegion" style="${inputStyle}appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2364748b%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+                <div class="qf-field">
+                  <label class="qf-label">區域</label>
+                  <select class="qf-select" name="tenderRegion">
                     <option value="">請選擇區域</option>
                     ${regionOptions.map(r => `<option value="${escapeHtml(r.name)}" ${t.tenderRegion === r.name ? "selected" : ""}>${escapeHtml(r.name)}</option>`).join("")}
                   </select>
                 </div>
                 <!-- 已發出報價編號 -->
-                <div>
-                  <label style="${labelStyle}">已發出報價編號 ${requiredStar}</label>
-                  <select name="relatedQuotationId" required style="${inputStyle}appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2364748b%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22></polyline></svg>');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+                <div class="qf-field">
+                  <label class="qf-label">已發出報價編號 ${requiredStar}</label>
+                  <select class="qf-select" name="relatedQuotationId" required>
                     <option value="">請選擇已發出報價</option>
                     ${quotations.map(q => `<option value="${q.id}" ${t.relatedQuotationId === q.id ? 'selected' : ''}>${q.id} - ${escapeHtml(q.title || '')}</option>`).join("")}
                   </select>
@@ -13946,20 +14510,17 @@
             </div>
 
             <!-- ④ 備註與附件 -->
-            <div style="${cardStyle}margin-bottom:0;">
-              <div style="${cardHeadStyle}">
-                <span style="${cardIconStyle}">④</span>
-                <h3 style="${cardTitleStyle}">備註與附件</h3>
-              </div>
-              <div style="${gridStyle}">
+            <div class="qf-card">
+              <div class="qf-card-title">備註與附件<span class="qf-card-sub">補充說明與文件</span></div>
+              <div class="qf-grid">
                 <!-- 備註（全寬 Textarea） -->
-                <div style="${fullField}">
-                  <label style="${labelStyle}">備註</label>
-                  <textarea name="remark" placeholder="請輸入備註（選填）" style="${textareaStyle}">${escapeHtml(t.remark || '')}</textarea>
+                <div class="qf-field wide">
+                  <label class="qf-label">備註</label>
+                  <textarea class="qf-textarea" name="remark" placeholder="請輸入備註（選填）">${escapeHtml(t.remark || '')}</textarea>
                 </div>
                 <!-- 標書附件（全寬，支援點擊與拖放上傳） -->
-                <div style="${fullField}">
-                  <label style="${labelStyle}">標書附件</label>
+                <div class="qf-field wide">
+                  <label class="qf-label">標書附件</label>
                   <div data-tender-upload="attachments" style="border:2px dashed var(--line);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--panel-soft);">
                     <div style="font-size:24px;margin-bottom:8px;">📎</div>
                     <div style="font-size:13px;color:var(--muted);">點擊上傳或將文件拖入此區域</div>
@@ -13969,8 +14530,8 @@
                   <div data-tender-file-list="attachments" style="margin-top:8px;"></div>
                 </div>
                 <!-- 其他相關文件（全寬，可多檔上傳） -->
-                <div style="${fullField}">
-                  <label style="${labelStyle}">其他相關文件</label>
+                <div class="qf-field wide">
+                  <label class="qf-label">其他相關文件</label>
                   <div data-tender-upload="otherDocs" style="border:2px dashed var(--line);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--panel-soft);">
                     <div style="font-size:24px;margin-bottom:8px;">📄</div>
                     <div style="font-size:13px;color:var(--muted);">點擊上傳或將文件拖入此區域</div>
@@ -13981,12 +14542,12 @@
                 </div>
               </div>
             </div>
+            </div>
+            <div class="qf-footer">
+              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
+              <button type="submit" class="qf-btn qf-btn-save">${isEdit ? '保存修改' : '創建標書'}</button>
+            </div>
           </form>
-          <!-- Sticky Footer（固定底部操作列） -->
-          <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--line);background:var(--panel);box-shadow:0 -4px 12px rgba(15,23,42,.04);">
-            <button type="button" class="ghost-btn" data-close-modal style="padding:10px 24px;border-radius:10px;font-size:14px;">取消</button>
-            <button type="submit" form="tenderForm" class="primary-btn" style="padding:10px 28px;border-radius:10px;font-size:14px;background:var(--primary);border-color:var(--primary);">${isEdit ? '保存修改' : '創建標書'}</button>
-          </div>
         </div>
       `;
       document.body.appendChild(modal);
@@ -14158,32 +14719,36 @@
 
     // 綁定標書側邊欄內的事件（DOM 替換後需重新綁定）
     function bindTenderDrawerEvents() {
+      // 限定綁定範圍為抽屜內，避免重新綁定列表按鈕造成重複觸發
+      const drawer = document.querySelector(".wo-drawer");
+      if (!drawer) return;
+      const scope = drawer;
       // 關閉側邊欄
-      document.querySelectorAll("[data-tender-close]").forEach(btn => btn.addEventListener("click", () => {
+      scope.querySelectorAll("[data-tender-close]").forEach(btn => btn.addEventListener("click", () => {
         state.selectedTenderId = null;
         state.tenderEditMode = false;
         render();
       }));
       // 編輯：切換為側邊欄內編輯模式
-      document.querySelectorAll("[data-tender-edit]").forEach(btn => btn.addEventListener("click", () => {
+      scope.querySelectorAll("[data-tender-edit]").forEach(btn => btn.addEventListener("click", () => {
         state.tenderEditMode = true;
         refreshTenderDrawer();
       }));
       // 取消編輯：切換回詳情模式
-      document.querySelectorAll("[data-tender-cancel-edit]").forEach(btn => btn.addEventListener("click", () => {
+      scope.querySelectorAll("[data-tender-cancel-edit]").forEach(btn => btn.addEventListener("click", () => {
         state.tenderEditMode = false;
         refreshTenderDrawer();
       }));
       // 刪除
-      document.querySelectorAll("[data-tender-delete]").forEach(btn => btn.addEventListener("click", () => deleteTender(btn.dataset.tenderDelete)));
+      scope.querySelectorAll("[data-tender-delete]").forEach(btn => btn.addEventListener("click", () => deleteTender(btn.dataset.tenderDelete)));
       // 標記中標/未中標/不投標
-      document.querySelectorAll("[data-tender-mark-won]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkWon, "已中標")));
-      document.querySelectorAll("[data-tender-mark-lost]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkLost, "未中標")));
-      document.querySelectorAll("[data-tender-mark-no-bid]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkNoBid, "不投標")));
+      scope.querySelectorAll("[data-tender-mark-won]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkWon, "已中標")));
+      scope.querySelectorAll("[data-tender-mark-lost]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkLost, "未中標")));
+      scope.querySelectorAll("[data-tender-mark-no-bid]").forEach(btn => btn.addEventListener("click", () => updateTenderStatus(btn.dataset.tenderMarkNoBid, "不投標")));
       // 確認已投遞
-      document.querySelectorAll("[data-tender-submit]").forEach(btn => btn.addEventListener("click", () => submitTender(btn.dataset.tenderSubmit)));
+      scope.querySelectorAll("[data-tender-submit]").forEach(btn => btn.addEventListener("click", () => submitTender(btn.dataset.tenderSubmit)));
       // 編輯表單提交
-      const editForm = document.querySelector("#tenderEditForm");
+      const editForm = scope.querySelector("#tenderEditForm");
       if (editForm) {
         editForm.addEventListener("submit", (e) => {
           e.preventDefault();
@@ -14192,9 +14757,9 @@
         });
       }
       // 標書類別 Card Radio 點擊切換樣式
-      document.querySelectorAll('input[name="tenderCategory"]').forEach(radio => {
+      scope.querySelectorAll('input[name="tenderCategory"]').forEach(radio => {
         radio.addEventListener("change", function() {
-          document.querySelectorAll('input[name="tenderCategory"]').forEach(r => {
+          scope.querySelectorAll('input[name="tenderCategory"]').forEach(r => {
             const label = r.closest('label');
             if (!label) return;
             if (r.checked) {
@@ -14250,11 +14815,16 @@
       }
     }
 
-    // 刪除標書
-    function deleteTender(tenderId) {
+    // 刪除標書（使用自定義確認彈窗）
+    async function deleteTender(tenderId) {
       const t = tenders.find(x => x.id === tenderId);
       if (!t) return;
-      if (!confirm(`確定刪除標書「${t.id} - ${t.projectName}」？此操作不可撤銷。`)) return;
+      const confirmed = await showConfirmDialog({
+        title: "刪除標書",
+        message: `確定要刪除標書「${t.id} - ${t.projectName}」嗎？此操作不可撤銷。`,
+        confirmText: "確認刪除"
+      });
+      if (!confirmed) return;
       tenders = tenders.filter(x => x.id !== tenderId);
       if (state.selectedTenderId === tenderId) state.selectedTenderId = null;
       saveDataToLocalStorage();
@@ -14332,16 +14902,29 @@
           </div>
 
           <div class="pc-section">
-            <div class="sr-filter-bar">
-              <div class="sr-filter-controls">
+            <div class="wo-filters">
+              <div class="wo-filter-group">
+                <label>區域</label>
                 <select data-sr-folder-area>
                   ${allAreas.map(a => `<option value="${escapeHtml(a)}" ${areaFilter === a ? 'selected' : ''}>${a === '全部' ? '全部區域' : escapeHtml(a)}</option>`).join("")}
                 </select>
+              </div>
+              <div class="wo-filter-group">
+                <label>狀態</label>
                 <select data-sr-folder-status>
                   ${["全部", "待確認", "待處理", "處理中", "已完成", "已取消"].map(s => `<option value="${s}" ${statusFilter === s ? 'selected' : ''}>${s === '全部' ? '全部狀態' : s}</option>`).join("")}
                 </select>
               </div>
-              <input class="sr-folder-search" type="text" placeholder="搜索 SR 編號 / 工單號 / 客戶 / 系統 / 目的..." value="${escapeHtml(state.srFolderSearch || '')}" data-sr-folder-search>
+              <div class="wo-filter-group">
+                <label>關鍵詞搜索</label>
+                <div class="wo-search-wrap">
+                  <input type="text" value="${escapeHtml(state.srFolderSearch || '')}" data-sr-folder-search>
+                  <button type="button" class="primary-btn wo-search-btn" data-sr-folder-search-btn>搜索</button>
+                </div>
+              </div>
+              <div class="wo-actions-top">
+                <button class="secondary-btn" data-sr-folder-reset>重置</button>
+              </div>
             </div>
 
             ${renderSrFolderList(filtered)}
@@ -15906,15 +16489,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function renderMobileDispatchSheet() {
       const t = ticketById(state.mdSelectedTicketId);
       if (!state.mdDispatchSheetOpen || !t || t.status !== "待分派") return "";
-      const keyword = (state.mdMasterKeyword || "").trim().toLowerCase();
-      const masters = getMastersForDispatch().map((master, idx) => {
-        const sameArea = master.area === t.area;
-        return { ...master, rating: (4.9 - idx * 0.1).toFixed(1), matchRate: 98 - idx * 4, distance: sameArea ? 2 + idx : 8 + idx * 3 };
-      }).filter(master =>
-        (state.mdMasterStatus === "全部" || master.status === state.mdMasterStatus) &&
-        (!keyword || [master.name, master.skills, master.area, master.tag].join(" ").toLowerCase().includes(keyword))
-      );
-      const selectedMaster = masters.find(master => master.name === state.mdSelectedMaster);
       return `
         <div class="mobile-process-overlay" data-md-sheet-close>
           <section class="mobile-process-sheet" role="dialog" aria-modal="true" aria-label="分派 CALL">
@@ -15931,13 +16505,95 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
               <section class="mobile-process-block">
                 <h3>選擇師傅</h3>
                 <div style="display:grid;grid-template-columns:1fr 112px;gap:8px;margin-bottom:10px;"><input class="sr-input" value="${escapeHtml(state.mdMasterKeyword)}" placeholder="搜尋姓名或技能" data-md-master-keyword><select class="sr-input" data-md-master-status><option value="全部" ${state.mdMasterStatus === "全部" ? "selected" : ""}>全部狀態</option><option value="可接單" ${state.mdMasterStatus === "可接單" ? "selected" : ""}>可接單</option><option value="忙碌" ${state.mdMasterStatus === "忙碌" ? "selected" : ""}>忙碌</option></select></div>
-                ${masters.length ? masters.map(master => `<div class="md-master-card ${state.mdSelectedMaster === master.name ? "selected" : ""}" data-md-master="${escapeHtml(master.name)}"><div class="md-master-avatar">${escapeHtml(master.name.slice(0, 1))}</div><div class="md-master-body"><div class="md-master-head"><strong>${escapeHtml(master.name)}</strong><span class="md-tag md-tag-primary">${escapeHtml(master.tag)}</span></div><div class="md-master-skills">${escapeHtml(master.skills)}</div><div class="md-master-stats"><span>${escapeHtml(master.status)}</span><span class="md-dot">·</span><span>負載 ${master.load}</span><span class="md-dot">·</span><span>匹配 ${master.matchRate}%</span><span class="md-dot">·</span><span>${master.distance} km</span></div></div><div class="md-radio ${state.mdSelectedMaster === master.name ? "checked" : ""}"></div></div>`).join("") : '<div class="md-empty">沒有符合篩選條件的師傅</div>'}
+                <div id="mdMasterList">${renderMdMasterList(t)}</div>
               </section>
-              ${selectedMaster ? `<section class="mobile-process-block"><h3>分派確認</h3><div style="display:grid;gap:8px;font-size:13px;"><div><span class="muted">已選師傅：</span><strong>${escapeHtml(selectedMaster.name)}</strong></div><div><span class="muted">技能：</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div><textarea id="mdRemark" class="md-textarea" placeholder="派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea></div></section>` : ""}
+              <div id="mdConfirmArea">${renderMdConfirmArea(t)}</div>
             </div>
-            <footer class="mobile-process-sheet-foot"><span class="mobile-process-required-hint">${selectedMaster ? "確認後通知師傅接單" : "請選擇一位師傅"}</span><button class="primary-btn" data-md-submit ${selectedMaster ? "" : "disabled"}>確認分派</button></footer>
+            <footer class="mobile-process-sheet-foot" id="mdSheetFoot">${renderMdSheetFoot(t)}</footer>
           </section>
         </div>`;
+    }
+
+    // 根據工單區域、關鍵詞和狀態篩選師傅列表（只返回同區域師傅）
+    function getFilteredMastersForDispatch(ticket) {
+      const keyword = (state.mdMasterKeyword || "").trim().toLowerCase();
+      return getMastersForDispatch()
+        .filter(m => m.area === ticket.area)
+        .map((master, idx) => ({
+          ...master,
+          rating: (4.9 - idx * 0.1).toFixed(1),
+          matchRate: 98 - idx * 4,
+          distance: 2 + idx
+        }))
+        .filter(master =>
+          (state.mdMasterStatus === "全部" || master.status === state.mdMasterStatus) &&
+          (!keyword || [master.name, master.skills, master.area, master.tag].join(" ").toLowerCase().includes(keyword))
+        );
+    }
+
+    // 渲染師傅列表卡片（可單獨刷新，避免搜索框重建導致焦點丟失）
+    function renderMdMasterList(ticket) {
+      const masters = getFilteredMastersForDispatch(ticket);
+      return masters.length
+        ? masters.map(master => `<div class="md-master-card ${state.mdSelectedMaster === master.name ? "selected" : ""}" data-md-master="${escapeHtml(master.name)}"><div class="md-master-avatar">${escapeHtml(master.name.slice(0, 1))}</div><div class="md-master-body"><div class="md-master-head"><strong>${escapeHtml(master.name)}</strong><span class="md-tag md-tag-primary">${escapeHtml(master.tag)}</span></div><div class="md-master-skills">${escapeHtml(master.skills)}</div><div class="md-master-stats"><span>${escapeHtml(master.status)}</span><span class="md-dot">·</span><span>負載 ${master.load}</span><span class="md-dot">·</span><span>匹配 ${master.matchRate}%</span><span class="md-dot">·</span><span>${master.distance} km</span></div></div><div class="md-radio ${state.mdSelectedMaster === master.name ? "checked" : ""}"></div></div>`).join("")
+        : '<div class="md-empty">沒有符合篩選條件的師傅</div>';
+    }
+
+    // 渲染分派確認區域
+    function renderMdConfirmArea(ticket) {
+      const masters = getFilteredMastersForDispatch(ticket);
+      const selectedMaster = masters.find(master => master.name === state.mdSelectedMaster);
+      return selectedMaster
+        ? `<section class="mobile-process-block"><h3>分派確認</h3><div style="display:grid;gap:8px;font-size:13px;"><div><span class="muted">已選師傅：</span><strong>${escapeHtml(selectedMaster.name)}</strong></div><div><span class="muted">技能：</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div><textarea id="mdRemark" class="md-textarea" placeholder="派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea></div></section>`
+        : "";
+    }
+
+    // 渲染底部按鈕區域
+    function renderMdSheetFoot(ticket) {
+      const masters = getFilteredMastersForDispatch(ticket);
+      const selectedMaster = masters.find(master => master.name === state.mdSelectedMaster);
+      return `<span class="mobile-process-required-hint">${selectedMaster ? "確認後通知師傅接單" : "請選擇一位師傅"}</span><button class="primary-btn" data-md-submit ${selectedMaster ? "" : "disabled"}>確認分派</button>`;
+    }
+
+    // 局部刷新師傅列表、分派確認和底部按鈕（不重建搜索框，避免焦點丟失）
+    function refreshMdMasterArea() {
+      const t = ticketById(state.mdSelectedTicketId);
+      if (!t) return;
+      const listEl = document.getElementById("mdMasterList");
+      if (listEl) listEl.innerHTML = renderMdMasterList(t);
+      const confirmEl = document.getElementById("mdConfirmArea");
+      if (confirmEl) confirmEl.innerHTML = renderMdConfirmArea(t);
+      const footEl = document.getElementById("mdSheetFoot");
+      if (footEl) footEl.innerHTML = renderMdSheetFoot(t);
+      // 重新綁定師傅卡片點擊事件
+      document.querySelectorAll("[data-md-master]").forEach(btn => btn.addEventListener("click", () => {
+        state.mdSelectedMaster = btn.dataset.mdMaster;
+        refreshMdMasterArea();
+      }));
+      // 重新綁定確認分派按鈕
+      const submitBtn = document.querySelector("[data-md-submit]");
+      if (submitBtn) submitBtn.addEventListener("click", () => {
+        const ticket = ticketById(state.mdSelectedTicketId);
+        if (!ticket || !state.mdSelectedMaster) {
+          toast("請選擇工單和師傅", "error");
+          return;
+        }
+        const remarkEl = document.getElementById("mdRemark");
+        if (remarkEl) state.mdRemark = remarkEl.value;
+        const note = "分派給" + state.mdSelectedMaster + (state.mdRemark ? "，備註：" + state.mdRemark : "");
+        updateTicket(ticket.id, { status: "待確認", owner: state.mdSelectedMaster, master: state.mdSelectedMaster }, note);
+        toast("已分派，狀態變爲待確認", "success");
+        state.mdDispatchSheetOpen = false;
+        state.mdSelectedTicketId = null;
+        state.mdSelectedMaster = null;
+        state.mdRemark = "";
+        render();
+      });
+      // 重新綁定備註輸入框
+      const remarkEl = document.getElementById("mdRemark");
+      if (remarkEl) remarkEl.addEventListener("input", () => {
+        state.mdRemark = remarkEl.value;
+      });
     }
 
     // 渲染移動端 CR（客戶報告）頁面 — 支持按 SR 編號或客戶名稱搜索
@@ -16342,8 +16998,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.dispatchFilters[select.dataset.dispatchFilter] = select.value;
         render();
       }));
+      // 分派中心：搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
+      document.querySelectorAll("[data-dispatch-search-btn]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-dispatch-search]");
+        if (input) state.dispatchSearch = input.value;
+        render();
+      }));
       document.querySelectorAll("[data-dispatch-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
         state.dispatchFilters = { status: "全部", area: "全部", customer: "全部", type: "全部" };
+        state.dispatchSearch = "";
         render();
       }));
       document.querySelectorAll("[data-dispatch-metric]").forEach(btn => btn.addEventListener("click", () => {
@@ -16361,6 +17024,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.dispatchMetricModal = null;
         render();
       }));
+      // 列表行刪除工單（CALL管理、分派中心共用 tickets 數據）
+      document.querySelectorAll("[data-dispatch-delete]").forEach(btn => btn.addEventListener("click", () => deleteTicket(btn.dataset.dispatchDelete)));
       document.querySelectorAll("[data-dispatch-master]").forEach(btn => btn.addEventListener("click", () => {
         state.selectedMaster = btn.dataset.dispatchMaster;
         // 只切換 active 類，不重新渲染整個頁面，避免彈窗 DOM 重建導致閃動
@@ -16636,21 +17301,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
       document.querySelectorAll("[data-md-master]").forEach(btn => btn.addEventListener("click", () => {
         state.mdSelectedMaster = btn.dataset.mdMaster;
-        render();
+        refreshMdMasterArea();
       }));
       document.querySelectorAll("[data-md-master-keyword]").forEach(input => input.addEventListener("input", () => {
         state.mdMasterKeyword = input.value;
-        render();
-        requestAnimationFrame(() => {
-          const nextInput = document.querySelector("[data-md-master-keyword]");
-          if (!nextInput) return;
-          nextInput.focus();
-          nextInput.setSelectionRange(nextInput.value.length, nextInput.value.length);
-        });
+        refreshMdMasterArea();
       }));
       document.querySelectorAll("[data-md-master-status]").forEach(select => select.addEventListener("change", () => {
         state.mdMasterStatus = select.value;
-        render();
+        refreshMdMasterArea();
       }));
       document.querySelectorAll("[data-md-sheet-close]").forEach(btn => btn.addEventListener("click", (event) => {
         if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
@@ -16959,25 +17618,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       // Quotation management events
       document.querySelectorAll("[data-create-quotation]").forEach(btn => btn.addEventListener("click", openCreateQuotation));
-      // 篩選事件（下拉框 change）
+      // 篩選事件（下拉框 change，搜索框不加 input 事件，改由搜索按鈕觸發避免輸入中重渲染丟失焦點）
       document.querySelectorAll("[data-qm-filter]").forEach(el => {
         const filterKey = el.dataset.qmFilter;
-        if (filterKey === "searchKeyword") {
-          // 關鍵詞搜索使用 input 事件
-          el.addEventListener("input", () => {
-            quotationState.searchKeyword = el.value;
-            // 搜索時重置到第一頁
-            quotationState.currentPage = 1;
-            render();
-          });
-        } else {
-          el.addEventListener("change", () => {
-            quotationState[filterKey] = el.value;
-            // 篩選變化時重置到第一頁
-            quotationState.currentPage = 1;
-            render();
-          });
-        }
+        if (filterKey === "searchKeyword") return; // 搜索框由按鈕觸發，不綁定 input 事件
+        el.addEventListener("change", () => {
+          quotationState[filterKey] = el.value;
+          // 篩選變化時重置到第一頁
+          quotationState.currentPage = 1;
+          render();
+        });
       });
       // 重置篩選
       document.querySelectorAll("[data-qm-reset]").forEach(btn => btn.addEventListener("click", () => {
@@ -16990,11 +17640,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         quotationState.currentPage = 1;
         render();
       }));
-      // 關閉抽屜
-      document.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", () => {
-        quotationState.selectedQuotationId = null;
+      // 報價管理：搜索按鈕（點擊觸發搜索）
+      document.querySelectorAll("[data-qm-search]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-qm-filter=\"searchKeyword\"]");
+        if (input) quotationState.searchKeyword = input.value;
+        quotationState.currentPage = 1;
         render();
       }));
+      // 關閉抽屜
+      document.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", closeQuotationDrawer));
       // 報價管理分頁事件
       document.querySelectorAll("[data-qm-page]").forEach(btn => btn.addEventListener("click", () => {
         const page = btn.dataset.qmPage;
@@ -17011,10 +17665,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         quotationState.currentPage = 1;
         render();
       }));
-      document.querySelectorAll("[data-view-quotation]").forEach(btn => btn.addEventListener("click", () => {
-        quotationState.selectedQuotationId = btn.dataset.viewQuotation;
-        render();
-      }));
+      document.querySelectorAll("[data-view-quotation]").forEach(btn => btn.addEventListener("click", () => openQuotationDrawer(btn.dataset.viewQuotation)));
       document.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
       document.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
 
@@ -17180,19 +17831,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.tenderTab = btn.dataset.tenderTab;
         render();
       }));
-      // 標書搜索（輸入時實時過濾）
-      document.querySelectorAll("[data-tender-search]").forEach(input => {
-        input.addEventListener("input", (e) => {
-          state.tenderSearch = e.target.value;
-          render();
-          // 重新渲染後保持輸入框焦點
-          const newInput = document.querySelector("[data-tender-search]");
-          if (newInput) {
-            newInput.focus();
-            newInput.setSelectionRange(newInput.value.length, newInput.value.length);
-          }
-        });
-      });
+      // 標書搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
+      document.querySelectorAll("[data-tender-search-btn]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-tender-search]");
+        if (input) state.tenderSearch = input.value;
+        render();
+      }));
       // 標書查看詳情 → 打開側邊欄
       document.querySelectorAll("[data-tender-view]").forEach(btn => btn.addEventListener("click", () => {
         state.selectedTenderId = btn.dataset.tenderView;
@@ -17259,18 +17903,19 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.srFolderStatus = e.target.value;
         render();
       }));
-      // SR 文件夾：搜索（輸入時實時過濾）
-      document.querySelectorAll("[data-sr-folder-search]").forEach(input => {
-        input.addEventListener("input", (e) => {
-          state.srFolderSearch = e.target.value;
-          render();
-          const newInput = document.querySelector("[data-sr-folder-search]");
-          if (newInput) {
-            newInput.focus();
-            newInput.setSelectionRange(newInput.value.length, newInput.value.length);
-          }
-        });
-      });
+      // SR 文件夾：搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
+      document.querySelectorAll("[data-sr-folder-search-btn]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-sr-folder-search]");
+        if (input) state.srFolderSearch = input.value;
+        render();
+      }));
+      // SR 文件夾：重置篩選
+      document.querySelectorAll("[data-sr-folder-reset]").forEach(btn => btn.addEventListener("click", () => {
+        state.srFolderArea = "全部";
+        state.srFolderStatus = "全部";
+        state.srFolderSearch = "";
+        render();
+      }));
       // SR 文件夾：查看工單（PC 詳情抽屜）
       document.querySelectorAll("[data-sr-folder-open-ticket]").forEach(btn => btn.addEventListener("click", () => {
         state.srFolderMetricModal = null;
@@ -17322,51 +17967,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-wo-view]").forEach(btn => btn.addEventListener("click", () => {
         openWorkOrderDrawer(btn.dataset.woView);
       }));
+      // 列表行刪除工單
+      document.querySelectorAll("[data-wo-delete]").forEach(btn => btn.addEventListener("click", () => deleteTicket(btn.dataset.woDelete)));
       document.querySelectorAll("[data-wo-close]").forEach(btn => btn.addEventListener("click", () => {
         closeWorkOrderDrawer();
       }));
       document.querySelectorAll("[data-wo-create]").forEach(btn => btn.addEventListener("click", () => {
         openCreateWorkOrderModal();
       }));
-      document.querySelectorAll("[data-wo-modal-close]").forEach(btn => btn.addEventListener("click", () => {
-        closeWorkOrderModal();
-      }));
-      // 附件拖放上傳事件
-      const fileUploadArea = document.getElementById("fileUploadArea");
-      if (fileUploadArea) {
-        fileUploadArea.addEventListener("dragover", (e) => {
-          e.preventDefault();
-          fileUploadArea.style.borderColor = "var(--primary)";
-          fileUploadArea.style.background = "var(--primary-soft)";
-        });
-        fileUploadArea.addEventListener("dragleave", (e) => {
-          e.preventDefault();
-          fileUploadArea.style.borderColor = "var(--line)";
-          fileUploadArea.style.background = "var(--panel-soft)";
-        });
-        fileUploadArea.addEventListener("drop", (e) => {
-          e.preventDefault();
-          fileUploadArea.style.borderColor = "var(--line)";
-          fileUploadArea.style.background = "var(--panel-soft)";
-          const files = Array.from(e.dataTransfer.files);
-          const fileInput = document.getElementById("fileInput");
-          if (fileInput) {
-            const dt = new DataTransfer();
-            files.forEach(f => dt.items.add(f));
-            fileInput.files = dt.files;
-          }
-          updateFileList(files);
-        });
-      }
-      document.querySelectorAll("[data-wo-save]").forEach(btn => btn.addEventListener("click", () => {
-        const form = $("#workOrderForm");
-        if (form && form.checkValidity()) {
-          const formData = new FormData(form);
-          saveWorkOrder(formData);
-        } else if (form) {
-          form.reportValidity();
-        }
-      }));
+      // 附註：模態框事件（data-wo-modal-close、data-wo-save、附件拖放）
+      // 已改由 bindWorkOrderModalEvents() 在模態框附加時綁定，避免全頁重渲染導致閃爍
       document.querySelectorAll("[data-wo-filter]").forEach(el => el.addEventListener("change", () => {
         const filterKey = el.dataset.woFilter;
         workOrderState.filters[filterKey] = el.value;
@@ -17374,12 +17984,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         workOrderState.currentPage = 1;
         render();
       }));
-      document.querySelectorAll("[data-wo-filter=\"keyword\"]").forEach(el => el.addEventListener("input", debounce(() => {
-        workOrderState.filters.keyword = el.value;
+      // 工單管理：搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
+      document.querySelectorAll("[data-wo-search]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-wo-filter=\"keyword\"]");
+        if (input) workOrderState.filters.keyword = input.value;
         // 搜索時重置到第一頁
         workOrderState.currentPage = 1;
         render();
-      })));
+      }));
       document.querySelectorAll("[data-wo-reset]").forEach(btn => btn.addEventListener("click", () => {
         workOrderState.filters = {
           status: "全部",
@@ -17800,11 +18412,160 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
     });
 
+    // 關閉所有已展開的自定義下拉框面板，並從 body 移除殘留面板
+    function closeAllSelectPanels() {
+      document.querySelectorAll('.qf-select-panel.open').forEach(function (p) {
+        p.classList.remove('open');
+        if (p.parentNode) p.parentNode.removeChild(p);
+      });
+      document.querySelectorAll('.qf-select-trigger.open').forEach(function (t) { t.classList.remove('open'); });
+    }
+    // 增強單個 select 為自定義下拉框：隱藏原生 select（保留業務邏輯），用自定義 UI 顯示，面板最多顯示 6 個選項可滾動
+    // 面板使用 position:fixed 並掛載到 body，避免被 modal/overlay 的 overflow 裁剪
+    function enhanceSelect(select) {
+      if (!select || select.tagName !== 'SELECT') return;
+      if (select.dataset.enhanced === '1') return;
+      select.dataset.enhanced = '1';
+      // 用包裝層包裹原生 select，並建立觸發器（選項面板延遲建立並掛載到 body）
+      const wrap = document.createElement('div');
+      wrap.className = 'qf-select-wrap';
+      if (select.classList.contains('qf-readonly') || select.disabled) wrap.classList.add('qf-readonly');
+      select.parentNode.insertBefore(wrap, select);
+      wrap.appendChild(select);
+      const trigger = document.createElement('div');
+      trigger.className = 'qf-select-trigger';
+      trigger.tabIndex = 0;
+      wrap.appendChild(trigger);
+      let panel = null;
+      // 取得（或建立）選項面板元素
+      function getPanel() {
+        if (!panel) {
+          panel = document.createElement('div');
+          panel.className = 'qf-select-panel';
+        }
+        return panel;
+      }
+      // 同步觸發器顯示文字
+      function refresh() {
+        const sel = select.options[select.selectedIndex];
+        if (sel && select.value) {
+          trigger.textContent = sel.textContent;
+          trigger.classList.remove('placeholder');
+        } else {
+          trigger.textContent = (select.dataset.placeholder || '請選擇');
+          trigger.classList.add('placeholder');
+        }
+      }
+      // 重建選項面板內容
+      function buildOptions() {
+        const p = getPanel();
+        p.innerHTML = '';
+        Array.prototype.forEach.call(select.options, function (opt, i) {
+          const optEl = document.createElement('div');
+          optEl.className = 'qf-select-opt';
+          if (i === select.selectedIndex) optEl.classList.add('selected');
+          if (opt.disabled) optEl.classList.add('disabled');
+          optEl.textContent = opt.textContent;
+          optEl.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (opt.disabled) return;
+            select.selectedIndex = i;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            closePanel();
+          });
+          p.appendChild(optEl);
+        });
+      }
+      // 展開選項面板：先關閉其他面板，再計算位置並掛載到 body
+      function openPanel() {
+        if (wrap.classList.contains('qf-readonly')) return;
+        if (!document.body.contains(wrap)) return;
+        closeAllSelectPanels();
+        buildOptions();
+        const p = getPanel();
+        document.body.appendChild(p);
+        // 根據觸發器位置計算面板座標（fixed 定位）
+        const rect = trigger.getBoundingClientRect();
+        p.style.top = (rect.bottom + 4) + 'px';
+        p.style.left = rect.left + 'px';
+        p.style.width = rect.width + 'px';
+        p.classList.add('open');
+        trigger.classList.add('open');
+        // 若下方空間不足且上方足夠，改為向上展開
+        const ph = p.getBoundingClientRect().height;
+        if (rect.bottom + 4 + ph > window.innerHeight && rect.top - 4 - ph > 0) {
+          p.style.top = (rect.top - 4 - ph) + 'px';
+        }
+      }
+      // 收起選項面板並從 body 移除
+      function closePanel() {
+        const p = getPanel();
+        p.classList.remove('open');
+        trigger.classList.remove('open');
+        if (p.parentNode) p.parentNode.removeChild(p);
+      }
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (trigger.classList.contains('open')) closePanel(); else openPanel();
+      });
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(); }
+        if (e.key === 'Escape') closePanel();
+      });
+      select.addEventListener('change', function () { refresh(); });
+      // 重寫 value setter：外部直接賦值 select.value 時同步更新自定義 UI
+      try {
+        const desc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+        Object.defineProperty(select, 'value', {
+          get: function () { return desc.get.call(this); },
+          set: function (v) { desc.set.call(this, v); refresh(); },
+          configurable: true
+        });
+      } catch (err) {}
+      // 監聽 options 子元素變化：更新觸發器顯示，若面板展開中則重建選項
+      new MutationObserver(function () {
+        refresh();
+        if (panel && panel.classList.contains('open')) buildOptions();
+      }).observe(select, { childList: true, subtree: true });
+      refresh();
+    }
+    // 增強範圍內所有尚未增強的 select.qf-select
+    // 跳過動態模態框中的 select，避免 enhanceSelect 與原生 onchange 衝突導致無法選擇
+    function enhanceAllSelects(scope) {
+      closeAllSelectPanels();
+      (scope || document).querySelectorAll('select.qf-select:not([data-enhanced="1"])').forEach(sel => {
+        if (sel.closest('.qf-overlay') || sel.closest('.um-modal-overlay') || sel.closest('#woModalOverlay')) return;
+        enhanceSelect(sel);
+      });
+    }
+    // 全局事件：點擊下拉框/面板外部關閉、滾動/縮放時關閉（僅註冊一次）
+    if (!window.__qfSelectGlobalBound) {
+      window.__qfSelectGlobalBound = true;
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('.qf-select-wrap') || e.target.closest('.qf-select-panel')) return;
+        closeAllSelectPanels();
+      });
+      // 捕獲階段監聯滾動：面板為 fixed 定位，滾動時位置不再正確，直接關閉
+      window.addEventListener('scroll', closeAllSelectPanels, true);
+      window.addEventListener('resize', closeAllSelectPanels);
+    }
+    // 自動增強新增的 select：用 MutationObserver 監聽 body 子樹變化，requestAnimationFrame 防抖
+    if (!window.__qfSelectObserverBound) {
+      window.__qfSelectObserverBound = true;
+      let scheduled = false;
+      new MutationObserver(function () {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(function () { scheduled = false; enhanceAllSelects(document); });
+      }).observe(document.body, { childList: true, subtree: true });
+    }
     function render() {
       renderShell();
       if (state.view === "pc") renderPc();
       if (state.view === "mobile") renderMobile();
       bindEvents();
+      // 增強當前渲染範圍內所有下拉框
+      enhanceAllSelects(document);
       // 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動
       const isDrawerOpen =
         (workOrderState.selectedWorkOrderId !== null) ||
