@@ -707,6 +707,9 @@
       left: 0;
       /* 選單與觸發框等寬；長選項在框內省略，避免窄欄位出現左右不齊。 */
       width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
       padding: 6px;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -716,6 +719,9 @@
     .search-select-menu[hidden] { display: none; }
     .search-select-search {
       width: 100%;
+      min-width: 0 !important;
+      max-width: 100%;
+      box-sizing: border-box;
       height: 32px;
       margin-bottom: 6px;
       padding: 0 9px;
@@ -3995,7 +4001,7 @@
   <script>
     // 本文件爲靜態 UI 原型：僅使用前端模擬數據，不連接後端、數據庫或真實接口。
     const STATUSES = ["待分派", "待確認", "待處理", "處理中", "已完成", "已取消"];
-    const TYPES = ["DLP 保養維修", "工程維修", "工程項目"];
+    const TYPES = ["DLP 保養維修", "工程維修", "工程項目", "投訴"];
     const REGIONS = ["1區", "2區", "3區", "4區", "5區", "6區", "7區", "7A區", "8區", "MTR", "EMSD", "ASD", "軟件組", "EV Charge", "Maintenance-HTCL", "Project 1(生)", "Project 1 MTR", "Project 1(Sam)", "Project 1(Johnny)", "Project 1(Roy)", "Project 1(Eric)", "Project 2(Joe)", "Project 1-1541", "Project 1-1962EM20T", "Project 1-1105", "Project 1-2489", "Project 1-2458", "Project/Maintenance"];
     const CHANNELS = ["電話", "WhatsApp", "現場溝通", "郵件"];
 
@@ -4564,14 +4570,14 @@
     let users = JSON.parse(localStorage.getItem('ecinfo_users')) || [
       { id: "U001", name: "陳大文", employeeNo: "EMP0008", role: "MASTER", area: "九龍", phone: "+85291234567", email: "master.chen@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:32", createdAt: "2026-03-12" },
       { id: "U002", name: "陳小姐", employeeNo: "EMP0001", role: "CS", area: "香港", phone: "+85291001001", email: "cs.chan@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:15", createdAt: "2026-01-10" },
-      { id: "U003", name: "李組長", employeeNo: "EMP0002", role: "TL", area: "九龍", phone: "+85291002002", email: "tl.lee@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 08:45", createdAt: "2026-01-10" },
-      { id: "U004", name: "王組長", employeeNo: "EMP0003", role: "TL", area: "新界", phone: "+85291003003", email: "tl.wang@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 17:20", createdAt: "2026-01-15" },
+      { id: "U003", name: "李組長", employeeNo: "EMP0002", role: "TL", area: "1區", phone: "+85291002002", email: "tl.lee@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 08:45", createdAt: "2026-01-10" },
+      { id: "U004", name: "王組長", employeeNo: "EMP0003", role: "TL", area: "2區", phone: "+85291003003", email: "tl.wang@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 17:20", createdAt: "2026-01-15" },
       { id: "U005", name: "周師傅", employeeNo: "EMP0004", role: "MASTER", area: "九龍", phone: "+85291004004", email: "master.zhou@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 10:05", createdAt: "2026-02-01" },
       { id: "U006", name: "吳師傅", employeeNo: "EMP0005", role: "MASTER", area: "香港", phone: "+85291005005", email: "master.wu@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-21 07:50", createdAt: "2026-02-10" },
       { id: "U007", name: "黃師傅", employeeNo: "EMP0006", role: "MASTER", area: "新界", phone: "+85291006006", email: "master.wong@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 16:30", createdAt: "2026-02-15" },
       { id: "U008", name: "梁師傅", employeeNo: "EMP0007", role: "MASTER", area: "九龍", phone: "+85291007007", email: "master.leung@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-03-01" },
       { id: "U009", name: "林主管", employeeNo: "EMP0009", role: "ADMIN", area: "香港", phone: "+85291009009", email: "admin.lam@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 08:00", createdAt: "2026-01-01" },
-      { id: "U010", name: "張主管", employeeNo: "EMP0010", role: "TL", area: "九龍", phone: "+85291010010", email: "supervisor.cheung@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 14:20", createdAt: "2026-01-05" },
+      { id: "U010", name: "張主管", employeeNo: "EMP0010", role: "TL", area: "3區", phone: "+85291010010", email: "supervisor.cheung@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 14:20", createdAt: "2026-01-05" },
       { id: "U011", name: "劉師傅", employeeNo: "EMP0011", role: "MASTER", area: "新界", phone: "+85291011011", email: "master.lau@ecinfo.com", manager: "TL-002", status: "離職", lastLogin: "2026-05-10 11:00", createdAt: "2026-02-20" },
       { id: "U012", name: "何師傅", employeeNo: "EMP0012", role: "MASTER", area: "香港", phone: "+85291012012", email: "master.ho@ecinfo.com", manager: "TL-002", status: "禁用", lastLogin: "2026-04-28 09:30", createdAt: "2026-03-15" },
       { id: "U013", name: "鄭小姐", employeeNo: "EMP0013", role: "CS", area: "九龍", phone: "+85291013013", email: "cs.cheng@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:10", createdAt: "2026-04-01" },
@@ -4590,6 +4596,18 @@
         u.role = "TL";
       }
     });
+    // 原型舊資料曾以「香港／九龍／新界」作主管分管區域；統一為現有區域字典值。
+    const LEGACY_TL_REGION_MAP = { "九龍": "1區", "新界": "2區", "香港": "3區" };
+    let hasMigratedTlRegions = false;
+    users.forEach(user => {
+      if (user.role === "TL" && LEGACY_TL_REGION_MAP[user.area]) {
+        user.area = LEGACY_TL_REGION_MAP[user.area];
+        hasMigratedTlRegions = true;
+      }
+    });
+    if (hasMigratedTlRegions) {
+      localStorage.setItem('ecinfo_users', JSON.stringify(users));
+    }
 
     let userState = {
       roleFilter: "全部",
@@ -7144,7 +7162,6 @@
                   <option value="">請選擇客戶類型</option>
                   <option value="政府">政府 (EMSD)</option>
                   <option value="私人">私人</option>
-                  <option value="客戶投訴">客戶投訴</option>
                 </select>
               </div>
               <div class="field"><label class="required">選擇客戶</label>
@@ -7639,7 +7656,6 @@
             <div class="qf-header">
               <div>
                 <h3>${isEdit ? '編輯工單' : '新增Call'}</h3>
-                <div class="qf-sub">填寫工單資訊，提交後將自動派發至相應主管</div>
               </div>
               <button type="button" class="qf-close" data-wo-modal-close aria-label="關閉">×</button>
             </div>
@@ -7647,7 +7663,7 @@
               <div class="qf-body">
                 <!-- 卡片 1：基本資訊 -->
                 <div class="qf-card">
-                  <div class="qf-card-title">基本資訊<span class="qf-card-sub">工單主要資料</span></div>
+                  <div class="qf-card-title">基本資訊</div>
                   <div class="qf-grid">
                     <div class="qf-field">
                       <label class="qf-label">工單編號</label>
@@ -7681,7 +7697,6 @@
                         <option value="">請選擇客戶類型</option>
                         <option value="政府" ${isEdit && (ticket.customerType === '政府' || customers.find(c => c.id === ticket.customerId)?.type === '政府') ? 'selected' : ''}>政府 (EMSD)</option>
                         <option value="私人" ${isEdit && (ticket.customerType === '私人' || customers.find(c => c.id === ticket.customerId)?.type === '私人') ? 'selected' : ''}>私人</option>
-                        <option value="客戶投訴" ${isEdit && (ticket.customerType === '客戶投訴') ? 'selected' : ''}>客戶投訴</option>
                       </select>
                     </div>
                     <div class="qf-field">
@@ -7897,6 +7912,7 @@
     }
 
     let searchableSelectDismissBound = false;
+    let searchableSelectObserverBound = false;
 
     function closeSearchableSelects(except) {
       document.querySelectorAll(".search-select-menu:not([hidden])").forEach(menu => {
@@ -8019,10 +8035,23 @@
           if (!event.target.closest(".search-select")) closeSearchableSelects();
         });
       }
+
+      // 新增／編輯彈窗會在頁面渲染後才插入，監聽後自動套用同一組下拉規則。
+      if (!searchableSelectObserverBound && document.body) {
+        searchableSelectObserverBound = true;
+        let scheduled = false;
+        new MutationObserver(() => {
+          if (scheduled) return;
+          scheduled = true;
+          requestAnimationFrame(() => {
+            scheduled = false;
+            enhanceSearchableSelects();
+          });
+        }).observe(document.body, { childList: true, subtree: true });
+      }
     }
 
     // 按客戶類型篩選客戶下拉選項（新建工單時聯動）
-    // 客戶投訴類型不限制客戶類別，顯示所有客戶
     function filterCustomersByType(type) {
       const select = document.getElementById("customerSelect");
       if (!select) return;
@@ -8031,13 +8060,12 @@
         refreshSearchableSelect(select);
         return;
       }
-      const filtered = type === "客戶投訴" ? customers : customers.filter(c => c.type === type);
+      const filtered = customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}">${c.nameZh} (${c.nameEn})</option>`).join("");
       refreshSearchableSelect(select);
     }
 
     // 彈窗式工單的客戶類型篩選（支持編輯時預選客戶）
-    // 客戶投訴類型不限制客戶類別，顯示所有客戶
     function filterModalCustomersByType(type, preselectedCustomerId) {
       const select = document.getElementById("customerSelect");
       if (!select) return;
@@ -8046,7 +8074,7 @@
         refreshSearchableSelect(select);
         return;
       }
-      const filtered = type === "客戶投訴" ? customers : customers.filter(c => c.type === type);
+      const filtered = customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}" ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("");
       refreshSearchableSelect(select);
     }
@@ -8198,6 +8226,26 @@
       }
       return `WO-${dateStr}-${seq}`;
     }
+
+    function notifyCustomerRelationsForComplaint(ticket) {
+      const activeCrUsers = users.filter(user => user.role === "CR" && isEnabled(user.status));
+      const recipientsInArea = activeCrUsers.filter(user => user.area === ticket.area);
+      const recipients = recipientsInArea.length > 0 ? recipientsInArea : activeCrUsers;
+
+      recipients.forEach(user => {
+        createNotification({
+          module: "ticket",
+          level: "action",
+          title: "投訴 Call 通知",
+          content: `Call ${ticket.id}（客戶：${ticket.customer}）`,
+          subContent: `投訴案件待跟進。區域：${ticket.area || "未填寫"}；聯繫人：${ticket.contact || "無"}；電話：${ticket.phone || "無"}`,
+          targetPage: "workorder",
+          targetId: ticket.id,
+          receiverId: user.id,
+          receiverRole: "CR"
+        });
+      });
+    }
     
     function saveWorkOrder(formData) {
       const isEdit = workOrderState.modalMode === "edit";
@@ -8242,22 +8290,9 @@
         saveDataToLocalStorage();
         toast('工單已創建');
 
-        // 客戶投訴工單：通知該區域下所有客戶關係部（CR）人員
-        if (ticketData.customerType === "客戶投訴" && ticketData.area) {
-          const crUsersInArea = users.filter(u => u.role === "CR" && u.area === ticketData.area && u.status === "啓用");
-          crUsersInArea.forEach(crUser => {
-            createNotification({
-              module: "ticket",
-              level: "action",
-              title: "客戶投訴工單通知",
-              content: `工單 ${ticketData.id}（客戶：${ticketData.customer}）為客戶投訴案件，區域：${ticketData.area}`,
-              subContent: `聯絡人：${ticketData.contact || "無"}，電話：${ticketData.phone || "無"}`,
-              targetPage: "workorder-detail",
-              targetId: ticketData.id,
-              receiverId: crUser.id,
-              receiverRole: "CR"
-            });
-          });
+        // 投訴 Call：優先通知同區的客戶關係部；未設定同區人員時通知所有啟用中的客戶關係部人員。
+        if (ticketData.type === "投訴") {
+          notifyCustomerRelationsForComplaint(ticketData);
         }
       }
 
@@ -18944,14 +18979,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }).observe(select, { childList: true, subtree: true });
       refresh();
     }
-    // 增強範圍內所有尚未增強的 select.qf-select
-    // 跳過動態模態框中的 select，避免 enhanceSelect 與原生 onchange 衝突導致無法選擇
+    // 所有表單共用同一組可搜尋下拉，避免不同彈窗各自使用不一致的元件。
     function enhanceAllSelects(scope) {
-      closeAllSelectPanels();
-      (scope || document).querySelectorAll('select.qf-select:not([data-enhanced="1"])').forEach(sel => {
-        if (sel.closest('.qf-overlay') || sel.closest('.um-modal-overlay') || sel.closest('#woModalOverlay')) return;
-        enhanceSelect(sel);
-      });
+      enhanceSearchableSelects(scope || document);
     }
     // 全局事件：點擊下拉框/面板外部關閉、滾動/縮放時關閉（僅註冊一次）
     if (!window.__qfSelectGlobalBound) {
@@ -18964,7 +18994,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       window.addEventListener('scroll', closeAllSelectPanels, true);
       window.addEventListener('resize', closeAllSelectPanels);
     }
-    // 自動增強新增的 select：用 MutationObserver 監聽 body 子樹變化，requestAnimationFrame 防抖
+    // 動態彈窗插入後，使用同一組可搜尋下拉規則。
     if (!window.__qfSelectObserverBound) {
       window.__qfSelectObserverBound = true;
       let scheduled = false;
