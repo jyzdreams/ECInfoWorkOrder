@@ -734,7 +734,8 @@
       outline: 0;
     }
     .search-select-search:focus { border-color: var(--primary); background: var(--panel); }
-    .search-select-options { max-height: 256px; overflow-y: auto; overscroll-behavior: contain; }
+    /* 篩選下拉框最多顯示6條選項（每條 32px），多於6條可滑動選擇 */
+    .search-select-options { max-height: calc(32px * 6 + 8px); overflow-y: auto; overscroll-behavior: contain; }
     .search-select-option {
       display: block;
       width: 100%;
@@ -1057,7 +1058,8 @@
       position: fixed;
       background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
       box-shadow: 0 8px 24px rgba(15,23,42,.12);
-      max-height: 216px; overflow-y: auto; z-index: 100000;
+      /* 最多顯示6條選項（每條 36px + 上下 padding 8px），多於6條可滑動 */
+      max-height: calc(36px * 6 + 8px); overflow-y: auto; z-index: 100000;
       display: none; padding: 4px 0; box-sizing: border-box;
     }
     .qf-select-panel.open { display: block; }
@@ -2707,6 +2709,13 @@
       padding: 0 10px;
       background: var(--panel);
       color: var(--text);
+      font-size: 13px;
+    }
+    /* 篩選框中的自定義下拉觸發器高度與原生 select 保持一致 */
+    .wo-filter-group .qf-select-trigger {
+      height: 34px;
+      border-radius: 6px;
+      padding: 0 32px 0 10px;
       font-size: 13px;
     }
     .wo-filter-group input {
@@ -4376,7 +4385,7 @@
 
     const ROLES = [
       { key: "CS", label: "客戶服務部", name: "陳小姐", dept: "客戶服務部", avatar: "CS" },
-      { key: "CR", label: "客戶關係部", name: "何關係", dept: "客戶關係部", avatar: "CR", area: "九龍" },
+      { key: "CR", label: "客戶關係部", name: "何關係", dept: "客戶關係部", avatar: "CR", area: "2區" },
       { key: "TL", label: "主管", name: "李組長", dept: "九龍團隊", avatar: "TL" },
       { key: "MASTER", label: "師傅", name: "周師傅", dept: "外勤 · 九龍", avatar: "周" },
       { key: "QUO", label: "報價組", name: "鄒組長", dept: "報價組", avatar: "報" },
@@ -4408,10 +4417,10 @@
       { key: "dispatch", label: "分派", title: "分派中心" }
     ];
     const masters = [
-      { name: "周師傅", area: "九龍", skills: "PM、弱電維修", load: 3, status: "可接單", tag: "區域匹配" },
-      { name: "吳師傅", area: "香港", skills: "CM、設備檢查", load: 2, status: "可接單", tag: "負載較低" },
-      { name: "黃師傅", area: "新界", skills: "PM、保養", load: 4, status: "忙碌", tag: "同類經驗" },
-      { name: "梁師傅", area: "九龍", skills: "特殊任務、現場協調", load: 1, status: "可接單", tag: "推薦" }
+      { name: "周師傅", area: "2區", skills: "PM、弱電維修", load: 3, status: "可接單", tag: "區域匹配" },
+      { name: "吳師傅", area: "1區", skills: "CM、設備檢查", load: 2, status: "可接單", tag: "負載較低" },
+      { name: "黃師傅", area: "3區", skills: "PM、保養", load: 4, status: "忙碌", tag: "同類經驗" },
+      { name: "梁師傅", area: "2區", skills: "特殊任務、現場協調", load: 1, status: "可接單", tag: "推薦" }
     ];
     const teamLeaders = ["李組長", "王組長"];
     const now = "2026-06-15";
@@ -4441,9 +4450,9 @@
         // 為「已完成」或「處理中」且尚無 serviceReportNo 的工單補充 SR 數據
         const srSeed = [
           { idEndsWith: '004', serviceReportNo: '250401', srSystems: ['CCTV', 'Alarm'], srObjectives: ['Fault Report'], srArea: '1區' },
-          { idEndsWith: '006', serviceReportNo: '250315', srSystems: ['Access Control'], srObjectives: ['Routine Check'], srArea: '香港' },
-          { idEndsWith: '009', serviceReportNo: '250298', srSystems: ['CCTV'], srObjectives: ['Fault Report'], srArea: '九龍' },
-          { idEndsWith: '010', serviceReportNo: '250412', srSystems: ['IT', 'Doorphone'], srObjectives: ['Others'], srArea: '香港' }
+          { idEndsWith: '006', serviceReportNo: '250315', srSystems: ['Access Control'], srObjectives: ['Routine Check'], srArea: '1區' },
+          { idEndsWith: '009', serviceReportNo: '250298', srSystems: ['CCTV'], srObjectives: ['Fault Report'], srArea: '2區' },
+          { idEndsWith: '010', serviceReportNo: '250412', srSystems: ['IT', 'Doorphone'], srObjectives: ['Others'], srArea: '1區' }
         ];
         storedTickets.forEach(t => {
           if (t.serviceReportNo) return; // 已有 SR 數據，跳過
@@ -4461,86 +4470,143 @@
       localStorage.setItem('ecinfo_sr_folder_migrated_v3', 'true');
     }
 
+    // v4 遷移：將已廢棄的舊區域（香港、九龍、新界）統一更新為新區域（1區、2區、3區）
+    // 原因：字典管理中的區域已更新為 1區~8區 等編號制，舊預設數據中的「香港/九龍/新界」需要同步遷移
+    if (!localStorage.getItem('ecinfo_region_migrated_v4')) {
+      const regionMap = { "香港": "1區", "九龍": "2區", "新界": "3區" };
+      const migrateArea = (arr) => {
+        if (!Array.isArray(arr) || arr.length === 0) return false;
+        let changed = false;
+        arr.forEach(item => {
+          if (item && Object.prototype.hasOwnProperty.call(item, 'area') && regionMap[item.area]) {
+            item.area = regionMap[item.area];
+            changed = true;
+          }
+          if (item && Object.prototype.hasOwnProperty.call(item, 'srArea') && regionMap[item.srArea]) {
+            item.srArea = regionMap[item.srArea];
+            changed = true;
+          }
+          if (item && Array.isArray(item.addresses)) {
+            item.addresses.forEach(addr => {
+              if (addr && regionMap[addr.area]) {
+                addr.area = regionMap[addr.area];
+                changed = true;
+              }
+            });
+          }
+        });
+        return changed;
+      };
+      // 遷移工單（僅在 localStorage 中確實有數據時才處理）
+      const v4TicketsRaw = localStorage.getItem('ecinfo_tickets');
+      if (v4TicketsRaw) {
+        const v4Tickets = JSON.parse(v4TicketsRaw);
+        if (migrateArea(v4Tickets)) {
+          localStorage.setItem('ecinfo_tickets', JSON.stringify(v4Tickets));
+        }
+      }
+      // 遷移用戶
+      const v4UsersRaw = localStorage.getItem('ecinfo_users');
+      if (v4UsersRaw) {
+        const v4Users = JSON.parse(v4UsersRaw);
+        if (migrateArea(v4Users)) {
+          localStorage.setItem('ecinfo_users', JSON.stringify(v4Users));
+        }
+      }
+      // 遷移客戶（含 addresses 中的 area）
+      const v4CustomersRaw = localStorage.getItem('ecinfo_customers');
+      if (v4CustomersRaw) {
+        const v4Customers = JSON.parse(v4CustomersRaw);
+        if (migrateArea(v4Customers)) {
+          localStorage.setItem('ecinfo_customers', JSON.stringify(v4Customers));
+        }
+      }
+      localStorage.setItem('ecinfo_region_migrated_v4', 'true');
+    }
+
     // 通用狀態檢查：兼容繁體「啓用」和簡體「启用」，防止舊數據遺留導致過濾為空
     const isEnabled = (status) => status === "啓用" || status === "启用";
 
-    let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets')) || [
+    let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets') || 'null');
+    if (!Array.isArray(tickets) || tickets.length === 0) {
+      tickets = [
       {
         id: "WO-20260615-001", customerId: "CUST-0001", type: "保養維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "電話", area: "香港", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
+        channel: "電話", area: "1區", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
         desc: "客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。", records: [{ time: "09:10", actor: "CS 陳小姐", text: "記錄客戶來電，待分派判斷。" }],
         attachments: [], tags: ["電話記錄"], urgent: false
       },
       {
         id: "WO-20260615-002", customerId: "CUST-0002", type: "保養維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "WhatsApp", area: "九龍", address: "九龍灣宏照道 16 號停車場中控室", status: "待分派", owner: "李組長", tl: "李組長", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
+        channel: "WhatsApp", area: "2區", address: "九龍灣宏照道 16 號停車場中控室", status: "待分派", owner: "李組長", tl: "李組長", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
         desc: "停車場出入口閘機保養，現場反饋開合速度變慢。", records: [{ time: "09:28", actor: "CS 陳小姐", text: "WhatsApp 收到服務請求並建單。" }, { time: "09:40", actor: "CS 陳小姐", text: "確認需要派工，進入待分派。" }],
         attachments: ["現場入口照片"], tags: ["保養"], urgent: true
       },
       {
         id: "WO-20260615-003", customerId: "CUST-0003", type: "工程維修", customer: "安全監控管理有限公司", contact: "鄭經理", phone: "+852 6333 2211",
-        channel: "現場溝通", area: "新界", address: "沙田科技園 3 座", status: "待確認", owner: "吳師傅", tl: "王組長", master: "吳師傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
+        channel: "現場溝通", area: "3區", address: "沙田科技園 3 座", status: "待確認", owner: "吳師傅", tl: "王組長", master: "吳師傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
         desc: "臨時加裝臨場設備檢查，需熟悉視頻監控系統的師傅處理。", records: [{ time: "10:02", actor: "王組長", text: "創建特殊任務。" }, { time: "10:18", actor: "王組長", text: "分派給吳師傅，等待確認。" }],
         attachments: [], tags: ["特殊任務"], urgent: false
       },
       {
         id: "WO-20260615-004", customerId: "CUST-0004", type: "保養維修", customer: "新界住宅項目", contact: "黃先生", phone: "+852 6999 1200",
-        channel: "電話", area: "新界", address: "荃灣青山公路 200 號", status: "待處理", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
+        channel: "電話", area: "3區", address: "荃灣青山公路 200 號", status: "待處理", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
         desc: "CCTV 局部畫面不穩定，需現場檢查線路和設備。", records: [{ time: "10:20", actor: "CS 陳小姐", text: "電話建單。" }, { time: "10:35", actor: "李組長", text: "分派給周師傅。" }, { time: "10:42", actor: "周師傅", text: "已接單，等待出發。" }, { time: "11:15", actor: "周師傅", text: "準備前往現場。" }],
         attachments: ["線路照片", "設備照片"], tags: ["圖片附件"], urgent: false
       },
       {
         id: "WO-20260615-005", customerId: "CUST-0005", type: "保養維修", customer: "灣仔商業大廈", contact: "林小姐", phone: "+852 9222 1000",
-        channel: "郵件", area: "香港", address: "灣仔告士打道 55 號", status: "處理中", owner: "黃師傅", tl: "李組長", master: "黃師傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
+        channel: "郵件", area: "1區", address: "灣仔告士打道 55 號", status: "處理中", owner: "黃師傅", tl: "李組長", master: "黃師傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
         desc: "客戶郵件反饋廣播系統音量異常，師傅正在現場處理。", records: [{ time: "08:20", actor: "CS 陳小姐", text: "郵件建單。" }, { time: "09:00", actor: "李組長", text: "分派給黃師傅。" }, { time: "10:30", actor: "黃師傅", text: "已到達現場，開始處理。" }, { time: "11:35", actor: "黃師傅", text: "正在調整音量。" }],
         attachments: ["調試前照片", "調試後照片"], tags: ["處理中"], urgent: false
       },
       {
         id: "WO-20260614-006", customerId: "CUST-0001", type: "保養維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "WhatsApp", area: "香港", address: "中環德輔道中 88 號", status: "已完成", owner: "李組長", tl: "李組長", master: "吳師傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
+        channel: "WhatsApp", area: "1區", address: "中環德輔道中 88 號", status: "已完成", owner: "李組長", tl: "李組長", master: "吳師傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
         desc: "門禁控制器例行保養，已完成。", records: [{ time: "14:10", actor: "CS 陳小姐", text: "創建 PM 工單。" }, { time: "16:40", actor: "吳師傅", text: "完成保養並上傳照片。" }, { time: "17:20", actor: "李組長", text: "確認通過，工單完成。" }],
         attachments: ["保養照片"], tags: ["已完成"], urgent: false,
-        serviceReportNo: "250315", srSystems: ["Access Control"], srObjectives: ["Routine Check"], srArea: "香港", maintenanceType: "季檢"
+        serviceReportNo: "250315", srSystems: ["Access Control"], srObjectives: ["Routine Check"], srArea: "1區", maintenanceType: "季檢"
       },
       {
         id: "WO-20260614-007", customerId: "CUST-0002", type: "工程維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "電話", area: "九龍", address: "九龍灣宏照道 16 號", status: "已取消", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
+        channel: "電話", area: "2區", address: "九龍灣宏照道 16 號", status: "已取消", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
         desc: "客戶重複報修，確認已有同類工單處理中。", records: [{ time: "15:30", actor: "CS 陳小姐", text: "記錄客戶來電。" }, { time: "15:50", actor: "CS 陳小姐", text: "確認重複工單，取消處理。" }],
         attachments: [], tags: ["重複工單"], urgent: false, cancelReason: "重複工單"
       },
       {
         id: "WO-20260614-008", customerId: "CUST-0004", type: "保養維修", customer: "新界住宅項目", contact: "黃先生", phone: "+852 6999 1200",
-        channel: "現場溝通", area: "新界", address: "荃灣青山公路 200 號", status: "待分派", owner: "王組長", tl: "王組長", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
+        channel: "現場溝通", area: "3區", address: "荃灣青山公路 200 號", status: "待分派", owner: "王組長", tl: "王組長", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
         desc: "水浸報警設備檢查，前次分派被拒單，需要重新分派。", records: [{ time: "16:10", actor: "王組長", text: "創建維修保養工單。" }, { time: "16:26", actor: "黃師傅", text: "拒單：當前現場任務未完成，無法按時到場。" }, { time: "16:40", actor: "王組長", text: "退回待分派，等待重新安排。" }],
         attachments: ["報警設備照片"], tags: ["拒單示例"], urgent: true, rejectReason: "當前現場任務未完成，無法按時到場。"
       },
       {
         id: "WO-20260613-009", customerId: "CUST-0003", type: "保養維修", customer: "安全監控管理有限公司", contact: "鄭經理", phone: "+852 6333 2211",
-        channel: "電話", area: "九龍", address: "觀塘開源道 72 號", status: "已完成", owner: "王組長", tl: "王組長", master: "梁師傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
+        channel: "電話", area: "2區", address: "觀塘開源道 72 號", status: "已完成", owner: "王組長", tl: "王組長", master: "梁師傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
         desc: "來電諮詢攝像頭離線，CS 協助確認電源重啓後恢復。", records: [{ time: "11:10", actor: "CS 陳小姐", text: "電話記錄。" }, { time: "13:00", actor: "王組長", text: "確認現場已恢復，完成。" }],
         attachments: [], tags: ["現場解決"], urgent: false,
-        serviceReportNo: "250298", srSystems: ["CCTV"], srObjectives: ["Fault Report"], srArea: "九龍"
+        serviceReportNo: "250298", srSystems: ["CCTV"], srObjectives: ["Fault Report"], srArea: "2區"
       },
       {
         id: "WO-20260613-010", customerId: "CUST-0005", type: "工程維修", customer: "灣仔商業大廈", contact: "林小姐", phone: "+852 9222 1000",
-        channel: "WhatsApp", area: "香港", address: "灣仔告士打道 55 號", status: "處理中", owner: "梁師傅", tl: "李組長", master: "梁師傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
+        channel: "WhatsApp", area: "1區", address: "灣仔告士打道 55 號", status: "處理中", owner: "梁師傅", tl: "李組長", master: "梁師傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
         desc: "臨時協助現場設備移位，需補充位置照片後繼續處理。", records: [{ time: "14:35", actor: "李組長", text: "創建特殊任務並分派。" }, { time: "15:10", actor: "梁師傅", text: "現場空間受限，需要客戶確認設備位置。" }],
         attachments: ["現場位置照片"], tags: ["無法完成示例"], urgent: false,
-        serviceReportNo: "250412", srSystems: ["IT", "Doorphone"], srObjectives: ["Others"], srArea: "香港"
+        serviceReportNo: "250412", srSystems: ["IT", "Doorphone"], srObjectives: ["Others"], srArea: "1區"
       },
       {
         id: "WO-20260612-011", customerId: "CUST-0002", type: "保養維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "郵件", area: "九龍", address: "九龍灣宏照道 16 號", status: "待確認", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
+        channel: "郵件", area: "2區", address: "九龍灣宏照道 16 號", status: "待確認", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
         desc: "巡檢發現停車場顯示屏閃爍，安排師傅處理。", records: [{ time: "10:05", actor: "CS 陳小姐", text: "郵件建單。" }, { time: "10:30", actor: "李組長", text: "分派給周師傅。" }],
         attachments: [], tags: ["待確認"], urgent: false
       },
       {
         id: "WO-20260612-012", customerId: "CUST-0001", type: "工程維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "現場溝通", area: "香港", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "王組長", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
+        channel: "現場溝通", area: "1區", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "王組長", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
         desc: "客戶提出臨時設備測試需求，需 CS 確認是否進入派工。", records: [{ time: "09:00", actor: "CS 陳小姐", text: "現場溝通記錄，待分派。" }],
         attachments: [], tags: ["待確認範圍"], urgent: false
       }
     ];
+    }
 
     // 用戶管理角色分類：與上方角色切換欄位（ROLES）保持一致
     const USER_ROLES = [
@@ -4567,28 +4633,31 @@
       BOSS: ["查看工單", "新建工單", "指派工單", "查看客戶信息", "操作日誌"]
     };
 
-    let users = JSON.parse(localStorage.getItem('ecinfo_users')) || [
-      { id: "U001", name: "陳大文", employeeNo: "EMP0008", role: "MASTER", area: "九龍", phone: "+85291234567", email: "master.chen@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:32", createdAt: "2026-03-12" },
-      { id: "U002", name: "陳小姐", employeeNo: "EMP0001", role: "CS", area: "香港", phone: "+85291001001", email: "cs.chan@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:15", createdAt: "2026-01-10" },
-      { id: "U003", name: "李組長", employeeNo: "EMP0002", role: "TL", area: "1區", phone: "+85291002002", email: "tl.lee@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 08:45", createdAt: "2026-01-10" },
-      { id: "U004", name: "王組長", employeeNo: "EMP0003", role: "TL", area: "2區", phone: "+85291003003", email: "tl.wang@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 17:20", createdAt: "2026-01-15" },
-      { id: "U005", name: "周師傅", employeeNo: "EMP0004", role: "MASTER", area: "九龍", phone: "+85291004004", email: "master.zhou@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 10:05", createdAt: "2026-02-01" },
-      { id: "U006", name: "吳師傅", employeeNo: "EMP0005", role: "MASTER", area: "香港", phone: "+85291005005", email: "master.wu@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-21 07:50", createdAt: "2026-02-10" },
-      { id: "U007", name: "黃師傅", employeeNo: "EMP0006", role: "MASTER", area: "新界", phone: "+85291006006", email: "master.wong@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 16:30", createdAt: "2026-02-15" },
-      { id: "U008", name: "梁師傅", employeeNo: "EMP0007", role: "MASTER", area: "九龍", phone: "+85291007007", email: "master.leung@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-03-01" },
-      { id: "U009", name: "林主管", employeeNo: "EMP0009", role: "ADMIN", area: "香港", phone: "+85291009009", email: "admin.lam@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 08:00", createdAt: "2026-01-01" },
-      { id: "U010", name: "張主管", employeeNo: "EMP0010", role: "TL", area: "3區", phone: "+85291010010", email: "supervisor.cheung@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 14:20", createdAt: "2026-01-05" },
-      { id: "U011", name: "劉師傅", employeeNo: "EMP0011", role: "MASTER", area: "新界", phone: "+85291011011", email: "master.lau@ecinfo.com", manager: "TL-002", status: "離職", lastLogin: "2026-05-10 11:00", createdAt: "2026-02-20" },
-      { id: "U012", name: "何師傅", employeeNo: "EMP0012", role: "MASTER", area: "香港", phone: "+85291012012", email: "master.ho@ecinfo.com", manager: "TL-002", status: "禁用", lastLogin: "2026-04-28 09:30", createdAt: "2026-03-15" },
-      { id: "U013", name: "鄭小姐", employeeNo: "EMP0013", role: "CS", area: "九龍", phone: "+85291013013", email: "cs.cheng@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:10", createdAt: "2026-04-01" },
-      { id: "U014", name: "蔡小姐", employeeNo: "EMP0014", role: "CS", area: "新界", phone: "+85291014014", email: "tsai@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 18:00", createdAt: "2026-04-10" },
-      { id: "U015", name: "馬師傅", employeeNo: "EMP0015", role: "MASTER", area: "九龍", phone: "+85291015015", email: "master.ma@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:30", createdAt: "2026-05-01" },
-      { id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "香港", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" },
-      { id: "U017", name: "何關係", employeeNo: "EMP0017", role: "CR", area: "九龍", phone: "+85291017017", email: "cr.ho@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 09:15", createdAt: "2026-04-20" }
+    let users = JSON.parse(localStorage.getItem('ecinfo_users') || 'null');
+    if (!Array.isArray(users) || users.length === 0) {
+      users = [
+      { id: "U001", name: "陳大文", employeeNo: "EMP0008", role: "MASTER", area: "2區", phone: "+85291234567", email: "master.chen@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:32", createdAt: "2026-03-12" },
+      { id: "U002", name: "陳小姐", employeeNo: "EMP0001", role: "CS", area: "1區", phone: "+85291001001", email: "cs.chan@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:15", createdAt: "2026-01-10" },
+      { id: "U003", name: "李組長", employeeNo: "EMP0002", role: "TL", area: "2區", phone: "+85291002002", email: "tl.lee@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 08:45", createdAt: "2026-01-10" },
+      { id: "U004", name: "王組長", employeeNo: "EMP0003", role: "TL", area: "3區", phone: "+85291003003", email: "tl.wang@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 17:20", createdAt: "2026-01-15" },
+      { id: "U005", name: "周師傅", employeeNo: "EMP0004", role: "MASTER", area: "2區", phone: "+85291004004", email: "master.zhou@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 10:05", createdAt: "2026-02-01" },
+      { id: "U006", name: "吳師傅", employeeNo: "EMP0005", role: "MASTER", area: "1區", phone: "+85291005005", email: "master.wu@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-21 07:50", createdAt: "2026-02-10" },
+      { id: "U007", name: "黃師傅", employeeNo: "EMP0006", role: "MASTER", area: "3區", phone: "+85291006006", email: "master.wong@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 16:30", createdAt: "2026-02-15" },
+      { id: "U008", name: "梁師傅", employeeNo: "EMP0007", role: "MASTER", area: "2區", phone: "+85291007007", email: "master.leung@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-03-01" },
+      { id: "U009", name: "林主管", employeeNo: "EMP0009", role: "ADMIN", area: "1區", phone: "+85291009009", email: "admin.lam@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 08:00", createdAt: "2026-01-01" },
+      { id: "U010", name: "張主管", employeeNo: "EMP0010", role: "TL", area: "2區", phone: "+85291010010", email: "supervisor.cheung@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-20 14:20", createdAt: "2026-01-05" },
+      { id: "U011", name: "劉師傅", employeeNo: "EMP0011", role: "MASTER", area: "3區", phone: "+85291011011", email: "master.lau@ecinfo.com", manager: "TL-002", status: "離職", lastLogin: "2026-05-10 11:00", createdAt: "2026-02-20" },
+      { id: "U012", name: "何師傅", employeeNo: "EMP0012", role: "MASTER", area: "1區", phone: "+85291012012", email: "master.ho@ecinfo.com", manager: "TL-002", status: "禁用", lastLogin: "2026-04-28 09:30", createdAt: "2026-03-15" },
+      { id: "U013", name: "鄭小姐", employeeNo: "EMP0013", role: "CS", area: "2區", phone: "+85291013013", email: "cs.cheng@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 09:10", createdAt: "2026-04-01" },
+      { id: "U014", name: "蔡小姐", employeeNo: "EMP0014", role: "CS", area: "3區", phone: "+85291014014", email: "tsai@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-06-20 18:00", createdAt: "2026-04-10" },
+      { id: "U015", name: "馬師傅", employeeNo: "EMP0015", role: "MASTER", area: "2區", phone: "+85291015015", email: "master.ma@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-06-21 08:30", createdAt: "2026-05-01" },
+      { id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "1區", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" },
+      { id: "U017", name: "何關係", employeeNo: "EMP0017", role: "CR", area: "2區", phone: "+85291017017", email: "cr.ho@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-06-21 09:15", createdAt: "2026-04-20" }
     ];
+    }
     // 遷移：確保老闆角色用戶存在
     if (!users.find(u => u.role === "BOSS")) {
-      users.push({ id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "香港", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" });
+      users.push({ id: "U016", name: "黃老闆", employeeNo: "EMP0000", role: "BOSS", area: "1區", phone: "+85291000000", email: "boss.wong@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-06-21 09:00", createdAt: "2026-01-01" });
     }
     // 遷移：將已廢棄的 SUPERVISOR 角色統一改為 TL（主管）
     users.forEach(u => {
@@ -4669,6 +4738,10 @@
     // 檢查並遷移舊客戶數據
     const storedCustomers = localStorage.getItem('ecinfo_customers');
     let customers = storedCustomers ? JSON.parse(storedCustomers) : null;
+    // 如果 localStorage 中是空數組，視為無數據，使用預設數據
+    if (Array.isArray(customers) && customers.length === 0) {
+      customers = null;
+    }
     
     // 如果存在舊數據，檢查是否需要遷移（將"商業"/"住宅"改爲"私人"）
     if (customers && customers.length > 0) {
@@ -4697,7 +4770,7 @@
           { name: "陳先生", title: "物業經理", phone: "+852 9123 4567", whatsapp: "+852 9123 4567", email: "chen@hkcc.com" }
         ],
         addresses: [
-          { area: "香港", addressZh: "中環德輔道中88號", addressEn: "88 Des Voeux Road Central", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
+          { area: "1區", addressZh: "中環德輔道中88號", addressEn: "88 Des Voeux Road Central", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-01-15",
         createdBy: "CS-001"
@@ -4714,7 +4787,7 @@
           { name: "王先生", title: "技術總監", phone: "+852 9234 5679", whatsapp: "+852 9234 5679", email: "wang@kip.com" }
         ],
         addresses: [
-          { area: "九龍", addressZh: "尖沙咀彌敦道123號", addressEn: "123 Nathan Road, TST", tl: "TL-001", noPhoto: true, noPhotoReason: "客戶隱私政策" }
+          { area: "2區", addressZh: "尖沙咀彌敦道123號", addressEn: "123 Nathan Road, TST", tl: "TL-001", noPhoto: true, noPhotoReason: "客戶隱私政策" }
         ],
         createdAt: "2026-02-10",
         createdBy: "CS-001"
@@ -4730,7 +4803,7 @@
           { name: "張女士", title: "業主代表", phone: "+852 9345 6789", whatsapp: "+852 9345 6789", email: "zhang@ntgarden.com" }
         ],
         addresses: [
-          { area: "新界", addressZh: "沙田第一城銀城街12號", addressEn: "12 Yink Shing Street, City One, Sha Tin", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
+          { area: "3區", addressZh: "沙田第一城銀城街12號", addressEn: "12 Yink Shing Street, City One, Sha Tin", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-03-05",
         createdBy: "CS-001"
@@ -4749,7 +4822,7 @@
           { name: "何先生", title: "設施管理主任", phone: "+852 9456 7890", whatsapp: "+852 9456 7890", email: "ho@gov.hk" }
         ],
         addresses: [
-          { area: "香港", addressZh: "金鐘添馬艦政府總部", addressEn: "Central Government Offices, Admiralty", tl: "TL-001", noPhoto: true, noPhotoReason: "政府保密要求" }
+          { area: "1區", addressZh: "金鐘添馬艦政府總部", addressEn: "Central Government Offices, Admiralty", tl: "TL-001", noPhoto: true, noPhotoReason: "政府保密要求" }
         ],
         createdAt: "2026-01-20",
         createdBy: "CS-001"
@@ -4765,7 +4838,7 @@
           { name: "陳經理", title: "工程部經理", phone: "+852 9567 8901", whatsapp: "+852 9567 8901", email: "chen@victoria.com" }
         ],
         addresses: [
-          { area: "香港", addressZh: "灣仔軒尼詩道200號", addressEn: "200 Hennessy Road, Wan Chai", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
+          { area: "1區", addressZh: "灣仔軒尼詩道200號", addressEn: "200 Hennessy Road, Wan Chai", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-02-25",
         createdBy: "CS-001"
@@ -4781,7 +4854,7 @@
           { name: "黃先生", title: "物業主管", phone: "+852 9678 9012", whatsapp: "+852 9678 9012", email: "wong@kib.com" }
         ],
         addresses: [
-          { area: "九龍", addressZh: "九龍灣宏光道88號", addressEn: "88 Wang Kwong Road, Kowloon Bay", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
+          { area: "2區", addressZh: "九龍灣宏光道88號", addressEn: "88 Wang Kwong Road, Kowloon Bay", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-03-15",
         createdBy: "CS-001"
@@ -4797,7 +4870,7 @@
           { name: "林小姐", title: "管理處主任", phone: "+852 9789 0123", whatsapp: "+852 9789 0123", email: "lam@tyestate.com" }
         ],
         addresses: [
-          { area: "新界", addressZh: "青衣青綠街10號", addressEn: "10 Ching Luk Street, Tsing Yi", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
+          { area: "3區", addressZh: "青衣青綠街10號", addressEn: "10 Ching Luk Street, Tsing Yi", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-04-01",
         createdBy: "CS-001"
@@ -4816,7 +4889,7 @@
           { name: "周醫生", title: "設施管理", phone: "+852 9890 1234", whatsapp: "+852 9890 1234", email: "chau@hospital.hk" }
         ],
         addresses: [
-          { area: "新界", addressZh: "將軍澳寶寧路1號", addressEn: "1 Po Ning Road, Tseung Kwan O", tl: "TL-002", noPhoto: true, noPhotoReason: "醫院保密規定" }
+          { area: "3區", addressZh: "將軍澳寶寧路1號", addressEn: "1 Po Ning Road, Tseung Kwan O", tl: "TL-002", noPhoto: true, noPhotoReason: "醫院保密規定" }
         ],
         createdAt: "2026-02-18",
         createdBy: "CS-001"
@@ -4832,7 +4905,7 @@
           { name: "吳小姐", title: "營運總監", phone: "+852 9901 2345", whatsapp: "+852 9901 2345", email: "ng@cbmall.com" }
         ],
         addresses: [
-          { area: "香港", addressZh: "銅鑼灣軒尼詩道500號", addressEn: "500 Hennessy Road, Causeway Bay", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
+          { area: "1區", addressZh: "銅鑼灣軒尼詩道500號", addressEn: "500 Hennessy Road, Causeway Bay", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-01-28",
         createdBy: "CS-001"
@@ -4848,7 +4921,7 @@
           { name: "鄭先生", title: "廠長", phone: "+852 9012 3456", whatsapp: "+852 9012 3456", email: "cheng@twfactory.com" }
         ],
         addresses: [
-          { area: "新界", addressZh: "荃灣柴灣角街50號", addressEn: "50 Chai Wan Kok Street, Tsuen Wan", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
+          { area: "3區", addressZh: "荃灣柴灣角街50號", addressEn: "50 Chai Wan Kok Street, Tsuen Wan", tl: "TL-002", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-03-20",
         createdBy: "CS-001"
@@ -4864,7 +4937,7 @@
           { name: "何太太", title: "業主立案法團主席", phone: "+852 9123 4560", whatsapp: "+852 9123 4560", email: "ho@ktbuilding.com" }
         ],
         addresses: [
-          { area: "九龍", addressZh: "觀塘巧明街100號", addressEn: "100 Hau Ming Street, Kwun Tong", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
+          { area: "2區", addressZh: "觀塘巧明街100號", addressEn: "100 Hau Ming Street, Kwun Tong", tl: "TL-001", noPhoto: false, noPhotoReason: "" }
         ],
         createdAt: "2026-04-10",
         createdBy: "CS-001"
@@ -4883,7 +4956,7 @@
           { name: "馬先生", title: "設施總監", phone: "+852 9234 5670", whatsapp: "+852 9234 5670", email: "ma@wkcc.gov.hk" }
         ],
         addresses: [
-          { area: "九龍", addressZh: "西九龍文化區博物館道1號", addressEn: "1 Museum Road, West Kowloon Cultural District", tl: "TL-001", noPhoto: true, noPhotoReason: "文化設施保密要求" }
+          { area: "2區", addressZh: "西九龍文化區博物館道1號", addressEn: "1 Museum Road, West Kowloon Cultural District", tl: "TL-001", noPhoto: true, noPhotoReason: "文化設施保密要求" }
         ],
         createdAt: "2026-02-05",
         createdBy: "CS-001"
@@ -4891,83 +4964,93 @@
     ];
     }
 
-    const QUOTATION_STATUSES = ["待報價", "已發出", "等待客戶確認", "已確認", "需修訂", "已取消"];
+    // 報價狀態（簡化為 4 個狀態：待報價 → 報價中 → 已中單/丟單）
+    const QUOTATION_STATUSES = ["待報價", "報價中", "已中單", "丟單"];
+    // 舊狀態 → 新狀態 的遷移映射（用於歷史數據自動遷移）
+    const QUOTATION_STATUS_MIGRATION = {
+      "待報價": "待報價",
+      "已發出": "報價中",
+      "等待客戶確認": "報價中",
+      "需修訂": "報價中",
+      "已確認": "已中單",
+      "已取消": "丟單"
+    };
 
     // 默認數據（用於初始化和重置）
     const DEFAULT_TICKETS = [
       {
         id: "WO-20260615-001", customerId: "CUST-0001", type: "保養維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "電話", area: "香港", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
+        channel: "電話", area: "1區", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-15 09:10", updatedAt: "06-15 09:10",
         desc: "客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。", records: [{ time: "09:10", actor: "CS 陳小姐", text: "記錄客戶來電，待分派判斷。" }],
         attachments: [], tags: ["電話記錄"], urgent: false
       },
       {
         id: "WO-20260615-002", customerId: "CUST-0002", type: "保養維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "WhatsApp", area: "九龍", address: "九龍灣宏照道 16 號停車場中控室", status: "待分派", owner: "李組長", tl: "李組長", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
+        channel: "WhatsApp", area: "2區", address: "九龍灣宏照道 16 號停車場中控室", status: "待分派", owner: "李組長", tl: "李組長", master: "", createdAt: "06-15 09:28", updatedAt: "06-15 09:40",
         desc: "停車場出入口閘機保養，現場反饋開合速度變慢。", records: [{ time: "09:28", actor: "CS 陳小姐", text: "WhatsApp 收到服務請求並建單。" }, { time: "09:40", actor: "CS 陳小姐", text: "確認需要派工，進入待分派。" }],
         attachments: ["現場入口照片"], tags: ["保養"], urgent: true
       },
       {
         id: "WO-20260615-003", customerId: "CUST-0003", type: "工程維修", customer: "安全監控管理有限公司", contact: "鄭經理", phone: "+852 6333 2211",
-        channel: "現場溝通", area: "新界", address: "沙田科技園 3 座", status: "待確認", owner: "吳師傅", tl: "王組長", master: "吳師傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
+        channel: "現場溝通", area: "3區", address: "沙田科技園 3 座", status: "待確認", owner: "吳師傅", tl: "王組長", master: "吳師傅", createdAt: "06-15 10:02", updatedAt: "06-15 10:18",
         desc: "臨時加裝臨場設備檢查，需熟悉視頻監控系統的師傅處理。", records: [{ time: "10:02", actor: "王組長", text: "創建特殊任務。" }, { time: "10:18", actor: "王組長", text: "分派給吳師傅，等待確認。" }],
         attachments: [], tags: ["特殊任務"], urgent: false
       },
       {
         id: "ECA-20260615-004", customerId: "CUST-0004", type: "保養維修", customer: "香港政府大樓", contact: "何先生", phone: "+852 9456 7890",
-        channel: "電話", area: "香港", address: "金鐘添馬艦政府總部", status: "處理中", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
+        channel: "電話", area: "1區", address: "金鐘添馬艦政府總部", status: "處理中", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-15 10:20", updatedAt: "06-15 11:15",
         desc: "CCTV 局部畫面不穩定，需現場檢查線路和設備。", records: [{ time: "10:20", actor: "CS 陳小姐", text: "電話建單。" }, { time: "10:35", actor: "李組長", text: "分派給周師傅。" }, { time: "10:42", actor: "周師傅", text: "已接單，前往現場。" }, { time: "11:15", actor: "周師傅", text: "已到場檢查線路。" }],
         attachments: ["線路照片", "設備照片"], tags: ["圖片附件"], urgent: false, jNumber: "J 12345",
         serviceReportNo: "250401", srSystems: ["CCTV", "Alarm"], srObjectives: ["Fault Report"], srArea: "1區", maintenanceType: "月檢"
       },
       {
         id: "WO-20260615-005", customerId: "CUST-0005", type: "保養維修", customer: "灣仔商業大廈", contact: "林小姐", phone: "+852 9222 1000",
-        channel: "郵件", area: "香港", address: "灣仔告士打道 55 號", status: "待處理", owner: "李組長", tl: "李組長", master: "黃師傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
+        channel: "郵件", area: "1區", address: "灣仔告士打道 55 號", status: "待處理", owner: "李組長", tl: "李組長", master: "黃師傅", createdAt: "06-15 08:20", updatedAt: "06-15 11:35",
         desc: "客戶郵件反饋廣播系統音量異常，師傅已完成檢查並提交記錄。", records: [{ time: "08:20", actor: "CS 陳小姐", text: "郵件建單。" }, { time: "09:00", actor: "李組長", text: "分派給黃師傅。" }, { time: "11:35", actor: "黃師傅", text: "已調整音量並提交處理結果。" }],
         attachments: ["調試前照片", "調試後照片"], tags: ["待處理"], urgent: false
       },
       {
         id: "WO-20260614-006", customerId: "CUST-0001", type: "保養維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "WhatsApp", area: "香港", address: "中環德輔道中 88 號", status: "已完成", owner: "李組長", tl: "李組長", master: "吳師傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
+        channel: "WhatsApp", area: "1區", address: "中環德輔道中 88 號", status: "已完成", owner: "李組長", tl: "李組長", master: "吳師傅", createdAt: "06-14 14:10", updatedAt: "06-14 17:20",
         desc: "門禁控制器例行保養，已完成。", records: [{ time: "14:10", actor: "CS 陳小姐", text: "創建 PM 工單。" }, { time: "16:40", actor: "吳師傅", text: "完成保養並上傳照片。" }, { time: "17:20", actor: "李組長", text: "確認通過，工單完成。" }],
         attachments: ["保養照片"], tags: ["已完成"], urgent: false,
-        serviceReportNo: "250315", srSystems: ["Access Control"], srObjectives: ["Routine Check"], srArea: "香港", maintenanceType: "季檢"
+        serviceReportNo: "250315", srSystems: ["Access Control"], srObjectives: ["Routine Check"], srArea: "1區", maintenanceType: "季檢"
       },
       {
         id: "WO-20260614-007", customerId: "CUST-0002", type: "工程維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "電話", area: "九龍", address: "九龍灣宏照道 16 號", status: "已取消", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
+        channel: "電話", area: "2區", address: "九龍灣宏照道 16 號", status: "已取消", owner: "CS 陳小姐", tl: "李組長", master: "", createdAt: "06-14 15:30", updatedAt: "06-14 15:50",
         desc: "客戶重複報修，確認已有同類工單處理中。", records: [{ time: "15:30", actor: "CS 陳小姐", text: "記錄客戶來電。" }, { time: "15:50", actor: "CS 陳小姐", text: "確認重複工單，取消處理。" }],
         attachments: [], tags: ["重複工單"], urgent: false, cancelReason: "重複工單"
       },
       {
         id: "ECA-20260614-008", customerId: "CUST-0004", type: "保養維修", customer: "香港政府大樓", contact: "何先生", phone: "+852 9456 7890",
-        channel: "現場溝通", area: "香港", address: "金鐘添馬艦政府總部", status: "待分派", owner: "王組長", tl: "王組長", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
+        channel: "現場溝通", area: "1區", address: "金鐘添馬艦政府總部", status: "待分派", owner: "王組長", tl: "王組長", master: "", createdAt: "06-14 16:10", updatedAt: "06-14 16:40",
         desc: "水浸報警設備檢查，前次分派被拒單，需要重新分派。", records: [{ time: "16:10", actor: "王組長", text: "創建維修保養工單。" }, { time: "16:26", actor: "黃師傅", text: "拒單：當前現場任務未完成，無法按時到場。" }, { time: "16:40", actor: "王組長", text: "退回待分派，等待重新安排。" }],
         attachments: ["報警設備照片"], tags: ["拒單示例"], urgent: true, rejectReason: "當前現場任務未完成，無法按時到場。", jNumber: "J 12345"
       },
       {
         id: "WO-20260613-009", customerId: "CUST-0003", type: "保養維修", customer: "安全監控管理有限公司", contact: "鄭經理", phone: "+852 6333 2211",
-        channel: "電話", area: "九龍", address: "觀塘開源道 72 號", status: "已完成", owner: "王組長", tl: "王組長", master: "梁師傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
+        channel: "電話", area: "2區", address: "觀塘開源道 72 號", status: "已完成", owner: "王組長", tl: "王組長", master: "梁師傅", createdAt: "06-13 11:10", updatedAt: "06-13 13:00",
         desc: "來電諮詢攝像頭離線，CS 協助確認電源重啓後恢復。", records: [{ time: "11:10", actor: "CS 陳小姐", text: "電話記錄。" }, { time: "13:00", actor: "王組長", text: "確認現場已恢復，完成。" }],
         attachments: [], tags: ["現場解決"], urgent: false,
-        serviceReportNo: "250298", srSystems: ["CCTV"], srObjectives: ["Fault Report"], srArea: "九龍"
+        serviceReportNo: "250298", srSystems: ["CCTV"], srObjectives: ["Fault Report"], srArea: "2區"
       },
       {
         id: "WO-20260613-010", customerId: "CUST-0005", type: "工程維修", customer: "灣仔商業大廈", contact: "林小姐", phone: "+852 9222 1000",
-        channel: "WhatsApp", area: "香港", address: "灣仔告士打道 55 號", status: "處理中", owner: "梁師傅", tl: "李組長", master: "梁師傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
+        channel: "WhatsApp", area: "1區", address: "灣仔告士打道 55 號", status: "處理中", owner: "梁師傅", tl: "李組長", master: "梁師傅", createdAt: "06-13 14:35", updatedAt: "06-13 15:10",
         desc: "臨時協助現場設備移位，需補充位置照片後繼續處理。", records: [{ time: "14:35", actor: "李組長", text: "創建特殊任務並分派。" }, { time: "15:10", actor: "梁師傅", text: "現場空間受限，需要客戶確認設備位置。" }],
         attachments: ["現場位置照片"], tags: ["無法完成示例"], urgent: false,
-        serviceReportNo: "250412", srSystems: ["IT", "Doorphone"], srObjectives: ["Others"], srArea: "香港"
+        serviceReportNo: "250412", srSystems: ["IT", "Doorphone"], srObjectives: ["Others"], srArea: "1區"
       },
       {
         id: "WO-20260612-011", customerId: "CUST-0002", type: "保養維修", customer: "九龍屋苑管理處", contact: "何小姐", phone: "+852 6123 9800",
-        channel: "郵件", area: "九龍", address: "九龍灣宏照道 16 號", status: "待確認", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
+        channel: "郵件", area: "2區", address: "九龍灣宏照道 16 號", status: "待確認", owner: "周師傅", tl: "李組長", master: "周師傅", createdAt: "06-12 10:05", updatedAt: "06-12 10:30",
         desc: "巡檢發現停車場顯示屏閃爍，安排師傅處理。", records: [{ time: "10:05", actor: "CS 陳小姐", text: "郵件建單。" }, { time: "10:30", actor: "李組長", text: "分派給周師傅。" }],
         attachments: [], tags: ["待確認"], urgent: false
       },
       {
         id: "WO-20260612-012", customerId: "CUST-0001", type: "工程維修", customer: "港島商業中心", contact: "陳先生", phone: "+852 9123 4567",
-        channel: "現場溝通", area: "香港", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "王組長", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
+        channel: "現場溝通", area: "1區", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "王組長", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
         desc: "客戶提出臨時設備測試需求，需 CS 確認是否進入派工。", records: [{ time: "09:00", actor: "CS 陳小姐", text: "現場溝通記錄，待分派。" }],
         attachments: [], tags: ["待確認範圍"], urgent: false
       }
@@ -5478,6 +5561,20 @@
       localStorage.setItem('ecinfo_tenders', JSON.stringify(tenders));
     }
 
+    // 舊報價狀態自動遷移到新狀態（待報價/報價中/已中單/丟單）
+    // 放在所有數據變量初始化之後執行，避免 TDZ 問題
+    (function migrateQuotationStatus() {
+      let migrated = false;
+      quotations.forEach(q => {
+        const newStatus = QUOTATION_STATUS_MIGRATION[q.status];
+        if (newStatus && newStatus !== q.status) {
+          q.status = newStatus;
+          migrated = true;
+        }
+      });
+      if (migrated) saveDataToLocalStorage();
+    })();
+
     // Notification System Data
     const NOTIFICATION_MODULES = {
       ticket: { icon: "🛠", label: "工單" },
@@ -5758,14 +5855,16 @@
     };
 
     // Work Order Management State
+    // Call管理頁面狀態：以客戶為主體的列表 + 客戶詳情側邊欄
     let workOrderState = {
       selectedWorkOrderId: null,
+      selectedCustomerId: null,
+      // 預設客戶ID：從客戶詳情側邊欄新建Call時帶入模態框
+      presetCustomerId: null,
       filters: {
-        status: "全部",
-        type: "全部",
+        customerType: "全部",
         area: "全部",
-        owner: "全部",
-        customer: "全部",
+        level: "全部",
         keyword: ""
       },
       currentPage: 1,
@@ -5791,7 +5890,7 @@
       "待分派": "warning", "待確認": "warning", "待處理": "info", "處理中": "info", "需跟進": "danger",
       "已完成": "success", "已關閉": "success", "已確認": "success", "已收款": "success", "已到貨": "success", "已發送": "success",
       "已取消": "neutral", "待報價": "neutral", "未啟用": "neutral", "離職": "neutral",
-      "已發出": "info", "合作中": "info", "等待客戶確認": "warning", "需修訂": "danger", "未中標": "danger", "不投標": "danger"
+      "合作中": "info", "報價中": "info", "已中單": "success", "丟單": "danger", "未中標": "danger", "不投標": "danger"
     };
     const statusTone = (status) => STATUS_TONES[status] || "neutral";
     const statusClass = (status) => `status-badge tone-${statusTone(status)}`;
@@ -7287,27 +7386,109 @@
     }
 
     // ==================== Work Order Management Module ====================
+    // 渲染Call管理主頁面：以客戶為主體的列表 + 客戶詳情側邊欄
+    // 工單詳情側邊欄由 showWorkOrderDrawer 直接附加到 body，避免全頁 render() 導致閃動
     function renderWorkOrderPage() {
-      const hasDrawer = workOrderState.selectedWorkOrderId !== null;
-      const selectedTicket = hasDrawer ? ticketById(workOrderState.selectedWorkOrderId) : null;
+      const hasCustomerDrawer = workOrderState.selectedCustomerId !== null;
+      const selectedCustomer = hasCustomerDrawer ? customers.find(c => c.id === workOrderState.selectedCustomerId) : null;
+      const hasDrawer = hasCustomerDrawer;
 
       return `
         <section class="page active">
           <div class="wo-layout ${hasDrawer ? 'with-drawer' : ''}">
             <div class="wo-list-section">
-              ${renderWorkOrderFilters()}
-              ${renderWorkOrderTable()}
-              ${renderWorkOrderPagination()}
+              ${renderCustomerFilters()}
+              ${renderCustomerTable()}
+              ${renderCustomerPagination()}
             </div>
-            ${hasDrawer ? renderWorkOrderDrawer(selectedTicket) : ''}
+            ${hasCustomerDrawer && selectedCustomer ? renderCustomerDetailDrawer(selectedCustomer) : ''}
           </div>
         </section>
       `;
     }
 
-    // 工單管理分頁組件
-    function renderWorkOrderPagination() {
-      const filtered = filterWorkOrders();
+    // 渲染客戶詳情側邊欄：顯示客戶資訊 + 歷史Call列表 + 新建Call按鈕
+    function renderCustomerDetailDrawer(customer) {
+      // 獲取該客戶的歷史工單（Call）
+      const customerTickets = tickets.filter(t => t.customerId === customer.id);
+      // 取第一個地址與聯絡人作為主要顯示
+      const customerArea = customer.addresses && customer.addresses.length > 0 ? customer.addresses[0].area : "";
+      const contact = customer.contacts && customer.contacts.length > 0 ? customer.contacts[0] : {};
+      const addressZh = customer.addresses && customer.addresses.length > 0 ? customer.addresses[0].addressZh : "";
+
+      return `
+        <div class="wo-drawer-backdrop" data-cust-close aria-hidden="true"></div>
+        <aside class="wo-drawer" role="dialog" aria-modal="true" aria-label="客戶詳情">
+          <div class="wo-drawer-header">
+            <div class="wo-drawer-title">
+              <h3>${escapeHtml(customer.nameZh)}</h3>
+              ${customer.nameEn ? `<span style="color:var(--muted);font-size:12px;">${escapeHtml(customer.nameEn)}</span>` : ''}
+            </div>
+            <button class="wo-drawer-close" data-cust-close>×</button>
+          </div>
+          <div class="wo-drawer-body">
+            <!-- 客戶資訊區 -->
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>客戶資訊</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客戶編號</span>
+                    <span class="wo-detail-value">${escapeHtml(customer.id)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">客戶類型</span>
+                    <span class="wo-detail-value">${escapeHtml(customer.type)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">區域</span>
+                    <span class="wo-detail-value">${escapeHtml(customerArea)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">級別</span>
+                    <span class="wo-detail-value">${escapeHtml(customer.level)}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">聯絡人</span>
+                    <span class="wo-detail-value">${escapeHtml(contact.name || '-')}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">電話</span>
+                    <span class="wo-detail-value">${escapeHtml(contact.phone || '-')}</span>
+                  </div>
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">地址</span>
+                    <span class="wo-detail-value">${escapeHtml(addressZh || '-')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 歷史Call列表區 -->
+            <div class="wo-detail-section">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <h4 style="margin:0;">歷史CALL（${customerTickets.length}）</h4>
+                <button class="primary-btn" data-cust-new-call="${customer.id}">+ 新建CALL</button>
+              </div>
+              ${customerTickets.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--muted);">暫無歷史CALL</div>' :
+                customerTickets.map(t => `
+                  <div class="wo-drawer-ticket-item" data-wo-view="${t.id}" style="padding:12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;cursor:pointer;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                      <strong>${escapeHtml(t.id)}</strong>
+                      <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
+                    </div>
+                    <div style="font-size:13px;color:var(--muted);margin-top:4px;">${escapeHtml(t.type)} · ${escapeHtml(t.createdAt)}</div>
+                    <div style="font-size:13px;margin-top:4px;">${escapeHtml(t.desc || '')}</div>
+                  </div>
+                `).join('')}
+            </div>
+          </div>
+        </aside>
+      `;
+    }
+
+    // 客戶列表分頁組件（使用 filterCallCustomers 並採用 data-cust-* 屬性）
+    function renderCustomerPagination() {
+      const filtered = filterCallCustomers();
       const totalPages = Math.max(1, Math.ceil(filtered.length / workOrderState.pageSize));
       const current = workOrderState.currentPage;
       // 生成頁碼按鈕（最多顯示 7 個頁碼，超出用省略號）
@@ -7327,93 +7508,84 @@
       return `
         <div class="um-pagination">
           <span>共 ${filtered.length} 條記錄，每頁
-            <select data-wo-page-size style="min-height:auto;padding:2px 6px;font-size:12px;">
+            <select data-cust-page-size style="min-height:auto;padding:2px 6px;font-size:12px;">
               ${[10, 20, 50].map(n => `<option value="${n}" ${workOrderState.pageSize === n ? "selected" : ""}>${n}</option>`).join("")}
             </select>
             條，第 ${current}/${totalPages} 頁
           </span>
           <div class="um-pg-btns">
-            <button data-wo-page="prev" ${current <= 1 ? "disabled" : ""}>‹</button>
-            ${pages.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${current === p ? "active" : ""}" data-wo-page="${p}">${p}</button>`).join("")}
-            <button data-wo-page="next" ${current >= totalPages ? "disabled" : ""}>›</button>
+            <button data-cust-page="prev" ${current <= 1 ? "disabled" : ""}>‹</button>
+            ${pages.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${current === p ? "active" : ""}" data-cust-page="${p}">${p}</button>`).join("")}
+            <button data-cust-page="next" ${current >= totalPages ? "disabled" : ""}>›</button>
           </div>
         </div>
       `;
     }
 
-    function renderWorkOrderFilters() {
-      const ownerOptions = [...new Set(tickets.flatMap(t => [t.owner, t.master]).filter(Boolean))];
-      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh }));
-      
+    // 渲染客戶列表篩選器：客戶類型 / 區域 / 客戶級別 / 關鍵詞搜索
+    function renderCustomerFilters() {
+      // 從客戶列表中提取不重複的級別值
+      const levelOptions = [...new Set(customers.map(c => c.level).filter(Boolean))];
+
       return `
         <div class="wo-filters">
           <div class="wo-filter-group">
-            <label>狀態</label>
-            <select data-wo-filter="status">
-              <option value="全部" ${workOrderState.filters.status === "全部" ? "selected" : ""}>全部</option>
-              ${STATUSES.map(s => `<option value="${s}" ${workOrderState.filters.status === s ? "selected" : ""}>${s}</option>`).join("")}
-            </select>
-          </div>
-          <div class="wo-filter-group">
-            <label>工單類型</label>
-            <select data-wo-filter="type">
-              <option value="全部" ${workOrderState.filters.type === "全部" ? "selected" : ""}>全部</option>
-              ${TYPES.map(t => `<option value="${t}" ${workOrderState.filters.type === t ? "selected" : ""}>${t}</option>`).join("")}
+            <label>客戶類型</label>
+            <select class="qf-select" data-cust-filter="customerType">
+              <option value="全部" ${workOrderState.filters.customerType === "全部" ? "selected" : ""}>全部</option>
+              <option value="政府" ${workOrderState.filters.customerType === "政府" ? "selected" : ""}>政府</option>
+              <option value="私人" ${workOrderState.filters.customerType === "私人" ? "selected" : ""}>私人</option>
+              <option value="客戶投訴" ${workOrderState.filters.customerType === "客戶投訴" ? "selected" : ""}>客戶投訴</option>
             </select>
           </div>
           <div class="wo-filter-group">
             <label>區域</label>
-            <select data-wo-filter="area">
+            <select class="qf-select" data-cust-filter="area">
               <option value="全部" ${workOrderState.filters.area === "全部" ? "selected" : ""}>全部</option>
               ${REGIONS.map(r => `<option value="${r}" ${workOrderState.filters.area === r ? "selected" : ""}>${r}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
-            <label>負責人</label>
-            <select data-wo-filter="owner">
-              <option value="全部" ${workOrderState.filters.owner === "全部" ? "selected" : ""}>全部</option>
-              ${ownerOptions.map(o => `<option value="${o}" ${workOrderState.filters.owner === o ? "selected" : ""}>${o}</option>`).join("")}
-            </select>
-          </div>
-          <div class="wo-filter-group">
-            <label>客戶</label>
-            <select data-wo-filter="customer">
-              <option value="全部" ${workOrderState.filters.customer === "全部" ? "selected" : ""}>全部</option>
-              ${customerOptions.map(c => `<option value="${c.id}" ${workOrderState.filters.customer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
+            <label>客戶級別</label>
+            <select class="qf-select" data-cust-filter="level">
+              <option value="全部" ${workOrderState.filters.level === "全部" ? "selected" : ""}>全部</option>
+              ${levelOptions.map(l => `<option value="${l}" ${workOrderState.filters.level === l ? "selected" : ""}>${l}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
             <label>關鍵詞搜索</label>
             <div class="wo-search-wrap">
-              <input type="text" data-wo-filter="keyword" value="${escapeHtml(workOrderState.filters.keyword)}">
-              <button type="button" class="primary-btn wo-search-btn" data-wo-search>搜索</button>
+              <input type="text" data-cust-filter="keyword" value="${escapeHtml(workOrderState.filters.keyword)}" placeholder="客戶編號/名稱/聯絡人/電話">
+              <button type="button" class="primary-btn wo-search-btn" data-cust-search>搜索</button>
             </div>
           </div>
           <div class="wo-actions-top">
-            <button class="secondary-btn" data-wo-reset>重置</button>
-            <button class="primary-btn" data-wo-create>+ 新建CALL</button>
-            <button class="secondary-btn" data-wo-batch-create>批量生成空白CALL</button>
+            <button class="secondary-btn" data-cust-reset>重置</button>
           </div>
         </div>
       `;
     }
 
-    function filterWorkOrders() {
+    // 依據篩選條件過濾客戶列表（Call管理頁面用，與客戶管理模組的 filterCustomers 區分）
+    function filterCallCustomers() {
       const f = workOrderState.filters;
-      return tickets.filter(t => {
+      return customers.filter(c => {
         const keyword = f.keyword.trim().toLowerCase();
-        return (f.status === "全部" || t.status === f.status)
-          && (f.type === "全部" || t.type === f.type)
-          && (f.area === "全部" || t.area === f.area)
-          && (f.owner === "全部" || t.owner === f.owner || t.master === f.owner)
-          && (f.customer === "全部" || t.customerId === f.customer)
-          && (!keyword || `${t.id} ${t.customer} ${t.contact} ${t.address}`.toLowerCase().includes(keyword));
+        // 客戶地址中的區域（取第一個地址）
+        const customerArea = c.addresses && c.addresses.length > 0 ? c.addresses[0].area : "";
+        // 客戶聯絡人姓名與電話（取第一個聯絡人）
+        const contactName = c.contacts && c.contacts.length > 0 ? c.contacts[0].name : "";
+        const contactPhone = c.contacts && c.contacts.length > 0 ? c.contacts[0].phone : "";
+        return (f.customerType === "全部" || c.type === f.customerType)
+          && (f.area === "全部" || customerArea === f.area)
+          && (f.level === "全部" || c.level === f.level)
+          && (!keyword || `${c.id} ${c.nameZh} ${c.nameEn} ${contactName} ${contactPhone}`.toLowerCase().includes(keyword));
       });
     }
 
-    function renderWorkOrderTable() {
-      const filtered = filterWorkOrders();
-      const isQUO = state.role === "QUO";
+    // 渲染客戶列表表格
+    function renderCustomerTable() {
+      const filtered = filterCallCustomers();
       // 分頁計算
       const totalPages = Math.max(1, Math.ceil(filtered.length / workOrderState.pageSize));
       if (workOrderState.currentPage > totalPages) workOrderState.currentPage = totalPages;
@@ -7424,64 +7596,41 @@
         <table class="wo-table">
           <thead>
             <tr>
-              <th>CALL編號</th>
-              <th>CALL類型</th>
-              <th>客戶</th>
-              <th>聯繫人</th>
+              <th>客戶編號</th>
+              <th>客戶名稱</th>
+              <th>客戶類型</th>
               <th>區域</th>
-              <th>CALL狀態</th>
-              ${isQUO ? '<th>報價狀態</th>' : ''}
-              <th>當前負責人</th>
-              <th>更新時間</th>
+              <th>級別</th>
+              <th>聯絡人</th>
+              <th>電話</th>
               <th style="text-align:center;">操作</th>
             </tr>
           </thead>
           <tbody>
             ${filtered.length === 0 ? `
               <tr>
-                <td colspan="${isQUO ? 10 : 9}" style="text-align: center; padding: 40px; color: var(--muted);">
-                  暫無匹配工單
+                <td colspan="8" style="text-align: center; padding: 40px; color: var(--muted);">
+                  暫無匹配客戶
                 </td>
               </tr>
-            ` : paginated.map(t => {
-              const showUrge = state.role === "CS" && ["待分派", "待確認", "處理中"].includes(t.status);
-              
-              // 獲取報價狀態
-              const ticketQuotation = quotations.find(q => q.ticketId === t.id);
-              const quotationStatus = ticketQuotation?.status || '';
-              const needQuotation = t.needQuotation;
-              
-              // 報價按鈕邏輯（僅報價組顯示，不需要時留空）
-              let quotationBtnHtml = '';
-              if (isQUO) {
-                if (!needQuotation) {
-                  quotationBtnHtml = '';
-                } else if (!quotationStatus || quotationStatus === "待報價" || quotationStatus === "需修訂") {
-                  quotationBtnHtml = `<button class="wo-quote-btn wo-quote-primary" data-action="quote" data-id="${t.id}">報價</button>`;
-                } else if (["已發出", "等待客戶確認", "已確認", "已取消"].includes(quotationStatus)) {
-                  quotationBtnHtml = `<button class="wo-quote-btn wo-quote-secondary" data-action="viewQuote" data-id="${t.id}">查看報價</button>`;
-                } else {
-                  quotationBtnHtml = '';
-                }
-              }
-              
+            ` : paginated.map(c => {
+              // 取第一個地址與聯絡人作為主要顯示
+              const customerArea = c.addresses && c.addresses.length > 0 ? c.addresses[0].area : "";
+              const contactName = c.contacts && c.contacts.length > 0 ? c.contacts[0].name : "-";
+              const contactPhone = c.contacts && c.contacts.length > 0 ? c.contacts[0].phone : "-";
               return `
               <tr>
-                <td><button class="wo-id-link" data-wo-view="${t.id}">${t.id}</button></td>
-                <td>${t.type}</td>
-                <td><div class="wo-customer-name">${escapeHtml(t.customer)}</div></td>
-                <td><div class="wo-customer-contact">${escapeHtml(t.contact)}</div></td>
-                <td>${t.area}</td>
-                <td>${statusBadge(t.status)}</td>
-                ${isQUO ? `<td>${quotationStatus ? statusBadge(quotationStatus) : '<span class="muted">-</span>'}</td>` : ''}
-                <td>${escapeHtml(t.owner)}</td>
-                <td>${t.updatedAt}</td>
+                <td><button class="wo-id-link" data-cust-view="${c.id}">${escapeHtml(c.id)}</button></td>
+                <td><div class="wo-customer-name">${escapeHtml(c.nameZh)}${c.nameEn ? ` <span style="color:var(--muted);font-size:12px;">${escapeHtml(c.nameEn)}</span>` : ''}</div></td>
+                <td>${escapeHtml(c.type)}</td>
+                <td>${escapeHtml(customerArea)}</td>
+                <td>${escapeHtml(c.level)}</td>
+                <td>${escapeHtml(contactName)}</td>
+                <td>${escapeHtml(contactPhone)}</td>
                 <td class="wo-td-actions">
                   <div class="wo-actions-group">
-                    ${state.role === "CS" ? (showUrge ? `<button class="wo-urge-btn" data-action="urge" data-id="${t.id}">催單</button>` : '<button class="wo-btn-disabled" disabled>催單</button>') : ''}
-                    ${isQUO ? (quotationBtnHtml || '<button class="wo-btn-disabled" disabled>報價</button>') : ''}
-                    <button class="wo-view-btn" data-wo-view="${t.id}">查看詳情</button>
-                    <button class="wo-delete-btn" data-wo-delete="${t.id}">刪除</button>
+                    <button class="wo-view-btn" data-cust-view="${c.id}">查看詳情</button>
+                    <button class="wo-delete-btn" data-cust-delete="${c.id}">刪除</button>
                   </div>
                 </td>
               </tr>
@@ -7649,7 +7798,12 @@
     function renderWorkOrderModal() {
       const isEdit = workOrderState.modalMode === "edit";
       const ticket = isEdit ? ticketById(workOrderState.selectedWorkOrderId) : null;
-      
+      // 預設客戶資訊（從客戶詳情側邊欄新建Call時帶入）
+      const presetCustomer = !isEdit && workOrderState.presetCustomerId
+        ? customers.find(c => c.id === workOrderState.presetCustomerId) : null;
+      const presetCustomerType = presetCustomer ? presetCustomer.type : "";
+      const presetArea = presetCustomer && presetCustomer.addresses?.[0] ? presetCustomer.addresses[0].area : "";
+
       return `
         <div class="qf-overlay">
           <div class="qf-modal">
@@ -7674,39 +7828,42 @@
                       <input class="qf-input qf-readonly" type="text" value="${currentRole().name}" disabled>
                     </div>
                     <div class="qf-field">
-                      <label class="qf-label">區域<span class="req">*</span></label>
-                      <select class="qf-select" name="area" id="modalAreaSelect" required onchange="filterModalTLsByArea(this.value, ${isEdit ? `'${ticket.tl}'` : 'null'})">
-                        <option value="">請選擇區域</option>
-                        ${REGIONS.map(r => `<option ${isEdit && ticket.area === r ? 'selected' : ''}>${r}</option>`).join("")}
-                      </select>
-                    </div>
-                    <div class="qf-field">
-                      <label class="qf-label">主管<span class="req">*</span></label>
-                      <select class="qf-select" name="tl" id="modalTLSelect" required>
-                        <option value="">請先選擇區域</option>
-                        ${isEdit && ticket.tl ? (() => {
-                          const tlUser = users.find(u => u.name === ticket.tl);
-                          const tlArea = tlUser ? tlUser.area : '';
-                          return users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === tlArea).map(u => `<option value="${u.name}" ${ticket.tl === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
-                        })() : ''}
-                      </select>
-                    </div>
-                    <div class="qf-field">
                       <label class="qf-label">客戶類型<span class="req">*</span></label>
-                      <select class="qf-select" name="customerType" id="modalCustomerTypeSelect" required onchange="filterModalCustomersByType(this.value, ${isEdit ? `'${ticket.customerId}'` : 'null'})">
+                      <select class="qf-select" name="customerType" id="modalCustomerTypeSelect" required onchange="filterModalCustomersByType(this.value, ${isEdit ? `'${ticket.customerId}'` : (presetCustomer ? `'${presetCustomer.id}'` : 'null')})">
                         <option value="">請選擇客戶類型</option>
-                        <option value="政府" ${isEdit && (ticket.customerType === '政府' || customers.find(c => c.id === ticket.customerId)?.type === '政府') ? 'selected' : ''}>政府 (EMSD)</option>
-                        <option value="私人" ${isEdit && (ticket.customerType === '私人' || customers.find(c => c.id === ticket.customerId)?.type === '私人') ? 'selected' : ''}>私人</option>
+                        <option value="政府" ${isEdit ? (ticket.customerType === '政府' || customers.find(c => c.id === ticket.customerId)?.type === '政府' ? 'selected' : '') : (presetCustomerType === '政府' ? 'selected' : '')}>政府 (EMSD)</option>
+                        <option value="私人" ${isEdit ? (ticket.customerType === '私人' || customers.find(c => c.id === ticket.customerId)?.type === '私人' ? 'selected' : '') : (presetCustomerType === '私人' ? 'selected' : '')}>私人</option>
+                        <option value="客戶投訴" ${isEdit ? (ticket.customerType === '客戶投訴' ? 'selected' : '') : (presetCustomerType === '客戶投訴' ? 'selected' : '')}>客戶投訴</option>
                       </select>
                     </div>
                     <div class="qf-field">
                       <label class="qf-label">客戶<span class="req">*</span></label>
-                      <select class="qf-select" name="customerId" id="customerSelect" required>
+                      <select class="qf-select" name="customerId" id="customerSelect" required onchange="onModalCustomerChange(this.value)">
                         <option value="">請先選擇客戶類型</option>
                         ${isEdit && ticket.customerId ? (() => {
                           const c = customers.find(c => c.id === ticket.customerId);
                           return c ? `<option value="${c.id}" selected>${c.nameZh} (${c.nameEn})</option>` : '';
-                        })() : ''}
+                        })() : (!isEdit && presetCustomer ? `<option value="${presetCustomer.id}" selected>${escapeHtml(presetCustomer.nameZh)} (${escapeHtml(presetCustomer.nameEn)})</option>` : '')}
+                      </select>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">區域<span class="req">*</span></label>
+                      <input class="qf-input qf-readonly" type="text" id="modalAreaDisplay" name="area" value="${isEdit ? escapeHtml(ticket.area || '') : escapeHtml(presetArea || '')}" placeholder="選擇客戶後自動帶出" readonly required>
+                    </div>
+                    <div class="qf-field">
+                      <label class="qf-label">主管<span class="req">*</span></label>
+                      <select class="qf-select" name="tl" id="modalTLSelect" required>
+                        <option value="">請先選擇客戶</option>
+                        ${isEdit && ticket.tl ? (() => {
+                          const tlUser = users.find(u => u.name === ticket.tl);
+                          const tlArea = tlUser ? tlUser.area : '';
+                          return '<option value="">請選擇主管</option>' + users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === tlArea).map(u => `<option value="${u.name}" ${ticket.tl === u.name ? 'selected' : ''}>${u.name}（${u.area}）</option>`).join("");
+                        })() : (!isEdit && presetCustomer ? (() => {
+                          // 從預設客戶地址帶出區域，列出該區域可用的主管供用戶自行選擇（不自動選中）
+                          const presetAreaVal = presetCustomer.addresses?.[0]?.area || '';
+                          const filtered = presetAreaVal ? users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === presetAreaVal) : [];
+                          return '<option value="">請選擇主管</option>' + filtered.map(u => `<option value="${u.name}">${u.name}（${u.area}）</option>`).join("");
+                        })() : '')}
                       </select>
                     </div>
                     <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="callCodeFieldWrap">
@@ -7721,15 +7878,15 @@
                     </div>
                     <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="jNumberField">
                       <label class="qf-label">J No.</label>
-                      <input class="qf-input" type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : ''}" placeholder="如：J 12345">
+                      <input class="qf-input" type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : (presetCustomer && presetCustomer.jNumber ? escapeHtml(presetCustomer.jNumber) : '')}" placeholder="如：J 12345">
                     </div>
                     <div class="qf-field">
                       <label class="qf-label">聯繫人<span class="req">*</span></label>
-                      <input class="qf-input" type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : ''}" required placeholder="選擇客戶後自動填充">
+                      <input class="qf-input" type="text" id="contactInput" name="contact" value="${isEdit ? escapeHtml(ticket.contact) : (presetCustomer && presetCustomer.contacts?.[0] ? escapeHtml(presetCustomer.contacts[0].name) : '')}" required placeholder="選擇客戶後自動填充">
                     </div>
                     <div class="qf-field">
                       <label class="qf-label">聯繫電話</label>
-                      <input class="qf-input" type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : ''}" placeholder="選擇客戶後自動填充">
+                      <input class="qf-input" type="text" id="phoneInput" name="phone" value="${isEdit ? escapeHtml(ticket.phone) : (presetCustomer && presetCustomer.contacts?.[0] ? escapeHtml(presetCustomer.contacts[0].phone) : '')}" placeholder="選擇客戶後自動填充">
                     </div>
                     <div class="qf-field">
                       <label class="qf-label">來源渠道</label>
@@ -7794,12 +7951,41 @@
 
     function openWorkOrderDrawer(ticketId) {
       workOrderState.selectedWorkOrderId = ticketId;
-      render();
+      // 直接操作 DOM 附加側邊欄，避免全頁 render() 導致閃動
+      showWorkOrderDrawer(ticketId);
     }
 
     function closeWorkOrderDrawer() {
       workOrderState.selectedWorkOrderId = null;
-      render();
+      // 直接移除側邊欄 DOM，避免全頁 render() 導致閃動
+      hideWorkOrderDrawer();
+    }
+
+    // 直接附加工單詳情側邊欄到 body（避免全頁重渲染導致閃動）
+    function showWorkOrderDrawer(ticketId) {
+      const ticket = ticketById(ticketId);
+      if (!ticket) return;
+      // 移除已存在的側邊欄
+      hideWorkOrderDrawer();
+      // 創建容器並附加到 body
+      const container = document.createElement("div");
+      container.id = "woDrawerOverlay";
+      container.innerHTML = renderWorkOrderDrawer(ticket);
+      document.body.appendChild(container);
+      // 鎖定背景滾動
+      document.body.classList.add("drawer-open");
+      // 綁定關閉事件
+      container.querySelectorAll("[data-wo-close]").forEach(btn => btn.addEventListener("click", closeWorkOrderDrawer));
+    }
+
+    // 移除工單詳情側邊欄 DOM
+    function hideWorkOrderDrawer() {
+      const container = document.getElementById("woDrawerOverlay");
+      if (container) container.remove();
+      // 如果沒有其他側邊欄，解除背景滾動鎖定
+      if (!document.getElementById("custDrawerOverlay")) {
+        document.body.classList.remove("drawer-open");
+      }
     }
 
     // 彈出到達時間選擇窗口（精確到分鐘），用於師傅"收到"工單
@@ -8077,6 +8263,62 @@
       const filtered = customers.filter(c => c.type === type);
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}" ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("");
       refreshSearchableSelect(select);
+      // 切換客戶類型後，自動觸發一次客戶變化聯動（清除已帶出的區域/主管/聯繫人等）
+      if (!preselectedCustomerId) {
+        onModalCustomerChange('');
+      }
+    }
+
+    // 新建Call模態框：客戶選擇變化時，自動帶出區域、主管、聯繫人、電話、J No. 等信息
+    // 原因：客戶已確定時，區域可由客戶地址自動帶出，無需用戶手動選擇
+    function onModalCustomerChange(customerId) {
+      const customer = customerId ? customers.find(c => c.id === customerId) : null;
+      const addressObj = customer && customer.addresses?.[0] ? customer.addresses[0] : null;
+      const contactObj = customer && customer.contacts?.[0] ? customer.contacts[0] : null;
+
+      // 1. 自動帶出區域（唯讀顯示）
+      const areaInput = document.getElementById("modalAreaDisplay");
+      if (areaInput) {
+        areaInput.value = addressObj ? (addressObj.area || '') : '';
+      }
+
+      // 2. 依區域篩選可用的主管（TL）供用戶自行選擇（不自動帶出預設值）
+      const tlSelect = document.getElementById("modalTLSelect");
+      if (tlSelect) {
+        const area = addressObj ? addressObj.area : '';
+        if (!area) {
+          tlSelect.innerHTML = '<option value="">請先選擇客戶</option>';
+        } else {
+          const filtered = users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === area);
+          if (filtered.length === 0) {
+            tlSelect.innerHTML = '<option value="">該區域暫無主管</option>';
+          } else {
+            // 列出該區域可用的主管供用戶自行選擇
+            tlSelect.innerHTML = '<option value="">請選擇主管</option>' + filtered.map(u => `<option value="${u.name}">${u.name}（${u.area}）</option>`).join("");
+          }
+        }
+      }
+
+      // 3. 自動帶出聯繫人、聯繫電話
+      const contactInput = document.getElementById("contactInput");
+      if (contactInput) {
+        contactInput.value = contactObj ? (contactObj.name || '') : '';
+      }
+      const phoneInput = document.getElementById("phoneInput");
+      if (phoneInput) {
+        phoneInput.value = contactObj ? (contactObj.phone || '') : '';
+      }
+
+      // 4. 政府客戶顯示 Call代碼、J No. 字段，並帶出 J No.
+      const callCodeWrap = document.getElementById("callCodeFieldWrap");
+      const jNumberField = document.getElementById("jNumberField");
+      const isGov = customer && customer.type === '政府';
+      if (callCodeWrap) callCodeWrap.classList.toggle('hidden', !isGov);
+      if (jNumberField) jNumberField.classList.toggle('hidden', !isGov);
+      if (isGov && jNumberField) {
+        const jInput = jNumberField.querySelector('input[name="jNumber"]');
+        if (jInput) jInput.value = customer.jNumber || '';
+      }
     }
 
     // 根據區域篩選主管（TL）下拉選項
@@ -8131,9 +8373,11 @@
     }
 
     // 開啟新建工單模態框（直接附加到 body，避免全頁重渲染導致閃爍）
-    function openCreateWorkOrderModal() {
+    // customerId 可選：從客戶詳情側邊欄新建Call時帶入客戶、區域、客戶類型
+    function openCreateWorkOrderModal(customerId = null) {
       workOrderState.modalMode = "create";
       workOrderState.selectedWorkOrderId = null;
+      workOrderState.presetCustomerId = customerId;
       showWorkOrderModal();
     }
 
@@ -8162,6 +8406,8 @@
       if (window._uploadedFiles) {
         updateFileList(window._uploadedFiles);
       }
+      // 模態框渲染完成後清除預設客戶ID，避免下次開啟時殘留
+      workOrderState.presetCustomerId = null;
     }
 
     // 關閉工單模態框（移除 overlay 並解鎖背景滾動，不觸發全頁重渲染）
@@ -8328,7 +8574,7 @@
           contact: '',
           phone: '',
           channel: '電話',
-          area: '香港',
+          area: '1區',
           address: '',
           type: '保養維修',
           desc: '',
@@ -8412,7 +8658,7 @@
                     ["area", "區域"],
                     ["customer", "客戶"],
                     ["type", "CALL類型"]
-                  ].map(([key, label]) => `<div class="wo-filter-group"><label>${label}</label><select data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></div>`).join("")}
+                  ].map(([key, label]) => `<div class="wo-filter-group"><label>${label}</label><select class="qf-select" data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></div>`).join("")}
                   <div class="wo-filter-group">
                     <label>關鍵詞搜索</label>
                     <div class="wo-search-wrap">
@@ -9709,11 +9955,11 @@
         <div class="um-list-panel">
           <div class="um-toolbar">
             <input class="um-search" type="text" placeholder="搜索用戶名/工號/電話/郵箱" value="${escapeHtml(userState.searchKeyword)}" data-user-search>
-            <select class="um-filter-role" data-user-filter-role>
+            <select class="qf-select um-filter-role" data-user-filter-role>
               <option value="全部" ${userState.filterRole === "全部" ? "selected" : ""}>全部角色</option>
               ${USER_ROLES.map(r => `<option value="${r.code}" ${userState.filterRole === r.code ? "selected" : ""}>${r.name}</option>`).join("")}
             </select>
-            <select class="um-filter-status" data-user-filter-status>
+            <select class="qf-select um-filter-status" data-user-filter-status>
               <option value="全部" ${userState.filterStatus === "全部" ? "selected" : ""}>全部狀態</option>
               <option value="啓用" ${userState.filterStatus === "啓用" ? "selected" : ""}>啓用</option>
               <option value="禁用" ${userState.filterStatus === "禁用" ? "selected" : ""}>禁用</option>
@@ -10531,9 +10777,7 @@
                     <label class="qf-label">區域</label>
                     <select class="qf-select" name="area">
                       <option value="">請選擇區域</option>
-                      <option value="香港">香港</option>
-                      <option value="九龍">九龍</option>
-                      <option value="新界">新界</option>
+                      ${REGIONS.map(r => `<option value="${r}">${r}</option>`).join("")}
                     </select>
                   </div>
                   <div class="qf-field">
@@ -10675,9 +10919,9 @@
                   <div class="qf-field">
                     <label class="qf-label">區域</label>
                     <select class="qf-select" name="area">
-                      <option value="香港" ${customer.addresses[0]?.area === "香港" ? "selected" : ""}>香港</option>
-                      <option value="九龍" ${customer.addresses[0]?.area === "九龍" ? "selected" : ""}>九龍</option>
-                      <option value="新界" ${customer.addresses[0]?.area === "新界" ? "selected" : ""}>新界</option>
+                      <option value="">請選擇區域</option>
+                      ${REGIONS.map(r => `<option value="${r}" ${customer.addresses[0]?.area === r ? "selected" : ""}>${r}</option>`).join("")}
+                      ${customer.addresses[0]?.area && !REGIONS.includes(customer.addresses[0].area) ? `<option value="${escapeHtml(customer.addresses[0].area)}" selected>${escapeHtml(customer.addresses[0].area)}</option>` : ''}
                     </select>
                   </div>
                   <div class="qf-field">
@@ -10900,28 +11144,28 @@
         <div class="wo-filters">
           <div class="wo-filter-group">
             <label>報價狀態</label>
-            <select data-qm-filter="statusFilter">
+            <select class="qf-select" data-qm-filter="statusFilter">
               <option value="全部" ${quotationState.statusFilter === "全部" ? "selected" : ""}>全部</option>
               ${QUOTATION_STATUSES.map(s => `<option value="${s}" ${quotationState.statusFilter === s ? "selected" : ""}>${s}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
             <label>類別</label>
-            <select data-qm-filter="categoryFilter">
+            <select class="qf-select" data-qm-filter="categoryFilter">
               <option value="全部" ${quotationState.categoryFilter === "全部" ? "selected" : ""}>全部</option>
               ${categoryOptions.map(c => `<option value="${c.code}" ${quotationState.categoryFilter === c.code ? "selected" : ""}>${c.name}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
             <label>區域</label>
-            <select data-qm-filter="areaFilter">
+            <select class="qf-select" data-qm-filter="areaFilter">
               <option value="全部" ${quotationState.areaFilter === "全部" ? "selected" : ""}>全部</option>
               ${areaOptions.map(r => `<option value="${r.name}" ${quotationState.areaFilter === r.name ? "selected" : ""}>${r.name}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
             <label>客戶</label>
-            <select data-qm-filter="filterCustomer">
+            <select class="qf-select" data-qm-filter="filterCustomer">
               <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
               ${customerOptions.map(c => `<option value="${c.id}" ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
             </select>
@@ -11753,19 +11997,35 @@
 
               <!-- 卡片 2：關聯資訊 -->
               <div class="qf-card">
-                <div class="qf-card-title">關聯資訊<span class="qf-card-sub">工單 / 客戶 / 來源</span></div>
+                <div class="qf-card-title">關聯資訊<span class="qf-card-sub">來源 / 工單或標書 / 客戶</span></div>
                 <div class="qf-grid">
                   <div class="qf-field">
-                    <label class="qf-label" for="qf-ticketId">關聯工單<span class="opt">（選填）</span></label>
-                    <select class="qf-select" id="qf-ticketId" name="ticketId">
-                      <option value="">不關聯工單</option>
+                    <label class="qf-label" for="qf-source">接受來源<span class="req">*</span></label>
+                    <select class="qf-select" id="qf-source" name="source" required onchange="const f=this.closest('form');const tkt=f.querySelector('[name=ticketId]').closest('.qf-field');const tnd=f.querySelector('[name=sourceTenderId]').closest('.qf-field');if(this.value==='工單'){tkt.classList.remove('qf-hidden');tnd.classList.add('qf-hidden');}else if(this.value==='標書'){tkt.classList.add('qf-hidden');tnd.classList.remove('qf-hidden');}else{tkt.classList.add('qf-hidden');tnd.classList.add('qf-hidden');}">
+                      <option value="">請選擇接受來源</option>
+                      <option value="工單">工單</option>
+                      <option value="標書">標書</option>
+                    </select>
+                  </div>
+                  <div class="qf-field qf-hidden">
+                    <label class="qf-label" for="qf-ticketId">關聯工單<span class="req">*</span></label>
+                    <select class="qf-select" id="qf-ticketId" name="ticketId" onchange="const t=tickets.find(x=>x.id===this.value);if(t){const f=this.closest('form');f.querySelector('[name=customerName]').value=t.customer;f.querySelector('[name=area]').value=t.area;f.querySelector('[name=srNo]').value=t.srNo||'';generateQuotationNo(f);}">
+                      <option value="">請選擇工單</option>
                       ${tickets.map(t => `<option value="${t.id}">${t.id} - ${t.customer}</option>`).join("")}
                     </select>
                     <div class="qf-hint">選擇工單後自動帶出客戶、區域、S/R 編號</div>
                   </div>
+                  <div class="qf-field qf-hidden">
+                    <label class="qf-label" for="qf-sourceTenderId">關聯標書<span class="req">*</span></label>
+                    <select class="qf-select" id="qf-sourceTenderId" name="sourceTenderId" onchange="const td=tenders.find(x=>x.id===this.value);if(td){const f=this.closest('form');f.querySelector('[name=customerName]').value=td.client||'';generateQuotationNo(f);}">
+                      <option value="">請選擇標書</option>
+                      ${tenders.map(td => `<option value="${td.id}">${td.id} - ${td.projectName || td.client || ''}</option>`).join("")}
+                    </select>
+                    <div class="qf-hint">選擇標書後自動帶出客戶</div>
+                  </div>
                   <div class="qf-field">
                     <label class="qf-label" for="qf-customerName">關聯客戶<span class="req">*</span></label>
-                    <input class="qf-input qf-readonly" id="qf-customerName" name="customerName" required placeholder="選擇工單後自動帶出" readonly>
+                    <input class="qf-input qf-readonly" id="qf-customerName" name="customerName" required placeholder="選擇工單/標書後自動帶出" readonly>
                   </div>
                   <div class="qf-field">
                     <label class="qf-label" for="qf-area">區域<span class="req">*</span></label>
@@ -11774,31 +12034,11 @@
                       ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
                     </select>
                   </div>
-                  <div class="qf-field">
+                  <div class="qf-field qf-hidden">
                     <label class="qf-label" for="qf-srNo">S/R 編號</label>
                     <input class="qf-input" id="qf-srNo" name="srNo" placeholder="選填">
                   </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-source">接收來源</label>
-                    <select class="qf-select" id="qf-source" name="source" onchange="const sf=this.closest('form').querySelector('[name=sourceTicketId]').closest('.qf-field');if(this.value==='工單'){sf.classList.remove('qf-hidden');}else{sf.classList.add('qf-hidden');}">
-                      <option value="">請選擇接收來源</option>
-                      <option value="電話">電話</option>
-                      <option value="WhatsApp">WhatsApp</option>
-                      <option value="Email">Email</option>
-                      <option value="招標">招標</option>
-                      <option value="客戶主動">客戶主動</option>
-                      <option value="工單">工單</option>
-                      <option value="其他">其他</option>
-                    </select>
-                  </div>
                   <div class="qf-field qf-hidden">
-                    <label class="qf-label" for="qf-sourceTicketId">來源工單號</label>
-                    <select class="qf-select" id="qf-sourceTicketId" name="sourceTicketId">
-                      <option value="">請選擇工單</option>
-                      ${tickets.map(t => `<option value="${t.id}">${t.id} - ${t.customer}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="qf-field">
                     <label class="qf-label">Invite Tender</label>
                     <label class="qf-switch">
                       <input type="checkbox" name="isInviteTender" id="isInviteTenderChk" onchange="if(this.checked){const f=this.closest('form');const yy=String(new Date().getFullYear()).slice(-2);const seq=String(quotations.length+1).padStart(5,'0');f.querySelector('[name=projectJobNo]').value='PJ'+yy+seq;}else{this.closest('form').querySelector('[name=projectJobNo]').value='';}">
@@ -11807,28 +12047,43 @@
                     </label>
                     <div class="qf-hint">啟用後自動產生 Project Job 編號</div>
                   </div>
-                  <div class="qf-field">
+                  <div class="qf-field qf-hidden">
                     <label class="qf-label" for="qf-projectJobNo">Project Job 編號</label>
                     <input class="qf-input qf-readonly" id="qf-projectJobNo" name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成">
                   </div>
                 </div>
               </div>
 
-              <!-- 卡片 3：金額資訊 -->
+              <!-- 卡片 3：物料明細與備註 -->
               <div class="qf-card">
-                <div class="qf-card-title">金額資訊<span class="qf-card-sub">報價金額與備註</span></div>
-                <div class="qf-grid">
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-amount">總金額<span class="req">*</span></label>
-                    <div class="qf-amount-display">
-                      <span class="qf-amount-currency">HKD</span>
-                      <input class="qf-input" id="qf-amount" name="amount" type="number" step="0.01" required placeholder="0.00" style="border:none;background:transparent;font-size:20px;font-weight:700;color:#1e40af;padding:0;flex:1;height:auto;min-width:0;">
-                    </div>
-                  </div>
-                  <div class="qf-field wide">
-                    <label class="qf-label" for="qf-remark">備註</label>
-                    <textarea class="qf-textarea" id="qf-remark" name="remark" rows="3" placeholder="請輸入報價備註"></textarea>
-                  </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                  <div class="qf-card-title" style="margin:0;">物料明細<span class="qf-card-sub">報價物料清單與金額</span></div>
+                  <button type="button" class="qf-btn qf-btn-save" id="qfAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
+                </div>
+                <div class="po-table-wrap">
+                  <table class="po-table">
+                    <thead>
+                      <tr>
+                        <th>物料名稱</th>
+                        <th style="width:140px;">規格/型號</th>
+                        <th style="width:80px;text-align:center;">數量</th>
+                        <th style="width:90px;text-align:center;">單位</th>
+                        <th style="width:120px;text-align:right;">單價(HKD)</th>
+                        <th style="width:120px;text-align:right;">小計</th>
+                        <th style="width:50px;"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="qfItemsBody"></tbody>
+                  </table>
+                </div>
+                <div class="po-total-bar">
+                  <span>報價總金額</span>
+                  <strong><span class="po-currency">HKD</span><span id="qfTotalAmount">0.00</span></strong>
+                </div>
+                <input type="hidden" name="amount" id="qf-amount" value="0">
+                <div class="qf-field wide" style="margin-top:18px;">
+                  <label class="qf-label" for="qf-remark">備註</label>
+                  <textarea class="qf-textarea" id="qf-remark" name="remark" rows="3" placeholder="請輸入報價備註"></textarea>
                 </div>
               </div>
             </div>
@@ -11910,13 +12165,12 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
+      // 報價狀態流轉規則（嚴格線性：待報價→報價中→已中單/丟單，終態不可逆）
       const statusTransitions = {
-        "待報價": ["已發出", "已取消"],
-        "已發出": ["等待客戶確認", "需修訂", "已取消"],
-        "等待客戶確認": ["已確認", "需修訂"],
-        "需修訂": ["已發出"],
-        "已確認": [],
-        "已取消": []
+        "待報價": ["報價中"],
+        "報價中": ["已中單", "丟單"],
+        "已中單": [],
+        "丟單": []
       };
 
       const nextStatuses = statusTransitions[quotation.status] || [];
@@ -11957,6 +12211,11 @@
       const taxRate = parseFloat(formData.get("taxRate")) || 0;
       const totalAmount = calculateTax(amount, taxRate);
       const sourceTicketId = formData.get("sourceTicketId") || "";
+      const sourceTenderId = formData.get("sourceTenderId") || "";
+      // 解析物料明細數據（從報價頁面物料明細表格收集）
+      const itemsStr = formData.get("items") || "[]";
+      let quotationItems = [];
+      try { quotationItems = JSON.parse(itemsStr); } catch (e) { quotationItems = []; }
 
       if (isEdit) {
         const quotation = quotations.find(q => q.id === quotationId);
@@ -11976,11 +12235,13 @@
           quotation.deadline = formData.get("deadline") || quotation.deadline;
           quotation.source = formData.get("source") || quotation.source;
           quotation.sourceTicketId = sourceTicketId;
+          quotation.sourceTenderId = sourceTenderId;
           quotation.isInviteTender = formData.get("isInviteTender") === "on";
           quotation.projectJobNo = formData.get("projectJobNo") || quotation.projectJobNo || "";
           quotation.ticketId = ticketId;
           quotation.customerName = formData.get("customerName") || quotation.customerName || "";
           quotation.area = formData.get("area") || quotation.area || "";
+          quotation.items = quotationItems;
           // 記錄修改歷史（#17 報價歷史記錄）
           if (!quotation.history) quotation.history = [];
           quotation.history.push({ action: "編輯", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `金額: ${amount}, 狀態: ${formData.get("status") || quotation.status}` });
@@ -12009,10 +12270,12 @@
           deadline: formData.get("deadline"),
           source: formData.get("source") || "",
           sourceTicketId: sourceTicketId,
+          sourceTenderId: sourceTenderId,
           isInviteTender: formData.get("isInviteTender") === "on",
           projectJobNo: formData.get("projectJobNo") || "",
           attachments: [],
           remark: formData.get("remark") || "",
+          items: quotationItems,
           history: [{ action: "創建", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name }]
         };
         quotations.unshift(newQuotation);
@@ -12433,11 +12696,70 @@
         taxRateInput.addEventListener("input", calculate);
       }
 
+      // 物料明細管理：新增一列、自動計算小計與總金額、刪除物料（從採購單移植）
+      const qfItemsBody = modal.querySelector("#qfItemsBody");
+      const qfTotalEl = modal.querySelector("#qfTotalAmount");
+      const qfAmountHidden = modal.querySelector("#qf-amount");
+      if (qfItemsBody && qfTotalEl) {
+        // 重新計算所有行小計與總金額，並同步到隱藏的 amount 字段
+        const recalcQfTotal = () => {
+          let total = 0;
+          qfItemsBody.querySelectorAll("tr").forEach(tr => {
+            const qty = parseFloat(tr.querySelector("[data-qf-qty]")?.value) || 0;
+            const price = parseFloat(tr.querySelector("[data-qf-price]")?.value) || 0;
+            const subtotal = qty * price;
+            const subtotalEl = tr.querySelector("[data-qf-subtotal]");
+            if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+            total += subtotal;
+          });
+          qfTotalEl.textContent = total.toFixed(2);
+          if (qfAmountHidden) qfAmountHidden.value = total.toFixed(2);
+        };
+        // 新增一列物料行
+        const addQfItemRow = (item = {}) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><input class="po-input" data-qf-name value="${item.name || ""}" placeholder="請輸入物料名稱"></td>
+            <td><input class="po-input" data-qf-spec value="${item.spec || ""}" placeholder="規格/型號"></td>
+            <td><input class="po-input po-input-sm" data-qf-qty type="number" min="1" value="${item.qty || 1}"></td>
+            <td><select class="po-input" data-qf-unit><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
+            <td><input class="po-input po-input-price" data-qf-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}"></td>
+            <td class="po-subtotal" data-qf-subtotal>0.00</td>
+            <td style="text-align:center;"><button type="button" class="po-remove" data-qf-remove title="刪除">×</button></td>
+          `;
+          qfItemsBody.appendChild(tr);
+          tr.querySelector("[data-qf-qty]").addEventListener("input", recalcQfTotal);
+          tr.querySelector("[data-qf-price]").addEventListener("input", recalcQfTotal);
+          tr.querySelector("[data-qf-remove]").addEventListener("click", () => { tr.remove(); recalcQfTotal(); });
+          if (item.unit) tr.querySelector("[data-qf-unit]").value = item.unit;
+          recalcQfTotal();
+        };
+        const qfAddBtn = modal.querySelector("#qfAddItemBtn");
+        if (qfAddBtn) qfAddBtn.addEventListener("click", () => addQfItemRow());
+        // 預設新增一行空物料
+        addQfItemRow();
+      }
+
       const createForm = modal.querySelector("#createQuotationForm");
       if (createForm) {
         createForm.addEventListener("submit", (e) => {
           e.preventDefault();
           const formData = new FormData(createForm);
+          // 收集物料明細數據並附加到 formData
+          const qfItemsBody = modal.querySelector("#qfItemsBody");
+          if (qfItemsBody) {
+            const items = [];
+            qfItemsBody.querySelectorAll("tr").forEach(tr => {
+              const name = tr.querySelector("[data-qf-name]")?.value.trim();
+              if (!name) return;
+              const spec = tr.querySelector("[data-qf-spec]")?.value.trim() || "";
+              const qty = parseInt(tr.querySelector("[data-qf-qty]")?.value) || 1;
+              const unit = tr.querySelector("[data-qf-unit]")?.value || "個";
+              const unitPrice = parseFloat(tr.querySelector("[data-qf-price]")?.value) || 0;
+              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
+            });
+            formData.append("items", JSON.stringify(items));
+          }
           saveQuotation(formData, false);
           modal.remove();
         });
@@ -12812,6 +13134,18 @@
                 <div class="qf-card-title">基本資訊<span class="qf-card-sub">供應商與關聯單據</span></div>
                 <div class="qf-grid">
                   <div class="qf-field">
+                    <label class="qf-label">採購單號<span class="req">*</span></label>
+                    <input class="qf-input" name="poNumber" type="text" required placeholder="請輸入採購單號">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">關聯報價<span class="opt">（選填）</span></label>
+                    <select class="qf-select" name="quotationId">
+                      <option value="">不關聯報價</option>
+                      ${quotations.map(q => `<option value="${q.id}">${q.id} - ${q.title}</option>`).join("")}
+                    </select>
+                    <div class="qf-hint">選擇報價後自動帶出物料明細</div>
+                  </div>
+                  <div class="qf-field">
                     <label class="qf-label">供應商<span class="req">*</span></label>
                     <select class="qf-select" name="supplierId" required>
                       <option value="">請選擇供應商</option>
@@ -12827,20 +13161,13 @@
                     <div class="qf-hint">選擇工單後自動帶出關聯報價</div>
                   </div>
                   <div class="qf-field">
-                    <label class="qf-label">關聯報價<span class="opt">（選填）</span></label>
-                    <select class="qf-select" name="quotationId">
-                      <option value="">不關聯報價</option>
-                      ${quotations.map(q => `<option value="${q.id}">${q.id} - ${q.title}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="qf-field">
                     <label class="qf-label">預計到貨日期<span class="req">*</span></label>
                     <input class="qf-input" name="expectedDate" type="date" value="${defaultExpectedDate}" required>
                   </div>
                 </div>
               </div>
 
-              <!-- 卡片 ②：物料明細（主要內容，提高視覺層級） -->
+              <!-- 卡片 ②：物料明細（選擇關聯報價後自動帶出） -->
               <div class="qf-card">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
                   <div class="qf-card-title" style="margin:0;">物料明細<span class="qf-card-sub">採購物料清單與金額</span></div>
@@ -12902,6 +13229,7 @@
         });
         totalEl.textContent = total.toFixed(2);
       };
+      // 新增一列物料行（可帶入預設值）
       const addItemRow = (item = {}) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -12921,7 +13249,6 @@
         recalcTotal();
       };
       modal.querySelector("#poAddItemBtn").addEventListener("click", () => addItemRow());
-      addItemRow();
 
       // 選擇工單後自動帶出關聯報價
       const ticketSelect = modal.querySelector("[name='ticketId']");
@@ -12930,18 +13257,48 @@
         const ticket = tickets.find(t => t.id === ticketSelect.value);
         if (ticket) {
           const relatedQuotation = quotations.find(q => q.ticketId === ticket.id);
-          if (relatedQuotation) quotationSelect.value = relatedQuotation.id;
+          if (relatedQuotation) {
+            quotationSelect.value = relatedQuotation.id;
+            // 觸發 change 事件以帶出物料明細
+            quotationSelect.dispatchEvent(new Event("change"));
+          }
         }
       });
 
-      // 表單提交：驗證供應商、收集物料明細、生成採購單
+      // 選擇關聯報價後自動帶出物料明細
+      quotationSelect.addEventListener("change", () => {
+        // 清空現有物料行
+        itemsBody.innerHTML = "";
+        const quotation = quotations.find(q => q.id === quotationSelect.value);
+        if (quotation && quotation.items && quotation.items.length > 0) {
+          // 從報價帶出物料明細
+          quotation.items.forEach(item => addItemRow(item));
+        } else {
+          // 無物料明細時預設一行空行
+          addItemRow();
+        }
+      });
+
+      // 預設新增一行空物料
+      addItemRow();
+
+      // 表單提交：驗證採購單號與供應商、收集物料明細、生成採購單
       const form = modal.querySelector("#createPOForm");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(form);
+        // 採購單號必填校驗
+        const poNumber = (formData.get("poNumber") || "").trim();
+        if (!poNumber) { toast("請輸入採購單號", "error"); return; }
+        // 採購單號重複校驗
+        if (purchaseOrders.some(p => p.id === poNumber)) {
+          toast("採購單號已存在，請使用其他編號", "error");
+          return;
+        }
         const supplierId = formData.get("supplierId");
         const supplier = suppliers.find(s => s.id === supplierId);
         if (!supplier) { toast("請選擇供應商", "error"); return; }
+        // 收集物料明細
         const items = [];
         itemsBody.querySelectorAll("tr").forEach(tr => {
           const name = tr.querySelector("[data-po-name]").value.trim();
@@ -12952,10 +13309,9 @@
           const unitPrice = parseFloat(tr.querySelector("[data-po-price]").value) || 0;
           items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
         });
-        if (items.length === 0) { toast("請添加至少一項物料", "error"); return; }
         const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
         const po = {
-          id: `PO-${Date.now().toString().slice(-8)}`,
+          id: poNumber,
           quotationId: formData.get("quotationId") || "",
           ticketId: formData.get("ticketId") || "",
           supplierId: supplier.id,
@@ -13487,7 +13843,7 @@
         <div class="fin-filter-bar">
           <input type="text" id="finFilterKeyword" placeholder="關鍵字（Job Code / 客戶 / 描述）" value="${finFilter.keyword || ''}" data-fin-filter="keyword">
           <input type="date" id="finFilterDate" value="${finFilter.date || ''}" data-fin-filter="date">
-          <select id="finFilterType" data-fin-filter="type">
+          <select class="qf-select" id="finFilterType" data-fin-filter="type">
             <option value="">全部類型</option>
             <option value="工程" ${finFilter.type === '工程' ? 'selected' : ''}>工程</option>
             <option value="M類保養" ${finFilter.type === 'M類保養' ? 'selected' : ''}>M類保養</option>
@@ -14763,15 +15119,21 @@
                   <label class="qf-label">項目名稱 ${requiredStar}</label>
                   <input class="qf-input" name="projectName" value="${escapeHtml(t.projectName || '')}" required placeholder="請輸入項目名稱">
                 </div>
-                <!-- 客戶 -->
+                <!-- 客戶（下拉單選，關聯客戶管理的客戶名稱） -->
                 <div class="qf-field">
                   <label class="qf-label">客戶 ${requiredStar}</label>
-                  <input class="qf-input" name="client" value="${escapeHtml(t.client || '')}" required placeholder="請輸入招標客戶">
+                  <select class="qf-select" name="client" required>
+                    <option value="">請選擇客戶</option>
+                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
+                  </select>
                 </div>
-                <!-- EC負責人 -->
+                <!-- EC負責人（下拉單選，關聯用戶管理中的主管名稱） -->
                 <div class="qf-field">
                   <label class="qf-label">EC負責人 ${requiredStar}</label>
-                  <input class="qf-input" name="owner" value="${escapeHtml(t.owner || '')}" required placeholder="請輸入EC負責人">
+                  <select class="qf-select" name="owner" required>
+                    <option value="">請選擇EC負責人</option>
+                    ${users.filter(u => u.role === "TL" && u.status === "啓用").map(u => `<option value="${escapeHtml(u.name)}" ${t.owner === u.name ? 'selected' : ''}>${escapeHtml(u.name)}</option>`).join("")}
+                  </select>
                 </div>
               </div>
             </div>
@@ -15250,13 +15612,13 @@
             <div class="wo-filters">
               <div class="wo-filter-group">
                 <label>區域</label>
-                <select data-sr-folder-area>
+                <select class="qf-select" data-sr-folder-area>
                   ${allAreas.map(a => `<option value="${escapeHtml(a)}" ${areaFilter === a ? 'selected' : ''}>${a === '全部' ? '全部區域' : escapeHtml(a)}</option>`).join("")}
                 </select>
               </div>
               <div class="wo-filter-group">
                 <label>狀態</label>
-                <select data-sr-folder-status>
+                <select class="qf-select" data-sr-folder-status>
                   ${["全部", "待確認", "待處理", "處理中", "已完成", "已取消"].map(s => `<option value="${s}" ${statusFilter === s ? 'selected' : ''}>${s === '全部' ? '全部狀態' : s}</option>`).join("")}
                 </select>
               </div>
@@ -18470,6 +18832,74 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         workOrderState.currentPage = 1;
         render();
       }));
+
+      // ===== 客戶列表 events（Call管理主頁面：以客戶為主體） =====
+      // 客戶列表篩選器變更
+      document.querySelectorAll("[data-cust-filter]").forEach(el => el.addEventListener("change", () => {
+        const filterKey = el.dataset.custFilter;
+        workOrderState.filters[filterKey] = el.value;
+        // 篩選變化時重置到第一頁
+        workOrderState.currentPage = 1;
+        render();
+      }));
+      // 客戶列表搜索按鈕（點擊觸發搜索，避免輸入中重渲染丟失焦點）
+      document.querySelectorAll("[data-cust-search]").forEach(btn => btn.addEventListener("click", () => {
+        const input = document.querySelector("[data-cust-filter=\"keyword\"]");
+        if (input) workOrderState.filters.keyword = input.value;
+        // 搜索時重置到第一頁
+        workOrderState.currentPage = 1;
+        render();
+      }));
+      // 客戶列表重置按鈕
+      document.querySelectorAll("[data-cust-reset]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.filters = { customerType: "全部", area: "全部", level: "全部", keyword: "" };
+        workOrderState.currentPage = 1;
+        render();
+      }));
+      // 客戶列表：點擊「查看詳情」打開客戶詳情側邊欄
+      document.querySelectorAll("[data-cust-view]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.selectedCustomerId = btn.dataset.custView;
+        // 重置工單詳情側邊欄，避免同時顯示兩個 drawer
+        workOrderState.selectedWorkOrderId = null;
+        render();
+      }));
+      // 客戶列表：刪除客戶
+      document.querySelectorAll("[data-cust-delete]").forEach(btn => btn.addEventListener("click", () => {
+        const custId = btn.dataset.custDelete;
+        if (confirm("確認刪除該客戶？")) {
+          const idx = customers.findIndex(c => c.id === custId);
+          if (idx >= 0) {
+            customers.splice(idx, 1);
+            saveDataToLocalStorage();
+            toast("客戶已刪除");
+            render();
+          }
+        }
+      }));
+      // 關閉客戶詳情側邊欄
+      document.querySelectorAll("[data-cust-close]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.selectedCustomerId = null;
+        render();
+      }));
+      // 客戶詳情側邊欄內：新建Call（帶入客戶資訊）
+      document.querySelectorAll("[data-cust-new-call]").forEach(btn => btn.addEventListener("click", () => {
+        openCreateWorkOrderModal(btn.dataset.custNewCall);
+      }));
+      // 客戶列表分頁：頁碼點擊
+      document.querySelectorAll("[data-cust-page]").forEach(btn => btn.addEventListener("click", () => {
+        const p = btn.dataset.custPage;
+        if (p === "prev") workOrderState.currentPage--;
+        else if (p === "next") workOrderState.currentPage++;
+        else workOrderState.currentPage = parseInt(p);
+        render();
+      }));
+      // 客戶列表分頁：每頁顯示數量變更
+      document.querySelectorAll("[data-cust-page-size]").forEach(sel => sel.addEventListener("change", () => {
+        workOrderState.pageSize = parseInt(sel.value);
+        workOrderState.currentPage = 1;
+        render();
+      }));
+
       // Drawer action buttons
       document.querySelectorAll("[data-action=\"edit\"]").forEach(btn => btn.addEventListener("click", () => {
         openEditWorkOrderModal(btn.dataset.id);
@@ -18990,8 +19420,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (e.target.closest('.qf-select-wrap') || e.target.closest('.qf-select-panel')) return;
         closeAllSelectPanels();
       });
-      // 捕獲階段監聯滾動：面板為 fixed 定位，滾動時位置不再正確，直接關閉
-      window.addEventListener('scroll', closeAllSelectPanels, true);
+      // 捕獲階段監聽滾動：面板為 fixed 定位，頁面滾動時位置不再正確，直接關閉
+      // 但滾動若發生在選項面板內部（超過6條可滑動），則不關閉面板
+      window.addEventListener('scroll', function (e) {
+        if (e.target && e.target.classList && e.target.classList.contains('qf-select-panel')) return;
+        closeAllSelectPanels();
+      }, true);
       window.addEventListener('resize', closeAllSelectPanels);
     }
     // 動態彈窗插入後，使用同一組可搜尋下拉規則。
@@ -19009,7 +19443,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (state.view === "pc") renderPc();
       if (state.view === "mobile") renderMobile();
       bindEvents();
-      // 增強當前渲染範圍內所有下拉框
+      // 先關閉所有殘留面板（避免重渲染後舊面板滯留），再增強當前渲染範圍內所有下拉框
+      closeAllSelectPanels();
+      closeSearchableSelects();
       enhanceAllSelects(document);
       enhanceSearchableSelects();
       // 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動
