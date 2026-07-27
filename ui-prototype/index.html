@@ -6623,6 +6623,12 @@
           return;
         }
 
+        // Validation: 是否需要報價必填（師傅必須自行選擇）
+        if (state.srNeedQuotation === null) {
+          alert("請選擇是否需要報價");
+          return;
+        }
+
         // Validation: satisfaction
         if (!state.srSatisfaction) {
           alert("請選擇客戶滿意度");
@@ -7853,7 +7859,6 @@
                     <div class="qf-field">
                       <label class="qf-label">主管<span class="req">*</span></label>
                       <select class="qf-select" name="tl" id="modalTLSelect" required>
-                        <option value="">請先選擇客戶</option>
                         ${isEdit && ticket.tl ? (() => {
                           const tlUser = users.find(u => u.name === ticket.tl);
                           const tlArea = tlUser ? tlUser.area : '';
@@ -7863,7 +7868,7 @@
                           const presetAreaVal = presetCustomer.addresses?.[0]?.area || '';
                           const filtered = presetAreaVal ? users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === presetAreaVal) : [];
                           return '<option value="">請選擇主管</option>' + filtered.map(u => `<option value="${u.name}">${u.name}（${u.area}）</option>`).join("");
-                        })() : '')}
+                        })() : '<option value="">請選擇主管</option>')}
                       </select>
                     </div>
                     <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="callCodeFieldWrap">
@@ -8287,7 +8292,7 @@
       if (tlSelect) {
         const area = addressObj ? addressObj.area : '';
         if (!area) {
-          tlSelect.innerHTML = '<option value="">請先選擇客戶</option>';
+          tlSelect.innerHTML = '<option value="">請選擇主管</option>';
         } else {
           const filtered = users.filter(u => u.role === 'TL' && isEnabled(u.status) && u.area === area);
           if (filtered.length === 0) {
@@ -16581,7 +16586,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.srFollowUpGroup = t.followUpGroup || "";
         state.srParts = Array.isArray(t.parts) ? t.parts.map(p => ({ name: p.name || "", qty: p.qty || 1 })) : [];
         state.srSatisfaction = t.satisfaction || "";
-        state.srNeedQuotation = !!t.needQuotation;
+        // 是否需要報價：不預設默認值，由師傅自行選擇（null 表示尚未選擇）
+        state.srNeedQuotation = (typeof t.needQuotation === "boolean") ? t.needQuotation : null;
         state.srSignature = t.signature || "";
         state.srInitialized = true;
       }
@@ -16700,19 +16706,19 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           </div>
         </div>
 
-        <!-- 是否需要報價（是/否單選，默認否，必填） -->
+        <!-- 是否需要報價（是/否單選，必填，不預設默認值） -->
         <div class="sr-card">
           <div class="sr-field">
             <label class="sr-label">是否需要報價<span class="sr-required">*</span></label>
             <div class="sr-radio-group" style="display:flex;gap:16px;align-items:center;margin-top:6px;">
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
-                <input type="radio" name="srNeedQuotation" value="false" ${!state.srNeedQuotation ? "checked" : ""} data-sr-quotation-radio="false" style="width:auto;"> 否
+                <input type="radio" name="srNeedQuotation" value="false" ${state.srNeedQuotation === false ? "checked" : ""} data-sr-quotation-radio="false" style="width:auto;"> 否
               </label>
               <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px;">
-                <input type="radio" name="srNeedQuotation" value="true" ${state.srNeedQuotation ? "checked" : ""} data-sr-quotation-radio="true" style="width:auto;"> 是
+                <input type="radio" name="srNeedQuotation" value="true" ${state.srNeedQuotation === true ? "checked" : ""} data-sr-quotation-radio="true" style="width:auto;"> 是
               </label>
             </div>
-            <div class="sr-hint">默認為「否」，如需報價請選擇「是」</div>
+            <div class="sr-hint">請選擇是否需要報價</div>
           </div>
           ${state.srNeedQuotation ? `
           <div class="sr-quotation-section">
