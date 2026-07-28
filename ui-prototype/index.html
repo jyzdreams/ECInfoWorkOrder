@@ -2440,10 +2440,10 @@
     /* ===== Customer Management Module ===== */
     .cm-layout {
       display: grid;
-      grid-template-columns: 20% 45% 35%;
+      grid-template-columns: 220px minmax(0, 1fr);
       gap: 14px;
       align-items: start;
-      min-height: calc(100vh - 180px);
+      min-height: calc(100vh - 132px);
     }
     .cm-sidebar, .cm-list-panel, .cm-detail-panel {
       background: var(--panel);
@@ -2491,7 +2491,7 @@
       text-align: center;
     }
     .cm-category-item.active .cat-count { background: var(--primary); color: #fff; }
-    .cm-list-panel { display: grid; gap: 12px; align-content: start; }
+    .cm-list-panel { display: grid; gap: 12px; align-content: start; min-width: 0; }
     .cm-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .cm-toolbar input, .cm-toolbar select {
       flex: 1;
@@ -2510,7 +2510,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 12px;
-      margin-bottom: 10px;
+      margin: 0;
       cursor: pointer;
       transition: all .15s ease;
       background: var(--panel);
@@ -2550,7 +2550,33 @@
       gap: 6px;
       margin-top: 8px;
     }
+    .cm-customer-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .cm-customer-card .ghost-btn { min-height: var(--height-table-action); padding: 0 10px; }
+    .cm-customer-card .ghost-btn:last-child { margin-left: auto; }
     .cm-detail-panel { display: grid; gap: 14px; align-content: start; }
+    .cm-detail-modal {
+      width: min(880px, 94vw);
+      max-height: 88vh;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .cm-detail-modal .um-modal-head { margin: 0; padding: 18px 20px 14px; flex: 0 0 auto; }
+    .cm-detail-modal-body { overflow: auto; padding: 18px 20px 22px; }
+    .cm-detail-modal .cm-detail-panel {
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .cm-detail-modal .info-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cm-detail-modal .cm-contact-card .info-list,
+    .cm-detail-modal .cm-address-card .info-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cm-detail-header {
       display: flex;
       align-items: center;
@@ -2621,8 +2647,12 @@
     [data-theme="dark"] .customer-level-VIP { background: #35270c; color: #ffc96b; }
     [data-theme="dark"] .customer-level-重要 { background: #3a1518; color: #ff9fbb; }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 860px) {
       .cm-layout { grid-template-columns: 1fr; }
+      .cm-customer-list { grid-template-columns: 1fr; }
+      .cm-detail-modal .info-list,
+      .cm-detail-modal .cm-contact-card .info-list,
+      .cm-detail-modal .cm-address-card .info-list { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 1180px) {
@@ -10404,14 +10434,9 @@
     function renderCustomerPage() {
       return `
         <section class="page active">
-          <div class="page-head">
-            <h2>客戶管理</h2>
-            <p>管理客戶信息、聯繫人和地址</p>
-          </div>
           <div class="cm-layout">
             ${renderCustomerSidebar()}
             ${renderCustomerList()}
-            ${renderCustomerDetail()}
           </div>
         </section>
       `;
@@ -10465,7 +10490,7 @@
             <button class="primary-btn" data-create-customer>新增客戶</button>
           </div>
           <div class="cm-customer-list">
-            ${paginated.map(c => `
+            ${paginated.length ? paginated.map(c => `
               <div class="cm-customer-card ${customerState.selectedCustomerId === c.id ? "selected" : ""}" data-customer-row="${c.id}">
                 <div class="cm-customer-header">
                   <div>
@@ -10487,7 +10512,7 @@
                   <button class="ghost-btn" data-edit-customer="${c.id}">編輯</button>
                 </div>
               </div>
-            `).join("")}
+            `).join("") : '<div class="cm-empty-detail" style="grid-column:1 / -1;min-height:220px;">暫無符合條件的客戶</div>'}
           </div>
           <div class="um-pagination">
             <span>共 ${filtered.length} 條記錄，第 ${customerState.currentPage}/${totalPages || 1} 頁</span>
@@ -10628,6 +10653,42 @@
           </div>
         </div>
       `;
+    }
+
+    function openCustomerDetailModal(customerId) {
+      const customer = customers.find(c => c.id === customerId);
+      if (!customer) {
+        toast("客戶不存在", "error");
+        return;
+      }
+
+      customerState.selectedCustomerId = customerId;
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <section class="um-modal cm-detail-modal" role="dialog" aria-modal="true" aria-label="客戶詳情">
+          <header class="um-modal-head">
+            <h2>客戶詳情</h2>
+            <button class="um-modal-close" type="button" data-close-customer-detail aria-label="關閉">×</button>
+          </header>
+          <div class="cm-detail-modal-body">${renderCustomerDetail()}</div>
+        </section>
+      `;
+      document.body.appendChild(modal);
+
+      const close = () => modal.remove();
+      modal.querySelectorAll("[data-close-customer-detail]").forEach(btn => btn.addEventListener("click", close));
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) close();
+      });
+      modal.querySelector("[data-edit-customer]")?.addEventListener("click", () => {
+        close();
+        openEditCustomer(customerId);
+      });
+      modal.querySelector("[data-delete-customer]")?.addEventListener("click", () => {
+        close();
+        deleteCustomer(customerId);
+      });
     }
 
     function filterCustomers() {
@@ -18604,12 +18665,10 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
       document.querySelectorAll("[data-customer-row]").forEach(row => row.addEventListener("click", (e) => {
         if (e.target.closest("button")) return;
-        customerState.selectedCustomerId = row.dataset.customerRow;
-        render();
+        openCustomerDetailModal(row.dataset.customerRow);
       }));
       document.querySelectorAll("[data-view-customer]").forEach(btn => btn.addEventListener("click", () => {
-        customerState.selectedCustomerId = btn.dataset.viewCustomer;
-        render();
+        openCustomerDetailModal(btn.dataset.viewCustomer);
       }));
       document.querySelectorAll("[data-edit-customer]").forEach(btn => btn.addEventListener("click", () => openEditCustomer(btn.dataset.editCustomer)));
       document.querySelectorAll("[data-delete-customer]").forEach(btn => btn.addEventListener("click", () => deleteCustomer(btn.dataset.deleteCustomer)));
