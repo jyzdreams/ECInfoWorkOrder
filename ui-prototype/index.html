@@ -5846,6 +5846,7 @@
       mdSelectedTicketId: null,
       mdSelectedMaster: null,
       mdRemark: "",
+      mdPaperType: "", // 移動端分派：領取單據類型（完工單/服務報告）
       mdDispatchSheetOpen: false,
       mdMasterKeyword: "",
       mdMasterStatus: "全部",
@@ -5970,6 +5971,11 @@
     }
 
     function setPage(page) {
+      // 離開服務報告模塊時清除彈窗 state，避免再次進入時彈窗自動顯示且無法關閉
+      if (state.page === "srFolder" && page !== "srFolder") {
+        state.srFolderMetricModal = null;
+        state.srFolderReportTicketId = null;
+      }
       // 如果點擊的是基礎設置且已經在基礎設置頁面，切換展開/收起狀態
       if (page === "settings" && state.page === "settings") {
         state.isSettingsExpanded = !state.isSettingsExpanded;
@@ -6026,6 +6032,7 @@
       state.mobileDetailTicketId = null;
       state.mobileProcessTicketId = null;
       state.mdDispatchSheetOpen = false;
+      state.mdPaperType = "";
       render();
     }
 
@@ -16222,12 +16229,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           ${photoGrid(afterPhotos)}
         </section>`;
       const stepContent = activeStep === "report" ? renderWorkRecord() : activeStep === "service" ? serviceContent : checkinContent;
+      // 根據分派時設定的單據類型動態顯示標籤（完工單/服務報告）
+      const paperLabel = t.dispatchPaperType === "完工單" ? "完工單" : "服務報告";
       const footer = !isProcessing
         ? `<span class="mobile-process-required-hint">${canStartProcessing ? "已完成必填項" : "請完成打卡及 Before Service 照片"}</span><button class="primary-btn" data-mobile-process-submit ${canStartProcessing ? "" : "disabled"}>提交並開始處理</button>`
         : activeStep === "report"
           ? '<span class="mobile-process-save-hint">提交報告後會完成 CALL</span><button class="secondary-btn" data-mobile-process-step="service">返回服務中</button>'
           : activeStep === "service"
-            ? '<span class="mobile-process-save-hint">已即時保存</span><button class="primary-btn" data-mobile-process-step="report">下一步：服務報告</button>'
+            ? `<span class="mobile-process-save-hint">已即時保存</span><button class="primary-btn" data-mobile-process-step="report">下一步：${paperLabel}</button>`
             : '<span class="mobile-process-save-hint">已完成簽到資料</span><button class="primary-btn" data-mobile-process-step="service">下一步：服務中</button>';
       return `
         <div class="mobile-process-overlay" data-mobile-process-close>
@@ -16237,7 +16246,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
               <button class="ghost-btn" data-mobile-process-close>關閉</button>
             </header>
             <nav class="mobile-process-steps" aria-label="服務處理步驟">
-              ${[["checkin", "簽到"], ["service", "服務中"], ["report", "服務報告"]].map(([key, label]) => `<button class="mobile-process-step ${activeStep === key ? "active" : ""}" data-mobile-process-step="${key}" ${!isProcessing && key !== "checkin" ? "disabled" : ""}>${label}</button>`).join("")}
+              ${[["checkin", "簽到"], ["service", "服務中"], ["report", paperLabel]].map(([key, label]) => `<button class="mobile-process-step ${activeStep === key ? "active" : ""}" data-mobile-process-step="${key}" ${!isProcessing && key !== "checkin" ? "disabled" : ""}>${label}</button>`).join("")}
             </nav>
             <div class="mobile-process-sheet-body" data-mobile-process-body="${activeStep}">
               ${stepContent}
@@ -16438,6 +16447,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         t.cpCompletionDate = t.cpCompletionDate || today;
         t.cpRemark = t.cpRemark || "";
         t.cpMaterials = t.cpMaterials || [{ brand: "", model: "", qty: 1, location: "", description: "" }];
+        // 完工單圖片來源與帶入時間（用於上傳自動填充功能）
+        t.cpSourceImage = t.cpSourceImage || "";
+        t.cpImportedAt = t.cpImportedAt || "";
       }
       const statusLabel = t.status === "已完成" ? "已完成" : "待確認";
       const statusColor = t.status === "已完成" ? "var(--success)" : "var(--warning)";
@@ -16452,6 +16464,21 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <h1 style="font-size:18px;font-weight:700;margin:10px 0 4px;color:var(--text);">完工確認</h1>
           <div style="font-size:14px;color:var(--primary);font-weight:600;">${t.id}</div>
           <div style="font-size:13px;color:var(--muted);margin-top:2px;">完工日期：${escapeHtml(t.cpCompletionDate || today)}</div>
+        </div>
+
+        <!-- 上傳完工單（自動填充功能） -->
+        <div class="sr-card">
+          <div class="sr-card-title">上傳完工單</div>
+          <div class="sr-field">
+            <label class="sr-label">完工單圖片<span class="sr-required">*</span></label>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              ${t.cpSourceImage ? `<img src="${t.cpSourceImage}" alt="完工單" style="width:72px;height:72px;object-fit:cover;border:1px solid var(--line);border-radius:6px;">` : ""}
+              <button type="button" class="primary-btn" data-cp-upload-completion-paper>${t.cpSourceImage ? "重新上傳完工單" : "上傳完工單圖片"}</button>
+              <button type="button" class="secondary-btn" data-cp-demo-completion-paper>加入示例完工單</button>
+            </div>
+            <div class="sr-hint">上傳後會模擬識別，並帶入下方完工單字段。</div>
+            ${t.cpImportedAt ? `<div style="margin-top:8px;"><span class="tag success">已帶入完工單資料 · ${escapeHtml(t.cpImportedAt)}</span></div>` : ""}
+          </div>
         </div>
 
         <!-- 卡片1：客戶資訊 -->
@@ -16919,6 +16946,72 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       importServiceReportData(sourceImage);
     }
 
+    // ===== 完工單 Helper Functions（上傳自動填充） =====
+
+    // 上傳完工單圖片後，模擬 OCR 識別並帶入下方字段（填充後仍可編輯）
+    function importCompletionPaperData(sourceImage) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      const today = new Date().toISOString().slice(0, 10);
+      const importedAt = mobileProcessTime();
+      // 根據工單已有資料生成施工項目（優先使用工單 parts，否則用系統資訊建立預設項目）
+      let materials = [];
+      if (Array.isArray(t.parts) && t.parts.length > 0) {
+        // 將工單零件轉換為施工項目
+        materials = t.parts.map(p => ({
+          brand: "",
+          model: p.name || "",
+          qty: p.qty || 1,
+          location: t.address || "",
+          description: p.name ? `安裝 ${p.name}` : "安裝施工"
+        }));
+      } else {
+        // 無零件資料時，根據系統類型建立預設施工項目
+        const sysLabel = t.system || "系統設備";
+        materials = [{
+          brand: "",
+          model: "",
+          qty: 1,
+          location: t.address || "",
+          description: `${sysLabel} 安裝及測試`
+        }];
+      }
+      // 根據工單處理記錄生成備註
+      const remarkText = t.completedWork || t.processNote || "已完成現場施工及系統測試，運作正常。";
+      const updates = {
+        cpSourceImage: sourceImage,
+        cpImportedAt: importedAt,
+        cpCompletionDate: t.cpCompletionDate || today,
+        cpMaterials: materials,
+        cpRemark: t.cpRemark || remarkText
+      };
+      updateTicket(t.id, updates, "已上傳完工單，系統已帶入表單資料。");
+      render();
+      toast("完工單已上傳，資料已帶入表單", "success");
+    }
+
+    // 上傳完工單圖片（檔案選擇）
+    function cpUploadCompletionPaper() {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (loadEvent) => importCompletionPaperData(loadEvent.target.result);
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    }
+
+    // 加入示例完工單（模擬識別）
+    function cpAddDemoCompletionPaper() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640"><rect width="100%" height="100%" fill="#ffffff"/><rect x="28" y="28" width="424" height="584" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/><text x="240" y="92" text-anchor="middle" font-family="Arial" font-size="28" fill="#15803d">COMPLETION PAPER</text><text x="62" y="160" font-family="Arial" font-size="18" fill="#334155">Customer: ECInfo Client</text><text x="62" y="210" font-family="Arial" font-size="18" fill="#334155">Work: Installation</text><text x="62" y="260" font-family="Arial" font-size="18" fill="#334155">Date: ${new Date().toISOString().slice(0,10)}</text><text x="62" y="310" font-family="Arial" font-size="18" fill="#334155">Result: Completed</text><path d="M80 510 C145 450 220 560 310 480" fill="none" stroke="#0f172a" stroke-width="5"/></svg>`;
+      const sourceImage = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`;
+      importCompletionPaperData(sourceImage);
+    }
+
     function srSetWorkNature(value) {
       srSyncInputs();
       state.srWorkNature = value;
@@ -17343,7 +17436,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const masters = getFilteredMastersForDispatch(ticket);
       const selectedMaster = masters.find(master => master.name === state.mdSelectedMaster);
       return selectedMaster
-        ? `<section class="mobile-process-block"><h3>分派確認</h3><div style="display:grid;gap:8px;font-size:13px;"><div><span class="muted">已選師傅：</span><strong>${escapeHtml(selectedMaster.name)}</strong></div><div><span class="muted">技能：</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div><textarea id="mdRemark" class="md-textarea" placeholder="派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea></div></section>`
+        ? `<section class="mobile-process-block"><h3>分派確認</h3><div style="display:grid;gap:8px;font-size:13px;"><div><span class="muted">已選師傅：</span><strong>${escapeHtml(selectedMaster.name)}</strong></div><div><span class="muted">技能：</span><strong>${escapeHtml(selectedMaster.skills)}</strong></div><div><span class="muted">領取單據類型：</span><span style="color:var(--danger);">*</span></div><div style="display:flex;gap:10px;margin-top:-4px;"><label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:14px;padding:6px 12px;border:1px solid ${state.mdPaperType === "完工單" ? 'var(--primary);background:var(--primary-soft)' : 'var(--line)'};border-radius:8px;"><input type="radio" name="mdPaperType" value="完工單" ${state.mdPaperType === "完工單" ? "checked" : ""} data-md-paper="完工單" style="width:auto;">完工單</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:14px;padding:6px 12px;border:1px solid ${state.mdPaperType === "服務報告" ? 'var(--primary);background:var(--primary-soft)' : 'var(--line)'};border-radius:8px;"><input type="radio" name="mdPaperType" value="服務報告" ${state.mdPaperType === "服務報告" ? "checked" : ""} data-md-paper="服務報告" style="width:auto;">服務報告</label></div><textarea id="mdRemark" class="md-textarea" placeholder="派工備註（選填）" rows="3">${escapeHtml(state.mdRemark)}</textarea></div></section>`
         : "";
     }
 
@@ -17377,17 +17470,28 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           toast("請選擇工單和師傅", "error");
           return;
         }
+        // 驗證必須選擇領取單據類型
+        if (!state.mdPaperType) {
+          toast("請選擇領取單據類型（完工單或服務報告）", "error");
+          return;
+        }
         const remarkEl = document.getElementById("mdRemark");
         if (remarkEl) state.mdRemark = remarkEl.value;
-        const note = "分派給" + state.mdSelectedMaster + (state.mdRemark ? "，備註：" + state.mdRemark : "");
-        updateTicket(ticket.id, { status: "待確認", owner: state.mdSelectedMaster, master: state.mdSelectedMaster }, note);
-        toast("已分派，狀態變爲待確認", "success");
+        const note = "分派給" + state.mdSelectedMaster + `，領取${state.mdPaperType}` + (state.mdRemark ? "，備註：" + state.mdRemark : "");
+        updateTicket(ticket.id, { status: "待確認", owner: state.mdSelectedMaster, master: state.mdSelectedMaster, dispatchPaperType: state.mdPaperType }, note);
+        toast(`已分派，狀態變爲待確認，已通知師傅領取${state.mdPaperType}`, "success");
         state.mdDispatchSheetOpen = false;
         state.mdSelectedTicketId = null;
         state.mdSelectedMaster = null;
         state.mdRemark = "";
+        state.mdPaperType = "";
         render();
       });
+      // 重新綁定領取單據類型單選按鈕
+      document.querySelectorAll("[data-md-paper]").forEach(radio => radio.addEventListener("change", () => {
+        state.mdPaperType = radio.value;
+        refreshMdMasterArea();
+      }));
       // 重新綁定備註輸入框
       const remarkEl = document.getElementById("mdRemark");
       if (remarkEl) remarkEl.addEventListener("input", () => {
@@ -17994,12 +18098,13 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         const step = btn.dataset.mobileProcessStep;
         if (!t || (!t.serviceCheckInAt && step !== "checkin")) return;
         if (step === "report") {
+          // 進入報告步驟：帶入照片與處理記錄，不覆蓋主管分派時設定的 dispatchPaperType
+          const paperType = t.dispatchPaperType || "服務報告";
           updateTicket(t.id, {
-            dispatchPaperType: "服務報告",
             attachments: (t.attachments || []).length ? t.attachments : [...(t.beforeServicePhotos || [])],
             serviceReportPhotos: (t.serviceReportPhotos || []).length ? t.serviceReportPhotos : [...(t.afterServicePhotos || [])],
             completedWork: t.completedWork || t.processNote || ""
-          }, "師傅開始填寫服務報告。");
+          }, `師傅開始填寫${paperType}。`);
         }
         state.selectedTicketId = ticketId;
         state.mobileProcessStep = step;
@@ -18129,6 +18234,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-md-sheet-close]").forEach(btn => btn.addEventListener("click", (event) => {
         if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
         state.mdDispatchSheetOpen = false;
+        state.mdPaperType = "";
         render();
       }));
       const mdRemarkEl = $("#mdRemark");
@@ -18137,6 +18243,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           state.mdRemark = mdRemarkEl.value;
         });
       }
+      // 綁定領取單據類型單選按鈕
+      document.querySelectorAll("[data-md-paper]").forEach(radio => radio.addEventListener("change", () => {
+        state.mdPaperType = radio.value;
+        const confirmEl = document.getElementById("mdConfirmArea");
+        if (confirmEl) confirmEl.innerHTML = renderMdConfirmArea(ticketById(state.mdSelectedTicketId));
+      }));
       const mdSubmit = document.querySelector("[data-md-submit]");
       if (mdSubmit) {
         mdSubmit.addEventListener("click", () => {
@@ -18145,16 +18257,22 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             toast("請選擇工單和師傅", "error");
             return;
           }
+          // 驗證必須選擇領取單據類型
+          if (!state.mdPaperType) {
+            toast("請選擇領取單據類型（完工單或服務報告）", "error");
+            return;
+          }
           const masterName = state.mdSelectedMaster;
           const remark = state.mdRemark || "";
-          const note = `分派給${masterName}` + (remark ? `，備註：${remark}` : "");
-          // 更新工單狀態爲待確認，設置 owner 與 master
-          updateTicket(t.id, { status: "待確認", owner: masterName, master: masterName }, note);
-          toast("已分派，狀態變爲待確認", "success");
+          const note = `分派給${masterName}，領取${state.mdPaperType}` + (remark ? `，備註：${remark}` : "");
+          // 更新工單狀態爲待確認，設置 owner、master 與領取單據類型
+          updateTicket(t.id, { status: "待確認", owner: masterName, master: masterName, dispatchPaperType: state.mdPaperType }, note);
+          toast(`已分派，狀態變爲待確認，已通知師傅領取${state.mdPaperType}`, "success");
           state.mdDispatchSheetOpen = false;
           state.mdSelectedTicketId = null;
           state.mdSelectedMaster = null;
           state.mdRemark = "";
+          state.mdPaperType = "";
           render();
         });
       }
@@ -18944,6 +19062,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-clear-signature]").forEach(btn => btn.addEventListener("click", srClearSignature));
 
       // ===== 完工單頁面事件 =====
+      // 上傳完工單圖片（觸發自動填充）
+      document.querySelectorAll("[data-cp-upload-completion-paper]").forEach(btn => btn.addEventListener("click", () => {
+        cpUploadCompletionPaper();
+      }));
+      // 加入示例完工單（模擬識別）
+      document.querySelectorAll("[data-cp-demo-completion-paper]").forEach(btn => btn.addEventListener("click", () => {
+        cpAddDemoCompletionPaper();
+      }));
       // 新增施工項目
       document.querySelectorAll("[data-cp-add-material]").forEach(btn => btn.addEventListener("click", () => {
         const t = ticketById(state.selectedTicketId);
