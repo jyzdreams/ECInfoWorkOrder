@@ -41,3 +41,8 @@ extract_pdf.py
 test_opencc.py
 ui-prototype/check_brackets*.js
 ui-prototype/check_syntax*.js
+extract_0724_summary.py
+temp_0724_extract.txt
+temp_0724_summary.txt
+temp_*.txt
+extract_*.py
