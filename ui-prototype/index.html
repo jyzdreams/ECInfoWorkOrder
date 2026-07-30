@@ -1127,10 +1127,10 @@
 
     /* ============ 新建採購單：物料明細表格樣式 ============ */
     .po-table-wrap {
-      border: 1px solid #eef0f4; border-radius: 10px; overflow: hidden;
-      max-height: 320px; overflow-y: auto;
+      border: 1px solid #eef0f4; border-radius: 10px;
+      max-height: 320px; overflow-x: auto; overflow-y: auto;
     }
-    .po-table-wrap::-webkit-scrollbar { width: 6px; }
+    .po-table-wrap::-webkit-scrollbar { width: 6px; height: 6px; }
     .po-table-wrap::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
     .po-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .po-table thead { position: sticky; top: 0; z-index: 2; background: #f9fafb; }
@@ -4435,7 +4435,7 @@
       { key: "PUR", label: "採購部", name: "張採購", dept: "採購部", avatar: "採" },
       { key: "FIN", label: "會計部", name: "陳會計", dept: "會計部", avatar: "會" },
       { key: "ADMIN", label: "管理員", name: "林主管", dept: "管理部", avatar: "管" },
-      { key: "BOSS", label: "老闆", name: "黃老闆", dept: "管理部", avatar: "闆" }
+      { key: "BOSS", label: "管理層", name: "黃老闆", dept: "管理部", avatar: "闆" }
     ];
     const PAGES = [
       { key: "dashboard", label: "首頁", icon: "🏠", sub: "查看狀態、待辦、異常和最近動態" },
@@ -4661,7 +4661,7 @@
       { code: "PUR", name: "採購部" },
       { code: "FIN", name: "會計部" },
       { code: "ADMIN", name: "管理員" },
-      { code: "BOSS", name: "老闆" }
+      { code: "BOSS", name: "管理層" }
     ];
 
     const ROLE_PERMISSIONS = {
@@ -6779,6 +6779,7 @@
               isInviteTender: false,
               projectJobNo: t.projectRef || "",
               attachments: [],
+              items: [],
               remark: quotationNote || "",
               history: [{ action: "自動創建", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: "由服務報告提交觸發自動創建" }]
             };
@@ -7771,7 +7772,7 @@
                     <span class="wo-detail-value">${escapeHtml(ticket.owner)}</span>
                   </div>
                   <div class="wo-detail-item">
-                    <span class="wo-detail-label">Team Leader</span>
+                    <span class="wo-detail-label">主管</span>
                     <span class="wo-detail-value">${escapeHtml(ticket.tl)}</span>
                   </div>
                 </div>
@@ -7880,7 +7881,7 @@
                   <div class="qf-card-title">基本資訊</div>
                   <div class="qf-grid">
                     <div class="qf-field">
-                      <label class="qf-label">工單編號</label>
+                      <label class="qf-label">Call編號</label>
                       <input class="qf-input qf-readonly" type="text" value="${isEdit ? ticket.id : '自動生成'}" disabled>
                     </div>
                     <div class="qf-field">
@@ -7974,9 +7975,9 @@
                   </div>
                 </div>
 
-                <!-- 卡片 2：工單描述與附件 -->
+                <!-- 卡片 2：Call描述與附件 -->
                 <div class="qf-card">
-                  <div class="qf-card-title">工單描述與附件<span class="qf-card-sub">問題描述及相關文件</span></div>
+                  <div class="qf-card-title">Call描述與附件<span class="qf-card-sub">問題描述及相關文件</span></div>
                   <div class="qf-grid">
                     <div class="qf-field wide">
                       <label class="qf-label">工單描述<span class="req">*</span></label>
@@ -8000,7 +8001,7 @@
               </div>
               <div class="qf-footer">
                 <button type="button" class="qf-btn qf-btn-cancel" data-wo-modal-close>取消</button>
-                <button type="button" class="qf-btn qf-btn-save" data-wo-save>${isEdit ? '保存' : '提交工單'}</button>
+                <button type="button" class="qf-btn qf-btn-save" data-wo-save>${isEdit ? '保存' : '提交Call'}</button>
               </div>
             </form>
           </div>
@@ -8016,8 +8017,16 @@
 
     function closeWorkOrderDrawer() {
       workOrderState.selectedWorkOrderId = null;
-      // 直接移除側邊欄 DOM，避免全頁 render() 導致閃動
-      hideWorkOrderDrawer();
+      // 若存在獨立側邊欄容器（工單管理頁打開的情況），直接移除 DOM 避免閃動
+      const standaloneContainer = document.getElementById("woDrawerOverlay");
+      if (standaloneContainer) {
+        // 直接移除側邊欄 DOM，避免全頁 render() 導致閃動
+        hideWorkOrderDrawer();
+      } else {
+        // 全局抽屜（首頁、報價管理等非工單管理頁面）直接渲染在 #pcPages 中，
+        // 需要調用 render() 才能移除，否則點擊 × 後無法關閉
+        render();
+      }
     }
 
     // 直接附加工單詳情側邊欄到 body（避免全頁重渲染導致閃動）
@@ -11453,25 +11462,39 @@
 
             <div class="wo-detail-section">
               <div class="wo-detail-card">
-                <h4>金額信息</h4>
-                <div class="wo-detail-grid">
-                  <div class="wo-detail-item">
-                    <span class="wo-detail-label">總金額</span>
-                    <span class="wo-detail-value" style="font-size: 18px; color: var(--primary); font-weight: 700;">HKD ${quotation.amount.toLocaleString()}</span>
+                <h4>物料明細</h4>
+                ${(quotation.items && quotation.items.length > 0) ? `
+                  <div class="po-table-wrap" style="margin-top:8px;">
+                    <table class="po-table" style="min-width:520px;">
+                      <thead>
+                        <tr>
+                          <th>物料名稱</th>
+                          <th style="width:120px;">規格/型號</th>
+                          <th style="width:70px;text-align:center;">數量</th>
+                          <th style="width:70px;text-align:center;">單位</th>
+                          <th style="width:100px;text-align:right;">單價(HKD)</th>
+                          <th style="width:110px;text-align:right;">小計</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${quotation.items.map(item => `
+                          <tr>
+                            <td>${escapeHtml(item.name || '-')}</td>
+                            <td>${escapeHtml(item.spec || '-')}</td>
+                            <td style="text-align:center;">${item.qty || 1}</td>
+                            <td style="text-align:center;">${escapeHtml(item.unit || '個')}</td>
+                            <td style="text-align:right;">${(item.unitPrice || 0).toFixed(2)}</td>
+                            <td style="text-align:right;font-weight:600;">${(item.amount || (item.qty || 1) * (item.unitPrice || 0)).toFixed(2)}</td>
+                          </tr>
+                        `).join("")}
+                      </tbody>
+                    </table>
                   </div>
-                  <div class="wo-detail-item">
-                    <span class="wo-detail-label">幣種</span>
-                    <span class="wo-detail-value">${quotation.currency || "HKD"}</span>
+                  <div class="po-total-bar">
+                    <span>報價總金額</span>
+                    <strong><span class="po-currency">HKD</span><span>${(quotation.amount || 0).toFixed(2)}</span></strong>
                   </div>
-                  <div class="wo-detail-item">
-                    <span class="wo-detail-label">稅率</span>
-                    <span class="wo-detail-value">${(quotation.taxRate * 100).toFixed(0)}%</span>
-                  </div>
-                  <div class="wo-detail-item">
-                    <span class="wo-detail-label">含稅金額</span>
-                    <span class="wo-detail-value" style="font-size: 18px; color: var(--primary); font-weight: 700;">HKD ${quotation.totalAmount.toLocaleString()}</span>
-                  </div>
-                </div>
+                ` : '<div style="text-align:center;padding:20px;color:var(--muted);">暫無物料明細</div>'}
               </div>
             </div>
 
@@ -11658,9 +11681,10 @@
           </div>
 
           <div class="wo-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
+            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新狀態</button>` : ""}
             ${quotation.status !== "已取消" && quotation.bidStatus !== "未中標" && quotation.bidStatus !== "不投標" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">創建修訂版</button>` : ""}
             ${quotation.bidStatus === "已中標" && quotation.procurementStatus === "無需採購" ? `<button class="secondary-btn" data-start-procurement="${quotation.id}">啓動採購</button>` : ""}
-            ${quotation.procurementStatus === "已到貨" && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
+            ${(quotation.procurementStatus === "已到貨" || quotation.procurementStatus === "已驗收") && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
             ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
             <button class="danger-btn" data-delete-quotation="${quotation.id}">刪除</button>
@@ -11768,12 +11792,33 @@
 
               <div class="wo-detail-section">
                 <div class="wo-detail-card">
-                  <h4>金額與備註</h4>
-                  <div style="${fieldStyle}">
-                    <label style="${labelStyle}">總金額 (HKD) ${requiredStar}</label>
-                    <input name="amount" type="number" min="0" step="0.01" value="${quotation.amount || 0}" required placeholder="0" style="${inputStyle}">
+                  <h4>物料明細與備註</h4>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                    <span style="font-size:13px;color:var(--muted);">報價物料清單與金額</span>
+                    <button type="button" class="qf-btn qf-btn-save" id="qeAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
                   </div>
-                  <div style="${fieldStyle}">
+                  <div class="po-table-wrap">
+                    <table class="po-table" style="min-width:700px;">
+                      <thead>
+                        <tr>
+                          <th>物料名稱</th>
+                          <th style="width:110px;">規格/型號</th>
+                          <th style="width:100px;text-align:center;">數量</th>
+                          <th style="width:100px;text-align:center;">單位</th>
+                          <th style="width:110px;text-align:right;">單價(HKD)</th>
+                          <th style="width:110px;text-align:right;">小計</th>
+                          <th style="width:40px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="qeItemsBody"></tbody>
+                    </table>
+                  </div>
+                  <div class="po-total-bar">
+                    <span>報價總金額</span>
+                    <strong><span class="po-currency">HKD</span><span id="qeTotalAmount">0.00</span></strong>
+                  </div>
+                  <input type="hidden" name="amount" id="qe-amount" value="${quotation.amount || 0}">
+                  <div style="${fieldStyle};margin-top:14px;">
                     <label style="${labelStyle}">備註</label>
                     <textarea name="remark" placeholder="請輸入備註（選填）" style="${textareaStyle}">${escapeHtml(quotation.remark || '')}</textarea>
                   </div>
@@ -11896,7 +11941,14 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
-      const amount = parseFloat(formData.get("amount")) || 0;
+      // 解析物料明細數據（從編輯側邊欄物料明細表格收集）
+      let items = [];
+      try {
+        const itemsJson = formData.get("items");
+        if (itemsJson) items = JSON.parse(itemsJson);
+      } catch (e) { items = []; }
+      // 根據物料明細自動計算總金額
+      const amount = items.reduce((sum, item) => sum + (item.amount || (item.qty || 1) * (item.unitPrice || 0)), 0);
       const taxRate = quotation.taxRate || 0;
 
       // 創建修訂版：版本號加 1（舊版本已由 createQuotationRevision 推入 revisions）
@@ -11913,9 +11965,14 @@
       quotation.deadline = formData.get("deadline") || quotation.deadline;
       quotation.validUntil = formData.get("validUntil") || quotation.validUntil;
       quotation.source = formData.get("source") || quotation.source;
+      quotation.items = items;
       quotation.amount = amount;
       quotation.totalAmount = calculateTax(amount, taxRate);
       quotation.remark = (formData.get("remark") || "").trim();
+      // 由服務報告自動創建的報價，首次編輯保存後狀態從「待報價」變為「報價中」
+      if (quotation.source === "Service Report" && quotation.status === "待報價") {
+        quotation.status = "報價中";
+      }
       // 同步更新負責人電話與團隊資訊
       const ownerUser = users.find(u => u.name === quotation.owner);
       if (ownerUser) {
@@ -11926,9 +11983,9 @@
       // 記錄修改歷史（#17 報價歷史記錄）
       if (!quotation.history) quotation.history = [];
       if (isRevision) {
-        quotation.history.push({ action: `創建修訂版 R${quotation.revision}`, time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `金額: HKD ${amount.toLocaleString()}` });
+        quotation.history.push({ action: `創建修訂版 R${quotation.revision}`, time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `金額: HKD ${amount.toLocaleString()}，物料 ${items.length} 項` });
       } else {
-        quotation.history.push({ action: "編輯", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `金額: HKD ${amount.toLocaleString()}` });
+        quotation.history.push({ action: "編輯", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `金額: HKD ${amount.toLocaleString()}，物料 ${items.length} 項` });
       }
 
       saveDataToLocalStorage();
@@ -11950,6 +12007,7 @@
       drawer.querySelectorAll("[data-open]").forEach(btn => btn.addEventListener("click", () => performAction("view", btn.dataset.open)));
       drawer.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
       drawer.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
+      drawer.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       drawer.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
       drawer.querySelectorAll("[data-mark-no-offer]").forEach(btn => btn.addEventListener("click", () => markNoOffer(btn.dataset.markNoOffer)));
       drawer.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
@@ -11975,9 +12033,74 @@
       // 編輯表單提交：保存報價編輯
       const editForm = drawer.querySelector("#quotationEditForm");
       if (editForm) {
+        // 綁定物料明細事件：新增、刪除、自動計算小計與總金額
+        const qeItemsBody = drawer.querySelector("#qeItemsBody");
+        const qeTotalEl = drawer.querySelector("#qeTotalAmount");
+        const qeAmountHidden = drawer.querySelector("#qe-amount");
+        if (qeItemsBody && qeTotalEl) {
+          // 重新計算所有行小計與總金額，並同步到隱藏的 amount 字段
+          const recalcQeTotal = () => {
+            let total = 0;
+            qeItemsBody.querySelectorAll("tr").forEach(tr => {
+              const qty = parseFloat(tr.querySelector("[data-qe-qty]")?.value) || 0;
+              const price = parseFloat(tr.querySelector("[data-qe-price]")?.value) || 0;
+              const subtotal = qty * price;
+              const subtotalEl = tr.querySelector("[data-qe-subtotal]");
+              if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+              total += subtotal;
+            });
+            qeTotalEl.textContent = total.toFixed(2);
+            if (qeAmountHidden) qeAmountHidden.value = total.toFixed(2);
+          };
+          // 新增一列物料行（若傳入 item 則帶入數據）
+          const addQeItemRow = (item = {}) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><input class="po-input" data-qe-name value="${item.name || ""}" style="width:100%;"></td>
+              <td><input class="po-input" data-qe-spec value="${item.spec || ""}" style="width:100%;"></td>
+              <td><input class="po-input" data-qe-qty type="number" min="1" value="${item.qty || 1}" style="width:100%;text-align:center;"></td>
+              <td><select class="po-input" data-qe-unit style="width:100%;"><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
+              <td><input class="po-input" data-qe-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}" style="width:100%;text-align:right;"></td>
+              <td class="po-subtotal" data-qe-subtotal>0.00</td>
+              <td style="text-align:center;"><button type="button" class="po-remove" data-qe-remove title="刪除">×</button></td>
+            `;
+            qeItemsBody.appendChild(tr);
+            tr.querySelector("[data-qe-qty]").addEventListener("input", recalcQeTotal);
+            tr.querySelector("[data-qe-price]").addEventListener("input", recalcQeTotal);
+            tr.querySelector("[data-qe-remove]").addEventListener("click", () => { tr.remove(); recalcQeTotal(); });
+            if (item.unit) tr.querySelector("[data-qe-unit]").value = item.unit;
+            recalcQeTotal();
+          };
+          // 綁定「+ 新增物料」按鈕
+          const qeAddBtn = drawer.querySelector("#qeAddItemBtn");
+          if (qeAddBtn) qeAddBtn.addEventListener("click", () => addQeItemRow());
+          // 載入已有的物料明細；若無則預設新增一行空物料
+          const quotation = quotations.find(q => q.id === quotationState.selectedQuotationId);
+          if (quotation && quotation.items && quotation.items.length > 0) {
+            quotation.items.forEach(item => addQeItemRow(item));
+          } else {
+            addQeItemRow();
+          }
+        }
+
         editForm.addEventListener("submit", (e) => {
           e.preventDefault();
           const formData = new FormData(e.target);
+          // 收集物料明細數據並附加到 formData
+          const qeItemsBody = drawer.querySelector("#qeItemsBody");
+          if (qeItemsBody) {
+            const items = [];
+            qeItemsBody.querySelectorAll("tr").forEach(tr => {
+              const name = tr.querySelector("[data-qe-name]")?.value.trim();
+              if (!name) return;
+              const spec = tr.querySelector("[data-qe-spec]")?.value.trim() || "";
+              const qty = parseInt(tr.querySelector("[data-qe-qty]")?.value) || 1;
+              const unit = tr.querySelector("[data-qe-unit]")?.value || "個";
+              const unitPrice = parseFloat(tr.querySelector("[data-qe-price]")?.value) || 0;
+              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
+            });
+            formData.append("items", JSON.stringify(items));
+          }
           const isRevision = editForm.dataset.isRevision === "1";
           saveQuotationEdit(formData, editForm.dataset.quotationId, isRevision);
         });
@@ -12665,6 +12788,52 @@
       const remark = formData.get("remark");
       quotation.status = newStatus;
       if (remark) quotation.remark = remark;
+
+      // 報價狀態變更為「已中單」時，自動創建採購單（物料明細從報價帶出）
+      if (newStatus === "已中單") {
+        // 檢查是否已有關聯採購單，避免重複創建
+        const existingPO = purchaseOrders.find(po => po.quotationId === quotationId);
+        if (!existingPO) {
+          // 自動生成採購單號：PO-YYYYMMDD-序號
+          const today = new Date();
+          const dateStr = today.toISOString().slice(0, 10).replace(/-/g, "");
+          const seq = String(purchaseOrders.length + 1).padStart(3, "0");
+          const poNumber = `PO-${dateStr}-${seq}`;
+          // 預計到貨日期：默認7天後
+          const expectedDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+          // 從報價帶出物料明細
+          const items = (quotation.items || []).map(item => ({
+            name: item.name || "",
+            spec: item.spec || "",
+            qty: item.qty || 1,
+            unit: item.unit || "個",
+            unitPrice: item.unitPrice || 0,
+            amount: (item.qty || 1) * (item.unitPrice || 0)
+          }));
+          const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
+
+          const po = {
+            id: poNumber,
+            quotationId: quotationId,
+            ticketId: quotation.ticketId || "",
+            supplierId: "",
+            supplierName: "",
+            items: items,
+            totalAmount: totalAmount,
+            status: "待下單",
+            orderDate: "",
+            expectedDate: expectedDate,
+            arrivedDate: "",
+            remark: `由報價 ${quotationId} 自動創建`,
+            createdBy: currentRole().name
+          };
+          purchaseOrders.push(po);
+          toast(`已自動創建採購單 ${poNumber}`);
+        } else {
+          toast(`報價 ${quotationId} 已有關聯採購單 ${existingPO.id}，未重複創建`);
+        }
+      }
+
       saveDataToLocalStorage();
       render();
     }
@@ -12947,7 +13116,7 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
       
-      quotation.procurementStatus = "採購中";
+      quotation.procurementStatus = "待下單";
       quotation.completionPaperStatus = "待制作";
       quotation.completionPaperDueDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       
@@ -13411,74 +13580,157 @@
       if (action === "cancel" && !confirm("確定取消此採購單嗎？")) return;
       po.status = step.next;
       if (step.field) po[step.field] = step.value;
+
+      // 採購單狀態變化時，同步更新關聯報價的採購狀態（procurementStatus）
+      // 報價採購狀態與採購單狀態完全一致（除「已關單」為報價特有終態）
+      if (po.quotationId) {
+        const quotation = quotations.find(q => q.id === po.quotationId);
+        if (quotation) {
+          quotation.procurementStatus = step.next;
+        }
+      }
+
       saveDataToLocalStorage();
       toast(step.msg);
 
-      // 採購驗收完成時，通知對應工單的 TL 採購完畢可派出工單
-      if (action === "verify" && po.ticketId) {
-        const ticket = tickets.find(t => t.id === po.ticketId);
-        if (ticket) {
-          const tlUser = users.find(u => u.name === ticket.tl && u.role === "TL" && isEnabled(u.status));
-          if (tlUser) {
-            createNotification({
-              module: "ticket",
-              level: "action",
-              title: "採購完畢，可派出工單",
-              content: `工單 ${ticket.id} - ${ticket.customer}`,
-              subContent: `採購單 ${po.id} 已驗收完成，客戶 ${ticket.customer}（區域：${ticket.area}）的工單可派工處理。聯繫人：${ticket.contact || "無"}，電話：${ticket.phone || "無"}`,
-              targetPage: "dispatch",
-              targetId: ticket.id,
-              receiverId: tlUser.id,
-              receiverRole: "TEAM_LEADER"
-            });
-          }
+      // 採購驗收完成時，自動建立待分派工單
+      // 情況1：採購單關聯了原工單（Call→工單→報價→採購），基於原工單 ID 添加 (N) 後綴
+      // 情況2：採購單僅關聯報價（標書→報價→採購），基於報價客戶信息創建全新工單
+      if (action === "verify") {
+        if (po.ticketId) {
+          // 情況1：有關聯工單，通知對應工單的 TL 並基於原工單 ID 添加 (N) 後綴建立新工單
+          const ticket = tickets.find(t => t.id === po.ticketId);
+          if (ticket) {
+            const tlUser = users.find(u => u.name === ticket.tl && u.role === "TL" && isEnabled(u.status));
+            if (tlUser) {
+              createNotification({
+                module: "ticket",
+                level: "action",
+                title: "採購完畢，可派出工單",
+                content: `工單 ${ticket.id} - ${ticket.customer}`,
+                subContent: `採購單 ${po.id} 已驗收完成，客戶 ${ticket.customer}（區域：${ticket.area}）的工單可派工處理。聯繫人：${ticket.contact || "無"}，電話：${ticket.phone || "無"}`,
+                targetPage: "dispatch",
+                targetId: ticket.id,
+                receiverId: tlUser.id,
+                receiverRole: "TEAM_LEADER"
+              });
+            }
 
-          // 自動建立待分派工單：基於原工單 ID 添加 (N) 後綴
-          // 規則：原工單 WO-20260615-003 → 新工單 WO-20260615-003(2)
-          //       若原工單已有 (N) 後綴，則遞增為 (N+1)
-          const origId = ticket.id;
-          let newId;
-          const suffixMatch = origId.match(/^(.+)\((\d+)\)$/);
-          if (suffixMatch) {
-            // 原 ID 已有 (N) 後綴，遞增為 (N+1)
-            newId = `${suffixMatch[1]}(${parseInt(suffixMatch[2], 10) + 1})`;
-          } else {
-            // 原 ID 無後綴，添加 (2)
-            newId = `${origId}(2)`;
-          }
+            // 自動建立待分派工單：基於原工單 ID 添加 (N) 後綴
+            // 規則：原工單 WO-20260615-003 → 新工單 WO-20260615-003(2)
+            //       若原工單已有 (N) 後綴，則遞增為 (N+1)
+            const origId = ticket.id;
+            let newId;
+            const suffixMatch = origId.match(/^(.+)\((\d+)\)$/);
+            if (suffixMatch) {
+              // 原 ID 已有 (N) 後綴，遞增為 (N+1)
+              newId = `${suffixMatch[1]}(${parseInt(suffixMatch[2], 10) + 1})`;
+            } else {
+              // 原 ID 無後綴，添加 (2)
+              newId = `${origId}(2)`;
+            }
 
-          // 避免重複建立（理論上採購單狀態已變為「已驗收」不會再次觸發，但仍做防護）
-          if (!tickets.find(t => t.id === newId)) {
-            const now = new Date();
-            const dateStr = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-            const creatorName = currentRole().name;
-            const newTicket = {
-              id: newId,
-              customerId: ticket.customerId,
-              type: ticket.type,
-              customer: ticket.customer,
-              contact: ticket.contact,
-              phone: ticket.phone,
-              channel: ticket.channel,
-              area: ticket.area,
-              address: ticket.address,
-              status: "待分派",
-              owner: creatorName,
-              tl: ticket.tl,
-              master: "",
-              createdAt: dateStr,
-              updatedAt: dateStr,
-              desc: ticket.desc,
-              records: [{ time: dateStr.slice(-5), actor: creatorName, text: `採購驗收完成（採購單 ${po.id}），自動建立派工工單，原工單：${origId}。` }],
-              attachments: [],
-              tags: [],
-              urgent: false,
-              parentTicketId: origId,  // 關聯原工單 ID
-              sourcePOId: po.id         // 關聯採購單 ID
-            };
-            tickets.unshift(newTicket);
-            saveDataToLocalStorage();
-            toast(`已自動建立待分派工單 ${newId}`);
+            // 避免重複建立（理論上採購單狀態已變為「已驗收」不會再次觸發，但仍做防護）
+            if (!tickets.find(t => t.id === newId)) {
+              const now = new Date();
+              const dateStr = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+              const creatorName = currentRole().name;
+              const newTicket = {
+                id: newId,
+                customerId: ticket.customerId,
+                type: ticket.type,
+                customer: ticket.customer,
+                contact: ticket.contact,
+                phone: ticket.phone,
+                channel: ticket.channel,
+                area: ticket.area,
+                address: ticket.address,
+                status: "待分派",
+                owner: creatorName,
+                tl: ticket.tl,
+                master: "",
+                createdAt: dateStr,
+                updatedAt: dateStr,
+                desc: ticket.desc,
+                records: [{ time: dateStr.slice(-5), actor: creatorName, text: `採購驗收完成（採購單 ${po.id}），自動建立派工工單，原工單：${origId}。` }],
+                attachments: [],
+                tags: [],
+                urgent: false,
+                parentTicketId: origId,  // 關聯原工單 ID
+                sourcePOId: po.id         // 關聯採購單 ID
+              };
+              tickets.unshift(newTicket);
+              saveDataToLocalStorage();
+              toast(`已自動建立待分派工單 ${newId}`);
+            }
+          }
+        } else if (po.quotationId) {
+          // 情況2：無關聯工單，但有關聯報價（標書→報價→採購線路）
+          // 基於報價的客戶信息創建全新工單
+          const quotation = quotations.find(q => q.id === po.quotationId);
+          if (quotation && quotation.customerName) {
+            // 從客戶表查找客戶詳情（聯繫人、電話、地址、類型）
+            const customer = customers.find(c => c.nameZh === quotation.customerName || c.id === quotation.customerId);
+            // 從客戶地址表取得區域對應的 TL 與地址
+            const customerArea = quotation.area || (customer && customer.addresses && customer.addresses[0] ? customer.addresses[0].area : "");
+            const addressObj = customer && customer.addresses ? customer.addresses.find(a => a.area === customerArea) || customer.addresses[0] : null;
+            const contactObj = customer && customer.contacts && customer.contacts.length > 0 ? customer.contacts[0] : null;
+
+            // 生成全新工單編號（依客戶類型自動判斷前綴：政府用 ECA，其他用 WO）
+            const newTicketId = generateWorkOrderId(customer);
+
+            // 避免重複建立
+            if (!tickets.find(t => t.id === newTicketId)) {
+              const now = new Date();
+              const dateStr = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+              const creatorName = currentRole().name;
+              const newTicket = {
+                id: newTicketId,
+                customerId: (customer && customer.id) || quotation.customerId || "",
+                type: (customer && customer.type) || "私人",
+                customer: quotation.customerName,
+                contact: contactObj ? contactObj.name : "",
+                phone: contactObj ? contactObj.phone : "",
+                channel: "採購驗收",
+                area: customerArea,
+                address: addressObj ? addressObj.addressZh : "",
+                status: "待分派",
+                owner: creatorName,
+                tl: addressObj ? addressObj.tl : "",
+                master: "",
+                createdAt: dateStr,
+                updatedAt: dateStr,
+                desc: quotation.title || quotation.remark || `由採購單 ${po.id} 驗收完成自動建立`,
+                records: [{ time: dateStr.slice(-5), actor: creatorName, text: `採購驗收完成（採購單 ${po.id}），由報價 ${quotation.id} 自動建立派工工單。` }],
+                attachments: [],
+                tags: [],
+                urgent: false,
+                parentTicketId: "",       // 無原工單
+                sourcePOId: po.id,        // 關聯採購單 ID
+                sourceQuotationId: quotation.id  // 關聯報價 ID
+              };
+              tickets.unshift(newTicket);
+              saveDataToLocalStorage();
+              toast(`已自動建立待分派工單 ${newTicketId}`);
+
+              // 通知該區域的 TL 有新工單待分派
+              if (addressObj && addressObj.tl) {
+                const tlUser = users.find(u => u.name === addressObj.tl && u.role === "TL" && isEnabled(u.status));
+                if (tlUser) {
+                  createNotification({
+                    module: "ticket",
+                    level: "action",
+                    title: "採購完畢，新工單待分派",
+                    content: `工單 ${newTicketId} - ${quotation.customerName}`,
+                    subContent: `採購單 ${po.id} 已驗收完成，客戶 ${quotation.customerName}（區域：${customerArea}）的新工單可派工處理。`,
+                    targetPage: "dispatch",
+                    targetId: newTicketId,
+                    receiverId: tlUser.id,
+                    receiverRole: "TEAM_LEADER"
+                  });
+                }
+              }
+            }
           }
         }
       }
@@ -15427,8 +15679,17 @@
     // 生成新的標書編號：T-YYYY-NNN
     function generateTenderNo() {
       const year = new Date().getFullYear();
-      const yearCount = tenders.filter(t => (t.id || "").startsWith(`T-${year}-`)).length + 1;
-      return `T-${year}-${String(yearCount).padStart(3, '0')}`;
+      // 找出當前年份已存在的最大序號，+1 生成新序號（避免刪除後重複）
+      const prefix = `T-${year}-`;
+      let maxSeq = 0;
+      tenders.forEach(t => {
+        const id = t.id || "";
+        if (id.startsWith(prefix)) {
+          const seq = parseInt(id.slice(prefix.length), 10);
+          if (!isNaN(seq) && seq > maxSeq) maxSeq = seq;
+        }
+      });
+      return `T-${year}-${String(maxSeq + 1).padStart(3, '0')}`;
     }
 
     // 打開新建/編輯標書彈窗
@@ -15499,17 +15760,16 @@
                 <!-- 客戶（下拉單選，關聯客戶管理的客戶名稱） -->
                 <div class="qf-field">
                   <label class="qf-label">客戶 ${requiredStar}</label>
-                  <select class="qf-select" name="client" required>
+                  <select class="qf-input" name="client" id="tenderClientSelect" required data-search-select-enhanced="true">
                     <option value="">請選擇客戶</option>
-                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
+                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}" data-area="${escapeHtml(c.area || '')}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
                   </select>
                 </div>
-                <!-- EC負責人（下拉單選，關聯用戶管理中的主管名稱） -->
+                <!-- EC負責人（下拉單選，依客戶所在區域篩選） -->
                 <div class="qf-field">
                   <label class="qf-label">EC負責人 ${requiredStar}</label>
-                  <select class="qf-select" name="owner" required>
-                    <option value="">請選擇EC負責人</option>
-                    ${users.filter(u => u.role === "TL" && u.status === "啓用").map(u => `<option value="${escapeHtml(u.name)}" ${t.owner === u.name ? 'selected' : ''}>${escapeHtml(u.name)}</option>`).join("")}
+                  <select class="qf-input" name="owner" id="tenderOwnerSelect" required data-search-select-enhanced="true">
+                    <option value="">請先選擇客戶</option>
                   </select>
                 </div>
               </div>
@@ -15673,6 +15933,34 @@
         });
         input.addEventListener("change", () => renderTenderFileList(input.files, listContainer));
       });
+
+      // 客戶選擇聯動：依客戶所在區域篩選EC負責人（TL）
+      const clientSelect = modal.querySelector("#tenderClientSelect");
+      const ownerSelect = modal.querySelector("#tenderOwnerSelect");
+      // 依區域更新EC負責人下拉選項，selectedOwner 用於編輯時回顯原值
+      const refreshOwnerByClient = (clientName, selectedOwner = "") => {
+        const customer = customers.find(c => c.nameZh === clientName);
+        // 客戶區域存於 addresses[0].area，非頂層 area 字段
+        const area = customer && customer.addresses && customer.addresses[0] ? customer.addresses[0].area : '';
+        if (!area) {
+          ownerSelect.innerHTML = '<option value="">請先選擇客戶</option>';
+          return;
+        }
+        const filtered = users.filter(u => u.role === "TL" && u.status === "啓用" && u.area === area);
+        if (filtered.length === 0) {
+          ownerSelect.innerHTML = '<option value="">該區域暫無EC負責人</option>';
+        } else {
+          ownerSelect.innerHTML = '<option value="">請選擇EC負責人</option>' + filtered.map(u => `<option value="${escapeHtml(u.name)}" ${selectedOwner === u.name ? 'selected' : ''}>${escapeHtml(u.name)}（${escapeHtml(u.area)}）</option>`).join("");
+        }
+      };
+      // 綁定客戶 change 事件
+      if (clientSelect) {
+        clientSelect.addEventListener("change", () => refreshOwnerByClient(clientSelect.value));
+      }
+      // 編輯模式：初始載入時依已有客戶篩選EC負責人並回顯原值
+      if (t.client) {
+        refreshOwnerByClient(t.client, t.owner || "");
+      }
 
       // 表單提交
       modal.querySelector("#tenderForm").addEventListener("submit", (e) => {
@@ -15937,6 +16225,7 @@
         area: tender.tenderRegion || "",
         category: tender.tenderCategory || "",
         attachments: [],
+        items: [],
         remark: tender.remark || "",
         history: [{ action: "自動創建", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: "由標書中標觸發自動創建" }]
       };
@@ -19125,6 +19414,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
 
       // 報價操作事件（保留：標記中標、不投標、創建修訂版、啟動採購、完工紙管理、採購部關單）
+      document.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       document.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
       document.querySelectorAll("[data-mark-no-offer]").forEach(btn => btn.addEventListener("click", () => markNoOffer(btn.dataset.markNoOffer)));
       document.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
