@@ -11,4 +11,5 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
-http.server.HTTPServer(('localhost', port), NoCacheHandler).serve_forever()
+# 使用多線程服務器，避免大文件傳輸時阻塞其他請求
+http.server.ThreadingHTTPServer(('localhost', port), NoCacheHandler).serve_forever()

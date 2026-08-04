@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>ECInfo CALL 系統 UI 原型</title>
   <style>
     :root {
@@ -545,6 +548,7 @@
       padding: 0 10px;
     }
     .dropdown button:hover { background: var(--panel-soft); }
+    .dropdown button.dropdown-logout { color: var(--danger); border-top: 1px solid var(--line); border-radius: 0 0 6px 6px; margin-top: 4px; }
 
     .content {
       padding: 20px 22px 28px;
@@ -2996,7 +3000,9 @@
       top: 0;
       right: 0;
       bottom: 0;
-      width: 420px;
+      /* 寬度占右側工作區域的一半，由 JS 根據側邊欄狀態動態設置 --drawer-width */
+      width: var(--drawer-width, calc(50vw - 100px));
+      min-width: 480px;
       max-width: 100vw;
       background: var(--panel);
       border-left: 1px solid var(--line);
@@ -3071,6 +3077,110 @@
     .wo-drawer-body::-webkit-scrollbar-thumb {
       background: var(--line);
       border-radius: 3px;
+    }
+    /* Call 管理客戶詳情側邊欄：客戶資訊固定，歷史 Call 列表獨立滾動 */
+    .wo-drawer-body-call {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+    .call-detail-fixed {
+      flex-shrink: 0;
+      padding: 20px 20px 12px;
+    }
+    .call-history-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 0 20px 20px;
+    }
+    .call-history-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .call-history-head {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .call-history-list {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+    }
+    .call-history-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .call-history-list::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 3px;
+    }
+    .call-history-pagination {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .call-history-pagination .pg-size-btns {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .call-history-pagination .pg-size-btn {
+      min-width: 32px;
+      height: 28px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--text);
+      transition: all 0.15s ease;
+    }
+    .call-history-pagination .pg-size-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .call-history-pagination .pg-size-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .call-history-pagination .pg-btns {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .call-history-pagination .pg-btns button {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 6px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .call-history-pagination .pg-btns button.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .call-history-pagination .pg-btns button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
     .wo-detail-section {
       margin-bottom: 16px;
@@ -3338,6 +3448,7 @@
       /* 抽屜在小螢幕下全螢幕顯示 */
       .wo-drawer {
         width: 100vw;
+        min-width: 0;
       }
     }
 
@@ -3964,9 +4075,516 @@
     .dm-drawer-footer,
     .wo-modal-footer,
     .wo-drawer-footer { gap: 8px; }
+
+    /* ==================== 登入頁面樣式 ==================== */
+    /* 登入頁全屏覆蓋層：左品牌區 40% + 右登入區 60%，背景淺藍灰漸變 */
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      background: linear-gradient(135deg, #eef3fb 0%, #dde7f7 100%);
+    }
+    /* 左側品牌區：深藍漸變背景，展示 EC logo、系統介紹與工程視覺元素 */
+    .login-brand {
+      width: 40%;
+      background: linear-gradient(160deg, #10233a 0%, #1e3a5f 60%, #0b1b2e 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 56px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-brand::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(30,107,255,.22), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(94,175,255,.16), transparent 45%);
+      pointer-events: none;
+    }
+    .login-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .login-brand-logo .logo-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1e6bff, #5b8fff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(30,107,255,.4);
+    }
+    .login-brand-logo strong { font-size: 22px; font-weight: 700; }
+    .login-brand-title { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 16px; position: relative; }
+    .login-brand-title span { color: #5b8fff; }
+    .login-brand-desc { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,.72); max-width: 420px; margin-bottom: 40px; position: relative; }
+    .login-brand-features { display: flex; flex-direction: column; gap: 14px; position: relative; }
+    .login-brand-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,.85); }
+    .login-brand-feature .feat-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(91,143,255,.18);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      flex-shrink: 0;
+    }
+    .login-brand-footer { position: absolute; bottom: 32px; left: 48px; right: 48px; font-size: 12px; color: rgba(255,255,255,.4); }
+
+    /* 右側登入區：置中白色登入卡片 */
+    .login-area {
+      width: 60%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 36px 24px;
+      box-shadow: 0 16px 40px rgba(16,35,58,.1);
+      position: relative;
+    }
+    .login-card h2 { margin: 0 0 6px; font-size: 24px; font-weight: 700; color: #1f2937; }
+    .login-card .login-sub { margin: 0 0 24px; font-size: 13px; color: #687386; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 12px; color: #687386; margin-bottom: 6px; font-weight: 500; }
+    .login-field input {
+      width: 100%;
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid #dde5f0;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f8fafd;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .login-field input:focus {
+      outline: none;
+      border-color: #2563eb;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+    .login-btn {
+      width: 100%;
+      height: 48px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 4px;
+      transition: background .2s, box-shadow .2s;
+    }
+    .login-btn:hover { background: #1d4ed8; box-shadow: 0 6px 16px rgba(37,99,235,.3); }
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 16px;
+      font-size: 12px;
+      color: #9aa7bb;
+    }
+    .login-divider::before, .login-divider::after {
+      content: ""; flex: 1; height: 1px; background: #e5ecf5;
+    }
+    /* 角色卡片 3x3 網格 */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .role-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 12px 6px;
+      border: 1.5px solid #e5ecf5;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      transition: all .18s;
+      text-align: center;
+    }
+    .role-card:hover { border-color: #2563eb; background: #f0f6ff; transform: translateY(-1px); }
+    .role-card.active { border-color: #2563eb; background: #eff5ff; box-shadow: 0 0 0 2px rgba(37,99,235,.14); }
+    .role-card .rc-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: #eaf1ff; color: #1e6bff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+    }
+    .role-card.active .rc-icon { background: #2563eb; color: #fff; }
+    .role-card .rc-label { font-size: 12px; font-weight: 600; color: #1f2937; line-height: 1.2; }
+    .role-card .rc-count { font-size: 10px; color: #9aa7bb; }
+    /* 人員選擇 Modal：點擊角色卡片後在頁面中間彈出 */
+    .login-person-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(15,23,42,.45);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-person-modal-overlay.hidden { display: none; }
+    .login-person-modal {
+      width: min(420px, calc(100vw - 32px));
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 24px 64px rgba(15,23,42,.24);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .login-person-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5ecf5;
+    }
+    .login-person-modal-head h3 { margin: 0; font-size: 16px; font-weight: 600; color: #1f2937; }
+    .login-person-modal-close {
+      background: none; border: none; font-size: 22px; color: #687386;
+      cursor: pointer; padding: 0 4px; line-height: 1;
+    }
+    .login-person-modal-close:hover { color: #1f2937; }
+    .login-person-search-wrap { padding: 12px 20px; border-bottom: 1px solid #f0f4fa; }
+    .login-person-search-wrap input {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid #dde5f0;
+      border-radius: 8px;
+      font-size: 13px;
+      background: #f8fafd;
+    }
+    .login-person-search-wrap input:focus {
+      outline: none;
+      border-color: #2563eb;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+    /* 人員列表：最多顯示6人高度，超出滾動 */
+    .login-person-list {
+      max-height: 336px;
+      overflow-y: auto;
+      padding: 6px;
+    }
+    .login-person-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .login-person-list-item:hover { background: #eaf1ff; }
+    .login-person-list-item .lpl-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #1e6bff; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; flex-shrink: 0;
+    }
+    .login-person-list-item .lpl-info { flex: 1; min-width: 0; }
+    .login-person-list-item .lpl-name { font-size: 14px; font-weight: 500; color: #1f2937; }
+    .login-person-list-item .lpl-meta { font-size: 12px; color: #9aa7bb; }
+    .login-person-list-item .lpl-enter { color: #9aa7bb; font-size: 16px; }
+    .login-person-list-empty { text-align: center; padding: 32px; color: #9aa7bb; font-size: 13px; }
+    /* 暗色模式兼容 */
+    [data-theme="dark"] .login-screen { background: linear-gradient(135deg, #0d1523 0%, #101a2b 100%); }
+    [data-theme="dark"] .login-card { background: var(--panel); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+    [data-theme="dark"] .login-card h2 { color: var(--text); }
+    [data-theme="dark"] .login-field input { background: var(--panel-soft); border-color: var(--line); color: var(--text); }
+    [data-theme="dark"] .role-card { background: var(--panel-soft); border-color: var(--line); }
+    [data-theme="dark"] .role-card .rc-label { color: var(--text); }
+    [data-theme="dark"] .role-card:hover { background: var(--primary-soft); }
+    [data-theme="dark"] .person-panel { background: var(--panel-soft); border-color: var(--line); }
+    [data-theme="dark"] .person-panel-header { background: rgba(91,143,255,.12); color: var(--text); }
+    [data-theme="dark"] .person-item .pi-name { color: var(--text); }
+    [data-theme="dark"] .login-divider::before, [data-theme="dark"] .login-divider::after { background: var(--line); }
+
+    /* ==================== 主題設置浮窗 ==================== */
+    .theme-popup-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10008;
+      background: transparent;
+    }
+    .theme-popup-overlay.hidden { display: none; }
+    .theme-popup {
+      position: fixed;
+      top: 56px;
+      right: 16px;
+      width: 300px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.2);
+      z-index: 10009;
+      overflow: hidden;
+      animation: theme-popup-enter 0.18s ease both;
+    }
+    .theme-popup.hidden { display: none; }
+    @keyframes theme-popup-enter {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .theme-popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .theme-popup-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+      padding: 0;
+    }
+    .theme-popup-close:hover { color: var(--text); }
+    .theme-popup-body {
+      padding: 8px;
+    }
+    .theme-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .theme-option:hover {
+      background: var(--hover);
+    }
+    .theme-option.active {
+      background: var(--primary-soft);
+    }
+    .theme-option-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .theme-option-text {
+      flex: 1;
+    }
+    .theme-option-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .theme-option-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .theme-option-check {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .theme-option.active .theme-option-check::after {
+      content: "✓";
+      display: block;
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 18px;
+    }
+
+    /* ==================== 角色切換浮動面板 ==================== */
+    /* 浮動面板：左側角色列表 + 右側人員列表，點擊外部關閉 */
+    .role-switch-panel {
+      position: fixed;
+      top: 56px;
+      right: 16px;
+      width: 520px;
+      max-width: calc(100vw - 32px);
+      max-height: 480px;
+      background: var(--panel, #fff);
+      border: 1px solid var(--line, #e5ecf5);
+      border-radius: 12px;
+      box-shadow: 0 16px 48px rgba(15,23,42,.18);
+      z-index: 1200;
+      display: flex;
+      overflow: hidden;
+    }
+    .role-switch-panel.hidden { display: none; }
+    /* 左側角色列表 */
+    .rsp-left {
+      width: 180px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--line, #e5ecf5);
+      overflow-y: auto;
+      padding: 6px;
+    }
+    .rsp-role-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .rsp-role-item:hover { background: var(--panel-soft, #f0f4fa); }
+    .rsp-role-item.active { background: var(--primary-soft, #eaf1ff); }
+    .rsp-role-item .rsp-role-icon {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--primary-soft, #eaf1ff); color: #1e6bff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+    }
+    .rsp-role-item.active .rsp-role-icon { background: #2563eb; color: #fff; }
+    .rsp-role-item .rsp-role-label { font-size: 13px; font-weight: 500; color: var(--text, #1f2937); }
+    .rsp-role-item .rsp-role-count { font-size: 11px; color: #9aa7bb; margin-left: auto; }
+    /* 右側人員列表 */
+    .rsp-right {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px;
+    }
+    .rsp-right-header {
+      font-size: 12px;
+      color: var(--text-light, #687386);
+      padding: 8px 10px 6px;
+      border-bottom: 1px solid var(--line, #e5ecf5);
+      margin-bottom: 4px;
+    }
+    .rsp-person-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .rsp-person-item:hover { background: var(--primary-soft, #eaf1ff); }
+    .rsp-person-item.current { background: var(--primary-soft, #eaf1ff); }
+    .rsp-person-item .rsp-person-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #1e6bff; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; flex-shrink: 0;
+    }
+    .rsp-person-item .rsp-person-info { flex: 1; min-width: 0; }
+    .rsp-person-item .rsp-person-name { font-size: 13px; font-weight: 500; color: var(--text, #1f2937); }
+    .rsp-person-item .rsp-person-meta { font-size: 11px; color: #9aa7bb; }
+    .rsp-person-item .rsp-person-check { color: #2563eb; font-size: 14px; }
   </style>
 </head>
 <body>
+  <!-- 登入頁面：未登入時顯示，登入後隱藏 -->
+  <div class="login-screen hidden" id="loginScreen">
+    <!-- 左側品牌區 -->
+    <div class="login-brand">
+      <div class="login-brand-logo">
+        <div class="logo-mark">EC</div>
+        <strong>ECInfo Call系統</strong>
+      </div>
+      <div class="login-brand-title">工程工單<span>智能管理</span><br>一站式服務平台</div>
+      <div class="login-brand-desc">覆蓋 CALL 管理、分派排程、報價採購、會計報表全流程，助力工程團隊高效協作、精準決策。</div>
+      <div class="login-brand-features">
+        <div class="login-brand-feature"><span class="feat-icon">📋</span><span>CALL 全生命週期管理，從報修到完工閉環</span></div>
+        <div class="login-brand-feature"><span class="feat-icon">📤</span><span>智能分派排程，師傅負載一目了然</span></div>
+        <div class="login-brand-feature"><span class="feat-icon">📊</span><span>多維度統計報表，管理決策有據可依</span></div>
+        <div class="login-brand-feature"><span class="feat-icon">📱</span><span>移動端工作台，師傅外勤隨時處理</span></div>
+      </div>
+      <div class="login-brand-footer">© 2026 ECInfo Engineering Co., Ltd. 版權所有</div>
+    </div>
+    <!-- 右側登入區 -->
+    <div class="login-area">
+      <div class="login-card">
+        <h2>歡迎登入</h2>
+        <p class="login-sub">請輸入賬號密碼，或快速選擇角色登入</p>
+        <div class="login-field">
+          <label>賬號</label>
+          <input type="text" id="loginAccount" placeholder="請輸入員工編號或賬號" autocomplete="off">
+        </div>
+        <div class="login-field">
+          <label>密碼</label>
+          <input type="password" id="loginPassword" placeholder="請輸入密碼" autocomplete="off">
+        </div>
+        <button class="login-btn" id="loginSubmitBtn">登入</button>
+        <div class="login-divider">快速選擇角色登入</div>
+        <div class="role-grid" id="loginRoleGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 登入頁角色人員選擇 Modal：點擊角色卡片後彈出，含搜索框+可滾動人員列表 -->
+  <div class="login-person-modal-overlay hidden" id="loginPersonModal">
+    <div class="login-person-modal">
+      <div class="login-person-modal-head">
+        <h3 id="loginPersonModalTitle">請選擇登入人員</h3>
+        <button class="login-person-modal-close" id="loginPersonModalClose">×</button>
+      </div>
+      <div class="login-person-search-wrap">
+        <input type="text" id="loginPersonSearch" placeholder="搜索姓名或編號..." autocomplete="off">
+      </div>
+      <div class="login-person-list" id="loginPersonList"></div>
+    </div>
+  </div>
+
+  <!-- 角色切換浮動面板：登入後點擊用戶下拉菜單中的「切換角色」時顯示 -->
+  <div class="role-switch-panel hidden" id="roleSwitchPanel">
+    <div class="rsp-left" id="rspRoleList"></div>
+    <div class="rsp-right" id="rspPersonList"></div>
+  </div>
+
+  <!-- 主題設置浮窗：點擊用戶菜單「主題設置」後彈出，可選擇顏色模式 -->
+  <div class="theme-popup-overlay hidden" id="themePopupOverlay"></div>
+  <div class="theme-popup hidden" id="themePopup">
+    <div class="theme-popup-header">
+      <span>主題設置</span>
+      <button class="theme-popup-close" id="themePopupClose">×</button>
+    </div>
+    <div class="theme-popup-body">
+      <div class="theme-option" data-theme-option="light">
+        <div class="theme-option-icon">☀️</div>
+        <div class="theme-option-text">
+          <div class="theme-option-label">亮色模式</div>
+          <div class="theme-option-desc">明亮的界面，適合白天使用</div>
+        </div>
+        <div class="theme-option-check"></div>
+      </div>
+      <div class="theme-option" data-theme-option="dark">
+        <div class="theme-option-icon">🌙</div>
+        <div class="theme-option-text">
+          <div class="theme-option-label">暗色模式</div>
+          <div class="theme-option-desc">深色的界面，適合夜間使用</div>
+        </div>
+        <div class="theme-option-check"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="app" id="app">
     <aside class="sidebar">
       <div class="brand">
@@ -3987,7 +4605,6 @@
             <h1 id="pageTitle">首頁</h1>
           </div>
           <div class="workspace-controls" aria-label="工作區控制項">
-            <div class="segmented" id="roleSwitch" aria-label="角色切換"></div>
             <div class="segmented" id="viewSwitch" aria-label="視圖切換">
               <button data-view="pc" class="active">PC 端</button>
               <button data-view="mobile">移動端</button>
@@ -3995,7 +4612,6 @@
           </div>
         </div>
         <div class="topbar-system-right">
-          <button class="toolbar-btn" id="themeBtn">暗色模式</button>
           <div class="noti-wrapper" id="notiWrapper">
             <button class="noti-bell" id="notiBell" title="通知中心">
               🔔
@@ -4013,11 +4629,11 @@
               <span>⌄</span>
             </button>
             <div class="dropdown" id="userDropdown">
-              <button>個人信息</button>
-              <button>切換角色</button>
-              <button>主題設置</button>
-              <button>通知設置</button>
-              <button>退出登錄</button>
+              <button data-user-action="profile">個人信息</button>
+              <button data-user-action="switchRole">切換角色</button>
+              <button data-user-action="theme">主題設置</button>
+              <button data-user-action="notify">通知設置</button>
+              <button data-user-action="logout" class="dropdown-logout">退出登錄</button>
             </div>
           </div>
         </div>
@@ -4449,6 +5065,31 @@
       { key: "report", label: "統計報表", icon: "📊", sub: "MVP 基礎統計，不含複雜 BI" },
       { key: "settings", label: "基礎設置", icon: "⚙️", sub: "字典管理、客戶管理、用戶管理" }
     ];
+    // 角色權限矩陣：定義每個角色可訪問的頁面；"*" 表示擁有全部頁面權限
+    const ROLE_PAGES = {
+      CS: ["dashboard", "workorder", "srFolder", "settings"],
+      CR: ["dashboard", "workorder", "srFolder", "report", "settings"],
+      TL: ["dashboard", "workorder", "dispatch", "srFolder", "report", "settings"],
+      MASTER: ["dashboard", "dispatch", "srFolder"],
+      QUO: ["dashboard", "quotations", "tender"],
+      PUR: ["dashboard", "procurement", "report"],
+      FIN: ["dashboard", "finance", "report"],
+      ADMIN: "*",
+      BOSS: "*"
+    };
+    // 判斷當前角色是否有權限訪問指定頁面
+    function hasPagePermission(roleKey, pageKey) {
+      const allowed = ROLE_PAGES[roleKey];
+      if (!allowed) return false;
+      if (allowed === "*") return true;
+      return allowed.includes(pageKey);
+    }
+    // 獲取當前角色可訪問的頁面列表（用於側邊欄過濾）
+    function getRolePages(roleKey) {
+      const allowed = ROLE_PAGES[roleKey];
+      if (allowed === "*") return PAGES;
+      return PAGES.filter(p => allowed.includes(p.key));
+    }
     const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動端", icon: "📱", sub: "師傅服務與主管分派工作台" };
     const MOBILE_PAGES = [
       { key: "masterHome", label: "首頁", title: "師傅首頁" },
@@ -4718,6 +5359,52 @@
       }
     });
     if (hasMigratedTlRegions) {
+      localStorage.setItem('ecinfo_users', JSON.stringify(users));
+    }
+
+    // 遷移：為每個角色每個區域添加預設人物（不重置已有用戶數據）
+    const PRESET_NEW_USERS = [
+      // CS 客戶服務部
+      { id: "U018", name: "林小姐", employeeNo: "EMP0018", role: "CS", area: "1區", phone: "+85291018018", email: "cs.lam@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-07-01 08:30", createdAt: "2026-05-01" },
+      { id: "U019", name: "張小姐", employeeNo: "EMP0019", role: "CS", area: "2區", phone: "+85291019019", email: "cs.cheung2@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-07-02 09:00", createdAt: "2026-05-10" },
+      { id: "U020", name: "李小姐", employeeNo: "EMP0020", role: "CS", area: "3區", phone: "+85291020020", email: "cs.lee2@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-07-01 17:30", createdAt: "2026-05-15" },
+      // CR 客戶關係部
+      { id: "U021", name: "陳關係", employeeNo: "EMP0021", role: "CR", area: "1區", phone: "+85291021021", email: "cr.chan2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 10:15", createdAt: "2026-05-20" },
+      { id: "U022", name: "李關係", employeeNo: "EMP0022", role: "CR", area: "3區", phone: "+85291022022", email: "cr.lee2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-01 14:00", createdAt: "2026-05-25" },
+      // TL 主管
+      { id: "U023", name: "趙組長", employeeNo: "EMP0023", role: "TL", area: "1區", phone: "+85291023023", email: "tl.chiu@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 08:45", createdAt: "2026-04-15" },
+      // MASTER 師傅
+      { id: "U024", name: "趙師傅", employeeNo: "EMP0024", role: "MASTER", area: "1區", phone: "+85291024024", email: "master.chiu@ecinfo.com", manager: "TL-003", status: "啓用", lastLogin: "2026-07-02 07:30", createdAt: "2026-04-20" },
+      { id: "U025", name: "馮師傅", employeeNo: "EMP0025", role: "MASTER", area: "3區", phone: "+85291025025", email: "master.fung@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-07-01 16:00", createdAt: "2026-04-25" },
+      { id: "U036", name: "楊師傅", employeeNo: "EMP0036", role: "MASTER", area: "1區", phone: "+85291036036", email: "master.yeung@ecinfo.com", manager: "TL-003", status: "啓用", lastLogin: "2026-07-02 08:00", createdAt: "2026-04-28" },
+      { id: "U037", name: "許師傅", employeeNo: "EMP0037", role: "MASTER", area: "1區", phone: "+85291037037", email: "master.hui@ecinfo.com", manager: "TL-003", status: "啓用", lastLogin: "2026-07-01 17:30", createdAt: "2026-05-05" },
+      { id: "U038", name: "鄭師傅", employeeNo: "EMP0038", role: "MASTER", area: "2區", phone: "+85291038038", email: "master.cheng@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-07-02 09:15", createdAt: "2026-05-10" },
+      { id: "U039", name: "何師傅", employeeNo: "EMP0039", role: "MASTER", area: "2區", phone: "+85291039039", email: "master.ho2@ecinfo.com", manager: "TL-001", status: "啓用", lastLogin: "2026-07-01 16:45", createdAt: "2026-05-12" },
+      { id: "U040", name: "鄧師傅", employeeNo: "EMP0040", role: "MASTER", area: "3區", phone: "+85291040040", email: "master.tang@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-07-02 07:45", createdAt: "2026-05-15" },
+      { id: "U041", name: "羅師傅", employeeNo: "EMP0041", role: "MASTER", area: "3區", phone: "+85291041041", email: "master.lo@ecinfo.com", manager: "TL-002", status: "啓用", lastLogin: "2026-07-01 15:30", createdAt: "2026-05-18" },
+      // QUO 報價組
+      { id: "U026", name: "鄒組長", employeeNo: "EMP0026", role: "QUO", area: "1區", phone: "+85291026026", email: "quo.chau@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 09:30", createdAt: "2026-03-10" },
+      { id: "U027", name: "報價李", employeeNo: "EMP0027", role: "QUO", area: "2區", phone: "+85291027027", email: "quo.lee@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-01 15:20", createdAt: "2026-03-15" },
+      { id: "U028", name: "報價王", employeeNo: "EMP0028", role: "QUO", area: "3區", phone: "+85291028028", email: "quo.wong2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 11:00", createdAt: "2026-03-20" },
+      // PUR 採購部
+      { id: "U029", name: "張採購", employeeNo: "EMP0029", role: "PUR", area: "1區", phone: "+85291029029", email: "pur.cheung@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 10:00", createdAt: "2026-03-25" },
+      { id: "U030", name: "採購周", employeeNo: "EMP0030", role: "PUR", area: "2區", phone: "+85291030030", email: "pur.chow@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-01 14:30", createdAt: "2026-03-28" },
+      { id: "U031", name: "採購吳", employeeNo: "EMP0031", role: "PUR", area: "3區", phone: "+85291031031", email: "pur.ng@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 08:15", createdAt: "2026-04-01" },
+      // FIN 會計部
+      { id: "U032", name: "陳會計", employeeNo: "EMP0032", role: "FIN", area: "1區", phone: "+85291032032", email: "fin.chan2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 09:00", createdAt: "2026-04-05" },
+      { id: "U033", name: "財務黃", employeeNo: "EMP0033", role: "FIN", area: "2區", phone: "+85291033033", email: "fin.wong2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-01 17:00", createdAt: "2026-04-10" },
+      { id: "U034", name: "財務梁", employeeNo: "EMP0034", role: "FIN", area: "3區", phone: "+85291034034", email: "fin.leung2@ecinfo.com", manager: "ADMIN-001", status: "啓用", lastLogin: "2026-07-02 10:30", createdAt: "2026-04-12" },
+      // ADMIN 管理員
+      { id: "U035", name: "系統管理員", employeeNo: "EMP0035", role: "ADMIN", area: "2區", phone: "+85291035035", email: "admin2@ecinfo.com", manager: "", status: "啓用", lastLogin: "2026-07-02 08:00", createdAt: "2026-02-15" }
+    ];
+    let hasAddedNewUsers = false;
+    PRESET_NEW_USERS.forEach(u => {
+      if (!users.find(existing => existing.id === u.id)) {
+        users.push(u);
+        hasAddedNewUsers = true;
+      }
+    });
+    if (hasAddedNewUsers) {
       localStorage.setItem('ecinfo_users', JSON.stringify(users));
     }
 
@@ -5916,7 +6603,10 @@
       currentPage: 1,
       pageSize: 10,
       modalOpen: false,
-      modalMode: "create" // "create" or "edit"
+      modalMode: "create", // "create" or "edit"
+      // 客戶詳情側邊欄歷史 Call 列表分頁狀態
+      historyPage: 1,
+      historyPageSize: 5
     };
 
     const $ = (selector) => document.querySelector(selector);
@@ -5946,6 +6636,7 @@
     function getUsersByRole(roleKey) {
       const roleCode = {
         CS: "CS",
+        CR: "CR",
         TL: "TL",
         MASTER: "MASTER",
         QUO: "QUO",
@@ -6016,10 +6707,26 @@
     }
 
     function setPage(page) {
+      // 權限校驗：無權限訪問的頁面直接攔截
+      if (!hasPagePermission(state.role, page)) {
+        toast("您沒有權限訪問該頁面", "error");
+        return;
+      }
       // 離開服務報告模塊時清除彈窗 state，避免再次進入時彈窗自動顯示且無法關閉
       if (state.page === "srFolder" && page !== "srFolder") {
         state.srFolderMetricModal = null;
         state.srFolderReportTicketId = null;
+      }
+      // 導航離開當前頁面時，清除工單詳情抽屜狀態和 standalone 容器，
+      // 避免殘留的抽屜在其他頁面自動顯示且無法關閉
+      if (state.page !== page) {
+        if (workOrderState.selectedWorkOrderId !== null) {
+          workOrderState.selectedWorkOrderId = null;
+        }
+        state.selectedTicketId = null;
+        // 移除工單管理頁的 standalone 抽屜容器（如果存在）
+        const standaloneDrawer = document.getElementById("woDrawerOverlay");
+        if (standaloneDrawer) standaloneDrawer.remove();
       }
       // 如果點擊的是基礎設置且已經在基礎設置頁面，切換展開/收起狀態
       if (page === "settings" && state.page === "settings") {
@@ -6066,10 +6773,10 @@
     }
 
     function openMobileWorkspace() {
+      // 登入後角色固定，僅 TL/MASTER 可進入移動端；其他角色已被外層攔截
       if (!["MASTER", "TL"].includes(state.role)) {
-        state.role = "MASTER";
-        const masterUsers = getUsersByRole("MASTER");
-        state.currentPerson = masterUsers.find(user => tickets.some(t => t.master === user.name && ["待確認", "待處理", "處理中"].includes(t.status))) || masterUsers[0] || null;
+        toast("移動端工作台僅限主管和師傅使用", "error");
+        return;
       }
       state.view = "mobile";
       state.mobilePage = state.role === "TL" ? "tlHome" : "masterHome";
@@ -6079,6 +6786,137 @@
       state.mdDispatchSheetOpen = false;
       state.mdPaperType = "";
       render();
+    }
+
+    // ==================== 登入 / 登出 / 登入頁渲染 ====================
+    // 登入頁面當前選中的角色（點擊角色卡片後彈出人員選擇 Modal）
+    let loginSelectedRole = null;
+    // 人員搜索關鍵詞
+    let loginPersonSearchKeyword = "";
+
+    // 渲染登入頁面：3x3 角色卡片網格
+    function renderLoginScreen() {
+      const roleGrid = $("#loginRoleGrid");
+      if (!roleGrid) return;
+      // 渲染 3x3 角色卡片，點擊後彈出人員選擇 Modal
+      roleGrid.innerHTML = ROLES.map(r => {
+        const count = getUsersByRole(r.key).length;
+        return `<div class="role-card ${loginSelectedRole === r.key ? "active" : ""}" data-login-role="${r.key}">
+          <div class="rc-icon">${r.avatar}</div>
+          <div class="rc-label">${r.label}</div>
+          <div class="rc-count">${count} 人</div>
+        </div>`;
+      }).join("");
+    }
+
+    // 渲染人員選擇 Modal（點擊角色卡片後彈出，含搜索框+可滾動人員列表）
+    function renderLoginPersonModal() {
+      const modal = $("#loginPersonModal");
+      if (!loginSelectedRole) {
+        modal.classList.add("hidden");
+        return;
+      }
+      const roleInfo = ROLES.find(r => r.key === loginSelectedRole);
+      const roleUsers = getUsersByRole(loginSelectedRole);
+      // 按搜索關鍵詞過濾人員
+      const keyword = loginPersonSearchKeyword.toLowerCase().trim();
+      const filteredUsers = keyword
+        ? roleUsers.filter(u =>
+            (u.name || "").toLowerCase().includes(keyword) ||
+            (u.employeeNo || u.id || "").toLowerCase().includes(keyword)
+          )
+        : roleUsers;
+
+      // 更新標題
+      $("#loginPersonModalTitle").textContent = `${roleInfo.label} · 請選擇登入人員（${roleUsers.length} 人）`;
+      // 渲染人員列表
+      const listEl = $("#loginPersonList");
+      if (filteredUsers.length === 0) {
+        listEl.innerHTML = `<div class="login-person-list-empty">未找到匹配的人員</div>`;
+      } else {
+        listEl.innerHTML = filteredUsers.map(u => `
+          <div class="login-person-list-item" data-login-user="${u.id}" data-login-userrole="${loginSelectedRole}">
+            <div class="lpl-avatar">${u.name.slice(0, 1)}</div>
+            <div class="lpl-info">
+              <div class="lpl-name">${u.name}</div>
+              <div class="lpl-meta">${u.employeeNo || u.id} · ${u.area || roleInfo.dept}</div>
+            </div>
+            <span class="lpl-enter">›</span>
+          </div>
+        `).join("");
+      }
+      // 顯示 Modal
+      modal.classList.remove("hidden");
+      // 保持搜索框內容和焦點
+      const searchInput = $("#loginPersonSearch");
+      searchInput.value = loginPersonSearchKeyword;
+    }
+
+    // 登入：根據用戶 ID 和角色完成登入，持久化到 localStorage
+    function login(userId, roleKey) {
+      const user = users.find(u => u.id === userId && u.role === roleKey);
+      if (!user) {
+        toast("登入失敗：用戶不存在", "error");
+        return;
+      }
+      state.role = roleKey;
+      state.currentPerson = user;
+      state.view = "pc";
+      // 根據角色設置默認登入頁面
+      const defaultPageMap = {
+        CS: "workorder", CR: "workorder", TL: "dispatch", MASTER: "dispatch",
+        QUO: "quotations", PUR: "procurement", FIN: "finance",
+        ADMIN: "dashboard", BOSS: "dashboard"
+      };
+      let targetPage = defaultPageMap[roleKey] || "dashboard";
+      // 確保默認頁面在權限範圍內，否則取第一個有權限的頁面
+      if (!hasPagePermission(roleKey, targetPage)) {
+        const allowedPages = getRolePages(roleKey);
+        if (allowedPages.length > 0) targetPage = allowedPages[0].key;
+      }
+      state.page = targetPage;
+      // 持久化登入態到 localStorage
+      localStorage.setItem("ecinfo_login", JSON.stringify({ userId, role: roleKey }));
+      // 隱藏登入頁，顯示應用主體
+      $("#loginScreen").classList.add("hidden");
+      // 關閉人員選擇 Modal 並重置狀態
+      loginSelectedRole = null;
+      loginPersonSearchKeyword = "";
+      const loginModal = $("#loginPersonModal");
+      if (loginModal) loginModal.classList.add("hidden");
+      render();
+      toast(`歡迎回來，${user.name}！`, "success");
+    }
+
+    // 登出：清除登入態，返回登入頁
+    function logout() {
+      state.role = null;
+      state.currentPerson = null;
+      state.view = "login";
+      localStorage.removeItem("ecinfo_login");
+      $("#loginScreen").classList.remove("hidden");
+      $("#userDropdown").classList.remove("open");
+      // 清空登入頁輸入框
+      const acc = $("#loginAccount"); if (acc) acc.value = "";
+      const pwd = $("#loginPassword"); if (pwd) pwd.value = "";
+      renderLoginScreen();
+      toast("已安全登出", "success");
+    }
+
+    // 根據賬號密碼快速登入（原型演示：賬號匹配員工編號或用戶 ID 即可登入）
+    function loginByAccount(account) {
+      if (!account || !account.trim()) {
+        toast("請輸入賬號", "error");
+        return;
+      }
+      const acc = account.trim();
+      // 按員工編號或用戶 ID 匹配用戶
+      const user = users.find(u => (u.employeeNo === acc || u.id === acc) && isEnabled(u.status));
+      if (!user) {
+        toast("賬號不存在或已停用", "error");
+        return;
+      }
+      login(user.id, user.role);
     }
 
     function setRole(role) {
@@ -6836,7 +7674,9 @@
         updateTicket(id, { status: "處理中", owner: t.master || "周師傅" }, "確認不通過，退回師傅繼續處理。");
       }
       if (action === "note") {
-        updateTicket(id, {}, "補充信息：已在原型中記錄備註。");
+        // 彈出多行輸入框供用戶填寫補充內容，避免全頁 render 閃動
+        handleNote(id);
+        return;
       }
       if (action === "startWork") {
         updateTicket(id, { status: "處理中", owner: currentRole().name }, "師傅開始現場處理，進入處理中。");
@@ -6856,6 +7696,21 @@
         return;
       }
       render();
+      // 若工單詳情側邊欄打開中，同步更新側邊欄內容（側邊欄獨立附加到 body，render 不會更新它）
+      const woOverlay = document.getElementById("woDrawerOverlay");
+      if (woOverlay) {
+        const updatedTicket = ticketById(id);
+        if (updatedTicket) {
+          woOverlay.innerHTML = renderWorkOrderDrawer(updatedTicket);
+          woOverlay.querySelectorAll("[data-wo-close]").forEach(btn => btn.addEventListener("click", closeWorkOrderDrawer));
+          woOverlay.querySelectorAll("[data-action]").forEach(btn => btn.addEventListener("click", () => {
+            performAction(btn.dataset.action, btn.dataset.id);
+          }));
+        } else {
+          // 工單不存在則關閉側邊欄
+          hideWorkOrderDrawer();
+        }
+      }
       toast("狀態已在頁面內模擬更新");
     }
 
@@ -6881,6 +7736,34 @@
       t.urgeCount = (t.urgeCount || 0) + 1;
       updateTicket(id, {}, `客戶催單 ${t.urgeCount} 次：${urgeContent}`);
       toast("催單已記錄，已通知TL和師傅");
+    }
+
+    // 補充信息功能（使用自定義多行輸入彈窗，避免全頁 render 閃動）
+    async function handleNote(id) {
+      const t = ticketById(id);
+      if (!t) return;
+      const noteContent = await showPromptDialog({
+        title: "補充信息",
+        message: `請輸入補充內容（工單：${t.id}，客戶：${t.customer}）`,
+        placeholder: "請輸入補充信息...",
+        confirmText: "確認提交",
+        multiline: true
+      });
+      if (!noteContent) return;
+      updateTicket(id, {}, `補充信息：${noteContent}`);
+      toast("補充信息已記錄");
+      // 局部更新側邊欄（若打開中），避免全頁 render 閃動
+      const woOverlay = document.getElementById("woDrawerOverlay");
+      if (woOverlay) {
+        const updatedTicket = ticketById(id);
+        if (updatedTicket) {
+          woOverlay.innerHTML = renderWorkOrderDrawer(updatedTicket);
+          woOverlay.querySelectorAll("[data-wo-close]").forEach(btn => btn.addEventListener("click", closeWorkOrderDrawer));
+          woOverlay.querySelectorAll("[data-action]").forEach(btn => btn.addEventListener("click", () => {
+            performAction(btn.dataset.action, btn.dataset.id);
+          }));
+        }
+      }
     }
 
     function actionButtons(t, context = "detail") {
@@ -6932,28 +7815,7 @@
     }
 
     function renderShell() {
-      // 渲染角色切換按鈕
-      $("#roleSwitch").innerHTML = ROLES.map(r => `<button data-role="${r.key}" class="${state.role === r.key ? "active" : ""}">${r.label}</button>`).join("");
-      
-      // 渲染目前角色可切換的人物
-      const roleUsers = getUsersByRole(state.role);
-      const personSwitchHtml = roleUsers.length > 1 ? `
-        <div class="person-switch">
-          <span>當前人物：</span>
-          <select id="personSwitch">
-            ${roleUsers.map(u => `<option value="${u.name}" ${state.currentPerson?.name === u.name ? 'selected' : ''}>${u.name}</option>`).join("")}
-          </select>
-        </div>
-      ` : '';
-      
-      // 插入到角色切換後方
-      const roleSwitchContainer = $("#roleSwitch").parentElement;
-      const existingPersonSwitch = roleSwitchContainer.querySelector('.person-switch');
-      if (existingPersonSwitch) existingPersonSwitch.remove();
-      if (personSwitchHtml) {
-        roleSwitchContainer.insertAdjacentHTML('beforeend', personSwitchHtml);
-      }
-      
+      // 更新頂部欄用戶信息（登入後人物固定，不再支持頁內切換）
       $("#viewSwitch").querySelectorAll("button").forEach(btn => btn.classList.toggle("active", btn.dataset.view === state.view));
       const role = currentRole();
       $("#avatarText").textContent = role.avatar;
@@ -6964,6 +7826,9 @@
       
       // Toggle sidebar collapsed class
       $("#app").classList.toggle("sidebar-collapsed", state.isSidebarCollapsed);
+      // 根據側邊欄狀態動態設置詳情側邊欄寬度（占右側工作區域一半）
+      const sidebarWidth = state.isSidebarCollapsed ? 92 : 200;
+      document.documentElement.style.setProperty('--drawer-width', `calc((100vw - ${sidebarWidth}px) / 2)`);
       
       let activePage;
       if (state.view === "pc") {
@@ -7002,8 +7867,13 @@
       };
       const collapsed = state.isSidebarCollapsed;
       
+      // 側邊欄按角色權限過濾：只顯示當前角色有權限訪問的頁面
+      const rolePages = getRolePages(state.role);
+      // 移動端入口僅 TL/MASTER 可見
+      const navSource = [...rolePages];
+      if (["MASTER", "TL"].includes(state.role)) navSource.push(MOBILE_WORKSPACE);
       // 移動端是獨立工作入口，固定放在所有 PC 模組（含基礎設置）之後。
-      $("#navList").innerHTML = [...PAGES, MOBILE_WORKSPACE].map(p => {
+      $("#navList").innerHTML = navSource.map(p => {
         if (p.key === "mobileWorkspace") {
           if (collapsed) {
             return `<button class="nav-item nav-collapsed-btn ${state.view === "mobile" ? "active" : ""}" data-mobile-workspace data-collapsed-label="${p.label}"><span class="nav-collapsed-char">${collapsedLabels[p.key]}</span></button>`;
@@ -7468,14 +8338,102 @@
       `;
     }
 
-    // 渲染客戶詳情側邊欄：顯示客戶資訊 + 歷史Call列表 + 新建Call按鈕
-    function renderCustomerDetailDrawer(customer) {
-      // 獲取該客戶的歷史工單（Call）
+    // 渲染歷史 Call 列表 + 分頁區域 HTML（提取為獨立函數，支持局部更新避免閃動）
+    function renderCallHistoryContentHtml(customer) {
       const customerTickets = tickets.filter(t => t.customerId === customer.id);
+      const total = customerTickets.length;
+      const totalPages = Math.max(1, Math.ceil(total / workOrderState.historyPageSize));
+      if (workOrderState.historyPage > totalPages) workOrderState.historyPage = totalPages;
+      if (workOrderState.historyPage < 1) workOrderState.historyPage = 1;
+      const startIdx = (workOrderState.historyPage - 1) * workOrderState.historyPageSize;
+      const pageTickets = customerTickets.slice(startIdx, startIdx + workOrderState.historyPageSize);
+
+      // 生成分頁按鈕（最多顯示 7 個頁碼，超出用省略號）
+      const pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (workOrderState.historyPage > 3) pages.push("...");
+        const s = Math.max(2, workOrderState.historyPage - 1);
+        const e = Math.min(totalPages - 1, workOrderState.historyPage + 1);
+        for (let i = s; i <= e; i++) pages.push(i);
+        if (workOrderState.historyPage < totalPages - 2) pages.push("...");
+        pages.push(totalPages);
+      }
+
+      return `
+        <div class="call-history-list">
+          ${total === 0 ? '<div style="text-align:center;padding:20px;color:var(--muted);">暫無歷史CALL</div>' :
+            pageTickets.map(t => `
+              <div class="wo-drawer-ticket-item" data-wo-view="${t.id}" style="padding:12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;cursor:pointer;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <strong>${escapeHtml(t.id)}</strong>
+                  <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
+                </div>
+                <div style="font-size:13px;color:var(--muted);margin-top:4px;">${escapeHtml(t.type)} · ${escapeHtml(t.createdAt)}</div>
+                <div style="font-size:13px;margin-top:4px;">${escapeHtml(t.desc || '')}</div>
+              </div>
+            `).join('')}
+        </div>
+        ${total > 0 ? `
+          <div class="call-history-pagination">
+            <span>共 ${total} 條，第 ${workOrderState.historyPage}/${totalPages} 頁</span>
+            <div class="pg-size-btns">
+              ${[5, 10, 20].map(n => `<button class="pg-size-btn ${workOrderState.historyPageSize === n ? "active" : ""}" data-history-page-size="${n}">${n}</button>`).join("")}
+              條/頁
+            </div>
+            <div class="pg-btns">
+              <button data-history-page="prev" ${workOrderState.historyPage <= 1 ? "disabled" : ""}>‹</button>
+              ${pages.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${workOrderState.historyPage === p ? "active" : ""}" data-history-page="${p}">${p}</button>`).join("")}
+              <button data-history-page="next" ${workOrderState.historyPage >= totalPages ? "disabled" : ""}>›</button>
+            </div>
+          </div>
+        ` : ''}
+      `;
+    }
+
+    // 局部刷新歷史 Call 列表區域（避免全頁 render 導致閃動）
+    function refreshCallHistoryContent() {
+      const customer = customers.find(c => c.id === workOrderState.selectedCustomerId);
+      if (!customer) return;
+      const contentEl = document.querySelector(".wo-drawer .call-history-content");
+      if (!contentEl) return;
+      contentEl.innerHTML = renderCallHistoryContentHtml(customer);
+      // 同步更新標題中的總數
+      const headEl = document.querySelector(".wo-drawer .call-history-head h4");
+      if (headEl) {
+        const total = tickets.filter(t => t.customerId === customer.id).length;
+        headEl.textContent = `歷史CALL（${total}）`;
+      }
+      bindCallHistoryPaginationEvents();
+    }
+
+    // 綁定歷史 Call 分頁事件（局部更新，不觸發全頁 render）
+    function bindCallHistoryPaginationEvents() {
+      // 頁碼點擊
+      document.querySelectorAll(".wo-drawer [data-history-page]").forEach(btn => btn.addEventListener("click", () => {
+        const p = btn.dataset.historyPage;
+        if (p === "prev") workOrderState.historyPage--;
+        else if (p === "next") workOrderState.historyPage++;
+        else workOrderState.historyPage = parseInt(p);
+        refreshCallHistoryContent();
+      }));
+      // 每頁顯示數量變更（按鈕單選）
+      document.querySelectorAll(".wo-drawer [data-history-page-size]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.historyPageSize = parseInt(btn.dataset.historyPageSize);
+        workOrderState.historyPage = 1;
+        refreshCallHistoryContent();
+      }));
+    }
+
+    // 渲染客戶詳情側邊欄：客戶資訊固定顯示 + 歷史Call列表獨立滾動 + 分頁
+    function renderCustomerDetailDrawer(customer) {
       // 取第一個地址與聯絡人作為主要顯示
       const customerArea = customer.addresses && customer.addresses.length > 0 ? customer.addresses[0].area : "";
       const contact = customer.contacts && customer.contacts.length > 0 ? customer.contacts[0] : {};
       const addressZh = customer.addresses && customer.addresses.length > 0 ? customer.addresses[0].addressZh : "";
+      const total = tickets.filter(t => t.customerId === customer.id).length;
 
       return `
         <div class="wo-drawer-backdrop" data-cust-close aria-hidden="true"></div>
@@ -7487,9 +8445,9 @@
             </div>
             <button class="wo-drawer-close" data-cust-close>×</button>
           </div>
-          <div class="wo-drawer-body">
-            <!-- 客戶資訊區 -->
-            <div class="wo-detail-section">
+          <div class="wo-drawer-body wo-drawer-body-call">
+            <!-- 客戶資訊區（固定不滑動） -->
+            <div class="call-detail-fixed">
               <div class="wo-detail-card">
                 <h4>客戶資訊</h4>
                 <div class="wo-detail-grid">
@@ -7524,23 +8482,15 @@
                 </div>
               </div>
             </div>
-            <!-- 歷史Call列表區 -->
-            <div class="wo-detail-section">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                <h4 style="margin:0;">歷史CALL（${customerTickets.length}）</h4>
+            <!-- 歷史Call列表區（獨立滾動 + 分頁） -->
+            <div class="call-history-wrap">
+              <div class="call-history-head">
+                <h4 style="margin:0;">歷史CALL（${total}）</h4>
                 <button class="primary-btn" data-cust-new-call="${customer.id}">+ 新建CALL</button>
               </div>
-              ${customerTickets.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--muted);">暫無歷史CALL</div>' :
-                customerTickets.map(t => `
-                  <div class="wo-drawer-ticket-item" data-wo-view="${t.id}" style="padding:12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;cursor:pointer;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                      <strong>${escapeHtml(t.id)}</strong>
-                      <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
-                    </div>
-                    <div style="font-size:13px;color:var(--muted);margin-top:4px;">${escapeHtml(t.type)} · ${escapeHtml(t.createdAt)}</div>
-                    <div style="font-size:13px;margin-top:4px;">${escapeHtml(t.desc || '')}</div>
-                  </div>
-                `).join('')}
+              <div class="call-history-content">
+                ${renderCallHistoryContentHtml(customer)}
+              </div>
             </div>
           </div>
         </aside>
@@ -8017,11 +8967,12 @@
 
     function closeWorkOrderDrawer() {
       workOrderState.selectedWorkOrderId = null;
-      // 若存在獨立側邊欄容器（工單管理頁打開的情況），直接移除 DOM 避免閃動
+      // 若存在獨立側邊欄容器（工單管理頁打開的情況），直接移除 DOM
       const standaloneContainer = document.getElementById("woDrawerOverlay");
       if (standaloneContainer) {
-        // 直接移除側邊欄 DOM，避免全頁 render() 導致閃動
         hideWorkOrderDrawer();
+        // 同時調用 render() 確保全局抽屜（其他頁面渲染的）也被移除
+        render();
       } else {
         // 全局抽屜（首頁、報價管理等非工單管理頁面）直接渲染在 #pcPages 中，
         // 需要調用 render() 才能移除，否則點擊 × 後無法關閉
@@ -8044,6 +8995,10 @@
       document.body.classList.add("drawer-open");
       // 綁定關閉事件
       container.querySelectorAll("[data-wo-close]").forEach(btn => btn.addEventListener("click", closeWorkOrderDrawer));
+      // 綁定操作按鈕事件（直接完成、取消、補充信息等）
+      container.querySelectorAll("[data-action]").forEach(btn => btn.addEventListener("click", () => {
+        performAction(btn.dataset.action, btn.dataset.id);
+      }));
     }
 
     // 移除工單詳情側邊欄 DOM
@@ -16401,9 +17356,9 @@
       const view = views[state.srFolderMetricModal];
       if (!view) return "";
       return `
-        <div class="dispatch-modal-overlay" data-sr-folder-metric-close>
+        <div class="dispatch-modal-overlay" onclick="if(event.target===this)closeSrFolderMetric()">
           <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="${view.title}">
-            <header class="dispatch-modal-head"><h2>${view.title}</h2><button class="ghost-btn" data-sr-folder-metric-close>關閉</button></header>
+            <header class="dispatch-modal-head"><h2>${view.title}</h2><button class="ghost-btn" onclick="closeSrFolderMetric()">關閉</button></header>
             <div class="dispatch-modal-body">
               <div class="pc-table-wrapper">
                 <table class="pc-table">
@@ -16412,9 +17367,98 @@
                 </table>
               </div>
             </div>
-            <footer class="dispatch-modal-footer"><button class="secondary-btn" data-sr-folder-metric-close>關閉</button></footer>
+            <footer class="dispatch-modal-footer"><button class="secondary-btn" onclick="closeSrFolderMetric()">關閉</button></footer>
           </section>
         </div>`;
+    }
+
+    // 關閉報告管理詳情彈窗（內聯 onclick 調用，確保關閉可靠）
+    function closeSrFolderReport() { state.srFolderReportTicketId = null; render(); }
+    // 關閉報告管理指標彈窗
+    function closeSrFolderMetric() { state.srFolderMetricModal = null; render(); }
+
+    // ==================== 角色切換浮動面板 ====================
+    // 當前選中的角色（用於面板左側高亮）
+    let switchPanelSelectedRole = null;
+
+    // 渲染角色切換浮動面板：左側角色列表 + 右側人員列表
+    function renderSwitchRolePanel() {
+      const roleListEl = $("#rspRoleList");
+      const personListEl = $("#rspPersonList");
+      if (!roleListEl || !personListEl) return;
+      // 默認選中當前角色
+      if (!switchPanelSelectedRole) switchPanelSelectedRole = state.role;
+
+      // 左側：渲染角色列表
+      roleListEl.innerHTML = ROLES.map(r => {
+        const count = getUsersByRole(r.key).length;
+        return `<div class="rsp-role-item ${switchPanelSelectedRole === r.key ? "active" : ""}" data-rsp-role="${r.key}">
+          <div class="rsp-role-icon">${r.avatar}</div>
+          <div class="rsp-role-label">${r.label}</div>
+          <div class="rsp-role-count">${count}</div>
+        </div>`;
+      }).join("");
+
+      // 右側：渲染選中角色下的人員列表
+      const roleUsers = getUsersByRole(switchPanelSelectedRole);
+      const roleInfo = ROLES.find(r => r.key === switchPanelSelectedRole);
+      personListEl.innerHTML = `
+        <div class="rsp-right-header">${roleInfo.label}（${roleUsers.length} 人）</div>
+        ${roleUsers.map(u => {
+          const isCurrent = state.currentPerson && state.currentPerson.id === u.id && state.role === switchPanelSelectedRole;
+          return `<div class="rsp-person-item ${isCurrent ? "current" : ""}" data-rsp-user="${u.id}" data-rsp-userrole="${switchPanelSelectedRole}">
+            <div class="rsp-person-avatar">${u.name.slice(0, 1)}</div>
+            <div class="rsp-person-info">
+              <div class="rsp-person-name">${u.name}${isCurrent ? ' <span style="font-size:11px;color:#2563eb;">當前</span>' : ''}</div>
+              <div class="rsp-person-meta">${u.employeeNo || u.id} · ${u.area || roleInfo.dept}</div>
+            </div>
+            ${isCurrent ? '<span class="rsp-person-check">✓</span>' : ''}
+          </div>`;
+        }).join("")}
+      `;
+    }
+
+    // 切換角色+人員：更新 state 並重新渲染，無需重新登入
+    function switchRole(userId, roleKey) {
+      const user = users.find(u => u.id === userId && u.role === roleKey);
+      if (!user) {
+        toast("切換失敗：用戶不存在", "error");
+        return;
+      }
+      // 如果切換到相同角色+人員，只需關閉面板
+      if (state.role === roleKey && state.currentPerson && state.currentPerson.id === userId) {
+        $("#roleSwitchPanel").classList.add("hidden");
+        return;
+      }
+      state.role = roleKey;
+      state.currentPerson = user;
+      // 根據新角色設置默認頁面（如果當前頁面無權限）
+      if (!hasPagePermission(roleKey, state.page)) {
+        const allowedPages = getRolePages(roleKey);
+        const defaultPageMap = {
+          CS: "workorder", CR: "workorder", TL: "dispatch", MASTER: "dispatch",
+          QUO: "quotations", PUR: "procurement", FIN: "finance",
+          ADMIN: "dashboard", BOSS: "dashboard"
+        };
+        let targetPage = defaultPageMap[roleKey] || "dashboard";
+        if (!hasPagePermission(roleKey, targetPage) && allowedPages.length > 0) {
+          targetPage = allowedPages[0].key;
+        }
+        state.page = targetPage;
+      }
+      // 清除殘留的彈窗狀態
+      state.srFolderReportTicketId = null;
+      state.srFolderMetricModal = null;
+      state.selectedTicketId = null;
+      workOrderState.selectedWorkOrderId = null;
+      const standaloneDrawer = document.getElementById("woDrawerOverlay");
+      if (standaloneDrawer) standaloneDrawer.remove();
+      // 關閉面板和下拉菜單
+      $("#roleSwitchPanel").classList.add("hidden");
+      $("#userDropdown").classList.remove("open");
+      switchPanelSelectedRole = null;
+      render();
+      toast(`已切換至 ${user.name}（${ROLES.find(r => r.key === roleKey).label}）`, "success");
     }
 
     function renderSrFolderReportModal() {
@@ -16441,11 +17485,11 @@
         const cpStampPhotos = t.cpStamp ? [t.cpStamp] : [];
         const cpSourcePhotos = t.cpSourceImage ? [t.cpSourceImage] : [];
         return `
-          <div class="dispatch-modal-overlay" data-sr-folder-report-close>
+          <div class="dispatch-modal-overlay" onclick="if(event.target===this)closeSrFolderReport()">
             <section class="dispatch-modal sr-report-modal" role="dialog" aria-modal="true" aria-label="完工單詳情">
               <header class="dispatch-modal-head">
                 <div><h2>完工單詳情</h2><p>CP-${escapeHtml(t.cpNo)} · ${escapeHtml(t.id)}</p></div>
-                <button class="ghost-btn" data-sr-folder-report-close>關閉</button>
+                <button class="ghost-btn" onclick="closeSrFolderReport()">關閉</button>
               </header>
               <div class="dispatch-modal-body">
                 <div class="sr-report-summary">
@@ -16480,7 +17524,7 @@
               </div>
               <footer class="dispatch-modal-footer">
                 <button class="secondary-btn" data-sr-folder-open-ticket="${t.id}">查看 CALL</button>
-                <button class="primary-btn" data-sr-folder-report-close>關閉</button>
+                <button class="primary-btn" onclick="closeSrFolderReport()">關閉</button>
               </footer>
             </section>
           </div>`;
@@ -16490,11 +17534,11 @@
       const reportPhotos = t.serviceReportSourceImage ? [t.serviceReportSourceImage] : [];
       const signaturePhotos = t.signature ? [t.signature] : [];
       return `
-        <div class="dispatch-modal-overlay" data-sr-folder-report-close>
+        <div class="dispatch-modal-overlay" onclick="if(event.target===this)closeSrFolderReport()">
           <section class="dispatch-modal sr-report-modal" role="dialog" aria-modal="true" aria-label="服務報告詳情">
             <header class="dispatch-modal-head">
               <div><h2>服務報告詳情</h2><p>SR-${escapeHtml(t.serviceReportNo)} · ${escapeHtml(t.id)}</p></div>
-              <button class="ghost-btn" data-sr-folder-report-close>關閉</button>
+              <button class="ghost-btn" onclick="closeSrFolderReport()">關閉</button>
             </header>
             <div class="dispatch-modal-body">
               <div class="sr-report-summary">
@@ -16534,7 +17578,7 @@
             </div>
             <footer class="dispatch-modal-footer">
               <button class="secondary-btn" data-sr-folder-open-ticket="${t.id}">查看 CALL</button>
-              <button class="primary-btn" data-sr-folder-report-close>關閉</button>
+              <button class="primary-btn" onclick="closeSrFolderReport()">關閉</button>
             </footer>
           </section>
         </div>`;
@@ -18588,21 +19632,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     }
 
     function bindEvents() {
-      document.querySelectorAll("[data-role]").forEach(btn => btn.addEventListener("click", () => setRole(btn.dataset.role)));
-      
-      // 人物切換事件綁定
-      const personSwitch = document.querySelector("#personSwitch");
-      if (personSwitch) {
-        personSwitch.addEventListener("change", (e) => {
-          switchPerson(e.target.value);
-        });
-      }
-      
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
         if (btn.dataset.view === "mobile") {
-          const needsDefaultRole = !["MASTER", "TL"].includes(state.role);
+          // 登入後角色固定，僅 TL/MASTER 可進入移動端工作台
+          if (!["MASTER", "TL"].includes(state.role)) {
+            toast("移動端工作台僅限主管和師傅使用", "error");
+            return;
+          }
           openMobileWorkspace();
-          if (needsDefaultRole) toast("移動工作台已切換為師傅視角");
           return;
         }
         state.view = "pc";
@@ -18635,7 +19672,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-dashboard-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
-        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        if (event.target !== btn) return;
         state.dashboardMetricModal = null;
         render();
       }));
@@ -18723,7 +19760,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-dispatch-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
-        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        if (event.target !== btn) return;
         state.dispatchMetricModal = null;
         render();
       }));
@@ -18773,7 +19810,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         });
       }));
       document.querySelectorAll("[data-dispatch-modal-close]").forEach(btn => btn.addEventListener("click", (event) => {
-        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        if (event.target !== btn) return;
         state.dispatchModalOpen = false;
         state.dispatchPaperType = "";
         render();
@@ -19632,7 +20669,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-sr-folder-metric-close]").forEach(btn => btn.addEventListener("click", (event) => {
-        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        if (event.target !== btn) return;
         state.srFolderMetricModal = null;
         render();
       }));
@@ -19672,7 +20709,10 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-sr-folder-report-close]").forEach(btn => btn.addEventListener("click", (event) => {
-        if (btn.classList.contains("dispatch-modal-overlay") && event.target !== btn) return;
+        // 僅當點擊目標就是綁定元素本身時才觸發關閉：
+        // 按鈕點擊 → event.target 是按鈕 → 關閉；覆蓋層空白點擊 → event.target 是覆蓋層 → 關閉；
+        // 覆蓋層內部點擊（冒泡）→ event.target 是子元素 → 不關閉
+        if (event.target !== btn) return;
         state.srFolderReportTicketId = null;
         render();
       }));
@@ -19795,19 +20835,27 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         workOrderState.selectedCustomerId = btn.dataset.custView;
         // 重置工單詳情側邊欄，避免同時顯示兩個 drawer
         workOrderState.selectedWorkOrderId = null;
+        // 重置歷史 Call 分頁到第一頁
+        workOrderState.historyPage = 1;
         render();
       }));
-      // 客戶列表：刪除客戶
-      document.querySelectorAll("[data-cust-delete]").forEach(btn => btn.addEventListener("click", () => {
+      // 客戶列表：刪除客戶（使用自定義確認彈窗，與分派中心格式統一）
+      document.querySelectorAll("[data-cust-delete]").forEach(btn => btn.addEventListener("click", async () => {
         const custId = btn.dataset.custDelete;
-        if (confirm("確認刪除該客戶？")) {
-          const idx = customers.findIndex(c => c.id === custId);
-          if (idx >= 0) {
-            customers.splice(idx, 1);
-            saveDataToLocalStorage();
-            toast("客戶已刪除");
-            render();
-          }
+        const customer = customers.find(c => c.id === custId);
+        if (!customer) return;
+        const confirmed = await showConfirmDialog({
+          title: "刪除客戶",
+          message: `確定要刪除客戶「${customer.nameZh}」嗎？此操作不可恢復。`,
+          confirmText: "確認刪除"
+        });
+        if (!confirmed) return;
+        const idx = customers.findIndex(c => c.id === custId);
+        if (idx >= 0) {
+          customers.splice(idx, 1);
+          saveDataToLocalStorage();
+          toast("客戶已刪除");
+          render();
         }
       }));
       // 關閉客戶詳情側邊欄
@@ -19833,6 +20881,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         workOrderState.currentPage = 1;
         render();
       }));
+      // 歷史 Call 列表分頁：使用局部更新避免閃動（不觸發全頁 render）
+      bindCallHistoryPaginationEvents();
 
       // Drawer action buttons
       document.querySelectorAll("[data-action=\"edit\"]").forEach(btn => btn.addEventListener("click", () => {
@@ -20389,6 +21439,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }).observe(document.body, { childList: true, subtree: true });
     }
     function render() {
+      // 未登入時只渲染登入頁，不渲染應用主體
+      if (state.view === "login") {
+        // 確保登入頁可見（移除 hidden class）
+        $("#loginScreen").classList.remove("hidden");
+        renderLoginScreen();
+        return;
+      }
+      // 已登入時隱藏登入頁
+      $("#loginScreen").classList.add("hidden");
       renderShell();
       if (state.view === "pc") renderPc();
       if (state.view === "mobile") renderMobile();
@@ -20401,7 +21460,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       // 抽屜打開時禁止外部頁面滾動，僅抽屜內部可滾動
       const isDrawerOpen =
         (workOrderState.selectedWorkOrderId !== null) ||
-        (state.page === "quotations" && quotationState.selectedQuotationId !== null);
+        (workOrderState.selectedCustomerId !== null) ||
+        (state.page === "quotations" && quotationState.selectedQuotationId !== null) ||
+        (state.selectedTenderId !== null);
       document.body.classList.toggle("drawer-open", isDrawerOpen);
     }
 
@@ -20449,24 +21510,172 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
     });
 
-    $("#themeBtn").addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem("ec-ui-theme", next);
-      $("#themeBtn").textContent = next === "dark" ? "亮色模式" : "暗色模式";
-    });
     $("#userMenuBtn").addEventListener("click", () => $("#userDropdown").classList.toggle("open"));
     document.addEventListener("click", (event) => {
       if (!event.target.closest(".user-menu")) $("#userDropdown").classList.remove("open");
     });
 
+    // 更新主題浮窗中選項的選中狀態
+    function updateThemePopupActive() {
+      const current = document.documentElement.dataset.theme || "light";
+      document.querySelectorAll("[data-theme-option]").forEach(opt => {
+        opt.classList.toggle("active", opt.dataset.themeOption === current);
+      });
+    }
+
+    // 打開 / 關閉主題設置浮窗
+    function openThemePopup() {
+      updateThemePopupActive();
+      $("#themePopupOverlay").classList.remove("hidden");
+      $("#themePopup").classList.remove("hidden");
+    }
+    function closeThemePopup() {
+      $("#themePopupOverlay").classList.add("hidden");
+      $("#themePopup").classList.add("hidden");
+    }
+    $("#themePopupClose").addEventListener("click", closeThemePopup);
+    $("#themePopupOverlay").addEventListener("click", closeThemePopup);
+    // 點擊主題選項：切換顏色模式
+    document.querySelectorAll("[data-theme-option]").forEach(opt => opt.addEventListener("click", () => {
+      const theme = opt.dataset.themeOption;
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("ec-ui-theme", theme);
+      updateThemePopupActive();
+      toast(theme === "dark" ? "已切換為暗色模式" : "已切換為亮色模式", "success");
+    }));
+
+    // 用戶下拉菜單動作綁定：退出登錄 / 主題設置等
+    document.querySelectorAll("[data-user-action]").forEach(btn => btn.addEventListener("click", () => {
+      const action = btn.dataset.userAction;
+      $("#userDropdown").classList.remove("open");
+      if (action === "logout") {
+        logout();
+      } else if (action === "switchRole") {
+        // 打開角色切換浮動面板
+        switchPanelSelectedRole = state.role;
+        renderSwitchRolePanel();
+        $("#roleSwitchPanel").classList.remove("hidden");
+      } else if (action === "theme") {
+        // 打開主題設置浮窗，可選擇顏色模式
+        openThemePopup();
+      } else if (action === "profile") {
+        toast("個人信息功能待開發");
+      } else if (action === "notify") {
+        toast("通知設置功能待開發");
+      }
+    }));
+    // 角色切換面板：左側角色列表點擊（stopPropagation 避免冒泡到 document 導致面板被誤關閉）
+    $("#rspRoleList").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const item = e.target.closest("[data-rsp-role]");
+      if (!item) return;
+      switchPanelSelectedRole = item.dataset.rspRole;
+      renderSwitchRolePanel();
+    });
+    // 角色切換面板：右側人員列表點擊
+    $("#rspPersonList").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const item = e.target.closest("[data-rsp-user]");
+      if (!item) return;
+      switchRole(item.dataset.rspUser, item.dataset.rspUserrole);
+    });
+    // 點擊角色切換面板外部時關閉面板
+    document.addEventListener("click", (e) => {
+      const panel = $("#roleSwitchPanel");
+      if (panel.classList.contains("hidden")) return;
+      if (!e.target.closest("#roleSwitchPanel") && !e.target.closest("[data-user-action='switchRole']")) {
+        panel.classList.add("hidden");
+        switchPanelSelectedRole = null;
+      }
+    });
+
+    // 登入頁面事件綁定（事件委託，避免重複綁定）
+    $("#loginRoleGrid").addEventListener("click", (e) => {
+      const card = e.target.closest("[data-login-role]");
+      if (!card) return;
+      const roleKey = card.dataset.loginRole;
+      // 點擊已選中的角色卡片再次點擊則收起 Modal，否則彈出對應人員 Modal
+      if (loginSelectedRole === roleKey) {
+        loginSelectedRole = null;
+        loginPersonSearchKeyword = "";
+        renderLoginScreen();
+        renderLoginPersonModal();
+      } else {
+        loginSelectedRole = roleKey;
+        loginPersonSearchKeyword = "";
+        renderLoginScreen();
+        renderLoginPersonModal();
+      }
+    });
+    // 登入人員選擇 Modal 事件（事件委託到 Modal 容器）
+    const loginPersonModal = $("#loginPersonModal");
+    if (loginPersonModal) {
+      loginPersonModal.addEventListener("click", (e) => {
+        // 點擊關閉按鈕或遮罩區域關閉 Modal
+        if (e.target.closest("#loginPersonModalClose") || e.target === loginPersonModal) {
+          loginSelectedRole = null;
+          loginPersonSearchKeyword = "";
+          loginPersonModal.classList.add("hidden");
+          return;
+        }
+        // 點擊人員列表項完成登入
+        const item = e.target.closest("[data-login-user]");
+        if (!item) return;
+        login(item.dataset.loginUser, item.dataset.loginUserrole);
+      });
+      // 搜索框輸入：實時過濾人員列表
+      const searchInput = $("#loginPersonSearch");
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          loginPersonSearchKeyword = e.target.value;
+          renderLoginPersonModal();
+        });
+      }
+    }
+    // 登入按鈕：根據賬號登入
+    $("#loginSubmitBtn").addEventListener("click", () => {
+      loginByAccount($("#loginAccount").value);
+    });
+    // 賬號輸入框回車登入
+    $("#loginPassword").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loginByAccount($("#loginAccount").value);
+    });
+    $("#loginAccount").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") $("#loginPassword").focus();
+    });
+
     const savedTheme = localStorage.getItem("ec-ui-theme") || "light";
     document.documentElement.dataset.theme = savedTheme;
-    $("#themeBtn").textContent = savedTheme === "dark" ? "亮色模式" : "暗色模式";
+
+    // 頁面加載時始終顯示登入頁（不自動恢復上次登入狀態）
+    (function initLogin() {
+      localStorage.removeItem("ecinfo_login");
+      state.view = "login";
+    })();
+
     render();
-    
-    // 檢查完工紙到期提醒
-    checkCompletionPaperExpiration();
+
+    // 全局事件委託：確保彈窗關閉按鈕始終能響應（不依賴 bindEvents 執行時機）
+    // 覆蓋報告管理、首頁指標、分派中心等所有 dispatch-modal 類型彈窗的關閉
+    document.addEventListener("click", (e) => {
+      const closer = e.target.closest("[data-sr-folder-report-close],[data-sr-folder-metric-close],[data-dashboard-metric-close],[data-dispatch-metric-close],[data-dispatch-modal-close]");
+      if (!closer) return;
+      // 點擊目標必須就是帶有 close 屬性的元素本身（按鈕或覆蓋層背景），不是其子元素
+      if (e.target !== closer) return;
+      // 根據 close 類型清除對應 state
+      if (closer.hasAttribute("data-sr-folder-report-close")) state.srFolderReportTicketId = null;
+      if (closer.hasAttribute("data-sr-folder-metric-close")) state.srFolderMetricModal = null;
+      if (closer.hasAttribute("data-dashboard-metric-close")) state.dashboardMetricModal = null;
+      if (closer.hasAttribute("data-dispatch-metric-close")) state.dispatchMetricModal = null;
+      if (closer.hasAttribute("data-dispatch-modal-close")) {
+        state.dispatchModalOpen = false;
+        state.dispatchPaperType = "";
+      }
+      render();
+    });
+
+    // 檢查完工紙到期提醒（僅已登入時執行）
+    if (state.view !== "login") checkCompletionPaperExpiration();
   </script>
 </body>
 </html>
