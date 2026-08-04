@@ -879,12 +879,140 @@
     .dispatch-table td { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
     .dispatch-table .dispatch-desc { display: block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 12px; }
-    .dispatch-actions { display: flex; justify-content: center; gap: 6px; white-space: nowrap; }
-    .dispatch-actions button { height: var(--height-table-action); padding: 0 9px; font-size: 12px; }
+    .dispatch-actions { display: flex; flex-direction: row; justify-content: center; gap: 6px; white-space: nowrap; }
+    .dispatch-actions button { height: 36px; width: 64px; padding: 0; font-size: 12px; font-weight: 600; border-radius: 6px; flex-shrink: 0; }
+    .dispatch-actions .dispatch-action-placeholder { width: 64px; height: 36px; flex-shrink: 0; }
     /* 採購管理：操作按鈕統一寬度，單按鈕與雙按鈕整體寬度一致 */
-    .po-actions { display: flex; justify-content: center; gap: 6px; width: 110px; white-space: nowrap; }
-    .po-actions button { height: var(--height-table-action); flex: 1; min-width: 0; padding: 0 6px; font-size: 12px; }
+    .po-actions { display: flex; justify-content: center; gap: 6px; width: 140px; white-space: nowrap; }
+    .po-actions button { height: 36px; flex: 1; min-width: 0; padding: 0 8px; font-size: 12px; font-weight: 600; border-radius: 6px; }
     .po-actions .tag { flex: 0 0 auto; }
+
+    /* ===== 統一操作欄位按鈕風格（參照 Call管理 wo-view-btn / wo-delete-btn） ===== */
+    /* 在操作欄位（.wo-actions-group / .dispatch-actions / .po-actions / .wo-call-actions）內，
+       所有按鈕統一為 36px 高、6px 圓角、12px 字體、600 字重的邊框風格，固定寬度確保豎直對齊 */
+    .wo-actions-group button,
+    .dispatch-actions button,
+    .po-actions button,
+    .wo-call-actions button {
+      height: 36px !important;
+      width: 80px !important;
+      border-radius: 6px !important;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      border-width: 1px !important;
+      border-style: solid !important;
+      transition: all 0.15s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      flex-shrink: 0 !important;
+    }
+    /* 占位符與按鈕同寬，保持列對齊 */
+    .wo-actions-group .dispatch-action-placeholder,
+    .dispatch-actions .dispatch-action-placeholder {
+      width: 80px !important;
+      height: 36px;
+      flex-shrink: 0;
+    }
+    /* 採購管理按鈕不固定寬度（flex:1 自動撐滿） */
+    .po-actions button { width: auto !important; }
+    /* 主要操作：藍色邊框 + 淺藍底（分派、下單、驗收等） */
+    .wo-actions-group .primary-btn,
+    .dispatch-actions .primary-btn,
+    .po-actions .primary-btn,
+    .wo-call-actions .primary-btn {
+      background: var(--primary-soft) !important;
+      border-color: var(--primary) !important;
+      color: var(--primary) !important;
+    }
+    .wo-actions-group .primary-btn:hover,
+    .dispatch-actions .primary-btn:hover,
+    .po-actions .primary-btn:hover,
+    .wo-call-actions .primary-btn:hover {
+      background: var(--primary) !important;
+      color: #fff !important;
+    }
+    /* 次要操作：灰色邊框 + 白底（補充信息、編輯等） */
+    .wo-actions-group .secondary-btn,
+    .dispatch-actions .secondary-btn,
+    .po-actions .secondary-btn,
+    .wo-call-actions .secondary-btn {
+      background: var(--panel) !important;
+      border-color: var(--line) !important;
+      color: var(--text) !important;
+    }
+    .wo-actions-group .secondary-btn:hover,
+    .dispatch-actions .secondary-btn:hover,
+    .po-actions .secondary-btn:hover,
+    .wo-call-actions .secondary-btn:hover {
+      background: var(--bg) !important;
+      border-color: var(--muted) !important;
+    }
+    /* 幽靈按鈕：藍色邊框 + 白底（查看等） */
+    .wo-actions-group .ghost-btn,
+    .dispatch-actions .ghost-btn,
+    .po-actions .ghost-btn,
+    .wo-call-actions .ghost-btn {
+      background: var(--panel) !important;
+      border-color: var(--primary) !important;
+      color: var(--primary) !important;
+    }
+    .wo-actions-group .ghost-btn:hover,
+    .dispatch-actions .ghost-btn:hover,
+    .po-actions .ghost-btn:hover,
+    .wo-call-actions .ghost-btn:hover {
+      background: var(--primary-soft) !important;
+    }
+    /* 危險操作：紅色邊框 + 淺紅底（取消、刪除等） */
+    .wo-actions-group .danger-btn,
+    .dispatch-actions .danger-btn,
+    .po-actions .danger-btn,
+    .wo-call-actions .danger-btn {
+      background: var(--danger-soft) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger) !important;
+    }
+    .wo-actions-group .danger-btn:hover,
+    .dispatch-actions .danger-btn:hover,
+    .po-actions .danger-btn:hover,
+    .wo-call-actions .danger-btn:hover {
+      background: var(--danger) !important;
+      color: #fff !important;
+    }
+    /* 警告操作：橙色邊框 + 淺橙底（催單等） */
+    .wo-actions-group .warning-btn,
+    .dispatch-actions .warning-btn,
+    .po-actions .warning-btn,
+    .wo-call-actions .warning-btn {
+      background: #fef3c7 !important;
+      border-color: #f59e0b !important;
+      color: #d97706 !important;
+    }
+    .wo-actions-group .warning-btn:hover,
+    .dispatch-actions .warning-btn:hover,
+    .po-actions .warning-btn:hover,
+    .wo-call-actions .warning-btn:hover {
+      background: #f59e0b !important;
+      color: #fff !important;
+    }
+    [data-theme="dark"] .wo-actions-group .warning-btn,
+    [data-theme="dark"] .dispatch-actions .warning-btn,
+    [data-theme="dark"] .po-actions .warning-btn,
+    [data-theme="dark"] .wo-call-actions .warning-btn {
+      background: #422006 !important;
+      color: #fbbf24 !important;
+      border-color: #92400e !important;
+    }
+    [data-theme="dark"] .wo-actions-group .secondary-btn,
+    [data-theme="dark"] .dispatch-actions .secondary-btn,
+    [data-theme="dark"] .po-actions .secondary-btn,
+    [data-theme="dark"] .wo-call-actions .secondary-btn {
+      background: #1a1a1a !important;
+    }
+    /* 側邊欄底部操作按鈕區域 flex 佈局 */
+    .wo-call-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
     .dispatch-modal-overlay {
       position: fixed;
       inset: 0;
@@ -6862,6 +6990,14 @@
       state.role = roleKey;
       state.currentPerson = user;
       state.view = "pc";
+      // 清除殘留的彈窗狀態，避免登入後彈窗自動顯示
+      state.srFolderReportTicketId = null;
+      state.srFolderMetricModal = null;
+      state.selectedTicketId = null;
+      workOrderState.selectedWorkOrderId = null;
+      state.dashboardMetricModal = null;
+      state.dispatchMetricModal = null;
+      state.dispatchModalOpen = false;
       // 根據角色設置默認登入頁面
       const defaultPageMap = {
         CS: "workorder", CR: "workorder", TL: "dispatch", MASTER: "dispatch",
@@ -6893,6 +7029,14 @@
       state.role = null;
       state.currentPerson = null;
       state.view = "login";
+      // 清除殘留的彈窗狀態，避免重新登入後彈窗自動顯示
+      state.srFolderReportTicketId = null;
+      state.srFolderMetricModal = null;
+      state.selectedTicketId = null;
+      workOrderState.selectedWorkOrderId = null;
+      state.dashboardMetricModal = null;
+      state.dispatchMetricModal = null;
+      state.dispatchModalOpen = false;
       localStorage.removeItem("ecinfo_login");
       $("#loginScreen").classList.remove("hidden");
       $("#userDropdown").classList.remove("open");
@@ -9707,7 +9851,7 @@
                         <td>${statusBadge(t.status)}</td>
                         <td>${escapeHtml(t.assignedAt || '-')}</td>
                         <td>${escapeHtml(t.updatedAt || t.createdAt || '-')}</td>
-                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : ''}<button class="ghost-btn" data-dispatch-view="${t.id}">查看</button><button class="wo-delete-btn" data-dispatch-delete="${t.id}">刪除</button></div></td>
+                        <td><div class="dispatch-actions">${t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">分派</button>` : '<span class="dispatch-action-placeholder"></span>'}<button class="wo-view-btn" data-dispatch-view="${t.id}">查看</button><button class="wo-delete-btn" data-dispatch-delete="${t.id}">刪除</button></div></td>
                       </tr>`).join("") : '<tr><td colspan="10" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的 CALL</td></tr>'}
                   </tbody>
                 </table>
@@ -12291,8 +12435,8 @@
                 <td><strong style="color: var(--primary);">HKD ${q.totalAmount.toLocaleString()}</strong></td>
                 <td class="wo-td-actions">
                   <div class="wo-actions-group">
+                    ${["待報價", "報價中"].includes(q.status) ? `<button class="wo-view-btn" data-edit-quotation-drawer="${q.id}">報價</button>` : '<span class="dispatch-action-placeholder"></span>'}
                     <button class="wo-view-btn" data-view-quotation="${q.id}">查看詳情</button>
-                    <button class="wo-view-btn" data-edit-quotation-drawer="${q.id}">報價</button>
                     <button class="wo-delete-btn" data-delete-quotation="${q.id}">刪除</button>
                   </div>
                 </td>
