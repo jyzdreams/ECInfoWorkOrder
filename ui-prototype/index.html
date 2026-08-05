@@ -2355,7 +2355,7 @@
       background: rgba(15, 23, 42, .45);
       backdrop-filter: blur(4px);
       display: grid; place-items: center;
-      z-index: 100; animation: fade .12s ease-out;
+      z-index: 1100; animation: fade .12s ease-out;
     }
     .um-modal {
       background: var(--panel); border: 1px solid var(--line);
@@ -5198,7 +5198,7 @@
       CS: ["dashboard", "workorder", "srFolder", "settings"],
       CR: ["dashboard", "workorder", "srFolder", "report", "settings"],
       TL: ["dashboard", "workorder", "dispatch", "srFolder", "report", "settings"],
-      MASTER: ["dashboard", "dispatch", "srFolder"],
+      MASTER: ["dashboard", "srFolder"],
       QUO: ["dashboard", "quotations", "tender"],
       PUR: ["dashboard", "procurement", "report"],
       FIN: ["dashboard", "finance", "report"],
@@ -8716,6 +8716,7 @@
           </div>
           <div class="wo-actions-top">
             <button class="secondary-btn" data-cust-reset>重置</button>
+            <button class="primary-btn" data-cust-create>新增客戶</button>
           </div>
         </div>
       `;
@@ -18548,11 +18549,14 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <h2 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text);display:flex;align-items:center;gap:6px;">
             <span style="width:4px;height:18px;background:#2563EB;border-radius:2px;"></span>客戶確認
           </h2>
-          <!-- 客戶電子簽名 -->
+          <!-- 客戶電子簽名（手寫簽名組件，與服務報告一致） -->
           <div style="margin-bottom:14px;">
             <label style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;display:block;">客戶電子簽名<span style="color:var(--danger);">*</span></label>
-            <div style="border:2px dashed var(--line);border-radius:8px;height:120px;display:flex;align-items:center;justify-content:center;background:var(--bg);cursor:pointer;" data-cp-signature>
-              ${t.cpSignature ? `<img src="${t.cpSignature}" alt="簽名" style="max-width:100%;max-height:110px;">` : '<span style="color:var(--muted);font-size:13px;">點擊此處手寫簽名</span>'}
+            <div class="sr-signature">
+              ${t.cpSignature
+                ? `<img src="${t.cpSignature}" alt="客戶簽名" style="display:block;width:100%;height:150px;object-fit:contain;background:var(--panel-soft);">`
+                : '<canvas class="sr-signature-canvas" data-cp-signature-canvas width="640" height="300" aria-label="客戶電子簽名"></canvas>'}
+              <div class="sr-signature-toolbar"><span>${t.cpSignature ? "已完成客戶簽名" : "請由客戶在框內手寫簽名"}</span><button type="button" class="sr-signature-clear" data-cp-clear-signature ${t.cpSignature ? "" : "disabled"}>清除</button></div>
             </div>
           </div>
           <!-- 公司印章 -->
@@ -18748,12 +18752,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         <!-- 客戶確認 -->
         <div class="sr-card">
           <div class="sr-card-title">客戶確認</div>
-          <div class="sr-field">
-            <label class="sr-label">客戶滿意度</label>
-            <div class="sr-satisfaction">
-              ${satisfactionOptions.map(s => `<div class="sr-satisfaction-btn ${state.srSatisfaction === s.value ? "active" : ""}" data-sr-satisfaction="${escapeHtml(s.value)}"><span class="sr-emoji">${s.emoji}</span>${escapeHtml(s.value)}</div>`).join("")}
-            </div>
-          </div>
           <div class="sr-field">
             <label class="sr-label" style="display:flex;align-items:center;gap:8px;">
               <input type="checkbox" id="srCustomerAbsent" ${t.customerAbsent ? "checked" : ""} onchange="ticketById(state.selectedTicketId).customerAbsent = this.checked;" style="width:auto;">
@@ -19219,6 +19217,63 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (!t) return;
       state.srSignature = "";
       updateTicket(t.id, { signature: "" });
+      render();
+    }
+
+    // 初始化完工單手寫簽名畫布（與服務報告簽名邏輯一致，使用 t.cpSignature）
+    function initialiseCpSignaturePad(canvas) {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      const context = canvas.getContext("2d");
+      context.lineWidth = 4;
+      context.lineCap = "round";
+      context.strokeStyle = "#0f172a";
+      let drawing = false;
+      let hasStroke = false;
+
+      // 計算滑鼠/觸控點在 canvas 上的相對座標
+      const point = (event) => {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: (event.clientX - rect.left) * (canvas.width / rect.width),
+          y: (event.clientY - rect.top) * (canvas.height / rect.height)
+        };
+      };
+      // 筆觸結束後保存簽名為 dataURL
+      const saveSignature = () => {
+        if (!hasStroke) return;
+        const signature = canvas.toDataURL("image/png");
+        updateTicket(t.id, { cpSignature: signature });
+      };
+      canvas.addEventListener("pointerdown", (event) => {
+        drawing = true;
+        hasStroke = true;
+        const p = point(event);
+        context.beginPath();
+        context.moveTo(p.x, p.y);
+        canvas.setPointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointermove", (event) => {
+        if (!drawing) return;
+        const p = point(event);
+        context.lineTo(p.x, p.y);
+        context.stroke();
+      });
+      const stopDrawing = (event) => {
+        if (!drawing) return;
+        drawing = false;
+        if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+        saveSignature();
+      };
+      canvas.addEventListener("pointerup", stopDrawing);
+      canvas.addEventListener("pointercancel", stopDrawing);
+    }
+
+    // 清除完工單客戶簽名
+    function cpClearSignature() {
+      const t = ticketById(state.selectedTicketId);
+      if (!t) return;
+      updateTicket(t.id, { cpSignature: "" });
       render();
     }
 
@@ -20974,6 +21029,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         workOrderState.currentPage = 1;
         render();
       }));
+      // 客戶列表：新增客戶（複用基礎設置的新增客戶彈窗）
+      document.querySelectorAll("[data-cust-create]").forEach(btn => btn.addEventListener("click", openCreateCustomer));
       // 客戶列表：點擊「查看詳情」打開客戶詳情側邊欄
       document.querySelectorAll("[data-cust-view]").forEach(btn => btn.addEventListener("click", () => {
         workOrderState.selectedCustomerId = btn.dataset.custView;
@@ -21127,25 +21184,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           render();
         }
       }));
-      // 客戶電子簽名
-      document.querySelectorAll("[data-cp-signature]").forEach(btn => btn.addEventListener("click", () => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            const t = ticketById(state.selectedTicketId);
-            t.cpSignature = ev.target.result;
-            render();
-            toast("簽名已上傳");
-          };
-          reader.readAsDataURL(file);
-        };
-        input.click();
-      }));
+      // 客戶電子簽名（手寫簽名畫布初始化與清除按鈕）
+      document.querySelectorAll("[data-cp-signature-canvas]").forEach(initialiseCpSignaturePad);
+      document.querySelectorAll("[data-cp-clear-signature]").forEach(btn => btn.addEventListener("click", cpClearSignature));
       // 公司印章
       document.querySelectorAll("[data-cp-stamp]").forEach(btn => btn.addEventListener("click", () => {
         const input = document.createElement("input");
