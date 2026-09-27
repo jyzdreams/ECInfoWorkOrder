@@ -1,5 +1,7 @@
 # 移動端工作台重設 Implementation Plan
 
+> 路徑說明：本計畫編寫時使用 `ui-prototype/` 作為原型目錄。當前主原型已定位為 2.0 並移動到 `prototype/`；執行本計畫中的檔案操作時，統一將 `ui-prototype/` 解釋為 `prototype/`。1.0 版本位於 `archive/prototype-1.0/`，不再修改。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 將原型中的移動頁面改為獨立、角色導向的移動工作台，並在 PC 側邊欄底部提供固定入口。

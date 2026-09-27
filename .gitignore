@@ -25,6 +25,13 @@ ui-prototype-v2-complete-flow/.npmrc
 
 # Tools cache
 .tools/
+.codex/
+.uv-cache/
+.uv-tools/
+
+# Temporary user staging area (keep its README, ignore staged files)
+store/*
+!store/README.md
 
 # Debug logs and temporary output
 *.log

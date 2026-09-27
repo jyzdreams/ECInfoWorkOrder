@@ -1,0 +1,347 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="5400" height="3820" viewBox="0 0 5400 3820">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#14213d" flood-opacity="0.10"/></filter>
+<marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#64748B"/></marker>
+<marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#1E6BFF"/></marker>
+</defs>
+<rect width="5400" height="3820" fill="#F4F7FC"/>
+<text x="170" y="149" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="64" font-weight="500" text-anchor="start">SOP 02 · 现场工单、报价、采购与完工流程</text>
+<text x="170" y="205" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="30" font-weight="400" text-anchor="start">合并 SOP 中结构相同的 M（保养）与 P（工程）流程；责任差异直接标在节点上</text>
+<rect x="4660" y="95" width="720" height="54" rx="17" fill="#F1ECFF"/>
+<text x="5020.0" y="123" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="500" text-anchor="middle">M：CR / 主管　P：Project 主管</text>
+<text x="170" y="342" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="42" font-weight="500" text-anchor="start">A · 分派与接单</text>
+<rect x="170" y="390" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="170" y="390" width="14" height="230" rx="7" fill="#1E6BFF"/>
+<rect x="202" y="418" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="238" y="447" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">1</text>
+<rect x="212" y="418" width="550" height="50" rx="16" fill="#EAF1FF"/>
+<text x="487.0" y="445" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">主管 / CR / Project</text>
+<text x="202" y="526" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">分派任务给师傅</text>
+<text x="202" y="577" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：主管 / CR　P：Project 主管</text>
+<rect x="950" y="390" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="950" y="390" width="14" height="230" rx="7" fill="#1E6BFF"/>
+<rect x="982" y="418" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="1018" y="447" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">2</text>
+<rect x="1402" y="418" width="140" height="50" rx="16" fill="#EAF1FF"/>
+<text x="1472.0" y="445" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="982" y="526" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">师傅收到任务通知</text>
+<text x="982" y="577" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">可进入“我的工单”或“团队工单”</text>
+<rect x="1730" y="280" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1730" y="280" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="1762" y="308" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1798" y="337" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3A</text>
+<rect x="2182" y="308" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2252.0" y="335" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="1762" y="416" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">我的工单</text>
+<text x="1762" y="467" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">状态显示：待确认 / 待处理 / 处理中 / 已完成</text>
+<rect x="1730" y="610" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1730" y="610" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1762" y="638" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1798" y="667" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3B</text>
+<rect x="2072" y="638" width="250" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2197.0" y="665" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅 / 主管</text>
+<text x="1762" y="746" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">团队工单</text>
+<text x="1762" y="797" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">申请接单 → CR/主管或 Project 主管审批</text>
+<rect x="2520" y="390" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2520" y="390" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="2552" y="418" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="2588" y="447" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">4</text>
+<rect x="2892" y="418" width="250" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3017.0" y="445" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅 / 主管</text>
+<text x="2552" y="526" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">收到 / 审批通过</text>
+<text x="2552" y="577" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">进入待处理；安装工单可先进入待确认再“收到”</text>
+<rect x="3350" y="390" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3350" y="390" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="3382" y="418" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="3418" y="447" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">5</text>
+<rect x="3722" y="418" width="250" height="50" rx="16" fill="#E8F7F0"/>
+<text x="3847.0" y="445" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅 / 系统</text>
+<text x="3382" y="526" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">准时到达：签到</text>
+<text x="3382" y="577" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">未能准时到达 → 系统发出超时通知</text>
+<rect x="4180" y="390" width="960" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4180" y="390" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="4212" y="418" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4248" y="447" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">6</text>
+<rect x="4862" y="418" width="250" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4987.0" y="445" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅 / 仓务</text>
+<text x="4212" y="526" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">状态：处理中</text>
+<text x="4212" y="577" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：开始保养检查　P：取货及完工纸后开始检查/安装</text>
+<polyline points="790,505.0 870.0,505.0 870.0,505.0 950,505.0" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="1570,505 1640,505 1640,395 1730,395" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="1570,505 1640,505 1640,725 1730,725" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2350,395 2430,395 2430,505 2520,505" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2350,725 2430,725 2430,505 2520,505" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3170,505.0 3260.0,505.0 3260.0,505.0 3350,505.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4000,505.0 4090.0,505.0 4090.0,505.0 4180,505.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="170" y="1022" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="42" font-weight="500" text-anchor="start">B · 现场执行分支</text>
+<polygon points="715,1190.0 900.0,1320 715,1450.0 530.0,1320" fill="#E8F7F0" stroke="#16A36A" stroke-width="4" filter="url(#shadow)"/>
+<text x="715" y="1316" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="30" font-weight="500" text-anchor="middle">可以即时处理？</text>
+<polyline points="4660,620 4660,900 715,900 715,1190" fill="none" stroke="#16A36A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1150" y="1050" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1150" y="1050" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="1182" y="1078" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1218" y="1107" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B1</text>
+<rect x="1602" y="1078" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1672.0" y="1105" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="1182" y="1186" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">拍照（未维修 / 未处理）</text>
+<text x="1182" y="1237" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">记录现场处理前状况</text>
+<rect x="1950" y="1050" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1950" y="1050" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="1982" y="1078" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2018" y="1107" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B2</text>
+<rect x="2402" y="1078" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2472.0" y="1105" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="1982" y="1186" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">进行维修</text>
+<text x="1982" y="1237" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：保养维修　P：检查及安装</text>
+<rect x="2750" y="1050" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2750" y="1050" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="2782" y="1078" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2818" y="1107" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B3</text>
+<rect x="3202" y="1078" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="3272.0" y="1105" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="2782" y="1186" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">拍照（已维修 / 已处理）</text>
+<text x="2782" y="1237" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">记录处理结果</text>
+<rect x="3550" y="1050" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3550" y="1050" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="3582" y="1078" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="3618" y="1107" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B4</text>
+<rect x="4002" y="1078" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4072.0" y="1105" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">客户</text>
+<text x="3582" y="1186" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">客户确认及签名 / 盖印</text>
+<text x="3582" y="1237" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">确认现场处理结果</text>
+<rect x="4350" y="1050" width="790" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4350" y="1050" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="4382" y="1078" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4418" y="1107" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B5</text>
+<rect x="4972" y="1078" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="5042.0" y="1105" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="4382" y="1186" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">扫描并提交单据</text>
+<text x="4382" y="1237" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：服务报告　P/备货施工：完工纸</text>
+<polyline points="900,1270 1030,1270 1030,1165 1150,1165" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1770,1165.0 1860.0,1165.0 1860.0,1165.0 1950,1165.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2570,1165.0 2660.0,1165.0 2660.0,1165.0 2750,1165.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3370,1165.0 3460.0,1165.0 3460.0,1165.0 3550,1165.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4170,1165.0 4260.0,1165.0 4260.0,1165.0 4350,1165.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1150" y="1440" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1150" y="1440" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1182" y="1468" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1218" y="1497" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">N1</text>
+<rect x="1602" y="1468" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1672.0" y="1495" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="1182" y="1576" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">填写服务报告进行报价</text>
+<text x="1182" y="1627" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">未能即时处理</text>
+<rect x="1950" y="1440" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1950" y="1440" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1982" y="1468" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2018" y="1497" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">N2</text>
+<rect x="2402" y="1468" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2472.0" y="1495" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">客户</text>
+<text x="1982" y="1576" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">客户签名</text>
+<text x="1982" y="1627" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">确认服务报告内容</text>
+<rect x="2750" y="1440" width="620" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2750" y="1440" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="2782" y="1468" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2818" y="1497" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">N3</text>
+<rect x="3092" y="1468" width="250" height="50" rx="16" fill="#FFF4E4"/>
+<text x="3217.0" y="1495" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅 / 系统</text>
+<text x="2782" y="1576" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">扫描及提交服务报告</text>
+<text x="2782" y="1627" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">系统更新记录</text>
+<rect x="3550" y="1440" width="790" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3550" y="1440" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="3582" y="1468" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="3618" y="1497" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">N4</text>
+<rect x="4172" y="1468" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="4242.0" y="1495" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">系统</text>
+<text x="3582" y="1576" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">通知报价部、采购部</text>
+<text x="3582" y="1627" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">报价组收到服务报告和报价请求</text>
+<polyline points="715,1450 715,1555 1150,1555" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1770,1555.0 1860.0,1555.0 1860.0,1555.0 1950,1555.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2570,1555.0 2660.0,1555.0 2660.0,1555.0 2750,1555.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3370,1555.0 3460.0,1555.0 3460.0,1555.0 3550,1555.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="170" y="1912" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="42" font-weight="500" text-anchor="start">C · 报价与客户确认</text>
+<rect x="170" y="1970" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="170" y="1970" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="202" y="1998" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="238" y="2027" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">1</text>
+<rect x="652" y="1998" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="722.0" y="2025" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部</text>
+<text x="202" y="2106" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">填写报价表</text>
+<text x="202" y="2157" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">报价部收到服务报告 / 报价请求</text>
+<rect x="1000" y="1970" width="690" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1000" y="1970" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1032" y="1998" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1068" y="2027" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">2</text>
+<rect x="1522" y="1998" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1592.0" y="2025" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部</text>
+<text x="1032" y="2106" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">查阅库存数量和价钱</text>
+<text x="1032" y="2157" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">已登记货品 / 新货品</text>
+<rect x="1870" y="1830" width="740" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1870" y="1830" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1902" y="1858" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1938" y="1887" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3A</text>
+<rect x="2442" y="1858" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2512.0" y="1885" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部</text>
+<text x="1902" y="1966" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">已有参考价钱</text>
+<text x="1902" y="2017" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">有存货或无存货，均可完成报价表</text>
+<rect x="1870" y="2160" width="740" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1870" y="2160" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1902" y="2188" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1938" y="2217" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3B</text>
+<rect x="2272" y="2188" width="310" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2427.0" y="2215" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部 / 采购部</text>
+<text x="1902" y="2296" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">未知货品、没有参考价钱</text>
+<text x="1902" y="2347" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">向采购部索取预估价</text>
+<rect x="2790" y="1970" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2790" y="1970" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="2822" y="1998" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2858" y="2027" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">4</text>
+<rect x="3272" y="1998" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="3342.0" y="2025" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部</text>
+<text x="2822" y="2106" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">完成并发出报价表</text>
+<text x="2822" y="2157" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">发送给客户</text>
+<rect x="3620" y="1970" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3620" y="1970" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="3652" y="1998" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="3688" y="2027" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">5</text>
+<rect x="4102" y="1998" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="4172.0" y="2025" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">客户</text>
+<text x="3652" y="2106" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">客户回复确认</text>
+<text x="3652" y="2157" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">确认报价</text>
+<rect x="4450" y="1970" width="780" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4450" y="1970" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="4482" y="1998" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="4518" y="2027" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">6</text>
+<rect x="4802" y="1998" width="400" height="50" rx="16" fill="#F1ECFF"/>
+<text x="5002.0" y="2025" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project</text>
+<text x="4482" y="2106" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">建立物料申请单 MR</text>
+<text x="4482" y="2157" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：CR　P：Project</text>
+<polyline points="820,2085.0 910.0,2085.0 910.0,2085.0 1000,2085.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1690,2085 1780,2085 1780,1945 1870,1945" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1690,2085 1780,2085 1780,2275 1870,2275" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2610,1945 2700,1945 2700,2085 2790,2085" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2610,2275 2700,2275 2700,2085 2790,2085" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3440,2085.0 3530.0,2085.0 3530.0,2085.0 3620,2085.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4270,2085.0 4360.0,2085.0 4360.0,2085.0 4450,2085.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="170" y="2622" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="42" font-weight="500" text-anchor="start">D · MR、库存、采购与仓务</text>
+<rect x="170" y="2680" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="170" y="2680" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="202" y="2708" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="238" y="2737" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">1</text>
+<rect x="392" y="2708" width="400" height="50" rx="16" fill="#F1ECFF"/>
+<text x="592.0" y="2735" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project</text>
+<text x="202" y="2816" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">查阅库存</text>
+<text x="202" y="2867" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：CR　P：Project</text>
+<rect x="1000" y="2540" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1000" y="2540" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="1032" y="2568" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1068" y="2597" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">2A</text>
+<rect x="1072" y="2568" width="550" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1347.0" y="2595" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project / 仓务</text>
+<text x="1032" y="2676" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">有存货</text>
+<text x="1032" y="2727" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">申请货品 → 仓务确认 → 留货</text>
+<rect x="1000" y="2870" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1000" y="2870" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1032" y="2898" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1068" y="2927" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">2B</text>
+<rect x="1222" y="2898" width="400" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1422.0" y="2925" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project</text>
+<text x="1032" y="3006" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">无存货</text>
+<text x="1032" y="3057" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">向采购部申请采购货品</text>
+<rect x="1830" y="2870" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1830" y="2870" width="14" height="230" rx="7" fill="#E98A15"/>
+<rect x="1862" y="2898" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1898" y="2927" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3</text>
+<rect x="2312" y="2898" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2382.0" y="2925" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">采购部</text>
+<text x="1862" y="3006" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">发出 PO 并收货</text>
+<text x="1862" y="3057" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">采购部对外采购</text>
+<rect x="2660" y="2680" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2660" y="2680" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="2692" y="2708" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="2728" y="2737" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">4</text>
+<rect x="3142" y="2708" width="140" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3212.0" y="2735" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">仓务部</text>
+<text x="2692" y="2816" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">仓务入库 / 留货</text>
+<text x="2692" y="2867" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">系统通知 CR 或 Project 主管</text>
+<rect x="3490" y="2680" width="650" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3490" y="2680" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="3522" y="2708" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3558" y="2737" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">5</text>
+<rect x="3712" y="2708" width="400" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3912.0" y="2735" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project</text>
+<text x="3522" y="2816" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">确认货品资料与数量</text>
+<text x="3522" y="2867" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：CR　P：Project</text>
+<rect x="4320" y="2540" width="830" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4320" y="2540" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="4352" y="2568" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4388" y="2597" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">6A</text>
+<rect x="4722" y="2568" width="400" height="50" rx="16" fill="#E8F7F0"/>
+<text x="4922.0" y="2595" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project</text>
+<text x="4352" y="2676" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">全部货品正确</text>
+<text x="4352" y="2727" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">准备所有货品并列印完工纸</text>
+<rect x="4320" y="2870" width="830" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4320" y="2870" width="14" height="230" rx="7" fill="#D94B4B"/>
+<rect x="4352" y="2898" width="72" height="50" rx="16" fill="#FDECEC"/>
+<text x="4388" y="2927" fill="#D94B4B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">6B</text>
+<rect x="4572" y="2898" width="550" height="50" rx="16" fill="#FDECEC"/>
+<text x="4847.0" y="2925" fill="#D94B4B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project / 系统</text>
+<text x="4352" y="3006" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">部分 / 全部货品错误</text>
+<text x="4352" y="3057" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">通知采购、仓务、报价部后重新查库存</text>
+<polyline points="4840,2200 4840,2470 495,2470 495,2680" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="820,2795 910,2795 910,2655 1000,2655" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="820,2795 910,2795 910,2985 1000,2985" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1650,2985.0 1740.0,2985.0 1740.0,2985.0 1830,2985.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1650,2655 2550,2655 2550,2795 2660,2795" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2480,2985 2550,2985 2550,2795 2660,2795" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3310,2795.0 3400.0,2795.0 3400.0,2795.0 3490,2795.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4140,2795 4230,2795 4230,2655 4320,2655" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4140,2795 4230,2795 4230,2985 4320,2985" fill="none" stroke="#D94B4B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4735,3100 4735,3200 495,3200 495,2910" fill="none" stroke="#D94B4B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="18 12" marker-end="url(#arrow)"/>
+<text x="170" y="3352" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="42" font-weight="500" text-anchor="start">E · 备货后施工与完结</text>
+<rect x="650" y="3370" width="780" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="650" y="3370" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="682" y="3398" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="718" y="3427" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">1</text>
+<rect x="852" y="3398" width="550" height="50" rx="16" fill="#F1ECFF"/>
+<text x="1127.0" y="3425" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / Project / 仓务</text>
+<text x="682" y="3506" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">货品 + 完工纸放仓库备用</text>
+<text x="682" y="3557" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">师傅取货时与仓库核对所属单号</text>
+<rect x="1640" y="3370" width="780" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1640" y="3370" width="14" height="230" rx="7" fill="#1E6BFF"/>
+<rect x="1672" y="3398" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="1708" y="3427" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">2</text>
+<rect x="1842" y="3398" width="550" height="50" rx="16" fill="#EAF1FF"/>
+<text x="2117.0" y="3425" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">主管 / CR / Project</text>
+<text x="1672" y="3506" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">再次分派师傅</text>
+<text x="1672" y="3557" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">进入上方 A 段的接单与现场安装流程</text>
+<rect x="2630" y="3370" width="780" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2630" y="3370" width="14" height="230" rx="7" fill="#16A36A"/>
+<rect x="2662" y="3398" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2698" y="3427" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">3</text>
+<rect x="3242" y="3398" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="3312.0" y="3425" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">师傅</text>
+<text x="2662" y="3506" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">完成现场单据</text>
+<text x="2662" y="3557" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">扫描服务报告或完工纸，可填写后补报价</text>
+<rect x="3620" y="3370" width="730" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3620" y="3370" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="3652" y="3398" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3688" y="3427" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">4</text>
+<rect x="4182" y="3398" width="140" height="50" rx="16" fill="#F1ECFF"/>
+<text x="4252.0" y="3425" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">系统</text>
+<text x="3652" y="3506" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">系统通知</text>
+<text x="3652" y="3557" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">M：CR + 会计　P：Project 主管 + 会计</text>
+<rect x="4560" y="3370" width="670" height="230" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="4560" y="3370" width="14" height="230" rx="7" fill="#7657D6"/>
+<rect x="4592" y="3398" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="4628" y="3427" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">5</text>
+<rect x="4892" y="3398" width="310" height="50" rx="16" fill="#F1ECFF"/>
+<text x="5047.0" y="3425" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">报价部 / 会计部</text>
+<text x="4592" y="3506" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">开票 → 收款 → 流程完结</text>
+<text x="4592" y="3557" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">报价组转发会计部开发票</text>
+<polyline points="4735,2770 4735,3280 1040,3280 1040,3370" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1430,3485.0 1535.0,3485.0 1535.0,3485.0 1640,3485.0" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="2420,3485.0 2525.0,3485.0 2525.0,3485.0 2630,3485.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3410,3485.0 3515.0,3485.0 3515.0,3485.0 3620,3485.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4350,3485.0 4455.0,3485.0 4455.0,3485.0 4560,3485.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="170" y="3719" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="29" font-weight="400" text-anchor="start">SOP 原文状态：待确认 → 收到 / 审批通过 → 待处理 → 签到 → 处理中 → 完成 → 已完成</text>
+</svg>

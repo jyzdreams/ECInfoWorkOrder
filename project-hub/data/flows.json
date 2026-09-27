@@ -1,0 +1,735 @@
+{
+  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "total": 7,
+  "flows": [
+    {
+      "id": "FLOW-MAIN",
+      "name": "真实业务总流程",
+      "order": 0,
+      "type": "main",
+      "status": "CONFIRMED",
+      "summary": "客户需求经报价生命周期和中单判断进入 M、P 或 M+P；工单完工与收款完成分离。",
+      "nodes": [
+        {
+          "id": "MAIN-01",
+          "label": "客户需求",
+          "actor": "客户",
+          "action": "提出需求",
+          "state": "待受理",
+          "nextRole": "CS / CR",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-001"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-02",
+          "label": "CS / CR",
+          "actor": "CS / CR",
+          "action": "识别并发起报价任务",
+          "state": "待报价",
+          "nextRole": "报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-009"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-03",
+          "label": "报价组",
+          "actor": "报价组",
+          "action": "制作并维护报价版本",
+          "state": "报价沟通中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-008"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-04",
+          "label": "客户确认",
+          "actor": "客户",
+          "action": "接受最终报价",
+          "state": "待中单",
+          "nextRole": "报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-007",
+            "CONFIRMED-008"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-05",
+          "label": "中单",
+          "actor": "报价组",
+          "action": "确认中单并锁定最终报价",
+          "state": "已中单",
+          "nextRole": "系统 / 业务团队",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-007",
+            "CONFIRMED-008",
+            "CONFIRMED-011"
+          ],
+          "description": "P 自动生成 MR；M 生成整期保养计划；M+P 分别进入 M/P。"
+        },
+        {
+          "id": "MAIN-06",
+          "label": "M / P / M+P",
+          "actor": "系统 / 业务团队",
+          "action": "按报价阶段确定的业务类型分流",
+          "state": "准备中",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-011",
+            "CONFIRMED-013"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-07",
+          "label": "排期与服务",
+          "actor": "CR / 主管、师傅",
+          "action": "安排时间并执行服务",
+          "state": "处理中",
+          "nextRole": "客户 / CR",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-004",
+            "CONFIRMED-005",
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-08",
+          "label": "Service Report",
+          "actor": "师傅 / 客户",
+          "action": "提交并签名确认",
+          "state": "待确认",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MAIN-09",
+          "label": "完工",
+          "actor": "CR / 主管",
+          "action": "简单确认",
+          "state": "已完工",
+          "nextRole": "报价 / 财务",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010",
+            "CONFIRMED-017"
+          ],
+          "description": "完工不等于收款完成。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW-P",
+      "name": "01 普通报价维修",
+      "order": 1,
+      "type": "scenario",
+      "status": "CONFIRMED",
+      "summary": "先报价、中单，再按最终报价材料生成 MR，备货完成后由 CR / 主管确认正式施工时间。",
+      "nodes": [
+        {
+          "id": "P-01",
+          "label": "报价任务",
+          "actor": "CS / CR",
+          "action": "发起报价任务",
+          "state": "待报价",
+          "nextRole": "报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-009"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-02",
+          "label": "版本沟通",
+          "actor": "报价组",
+          "action": "R1 / R2 / R3 迭代",
+          "state": "沟通中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-008"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-03",
+          "label": "中单",
+          "actor": "报价组",
+          "action": "确认客户接受最终报价",
+          "state": "已中单",
+          "nextRole": "系统 / 仓管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-003",
+            "CONFIRMED-007"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-04",
+          "label": "自动生成 MR",
+          "actor": "系统",
+          "action": "从成交报价提取材料",
+          "state": "待备货",
+          "nextRole": "仓管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-006",
+            "CONFIRMED-007"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-05",
+          "label": "备货 / 采购",
+          "actor": "仓管",
+          "action": "备货；库存不足时采购",
+          "state": "材料准备中",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-003"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-06",
+          "label": "确认正式时间",
+          "actor": "CR / 主管",
+          "action": "材料就绪后与客户确认",
+          "state": "待施工",
+          "nextRole": "师傅",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-004",
+            "CONFIRMED-005"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-07",
+          "label": "现场施工",
+          "actor": "师傅",
+          "action": "领料并施工",
+          "state": "处理中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-001",
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-08",
+          "label": "Service Report",
+          "actor": "师傅 / 客户",
+          "action": "提交 SR 并签名",
+          "state": "待确认",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010"
+          ],
+          "description": ""
+        },
+        {
+          "id": "P-09",
+          "label": "正式完工",
+          "actor": "CR / 主管",
+          "action": "简单确认",
+          "state": "已完工",
+          "nextRole": "归档 / 财务",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010",
+            "CONFIRMED-017"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "FLOW-MAINT-ISSUE",
+      "name": "02 保养发现问题后二次维修",
+      "order": 2,
+      "type": "scenario",
+      "status": "CONFIRMED",
+      "summary": "保养 SR 选择需要报价后自动创建报价任务，再进入报价、中单、MR、备货和二次上门链路。",
+      "nodes": [
+        {
+          "id": "MI-01",
+          "label": "上门保养",
+          "actor": "师傅",
+          "action": "按保养计划服务",
+          "state": "保养中",
+          "nextRole": "师傅",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002",
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-02",
+          "label": "发现问题",
+          "actor": "师傅",
+          "action": "识别无法当场完成的问题",
+          "state": "待报价判断",
+          "nextRole": "系统",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-03",
+          "label": "SR 需要报价",
+          "actor": "师傅",
+          "action": "在 Service Report 选择需要报价",
+          "state": "待报价",
+          "nextRole": "报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-009"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-04",
+          "label": "报价与中单",
+          "actor": "报价组 / 客户",
+          "action": "版本沟通并确认中单",
+          "state": "已中单",
+          "nextRole": "系统",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-007",
+            "CONFIRMED-008"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-05",
+          "label": "MR 与备货",
+          "actor": "系统 / 仓管",
+          "action": "自动生成 MR 并备货",
+          "state": "材料准备中",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-006",
+            "CONFIRMED-007"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-06",
+          "label": "二次上门",
+          "actor": "CR / 主管、师傅",
+          "action": "确认时间并施工",
+          "state": "处理中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-005"
+          ],
+          "description": ""
+        },
+        {
+          "id": "MI-07",
+          "label": "SR 与完工",
+          "actor": "师傅 / CR",
+          "action": "签名、提交、简单确认",
+          "state": "已完工",
+          "nextRole": "归档",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "FLOW-INSTANT",
+      "name": "03 现场即时维修",
+      "order": 3,
+      "type": "scenario",
+      "status": "PARTIAL",
+      "summary": "现场有材料时可确认价格、当场维修与收款；回公司补正式商务记录，内部交款对账待确认。",
+      "nodes": [
+        {
+          "id": "IR-01",
+          "label": "现场发现问题",
+          "actor": "师傅",
+          "action": "确认可用现有材料处理",
+          "state": "现场判断",
+          "nextRole": "报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "IR-02",
+          "label": "确认价格",
+          "actor": "师傅 / 报价组",
+          "action": "联系报价组确认价格",
+          "state": "待客户确认",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "IR-03",
+          "label": "客户接受",
+          "actor": "客户",
+          "action": "接受现场报价",
+          "state": "可维修",
+          "nextRole": "师傅",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "IR-04",
+          "label": "当场维修",
+          "actor": "师傅",
+          "action": "完成维修",
+          "state": "已处理",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        },
+        {
+          "id": "IR-05",
+          "label": "当场收款",
+          "actor": "师傅",
+          "action": "现场收款",
+          "state": "已收现场款",
+          "nextRole": "财务 / 报价组",
+          "status": "PARTIAL",
+          "decisionIds": [
+            "CONFIRMED-017",
+            "PENDING-001"
+          ],
+          "description": "是否以及如何登记、交款、对账待确认。"
+        },
+        {
+          "id": "IR-06",
+          "label": "Service Report",
+          "actor": "师傅 / 客户",
+          "action": "提交并签名",
+          "state": "待确认",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010"
+          ],
+          "description": ""
+        },
+        {
+          "id": "IR-07",
+          "label": "补正式记录",
+          "actor": "报价组 / 商务",
+          "action": "补报价与商务记录",
+          "state": "待归档",
+          "nextRole": "财务",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-002"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "FLOW-M",
+      "name": "04 周期保养",
+      "order": 4,
+      "type": "scenario",
+      "status": "CONFIRMED",
+      "summary": "报价阶段确定保养周期，中单后生成整期计划；到期时再安排具体师傅和日期。",
+      "nodes": [
+        {
+          "id": "M-01",
+          "label": "确定周期",
+          "actor": "报价组",
+          "action": "在报价中确定保养周期",
+          "state": "报价中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-011",
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-02",
+          "label": "中单",
+          "actor": "报价组",
+          "action": "确认 M 或 M+P 中的 M",
+          "state": "已中单",
+          "nextRole": "系统",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-008",
+            "CONFIRMED-011"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-03",
+          "label": "整期计划",
+          "actor": "系统",
+          "action": "按周期和合同期生成计划",
+          "state": "计划已生成",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-04",
+          "label": "到期排期",
+          "actor": "CR / 主管",
+          "action": "安排具体师傅和日期",
+          "state": "待保养",
+          "nextRole": "师傅",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-05",
+          "label": "上门保养",
+          "actor": "师傅",
+          "action": "执行保养",
+          "state": "保养中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-012"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-06",
+          "label": "Service Report",
+          "actor": "师傅 / 客户",
+          "action": "提交并签名",
+          "state": "待确认",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010"
+          ],
+          "description": ""
+        },
+        {
+          "id": "M-07",
+          "label": "本次完成",
+          "actor": "CR / 主管",
+          "action": "简单确认",
+          "state": "本次保养完成",
+          "nextRole": "下一周期 / 报价组",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010",
+            "CONFIRMED-012"
+          ],
+          "description": "若发现维修问题，由 SR 选择需要报价并进入报价链路。"
+        }
+      ]
+    },
+    {
+      "id": "FLOW-CM",
+      "name": "05 CM",
+      "order": 5,
+      "type": "scenario",
+      "status": "PARTIAL",
+      "summary": "CM 由 CR / 主管直接指定师傅；与原 PM / 其他任务冲突的处理规则待确认。",
+      "nodes": [
+        {
+          "id": "CM-01",
+          "label": "CM 任务",
+          "actor": "CS / CR",
+          "action": "登记 CM 任务",
+          "state": "待分派",
+          "nextRole": "CR / 主管",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-014"
+          ],
+          "description": ""
+        },
+        {
+          "id": "CM-02",
+          "label": "直接指定师傅",
+          "actor": "CR / 主管",
+          "action": "指定服务人员",
+          "state": "待服务",
+          "nextRole": "师傅",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-015"
+          ],
+          "description": ""
+        },
+        {
+          "id": "CM-03",
+          "label": "时间冲突",
+          "actor": "CR / 主管、师傅",
+          "action": "处理与 PM / 其他任务冲突",
+          "state": "规则待定",
+          "nextRole": "CR / 主管",
+          "status": "PENDING",
+          "decisionIds": [
+            "PENDING-002"
+          ],
+          "description": "不得把“接受/拒绝 CM → PM 自动重排”当作已确认规则。"
+        },
+        {
+          "id": "CM-04",
+          "label": "现场服务",
+          "actor": "师傅",
+          "action": "执行服务",
+          "state": "处理中",
+          "nextRole": "客户",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-015"
+          ],
+          "description": ""
+        },
+        {
+          "id": "CM-05",
+          "label": "SR 与完工",
+          "actor": "师傅 / CR",
+          "action": "签名、提交、简单确认",
+          "state": "已完工",
+          "nextRole": "归档",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-010",
+            "CONFIRMED-015"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "FLOW-TENDER",
+      "name": "06 政府 Tender",
+      "order": 6,
+      "type": "scenario",
+      "status": "PARTIAL",
+      "summary": "政府项目标书经处理、报价/回标和结果判断；中标后进入 M、P 或 M+P，内部细节不扩展。",
+      "nodes": [
+        {
+          "id": "T-01",
+          "label": "取得标书",
+          "actor": "Tender 负责人",
+          "action": "接收政府项目标书",
+          "state": "待处理",
+          "nextRole": "Tender 团队",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-016"
+          ],
+          "description": ""
+        },
+        {
+          "id": "T-02",
+          "label": "Tender 处理",
+          "actor": "Tender 团队",
+          "action": "准备应标材料",
+          "state": "处理中",
+          "nextRole": "报价组",
+          "status": "PARTIAL",
+          "decisionIds": [
+            "CONFIRMED-016"
+          ],
+          "description": "内部细节尚未确认。"
+        },
+        {
+          "id": "T-03",
+          "label": "报价 / 回标",
+          "actor": "报价组 / Tender",
+          "action": "提交报价或回标",
+          "state": "等待结果",
+          "nextRole": "客户 / 政府机构",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-009",
+            "CONFIRMED-016"
+          ],
+          "description": ""
+        },
+        {
+          "id": "T-04",
+          "label": "结果",
+          "actor": "客户 / 政府机构",
+          "action": "判定中标或未中标",
+          "state": "已中标 / 未中标",
+          "nextRole": "业务团队",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-016"
+          ],
+          "description": ""
+        },
+        {
+          "id": "T-05",
+          "label": "M / P / M+P",
+          "actor": "业务团队",
+          "action": "按中标内容分流",
+          "state": "准备中",
+          "nextRole": "对应业务角色",
+          "status": "CONFIRMED",
+          "decisionIds": [
+            "CONFIRMED-011",
+            "CONFIRMED-016"
+          ],
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

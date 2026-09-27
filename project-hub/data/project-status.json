@@ -1,0 +1,418 @@
+{
+  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "project": "EC 工单系统",
+  "phase": "事实审计 / 真实流程澄清 / 原型与客户确认阶段",
+  "baseline": {
+    "prototype": "prototype/（2.0 当前评审入口）",
+    "decision": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+    "requirementApproval": "80 项功能需求仍为待确认；不得把流程 Decision 自动等同为全部需求批准。",
+    "productionDevelopment": "未进入生产开发"
+  },
+  "stats": {
+    "scannedFiles": 318,
+    "categories": {
+      "Flow/SOP": 51,
+      "Governance": 44,
+      "Other": 3,
+      "Prototype": 5,
+      "Development/Tooling": 2,
+      "Project Document": 7,
+      "PRD": 11,
+      "SDD": 5,
+      "Prototype Screenshot": 33,
+      "TDD": 1,
+      "Knowledge Base": 8,
+      "Decision": 1,
+      "Source/Reference": 3,
+      "Original Source": 78,
+      "Prototype Asset": 29,
+      "Historical Material": 10,
+      "Delivery": 8,
+      "Verification Record": 10,
+      "Project Hub": 9
+    },
+    "decisions": 20,
+    "confirmedDecisions": 17,
+    "pendingDecisions": 2,
+    "rejectedDecisions": 1,
+    "flows": 7,
+    "scenarioFlows": 6,
+    "linkedPRD": 11,
+    "linkedPrototype": 5,
+    "linkedSDD": 5,
+    "linkedTDD": 1,
+    "linkedDevelopment": 2,
+    "linkedTestUAT": 0,
+    "unidentifiedFiles": 3,
+    "weaklyAssociatedFiles": 199,
+    "activeOpenQuestions": 22,
+    "conflicts": 5
+  },
+  "git": {
+    "branch": "main",
+    "head": "2e06126",
+    "lastCommit": "2e061265dd9853f57c68482385a7314b93f8e06e|2026-09-18T01:00:39+08:00|feat: 依 0831/0901 會議紀要優化報價、標書與分派流程",
+    "recentRequirementRelatedCommits": [
+      "5a700f9|2026-07-23T14:25:55+08:00|合并最新原型修复并补充移动端规格",
+      "e31078e|2026-07-22T23:35:31+08:00|docs: 定義移動端工作台重設",
+      "c25c985|2026-07-07T18:25:54+08:00|feat: 優化UI原型，修復多項功能問題",
+      "89fb61a|2026-07-07T09:42:36+08:00|feat: 系統繁體化、新增採購管理模塊、優化會計UI",
+      "c594152|2026-07-02T19:17:11+08:00|繁体化 UI 原型并补充测试记录",
+      "a9ef559|2026-07-01T20:19:20+08:00|优化报价流程：工单状态和报价状态分离，添加TL选择字段"
+    ],
+    "dirtyEntryCount": 173,
+    "note": "Git 信息仅用于追溯；Project Hub 构建过程未提交、未清理或改写现有工作区。"
+  },
+  "conflicts": [
+    {
+      "id": "CONFLICT-001",
+      "priority": "P0",
+      "title": "旧端到端流程与本轮真实流程基线不一致",
+      "detail": "旧知识库 FLOW-001 仍为 Conflict；本轮用 CONFIRMED-001～017 建立新展示，但不覆盖旧材料。",
+      "status": "Conflict",
+      "relatedDecisions": [
+        "CONFIRMED-001",
+        "CONFIRMED-010"
+      ]
+    },
+    {
+      "id": "CONFLICT-002",
+      "priority": "P0",
+      "title": "M+P 固定先 P 后 M 已被推翻",
+      "detail": "包含固定顺序的旧流程图/文档仅保留历史追溯，不再作为当前流程基线。",
+      "status": "DeprecatedByDecision",
+      "relatedDecisions": [
+        "CONFIRMED-013",
+        "REJECTED-001"
+      ]
+    },
+    {
+      "id": "CONFLICT-003",
+      "priority": "P0",
+      "title": "现有 Prototype 尚未证明与 2026-09-27 决策完全对齐",
+      "detail": "本轮禁止修改原型；所有 Prototype 关联只表示可追溯，不表示实现或验收完成。",
+      "status": "Conflict",
+      "relatedDecisions": [
+        "CONFIRMED-006",
+        "CONFIRMED-007",
+        "CONFIRMED-010",
+        "CONFIRMED-012"
+      ]
+    },
+    {
+      "id": "CONFLICT-004",
+      "priority": "P1",
+      "title": "旧资料中的 CM 插单/拒绝/PM 自动重排不可作为已确认规则",
+      "detail": "本轮仅确认 CR/主管直接指定师傅；冲突处理仍为 PENDING-002。",
+      "status": "Conflict",
+      "relatedDecisions": [
+        "CONFIRMED-015",
+        "PENDING-002"
+      ]
+    },
+    {
+      "id": "CONFLICT-005",
+      "priority": "P1",
+      "title": "需求确认表的 80 项仍为待确认",
+      "detail": "人工确认的流程 Decision 不自动提升全部功能需求为客户已批准。",
+      "status": "Conflict",
+      "relatedDecisions": []
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "Q-20260927-001",
+      "priority": "P0",
+      "question": "现场即时维修收款后，师傅如何登记、交款、对账？",
+      "reason": "人工讨论明确标记 PENDING。",
+      "status": "Pending",
+      "decisionIds": [
+        "PENDING-001"
+      ]
+    },
+    {
+      "id": "Q-20260927-002",
+      "priority": "P0",
+      "question": "CM 与原 PM / 其他任务发生时间冲突时如何处理？",
+      "reason": "人工讨论明确标记 PENDING；不得假定接受/拒绝后自动重排。",
+      "status": "Pending",
+      "decisionIds": [
+        "PENDING-002"
+      ]
+    },
+    {
+      "id": "Q-001",
+      "priority": "P0",
+      "question": "哪一套 SOP 总流程为有效版本，其余版本是否废弃？",
+      "reason": "SOP 画布存在两套近似总流程与复制子流程。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-002",
+      "priority": "P0",
+      "question": "一期边界是否只含 CALL 核心闭环，还是包含报价、标书、采购、会计？",
+      "reason": "当前原型超出早期 MVP 边界；客户确认表仍全部待确认。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-083",
+        "SRC-185"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-003",
+      "priority": "P0",
+      "question": "工单采用 6 状态、早期 7 状态、当前原型 7 状态，还是主状态＋业务卡点？",
+      "reason": "多个资料版本不可同时成立。",
+      "status": "Conflict",
+      "sourceIds": [
+        "SRC-145",
+        "SRC-010",
+        "SRC-217"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-004",
+      "priority": "P0",
+      "question": "师傅提交完整 SR/完工单后直接完成，还是进入独立待完工确认？",
+      "reason": "0702、早期流程、F033 与原型冲突。",
+      "status": "Conflict",
+      "sourceIds": [
+        "SRC-145",
+        "SRC-083",
+        "SRC-217"
+      ],
+      "lifecycle": "ResolvedByCONFIRMED-010"
+    },
+    {
+      "id": "Q-005",
+      "priority": "P0",
+      "question": "接单申请是否使用独立对象/子状态，而不是工单主状态“待审批”？",
+      "reason": "当前原型把两个审批语义混在一起。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-006",
+      "priority": "P0",
+      "question": "Project 主管与仓务部是否建立独立角色？",
+      "reason": "SOP 有角色，需求/原型缺失。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-007",
+      "priority": "P0",
+      "question": "仓库通与本系统谁是采购/库存主数据源，哪些字段可写？",
+      "reason": "只读同步与本系统手工维护冲突。",
+      "status": "Conflict",
+      "sourceIds": [
+        "SRC-012",
+        "SRC-217"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-008",
+      "priority": "P0",
+      "question": "CM 抢占 PM 时师傅是否始终可拒绝？",
+      "reason": "SOP 允许选择，原型部分场景隐藏拒绝。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-012"
+      ],
+      "lifecycle": "ReframedAsPENDING-002"
+    },
+    {
+      "id": "Q-009",
+      "priority": "P0",
+      "question": "不可拍照客户/地点清单、豁免人和替代证明是什么？",
+      "reason": "原型仍强制 Before/After。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-147",
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-010",
+      "priority": "P0",
+      "question": "普通、政府、CALL、任务、项目、报价、J Number 的正式编号关系是什么？",
+      "reason": "现有规则分散且格式不同。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-145",
+        "SRC-083"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-011",
+      "priority": "P0",
+      "question": "SR/完工纸自动判定表是什么？",
+      "reason": "原型按物料/采购/报价推断，尚无客户样例确认。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-083",
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-012",
+      "priority": "P0",
+      "question": "分派权限：CS、CR、TL、ADMIN 各自能否首次分派、CM 重分派和跨区处理？",
+      "reason": "会议、SOP 与原型权限不完全一致。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-147",
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-013",
+      "priority": "P1",
+      "question": "同区最低负载推荐是否接受；负载阈值、请假来源和技能筛选规则是什么？",
+      "reason": "当前仅为原型规则。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-083",
+        "SRC-217"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-014",
+      "priority": "P1",
+      "question": "照片每类最多 9 张还是 10 张；文件类型、压缩、在线保留与归档周期是什么？",
+      "reason": "资料存在数量差异，容量风险高。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-150",
+        "SRC-149",
+        "SRC-010"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-015",
+      "priority": "P1",
+      "question": "一工单多 SR 的上限、编辑时限和归档命名是什么？",
+      "reason": "0702 明确场景，产品规则未冻结。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-145"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-016",
+      "priority": "P1",
+      "question": "报价责任人按类型/区域如何分配；已确定报价能否修订？",
+      "reason": "SOP 同时出现 CR 与报价组。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-145",
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-017",
+      "priority": "P1",
+      "question": "采购完成后恢复原工单还是创建新工单；若新建，编号如何处理？",
+      "reason": "需求与原型只有候选规则。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-083",
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-018",
+      "priority": "P1",
+      "question": "标书导出、正式回标、中标后 M/P/M+P 是否纳入本期？",
+      "reason": "原型按钮关闭，责任人仍占位。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-012"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-019",
+      "priority": "P1",
+      "question": "通知渠道使用系统内、钉钉、Email 或 WhatsApp；哪些节点通知谁？",
+      "reason": "外部渠道均未做真实 POC。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-083",
+        "SRC-185"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-020",
+      "priority": "P1",
+      "question": "试点区域、真实账号、客户/地点/师傅主数据和 20-30 张样例工单何时提供？",
+      "reason": "真实权限、推荐和 UAT 被阻塞。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-185"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-021",
+      "priority": "P2",
+      "question": "Peachtree 与 OCS 的版本、同步方向、字段、频率和失败补偿是什么？",
+      "reason": "当前仅有模拟入口或会议设想。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-145",
+        "SRC-083"
+      ],
+      "lifecycle": "Open"
+    },
+    {
+      "id": "Q-022",
+      "priority": "P2",
+      "question": "OCR、语音转写、WhatsApp 自动抓图、AI 报销识别分别属于哪一期？",
+      "reason": "不同资料中的建议阶段不同，均无生产证据。",
+      "status": "Pending",
+      "sourceIds": [
+        "SRC-148",
+        "SRC-147",
+        "SRC-145"
+      ],
+      "lifecycle": "Open"
+    }
+  ],
+  "scanBoundary": {
+    "included": "项目根目录中的业务、交付、治理、原型、知识库和 Project Hub 文件。",
+    "excluded": [
+      ".git/ 内部对象",
+      ".tools/",
+      ".uv-cache/",
+      ".uv-tools/",
+      ".agents/",
+      ".codex/",
+      ".DS_Store"
+    ],
+    "reason": "排除版本库内部对象、依赖/运行缓存、Agent 技能与构建中间产物；这些不是项目事实或客户交付文件。"
+  }
+}

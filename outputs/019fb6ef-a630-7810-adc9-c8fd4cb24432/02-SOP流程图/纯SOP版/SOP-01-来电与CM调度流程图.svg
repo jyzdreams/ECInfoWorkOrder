@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4600" height="2750" viewBox="0 0 4600 2750">
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#14213d" flood-opacity="0.10"/></filter>
+<marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#64748B"/></marker>
+<marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#1E6BFF"/></marker>
+</defs>
+<rect width="4600" height="2750" fill="#F4F7FC"/>
+<text x="170" y="154" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="64" font-weight="500" text-anchor="start">SOP 01 · 来电受理与 CM 调度流程</text>
+<text x="170" y="210" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="30" font-weight="400" text-anchor="start">仅按 SOP.jam 的原始节点与连线重组，不引用当前原型规则</text>
+<rect x="3910" y="95" width="960" height="54" rx="17" fill="#EAF1FF"/>
+<text x="4390.0" y="123" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="500" text-anchor="middle">Customer Service Call Protocol</text>
+<rect x="170" y="360" width="430" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="170" y="360" width="14" height="210" rx="7" fill="#1E6BFF"/>
+<rect x="202" y="388" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="238" y="417" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">1</text>
+<rect x="322" y="388" width="250" height="50" rx="16" fill="#EAF1FF"/>
+<text x="447.0" y="415" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">客户 / CS</text>
+<text x="202" y="496" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">收到来电</text>
+<text x="202" y="547" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">WhatsApp / 电话</text>
+<polygon points="925,465.0 1090.0,590 925,715.0 760.0,590" fill="#EAF1FF" stroke="#1E6BFF" stroke-width="4" filter="url(#shadow)"/>
+<text x="925" y="586" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="30" font-weight="500" text-anchor="middle">客服判断处理</text>
+<polyline points="600,465 760,590" fill="none" stroke="#1E6BFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="1250" y="280" width="430" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1250" y="280" width="14" height="210" rx="7" fill="#16A36A"/>
+<rect x="1282" y="308" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1318" y="337" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">A</text>
+<rect x="1512" y="308" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1582.0" y="335" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS</text>
+<text x="1282" y="416" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">CS 可以处理</text>
+<text x="1282" y="467" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">SOP 原文分成“问题解决”和“创</text>
+<text x="1282" y="499" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">建来电单”</text>
+<rect x="1250" y="690" width="430" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1250" y="690" width="14" height="210" rx="7" fill="#E98A15"/>
+<rect x="1282" y="718" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1318" y="747" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B</text>
+<rect x="1512" y="718" width="140" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1582.0" y="745" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS</text>
+<text x="1282" y="826" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">CS 未能处理</text>
+<text x="1282" y="877" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">进入投诉/客户关系跟进</text>
+<polyline points="1090,535 1160,535 1160,385 1250,385" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1090,645 1160,645 1160,795 1250,795" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1840" y="180" width="470" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1840" y="180" width="14" height="210" rx="7" fill="#16A36A"/>
+<rect x="1872" y="208" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1908" y="237" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">A1</text>
+<rect x="2032" y="208" width="250" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2157.0" y="235" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS / 系统</text>
+<text x="1872" y="316" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">问题解决</text>
+<text x="1872" y="367" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">系统创建来电单记录</text>
+<rect x="1840" y="455" width="470" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1840" y="455" width="14" height="210" rx="7" fill="#1E6BFF"/>
+<rect x="1872" y="483" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="1908" y="512" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">A2</text>
+<rect x="2032" y="483" width="250" height="50" rx="16" fill="#EAF1FF"/>
+<text x="2157.0" y="510" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS / 系统</text>
+<text x="1872" y="591" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">创建来电单</text>
+<text x="1872" y="642" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">提交后自动由来电单转为工单</text>
+<rect x="1840" y="760" width="470" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1840" y="760" width="14" height="210" rx="7" fill="#E98A15"/>
+<rect x="1872" y="788" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1908" y="817" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B1</text>
+<rect x="2032" y="788" width="250" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2157.0" y="815" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS / CR</text>
+<text x="1872" y="896" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">投诉</text>
+<text x="1872" y="947" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">通知所属 CR</text>
+<polyline points="1680,385.0 1760.0,385.0 1760.0,285.0 1840,285.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1680,420 1760,420 1760,560 1840,560" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="1680,795.0 1760.0,795.0 1760.0,865.0 1840,865.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="2480" y="180" width="500" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2480" y="180" width="14" height="210" rx="7" fill="#16A36A"/>
+<rect x="2512" y="208" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2548" y="237" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">A3</text>
+<rect x="2812" y="208" width="140" height="50" rx="16" fill="#E8F7F0"/>
+<text x="2882.0" y="235" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CS</text>
+<text x="2512" y="316" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">CS 勾选“已解决”</text>
+<text x="2512" y="367" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">系统中的来电单保留处理记录</text>
+<rect x="2480" y="455" width="500" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2480" y="455" width="14" height="210" rx="7" fill="#1E6BFF"/>
+<rect x="2512" y="483" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="2548" y="512" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">A3</text>
+<rect x="2812" y="483" width="140" height="50" rx="16" fill="#EAF1FF"/>
+<text x="2882.0" y="510" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">系统</text>
+<text x="2512" y="591" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">工单已创建</text>
+<text x="2512" y="642" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">系统通知所属维修 / 工程部门 Super</text>
+<rect x="2480" y="760" width="500" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2480" y="760" width="14" height="210" rx="7" fill="#E98A15"/>
+<rect x="2512" y="788" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2548" y="817" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">B2</text>
+<rect x="2702" y="788" width="250" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2827.0" y="815" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / 系统</text>
+<text x="2512" y="896" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">更新现有工单最新状况</text>
+<text x="2512" y="947" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">由所属 CR 跟进投诉</text>
+<polyline points="2310,285.0 2395.0,285.0 2395.0,285.0 2480,285.0" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="2310,560.0 2395.0,560.0 2395.0,560.0 2480,560.0" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<polyline points="2310,865.0 2395.0,865.0 2395.0,865.0 2480,865.0" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="3160" y="455" width="500" height="210" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3160" y="455" width="14" height="210" rx="7" fill="#7657D6"/>
+<rect x="3192" y="483" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3228" y="512" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">4</text>
+<rect x="3442" y="483" width="190" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3537.0" y="510" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">Super</text>
+<text x="3192" y="591" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">Super 分配工作</text>
+<text x="3192" y="642" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">分配给前线人员</text>
+<rect x="3840" y="455" width="570" height="250" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3840" y="455" width="14" height="250" rx="7" fill="#7657D6"/>
+<rect x="3872" y="483" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3908" y="512" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">5</text>
+<rect x="4222" y="483" width="160" height="50" rx="16" fill="#F1ECFF"/>
+<text x="4302.0" y="510" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="3872" y="591" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">前线员工收到 CM 工单通知</text>
+<text x="3872" y="642" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">通知内容：地点、时间、联系人、电话、工作</text>
+<text x="3872" y="674" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">内容</text>
+<polyline points="2980,560.0 3070.0,560.0 3070.0,560.0 3160,560.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="3660,560.0 3750.0,560.0 3750.0,580.0 3840,580.0" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="170" y="1153" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="43" font-weight="500" text-anchor="start">已排程 PM 员工收到 CM 后的两种选择</text>
+<text x="170" y="1197" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="27" font-weight="400" text-anchor="start">SOP 将 CM 与原 PM 排程的处理拆成接受和不接受两条明确分支</text>
+<rect x="220" y="1310" width="560" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="220" y="1310" width="14" height="235" rx="7" fill="#16A36A"/>
+<rect x="252" y="1338" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="288" y="1367" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C1</text>
+<rect x="592" y="1338" width="160" height="50" rx="16" fill="#E8F7F0"/>
+<text x="672.0" y="1365" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="252" y="1446" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">接受 CM</text>
+<text x="252" y="1497" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">开始 CM 工单，同时放弃 PM 排程</text>
+<rect x="220" y="1770" width="560" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="220" y="1770" width="14" height="235" rx="7" fill="#E98A15"/>
+<rect x="252" y="1798" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="288" y="1827" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C2</text>
+<rect x="592" y="1798" width="160" height="50" rx="16" fill="#FFF4E4"/>
+<text x="672.0" y="1825" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="252" y="1906" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">不接受 CM</text>
+<text x="252" y="1957" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">继续原 PM 排程</text>
+<polyline points="4125,705 4125,1210 500,1210 500,1310" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="4125,705 4230,705 4230,1660 500,1660 500,1770" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1010" y="1265" width="560" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1010" y="1265" width="14" height="235" rx="7" fill="#16A36A"/>
+<rect x="1042" y="1293" width="72" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1078" y="1322" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C1-1</text>
+<rect x="1382" y="1293" width="160" height="50" rx="16" fill="#E8F7F0"/>
+<text x="1462.0" y="1320" fill="#16A36A" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="1042" y="1401" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">开始 CM 工单</text>
+<text x="1042" y="1452" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">CM 进入现场执行</text>
+<rect x="1010" y="1565" width="560" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1010" y="1565" width="14" height="235" rx="7" fill="#E98A15"/>
+<rect x="1042" y="1593" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1078" y="1622" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C1-2</text>
+<rect x="1382" y="1593" width="160" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1462.0" y="1620" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="1042" y="1701" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">放弃 PM 排程</text>
+<text x="1042" y="1752" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">需要重新安排原 PM 工作</text>
+<rect x="1010" y="1905" width="560" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1010" y="1905" width="14" height="235" rx="7" fill="#E98A15"/>
+<rect x="1042" y="1933" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1078" y="1962" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C2-1</text>
+<rect x="1052" y="1933" width="490" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1297.0" y="1960" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / CS / Super</text>
+<text x="1042" y="2041" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">重新分配 CM</text>
+<text x="1042" y="2092" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">由 CR / CS / Super 处理</text>
+<polyline points="780,1427.5 895.0,1427.5 895.0,1382.5 1010,1382.5" fill="none" stroke="#16A36A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="780,1430 900,1430 900,1682 1010,1682" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="780,1887.5 895.0,1887.5 895.0,2022.5 1010,2022.5" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1820" y="1565" width="610" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="1820" y="1565" width="14" height="235" rx="7" fill="#E98A15"/>
+<rect x="1852" y="1593" width="72" height="50" rx="16" fill="#FFF4E4"/>
+<text x="1888" y="1622" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C1-3</text>
+<rect x="1912" y="1593" width="490" height="50" rx="16" fill="#FFF4E4"/>
+<text x="2157.0" y="1620" fill="#E98A15" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">CR / CS / Super</text>
+<text x="1852" y="1701" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">重新分配原 PM</text>
+<text x="1852" y="1752" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">取消原有排程 / 找其他前线人员取代</text>
+<polyline points="1570,1682.5 1695.0,1682.5 1695.0,1682.5 1820,1682.5" fill="none" stroke="#E98A15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="2690" y="1450" width="620" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2690" y="1450" width="14" height="235" rx="7" fill="#7657D6"/>
+<rect x="2722" y="1478" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="2758" y="1507" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C1-4</text>
+<rect x="3092" y="1478" width="190" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3187.0" y="1505" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">Super</text>
+<text x="2722" y="1586" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">Super 再次分配</text>
+<text x="2722" y="1637" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">将 PM 工作分给替补前线人员</text>
+<rect x="2690" y="1905" width="620" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="2690" y="1905" width="14" height="235" rx="7" fill="#7657D6"/>
+<rect x="2722" y="1933" width="72" height="50" rx="16" fill="#F1ECFF"/>
+<text x="2758" y="1962" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">C2-2</text>
+<rect x="3092" y="1933" width="190" height="50" rx="16" fill="#F1ECFF"/>
+<text x="3187.0" y="1960" fill="#7657D6" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">Super</text>
+<text x="2722" y="2041" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">Super 再次分配</text>
+<text x="2722" y="2092" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">将 CM 分给其他前线人员</text>
+<polyline points="2430,1682.5 2560.0,1682.5 2560.0,1567.5 2690,1567.5" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1570,2022.5 2130.0,2022.5 2130.0,2022.5 2690,2022.5" fill="none" stroke="#7657D6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="3560" y="1565" width="750" height="235" rx="26" fill="#FFFFFF" stroke="#CAD5E3" stroke-width="2" filter="url(#shadow)"/>
+<rect x="3560" y="1565" width="14" height="235" rx="7" fill="#1E6BFF"/>
+<rect x="3592" y="1593" width="72" height="50" rx="16" fill="#EAF1FF"/>
+<text x="3628" y="1622" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="26" font-weight="500" text-anchor="middle">D</text>
+<rect x="4122" y="1593" width="160" height="50" rx="16" fill="#EAF1FF"/>
+<text x="4202.0" y="1620" fill="#1E6BFF" font-family="PingFang SC, PingFang HK, sans-serif" font-size="24" font-weight="500" text-anchor="middle">前线员工</text>
+<text x="3592" y="1701" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="34" font-weight="500" text-anchor="start">没有排程 PM 员工</text>
+<text x="3592" y="1752" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="25" font-weight="400" text-anchor="start">收到 CM 工单通知后直接开始 CM 工单</text>
+<polyline points="4125,705 4410,705 4410,1682 4310,1682" fill="none" stroke="#1E6BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<text x="180" y="2468" fill="#64748B" font-family="PingFang SC, PingFang HK, sans-serif" font-size="28" font-weight="400" text-anchor="start">原 SOP 保留用语：Super、前线人员、来电单、CM 工单、PM 排程。图中没有替换为当前系统角色或状态。</text>
+<rect x="170" y="2510" width="4260" height="150" rx="28" fill="#EEF2F7"/>
+<text x="220" y="2576" fill="#172033" font-family="PingFang SC, PingFang HK, sans-serif" font-size="31" font-weight="500" text-anchor="start">流程结束点：问题已解决｜现有工单已更新｜CM 开始执行｜原 PM 已重新安排</text>
+</svg>

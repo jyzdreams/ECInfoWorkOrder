@@ -1,0 +1,494 @@
+{
+  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "chain": "SOURCE → FACT → DECISION → FLOW → PRD → PROTOTYPE → SDD → TDD → DEVELOPMENT → TEST/UAT",
+  "total": 7,
+  "traces": [
+    {
+      "id": "TRACE-MAIN",
+      "flowId": "FLOW-MAIN",
+      "flowName": "真实业务总流程",
+      "status": "CONFIRMED",
+      "source": [
+        "FILE-618C5F54C7",
+        "FILE-3278F5370C",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-A85C7A9F6E",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B"
+      ],
+      "fact": [
+        "客户 → 提出需求 → 待受理 → CS / CR",
+        "CS / CR → 识别并发起报价任务 → 待报价 → 报价组",
+        "报价组 → 制作并维护报价版本 → 报价沟通中 → 客户",
+        "客户 → 接受最终报价 → 待中单 → 报价组",
+        "报价组 → 确认中单并锁定最终报价 → 已中单 → 系统 / 业务团队",
+        "系统 / 业务团队 → 按报价阶段确定的业务类型分流 → 准备中 → CR / 主管",
+        "CR / 主管、师傅 → 安排时间并执行服务 → 处理中 → 客户 / CR",
+        "师傅 / 客户 → 提交并签名确认 → 待确认 → CR / 主管",
+        "CR / 主管 → 简单确认 → 已完工 → 报价 / 财务"
+      ],
+      "decision": [
+        "CONFIRMED-001",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-008",
+        "CONFIRMED-009",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-017",
+        "REJECTED-001"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-P",
+      "flowId": "FLOW-P",
+      "flowName": "01 普通报价维修",
+      "status": "CONFIRMED",
+      "source": [
+        "FILE-618C5F54C7",
+        "FILE-512C8B8438",
+        "FILE-1C0FEF7B16",
+        "FILE-A889BEB5CC",
+        "FILE-25C54098C9",
+        "FILE-FB02666EDA",
+        "FILE-5F352DBE41",
+        "FILE-BB3DB7A8F6",
+        "FILE-C126504C61",
+        "FILE-6CB07D3DF1",
+        "FILE-B47343469E",
+        "FILE-1A64C3F487",
+        "FILE-A55A8994CE",
+        "FILE-3BF8DF5DD2",
+        "FILE-AEA13609CD",
+        "FILE-DAF892BF66",
+        "FILE-4397F18B78",
+        "FILE-0A74FC7EEF",
+        "FILE-29532AB810",
+        "FILE-70440B85A8",
+        "FILE-CC46DCD7F1",
+        "FILE-196F297AF5",
+        "FILE-D88853F4BB",
+        "FILE-3404FCA634",
+        "FILE-3DE4C79CBA",
+        "FILE-E296C9D1B3",
+        "FILE-D3B7ED99BF",
+        "FILE-F588EE5ECC",
+        "FILE-9FC8026439",
+        "FILE-8BA6D19BE8",
+        "FILE-532A6A9E87",
+        "FILE-BFC0873BAE",
+        "FILE-A9C1AA2EE3",
+        "FILE-9A94FF91D0",
+        "FILE-2C571A4B22",
+        "FILE-66BB805EBE",
+        "FILE-6816D2FA46",
+        "FILE-9E747F42DE",
+        "FILE-6089013A1D",
+        "FILE-34321133F7",
+        "FILE-1B0C55F938",
+        "FILE-A0474FCD05",
+        "FILE-AD44E70796",
+        "FILE-08440BE9E5",
+        "FILE-268F7CB8E6",
+        "FILE-D1123BBA78",
+        "FILE-3742A6BB80",
+        "FILE-6912FCC343",
+        "FILE-34CF42E0D4",
+        "FILE-718A819D7B",
+        "FILE-CBD9EEC0E8",
+        "FILE-DEBA771EAE",
+        "FILE-E6BCD0DC9E",
+        "FILE-3C82D68B49",
+        "FILE-5D9A52B010",
+        "FILE-6337519285",
+        "FILE-E5F5114A41",
+        "FILE-9E1F8FE583",
+        "FILE-9323E99464",
+        "FILE-037E68E465",
+        "FILE-E4BE549A27",
+        "FILE-7CDE0F4535",
+        "FILE-27B80282D7",
+        "FILE-0D169192A5",
+        "FILE-D088B28957",
+        "FILE-C6957AA69A",
+        "FILE-07F5DACDA8",
+        "FILE-619713D5B4",
+        "FILE-8958707AE0",
+        "FILE-C87EBB9F9C",
+        "FILE-C61A0D133E"
+      ],
+      "fact": [
+        "CS / CR → 发起报价任务 → 待报价 → 报价组",
+        "报价组 → R1 / R2 / R3 迭代 → 沟通中 → 客户",
+        "报价组 → 确认客户接受最终报价 → 已中单 → 系统 / 仓管",
+        "系统 → 从成交报价提取材料 → 待备货 → 仓管",
+        "仓管 → 备货；库存不足时采购 → 材料准备中 → CR / 主管",
+        "CR / 主管 → 材料就绪后与客户确认 → 待施工 → 师傅",
+        "师傅 → 领料并施工 → 处理中 → 客户",
+        "师傅 / 客户 → 提交 SR 并签名 → 待确认 → CR / 主管",
+        "CR / 主管 → 简单确认 → 已完工 → 归档 / 财务"
+      ],
+      "decision": [
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-003",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-006",
+        "CONFIRMED-007",
+        "CONFIRMED-008",
+        "CONFIRMED-009",
+        "CONFIRMED-010",
+        "CONFIRMED-013",
+        "REJECTED-001"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-MAINT-ISSUE",
+      "flowId": "FLOW-MAINT-ISSUE",
+      "flowName": "02 保养发现问题后二次维修",
+      "status": "CONFIRMED",
+      "source": [
+        "FILE-618C5F54C7"
+      ],
+      "fact": [
+        "师傅 → 按保养计划服务 → 保养中 → 师傅",
+        "师傅 → 识别无法当场完成的问题 → 待报价判断 → 系统",
+        "师傅 → 在 Service Report 选择需要报价 → 待报价 → 报价组",
+        "报价组 / 客户 → 版本沟通并确认中单 → 已中单 → 系统",
+        "系统 / 仓管 → 自动生成 MR 并备货 → 材料准备中 → CR / 主管",
+        "CR / 主管、师傅 → 确认时间并施工 → 处理中 → 客户",
+        "师傅 / CR → 签名、提交、简单确认 → 已完工 → 归档"
+      ],
+      "decision": [
+        "CONFIRMED-002",
+        "CONFIRMED-005",
+        "CONFIRMED-006",
+        "CONFIRMED-007",
+        "CONFIRMED-008",
+        "CONFIRMED-009",
+        "CONFIRMED-010"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-INSTANT",
+      "flowId": "FLOW-INSTANT",
+      "flowName": "03 现场即时维修",
+      "status": "PARTIAL",
+      "source": [
+        "FILE-618C5F54C7"
+      ],
+      "fact": [
+        "师傅 → 确认可用现有材料处理 → 现场判断 → 报价组",
+        "师傅 / 报价组 → 联系报价组确认价格 → 待客户确认 → 客户",
+        "客户 → 接受现场报价 → 可维修 → 师傅",
+        "师傅 → 完成维修 → 已处理 → 客户",
+        "师傅 → 现场收款 → 已收现场款 → 财务 / 报价组",
+        "师傅 / 客户 → 提交并签名 → 待确认 → CR / 主管",
+        "报价组 / 商务 → 补报价与商务记录 → 待归档 → 财务"
+      ],
+      "decision": [
+        "CONFIRMED-002",
+        "CONFIRMED-008",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "PENDING-001"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-M",
+      "flowId": "FLOW-M",
+      "flowName": "04 周期保养",
+      "status": "CONFIRMED",
+      "source": [
+        "FILE-618C5F54C7"
+      ],
+      "fact": [
+        "报价组 → 在报价中确定保养周期 → 报价中 → 客户",
+        "报价组 → 确认 M 或 M+P 中的 M → 已中单 → 系统",
+        "系统 → 按周期和合同期生成计划 → 计划已生成 → CR / 主管",
+        "CR / 主管 → 安排具体师傅和日期 → 待保养 → 师傅",
+        "师傅 → 执行保养 → 保养中 → 客户",
+        "师傅 / 客户 → 提交并签名 → 待确认 → CR / 主管",
+        "CR / 主管 → 简单确认 → 本次保养完成 → 下一周期 / 报价组"
+      ],
+      "decision": [
+        "CONFIRMED-010",
+        "CONFIRMED-012",
+        "CONFIRMED-013",
+        "REJECTED-001"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-CM",
+      "flowId": "FLOW-CM",
+      "flowName": "05 CM",
+      "status": "PARTIAL",
+      "source": [
+        "FILE-618C5F54C7"
+      ],
+      "fact": [
+        "CS / CR → 登记 CM 任务 → 待分派 → CR / 主管",
+        "CR / 主管 → 指定服务人员 → 待服务 → 师傅",
+        "CR / 主管、师傅 → 处理与 PM / 其他任务冲突 → 规则待定 → CR / 主管",
+        "师傅 → 执行服务 → 处理中 → 客户",
+        "师傅 / CR → 签名、提交、简单确认 → 已完工 → 归档"
+      ],
+      "decision": [
+        "CONFIRMED-010",
+        "CONFIRMED-014",
+        "CONFIRMED-015",
+        "PENDING-002"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    },
+    {
+      "id": "TRACE-TENDER",
+      "flowId": "FLOW-TENDER",
+      "flowName": "06 政府 Tender",
+      "status": "PARTIAL",
+      "source": [
+        "FILE-618C5F54C7"
+      ],
+      "fact": [
+        "Tender 负责人 → 接收政府项目标书 → 待处理 → Tender 团队",
+        "Tender 团队 → 准备应标材料 → 处理中 → 报价组",
+        "报价组 / Tender → 提交报价或回标 → 等待结果 → 客户 / 政府机构",
+        "客户 / 政府机构 → 判定中标或未中标 → 已中标 / 未中标 → 业务团队",
+        "业务团队 → 按中标内容分流 → 准备中 → 对应业务角色"
+      ],
+      "decision": [
+        "CONFIRMED-008",
+        "CONFIRMED-009",
+        "CONFIRMED-011",
+        "CONFIRMED-016"
+      ],
+      "prd": [
+        "FILE-A50A6F0CBF",
+        "FILE-B5BFCC9483",
+        "FILE-63A5629A35",
+        "FILE-30B5BF1F0C",
+        "FILE-DA0F0DF5B6",
+        "FILE-AFF50DA65C",
+        "FILE-863211E410",
+        "FILE-471038F751",
+        "FILE-841296549C",
+        "FILE-C0B0934B83",
+        "FILE-B1046B9627"
+      ],
+      "prototype": [
+        "FILE-98A1BC1B34",
+        "FILE-683E5F362B",
+        "FILE-F99F1E675D",
+        "FILE-C876E98491",
+        "FILE-D50419124F"
+      ],
+      "sdd": [
+        "FILE-55BFA16498",
+        "FILE-C11299D70D",
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "tdd": [
+        "FILE-FC5C709B00"
+      ],
+      "development": [],
+      "testUat": []
+    }
+  ]
+}

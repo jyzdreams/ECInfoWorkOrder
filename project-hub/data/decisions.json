@@ -1,0 +1,251 @@
+{
+  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "total": 20,
+  "decisions": [
+    {
+      "id": "CONFIRMED-001",
+      "status": "CONFIRMED",
+      "content": "普通维修/工程业务主干基本确认。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-002",
+      "status": "CONFIRMED",
+      "content": "真实维修存在三种主要情况：先报价后维修、保养发现问题后二次维修、现场即时维修。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-003",
+      "status": "CONFIRMED",
+      "content": "客户接受报价并中单后，进入材料和施工准备。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-004",
+      "status": "CONFIRMED",
+      "content": "中单后可以先预排师傅和预计施工时间；该时间不是最终与客户确认的正式施工时间。",
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-005",
+      "status": "CONFIRMED",
+      "content": "材料准备完成后，由 CR / 主管负责与客户确认正式施工时间；CR 为客户关系部。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-006",
+      "status": "CONFIRMED",
+      "content": "MR 为材料申请单；系统根据成交报价中的材料信息自动生成 MR，不再由 CR 人工制作。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-007",
+      "status": "CONFIRMED",
+      "content": "MR 不是报价完成就生成；客户确认报价、报价组确认中单后，系统才按最终成交报价材料生成 MR。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-008",
+      "status": "CONFIRMED",
+      "content": "报价组负责报价完整生命周期和 R1/R2/R3 等版本历史，客户最终接受后由报价组确认中单。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-TENDER"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-009",
+      "status": "CONFIRMED",
+      "content": "报价任务有四个主要入口：CS 经 CR/主管、CR 直接发起、Tender、Service Report 选择需要报价。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-TENDER"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-010",
+      "status": "CONFIRMED",
+      "content": "施工完成后，客户确认/签名，师傅提交 Service Report，CR / 主管简单确认后正式完工。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-011",
+      "status": "CONFIRMED",
+      "content": "业务类型 M、P、M+P 在报价阶段确定；M+P 表示同一报价同时包含 M 与 P。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-TENDER"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-012",
+      "status": "CONFIRMED",
+      "content": "报价包含 M 时，在报价阶段确定保养周期；中单后按保养周期和合同周期生成整期保养计划。",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-013",
+      "status": "CONFIRMED",
+      "content": "M+P 不存在固定“P 完成后才 M”的顺序，M 与 P 可分别推进。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-014",
+      "status": "CONFIRMED",
+      "content": "CM 业务真实存在。",
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-015",
+      "status": "CONFIRMED",
+      "content": "CM 一般无固定插单机制；通常由 CR / 主管直接指定师傅，现场服务后提交 SR 并确认完工。",
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-016",
+      "status": "CONFIRMED",
+      "content": "Tender / 标书主要用于政府项目；中标后按业务内容进入 M、P 或 M+P。",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "CONFIRMED-017",
+      "status": "CONFIRMED",
+      "content": "正常发票和收款主要关联报价业务；工单完工与收款完成不是同一业务状态。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-INSTANT"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "confirmedAt": "2026-09-27",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "PENDING-001",
+      "status": "PENDING",
+      "priority": "P0",
+      "content": "现场即时维修由师傅收款后，如何登记、交款、对账。",
+      "flowIds": [
+        "FLOW-INSTANT"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "PENDING-002",
+      "status": "PENDING",
+      "priority": "P0",
+      "content": "CM 与原 PM / 其他任务发生时间冲突时如何处理。",
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "sourceType": "HumanConfirmedDiscussion"
+    },
+    {
+      "id": "REJECTED-001",
+      "status": "REJECTED",
+      "content": "M+P 必须固定按“先 P、P 完成后再 M”的顺序推进。",
+      "reason": "被 CONFIRMED-013 推翻；M 与 P 可按实际业务条件分别推进。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "sourceType": "HumanConfirmedDiscussion"
+    }
+  ]
+}

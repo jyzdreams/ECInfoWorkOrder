@@ -3,6 +3,10 @@ For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
 <!-- SPECKIT END -->
 
+## 当前项目文件规则
+
+本项目当前以 `FILE-WRITING-RULES.md` 作为文件写入和目录归类规则。开始创建、移动或生成文件前，必须先读取该文件；如果历史路径与当前目录结构冲突，以用户当前目录和该规则为准，不自动恢复已移动或删除的历史文件。
+
 ## 工作流程规范
 
 ### 任务完成后的交接流程
