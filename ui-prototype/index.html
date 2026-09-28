@@ -14000,7 +14000,7 @@
 
           <div class="wo-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
             ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新狀態</button>` : ""}
-            ${quotation.bidStatus !== "已中標" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
+            ${quotation.bidStatus !== "已中標" && quotation.status !== "丟單" && (quotation.isInviteTender === true || quotation.source === "招標") ? `<button class="secondary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(quotation.procurementStatus)) && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
             ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
@@ -24276,7 +24276,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           <div class="mobile-actions" style="flex-wrap:wrap;">
             ${q.status !== "已中單" && q.status !== "丟單" ? `<button class="primary-btn" data-mbq-action="updateStatus" data-mbq-id="${q.id}">更新狀態</button>` : ""}
             ${["CR", "QUO", "ADMIN", "BOSS"].includes(currentRole().key) && q.status !== "丟單" ? `<button class="secondary-btn" data-mbq-action="edit" data-mbq-id="${q.id}">編輯物料明細</button>` : ""}
-            ${q.bidStatus !== "已中標" && q.status !== "丟單" ? `<button class="secondary-btn" data-mbq-action="markWon" data-mbq-id="${q.id}">標記中標</button>` : ""}
+            ${q.bidStatus !== "已中標" && q.status !== "丟單" && (q.isInviteTender === true || q.source === "招標") ? `<button class="secondary-btn" data-mbq-action="markWon" data-mbq-id="${q.id}">標記中標</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(q.procurementStatus)) && q.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-mbq-action="paper" data-mbq-id="${q.id}">完工紙管理</button>` : ""}
             ${q.completionPaperStatus === "已完工" && q.procurementStatus !== "已關單" ? `<button class="primary-btn" data-mbq-action="closeProc" data-mbq-id="${q.id}">採購部關單</button>` : ""}
             ${q.procurementStatus === "已關單" ? '<span class="tag success" style="align-self:center;">已關單</span>' : ""}
