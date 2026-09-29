@@ -1427,6 +1427,30 @@
     .po-table td:focus-within { background: transparent; }
     /* 下拉框滾動範圍限制在自身區域，不影響表格行 */
     .po-table select { max-height: 200px; overflow-y: auto; }
+    /* ============ 可編輯的物料明細表格（報價／備貨／採購單）欄位加寬 ============ */
+    /* 目的：避免下拉與輸入內容因欄位過窄而被截斷；不足寬度時由外層容器橫向滾動 */
+    .po-item-table { min-width: 1060px; }
+    /* 報價物料明細欄位較多（含 Location／備註），需更大的最小寬度，
+       否則在窄容器內 table-layout:auto 會把各列壓縮到聲明寬度以下（備註 200px 只渲染出約 130px） */
+    .po-item-table.po-item-table-wide { min-width: 1220px; }
+    .po-item-table thead th:first-child { width: 260px; min-width: 220px; }
+    /* 單元格內的下拉框撐滿整格（量測寬度寫死會導致顯示不全） */
+    .po-item-table td .search-select,
+    .po-item-table td .search-select-trigger { display: block; width: 100%; }
+    /* 下拉觸發框與同列輸入框保持相同高度／圓角／邊框色，避免行內高低不齊 */
+    .po-item-table td .search-select-trigger {
+      height: 36px;
+      min-height: 36px;
+      border-radius: 8px;
+      border-color: #e5e7eb;
+      font-size: 13px;
+    }
+    /* 浮動下拉選單（表格內使用）：脫離表格裁剪容器，寬度可比觸發框更寬以便閱讀長物料名 */
+    .search-select-menu.search-select-menu-floating {
+      z-index: 4000;
+      min-width: 320px;
+      max-width: 640px;
+    }
     /* 採購總金額統計區 */
     .po-total-bar {
       display: flex; justify-content: flex-end; align-items: center; gap: 12px;
@@ -1814,6 +1838,31 @@
     .master-home-ticket + .master-home-ticket { margin-top: 8px; }
     .master-home-ticket strong, .master-home-ticket span { display: block; }
     .master-home-ticket span { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    /* 移動端首頁宮格入口（CR 工作台） */
+    .mb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .mb-entry { display: grid; gap: 6px; justify-items: center; padding: 14px 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); cursor: pointer; }
+    .mb-entry-ico { font-size: 22px; line-height: 1; }
+    .mb-entry span { font-size: 12px; }
+    /* 移動端「更多」功能列表項 */
+    .mb-more-item { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; }
+    .mb-more-item .mb-entry-ico { font-size: 22px; }
+    .mb-more-item-body { display: grid; gap: 2px; }
+    .mb-more-item-body strong { font-size: 14px; }
+    .mb-more-item-body span { color: var(--muted); font-size: 12px; }
+    /* 移動端表單欄位（CALL 新建/編輯等） */
+    .mb-field { display: grid; gap: 4px; color: var(--muted); font-size: 12px; }
+    .mb-field input, .mb-field select, .mb-field textarea { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; font-size: 13px; }
+    .mb-field textarea { resize: vertical; }
+    .mb-req { color: var(--danger); margin-left: 2px; }
+    /* 移動端：凍結「統計欄 + 搜索/篩選」，僅下方列表可滾動 */
+    .mb-sticky {
+      position: sticky;
+      top: -12px;
+      z-index: 4;
+      background: var(--bg);
+      margin: 0 -12px 8px;
+      padding: 12px 12px 4px;
+    }
     .mobile-sheet-portal { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
     .mobile-process-overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; background: rgba(15, 23, 42, .42); pointer-events: auto; }
     .mobile-process-sheet { width: 100%; max-height: 88%; display: flex; flex-direction: column; overflow: hidden; border-radius: 18px 18px 0 0; background: var(--panel); box-shadow: 0 -18px 36px rgba(15, 23, 42, .2); }
@@ -2224,30 +2273,6 @@
       font-size: 12px;
       cursor: pointer;
     }
-    .sr-satisfaction {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-    .sr-satisfaction-btn {
-      padding: 8px 4px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      font-size: 11px;
-      cursor: pointer;
-      text-align: center;
-      color: var(--muted);
-      transition: all .15s ease;
-      line-height: 1.6;
-    }
-    .sr-satisfaction-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      font-weight: 700;
-    }
-    .sr-satisfaction-btn .sr-emoji { font-size: 20px; display: block; }
     .sr-error {
       color: var(--danger);
       font-size: 12px;
@@ -3274,7 +3299,10 @@
       flex-direction: column;
       overflow: hidden;
       z-index: 999;
-      animation: wo-drawer-enter 0.24s cubic-bezier(.2, .8, .2, 1) both;
+      animation: wo-drawer-enter 0.24s cubic-bezier(.2, .8, .2, 1) backwards;
+      /* 注意：不可用 fill-mode: both／forwards。keyframes 的 to 帶 transform，
+         動畫結束後若保留該 transform，抽屜會成為 position:fixed 子元素的參照容器，
+         導致下拉浮層座標錯位、並被抽屜的 overflow:hidden 裁剪（表現為點開就閃動） */
     }
     .wo-drawer-backdrop {
       position: fixed;
@@ -4133,6 +4161,25 @@
     .sr-folder-metrics .pc-card:nth-child(4)::after { color: #7e22ce; }
     .sr-folder-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
     .sr-folder-metrics + .pc-section { padding: 14px; }
+    /* 報價管理頂部統計卡片（與報告管理統計模塊樣式一致） */
+    .qm-metrics { gap: 8px; margin-bottom: 12px; }
+    .qm-metrics .pc-card {
+      min-height: 82px;
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+    .qm-metrics .pc-card h3 { margin-bottom: 2px; font-size: 12px; }
+    .qm-metrics .pc-card .pc-metric { font-size: 22px; }
+    .qm-metrics .pc-card .pc-label { margin-top: 2px; font-size: 11px; }
+    .qm-metrics .pc-card::after { content: "查看明細 >"; display: block; margin-top: 4px; color: var(--primary); font-size: 11px; font-weight: 600; }
+    .qm-metrics .pc-card:nth-child(2)::after { color: #b45309; }
+    .qm-metrics .pc-card:nth-child(3)::after { color: #15803d; }
+    .qm-metrics .pc-card:nth-child(4)::after { color: #7e22ce; }
+    .qm-metrics .pc-card:nth-child(5)::after { color: #0e7490; }
+    .qm-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
     .sr-report-modal { width: min(920px, 100%); }
     .sr-report-modal .dispatch-modal-body { padding: 18px 20px; }
     .sr-report-summary {
@@ -4604,7 +4651,7 @@
       box-shadow: 0 12px 32px rgba(15, 23, 42, 0.2);
       z-index: 10009;
       overflow: hidden;
-      animation: theme-popup-enter 0.18s ease both;
+      animation: theme-popup-enter 0.18s ease backwards;
     }
     .theme-popup.hidden { display: none; }
     @keyframes theme-popup-enter {
@@ -4938,32 +4985,135 @@
     // 攤平成「大地點 - 子位置」清單，供 datalist 選擇
     const LOCATION_OPTIONS = LOCATION_MASTER.flatMap(l => l.subs.map(sub => `${l.site} - ${sub}`));
 
-    // 物料成本價參考表（模擬「倉庫通」同步的歷史採購成本價）
-    // 用途：報價人員填寫物料時顯示成本價作定價參考；僅供參考，不鎖定庫存、不影響金額計算
-    const INVENTORY_COST_PRICES = {
-      "門禁讀卡器": 620,
-      "門禁控制器": 1850,
-      "電鎖": 380,
-      "閘機馬達": 4300,
-      "車牌識別鏡頭": 5200,
-      "CCTV 鏡頭": 980,
-      "NVR 錄影主機": 3600,
-      "硬盤 4TB": 720,
-      "報警主機": 2100,
-      "紅外對射探測器": 460,
-      "對講機": 1350,
-      "網絡交換機 8Port": 890,
-      "UPS 電池": 540,
-      "光纖收發器": 420
-    };
-    // 依物料名稱查詢成本價（找不到回傳 null，UI 顯示空白）
-    function getInventoryCostPrice(materialName) {
-      if (!materialName) return null;
-      const key = String(materialName).trim();
-      if (INVENTORY_COST_PRICES[key] !== undefined) return INVENTORY_COST_PRICES[key];
-      // 模糊匹配：物料名稱包含價目表關鍵字即視為同一物料
-      const matched = Object.keys(INVENTORY_COST_PRICES).find(k => key.includes(k) || k.includes(key));
-      return matched ? INVENTORY_COST_PRICES[matched] : null;
+    // ============ 物料主數據（倉庫通「產品信息」表，經 mr-bridge 中間服務讀取） ============
+    // 用途：報價物料明細的「物料名稱」改為下拉單選，數據源為倉庫通的物料主數據；
+    //      選中後自動帶出規格與單位，並記錄「貨品編號」作為跨系統匹配鍵（推送 MR 時按它反查供應商價格表）
+    // 中間服務啟動方式：cd mr-bridge && npm start（預設監聽 8790）
+    const MR_BRIDGE_BASE_URL = "http://localhost:8790";
+    // 申請人釘釘 userId：原型尚無釘釘帳號體系，暫以宜搭管理員帳號佔位（正式環境由登入態提供）
+    const MR_BRIDGE_APPLICANT_USER_ID = "2256462548-935114165";
+    // 物料主數據緩存狀態：status 取值 idle / loading / ready / error
+    const materialMasterState = { status: "idle", list: [], error: "", promise: null };
+    // 舊資料標記前綴：報價物料行有物料名稱但無貨品編號時，用此前綴保留原值
+    const LEGACY_PRODUCT_PREFIX = "LEGACY::";
+
+    // 載入物料主數據（帶緩存，force=true 時強制重新拉取）
+    // 返回 Promise<Array>，呼叫方可 await 後再渲染下拉
+    function loadMaterialMaster(force = false) {
+      if (!force && materialMasterState.status === "loading") return materialMasterState.promise;
+      if (!force && materialMasterState.status === "ready") return Promise.resolve(materialMasterState.list);
+      materialMasterState.status = "loading";
+      materialMasterState.promise = fetch(`${MR_BRIDGE_BASE_URL}/api/materials`)
+        .then(res => res.json())
+        .then(data => {
+          materialMasterState.list = Array.isArray(data.materials) ? data.materials : [];
+          materialMasterState.status = "ready";
+          materialMasterState.error = "";
+          return materialMasterState.list;
+        })
+        .catch(err => {
+          materialMasterState.list = [];
+          materialMasterState.status = "error";
+          materialMasterState.error = (err && err.message) || "無法連線 mr-bridge 服務";
+          return [];
+        });
+      return materialMasterState.promise;
+    }
+
+    // 依貨品編號查物料主數據（找不到返回 null）
+    function findMaterialByProductCode(productCode) {
+      if (!productCode) return null;
+      return materialMasterState.list.find(m => m.productCode === productCode) || null;
+    }
+
+    // 設定下拉的選中值；選項不存在時動態補一個（倉庫通單位如「台」「PCS」不在預設選項中）
+    function setSelectValueWithOption(selectEl, value) {
+      if (!selectEl || !value) return;
+      const exists = Array.from(selectEl.options).some(opt => opt.value === value);
+      if (!exists) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        selectEl.appendChild(option);
+      }
+      selectEl.value = value;
+      // 增強下拉（search-select）的外觀由 wrapper 上的文字節點渲染，程式改值後需同步顯示文字
+      syncSearchableSelectDisplay(selectEl);
+    }
+
+    // 產生物料名稱單元格的 HTML：物料主數據已載入時為下拉單選，未載入（服務不可用）則降級為文本輸入
+    // nameAttr 為該行物料名稱控件的標記屬性名（如 "data-qe-name" / "data-qf-name" / "data-po-name"）
+    function buildMaterialNameCellHtml(nameAttr, item = {}) {
+      if (!materialMasterState.list.length) {
+        return `<input class="po-input" ${nameAttr} value="${escapeHtml(item.name || "")}" placeholder="請輸入物料名稱" style="width:100%;">`;
+      }
+      // 兼容舊資料：無貨品編號時，嘗試用物料名稱在物料主數據中唯一匹配
+      let currentCode = item.productCode || "";
+      if (!currentCode && item.name) {
+        const byName = materialMasterState.list.filter(m => m.productName === item.name);
+        if (byName.length === 1) currentCode = byName[0].productCode;
+      }
+      return `<select class="po-input" ${nameAttr} style="width:100%;">
+          <option value="">請選擇物料</option>
+          ${materialMasterState.list.map(m => `<option value="${escapeHtml(m.productCode)}" ${m.productCode === currentCode ? "selected" : ""}>${escapeHtml(m.productName)}（${escapeHtml(m.productCode)}）</option>`).join("")}
+          ${!currentCode && item.name ? `<option value="${LEGACY_PRODUCT_PREFIX}${escapeHtml(item.name)}" selected>${escapeHtml(item.name)}（未匹配主數據）</option>` : ""}
+        </select>`;
+    }
+
+    // 綁定物料名稱單元格：選中物料後自動帶出規格與單位（可再手動修改），並觸發成本價刷新
+    // specAttr / unitAttr 可傳空值表示該行沒有对应列
+    function bindMaterialNameCell(tr, nameAttr, specAttr, unitAttr, onValueChange) {
+      const nameEl = tr.querySelector(`[${nameAttr}]`);
+      if (!nameEl) return;
+      const applyMaterial = () => {
+        const material = findMaterialByProductCode(materialCellProductCode(tr, nameAttr));
+        if (material) {
+          const specEl = specAttr ? tr.querySelector(`[${specAttr}]`) : null;
+          if (specEl) specEl.value = material.spec || "";
+          if (unitAttr) setSelectValueWithOption(tr.querySelector(`[${unitAttr}]`), material.unit || "");
+        }
+        if (onValueChange) onValueChange();
+      };
+      if (nameEl.tagName === "SELECT") nameEl.addEventListener("change", applyMaterial);
+      else if (onValueChange) nameEl.addEventListener("input", onValueChange);
+    }
+
+    // 取物料名稱單元格的顯示名稱：下拉選中取物料主數據名稱，舊資料或文本輸入取原值
+    function materialCellDisplayName(tr, nameAttr) {
+      const el = tr.querySelector(`[${nameAttr}]`);
+      if (!el) return "";
+      const value = el.value || "";
+      if (el.tagName === "SELECT") {
+        if (value.startsWith(LEGACY_PRODUCT_PREFIX)) return value.slice(LEGACY_PRODUCT_PREFIX.length);
+        const material = findMaterialByProductCode(value);
+        return material ? material.productName : "";
+      }
+      return value.trim();
+    }
+
+    // 取物料名稱單元格的貨品編號（僅下拉選中真實物料時有值；舊資料與文本輸入返回空）
+    function materialCellProductCode(tr, nameAttr) {
+      const el = tr.querySelector(`[${nameAttr}]`);
+      if (!el || el.tagName !== "SELECT") return "";
+      const value = el.value || "";
+      return value && !value.startsWith(LEGACY_PRODUCT_PREFIX) ? value : "";
+    }
+
+    // 收集物料行的跨系統匹配鍵（推送 MR 時按貨品編號反查倉庫通「供應商價格」表）
+    function materialCellMatchInfo(tr, nameAttr) {
+      const productCode = materialCellProductCode(tr, nameAttr);
+      const material = findMaterialByProductCode(productCode);
+      return {
+        productCode,
+        productName: materialCellDisplayName(tr, nameAttr),
+        productNo: material ? material.productNo : "",
+        productInstanceId: material ? material.instanceId : ""
+      };
+    }
+
+    // 取報價編輯行的顯示名稱（薄封裝，供報價物料明細表格調用）
+    function qeRowDisplayName(tr) {
+      return materialCellDisplayName(tr, "data-qe-name");
     }
 
     // 物料 → 供應商對照（模擬採購主數據；E1「一供應商一張 PO」的分單依據）
@@ -5426,15 +5576,23 @@
       if (allowed === "*") return PAGES;
       return PAGES.filter(p => allowed.includes(p.key));
     }
-    const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動端", icon: "📱", sub: "師傅服務與主管分派工作台" };
+    const MOBILE_WORKSPACE = { key: "mobileWorkspace", label: "移動端", icon: "📱", sub: "師傅服務、主管分派與客戶關係工作台" };
     const MOBILE_PAGES = [
       { key: "masterHome", label: "首頁", title: "師傅首頁" },
       { key: "tasks", label: "CALL", title: "CALL" },
       { key: "tlHome", label: "首頁", title: "主管首頁" },
       { key: "mobileDetail", label: "工單", title: "工單詳情" },
       { key: "workRecord", label: "處理", title: "處理記錄" },
-      { key: "cr", label: "CR", title: "客戶報告" },
-      { key: "dispatch", label: "分派", title: "分派中心" }
+      { key: "cr", label: "報告", title: "報告管理" },
+      { key: "dispatch", label: "分派", title: "分派中心" },
+      // CR（客戶關係）角色的移動端頁面
+      { key: "crHome", label: "首頁", title: "首頁" },
+      { key: "crCalls", label: "CALL", title: "CALL 管理" },
+      { key: "quotations", label: "報價", title: "報價管理" },
+      { key: "procurement", label: "備貨", title: "備貨管理" },
+      { key: "report", label: "報表", title: "統計報表" },
+      { key: "settings", label: "設置", title: "基礎設置" },
+      { key: "more", label: "更多", title: "更多功能" }
     ];
     const masters = [
       { name: "周師傅", area: "2區", skills: "PM、弱電維修", load: 3, status: "可接單", tag: "區域匹配" },
@@ -7002,7 +7160,8 @@
       editMode: false,       // 側邊欄編輯模式（true 時渲染編輯表單）
       revisionMode: false,   // 創建修訂版模式（true 時保存後 revision 加 1）
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      quotationMetricModal: null  // 頂部統計卡片明細彈窗（記錄當前選中的指標 key）
     };
 
     let customerState = {
@@ -7072,7 +7231,6 @@
       srServiceTypes: [],
       srWorkNature: "",
       srParts: [],
-      srSatisfaction: "",
       srNeedQuotation: false,
       srIsSupplementary: null,   // 是否後補報價（是/否，無預設值）
       srSignature: "",
@@ -7090,7 +7248,38 @@
       mdMasterStatus: "全部",
       mdDispatchTab: "已分派",
       mdDispatchFiltersOpen: false,
-      mdDispatchFilters: { area: "全部", customer: "全部", type: "全部" }
+      mdDispatchFilters: { area: "全部", customer: "全部", type: "全部" },
+      // CR 移動端頁面狀態
+      mbCallStatus: "全部",     // CALL 管理：狀態篩選
+      mbCallSearch: "",         // CALL 管理：關鍵詞搜索
+      mbCallView: "calls",      // CALL 管理：視圖（calls 工單 / customers 客戶）
+      mbCallCustSearch: "",     // CALL 管理：客戶視圖關鍵詞搜索
+      mbCallSelectedId: null,   // CALL 管理：當前查看的 CALL 詳情
+      mbQuotationStatus: "全部",// 報價管理：狀態篩選
+      mbQuotationCategory: "全部", // 報價管理：類別篩選
+      mbQuotationCustomer: "全部", // 報價管理：客戶篩選
+      mbQuotationSearch: "",     // 報價管理：關鍵詞搜索
+      mbQuotationSelectedId: null, // 報價管理：當前查看的報價詳情
+      mbProcurementSelectedId: null, // 備貨管理：當前查看的備貨單詳情
+      mbCallFormMode: "",        // CALL 表單模式："create" | "edit"
+      mbCallFormTicketId: null,  // CALL 表單：編輯中的工單 ID
+      mbCallFormPresetCustomerId: null, // CALL 表單：預設客戶 ID（由客戶視圖新建時帶入）
+      mbDispatchTicketId: null,  // CALL 分派彈層：待分派的工單 ID
+      mbDispatchViewId: null,    // 分派中心：當前查看的工單詳情 ID
+      mbSrViewId: null,          // 報告管理：當前查看的工單詳情 ID
+      mbSrArea: "全部",          // 報告管理：區域篩選
+      mbSrStatus: "全部",        // 報告管理：狀態篩選
+      mdDispatchSearch: "",      // 移動端分派中心：關鍵詞搜索
+      mbSpManageId: null,        // 備貨管理：當前管理的備貨單 ID（移動端底部彈層）
+      mbQuotationFlowId: null,   // 報價管理：狀態流轉彈層的報價 ID
+      mbCustFormMode: "",        // 客戶表單模式："create" | "edit"
+      mbCustFormId: null,        // 客戶表單：編輯中的客戶 ID
+      mbUserFormMode: "",        // 用戶表單模式："create" | "edit"
+      mbUserFormId: null,        // 用戶表單：編輯中的用戶 ID
+      mbQuotationFormMode: "",   // 報價表單模式："create" | "edit"
+      mbQuotationFormId: null,   // 報價表單：編輯中的報價 ID
+      mbQuotationFormPresetCustomerId: null, // 報價表單：預設客戶 ID
+      mbScheduleTicketId: null   // 排程彈層：待排程的工單 ID
     };
 
     // Work Order Management State
@@ -7309,17 +7498,29 @@
       state.view = "mobile";
       state.mobileDetailTicketId = null;
       state.mobileProcessTicketId = null;
+      // 切換 CR 移動端頁面時重置各列表的詳情檢視與彈層，回到列表
+      state.mbCallSelectedId = null;
+      state.mbQuotationSelectedId = null;
+      state.mbProcurementSelectedId = null;
+      state.mbDispatchViewId = null;
+      state.mbSrViewId = null;
+      state.mbSpManageId = null;
+      state.mbQuotationFlowId = null;
+      state.mbCustFormMode = "";
+      state.mbUserFormMode = "";
+      state.mbQuotationFormMode = "";
+      state.mbScheduleTicketId = null;
       render();
     }
 
     function openMobileWorkspace() {
-      // 登入後角色固定，僅 TL/MASTER 可進入移動端；其他角色已被外層攔截
-      if (!["MASTER", "TL"].includes(state.role)) {
-        toast("移動端工作台僅限主管和師傅使用", "error");
+      // 登入後角色固定，僅 TL/MASTER/CR 可進入移動端；其他角色已被外層攔截
+      if (!["MASTER", "TL", "CR"].includes(state.role)) {
+        toast("移動端工作台僅限主管、師傅和客戶關係使用", "error");
         return;
       }
       state.view = "mobile";
-      state.mobilePage = state.role === "TL" ? "tlHome" : "masterHome";
+      state.mobilePage = state.role === "TL" ? "tlHome" : state.role === "CR" ? "crHome" : "masterHome";
       state.mobileTaskStatus = "";
       state.mobileDetailTicketId = null;
       state.mobileProcessTicketId = null;
@@ -8150,12 +8351,6 @@
           return;
         }
 
-        // Validation: satisfaction
-        if (!state.srSatisfaction) {
-          alert("請選擇客戶滿意度");
-          return;
-        }
-
         const customerAbsent = document.getElementById("srCustomerAbsent")?.checked;
         if (!customerAbsent && !(state.srSignature || t.signature)) {
           alert("請完成客戶電子簽名，或勾選客戶負責人未能簽署");
@@ -8201,7 +8396,6 @@
           isSupplementaryQuotation: state.srIsSupplementary === true,
           quotationNote: state.srNeedQuotation ? quotationNote : "",
           parts: state.srNeedQuotation ? state.srParts.map(p => ({ name: p.name, qty: parseInt(p.qty) || 1 })) : [],
-          satisfaction: state.srSatisfaction,
           signature: state.srSignature || t.signature || "",
           customerAbsent: Boolean(customerAbsent),
           transportFee: parseFloat($('[data-sr-input="transportFee"]')?.value) || 0
@@ -8532,9 +8726,9 @@
       
       // 側邊欄按角色權限過濾：只顯示當前角色有權限訪問的頁面
       const rolePages = getRolePages(state.role);
-      // 移動端入口僅 TL/MASTER 可見
+      // 移動端入口僅 TL/MASTER/CR 可見
       const navSource = [...rolePages];
-      if (["MASTER", "TL"].includes(state.role)) navSource.push(MOBILE_WORKSPACE);
+      if (["MASTER", "TL", "CR"].includes(state.role)) navSource.push(MOBILE_WORKSPACE);
       // 移動端是獨立工作入口，固定放在所有 PC 模組（含基礎設置）之後。
       $("#navList").innerHTML = navSource.map(p => {
         if (p.key === "mobileWorkspace") {
@@ -9908,10 +10102,71 @@
 
     let searchableSelectDismissBound = false;
     let searchableSelectObserverBound = false;
+    let searchableSelectFloatingBound = false;
+    /** 目前展開中的下拉選單（供滾動／視窗尺寸變化時重新定位浮層） */
+    let activeFloatingSearchSelect = null;
+
+    /** 讓下拉選單浮於整個盒子之上：改為 position:fixed 並依觸發框定位，
+     *  避免被物料明細表格等可滾動容器（overflow:auto）裁剪而看不到選項 */
+    function floatSearchSelectMenu(trigger, menu) {
+      const rect = trigger.getBoundingClientRect();
+      // 選單預估高度：內距 12 + 搜尋框 32 + 間距 6 + 選項區（6 條 × 32 + 8）
+      const estimatedHeight = 12 + 32 + 6 + (32 * 6 + 8);
+      const notEnoughBelow = window.innerHeight - rect.bottom < estimatedHeight;
+      const openUpward = notEnoughBelow && rect.top > estimatedHeight;
+      menu.classList.add("search-select-menu-floating");
+      menu.style.position = "fixed";
+      menu.style.left = `${Math.round(rect.left)}px`;
+      // 選單可比觸發框更寬（最少 320px），讓長物料名稱能完整閱讀
+      menu.style.width = `${Math.round(Math.max(rect.width, 320))}px`;
+      if (openUpward) {
+        menu.style.top = "auto";
+        menu.style.bottom = `${Math.round(window.innerHeight - rect.top + 4)}px`;
+      } else {
+        menu.style.bottom = "auto";
+        menu.style.top = `${Math.round(rect.bottom + 4)}px`;
+      }
+      // 記錄本次定位依據的觸發框位置，供重定位時比對（位置未變則不重複寫樣式）
+      menu.__floatAnchor = { left: rect.left, top: rect.top, width: rect.width };
+    }
+
+    /** 還原下拉選單的浮層定位樣式（關閉時清除，避免殘留影響後續渲染） */
+    function releaseFloatingSearchSelectMenu(menu) {
+      if (!menu) return;
+      menu.classList.remove("search-select-menu-floating");
+      menu.style.position = "";
+      menu.style.left = "";
+      menu.style.top = "";
+      menu.style.bottom = "";
+      menu.style.width = "";
+      delete menu.__floatAnchor;
+    }
+
+    /** 視窗尺寸或容器滾動時，重新定位目前展開的下拉浮層 */
+    function repositionFloatingSearchSelect(event) {
+      if (!activeFloatingSearchSelect) return;
+      const { trigger, menu } = activeFloatingSearchSelect;
+      if (menu.hidden || !document.body.contains(trigger)) return;
+      // 忽略選單自身的滾動：物料約 27 條需在選項列表內滑動，若每次滑動都重定位會造成下拉框閃動、點不中
+      if (event && event.target instanceof Element && menu.contains(event.target)) return;
+      // 觸發框位置與上次定位相同時不重複寫樣式，避免「focus → 捲動 → 重定位 → 再捲動」的循環
+      const rect = trigger.getBoundingClientRect();
+      const anchor = menu.__floatAnchor;
+      if (anchor
+        && Math.abs(anchor.left - rect.left) < 1
+        && Math.abs(anchor.top - rect.top) < 1
+        && Math.abs(anchor.width - rect.width) < 1) {
+        return;
+      }
+      floatSearchSelectMenu(trigger, menu);
+    }
 
     function closeSearchableSelects(except) {
       document.querySelectorAll(".search-select-menu:not([hidden])").forEach(menu => {
-        if (menu !== except) menu.hidden = true;
+        if (menu !== except) {
+          menu.hidden = true;
+          releaseFloatingSearchSelectMenu(menu);
+        }
       });
     }
 
@@ -9943,7 +10198,8 @@
         select.dataset.searchSelectEnhanced = "true";
 
         const rect = select.getBoundingClientRect();
-        const isFluid = Boolean(select.closest(".field, .wo-filter-group, .dm-form-group, .wo-form-group, .qf-field, .md-filter-group"));
+        // 表格單元格（td）內的下拉框改為撐滿整格：在 td 內量測寬度會拿到佈局未完成的錯誤值（例如 48px），導致內容顯示不全
+        const isFluid = Boolean(select.closest(".field, .wo-filter-group, .dm-form-group, .wo-form-group, .qf-field, .md-filter-group, td"));
         const wrapper = document.createElement("div");
         wrapper.className = `search-select${isFluid ? " search-select-fluid" : ""}`;
         if (!isFluid && rect.width) wrapper.style.width = `${Math.ceil(rect.width)}px`;
@@ -9999,8 +10255,7 @@
               if (option.disabled) return;
               select.value = option.value;
               updateValue();
-              menu.hidden = true;
-              trigger.setAttribute("aria-expanded", "false");
+              close();
               select.dispatchEvent(new Event("input", { bubbles: true }));
               select.dispatchEvent(new Event("change", { bubbles: true }));
             });
@@ -10014,15 +10269,24 @@
           renderOptions();
           menu.hidden = false;
           trigger.setAttribute("aria-expanded", "true");
-          requestAnimationFrame(() => search.focus());
+          // 選單改為浮層定位，脫離物料明細表格等 overflow 容器的裁剪
+          floatSearchSelectMenu(trigger, menu);
+          activeFloatingSearchSelect = { trigger, menu };
+          // preventScroll：聚焦時禁止瀏覽器自動捲動，否則浮層貼近視窗底部時會整頁跳動（表現為閃動）
+          requestAnimationFrame(() => search.focus({ preventScroll: true }));
+        };
+        const close = () => {
+          menu.hidden = true;
+          trigger.setAttribute("aria-expanded", "false");
+          releaseFloatingSearchSelectMenu(menu);
+          if (activeFloatingSearchSelect && activeFloatingSearchSelect.menu === menu) activeFloatingSearchSelect = null;
         };
 
-        trigger.addEventListener("click", () => menu.hidden ? open() : (menu.hidden = true, trigger.setAttribute("aria-expanded", "false")));
+        trigger.addEventListener("click", () => menu.hidden ? open() : close());
         search.addEventListener("input", () => renderOptions(search.value));
         search.addEventListener("keydown", event => {
           if (event.key === "Escape") {
-            menu.hidden = true;
-            trigger.setAttribute("aria-expanded", "false");
+            close();
             trigger.focus();
           }
         });
@@ -10040,6 +10304,13 @@
         document.addEventListener("pointerdown", event => {
           if (!event.target.closest(".search-select")) closeSearchableSelects();
         });
+      }
+
+      // 視窗尺寸變化或任何容器滾動時，重新定位浮動下拉（capture 以捕捉表格內部滾動容器的事件）
+      if (!searchableSelectFloatingBound) {
+        searchableSelectFloatingBound = true;
+        window.addEventListener("resize", repositionFloatingSearchSelect);
+        document.addEventListener("scroll", repositionFloatingSearchSelect, true);
       }
 
       // 新增／編輯彈窗會在頁面渲染後才插入，監聽後自動套用同一組下拉規則。
@@ -13118,19 +13389,85 @@
       const hasDrawer = quotationState.selectedQuotationId !== null;
       const selectedQuotation = hasDrawer ? quotations.find(q => q.id === quotationState.selectedQuotationId) : null;
 
+      // 頂部統計：排除標書衍生的報價，與報價列表口徑保持一致
+      const statQuotations = quotations.filter(q => !q.sourceTenderId);
+      const countByStatus = (status) => statQuotations.filter(q => q.status === status).length;
+
       return `
         <section class="page active">
           <div class="qm-layout ${hasDrawer ? 'with-drawer' : ''}">
             <div class="qm-list-section">
+              <div class="pc-grid qm-metrics">
+                <button class="pc-card" data-qm-metric="total">
+                  <h3>報價總數</h3>
+                  <div class="pc-metric">${statQuotations.length}</div>
+                  <div class="pc-label">全部報價單</div>
+                </button>
+                <button class="pc-card" data-qm-metric="pending">
+                  <h3>待報價</h3>
+                  <div class="pc-metric">${countByStatus("待報價")}</div>
+                  <div class="pc-label">等待報價組處理</div>
+                </button>
+                <button class="pc-card" data-qm-metric="quoting">
+                  <h3>報價中</h3>
+                  <div class="pc-metric">${countByStatus("報價中")}</div>
+                  <div class="pc-label">報價進行中的單</div>
+                </button>
+                <button class="pc-card" data-qm-metric="won">
+                  <h3>已中單</h3>
+                  <div class="pc-metric">${countByStatus("已中單")}</div>
+                  <div class="pc-label">已中標的報價</div>
+                </button>
+                <button class="pc-card" data-qm-metric="lost">
+                  <h3>丟單</h3>
+                  <div class="pc-metric">${countByStatus("丟單")}</div>
+                  <div class="pc-label">未中標的報價</div>
+                </button>
+              </div>
               ${renderQuotationFilters()}
               ${renderQuotationTable()}
               ${renderQuotationPagination()}
             </div>
             ${hasDrawer && selectedQuotation ? renderQuotationDrawer(selectedQuotation) : ''}
           </div>
+          ${renderQuotationMetricModal()}
         </section>
       `;
     }
+
+    // 報價管理頂部統計卡片明細彈窗（點擊卡片後顯示對應報價清單）
+    function renderQuotationMetricModal() {
+      if (!quotationState.quotationMetricModal) return "";
+      // 統計口徑與頂部卡片一致：排除標書衍生的報價
+      const statQuotations = quotations.filter(q => !q.sourceTenderId);
+      const views = {
+        total: { title: "全部報價", rows: statQuotations },
+        pending: { title: "待報價", rows: statQuotations.filter(q => q.status === "待報價") },
+        quoting: { title: "報價中", rows: statQuotations.filter(q => q.status === "報價中") },
+        won: { title: "已中單", rows: statQuotations.filter(q => q.status === "已中單") },
+        lost: { title: "丟單", rows: statQuotations.filter(q => q.status === "丟單") }
+      };
+      const view = views[quotationState.quotationMetricModal];
+      if (!view) return "";
+      return `
+        <div class="dispatch-modal-overlay" onclick="if(event.target===this)closeQuotationMetric()">
+          <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="${view.title}">
+            <header class="dispatch-modal-head"><h2>${view.title}</h2><button class="ghost-btn" onclick="closeQuotationMetric()">關閉</button></header>
+            <div class="dispatch-modal-body">
+              <div class="pc-table-wrapper">
+                <table class="pc-table">
+                  <thead><tr><th>報價編號</th><th>報價標題</th><th>關聯工單</th><th>客戶名稱</th><th>報價狀態</th><th>含稅金額</th><th>報價日期</th></tr></thead>
+                  <tbody>${view.rows.length ? view.rows.map(q => `<tr><td>${escapeHtml(q.id)}</td><td>${escapeHtml(q.title || "-")}</td><td>${q.ticketId ? escapeHtml(q.ticketId) : "-"}</td><td>${escapeHtml(q.customerName || "-")}</td><td>${statusBadge(q.status)}</td><td><strong style="color: var(--primary);">HKD ${Number(q.totalAmount || 0).toLocaleString()}</strong></td><td>${escapeHtml(q.createdAt || "-")}</td></tr>`).join("") : '<tr><td colspan="7" class="muted" style="text-align:center;padding:32px;">暫無資料</td></tr>'}</tbody>
+                </table>
+              </div>
+            </div>
+            <footer class="dispatch-modal-footer"><button class="secondary-btn" onclick="closeQuotationMetric()">關閉</button></footer>
+          </section>
+        </div>`;
+    }
+
+    // 關閉報價管理指標明細彈窗（內聯 onclick 調用，確保關閉可靠）
+    function closeQuotationMetric() { quotationState.quotationMetricModal = null; render(); }
 
     // 報價管理分頁組件
     function renderQuotationPagination() {
@@ -13437,7 +13774,8 @@
             <div class="wo-detail-section">
               <div class="wo-detail-card">
                 <h4>物料明細</h4>
-                ${!["已中單", "丟單"].includes(quotation.status) && currentRole() && (currentRole().key === "CR" || currentRole().key === "QUO" || currentRole().key === "ADMIN" || currentRole().key === "BOSS") ? `<div style="margin-bottom:8px;"><button class="primary-btn" data-edit-quotation-drawer="${quotation.id}" style="padding:5px 14px;font-size:12px;">編輯物料明細</button></div>` : ""}
+                ${/* 已中單亦放開編輯：備貨單只在中單後自動建立，而推送 MR 需要報價的物料明細；僅「丟單」不給編輯 */ ""}
+                ${quotation.status !== "丟單" && currentRole() && (currentRole().key === "CR" || currentRole().key === "QUO" || currentRole().key === "ADMIN" || currentRole().key === "BOSS") ? `<div style="margin-bottom:8px;"><button class="primary-btn" data-edit-quotation-drawer="${quotation.id}" style="padding:5px 14px;font-size:12px;">編輯物料明細</button></div>` : ""}
                 ${(quotation.items && quotation.items.length > 0) ? `
                   <div class="po-table-wrap" style="margin-top:8px;">
                     <table class="po-table" style="min-width:520px;">
@@ -13662,7 +14000,7 @@
 
           <div class="wo-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
             ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-update-quotation-status="${quotation.id}">更新狀態</button>` : ""}
-            ${quotation.bidStatus !== "已中標" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
+            ${quotation.bidStatus !== "已中標" && quotation.status !== "丟單" && (quotation.isInviteTender === true || quotation.source === "招標") ? `<button class="secondary-btn" data-mark-won="${quotation.id}">標記中標</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(quotation.procurementStatus)) && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
             ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
@@ -13786,18 +14124,18 @@
                     <button type="button" class="qf-btn qf-btn-save" id="qeAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
                   </div>
                   <div class="po-table-wrap">
-                    <table class="po-table" style="min-width:700px;">
+                    <table class="po-table po-item-table po-item-table-wide">
                       <thead>
                         <tr>
                           <th>物料名稱</th>
-                          <th style="width:110px;">規格/型號</th>
-                          <th style="width:100px;text-align:center;">數量</th>
-                          <th style="width:100px;text-align:center;">單位</th>
-                          <th style="width:110px;text-align:right;">單價(HKD)</th>
-                          <th style="width:110px;text-align:right;">小計</th>
-                          <th style="width:110px;">Location</th>
-                          <th style="width:130px;">備註</th>
-                          <th style="width:40px;"></th>
+                          <th style="width:150px;">規格/型號</th>
+                          <th style="width:90px;text-align:center;">數量</th>
+                          <th style="width:90px;text-align:center;">單位</th>
+                          <th style="width:120px;text-align:right;">單價(HKD)</th>
+                          <th style="width:120px;text-align:right;">小計</th>
+                          <th style="width:130px;" title="該物料／服務的具體施工位置（選填）">Location</th>
+                          <th style="width:200px;">備註</th>
+                          <th style="width:44px;"></th>
                         </tr>
                       </thead>
                       <tbody id="qeItemsBody"></tbody>
@@ -14025,6 +14363,9 @@
       drawer.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", closeQuotationDrawer));
       drawer.querySelectorAll("[data-open]").forEach(btn => btn.addEventListener("click", () => performAction("view", btn.dataset.open)));
       drawer.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
+      // 「編輯物料明細」按鈕：抽屜內容由字串插入，全域 bindEvents 綁定時抽屜尚未進 DOM，需在此綁定
+      // 注意此處同樣走 openQuotationEditDrawer（抽屜內編輯表單），與列表行的「報價」按鈕行為一致
+      drawer.querySelectorAll("[data-edit-quotation-drawer]").forEach(btn => btn.addEventListener("click", () => openQuotationEditDrawer(btn.dataset.editQuotationDrawer)));
       drawer.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
       drawer.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       drawer.querySelectorAll("[data-send-quotation]").forEach(btn => btn.addEventListener("click", () => openSendQuotationModal(btn.dataset.sendQuotation)));
@@ -14072,47 +14413,48 @@
             if (qeAmountHidden) qeAmountHidden.value = total.toFixed(2);
           };
           // 新增一列物料行（若傳入 item 則帶入數據）
+          // 物料名稱：物料主數據已載入時渲染為下拉單選；服務不可用（未載入）則降級為文本輸入
           const addQeItemRow = (item = {}) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-              <td><input class="po-input" data-qe-name value="${item.name || ""}" style="width:100%;"></td>
-              <td><input class="po-input" data-qe-spec value="${item.spec || ""}" style="width:100%;"></td>
+              <td>${buildMaterialNameCellHtml("data-qe-name", item)}</td>
+              <td><input class="po-input" data-qe-spec value="${escapeHtml(item.spec || "")}" style="width:100%;"></td>
               <td><input class="po-input" data-qe-qty type="number" min="1" value="${item.qty || 1}" style="width:100%;text-align:center;"></td>
               <td><select class="po-input" data-qe-unit style="width:100%;"><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
               <td><input class="po-input" data-qe-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}" style="width:100%;text-align:right;"></td>
-              <td class="po-cost" data-qe-cost style="text-align:right;color:var(--muted);">-</td>
               <td class="po-subtotal" data-qe-subtotal>0.00</td>
               <td><input class="po-input" data-qe-location value="${escapeHtml(item.location || "")}" placeholder="具體位置（選填）" style="width:100%;"></td>
               <td><input class="po-input" data-qe-remark value="${escapeHtml(item.remark || "")}" placeholder="備註（選填）" style="width:100%;"></td>
               <td style="text-align:center;"><button type="button" class="po-remove" data-qe-remove title="刪除">×</button></td>
             `;
             qeItemsBody.appendChild(tr);
-            // 物料名稱變更時，即時查詢並顯示成本價參考（無記錄則留空）
-            const refreshQeCost = () => {
-              const costCell = tr.querySelector("[data-qe-cost]");
-              if (!costCell) return;
-              const cost = getInventoryCostPrice(tr.querySelector("[data-qe-name]")?.value);
-              costCell.textContent = cost === null ? "-" : `HKD ${cost.toFixed(2)}`;
-              costCell.style.color = cost === null ? "var(--muted)" : "var(--primary-strong)";
-            };
-            tr.querySelector("[data-qe-name]").addEventListener("input", refreshQeCost);
-            refreshQeCost();
+            // 選中物料後自動帶出規格與單位（帶出後仍可手動修改）
+            bindMaterialNameCell(tr, "data-qe-name", "data-qe-spec", "data-qe-unit");
             tr.querySelector("[data-qe-qty]").addEventListener("input", recalcQeTotal);
             tr.querySelector("[data-qe-price]").addEventListener("input", recalcQeTotal);
             tr.querySelector("[data-qe-remove]").addEventListener("click", () => { tr.remove(); recalcQeTotal(); });
-            if (item.unit) tr.querySelector("[data-qe-unit]").value = item.unit;
+            if (item.unit) setSelectValueWithOption(tr.querySelector("[data-qe-unit]"), item.unit);
             recalcQeTotal();
           };
-          // 綁定「+ 新增物料」按鈕
+          // 綁定「+ 新增物料」按鈕（先確保物料主數據已載入，讓新行以下拉形式呈現）
           const qeAddBtn = drawer.querySelector("#qeAddItemBtn");
-          if (qeAddBtn) qeAddBtn.addEventListener("click", () => addQeItemRow());
-          // 載入已有的物料明細；若無則預設新增一行空物料
-          const quotation = quotations.find(q => q.id === quotationState.selectedQuotationId);
-          if (quotation && quotation.items && quotation.items.length > 0) {
-            quotation.items.forEach(item => addQeItemRow(item));
-          } else {
+          if (qeAddBtn) qeAddBtn.addEventListener("click", async () => {
+            await loadMaterialMaster();
             addQeItemRow();
-          }
+          });
+          // 載入已有的物料明細；若無則預設新增一行空物料
+          // 物料下拉選項來自 mr-bridge 服務，需等主數據就緒後再渲染
+          const quotation = quotations.find(q => q.id === quotationState.selectedQuotationId);
+          loadMaterialMaster().then(() => {
+            if (quotation && quotation.items && quotation.items.length > 0) {
+              quotation.items.forEach(item => addQeItemRow(item));
+            } else {
+              addQeItemRow();
+            }
+            if (materialMasterState.status === "error") {
+              toast("物料主數據載入失敗，暫以文本錄入（請確認 mr-bridge 服務已啟動）", "error");
+            }
+          });
         }
 
         editForm.addEventListener("submit", (e) => {
@@ -14123,7 +14465,8 @@
           if (qeItemsBody) {
             const items = [];
             qeItemsBody.querySelectorAll("tr").forEach(tr => {
-              const name = tr.querySelector("[data-qe-name]")?.value.trim();
+              // 物料名稱改為下拉後，顯示名稱與匹配鍵需分別取值
+              const name = qeRowDisplayName(tr);
               if (!name) return;
               const spec = tr.querySelector("[data-qe-spec]")?.value.trim() || "";
               const qty = parseInt(tr.querySelector("[data-qe-qty]")?.value) || 1;
@@ -14132,7 +14475,11 @@
               // 會議決策：每行 Item 增加 Location（具體位置）與 Remark（備註），皆為選填
               const location = tr.querySelector("[data-qe-location]")?.value.trim() || "";
               const remark = tr.querySelector("[data-qe-remark]")?.value.trim() || "";
-              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark });
+              items.push({
+                name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark,
+                // 跨系統匹配鍵：推送 MR 時按貨品編號反查倉庫通「供應商價格」表
+                ...materialCellMatchInfo(tr, "data-qe-name")
+              });
             });
             formData.append("items", JSON.stringify(items));
           }
@@ -14758,19 +15105,18 @@
                   <button type="button" class="qf-btn qf-btn-save" id="qfAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
                 </div>
                 <div class="po-table-wrap">
-                  <table class="po-table">
+                  <table class="po-table po-item-table po-item-table-wide">
                     <thead>
                       <tr>
                         <th>物料名稱</th>
-                        <th style="width:140px;">規格/型號</th>
-                        <th style="width:80px;text-align:center;">數量</th>
+                        <th style="width:150px;">規格/型號</th>
+                        <th style="width:90px;text-align:center;">數量</th>
                         <th style="width:90px;text-align:center;">單位</th>
                         <th style="width:120px;text-align:right;">單價(HKD)</th>
-                        <th style="width:110px;text-align:right;" title="由倉庫通同步的歷史成本價，僅供定價參考">成本價參考</th>
                         <th style="width:120px;text-align:right;">小計</th>
-                        <th style="width:120px;" title="該物料／服務的具體施工位置（選填）">Location</th>
-                        <th style="width:140px;" title="該行的補充備註（選填）">備註</th>
-                        <th style="width:50px;"></th>
+                        <th style="width:130px;" title="該物料／服務的具體施工位置（選填）">Location</th>
+                        <th style="width:200px;" title="該行的補充備註（選填）">備註</th>
+                        <th style="width:44px;"></th>
                       </tr>
                     </thead>
                     <tbody id="qfItemsBody"></tbody>
@@ -15175,8 +15521,9 @@
       }
     }
 
-    // 報價「已中單」時自動建立備貨單（與報價一對一）；採購單改由採購部於詳情頁手動新建
-    function createSpFromQuotationAndNotify(quotationId) {
+    // 報價「已中單」時自動建立備貨單（與報價一對一），並自動推送一張 MR 至倉庫通
+    // 推送失敗不阻斷流程：備貨單仍保留，可於詳情頁點「重新同步MR」重試
+    async function createSpFromQuotationAndNotify(quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
       const existing = stockPreparations.find(sp => sp.quotationId === quotationId);
@@ -15185,7 +15532,14 @@
         return;
       }
       const sp = createSpFromQuotation(quotationId);
-      toast(`已自動建立備貨單 ${sp.id}，請於詳情頁手動新建採購單`);
+      // 一張備貨單 = 一張 MR：建立後立即自動推送（自動推送失敗時保留手動重試入口）
+      const outcome = await requestMrPush(sp.id);
+      saveDataToLocalStorage();
+      if (outcome.ok) {
+        toast(`已自動建立備貨單 ${sp.id} 並推送 MR ${outcome.result.mrNo}（匹配 ${outcome.result.matchedCount} 行 / 待維護 ${outcome.result.missingCount} 行）`);
+      } else {
+        toast(`已自動建立備貨單 ${sp.id}，但 MR 推送失敗：${outcome.error}。可於詳情頁點「重新同步MR」重試`, "error");
+      }
     }
 
     // 報價「已中單」時通知會計部待開發票（財務閉環）
@@ -15196,7 +15550,7 @@
       });
     }
 
-    function updateQuotationStatus(formData, quotationId) {
+    async function updateQuotationStatus(formData, quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
@@ -15214,9 +15568,9 @@
       // 按類別通知相屬主管（+CR for M線）
       notifyQuotationCategory(quotation, `狀態變更為「${newStatus}」`);
 
-      // 報價狀態變更為「已中單」時，自動建立備貨單（採購單由採購部於詳情頁手動新建）
+      // 報價狀態變更為「已中單」時，自動建立備貨單並自動推送 MR（採購單由採購部於詳情頁手動新建）
       if (newStatus === "已中單") {
-        createSpFromQuotationAndNotify(quotationId);
+        await createSpFromQuotationAndNotify(quotationId);
       }
 
       saveDataToLocalStorage();
@@ -15571,7 +15925,7 @@
       modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
       modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
       const form = modal.querySelector("#markWonForm");
-      form.addEventListener("submit", (e) => {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const formData = new FormData(form);
         const customerOrder = formData.get("customerOrder").trim();
@@ -15596,6 +15950,9 @@
         toast("已標記爲中標，CC通知採購部");
         modal.remove();
         render();
+
+        // 標記中標後自動建立備貨單並推送 MR（與報價列表「更新狀態 → 已中單」路徑保持一致）
+        await createSpFromQuotationAndNotify(quotation.id);
 
         if (startProc) {
           setTimeout(() => startProcurement(quotationId), 300);
@@ -15850,12 +16207,11 @@
           }
           if (item.unit) unitEl.value = item.unit;
           tr.innerHTML = `
-            <td><input class="po-input" data-qf-name value="${escapeHtml(item.name || "")}" placeholder="請輸入物料名稱"></td>
+            <td>${buildMaterialNameCellHtml("data-qf-name", item)}</td>
             <td><input class="po-input" data-qf-spec value="${escapeHtml(item.spec || "")}" placeholder="規格/型號"></td>
             <td><input class="po-input po-input-sm" data-qf-qty type="number" min="1" value="${item.qty || 1}"></td>
             <td class="po-unit-cell"></td>
             <td><input class="po-input po-input-price" data-qf-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}"></td>
-            <td class="po-cost" data-qf-cost style="text-align:right;color:var(--muted);">-</td>
             <td class="po-subtotal" data-qf-subtotal>0.00</td>
             <td><input class="po-input" data-qf-location value="${escapeHtml(item.location || "")}" placeholder="具體位置（選填）"></td>
             <td><input class="po-input" data-qf-remark value="${escapeHtml(item.remark || "")}" placeholder="備註（選填）"></td>
@@ -15863,28 +16219,23 @@
           `;
           tr.querySelector(".po-unit-cell").appendChild(unitEl);
           qfItemsBody.appendChild(tr);
-          // 物料名稱變更時，即時查詢並顯示成本價參考（無記錄則留空）
-          const refreshQfCost = () => {
-            const costCell = tr.querySelector("[data-qf-cost]");
-            if (!costCell) return;
-            const cost = getInventoryCostPrice(tr.querySelector("[data-qf-name]")?.value);
-            costCell.textContent = cost === null ? "-" : `HKD ${cost.toFixed(2)}`;
-            costCell.style.color = cost === null ? "var(--muted)" : "var(--primary-strong)";
-          };
-          tr.querySelector("[data-qf-name]").addEventListener("input", refreshQfCost);
-          refreshQfCost();
+          // 選中物料後自動帶出規格與單位（帶出後仍可手動修改）
+          bindMaterialNameCell(tr, "data-qf-name", "data-qf-spec", "data-qf-unit");
           tr.querySelector("[data-qf-qty]").addEventListener("input", recalcQfTotal);
           tr.querySelector("[data-qf-price]").addEventListener("input", recalcQfTotal);
           tr.querySelector("[data-qf-remove]").addEventListener("click", () => { tr.remove(); recalcQfTotal(); });
           recalcQfTotal();
         };
         const qfAddBtn = modal.querySelector("#qfAddItemBtn");
-        if (qfAddBtn) qfAddBtn.addEventListener("click", () => addQfItemRow());
+        if (qfAddBtn) qfAddBtn.addEventListener("click", async () => {
+          await loadMaterialMaster();
+          addQfItemRow();
+        });
         // 關聯客戶「＋ 新增」按鈕：建立新客戶後回填下拉並選中（下拉框本身最多顯示 6 條、可滑動）
         const qfNewCustomerBtn = modal.querySelector("[data-qf-new-customer]");
         if (qfNewCustomerBtn) qfNewCustomerBtn.addEventListener("click", () => createQuotationCustomer(modal.querySelector("#qf-customerName")));
-        // 預設新增一行空物料
-        addQfItemRow();
+        // 預設新增一行空物料（先確保物料主數據已載入，讓該行以下拉形式呈現）
+        loadMaterialMaster().then(() => addQfItemRow());
       }
 
       const createForm = modal.querySelector("#createQuotationForm");
@@ -15897,7 +16248,8 @@
           if (qfItemsBody) {
             const items = [];
             qfItemsBody.querySelectorAll("tr").forEach(tr => {
-              const name = tr.querySelector("[data-qf-name]")?.value.trim();
+              // 物料名稱改為下拉後，顯示名稱與匹配鍵需分別取值
+              const name = materialCellDisplayName(tr, "data-qf-name");
               if (!name) return;
               const spec = tr.querySelector("[data-qf-spec]")?.value.trim() || "";
               const qty = parseInt(tr.querySelector("[data-qf-qty]")?.value) || 1;
@@ -15906,7 +16258,11 @@
               // 會議決策：每行 Item 增加 Location（具體位置）與 Remark（備註），皆為選填
               const location = tr.querySelector("[data-qf-location]")?.value.trim() || "";
               const remark = tr.querySelector("[data-qf-remark]")?.value.trim() || "";
-              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark });
+              items.push({
+                name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark,
+                // 跨系統匹配鍵：推送 MR 時按貨品編號反查倉庫通「供應商價格」表
+                ...materialCellMatchInfo(tr, "data-qf-name")
+              });
             });
             formData.append("items", JSON.stringify(items));
           }
@@ -16047,6 +16403,122 @@
       return sp;
     }
 
+    // ============ 推送 MR 至倉庫通（經 mr-bridge 中間服務） ============
+    // 粒度：一張備貨單 = 一張 MR
+    // 內容：以備貨單關聯報價的物料明細作為 MR 的「預算」組；
+    //      「實際」組（實際數量/單價/金額、供應商、採購單號）留空，等倉庫通採購訂單回填
+    // 返回 { ok:true, result } 或 { ok:false, error }；不帶任何 UI，供「自動建立備貨單」與「手動按鈕」兩條路徑共用
+    async function requestMrPush(spId) {
+      const sp = stockPreparations.find(s => s.id === spId);
+      if (!sp) return { ok: false, error: "找不到備貨單" };
+      const quotation = sp.quotationId ? quotations.find(q => q.id === sp.quotationId) : null;
+      if (!quotation) return { ok: false, error: "此備貨單未關聯報價，無法生成 MR" };
+      const items = (quotation.items || []).filter(it => it.name);
+      if (!items.length) return { ok: false, error: "關聯報價尚無物料明細，請先在報價中編輯物料" };
+
+      // 場地取自關聯工單的地址；工程項目取自報價標題
+      const ticket = sp.ticketId ? tickets.find(t => t.id === sp.ticketId) : null;
+      const payload = {
+        stockPreparation: {
+          id: sp.id,
+          quotationId: sp.quotationId || "",
+          ticketId: sp.ticketId || "",
+          customerName: sp.customerName || ""
+        },
+        quotation: { id: quotation.id, ourRef: quotation.ourRef || "", category: quotation.category || "" },
+        site: (ticket && ticket.address) || "",
+        projectDesc: quotation.title || "",
+        applicantUserId: MR_BRIDGE_APPLICANT_USER_ID,
+        items: items.map(it => ({
+          productCode: it.productCode || "",
+          productName: it.productName || it.name || "",
+          spec: it.spec || "",
+          qty: Number(it.qty) || 0,
+          unit: it.unit || "",
+          unitPrice: Number(it.unitPrice) || 0,
+          location: it.location || "",
+          remark: it.remark || ""
+        }))
+      };
+
+      try {
+        const res = await fetch(`${MR_BRIDGE_BASE_URL}/api/mr/push`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        if (!res.ok || !result.ok) throw new Error(result.error || `HTTP ${res.status}`);
+
+        // 記錄 MR 號碼與推送時間，供抽屜顯示與後續「重新同步」使用
+        sp.mrNo = result.mrNo || sp.mrNo || "";
+        sp.mrFormInstId = result.formInstId || "";
+        sp.mrPushedAt = new Date().toLocaleString('zh-TW');
+        saveDataToLocalStorage();
+        return { ok: true, result };
+      } catch (err) {
+        return { ok: false, error: err.message };
+      }
+    }
+
+    // 手動推送（備貨單詳情抽屜的「生成MR / 重新同步MR」按鈕）：推送後彈出逐行匹配結果
+    async function pushMrForStockPreparation(spId) {
+      toast("正在推送 MR 至倉庫通…");
+      const outcome = await requestMrPush(spId);
+      if (!outcome.ok) {
+        toast(`MR 推送失敗：${outcome.error}（請確認 mr-bridge 服務已啟動）`, "error");
+        return;
+      }
+      render();
+      showMrPushResult(outcome.result);
+    }
+
+    // MR 推送結果彈窗：顯示 MR 號碼與逐行物料的供應商價格匹配情況
+    function showMrPushResult(result) {
+      const rows = result.items || [];
+      const overlay = document.createElement("div");
+      overlay.className = "qf-overlay";
+      overlay.innerHTML = `
+        <div class="qf-modal" style="max-width:760px;">
+          <div class="qf-header">
+            <div>
+              <h3>MR 推送完成</h3>
+              <div class="qf-sub">已寫入倉庫通 MR表單 · ${escapeHtml(result.mode || "")} 模式</div>
+            </div>
+            <button type="button" class="qf-close" data-close-modal aria-label="關閉">×</button>
+          </div>
+          <div class="qf-body">
+            <div class="wo-detail-card">
+              <h4>MR號碼：${escapeHtml(result.mrNo || "-")}</h4>
+              <p class="muted" style="font-size:12px;margin:6px 0 0;">
+                物料 ${result.itemCount} 行 · 已關聯供應商價格 ${result.matchedCount} 行 · 待維護 ${result.missingCount} 行
+              </p>
+            </div>
+            <table class="sp-item-table" style="margin-top:14px;">
+              <thead><tr><th>物料</th><th>貨品編號</th><th style="text-align:center;">數量</th><th>匹配結果</th></tr></thead>
+              <tbody>
+                ${rows.map(r => `
+                  <tr>
+                    <td>${escapeHtml(r.productName)}</td>
+                    <td>${escapeHtml(r.productCode) || '-'}</td>
+                    <td style="text-align:center;">${r.qty}</td>
+                    <td>${r.matchStatus === "missing"
+                      ? `<span class="tag danger">未匹配</span> <span class="muted" style="font-size:11px;">${escapeHtml(r.note || "")}</span>`
+                      : `<span class="tag ${r.matchStatus === "duplicated" ? "warning" : "success"}">${r.matchStatus === "duplicated" ? `多條取最新（${r.candidateCount}）` : "已匹配"}</span> <span class="muted" style="font-size:11px;">${escapeHtml(r.matchedSupplier || "")}</span>`}</td>
+                  </tr>`).join("") || '<tr><td colspan="4" style="text-align:center;color:var(--muted);">無物料</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+          <div class="qf-footer">
+            <button type="button" class="qf-btn qf-btn-save" data-close-modal>知道了</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      overlay.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => overlay.remove()));
+      overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
+    }
+
     // 備貨管理頁面渲染：以備貨單為主體，採購單與供應商明細收斂到備貨單詳情抽屜
     function renderProcurement() {
       // 列表資料：狀態取備貨單自身欄位（與詳情下拉一致），預計到貨時間由子採購單取最晚日期
@@ -16164,6 +16636,12 @@
                     <span class="wo-detail-value">${quotation ? `<button class="link-btn" data-jump-quotation="${quotation.id}">${escapeHtml(quotation.id)}</button>` : '-'}</span>
                   </div>
                   <div class="wo-detail-item">
+                    <span class="wo-detail-label">MR號碼</span>
+                    <span class="wo-detail-value">${sp.mrNo
+                      ? `${escapeHtml(sp.mrNo)}${sp.mrPushedAt ? `<span class="muted" style="font-size:11px;">（${escapeHtml(sp.mrPushedAt)} 推送）</span>` : ""}`
+                      : '<span class="muted">尚未生成</span>'}</span>
+                  </div>
+                  <div class="wo-detail-item">
                     <span class="wo-detail-label">狀態</span>
                     <span class="wo-detail-value">
                       <select class="sp-status-select" data-sp-status-select="${sp.id}" aria-label="變更備貨單狀態">
@@ -16213,6 +16691,7 @@
           </div>
           <div class="wo-drawer-footer">
             <button class="ghost-btn" data-sp-close>關閉</button>
+            <button class="primary-btn" data-sp-push-mr="${sp.id}">${sp.mrNo ? "重新同步MR" : "生成MR"}</button>
           </div>
         </aside>
       `;
@@ -16301,6 +16780,11 @@
       }));
       // 跳轉關聯報價
       container.querySelectorAll("[data-jump-quotation]").forEach(btn => btn.addEventListener("click", () => openQuotationDrawer(btn.dataset.jumpQuotation)));
+      // 生成／重新同步 MR：推送至倉庫通 MR表單，完成後刷新抽屜以顯示 MR 號碼
+      container.querySelectorAll("[data-sp-push-mr]").forEach(btn => btn.addEventListener("click", async () => {
+        await pushMrForStockPreparation(btn.dataset.spPushMr);
+        if (document.getElementById("spDrawerOverlay")) showSpDrawer(spId);
+      }));
     }
 
     // 關閉備貨單詳情抽屜
@@ -16353,16 +16837,16 @@
                   <button type="button" class="qf-btn qf-btn-save" id="editPoAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
                 </div>
                 <div class="po-table-wrap">
-                  <table class="po-table">
+                  <table class="po-table po-item-table">
                     <thead>
                       <tr>
                         <th>物料名稱</th>
-                        <th style="width:140px;">規格/型號</th>
-                        <th style="width:80px;text-align:center;">數量</th>
+                        <th style="width:150px;">規格/型號</th>
+                        <th style="width:90px;text-align:center;">數量</th>
                         <th style="width:90px;text-align:center;">單位</th>
                         <th style="width:120px;text-align:right;">單價(HKD)</th>
                         <th style="width:120px;text-align:right;">小計</th>
-                        <th style="width:50px;"></th>
+                        <th style="width:44px;"></th>
                       </tr>
                     </thead>
                     <tbody id="editPoItemsBody"></tbody>
@@ -16411,7 +16895,7 @@
       const addItemRow = (item = {}) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td><input class="po-input" data-po-name value="${escapeHtml(item.name || "")}" placeholder="請輸入物料名稱"></td>
+          <td>${buildMaterialNameCellHtml("data-po-name", item)}</td>
           <td><input class="po-input" data-po-spec value="${escapeHtml(item.spec || "")}" placeholder="規格/型號"></td>
           <td><input class="po-input po-input-sm" data-po-qty type="number" min="1" value="${item.qty || 1}"></td>
           <td><select class="po-input" data-po-unit><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option><option>米</option><option>台</option></select></td>
@@ -16420,15 +16904,23 @@
           <td style="text-align:center;"><button type="button" class="po-remove" data-po-remove title="刪除">×</button></td>
         `;
         itemsBody.appendChild(tr);
+        // 選中物料後自動帶出規格與單位（帶出後仍可手動修改）
+        bindMaterialNameCell(tr, "data-po-name", "data-po-spec", "data-po-unit");
         tr.querySelector("[data-po-qty]").addEventListener("input", recalcTotal);
         tr.querySelector("[data-po-price]").addEventListener("input", recalcTotal);
         tr.querySelector("[data-po-remove]").addEventListener("click", () => { tr.remove(); recalcTotal(); });
         if (item.unit) tr.querySelector("[data-po-unit]").value = item.unit;
         recalcTotal();
       };
-      (po.items || []).forEach(item => addItemRow(item));
-      if (!(po.items || []).length) addItemRow();
-      modal.querySelector("#editPoAddItemBtn").addEventListener("click", () => addItemRow());
+      // 先確保物料主數據已載入，再渲染既有物料行（讓物料名稱以下拉形式呈現）
+      loadMaterialMaster().then(() => {
+        (po.items || []).forEach(item => addItemRow(item));
+        if (!(po.items || []).length) addItemRow();
+      });
+      modal.querySelector("#editPoAddItemBtn").addEventListener("click", async () => {
+        await loadMaterialMaster();
+        addItemRow();
+      });
 
       // 表單提交：更新採購單欄位與物料明細，並同步備貨單與報價的採購狀態
       const form = modal.querySelector("#editPOForm");
@@ -16446,13 +16938,18 @@
         if (!supplierName) { toast("請輸入供應商名稱", "error"); return; }
         const items = [];
         itemsBody.querySelectorAll("tr").forEach(tr => {
-          const name = tr.querySelector("[data-po-name]").value.trim();
+          // 物料名稱改為下拉後，顯示名稱與匹配鍵需分別取值
+          const name = materialCellDisplayName(tr, "data-po-name");
           if (!name) return;
           const spec = tr.querySelector("[data-po-spec]").value.trim();
           const qty = parseInt(tr.querySelector("[data-po-qty]").value) || 1;
           const unit = tr.querySelector("[data-po-unit]").value;
           const unitPrice = parseFloat(tr.querySelector("[data-po-price]").value) || 0;
-          items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
+          items.push({
+            name, spec, qty, unit, unitPrice, amount: qty * unitPrice,
+            // 跨系統匹配鍵：推送 MR 時按貨品編號反查倉庫通「供應商價格」表
+            ...materialCellMatchInfo(tr, "data-po-name")
+          });
         });
         if (items.length === 0) { toast("請至少保留一項物料", "error"); return; }
         const oldId = po.id;
@@ -17012,17 +17509,16 @@
                   <button type="button" class="qf-btn qf-btn-save" id="poAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
                 </div>
                 <div class="po-table-wrap">
-                  <table class="po-table">
+                  <table class="po-table po-item-table">
                     <thead>
                       <tr>
                         <th>物料名稱</th>
-                        <th style="width:140px;">規格/型號</th>
-                        <th style="width:80px;text-align:center;">數量</th>
+                        <th style="width:150px;">規格/型號</th>
+                        <th style="width:90px;text-align:center;">數量</th>
                         <th style="width:90px;text-align:center;">單位</th>
                         <th style="width:120px;text-align:right;">單價(HKD)</th>
-                        <th style="width:110px;text-align:right;" title="由倉庫通同步的歷史成本價，僅供定價參考">成本價參考</th>
                         <th style="width:120px;text-align:right;">小計</th>
-                        <th style="width:50px;"></th>
+                        <th style="width:44px;"></th>
                       </tr>
                     </thead>
                     <tbody id="poItemsBody"></tbody>
@@ -17072,7 +17568,7 @@
       const addItemRow = (item = {}) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td><input class="po-input" data-po-name value="${item.name || ""}" placeholder="請輸入物料名稱"></td>
+          <td>${buildMaterialNameCellHtml("data-po-name", item)}</td>
           <td><input class="po-input" data-po-spec value="${item.spec || ""}" placeholder="規格/型號"></td>
           <td><input class="po-input po-input-sm" data-po-qty type="number" min="1" value="${item.qty || 1}"></td>
           <td><select class="po-input" data-po-unit><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
@@ -17081,13 +17577,18 @@
           <td style="text-align:center;"><button type="button" class="po-remove" data-po-remove title="刪除">×</button></td>
         `;
         itemsBody.appendChild(tr);
+        // 選中物料後自動帶出規格與單位（帶出後仍可手動修改）
+        bindMaterialNameCell(tr, "data-po-name", "data-po-spec", "data-po-unit");
         tr.querySelector("[data-po-qty]").addEventListener("input", recalcTotal);
         tr.querySelector("[data-po-price]").addEventListener("input", recalcTotal);
         tr.querySelector("[data-po-remove]").addEventListener("click", () => { tr.remove(); recalcTotal(); });
         if (item.unit) tr.querySelector("[data-po-unit]").value = item.unit;
         recalcTotal();
       };
-      modal.querySelector("#poAddItemBtn").addEventListener("click", () => addItemRow());
+      modal.querySelector("#poAddItemBtn").addEventListener("click", async () => {
+        await loadMaterialMaster();
+        addItemRow();
+      });
 
       // 選擇工單後自動帶出關聯報價
       const ticketSelect = modal.querySelector("[name='ticketId']");
@@ -17118,8 +17619,8 @@
         }
       });
 
-      // 預設新增一行空物料
-      addItemRow();
+      // 預設新增一行空物料（先確保物料主數據已載入，讓該行以下拉形式呈現）
+      loadMaterialMaster().then(() => addItemRow());
 
       // 表單提交：驗證採購單號與供應商、收集物料明細、生成採購單
       const form = modal.querySelector("#createPOForm");
@@ -17139,13 +17640,18 @@
         // 收集物料明細
         const items = [];
         itemsBody.querySelectorAll("tr").forEach(tr => {
-          const name = tr.querySelector("[data-po-name]").value.trim();
+          // 物料名稱改為下拉後，顯示名稱與匹配鍵需分別取值
+          const name = materialCellDisplayName(tr, "data-po-name");
           if (!name) return;
           const spec = tr.querySelector("[data-po-spec]").value.trim();
           const qty = parseInt(tr.querySelector("[data-po-qty]").value) || 1;
           const unit = tr.querySelector("[data-po-unit]").value;
           const unitPrice = parseFloat(tr.querySelector("[data-po-price]").value) || 0;
-          items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
+          items.push({
+            name, spec, qty, unit, unitPrice, amount: qty * unitPrice,
+            // 跨系統匹配鍵：推送 MR 時按貨品編號反查倉庫通「供應商價格」表
+            ...materialCellMatchInfo(tr, "data-po-name")
+          });
         });
         const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
         const po = {
@@ -20221,6 +20727,8 @@
           });
           saveDataToLocalStorage();
           toast(`標書已中標，已沿用關聯報價 ${existingQuotation.id}`);
+          // 沿用報價同樣自動建立備貨單並推送 MR（與其他「已中單」入口保持一致）
+          await createSpFromQuotationAndNotify(existingQuotation.id);
         } else {
           // 無關聯報價：彈窗詢問是否立即創建報價
           const wantCreate = await showConfirmDialog({
@@ -20737,7 +21245,7 @@
               <section class="sr-report-section">
                 <h3>服務紀錄</h3>
                 <div class="sr-report-detail">
-                  ${detail("簽到時間", t.serviceCheckInAt || t.arrivalTime)}${detail("完成時間", t.completionTime || (t.status === "已完成" ? t.updatedAt : ""))}${detail("客戶滿意度", t.satisfaction)}${detail("需要報價", t.needQuotation ? "是" : "否")}
+                  ${detail("簽到時間", t.serviceCheckInAt || t.arrivalTime)}${detail("完成時間", t.completionTime || (t.status === "已完成" ? t.updatedAt : ""))}${detail("需要報價", t.needQuotation ? "是" : "否")}
                 </div>
                 <div style="display:grid;gap:10px;margin-top:10px;">
                   <div><span class="muted" style="font-size:12px;">完成工作</span><p class="sr-report-text">${escapeHtml(t.completedWork || t.processNote || "暫無服務紀錄")}</p></div>
@@ -21685,7 +22193,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                   ${t.completedWork ? detailRow("完成工作", t.completedWork) : ""}
                   ${t.faultResult ? detailRow("跟進結果", t.faultResult) : ""}
                   ${t.serviceReportNo ? detailRow("服務報告", `SR-${t.serviceReportNo}`) : ""}
-                  ${t.satisfaction ? detailRow("客戶滿意度", t.satisfaction) : ""}
                   ${t.needQuotation ? detailRow("需要報價", "是") : ""}
                 </div>
                 ${photoGrid("Before Service 照片", t.beforeServicePhotos)}
@@ -21876,7 +22383,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.srWorkNature = t.workNature || "";
         state.srFollowUpGroup = t.followUpGroup || "";
         state.srParts = Array.isArray(t.parts) ? t.parts.map(p => ({ name: p.name || "", qty: p.qty || 1 })) : [];
-        state.srSatisfaction = t.satisfaction || "";
         // 是否需要報價：不預設默認值，由師傅自行選擇（null 表示尚未選擇）
         state.srNeedQuotation = (typeof t.needQuotation === "boolean") ? t.needQuotation : null;
         // 是否後補報價：不預設默認值，由師傅自行選擇（null 表示尚未選擇）
@@ -21887,12 +22393,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       const serviceTypeOptions = ["門禁系統", "停車場系統", "閉路電視", "報警系統", "SMATV", "IT資訊系統", "巡更系統", "門禁電話", "其他"];
       const workNatureOptions = ["例行檢查", "故障維修", "緊急維修", "需跟進", "其他"];
-      const satisfactionOptions = [
-        { value: "非常滿意", emoji: "😀" },
-        { value: "滿意", emoji: "🙂" },
-        { value: "一般", emoji: "😐" },
-        { value: "不滿意", emoji: "🙁" }
-      ];
 
       const now = new Date();
       const nowLocal = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
@@ -22192,11 +22692,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         srSystems: system,
         srObjectives: objective,
         completedWork: t.completedWork || t.processNote || "已完成現場檢查及系統功能測試。",
-        faultResult: t.faultResult || "現場測試正常，暫無需跟進事項。",
-        satisfaction: t.satisfaction || "滿意"
+        faultResult: t.faultResult || "現場測試正常，暫無需跟進事項。"
       };
       updateTicket(t.id, updates, "已上傳服務報告，系統已帶入表單資料。");
-      state.srSatisfaction = updates.satisfaction;
       state.srInitialized = true;
       render();
       toast("服務報告已上傳，資料已帶入表單", "success");
@@ -22270,12 +22768,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function srSetWorkNature(value) {
       srSyncInputs();
       state.srWorkNature = value;
-      render();
-    }
-
-    function srSetSatisfaction(value) {
-      srSyncInputs();
-      state.srSatisfaction = value;
       render();
     }
 
@@ -22640,23 +23132,34 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
     // ===== 移動端分派中心（TL 角色）=====
     function renderMobileDispatch() {
+      // 已選中工單時顯示移動端詳情頁（不使用 PC 側邊欄）
+      if (state.mbDispatchViewId) {
+        const vt = ticketById(state.mbDispatchViewId);
+        if (vt) return renderMobileDispatchDetail(vt);
+        state.mbDispatchViewId = null;
+      }
       const currentTLName = currentRole().name;
-      const activeTickets = tickets.filter(t => t.tl === currentTLName && !["已完成", "已取消"].includes(t.status));
+      // TL 只看自己團隊的 CALL；CR 等其他角色看全部未結案 CALL
+      const scopeTickets = state.role === "TL" ? tickets.filter(t => t.tl === currentTLName) : tickets;
+      const activeTickets = scopeTickets.filter(t => !["已完成", "已取消"].includes(t.status));
       const pendingTickets = activeTickets.filter(t => t.status === "待分派");
-      const assignedTickets = activeTickets.filter(t => t.status !== "待分派");
+      const approvalTickets = activeTickets.filter(t => t.status === "待審批");
+      const assignedTickets = activeTickets.filter(t => !["待分派", "待審批"].includes(t.status));
       const filter = state.mdDispatchFilters;
+      const search = (state.mdDispatchSearch || "").toLowerCase().trim();
       const uniqueValues = key => [...new Set(activeTickets.map(t => t[key]).filter(Boolean))].sort();
-      const tabTickets = state.mdDispatchTab === "待分派" ? pendingTickets : assignedTickets;
+      const tabTickets = state.mdDispatchTab === "待分派" ? pendingTickets : state.mdDispatchTab === "待審批" ? approvalTickets : assignedTickets;
       const visibleTickets = tabTickets.filter(t =>
         (filter.area === "全部" || t.area === filter.area) &&
         (filter.customer === "全部" || t.customer === filter.customer) &&
-        (filter.type === "全部" || t.type === filter.type)
+        (filter.type === "全部" || t.type === filter.type) &&
+        (!search || (t.id || "").toLowerCase().includes(search) || (t.customer || "").toLowerCase().includes(search))
       );
       const filterSelect = (key, label) => `<div class="md-filter-group"><label>${label}</label><select data-md-dispatch-filter="${key}"><option value="全部">全部</option>${uniqueValues(key).map(value => `<option value="${escapeHtml(value)}" ${filter[key] === value ? "selected" : ""}>${escapeHtml(value)}</option>`).join("")}</select></div>`;
       const ticketsHtml = visibleTickets.length === 0
         ? `<div class="md-empty">暫無${state.mdDispatchTab} CALL</div>`
         : visibleTickets.map(t => `
-          <div class="md-ticket-card ${t.status === "待分派" ? "" : "readonly"}" ${t.status === "待分派" ? `data-md-ticket="${t.id}" role="button" tabindex="0"` : ""}>
+          <div class="md-ticket-card ${t.status === "待分派" ? "" : "readonly"}" style="max-height:none;" ${t.status === "待分派" ? `data-md-ticket="${t.id}" role="button" tabindex="0"` : ""}>
             <div class="md-ticket-head">
               <strong>${escapeHtml(t.id)}</strong>
               <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
@@ -22668,22 +23171,34 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
               <span class="md-dot">·</span>
               <span>${escapeHtml(t.type)}</span>
             </div>
-            <div class="md-ticket-meta">${escapeHtml(t.createdAt)}</div>
+            <div class="md-ticket-meta">${escapeHtml(t.createdAt)}${t.applyMaster ? ` · 申請人：${escapeHtml(t.applyMaster)}` : ""}</div>
             <div class="md-ticket-desc">${escapeHtml(t.desc)}</div>
+            <div class="mobile-actions" style="flex-wrap:wrap;">
+              <button type="button" class="secondary-btn" data-mb-dispatch-view="${t.id}">查看</button>
+              ${t.status === "待分派" ? `<button type="button" class="primary-btn" data-md-ticket="${t.id}">分派師傅</button>` : ""}
+              ${t.status === "待審批" ? `<button type="button" class="primary-btn" data-dispatch-approve="${t.id}">通過</button><button type="button" class="danger-btn" data-dispatch-reject="${t.id}">退回</button>` : ""}
+              <button type="button" class="danger-btn" data-mb-dispatch-delete="${t.id}">刪除</button>
+            </div>
           </div>
         `).join("");
       return `
         <div class="md-page">
           <div class="md-section">
-            <div class="md-section-title">CALL 清單（${visibleTickets.length} 張）</div>
-            <div class="md-dispatch-toolbar">
-              <div class="md-dispatch-tabs" role="tablist" aria-label="CALL 分派狀態">
-                <button type="button" class="${state.mdDispatchTab === "待分派" ? "active" : ""}" data-md-dispatch-tab="待分派" aria-pressed="${state.mdDispatchTab === "待分派"}">待分派 ${pendingTickets.length}</button>
-                <button type="button" class="${state.mdDispatchTab === "已分派" ? "active" : ""}" data-md-dispatch-tab="已分派" aria-pressed="${state.mdDispatchTab === "已分派"}">已分派 ${assignedTickets.length}</button>
+            <div class="mb-sticky">
+              <div class="master-home-stats" style="margin-bottom:10px;">
+                <button type="button" class="master-home-stat ${state.mdDispatchTab === "待分派" ? "active" : ""}" data-md-dispatch-tab="待分派"><span>待分派</span><strong>${pendingTickets.length}</strong></button>
+                <button type="button" class="master-home-stat ${state.mdDispatchTab === "待審批" ? "active" : ""}" data-md-dispatch-tab="待審批"><span>待審批</span><strong>${approvalTickets.length}</strong></button>
+                <button type="button" class="master-home-stat ${state.mdDispatchTab === "已分派" ? "active" : ""}" data-md-dispatch-tab="已分派"><span>已分派</span><strong>${assignedTickets.length}</strong></button>
               </div>
-              <button type="button" class="md-dispatch-filter-toggle ${state.mdDispatchFiltersOpen ? "active" : ""}" data-md-dispatch-filter-toggle aria-expanded="${state.mdDispatchFiltersOpen}">篩選 ${state.mdDispatchFiltersOpen ? "⌃" : "⌄"}</button>
+              <div class="mobile-card" style="padding:12px;display:grid;gap:8px;margin-bottom:0;">
+                <input type="text" placeholder="搜索 CALL 編號 / 客戶..." value="${escapeHtml(state.mdDispatchSearch || '')}" data-md-dispatch-search style="padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                  <span style="font-size:13px;color:var(--muted);">CALL 清單（${visibleTickets.length} 張）</span>
+                  <button type="button" class="md-dispatch-filter-toggle ${state.mdDispatchFiltersOpen ? "active" : ""}" data-md-dispatch-filter-toggle aria-expanded="${state.mdDispatchFiltersOpen}">篩選 ${state.mdDispatchFiltersOpen ? "⌃" : "⌄"}</button>
+                </div>
+              </div>
+              ${state.mdDispatchFiltersOpen ? `<div class="md-dispatch-filters" style="margin-top:8px;">${filterSelect("area", "區域")}${filterSelect("customer", "客戶")}${filterSelect("type", "CALL 類型")}<button type="button" class="md-filter-reset" data-md-dispatch-filter-reset>重置篩選</button></div>` : ""}
             </div>
-            ${state.mdDispatchFiltersOpen ? `<div class="md-dispatch-filters">${filterSelect("area", "區域")}${filterSelect("customer", "客戶")}${filterSelect("type", "CALL 類型")}<button type="button" class="md-filter-reset" data-md-dispatch-filter-reset>重置篩選</button></div>` : ""}
             ${ticketsHtml}
           </div>
         </div>
@@ -22807,16 +23322,34 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
     // 渲染移動端 CR（客戶報告）頁面 — 同時展示服務報告與完工單，支持按編號或客戶名稱搜索
     function renderMobileCr() {
+      // 已選中工單時顯示移動端詳情頁（不使用 PC 側邊欄）
+      if (state.mbSrViewId) {
+        const vt = ticketById(state.mbSrViewId);
+        if (vt) return renderMobileReportTicketDetail(vt);
+        state.mbSrViewId = null;
+      }
       const search = (state.crSearch || "").toLowerCase().trim();
       // 收集所有有 serviceReportNo（服務報告）或 cpNo（完工單）的工單
-      let srTickets = tickets.filter(t => t.serviceReportNo || t.cpNo).slice().sort((a, b) => {
+      const allReports = tickets.filter(t => t.serviceReportNo || t.cpNo).slice().sort((a, b) => {
         const aNo = a.cpNo || a.serviceReportNo || "";
         const bNo = b.cpNo || b.serviceReportNo || "";
         return bNo.localeCompare(aNo);
       });
+      // 統計（全量，與 PC 報告管理一致）
+      const total = allReports.length;
+      const pendingCount = allReports.filter(t => t.status === "待處理").length;
+      const inProgressCount = allReports.filter(t => t.status === "處理中").length;
+      const completedCount = allReports.filter(t => t.status === "已完成").length;
+      // 篩選條件
+      const areaFilter = state.mbSrArea || "全部";
+      const statusFilter = state.mbSrStatus || "全部";
+      const allAreas = [...new Set(allReports.map(t => t.srArea || t.area || "").filter(Boolean))];
+      let list = allReports;
+      if (areaFilter !== "全部") list = list.filter(t => (t.srArea || t.area || "") === areaFilter);
+      if (statusFilter !== "全部") list = list.filter(t => t.status === statusFilter);
       // 搜索過濾
       if (search) {
-        srTickets = srTickets.filter(t =>
+        list = list.filter(t =>
           (t.serviceReportNo || "").toLowerCase().includes(search) ||
           (t.cpNo || "").toLowerCase().includes(search) ||
           (t.id || "").toLowerCase().includes(search) ||
@@ -22834,14 +23367,27 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
 
       return `
-        <div class="mobile-card" style="padding:12px;">
-          <input type="text" placeholder="搜索報告編號 / 工單號 / 客戶..." value="${escapeHtml(state.crSearch || '')}" data-cr-search style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);">
-            <span>共 ${srTickets.length} 份報告</span>
+        <div class="mb-sticky">
+          <div class="master-home-stats" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:10px;">
+            <button class="master-home-stat" data-mb-sr-status="全部"><span>報告總數</span><strong>${total}</strong></button>
+            <button class="master-home-stat" data-mb-sr-status="待處理"><span>待處理</span><strong>${pendingCount}</strong></button>
+            <button class="master-home-stat" data-mb-sr-status="處理中"><span>處理中</span><strong>${inProgressCount}</strong></button>
+            <button class="master-home-stat" data-mb-sr-status="已完成"><span>已完成</span><strong>${completedCount}</strong></button>
+          </div>
+          <div class="mobile-card" style="padding:12px;display:grid;gap:8px;margin-bottom:0;">
+            <input type="text" placeholder="搜索報告編號 / 工單號 / 客戶..." value="${escapeHtml(state.crSearch || '')}" data-cr-search style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <select class="qf-select" data-mb-sr-area><option value="全部">全部區域</option>${allAreas.map(a => `<option value="${escapeHtml(a)}" ${areaFilter === a ? "selected" : ""}>${escapeHtml(a)}</option>`).join("")}</select>
+              <select class="qf-select" data-mb-sr-status-select>${["全部", "待確認", "待處理", "處理中", "已完成", "已取消"].map(s => `<option value="${s}" ${statusFilter === s ? "selected" : ""}>${s === "全部" ? "全部狀態" : s}</option>`).join("")}</select>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;color:var(--muted);">共 ${list.length} 份報告</span>
+              <button class="secondary-btn" data-mb-sr-reset>重置</button>
+            </div>
           </div>
         </div>
-        ${srTickets.length === 0 ? '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的報告</div>' :
-          srTickets.map(t => `
+        ${list.length === 0 ? '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的報告</div>' :
+          list.map(t => `
             <div class="mobile-card">
               <div class="mobile-card-head">
                 <button class="link-btn" data-cr-open="${t.id}"><strong>${t.cpNo ? 'CP-' + escapeHtml(t.cpNo) : 'SR-' + escapeHtml(t.serviceReportNo)}</strong></button>
@@ -22853,6 +23399,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
               ${(t.srSystems && t.srSystems.length > 0) ? `<div style="margin-top:4px;">${t.srSystems.map(s => `<span class="chip" style="margin:1px;font-size:11px;">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
               <div class="mobile-actions">
                 <button class="secondary-btn" data-cr-open="${t.id}">查看報告</button>
+                <button class="ghost-btn" data-mb-sr-ticket="${t.id}">查看工單</button>
                 <button class="ghost-btn" data-cr-send="${t.id}">📧 發送客戶</button>
               </div>
             </div>
@@ -22923,11 +23470,986 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       `;
     }
 
+    // ==================== CR（客戶關係）角色移動端頁面 ====================
+    // CR 首頁：工作台概覽（CALL／報價／報告／備貨 關鍵指標 + 最近更新）
+    function renderMobileCrHome() {
+      const activeTickets = tickets.filter(t => !["已完成", "已取消"].includes(t.status));
+      const pendingDispatch = tickets.filter(t => t.status === "待分派").length;
+      const statQuotations = quotations.filter(q => !q.sourceTenderId);
+      const quotationsPending = statQuotations.filter(q => q.status === "待報價").length;
+      const quotationsWon = statQuotations.filter(q => q.status === "已中單").length;
+      const srCount = tickets.filter(t => t.serviceReportNo || t.cpNo).length;
+      const spPending = stockPreparations.filter(sp => sp.status === "待備貨").length;
+      // 最近更新的 3 張 CALL
+      const recent = [...tickets].sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || "")).slice(0, 3);
+      return `
+        <div class="master-home">
+          <section class="master-home-hero">
+            <span>${escapeHtml(currentRole().name)} · ${escapeHtml(currentRole().dept || "客戶關係")}</span>
+            <h2>CR 工作台</h2>
+            <p>目前有 ${activeTickets.length} 張進行中的 CALL</p>
+            <button data-mobile-page="crCalls">查看全部 CALL</button>
+          </section>
+          <div class="master-home-stats">
+            <button class="master-home-stat" data-mobile-page="crCalls"><span>待分派</span><strong>${pendingDispatch}</strong></button>
+            <button class="master-home-stat" data-mobile-page="quotations"><span>待報價</span><strong>${quotationsPending}</strong></button>
+            <button class="master-home-stat" data-mobile-page="cr"><span>服務報告</span><strong>${srCount}</strong></button>
+          </div>
+          <div class="master-home-stats" style="margin-top:-4px;">
+            <button class="master-home-stat" data-mobile-page="quotations"><span>已中單</span><strong>${quotationsWon}</strong></button>
+            <button class="master-home-stat" data-mobile-page="procurement"><span>待備貨</span><strong>${spPending}</strong></button>
+            <button class="master-home-stat" data-mobile-page="report"><span>進行中</span><strong>${activeTickets.length}</strong></button>
+          </div>
+          <section class="master-home-section">
+            <div class="master-home-section-head"><h2>功能入口</h2><button class="link-btn" data-mobile-page="more">全部</button></div>
+            <div class="mb-grid">
+              ${[["dispatch", "📤", "分派中心"], ["quotations", "💰", "報價管理"], ["procurement", "🛒", "備貨管理"], ["report", "📊", "統計報表"], ["settings", "⚙️", "基礎設置"], ["cr", "📁", "報告管理"]].map(([key, icon, label]) => `<button class="mb-entry" data-mobile-page="${key}"><span class="mb-entry-ico">${icon}</span><span>${label}</span></button>`).join("")}
+            </div>
+          </section>
+          <section class="master-home-section">
+            <div class="master-home-section-head"><h2>最近更新</h2><button class="link-btn" data-mobile-page="crCalls">全部 CALL</button></div>
+            ${recent.length ? recent.map(t => `<button class="master-home-ticket" data-mobile-page="crCalls"><strong>${escapeHtml(t.id)} · ${escapeHtml(t.customer || "-")}</strong><span>${escapeHtml(t.type || "-")} · ${escapeHtml(t.status)}</span></button>`).join("") : '<div class="mobile-card">暫無 CALL</div>'}
+          </section>
+        </div>`;
+    }
+
+    // CR CALL 管理：狀態篩選 + 搜索 + 列表（點擊查看詳情）
+    function renderMobileCrCalls() {
+      // 已選中某張 CALL 時顯示詳情
+      if (state.mbCallSelectedId) {
+        const selected = ticketById(state.mbCallSelectedId);
+        if (selected) return renderMobileCrCallDetail(selected);
+        state.mbCallSelectedId = null;
+      }
+      const view = state.mbCallView || "calls";
+      // 頂部視圖切換：CALL 清單 / 客戶
+      const viewToggle = `<div class="segmented" style="margin-bottom:10px;">
+        <button class="${view === "calls" ? "active" : ""}" data-mb-call-view="calls">CALL 清單</button>
+        <button class="${view === "customers" ? "active" : ""}" data-mb-call-view="customers">客戶</button>
+      </div>`;
+
+      // 客戶視圖：客戶清單（查看／新建 CALL／新建報價／刪除）
+      if (view === "customers") {
+        const custSearch = (state.mbCallCustSearch || "").toLowerCase().trim();
+        let custList = customers;
+        if (custSearch) {
+          custList = custList.filter(c =>
+            (c.nameZh || "").toLowerCase().includes(custSearch) ||
+            (c.nameEn || "").toLowerCase().includes(custSearch) ||
+            (c.id || "").toLowerCase().includes(custSearch) ||
+            (c.contacts || []).some(x => (x.name || "").toLowerCase().includes(custSearch) || (x.phone || "").includes(custSearch))
+          );
+        }
+        return `
+          <div class="mb-sticky">
+            ${viewToggle}
+            <div class="mobile-card" style="padding:12px;margin-bottom:0;">
+              <input type="text" placeholder="搜索客戶名稱 / 編號 / 聯絡人..." value="${escapeHtml(state.mbCallCustSearch || '')}" data-mb-cust-search style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                <span style="font-size:13px;color:var(--muted);">共 ${custList.length} 個客戶</span>
+                <button class="primary-btn" data-mb-cust-create>＋ 新增客戶</button>
+              </div>
+            </div>
+          </div>
+          ${custList.length ? custList.map(c => `<div class="mobile-card">
+            <div class="mobile-card-head"><button class="link-btn" data-mb-cust-view="${c.id}">${escapeHtml(c.nameZh)}</button><span class="tag">${escapeHtml(c.type || "-")}</span></div>
+            <div class="muted" style="font-size:12px;">${escapeHtml(c.id)} · ${escapeHtml(c.nameEn || "")}</div>
+            ${(c.contacts && c.contacts[0]) ? `<div class="muted" style="font-size:12px;">聯絡人：${escapeHtml(c.contacts[0].name || "-")} · ${escapeHtml(c.contacts[0].phone || "-")}</div>` : ""}
+            <div class="mobile-actions" style="flex-wrap:wrap;">
+              <button class="secondary-btn" data-mb-cust-view="${c.id}">查看詳情</button>
+              <button class="secondary-btn" data-mb-cust-newcall="${c.id}">新建 CALL</button>
+              <button class="secondary-btn" data-mb-cust-newquote="${c.id}">新建報價</button>
+              <button class="danger-btn" data-mb-cust-delete="${c.id}">刪除</button>
+            </div>
+          </div>`).join("") : '<div class="mobile-card">暫無符合條件的客戶</div>'}
+        `;
+      }
+
+      // CALL 視圖
+      const statuses = ["待分派", "待確認", "待處理", "處理中", "已完成"];
+      const selectedStatus = state.mbCallStatus || "全部";
+      const search = (state.mbCallSearch || "").toLowerCase().trim();
+      let list = tickets.slice().sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));
+      if (selectedStatus !== "全部") list = list.filter(t => t.status === selectedStatus);
+      if (search) {
+        list = list.filter(t =>
+          (t.id || "").toLowerCase().includes(search) ||
+          (t.customer || "").toLowerCase().includes(search) ||
+          (t.area || "").toLowerCase().includes(search)
+        );
+      }
+      return `
+        <div class="mb-sticky">
+          ${viewToggle}
+          <div class="mobile-card" style="padding:12px;margin-bottom:0;">
+            <input type="text" placeholder="搜索 CALL 編號 / 客戶 / 區域..." value="${escapeHtml(state.mbCallSearch || '')}" data-mbcall-search style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <span style="font-size:13px;color:var(--muted);">共 ${list.length} 張 CALL</span>
+              <button class="primary-btn" data-mbcall-create>＋ 新增 CALL</button>
+            </div>
+          </div>
+          <div class="segmented mobile-call-segmented" style="margin-top:8px;">${["全部", ...statuses].map(s => `<button class="${selectedStatus === s ? "active" : ""}" data-mbcall-status="${s}">${s}</button>`).join("")}</div>
+        </div>
+        ${list.length ? list.map(t => `<div class="mobile-card">
+          <div class="mobile-card-head"><button class="link-btn" data-mbcall-open="${t.id}">${escapeHtml(t.id)}</button>${t.urgent ? '<span class="tag urgent">緊急</span>' : ''}<span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span></div>
+          <strong>${escapeHtml(t.type || "-")}</strong>
+          <div class="muted">${escapeHtml(t.customer || "-")} · ${escapeHtml(t.area || "-")}</div>
+          <div class="muted" style="font-size:12px;">${escapeHtml(t.createdAt || "-")}</div>
+          <div class="mobile-actions"><button class="secondary-btn" data-mbcall-open="${t.id}">查看詳情</button></div>
+        </div>`).join("") : '<div class="mobile-card">暫無符合條件的 CALL</div>'}
+      `;
+    }
+
+    // 移動端工單詳情主體（共用：CALL 管理 / 分派中心 / 報告管理）
+    // 純移動端頁面渲染，操作按鈕的顯示條件與 PC 工單詳情一致
+    function renderMobileTicketDetailBody(t) {
+      const activeStatuses = ["待分派", "待確認", "待處理", "處理中"];
+      const roleKey = currentRole().key;
+      // 與 PC actionButtons / 工單詳情一致的可見條件
+      const canAssign = activeStatuses.includes(t.status);           // 分派／重新分派
+      const canEdit = t.status === "待分派";                          // 編輯工單
+      const canNote = activeStatuses.includes(t.status);             // 補充信息
+      const canSchedule = ["CR", "TL", "ADMIN", "BOSS"].includes(roleKey); // 安排／變更排程
+      const canRequestQuote = ["CS", "CR", "ADMIN"].includes(roleKey);     // 請求報價
+      const hasQuotation = quotations.some(q => q.ticketId === t.id || q.sourceTicketId === t.id);
+      const actions = [];
+      if (canEdit) actions.push(`<button class="secondary-btn" data-mbcall-edit="${t.id}">編輯工單</button>`);
+      if (canAssign) actions.push(`<button class="primary-btn" data-mbcall-dispatch="${t.id}">${t.master ? "重新分派" : "分派師傅"}</button>`);
+      if (canNote) actions.push(`<button class="secondary-btn" data-mbcall-note="${t.id}">補充信息</button>`);
+      if (canRequestQuote) actions.push(hasQuotation
+        ? '<span class="tag success" style="align-self:center;">已申請報價</span>'
+        : `<button class="secondary-btn" data-mbcall-request-quote="${t.id}">請求報價</button>`);
+      if (canSchedule) actions.push(`<button class="secondary-btn" data-mbcall-schedule="${t.id}">${t.scheduleType === "已排程" ? "變更排程" : "安排排程"}</button>`);
+      return `
+        <div class="mobile-card">
+          <div class="mobile-card-head">
+            <h3 style="margin:0;color:var(--primary);">${escapeHtml(t.id)}</h3>
+            <span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span>
+          </div>
+          <div style="margin-top:8px;display:grid;gap:6px;">
+            ${infoRow("客戶", escapeHtml(t.customer || "-"))}
+            ${infoRow("聯繫人", escapeHtml(t.contact || "-"))}
+            ${infoRow("電話", escapeHtml(t.phone || "-"))}
+            ${infoRow("區域", escapeHtml(t.area || "-"))}
+            ${infoRow("地址", escapeHtml(t.address || "-"))}
+            ${infoRow("CALL 類型", escapeHtml(t.type || "-"))}
+            ${infoRow("來源", escapeHtml(t.channel || "-"))}
+            ${infoRow("負責人", escapeHtml(t.master || t.owner || "未分派"))}
+            ${infoRow("開單時間", escapeHtml(t.createdAt || "-"))}
+          </div>
+          ${t.desc ? `<div style="margin-top:6px;"><span class="muted" style="font-size:12px;">問題描述</span><p style="margin:4px 0 0;">${escapeHtml(t.desc)}</p></div>` : ""}
+        </div>
+        ${actions.length ? `<div class="mobile-card">
+          <div class="mobile-card-head"><strong>操作</strong></div>
+          <div class="mobile-actions" style="flex-wrap:wrap;">${actions.join("")}</div>
+        </div>` : ""}`;
+    }
+
+    // CR CALL 詳情（頁內視圖，帶返回列表）
+    function renderMobileCrCallDetail(t) {
+      return `
+        <div style="margin-bottom:8px;"><button class="link-btn" data-mbcall-back><strong>← 返回列表</strong></button></div>
+        ${renderMobileTicketDetailBody(t)}`;
+    }
+
+    // 分派中心工單詳情（移動端頁面，帶返回列表）
+    function renderMobileDispatchDetail(t) {
+      return `
+        <div style="margin-bottom:8px;"><button class="link-btn" data-mb-dispatch-back><strong>← 返回列表</strong></button></div>
+        ${renderMobileTicketDetailBody(t)}`;
+    }
+
+    // 報告管理工單詳情（移動端頁面，帶返回列表）
+    function renderMobileReportTicketDetail(t) {
+      return `
+        <div style="margin-bottom:8px;"><button class="link-btn" data-mb-sr-ticket-back><strong>← 返回列表</strong></button></div>
+        ${renderMobileTicketDetailBody(t)}`;
+    }
+
+    // CALL 新建／編輯表單（底部彈層，提交後復用工單保存邏輯 saveWorkOrder）
+    function renderMobileCallFormSheet() {
+      const isEdit = state.mbCallFormMode === "edit";
+      const t = isEdit ? ticketById(state.mbCallFormTicketId) : null;
+      if (isEdit && !t) return "";
+      // 由客戶視圖新建時預帶客戶資料
+      const preset = !isEdit && state.mbCallFormPresetCustomerId ? customers.find(c => c.id === state.mbCallFormPresetCustomerId) : null;
+      const presetContact = preset && preset.contacts && preset.contacts[0] ? preset.contacts[0] : null;
+      const presetArea = preset && preset.addresses && preset.addresses[0] ? preset.addresses[0].area : "";
+      const typeOptions = ["政府", "私人", "客戶投訴"];
+      const curType = isEdit ? (t.customerType || (customers.find(c => c.id === t.customerId)?.type || "")) : (preset ? preset.type : "");
+      const curCustomerId = isEdit ? t.customerId : (preset ? preset.id : "");
+      const curArea = isEdit ? (t.area || "") : (presetArea || "");
+      const curContact = isEdit ? (t.contact || "") : (presetContact ? presetContact.name : "");
+      const curPhone = isEdit ? (t.phone || "") : (presetContact ? presetContact.phone : "");
+      const custOptions = (type) => customers.filter(c => !type || c.type === type)
+        .map(c => `<option value="${c.id}" ${curCustomerId === c.id ? "selected" : ""}>${escapeHtml(c.nameZh)} (${escapeHtml(c.nameEn || "")})</option>`).join("");
+      const tls = users.filter(u => u.role === "TL" && isEnabled(u.status));
+      const channels = typeof CHANNELS !== "undefined" ? CHANNELS : ["電話"];
+      const types = typeof TYPES !== "undefined" ? TYPES : ["糾正維修"];
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileCallForm()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>${isEdit ? "編輯工單" : "新增 CALL"}</h2><p>${isEdit ? escapeHtml(t.id) : "填寫 CALL 基本資訊"}</p></div>
+              <button class="ghost-btn" onclick="closeMobileCallForm()">關閉</button>
+            </div>
+            <form id="mbCallForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <label class="mb-field">客戶類型<span class="mb-req">*</span>
+                  <select name="customerType" data-mbcall-type required>
+                    <option value="">請選擇</option>
+                    ${typeOptions.map(x => `<option value="${x}" ${curType === x ? "selected" : ""}>${x}</option>`).join("")}
+                  </select>
+                </label>
+                <label class="mb-field">客戶<span class="mb-req">*</span>
+                  <select name="customerId" data-mbcall-customer required>
+                    <option value="">請先選擇客戶類型</option>
+                    ${curType ? custOptions(curType) : ""}
+                  </select>
+                </label>
+                <label class="mb-field">區域<span class="mb-req">*</span>
+                  <input name="area" data-mbcall-area value="${escapeHtml(curArea)}" readonly placeholder="選擇客戶後自動帶出">
+                </label>
+                <label class="mb-field">主管<span class="mb-req">*</span>
+                  <select name="tl" required>
+                    <option value="">請選擇主管</option>
+                    ${tls.map(u => `<option value="${u.name}" ${isEdit && t.tl === u.name ? "selected" : ""}>${u.name}（${u.area}）</option>`).join("")}
+                  </select>
+                </label>
+                <label class="mb-field">聯繫人<span class="mb-req">*</span>
+                  <input name="contact" data-mbcall-contact value="${escapeHtml(curContact)}" required>
+                </label>
+                <label class="mb-field">聯繫電話
+                  <input name="phone" data-mbcall-phone value="${escapeHtml(curPhone)}">
+                </label>
+                <label class="mb-field">來源渠道
+                  <select name="channel">${channels.map(c => `<option ${isEdit && t.channel === c ? "selected" : ""}>${c}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">地址
+                  <input name="address" value="${isEdit ? escapeHtml(t.address || "") : ""}">
+                </label>
+                <label class="mb-field">CALL 類型<span class="mb-req">*</span>
+                  <select name="type" required>${types.map(x => `<option ${isEdit && t.type === x ? "selected" : ""}>${x}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">優先級
+                  <select name="priority">
+                    <option ${isEdit && t.priority === "普通" ? "selected" : ""}>普通</option>
+                    <option ${isEdit && (t.priority === "緊急" || (t.urgent && t.priority !== "非常緊急")) ? "selected" : ""}>緊急</option>
+                    <option ${isEdit && t.priority === "非常緊急" ? "selected" : ""}>非常緊急</option>
+                  </select>
+                </label>
+                <label class="mb-field">工單描述<span class="mb-req">*</span>
+                  <textarea name="desc" rows="3" required>${isEdit ? escapeHtml(t.desc || "") : ""}</textarea>
+                </label>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileCallForm()">取消</button>
+                <button type="submit" class="primary-btn">${isEdit ? "保存" : "創建"}</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // CALL 分派師傅（底部彈層，選擇師傅後更新工單）
+    function renderMobileCallDispatchSheet() {
+      const t = ticketById(state.mbDispatchTicketId);
+      if (!t) return "";
+      const masters = typeof getMastersForDispatch === "function" ? getMastersForDispatch() : [];
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileDispatch()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>分派師傅</h2><p>${escapeHtml(t.id)} · ${escapeHtml(t.customer || "")}</p></div>
+              <button class="ghost-btn" onclick="closeMobileDispatch()">關閉</button>
+            </div>
+            <div class="mobile-process-sheet-body">
+              ${masters.length ? masters.map(m => `<button class="mobile-card" data-mbcall-dispatch-master="${escapeHtml(m.name)}" style="display:flex;justify-content:space-between;align-items:center;text-align:left;width:100%;">
+                <span><strong>${escapeHtml(m.name)}</strong><div class="muted" style="font-size:12px;">${escapeHtml(m.area || "")} · ${escapeHtml(m.skills || "")}</div></span>
+                <span class="md-tag md-tag-primary">${escapeHtml(m.status || "")}</span>
+              </button>`).join("") : '<div class="mobile-card">暫無可選師傅</div>'}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // 備貨單管理（移動端底部彈層）：狀態變更 / 採購單狀態流轉 / 生成 MR
+    function renderMobileSpManageSheet() {
+      const sp = stockPreparations.find(s => s.id === state.mbSpManageId);
+      if (!sp) return "";
+      const pos = purchaseOrders.filter(p => p.spId === sp.id && p.status !== "已取消");
+      const isWarehouse = ["PUR", "ADMIN"].includes(state.role);
+      const isCR = ["CR", "QUO", "PUR", "ADMIN"].includes(state.role);
+      // 依採購單狀態返回可用的流轉按鈕（與 PC renderPoActions 規則一致）
+      const poActions = (po) => {
+        const btn = (label, action, cls = "primary-btn") => `<button class="${cls}" data-mb-sp-po="${po.id}" data-mb-sp-po-action="${action}">${label}</button>`;
+        if (po.status === "待下單") return btn("下單", "order") + btn("取消", "cancel", "danger-btn");
+        if (po.status === "已下單") return btn("標記發貨", "ship");
+        if (po.status === "已發貨") return btn("確認到貨", "arrive");
+        if (po.status === "已到貨") return isWarehouse ? btn("入庫存", "stockin") : '<span class="tag warning">待入庫</span>';
+        if (po.status === "已入庫") return isCR ? btn("確認正確", "verify") + btn("貨品錯誤", "rejectGoods", "danger-btn") : '<span class="tag warning">待確認貨品</span>';
+        if (po.status === "已驗收") return '<span class="tag success">已完成</span>';
+        return "";
+      };
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileSpManage()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>備貨單管理</h2><p>${escapeHtml(sp.id)} · ${escapeHtml(sp.customerName || "")}</p></div>
+              <button class="ghost-btn" onclick="closeMobileSpManage()">關閉</button>
+            </div>
+            <div class="mobile-process-sheet-body">
+              <div class="mobile-card" style="margin:0;">
+                <label class="mb-field">備貨單狀態
+                  <select data-mb-sp-status="${sp.id}">${SP_STATUSES.map(s => `<option value="${s}" ${sp.status === s ? "selected" : ""}>${s}</option>`).join("")}</select>
+                </label>
+                <div class="mobile-actions" style="margin-top:10px;flex-wrap:wrap;">
+                  ${sp.quotationId ? `<button class="secondary-btn" data-mb-sp-quote="${sp.quotationId}">查看關聯報價</button>` : ""}
+                  <button class="secondary-btn" data-mb-sp-mr="${sp.id}">生成/同步 MR</button>
+                </div>
+              </div>
+              <div class="md-section-title">採購單（${pos.length}）</div>
+              ${pos.length ? pos.map(p => `<div class="mobile-card" style="margin:0;">
+                <div class="mobile-card-head"><strong>${escapeHtml(p.id)}</strong><span class="${statusClass(p.status)}">${escapeHtml(p.status)}</span></div>
+                <div class="muted" style="font-size:12px;">供應商：${escapeHtml(p.supplierName || "-")}</div>
+                <div class="muted" style="font-size:12px;">下單日期：${escapeHtml(p.orderDate || "-")}</div>
+                <div style="font-size:13px;color:var(--primary);font-weight:700;">HKD ${Number(p.totalAmount || 0).toLocaleString()}</div>
+                <div class="mobile-actions" style="flex-wrap:wrap;">${poActions(p)}</div>
+              </div>`).join("") : '<div class="mobile-card" style="margin:0;">暫無採購單</div>'}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // 報價狀態流轉（移動端底部彈層）
+    function renderMobileQuotationFlowSheet() {
+      const q = quotations.find(x => x.id === state.mbQuotationFlowId);
+      if (!q) return "";
+      const transitions = {
+        "待報價": ["報價中", "需修訂", "已中單", "丟單"],
+        "報價中": ["需修訂", "已中單", "丟單"],
+        "需修訂": ["報價中", "已中單", "丟單"],
+        "已中單": [], "丟單": []
+      };
+      const nexts = transitions[q.status] || [];
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileQuotationFlow()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>更新報價狀態</h2><p>${escapeHtml(q.id)} · 當前：${escapeHtml(q.status)}</p></div>
+              <button class="ghost-btn" onclick="closeMobileQuotationFlow()">關閉</button>
+            </div>
+            <form id="mbQFlowForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <div style="font-size:12px;color:var(--muted);">目標狀態</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  ${nexts.length ? nexts.map(s => `<button type="button" class="secondary-btn" data-mb-qflow-pick="${s}">${s}</button>`).join("") : '<span class="muted">當前狀態無可流轉目標</span>'}
+                </div>
+                <input type="hidden" name="newStatus" data-mb-qflow-value>
+                <div style="font-size:13px;">已選：<strong data-mb-qflow-label>—</strong></div>
+                <label class="mb-field">備註<textarea name="remark" rows="2" placeholder="請輸入狀態變更備註"></textarea></label>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileQuotationFlow()">取消</button>
+                <button type="submit" class="primary-btn" ${nexts.length ? "" : "disabled"}>確認更新</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // 開啟/關閉 備貨單管理彈層
+    function openMobileSpManage(spId) { state.mbSpManageId = spId; render(); }
+    function closeMobileSpManage() { state.mbSpManageId = null; render(); }
+    // 開啟/關閉 報價狀態流轉彈層
+    function openMobileQuotationFlow(quotationId) { state.mbQuotationFlowId = quotationId; render(); }
+    function closeMobileQuotationFlow() { state.mbQuotationFlowId = null; render(); }
+
+    // 客戶新增／編輯（移動端底部彈層，提交後復用 saveCustomer）
+    function renderMobileCustomerFormSheet() {
+      const isEdit = state.mbCustFormMode === "edit";
+      const c = isEdit ? customers.find(x => x.id === state.mbCustFormId) : null;
+      if (isEdit && !c) return "";
+      const contact = (c && c.contacts && c.contacts[0]) || {};
+      const addr = (c && c.addresses && c.addresses[0]) || {};
+      const areaOptions = (dictData["區域"] || []).filter(a => isEnabled(a.status)).map(a => a.name);
+      const types = ["政府", "私人"];
+      const levels = ["普通", "VIP", "重要"];
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileCustomerForm()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>${isEdit ? "編輯客戶" : "新增客戶"}</h2><p>${isEdit ? escapeHtml(c.id) : "填寫客戶資料"}</p></div>
+              <button class="ghost-btn" onclick="closeMobileCustomerForm()">關閉</button>
+            </div>
+            <form id="mbCustForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <label class="mb-field">客戶名稱（中）<span class="mb-req">*</span><input name="nameZh" value="${isEdit ? escapeHtml(c.nameZh || "") : ""}" required></label>
+                <label class="mb-field">客戶名稱（英）<span class="mb-req">*</span><input name="nameEn" value="${isEdit ? escapeHtml(c.nameEn || "") : ""}" required></label>
+                <label class="mb-field">類型<span class="mb-req">*</span>
+                  <select name="type" required>${types.map(x => `<option ${isEdit && c.type === x ? "selected" : ""}>${x}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">級別
+                  <select name="level">${levels.map(x => `<option ${isEdit && c.level === x ? "selected" : ""}>${x}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">狀態
+                  <select name="status"><option ${isEdit && c.status === "停用" ? "" : "selected"}>啓用</option><option ${isEdit && c.status === "停用" ? "selected" : ""}>停用</option></select>
+                </label>
+                <label class="mb-field">Peachtree 編號<input name="peachtreeId" value="${isEdit ? escapeHtml(c.peachtreeId || "") : ""}"></label>
+                <label class="mb-field">聯繫人<span class="mb-req">*</span><input name="contactName" value="${isEdit ? escapeHtml(contact.name || "") : ""}" required></label>
+                <label class="mb-field">聯繫電話<span class="mb-req">*</span><input name="contactPhone" value="${isEdit ? escapeHtml(contact.phone || "") : ""}" required></label>
+                <label class="mb-field">WhatsApp<input name="contactWhatsapp" value="${isEdit ? escapeHtml(contact.whatsapp || "") : ""}"></label>
+                <label class="mb-field">Email<input name="contactEmail" value="${isEdit ? escapeHtml(contact.email || "") : ""}"></label>
+                <label class="mb-field">區域
+                  <select name="area"><option value="">請選擇</option>${areaOptions.map(a => `<option ${isEdit && addr.area === a ? "selected" : ""}>${escapeHtml(a)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">地址（中）<input name="addressZh" value="${isEdit ? escapeHtml(addr.addressZh || "") : ""}"></label>
+                <label class="mb-field">地址（英）<input name="addressEn" value="${isEdit ? escapeHtml(addr.addressEn || "") : ""}"></label>
+                <label class="mb-field">會計部聯絡人<input name="accountingContact" value="${isEdit ? escapeHtml(c.accountingContact || "") : ""}"></label>
+                <label class="mb-field">樓宇地址<input name="buildingAddress" value="${isEdit ? escapeHtml(c.buildingAddress || "") : ""}"></label>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileCustomerForm()">取消</button>
+                <button type="submit" class="primary-btn">${isEdit ? "保存" : "創建"}</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // 用戶新增／編輯（移動端底部彈層，提交後復用 saveUser）
+    function renderMobileUserFormSheet() {
+      const isEdit = state.mbUserFormMode === "edit";
+      const u = isEdit ? users.find(x => x.id === state.mbUserFormId) : null;
+      if (isEdit && !u) return "";
+      const areaOptions = (dictData["區域"] || []).filter(a => isEnabled(a.status)).map(a => a.name);
+      const tlNames = users.filter(x => x.role === "TL").map(x => x.name);
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileUserForm()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>${isEdit ? "編輯用戶" : "新增用戶"}</h2><p>${isEdit ? escapeHtml(u.id) : "填寫用戶資料"}</p></div>
+              <button class="ghost-btn" onclick="closeMobileUserForm()">關閉</button>
+            </div>
+            <form id="mbUserForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <label class="mb-field">姓名<span class="mb-req">*</span><input name="name" value="${isEdit ? escapeHtml(u.name || "") : ""}" required></label>
+                <label class="mb-field">員工編號<input name="employeeNo" value="${isEdit ? escapeHtml(u.employeeNo || "") : ""}"></label>
+                <label class="mb-field">角色<span class="mb-req">*</span>
+                  <select name="role" required>${ROLES.map(r => `<option value="${r.key}" ${isEdit && u.role === r.key ? "selected" : ""}>${r.label}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">區域
+                  <select name="area"><option value="">未分配</option>${areaOptions.map(a => `<option ${isEdit && u.area === a ? "selected" : ""}>${escapeHtml(a)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">電話<span class="mb-req">*</span><input name="phone" value="${isEdit ? escapeHtml(u.phone || "") : ""}" required></label>
+                <label class="mb-field">Email<input name="email" value="${isEdit ? escapeHtml(u.email || "") : ""}"></label>
+                <label class="mb-field">主管
+                  <select name="manager"><option value="">無</option>${tlNames.map(n => `<option ${isEdit && u.manager === n ? "selected" : ""}>${escapeHtml(n)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">狀態
+                  <select name="status"><option ${isEdit && u.status === "停用" ? "" : "selected"}>啓用</option><option ${isEdit && u.status === "停用" ? "selected" : ""}>停用</option></select>
+                </label>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileUserForm()">取消</button>
+                <button type="submit" class="primary-btn">${isEdit ? "保存" : "創建"}</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // 開啟/關閉 客戶表單
+    function openMobileCustomerForm(mode, id) { state.mbCustFormMode = mode; state.mbCustFormId = id || null; render(); }
+    function closeMobileCustomerForm() { state.mbCustFormMode = ""; state.mbCustFormId = null; render(); }
+    // 開啟/關閉 用戶表單
+    function openMobileUserForm(mode, id) { state.mbUserFormMode = mode; state.mbUserFormId = id || null; render(); }
+    function closeMobileUserForm() { state.mbUserFormMode = ""; state.mbUserFormId = null; render(); }
+
+    // 報價新增／編輯（移動端底部彈層，提交後復用 saveQuotation）
+    function renderMobileQuotationFormSheet() {
+      const isEdit = state.mbQuotationFormMode === "edit";
+      const q = isEdit ? quotations.find(x => x.id === state.mbQuotationFormId) : null;
+      if (isEdit && !q) return "";
+      const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
+      const areaOptions = (dictData["區域"] || []).filter(a => isEnabled(a.status));
+      const ownerNames = users.filter(u => u.role === "TL" || u.role === "ADMIN").map(u => u.name);
+      if (currentRole().name && !ownerNames.includes(currentRole().name)) ownerNames.unshift(currentRole().name);
+      const today = new Date().toISOString().slice(0, 10);
+      const items = isEdit && Array.isArray(q.items) ? q.items : [];
+      // 由客戶新建時預帶客戶與區域
+      const preset = (!isEdit && state.mbQuotationFormPresetCustomerId) ? customers.find(c => c.id === state.mbQuotationFormPresetCustomerId) : null;
+      const presetArea = preset && preset.addresses && preset.addresses[0] ? preset.addresses[0].area : "";
+      const curCustomerName = isEdit ? (q.customerName || "") : (preset ? preset.nameZh : "");
+      const curArea = isEdit ? (q.area || "") : (presetArea || "");
+      const itemRow = (it = {}) => `<div class="mobile-card mb-item-row" style="margin:0;padding:8px;display:grid;gap:6px;">
+        <input data-mbq-item="name" placeholder="物料名稱" value="${escapeHtml(it.name || "")}">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+          <input data-mbq-item="qty" type="number" placeholder="數量" value="${it.qty || 1}">
+          <input data-mbq-item="unit" placeholder="單位" value="${escapeHtml(it.unit || "")}">
+          <input data-mbq-item="unitPrice" type="number" placeholder="單價" value="${it.unitPrice || 0}">
+        </div>
+        <button type="button" class="danger-btn" data-mbq-del-item>刪除此行</button>
+      </div>`;
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileQuotationForm()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>${isEdit ? "編輯報價" : "新增報價"}</h2><p>${isEdit ? escapeHtml(q.id) : "填寫報價資料"}</p></div>
+              <button class="ghost-btn" onclick="closeMobileQuotationForm()">關閉</button>
+            </div>
+            <form id="mbQForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <label class="mb-field">報價標題<span class="mb-req">*</span><input name="title" value="${isEdit ? escapeHtml(q.title || "") : ""}" required></label>
+                <label class="mb-field">報價編號<input name="id" value="${isEdit ? escapeHtml(q.id) : ""}" readonly placeholder="選擇類別與區域後自動生成"></label>
+                <label class="mb-field">關聯工單
+                  <select name="ticketId" data-mbq-ticket>
+                    <option value="">（可選）</option>
+                    ${tickets.map(t => `<option value="${t.id}" ${isEdit && q.ticketId === t.id ? "selected" : ""}>${t.id} · ${escapeHtml(t.customer || "")}</option>`).join("")}
+                  </select>
+                </label>
+                <label class="mb-field">客戶名稱<input name="customerName" data-mbq-customer value="${escapeHtml(curCustomerName)}"></label>
+                <label class="mb-field">區域<span class="mb-req">*</span>
+                  <select name="area" data-mbq-area required><option value="">請選擇區域</option>${areaOptions.map(a => `<option value="${escapeHtml(a.name)}" ${curArea === a.name ? "selected" : ""}>${escapeHtml(a.name)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">類別<span class="mb-req">*</span>
+                  <select name="category" data-mbq-category required><option value="">請選擇類別</option>${categoryOptions.map(c => `<option value="${c.code}" ${isEdit && q.category === c.code ? "selected" : ""}>${escapeHtml(c.name)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">報價負責人
+                  <select name="owner">${ownerNames.map(n => `<option ${isEdit && q.owner === n ? "selected" : ""}>${escapeHtml(n)}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">報價日期<span class="mb-req">*</span><input name="createdAt" type="date" value="${isEdit ? escapeHtml(q.createdAt || today) : today}" required></label>
+                <label class="mb-field">回覆截止日期<input name="deadline" type="date" value="${isEdit ? escapeHtml(q.deadline || "") : ""}"></label>
+                <label class="mb-field">有效期至<input name="validUntil" type="date" value="${isEdit ? escapeHtml(q.validUntil || "") : ""}"></label>
+                <label class="mb-field">付款方式
+                  <select name="paymentMethod">${["完工後付（Post-payment）", "先付全款（Pre-payment）", "先付定金（Deposit）"].map(m => `<option ${(isEdit ? (q.paymentMethod || "完工後付（Post-payment）") : "完工後付（Post-payment）") === m ? "selected" : ""}>${m}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">保修期
+                  <select name="warrantyPeriod">${["", "3個月", "60天", "90天", "1年"].map(w => `<option value="${w}" ${(isEdit ? (q.warrantyPeriod || "") : "") === w ? "selected" : ""}>${w || "無"}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">接收來源
+                  <select name="source"><option value="">請選擇</option>${["電話", "WhatsApp", "Email", "招標", "客戶主動", "Service Report", "其他"].map(s => `<option ${isEdit && q.source === s ? "selected" : ""}>${s}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">庫存判定
+                  <select name="inventoryStatus"><option value="">請選擇</option>${["有存貨有參考價錢", "無存貨有參考價錢", "未知貨品無參考價錢"].map(s => `<option ${isEdit && q.inventoryStatus === s ? "selected" : ""}>${s}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field">金額（未稅）<span class="mb-req">*</span><input name="amount" type="number" step="0.01" value="${isEdit ? (q.amount || 0) : 0}" required></label>
+                <label class="mb-field">稅率 (%)<input name="taxRate" type="number" step="0.01" value="${isEdit ? (q.taxRate || 0) : 0}"></label>
+                <label class="mb-field">議價金額<input name="bargainAmount" type="number" step="0.01" value="${isEdit && q.bargainAmount != null ? q.bargainAmount : ""}"></label>
+                <label class="mb-field">備註<textarea name="remark" rows="2">${isEdit ? escapeHtml(q.remark || "") : ""}</textarea></label>
+              </div>
+              <div class="mobile-process-block" style="display:grid;gap:8px;">
+                <div class="mobile-card-head"><strong>物料明細</strong><button type="button" class="secondary-btn" data-mbq-add-item>＋ 新增物料</button></div>
+                <div data-mbq-items style="display:grid;gap:8px;">
+                  ${items.length ? items.map(it => itemRow(it)).join("") : ""}
+                </div>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileQuotationForm()">取消</button>
+                <button type="submit" class="primary-btn">${isEdit ? "保存" : "創建"}</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // 安排排程（移動端底部彈層，對齊 PC openTicketScheduleModal 的業務邏輯）
+    function renderMobileScheduleSheet() {
+      const t = ticketById(state.mbScheduleTicketId);
+      if (!t) return "";
+      const areaMasters = (typeof getMastersForDispatch === "function" ? getMastersForDispatch() : []).filter(m => m.area === t.area);
+      const existing = schedules.find(s => s.sourceType === "ticket" && s.sourceId === t.id);
+      const today = new Date().toISOString().slice(0, 10);
+      const dateVal = existing?.scheduleDate || t.scheduleDate || today;
+      const repeatVal = existing?.repeatType || t.scheduleRepeat || "單次";
+      const endVal = existing?.repeatEndDate || "";
+      const masterVal = existing?.master || "";
+      return `
+        <div class="mobile-process-overlay" onclick="if(event.target===this)closeMobileSchedule()">
+          <div class="mobile-process-sheet">
+            <div class="mobile-process-sheet-head">
+              <div><h2>${existing ? "變更排程" : "安排排程"}</h2><p>${escapeHtml(t.id)} · ${escapeHtml(t.customer || "")}</p></div>
+              <button class="ghost-btn" onclick="closeMobileSchedule()">關閉</button>
+            </div>
+            <form id="mbScheduleForm" class="mobile-process-sheet-body">
+              <div class="mobile-process-block" style="display:grid;gap:10px;">
+                <label class="mb-field">師傅<span class="mb-req">*</span>
+                  <select name="master" required>
+                    <option value="">請選擇師傅</option>
+                    ${areaMasters.map(m => `<option value="${escapeHtml(m.name)}" ${masterVal === m.name ? "selected" : ""}>${escapeHtml(m.name)}（${escapeHtml(m.area || "")}）</option>`).join("")}
+                  </select>
+                </label>
+                <label class="mb-field">首次執行日期<span class="mb-req">*</span><input name="scheduleDate" type="date" value="${escapeHtml(dateVal)}" required></label>
+                <label class="mb-field">週期
+                  <select name="repeatType" data-mb-sched-repeat>${["單次", "每天", "每週", "每月", "每兩月"].map(r => `<option ${repeatVal === r ? "selected" : ""}>${r}</option>`).join("")}</select>
+                </label>
+                <label class="mb-field" data-mb-sched-end-wrap style="${repeatVal === "單次" ? "display:none;" : ""}">重複結束日期<input name="repeatEndDate" type="date" value="${escapeHtml(endVal)}"></label>
+              </div>
+              <div class="mobile-process-foot-actions" style="justify-content:flex-end;padding-top:6px;">
+                <button type="button" class="secondary-btn" onclick="closeMobileSchedule()">取消</button>
+                <button type="submit" class="primary-btn">${existing ? "確認變更" : "確認排程"}</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+    }
+
+    // 開啟/關閉 報價表單（presetCustomerId 用於由客戶新建時預帶客戶與區域）
+    function openMobileQuotationForm(mode, id, presetCustomerId) { state.mbQuotationFormMode = mode; state.mbQuotationFormId = id || null; state.mbQuotationFormPresetCustomerId = presetCustomerId || null; render(); }
+    function closeMobileQuotationForm() { state.mbQuotationFormMode = ""; state.mbQuotationFormId = null; state.mbQuotationFormPresetCustomerId = null; render(); }
+    // 開啟/關閉 排程彈層
+    function openMobileSchedule(ticketId) { state.mbScheduleTicketId = ticketId; render(); }
+    function closeMobileSchedule() { state.mbScheduleTicketId = null; render(); }
+
+    // 開啟 CALL 表單（mode: "create" | "edit"；presetCustomerId 用於由客戶新建時預帶資料）
+    function openMobileCallForm(mode, ticketId, presetCustomerId) {
+      state.mbCallFormMode = mode;
+      state.mbCallFormTicketId = ticketId || null;
+      state.mbCallFormPresetCustomerId = presetCustomerId || null;
+      render();
+    }
+
+    // 關閉 CALL 表單彈層
+    function closeMobileCallForm() {
+      state.mbCallFormMode = "";
+      state.mbCallFormTicketId = null;
+      state.mbCallFormPresetCustomerId = null;
+      render();
+    }
+
+    // 開啟 CALL 分派彈層
+    function openMobileDispatch(ticketId) {
+      state.mbDispatchTicketId = ticketId;
+      render();
+    }
+
+    // 關閉 CALL 分派彈層
+    function closeMobileDispatch() {
+      state.mbDispatchTicketId = null;
+      render();
+    }
+
+    // 確認分派：將工單指派給選中的師傅（待分派 → 待確認）
+    function confirmMobileDispatch(masterName) {
+      const t = ticketById(state.mbDispatchTicketId);
+      if (!t) return;
+      const paperType = typeof resolvePaperTypeByMaterial === "function" ? resolvePaperTypeByMaterial(t).type : "";
+      updateTicket(t.id, {
+        status: t.status === "待分派" ? "待確認" : t.status,
+        master: masterName,
+        owner: currentRole().name,
+        dispatchPaperType: paperType
+      }, `已分派給師傅 ${masterName}`);
+      state.mbDispatchTicketId = null;
+      render();
+      toast(`已分派給 ${masterName}`, "success");
+    }
+
+    // 報價表單：新增物料行的 HTML（供移動端動態加入）
+    function mbQuotationItemRowHtml() {
+      return `<div class="mobile-card mb-item-row" style="margin:0;padding:8px;display:grid;gap:6px;">
+        <input data-mbq-item="name" placeholder="物料名稱" value="">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+          <input data-mbq-item="qty" type="number" placeholder="數量" value="1">
+          <input data-mbq-item="unit" placeholder="單位" value="">
+          <input data-mbq-item="unitPrice" type="number" placeholder="單價" value="0">
+        </div>
+        <button type="button" class="danger-btn" data-mbq-del-item>刪除此行</button>
+      </div>`;
+    }
+
+    // 移動端：儲存排程（對齊 PC openTicketScheduleModal 的確認邏輯）
+    function saveMobileSchedule(ticketId, formData) {
+      const ticket = ticketById(ticketId);
+      if (!ticket) return;
+      const today = new Date().toISOString().slice(0, 10);
+      const master = formData.get("master") || "";
+      const scheduleDate = formData.get("scheduleDate") || today;
+      const repeatType = formData.get("repeatType") || "單次";
+      const repeatEndDate = repeatType !== "單次" ? (formData.get("repeatEndDate") || "") : "";
+      if (!master) { toast("請選擇師傅", "error"); return; }
+      if (repeatType !== "單次" && (!repeatEndDate || repeatEndDate < scheduleDate)) { toast("週期排程須填寫有效的重複結束日期", "error"); return; }
+      const existing = schedules.find(s => s.sourceType === "ticket" && s.sourceId === ticketId);
+      const now = new Date().toLocaleString("zh-TW");
+      const actorName = currentRole().name;
+      // 更新工單（排程不等於分派，狀態保持不變）
+      ticket.scheduleType = "已排程";
+      ticket.scheduleMaster = master;
+      ticket.scheduleDate = scheduleDate;
+      ticket.scheduleRepeat = repeatType;
+      if (!ticket.records) ticket.records = [];
+      ticket.records.unshift({ time: now.slice(-5), actor: actorName, text: `已安排排程：${master}（${scheduleDate}）${repeatType !== "單次" ? `· 每${repeatType}` : ""}` });
+      if (existing) {
+        if (existing.master !== master) { if (!existing.masterHistory) existing.masterHistory = []; existing.masterHistory.push({ master: existing.master, changedAt: today, by: actorName }); existing.master = master; }
+        existing.scheduleDate = scheduleDate;
+        existing.repeatType = repeatType;
+        existing.repeatEndDate = repeatEndDate;
+      } else {
+        schedules.unshift({
+          scheduleId: generateScheduleId(),
+          sourceType: "ticket", sourceId: ticketId, sourceName: ticket.id, area: ticket.area,
+          master, scheduleDate, repeatType, repeatEndDate, nextRunDate: scheduleDate, firstRunDone: false,
+          convertedTickets: [], status: "已排程", createdBy: actorName, createdAt: today, masterHistory: [], convertedTicketId: ""
+        });
+      }
+      saveDataToLocalStorage();
+      state.mbScheduleTicketId = null;
+      render();
+      toast("排程已安排");
+    }
+
+    // CR 報價管理：統計卡片 + 狀態/類別/客戶/關鍵詞篩選 + 列表（點擊查看詳情）
+    function renderMobileQuotations() {
+      // 已選中某張報價時顯示詳情
+      if (state.mbQuotationSelectedId) {
+        const selected = quotations.find(q => q.id === state.mbQuotationSelectedId);
+        if (selected) return renderMobileQuotationDetail(selected);
+        state.mbQuotationSelectedId = null;
+      }
+      // 口徑與 PC 一致：排除標書衍生的報價
+      const list = quotations.filter(q => !q.sourceTenderId);
+      const statuses = ["待報價", "報價中", "已中單", "丟單"];
+      const selectedStatus = state.mbQuotationStatus || "全部";
+      const selectedCategory = state.mbQuotationCategory || "全部";
+      const selectedCustomer = state.mbQuotationCustomer || "全部";
+      const keyword = (state.mbQuotationSearch || "").toLowerCase().trim();
+      const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
+
+      let filtered = list;
+      if (selectedStatus !== "全部") filtered = filtered.filter(q => q.status === selectedStatus);
+      if (selectedCategory !== "全部") filtered = filtered.filter(q => q.category === selectedCategory);
+      if (selectedCustomer !== "全部") filtered = filtered.filter(q => q.customerId === selectedCustomer);
+      if (keyword) {
+        filtered = filtered.filter(q => [q.id, q.ourRef, q.ticketId, q.srNo, q.emsdRefNo, q.projectJobNo, q.customerName, q.title]
+          .map(f => (f || "").toLowerCase()).some(f => f.includes(keyword)));
+      }
+      const countBy = (s) => list.filter(q => q.status === s).length;
+      return `
+        <div class="mb-sticky">
+          <div class="master-home-stats" style="margin-bottom:10px;">
+            <button class="master-home-stat" data-mbq-status="全部"><span>報價總數</span><strong>${list.length}</strong></button>
+            <button class="master-home-stat" data-mbq-status="待報價"><span>待報價</span><strong>${countBy("待報價")}</strong></button>
+            <button class="master-home-stat" data-mbq-status="報價中"><span>報價中</span><strong>${countBy("報價中")}</strong></button>
+          </div>
+          <div class="mobile-card" style="padding:12px;display:grid;gap:8px;margin-bottom:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <span style="font-size:13px;color:var(--muted);">共 ${filtered.length} 張報價</span>
+              <button class="primary-btn" data-mbq-create>＋ 新增報價</button>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <select class="qf-select" data-mbq-filter="category"><option value="全部">全部類別</option>${categoryOptions.map(c => `<option value="${c.code}" ${selectedCategory === c.code ? "selected" : ""}>${escapeHtml(c.name)}</option>`).join("")}</select>
+              <select class="qf-select" data-mbq-filter="customer"><option value="全部">全部客戶</option>${customers.map(c => `<option value="${c.id}" ${selectedCustomer === c.id ? "selected" : ""}>${escapeHtml(c.nameZh)}</option>`).join("")}</select>
+            </div>
+            <input type="text" placeholder="搜索報價編號 / 標題 / 客戶..." value="${escapeHtml(state.mbQuotationSearch || '')}" data-mbq-search style="padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;">
+          </div>
+          <div class="segmented mobile-call-segmented" style="margin-top:8px;">${["全部", ...statuses].map(s => `<button class="${selectedStatus === s ? "active" : ""}" data-mbq-status="${s}">${s}</button>`).join("")}</div>
+        </div>
+        ${filtered.length ? filtered.map(q => `<div class="mobile-card">
+          <div class="mobile-card-head"><button class="link-btn" data-mbq-open="${q.id}">${escapeHtml(q.id)}</button><span class="${statusClass(q.status)}">${escapeHtml(q.status)}</span></div>
+          <strong>${escapeHtml(q.title || "-")}</strong>
+          <div class="muted">${escapeHtml(q.customerName || "-")}${q.ticketId ? ` · ${escapeHtml(q.ticketId)}` : ""}</div>
+          <div style="font-size:13px;color:var(--primary);font-weight:700;">HKD ${Number(q.totalAmount || 0).toLocaleString()}</div>
+          <div class="mobile-actions"><button class="secondary-btn" data-mbq-open="${q.id}">查看詳情</button></div>
+        </div>`).join("") : '<div class="mobile-card">暫無符合條件的報價</div>'}
+      `;
+    }
+
+    // CR 報價詳情：單張報價單的只讀信息
+    function renderMobileQuotationDetail(q) {
+      return `
+        <div class="mobile-card">
+          <div class="mobile-card-head">
+            <button class="link-btn" data-mbq-back><strong>← 返回列表</strong></button>
+            <span class="${statusClass(q.status)}">${escapeHtml(q.status)}</span>
+          </div>
+          <h3 style="margin:8px 0;color:var(--primary);">${escapeHtml(q.id)}</h3>
+          ${infoRow("報價標題", escapeHtml(q.title || "-"))}
+          ${infoRow("客戶名稱", escapeHtml(q.customerName || "-"))}
+          ${infoRow("關聯工單", escapeHtml(q.ticketId || "-"))}
+          ${infoRow("SR 編號", escapeHtml(q.srNo || "-"))}
+          ${infoRow("類別", escapeHtml(q.category || "-"))}
+          ${infoRow("報價金額", `HKD ${Number(q.amount || 0).toLocaleString()}`)}
+          ${infoRow("含稅金額", `HKD ${Number(q.totalAmount || 0).toLocaleString()}`)}
+          ${infoRow("負責人", escapeHtml(q.owner || "-"))}
+          ${infoRow("報價日期", escapeHtml(q.createdAt || "-"))}
+          ${infoRow("有效期至", escapeHtml(q.validUntil || "-"))}
+          <div class="mobile-actions" style="flex-wrap:wrap;">
+            ${q.status !== "已中單" && q.status !== "丟單" ? `<button class="primary-btn" data-mbq-action="updateStatus" data-mbq-id="${q.id}">更新狀態</button>` : ""}
+            ${["CR", "QUO", "ADMIN", "BOSS"].includes(currentRole().key) && q.status !== "丟單" ? `<button class="secondary-btn" data-mbq-action="edit" data-mbq-id="${q.id}">編輯物料明細</button>` : ""}
+            ${q.bidStatus !== "已中標" && q.status !== "丟單" && (q.isInviteTender === true || q.source === "招標") ? `<button class="secondary-btn" data-mbq-action="markWon" data-mbq-id="${q.id}">標記中標</button>` : ""}
+            ${(["已到貨", "已入庫", "已驗收"].includes(q.procurementStatus)) && q.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-mbq-action="paper" data-mbq-id="${q.id}">完工紙管理</button>` : ""}
+            ${q.completionPaperStatus === "已完工" && q.procurementStatus !== "已關單" ? `<button class="primary-btn" data-mbq-action="closeProc" data-mbq-id="${q.id}">採購部關單</button>` : ""}
+            ${q.procurementStatus === "已關單" ? '<span class="tag success" style="align-self:center;">已關單</span>' : ""}
+            <button class="danger-btn" data-mbq-action="delete" data-mbq-id="${q.id}">刪除</button>
+          </div>
+        </div>`;
+    }
+
+    // CR 備貨管理：統計卡片 + 備貨單列表（點擊查看詳情）
+    function renderMobileProcurement() {
+      // 已選中某張備貨單時顯示詳情
+      if (state.mbProcurementSelectedId) {
+        const selected = stockPreparations.find(sp => sp.id === state.mbProcurementSelectedId);
+        if (selected) return renderMobileProcurementDetail(selected);
+        state.mbProcurementSelectedId = null;
+      }
+      const list = stockPreparations.slice();
+      const pendingCount = list.filter(sp => sp.status === "待備貨").length;
+      const inProgressCount = list.filter(sp => ["待下單", "已下單", "已發貨"].includes(sp.status)).length;
+      const arrivedCount = list.filter(sp => ["已到貨", "已入庫", "已驗收"].includes(sp.status)).length;
+      return `
+        <div class="mb-sticky">
+          <div class="master-home-stats" style="margin-bottom:10px;">
+            <div class="master-home-stat"><span>待備貨</span><strong>${pendingCount}</strong></div>
+            <div class="master-home-stat"><span>採購中</span><strong>${inProgressCount}</strong></div>
+            <div class="master-home-stat"><span>已到貨</span><strong>${arrivedCount}</strong></div>
+          </div>
+          <div class="mobile-card" style="padding:10px 12px;margin-bottom:0;">
+            <span style="font-size:13px;color:var(--muted);">共 ${list.length} 張備貨單</span>
+          </div>
+        </div>
+        ${list.length ? list.map(sp => `<div class="mobile-card">
+          <div class="mobile-card-head"><button class="link-btn" data-mbp-open="${sp.id}">${escapeHtml(sp.id)}</button><span class="${statusClass(sp.status)}">${escapeHtml(sp.status)}</span></div>
+          <strong>${escapeHtml(sp.customerName || "-")}</strong>
+          <div class="muted">${sp.quotationId ? `關聯報價：${escapeHtml(sp.quotationId)}` : "未關聯報價"}</div>
+          <div class="mobile-actions"><button class="secondary-btn" data-mbp-open="${sp.id}">查看詳情</button><button class="primary-btn" data-mbp-manage="${sp.id}">管理</button></div>
+        </div>`).join("") : '<div class="mobile-card">暫無備貨單</div>'}
+      `;
+    }
+
+    // CR 備貨詳情：備貨單信息 + 其關聯採購單列表
+    function renderMobileProcurementDetail(sp) {
+      const pos = purchaseOrders.filter(p => p.spId === sp.id);
+      const expectedDate = typeof getSpExpectedDate === "function" ? getSpExpectedDate(sp.id) : "";
+      return `
+        <div class="mobile-card">
+          <div class="mobile-card-head">
+            <button class="link-btn" data-mbp-back><strong>← 返回列表</strong></button>
+            <span class="${statusClass(sp.status)}">${escapeHtml(sp.status)}</span>
+          </div>
+          <h3 style="margin:8px 0;color:var(--primary);">${escapeHtml(sp.id)}</h3>
+          ${infoRow("客戶名稱", escapeHtml(sp.customerName || "-"))}
+          ${infoRow("關聯報價", escapeHtml(sp.quotationId || "-"))}
+          ${infoRow("關聯工單", escapeHtml(sp.ticketId || "-"))}
+          ${infoRow("預計到貨", escapeHtml(expectedDate || "-"))}
+          ${infoRow("建立時間", escapeHtml(sp.createdAt || "-"))}
+          <div class="mobile-actions">
+            <button class="primary-btn" data-mbp-manage="${sp.id}">管理備貨單（狀態／採購單）</button>
+          </div>
+        </div>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>採購單（${pos.length}）</h2></div>
+          ${pos.length ? pos.map(p => `<div class="mobile-card">
+            <div class="mobile-card-head"><strong>${escapeHtml(p.id)}</strong><span class="${statusClass(p.status)}">${escapeHtml(p.status)}</span></div>
+            <div class="muted">供應商：${escapeHtml(p.supplierName || "-")}</div>
+            <div class="muted">下單日期：${escapeHtml(p.orderDate || "-")}</div>
+            <div style="font-size:13px;color:var(--primary);font-weight:700;">HKD ${Number(p.totalAmount || 0).toLocaleString()}</div>
+          </div>`).join("") : '<div class="mobile-card">暫無採購單</div>'}
+        </section>`;
+    }
+
+    // CR 統計報表：核心指標 + 按狀態／類型／區域的統計列表
+    function renderMobileReport() {
+      const statusCounts = {};
+      const typeCounts = {};
+      const areaCounts = {};
+      tickets.forEach(t => {
+        statusCounts[t.status || "-"] = (statusCounts[t.status || "-"] || 0) + 1;
+        typeCounts[t.type || "-"] = (typeCounts[t.type || "-"] || 0) + 1;
+        areaCounts[t.area || "-"] = (areaCounts[t.area || "-"] || 0) + 1;
+      });
+      const statQuotations = quotations.filter(q => !q.sourceTenderId);
+      const won = statQuotations.filter(q => q.status === "已中單").length;
+      const total = statQuotations.length;
+      const winRate = total ? ((won / total) * 100).toFixed(1) : "0.0";
+      // 將計數物件轉為排序後的統計列表
+      const statList = (obj) => Object.entries(obj).sort((a, b) => b[1] - a[1])
+        .map(([key, value]) => `<div class="mobile-card" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;"><span>${escapeHtml(key)}</span><strong>${value}</strong></div>`).join("");
+      return `
+        <div class="mb-sticky">
+          <div class="master-home-stats" style="margin-bottom:0;">
+            <div class="master-home-stat"><span>CALL 總數</span><strong>${tickets.length}</strong></div>
+            <div class="master-home-stat"><span>報價總數</span><strong>${total}</strong></div>
+            <div class="master-home-stat"><span>中單率</span><strong>${winRate}%</strong></div>
+          </div>
+        </div>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>按狀態統計</h2></div>
+          ${statList(statusCounts) || '<div class="mobile-card">暫無資料</div>'}
+        </section>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>CALL 類型統計</h2></div>
+          ${statList(typeCounts) || '<div class="mobile-card">暫無資料</div>'}
+        </section>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>區域統計</h2></div>
+          ${statList(areaCounts) || '<div class="mobile-card">暫無資料</div>'}
+        </section>`;
+    }
+
+    // CR 基礎設置：客戶／用戶的瀏覽與增刪改（復用 PC 模態），其餘模組提示於 PC 端操作
+    function renderMobileSettings() {
+      const dictCount = Object.keys(dictData || {}).length;
+      return `
+        <div class="mb-sticky">
+          <div class="master-home-stats" style="margin-bottom:0;">
+            <div class="master-home-stat"><span>客戶</span><strong>${customers.length}</strong></div>
+            <div class="master-home-stat"><span>用戶</span><strong>${users.length}</strong></div>
+            <div class="master-home-stat"><span>字典</span><strong>${dictCount}</strong></div>
+          </div>
+        </div>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>客戶管理</h2><button class="primary-btn" data-mb-setting="createCustomer">＋ 新增客戶</button></div>
+          ${customers.map(c => `<div class="mobile-card">
+            <div class="mobile-card-head"><strong>${escapeHtml(c.nameZh)}</strong><span class="tag">${escapeHtml(c.type || "")}</span></div>
+            <div class="muted" style="font-size:12px;">${escapeHtml(c.id)} · ${escapeHtml(c.nameEn || "")}</div>
+            <div class="mobile-actions">
+              <button class="secondary-btn" data-mb-setting="viewCustomer" data-mb-id="${c.id}">查看</button>
+              <button class="secondary-btn" data-mb-setting="editCustomer" data-mb-id="${c.id}">編輯</button>
+              <button class="danger-btn" data-mb-setting="deleteCustomer" data-mb-id="${c.id}">刪除</button>
+            </div>
+          </div>`).join("")}
+        </section>
+        <section class="master-home-section">
+          <div class="master-home-section-head"><h2>用戶管理</h2><button class="primary-btn" data-mb-setting="createUser">＋ 新增用戶</button></div>
+          ${users.map(u => `<div class="mobile-card">
+            <div class="mobile-card-head"><strong>${escapeHtml(u.name)}</strong><span class="tag">${escapeHtml(u.role || "")}</span></div>
+            <div class="muted" style="font-size:12px;">${escapeHtml(u.id)}${u.area ? " · " + escapeHtml(u.area) : ""}</div>
+            <div class="mobile-actions">
+              <button class="secondary-btn" data-mb-setting="editUser" data-mb-id="${u.id}">編輯</button>
+              <button class="danger-btn" data-mb-setting="deleteUser" data-mb-id="${u.id}">刪除</button>
+            </div>
+          </div>`).join("")}
+        </section>
+        <div class="mobile-card" style="padding:12px;">
+          <div style="font-size:12px;color:var(--muted);">數據字典、服務器設置、Excel 導入、組件庫：請於 PC 端操作</div>
+        </div>`;
+    }
+
+    // CR「更多」：列出所有功能模組入口
+    function renderMobileMore() {
+      const modules = [
+        ["dispatch", "📤", "分派中心", "CALL 分派與師傅安排"],
+        ["quotations", "💰", "報價管理", "報價記錄、狀態與金額"],
+        ["procurement", "🛒", "備貨管理", "備貨單與採購單"],
+        ["report", "📊", "統計報表", "CALL／報價統計"],
+        ["settings", "⚙️", "基礎設置", "字典、客戶、用戶"]
+      ];
+      return `
+        <div class="mobile-card" style="padding:12px;">
+          <div style="font-size:13px;color:var(--muted);">更多功能</div>
+        </div>
+        ${modules.map(([key, icon, label, sub]) => `<button class="mobile-card mb-more-item" data-mobile-page="${key}">
+          <span class="mb-entry-ico">${icon}</span>
+          <span class="mb-more-item-body"><strong>${label}</strong><span>${sub}</span></span>
+        </button>`).join("")}`;
+    }
+
     function renderMobile() {
       const previousProcessBody = document.querySelector(".mobile-process-sheet-body");
       const previousProcessStep = previousProcessBody?.dataset.mobileProcessBody;
       const previousProcessScrollTop = previousProcessBody?.scrollTop || 0;
-      const map = { masterHome: renderMasterHome, tasks: renderMobileTasks, tlHome: renderTlMobileHome, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, dispatch: renderMobileDispatch };
+      const map = { masterHome: renderMasterHome, tasks: renderMobileTasks, tlHome: renderTlMobileHome, mobileDetail: renderMobileDetail, workRecord: renderWorkRecord, cr: renderMobileCr, dispatch: renderMobileDispatch, crHome: renderMobileCrHome, crCalls: renderMobileCrCalls, quotations: renderMobileQuotations, procurement: renderMobileProcurement, report: renderMobileReport, settings: renderMobileSettings, more: renderMobileMore };
       if (state.mobilePage === "history") state.mobilePage = "tasks";
       const page = MOBILE_PAGES.find(p => p.key === state.mobilePage);
       // phone-top 已刪除，標題由各頁面自行渲染
@@ -22939,7 +24461,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         : state.role === "TL"
         ? MOBILE_PAGES.filter(p => ["tlHome", "dispatch"].includes(p.key))
         : state.role === "CR"
-          ? MOBILE_PAGES.filter(p => !["masterHome"].includes(p.key))
+          ? ["crHome", "crCalls", "cr", "more"].map(key => MOBILE_PAGES.find(p => p.key === key)).filter(Boolean)
           : MOBILE_PAGES.filter(p => !["dispatch", "cr", "masterHome"].includes(p.key));
       // 工單詳情頁保留工單編號與狀態；離線資訊不在原型主畫面顯示。
       let offlineBanner = '';
@@ -22956,20 +24478,48 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         }
       }
       const pageContent = map[state.mobilePage] ? map[state.mobilePage]() : '<div class="mobile-card">頁面不存在</div>';
+      // CR：非底部 Tab 的子頁面（如報價/備貨/報表/設置/分派）顯示頂部返回欄
+      let crSubHeader = '';
+      if (state.role === "CR" && !["crHome", "crCalls", "cr", "more"].includes(state.mobilePage)) {
+        const subPage = MOBILE_PAGES.find(p => p.key === state.mobilePage);
+        crSubHeader = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <button class="link-btn" data-mobile-page="more">← 返回</button>
+          <strong style="font-size:15px;">${subPage ? subPage.title : ""}</strong>
+        </div>`;
+      }
       // 提交成功頁面：覆蓋正常內容顯示
       const finalContent = state.srSubmitted ? renderSrSuccessPage() : pageContent;
-      $("#mobileBody").innerHTML = offlineBanner + finalContent;
+      $("#mobileBody").innerHTML = offlineBanner + crSubHeader + finalContent;
       $("#mobileSheetPortal").innerHTML = state.mobileDetailTicketId
         ? renderMobileDetailSheet()
         : state.mobileProcessTicketId
           ? renderMobileProcessSheet()
-          : renderMobileDispatchSheet();
+          : state.mbCallFormMode
+            ? renderMobileCallFormSheet()
+            : state.mbDispatchTicketId
+              ? renderMobileCallDispatchSheet()
+              : state.mbSpManageId
+                ? renderMobileSpManageSheet()
+                : state.mbQuotationFlowId
+                  ? renderMobileQuotationFlowSheet()
+                  : state.mbCustFormMode
+                    ? renderMobileCustomerFormSheet()
+                    : state.mbUserFormMode
+                      ? renderMobileUserFormSheet()
+                      : state.mbQuotationFormMode
+                        ? renderMobileQuotationFormSheet()
+                        : state.mbScheduleTicketId
+                          ? renderMobileScheduleSheet()
+                          : renderMobileDispatchSheet();
       const nextProcessBody = document.querySelector(".mobile-process-sheet-body");
       if (nextProcessBody && previousProcessStep === nextProcessBody.dataset.mobileProcessBody) {
         requestAnimationFrame(() => { nextProcessBody.scrollTop = previousProcessScrollTop; });
       }
       $("#mobileTabs").style.display = "";
-      const tabPage = state.role === "MASTER" && ["mobileDetail", "workRecord"].includes(state.mobilePage) ? "tasks" : state.mobilePage;
+      // 解析當前高亮的底部 Tab：MASTER 的詳情/處理頁歸屬 CALL；CR 的非 Tab 子頁面歸屬「更多」
+      let tabPage = state.mobilePage;
+      if (state.role === "MASTER" && ["mobileDetail", "workRecord"].includes(state.mobilePage)) tabPage = "tasks";
+      if (state.role === "CR" && !["crHome", "crCalls", "cr", "more"].includes(state.mobilePage)) tabPage = "more";
       $("#mobileTabs").innerHTML = visiblePages.map(p => `<button class="${tabPage === p.key ? "active" : ""}" data-mobile-page="${p.key}"><span>${p.label}</span></button>`).join("");
     }
 
@@ -23093,11 +24643,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function bindEvents() {
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
         if (btn.dataset.view === "mobile") {
-          // 登入後角色固定，僅 TL/MASTER 可進入移動端工作台
-          if (!["MASTER", "TL"].includes(state.role)) {
-            toast("移動端工作台僅限主管和師傅使用", "error");
-            return;
-          }
+          // 移動端入口的角色權限由 openMobileWorkspace 統一校驗（MASTER/TL/CR）
           openMobileWorkspace();
           return;
         }
@@ -23675,6 +25221,301 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-cr-send-wa]").forEach(btn => btn.addEventListener("click", () => {
         openSrSendModal(btn.dataset.crSendWa, 'whatsapp');
       }));
+      // ===== CR 移動端：報告管理（統計卡篩選 / 區域 / 狀態 / 重置 / 查看工單） =====
+      document.querySelectorAll("[data-mb-sr-status]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbSrStatus = btn.dataset.mbSrStatus;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sr-status-select]").forEach(sel => sel.addEventListener("change", () => {
+        state.mbSrStatus = sel.value;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sr-area]").forEach(sel => sel.addEventListener("change", () => {
+        state.mbSrArea = sel.value;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sr-reset]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbSrArea = "全部";
+        state.mbSrStatus = "全部";
+        state.crSearch = "";
+        render();
+      }));
+      // 報告管理：查看工單 → 以移動端頁面呈現（非 PC 側邊欄）
+      document.querySelectorAll("[data-mb-sr-ticket]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbSrViewId = btn.dataset.mbSrTicket;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sr-ticket-back]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbSrViewId = null;
+        render();
+      }));
+      // ===== CR 移動端：基礎設置（客戶／用戶 增刪改，改用移動端彈層表單） =====
+      document.querySelectorAll("[data-mb-setting]").forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.mbId;
+        switch (btn.dataset.mbSetting) {
+          case "createCustomer": openMobileCustomerForm("create"); break;
+          case "viewCustomer": openMobileCustomerForm("edit", id); break;
+          case "editCustomer": openMobileCustomerForm("edit", id); break;
+          case "deleteCustomer": deleteCustomer(id); break;
+          case "createUser": openMobileUserForm("create"); break;
+          case "editUser": openMobileUserForm("edit", id); break;
+          case "deleteUser": deleteUser(id); break;
+        }
+      }));
+      // 客戶表單提交（復用 saveCustomer）
+      const mbCustForm = document.getElementById("mbCustForm");
+      if (mbCustForm) mbCustForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const fd = new FormData(mbCustForm);
+        const isEdit = state.mbCustFormMode === "edit";
+        const cid = state.mbCustFormId;
+        state.mbCustFormMode = ""; state.mbCustFormId = null;
+        saveCustomer(fd, isEdit, cid);
+      });
+      // 用戶表單提交（復用 saveUser）
+      const mbUserForm = document.getElementById("mbUserForm");
+      if (mbUserForm) mbUserForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const fd = new FormData(mbUserForm);
+        const isEdit = state.mbUserFormMode === "edit";
+        const uid = state.mbUserFormId;
+        state.mbUserFormMode = ""; state.mbUserFormId = null;
+        saveUser(fd, isEdit, uid);
+      });
+      // 報價表單（移動端）
+      const mbQForm = document.getElementById("mbQForm");
+      if (mbQForm) {
+        // 關聯工單變更 → 帶出客戶名稱與區域
+        const qTicket = mbQForm.querySelector("[data-mbq-ticket]");
+        if (qTicket) qTicket.addEventListener("change", () => {
+          const tk = tickets.find(x => x.id === qTicket.value);
+          const cn = mbQForm.querySelector("[data-mbq-customer]");
+          if (cn && tk) cn.value = tk.customer || cn.value;
+          const areaSel = mbQForm.querySelector("[data-mbq-area]");
+          if (areaSel && tk && tk.area) areaSel.value = tk.area;
+          generateQuotationNo(mbQForm);
+        });
+        // 區域 / 類別變更 → 自動生成報價編號
+        ["[data-mbq-area]", "[data-mbq-category]"].forEach(sel => {
+          const el = mbQForm.querySelector(sel);
+          if (el) el.addEventListener("change", () => generateQuotationNo(mbQForm));
+        });
+        // 物料明細：新增 / 刪除
+        mbQForm.querySelectorAll("[data-mbq-add-item]").forEach(btn => btn.addEventListener("click", () => {
+          const wrap = mbQForm.querySelector("[data-mbq-items]");
+          if (wrap) wrap.insertAdjacentHTML("beforeend", mbQuotationItemRowHtml());
+        }));
+        mbQForm.addEventListener("click", (e) => {
+          const del = e.target.closest("[data-mbq-del-item]");
+          if (del) { const row = del.closest(".mb-item-row"); if (row) row.remove(); }
+        });
+        // 提交（復用 saveQuotation）
+        mbQForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const fd = new FormData(mbQForm);
+          const items = [];
+          mbQForm.querySelectorAll(".mb-item-row").forEach(row => {
+            const name = (row.querySelector('[data-mbq-item="name"]')?.value || "").trim();
+            if (!name) return;
+            const qty = parseFloat(row.querySelector('[data-mbq-item="qty"]')?.value) || 1;
+            const unit = (row.querySelector('[data-mbq-item="unit"]')?.value || "").trim();
+            const unitPrice = parseFloat(row.querySelector('[data-mbq-item="unitPrice"]')?.value) || 0;
+            items.push({ name, spec: "", qty, unit, unitPrice, amount: qty * unitPrice });
+          });
+          fd.set("items", JSON.stringify(items));
+          const isEdit = state.mbQuotationFormMode === "edit";
+          const qid = state.mbQuotationFormId;
+          state.mbQuotationFormMode = ""; state.mbQuotationFormId = null; state.mbQuotationFormPresetCustomerId = null;
+          saveQuotation(fd, isEdit, qid);
+        });
+      }
+      // 排程表單（移動端）
+      const mbScheduleForm = document.getElementById("mbScheduleForm");
+      if (mbScheduleForm) {
+        const repeatSel = mbScheduleForm.querySelector("[data-mb-sched-repeat]");
+        if (repeatSel) repeatSel.addEventListener("change", () => {
+          const wrap = mbScheduleForm.querySelector("[data-mb-sched-end-wrap]");
+          if (wrap) wrap.style.display = repeatSel.value === "單次" ? "none" : "";
+        });
+        mbScheduleForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          saveMobileSchedule(state.mbScheduleTicketId, new FormData(mbScheduleForm));
+        });
+      }
+      // ===== CR 移動端：CALL 管理 =====
+      document.querySelectorAll("[data-mbcall-search]").forEach(input => {
+        input.addEventListener("input", (e) => {
+          state.mbCallSearch = e.target.value;
+          render();
+          const newInput = document.querySelector("[data-mbcall-search]");
+          if (newInput) { newInput.focus(); newInput.setSelectionRange(newInput.value.length, newInput.value.length); }
+        });
+      });
+      document.querySelectorAll("[data-mbcall-status]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbCallStatus = btn.dataset.mbcallStatus;
+        state.mbCallSelectedId = null;
+        render();
+      }));
+      document.querySelectorAll("[data-mbcall-open]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbCallSelectedId = btn.dataset.mbcallOpen;
+        render();
+      }));
+      document.querySelectorAll("[data-mbcall-back]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbCallSelectedId = null;
+        render();
+      }));
+      // ===== CR 移動端：報價管理 =====
+      document.querySelectorAll("[data-mbq-status]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbQuotationStatus = btn.dataset.mbqStatus;
+        state.mbQuotationSelectedId = null;
+        render();
+      }));
+      document.querySelectorAll("[data-mbq-open]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbQuotationSelectedId = btn.dataset.mbqOpen;
+        render();
+      }));
+      document.querySelectorAll("[data-mbq-back]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbQuotationSelectedId = null;
+        render();
+      }));
+      // 報價：新增報價 → 移動端彈層表單
+      document.querySelectorAll("[data-mbq-create]").forEach(btn => btn.addEventListener("click", () => openMobileQuotationForm("create")));
+      // 報價：類別 / 客戶篩選
+      document.querySelectorAll("[data-mbq-filter]").forEach(sel => sel.addEventListener("change", () => {
+        if (sel.dataset.mbqFilter === "category") state.mbQuotationCategory = sel.value;
+        else if (sel.dataset.mbqFilter === "customer") state.mbQuotationCustomer = sel.value;
+        render();
+      }));
+      // 報價：關鍵詞搜索
+      document.querySelectorAll("[data-mbq-search]").forEach(input => input.addEventListener("input", (e) => {
+        state.mbQuotationSearch = e.target.value;
+        render();
+        const ni = document.querySelector("[data-mbq-search]");
+        if (ni) { ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); }
+      }));
+      // 報價：詳情操作按鈕（顯示條件與 PC 報價抽屜一致）
+      document.querySelectorAll("[data-mbq-action]").forEach(btn => btn.addEventListener("click", () => {
+        const id = btn.dataset.mbqId;
+        switch (btn.dataset.mbqAction) {
+          case "updateStatus": openMobileQuotationFlow(id); break;
+          case "edit": openMobileQuotationForm("edit", id); break;
+          case "markWon": markQuotationWon(id); break;
+          case "paper": manageCompletionPaper(id); break;
+          case "closeProc": closeProcurement(id); break;
+          case "delete": deleteQuotation(id); break;
+        }
+      }));
+      // ===== CR 移動端：備貨管理 =====
+      document.querySelectorAll("[data-mbp-open]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbProcurementSelectedId = btn.dataset.mbpOpen;
+        render();
+      }));
+      document.querySelectorAll("[data-mbp-back]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbProcurementSelectedId = null;
+        render();
+      }));
+      // 備貨：打開移動端備貨單管理彈層（狀態變更／採購單流轉／生成 MR）
+      document.querySelectorAll("[data-mbp-manage]").forEach(btn => btn.addEventListener("click", () => openMobileSpManage(btn.dataset.mbpManage)));
+      // ===== 移動端：備貨單管理彈層互動 =====
+      document.querySelectorAll("[data-mb-sp-status]").forEach(sel => sel.addEventListener("change", () => {
+        changeSpStatus(sel.dataset.mbSpStatus, sel.value);
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sp-po]").forEach(btn => btn.addEventListener("click", async () => {
+        await poAction(btn.dataset.mbSpPo, btn.dataset.mbSpPoAction);
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sp-mr]").forEach(btn => btn.addEventListener("click", async () => {
+        await pushMrForStockPreparation(btn.dataset.mbSpMr);
+        render();
+      }));
+      document.querySelectorAll("[data-mb-sp-quote]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbQuotationSelectedId = btn.dataset.mbSpQuote;
+        state.mbSpManageId = null;
+        setMobilePage("quotations");
+      }));
+      // ===== 移動端：報價狀態流轉彈層互動 =====
+      document.querySelectorAll("[data-mb-qflow-pick]").forEach(btn => btn.addEventListener("click", () => {
+        const hidden = document.querySelector("[data-mb-qflow-value]");
+        const label = document.querySelector("[data-mb-qflow-label]");
+        if (hidden) hidden.value = btn.dataset.mbQflowPick;
+        if (label) label.textContent = btn.dataset.mbQflowPick;
+      }));
+      const mbQFlowForm = document.getElementById("mbQFlowForm");
+      if (mbQFlowForm) mbQFlowForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const fd = new FormData(mbQFlowForm);
+        const flowId = state.mbQuotationFlowId;
+        state.mbQuotationFlowId = null;
+        updateQuotationStatus(fd, flowId);
+      });
+      // ===== CR 移動端：CALL 操作（新增/編輯/分派/補充信息/請求報價） =====
+      document.querySelectorAll("[data-mbcall-create]").forEach(btn => btn.addEventListener("click", () => openMobileCallForm("create")));
+      document.querySelectorAll("[data-mbcall-edit]").forEach(btn => btn.addEventListener("click", () => openMobileCallForm("edit", btn.dataset.mbcallEdit)));
+      document.querySelectorAll("[data-mbcall-dispatch]").forEach(btn => btn.addEventListener("click", () => openMobileDispatch(btn.dataset.mbcallDispatch)));
+      document.querySelectorAll("[data-mbcall-note]").forEach(btn => btn.addEventListener("click", () => handleNote(btn.dataset.mbcallNote)));
+      document.querySelectorAll("[data-mbcall-request-quote]").forEach(btn => btn.addEventListener("click", () => {
+        requestQuotationFromCall({ ticketId: btn.dataset.mbcallRequestQuote });
+        render();
+      }));
+      // CALL 管理：視圖切換（工單 / 客戶）
+      document.querySelectorAll("[data-mb-call-view]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbCallView = btn.dataset.mbCallView;
+        state.mbCallSelectedId = null;
+        render();
+      }));
+      // CALL 詳情：安排排程 → 移動端彈層
+      document.querySelectorAll("[data-mbcall-schedule]").forEach(btn => btn.addEventListener("click", () => openMobileSchedule(btn.dataset.mbcallSchedule)));
+      // CALL 管理：客戶視圖（搜索／新增客戶／查看／新建 CALL／新建報價／刪除）
+      document.querySelectorAll("[data-mb-cust-search]").forEach(input => input.addEventListener("input", (e) => {
+        state.mbCallCustSearch = e.target.value;
+        render();
+        const ni = document.querySelector("[data-mb-cust-search]");
+        if (ni) { ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); }
+      }));
+      document.querySelectorAll("[data-mb-cust-create]").forEach(btn => btn.addEventListener("click", () => openMobileCustomerForm("create")));
+      document.querySelectorAll("[data-mb-cust-view]").forEach(btn => btn.addEventListener("click", () => openMobileCustomerForm("edit", btn.dataset.mbCustView)));
+      document.querySelectorAll("[data-mb-cust-newcall]").forEach(btn => btn.addEventListener("click", () => openMobileCallForm("create", null, btn.dataset.mbCustNewcall)));
+      document.querySelectorAll("[data-mb-cust-newquote]").forEach(btn => btn.addEventListener("click", () => openMobileQuotationForm("create", null, btn.dataset.mbCustNewquote)));
+      document.querySelectorAll("[data-mb-cust-delete]").forEach(btn => btn.addEventListener("click", () => deleteCustomer(btn.dataset.mbCustDelete)));
+      // 分派彈層：選擇師傅後確認分派
+      document.querySelectorAll("[data-mbcall-dispatch-master]").forEach(btn => btn.addEventListener("click", () => confirmMobileDispatch(btn.dataset.mbcallDispatchMaster)));
+      // CALL 表單：客戶類型 → 過濾客戶選項
+      document.querySelectorAll("[data-mbcall-type]").forEach(sel => sel.addEventListener("change", () => {
+        const type = sel.value;
+        const custSel = document.querySelector("[data-mbcall-customer]");
+        if (custSel) {
+          const list = customers.filter(c => !type || c.type === type);
+          custSel.innerHTML = `<option value="">${type ? "請選擇客戶" : "請先選擇客戶類型"}</option>` +
+            list.map(c => `<option value="${c.id}">${escapeHtml(c.nameZh)} (${escapeHtml(c.nameEn || "")})</option>`).join("");
+        }
+        const areaInput = document.querySelector("[data-mbcall-area]");
+        if (areaInput) areaInput.value = "";
+      }));
+      // CALL 表單：選擇客戶 → 自動帶出區域/聯繫人/電話
+      document.querySelectorAll("[data-mbcall-customer]").forEach(sel => sel.addEventListener("change", () => {
+        const c = customers.find(x => x.id === sel.value);
+        if (!c) return;
+        const areaInput = document.querySelector("[data-mbcall-area]");
+        if (areaInput) areaInput.value = (c.addresses && c.addresses[0] ? c.addresses[0].area : "") || "";
+        const contactInput = document.querySelector("[data-mbcall-contact]");
+        if (contactInput && c.contacts && c.contacts[0]) contactInput.value = c.contacts[0].name || "";
+        const phoneInput = document.querySelector("[data-mbcall-phone]");
+        if (phoneInput && c.contacts && c.contacts[0]) phoneInput.value = c.contacts[0].phone || "";
+      }));
+      // CALL 表單：提交（復用工單保存邏輯）
+      const mbCallForm = document.getElementById("mbCallForm");
+      if (mbCallForm) mbCallForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(mbCallForm);
+        const isEdit = state.mbCallFormMode === "edit";
+        workOrderState.modalMode = isEdit ? "edit" : "create";
+        workOrderState.selectedWorkOrderId = isEdit ? state.mbCallFormTicketId : null;
+        // 先關閉移動端表單彈層，再復用工單保存邏輯（其內部會 render）
+        state.mbCallFormMode = "";
+        state.mbCallFormTicketId = null;
+        saveWorkOrder(formData);
+      });
       // ===== 移動端分派中心事件綁定 =====
       document.querySelectorAll("[data-md-dispatch-tab]").forEach(btn => btn.addEventListener("click", () => {
         state.mdDispatchTab = btn.dataset.mdDispatchTab;
@@ -23704,6 +25545,23 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.mdDispatchSheetOpen = true;
         render();
       }));
+      // ===== 移動端分派中心：搜索 / 查看 / 刪除 =====
+      document.querySelectorAll("[data-md-dispatch-search]").forEach(input => input.addEventListener("input", (e) => {
+        state.mdDispatchSearch = e.target.value;
+        render();
+        const ni = document.querySelector("[data-md-dispatch-search]");
+        if (ni) { ni.focus(); ni.setSelectionRange(ni.value.length, ni.value.length); }
+      }));
+      // 分派中心：查看詳情 → 以移動端頁面呈現（非 PC 側邊欄）
+      document.querySelectorAll("[data-mb-dispatch-view]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbDispatchViewId = btn.dataset.mbDispatchView;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-dispatch-back]").forEach(btn => btn.addEventListener("click", () => {
+        state.mbDispatchViewId = null;
+        render();
+      }));
+      document.querySelectorAll("[data-mb-dispatch-delete]").forEach(btn => btn.addEventListener("click", () => deleteTicket(btn.dataset.mbDispatchDelete)));
       document.querySelectorAll("[data-md-master]").forEach(btn => btn.addEventListener("click", () => {
         state.mdSelectedMaster = btn.dataset.mdMaster;
         refreshMdMasterArea();
@@ -24095,6 +25953,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-qm-page-size]").forEach(sel => sel.addEventListener("change", () => {
         quotationState.pageSize = parseInt(sel.value);
         quotationState.currentPage = 1;
+        render();
+      }));
+      // 報價管理：點擊頂部統計卡片打開對應明細彈窗
+      document.querySelectorAll("[data-qm-metric]").forEach(btn => btn.addEventListener("click", () => {
+        quotationState.quotationMetricModal = btn.dataset.qmMetric;
         render();
       }));
       // 查看報價詳情：重置編輯模式，以詳情視圖打開抽屜
@@ -24671,7 +26534,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-upload-service-report]").forEach(btn => btn.addEventListener("click", srUploadServiceReport));
       document.querySelectorAll("[data-sr-demo-service-report]").forEach(btn => btn.addEventListener("click", srAddDemoServiceReport));
       document.querySelectorAll("[data-sr-radio]").forEach(radio => radio.addEventListener("click", () => srSetWorkNature(radio.dataset.srRadio)));
-      document.querySelectorAll("[data-sr-satisfaction]").forEach(btn => btn.addEventListener("click", () => srSetSatisfaction(btn.dataset.srSatisfaction)));
       document.querySelectorAll("[data-sr-toggle-quotation]").forEach(sw => sw.addEventListener("click", srToggleQuotation));
       // 是否需要報價：是/否單選按鈕
       document.querySelectorAll("[data-sr-quotation-radio]").forEach(radio => radio.addEventListener("change", () => {
