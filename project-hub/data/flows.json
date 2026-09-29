@@ -1,12 +1,10 @@
 {
-  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "generatedAt": "2026-09-27T10:35:41.780Z",
   "total": 7,
   "flows": [
     {
       "id": "FLOW-MAIN",
-      "name": "真实业务总流程",
-      "order": 0,
-      "type": "main",
+      "name": "00 真实业务总流程",
       "status": "CONFIRMED",
       "summary": "客户需求经报价生命周期和中单判断进入 M、P 或 M+P；工单完工与收款完成分离。",
       "nodes": [
@@ -133,14 +131,98 @@
             "CONFIRMED-017"
           ],
           "description": "完工不等于收款完成。"
+        },
+        {
+          "id": "MAIN-10",
+          "label": "收款（独立状态）",
+          "actor": "财务 / 现场师傅",
+          "action": "记录与报价关联的收款；现场收款交接待确认",
+          "state": "收款独立跟踪",
+          "nextRole": "财务",
+          "status": "PARTIAL",
+          "decisionIds": [
+            "CONFIRMED-017",
+            "PENDING-001"
+          ],
+          "description": "展示财务后续，不代表完工自动触发收款或现场交款规则已确认。"
         }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "概览客户需求到工单完工，并区分收款状态。",
+      "trigger": "客户需求；四类报价入口另见 CONFIRMED-009。",
+      "roles": [
+        "客户",
+        "CS / CR",
+        "报价组",
+        "系统 / 业务团队",
+        "CR / 主管",
+        "CR / 主管、师傅",
+        "客户 / CR",
+        "师傅 / 客户",
+        "报价 / 财务",
+        "财务 / 现场师傅",
+        "财务"
+      ],
+      "keyStates": [
+        "待受理",
+        "待报价",
+        "报价沟通中",
+        "待中单",
+        "已中单",
+        "准备中",
+        "处理中",
+        "待确认",
+        "已完工",
+        "收款独立跟踪"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "openDecisionIds": [
+        "PENDING-001"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-001",
+        "FACT-009",
+        "FACT-008",
+        "FACT-007",
+        "FACT-011",
+        "FACT-013",
+        "FACT-004",
+        "FACT-005",
+        "FACT-012",
+        "FACT-010",
+        "FACT-017"
+      ],
+      "moduleIds": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务"
       ]
     },
     {
       "id": "FLOW-P",
       "name": "01 普通报价维修",
-      "order": 1,
-      "type": "scenario",
       "status": "CONFIRMED",
       "summary": "先报价、中单，再按最终报价材料生成 MR，备货完成后由 CR / 主管确认正式施工时间。",
       "nodes": [
@@ -266,13 +348,79 @@
           ],
           "description": ""
         }
+      ],
+      "factStatus": "CONFIRMED",
+      "purpose": "完成先报价后维修的材料准备、排期、施工与报告闭环。",
+      "trigger": "客户需要维修/工程，报价任务已发起。",
+      "roles": [
+        "CS / CR",
+        "报价组",
+        "客户",
+        "系统 / 仓管",
+        "系统",
+        "仓管",
+        "CR / 主管",
+        "师傅",
+        "师傅 / 客户",
+        "归档 / 财务"
+      ],
+      "keyStates": [
+        "待报价",
+        "沟通中",
+        "已中单",
+        "待备货",
+        "材料准备中",
+        "待施工",
+        "处理中",
+        "待确认",
+        "已完工"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "openDecisionIds": [],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-009",
+        "FACT-008",
+        "FACT-003",
+        "FACT-007",
+        "FACT-006",
+        "FACT-004",
+        "FACT-005",
+        "FACT-001",
+        "FACT-002",
+        "FACT-010",
+        "FACT-017"
+      ],
+      "moduleIds": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report"
       ]
     },
     {
       "id": "FLOW-MAINT-ISSUE",
       "name": "02 保养发现问题后二次维修",
-      "order": 2,
-      "type": "scenario",
       "status": "CONFIRMED",
       "summary": "保养 SR 选择需要报价后自动创建报价任务，再进入报价、中单、MR、备货和二次上门链路。",
       "nodes": [
@@ -370,13 +518,71 @@
           ],
           "description": ""
         }
+      ],
+      "factStatus": "CONFIRMED",
+      "purpose": "处理保养中发现而无法当场完成的维修问题。",
+      "trigger": "师傅在保养 Service Report 中选择“需要报价”。",
+      "roles": [
+        "师傅",
+        "系统",
+        "报价组",
+        "报价组 / 客户",
+        "系统 / 仓管",
+        "CR / 主管",
+        "CR / 主管、师傅",
+        "客户",
+        "师傅 / CR",
+        "归档"
+      ],
+      "keyStates": [
+        "保养中",
+        "待报价判断",
+        "待报价",
+        "已中单",
+        "材料准备中",
+        "处理中",
+        "已完工"
+      ],
+      "decisionIds": [
+        "CONFIRMED-002",
+        "CONFIRMED-012",
+        "CONFIRMED-009",
+        "CONFIRMED-007",
+        "CONFIRMED-008",
+        "CONFIRMED-006",
+        "CONFIRMED-005",
+        "CONFIRMED-010"
+      ],
+      "openDecisionIds": [],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-002",
+        "FACT-012",
+        "FACT-009",
+        "FACT-007",
+        "FACT-008",
+        "FACT-006",
+        "FACT-005",
+        "FACT-010"
+      ],
+      "moduleIds": [
+        "保养计划",
+        "Service Report",
+        "报价",
+        "MR / 材料",
+        "工单"
       ]
     },
     {
       "id": "FLOW-INSTANT",
       "name": "03 现场即时维修",
-      "order": 3,
-      "type": "scenario",
       "status": "PARTIAL",
       "summary": "现场有材料时可确认价格、当场维修与收款；回公司补正式商务记录，内部交款对账待确认。",
       "nodes": [
@@ -472,13 +678,61 @@
           ],
           "description": ""
         }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "处理现场具备材料且客户接受价格的即时维修。",
+      "trigger": "师傅现场发现可当场处理的问题。",
+      "roles": [
+        "师傅",
+        "报价组",
+        "师傅 / 报价组",
+        "客户",
+        "财务 / 报价组",
+        "师傅 / 客户",
+        "CR / 主管",
+        "报价组 / 商务",
+        "财务"
+      ],
+      "keyStates": [
+        "现场判断",
+        "待客户确认",
+        "可维修",
+        "已处理",
+        "已收现场款",
+        "待确认",
+        "待归档"
+      ],
+      "decisionIds": [
+        "CONFIRMED-002",
+        "CONFIRMED-017",
+        "CONFIRMED-010"
+      ],
+      "openDecisionIds": [
+        "PENDING-001"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-002",
+        "FACT-017",
+        "FACT-010"
+      ],
+      "moduleIds": [
+        "Service Report",
+        "报价",
+        "工单",
+        "财务"
       ]
     },
     {
       "id": "FLOW-M",
       "name": "04 周期保养",
-      "order": 4,
-      "type": "scenario",
       "status": "CONFIRMED",
       "summary": "报价阶段确定保养周期，中单后生成整期计划；到期时再安排具体师傅和日期。",
       "nodes": [
@@ -576,13 +830,59 @@
           ],
           "description": "若发现维修问题，由 SR 选择需要报价并进入报价链路。"
         }
+      ],
+      "factStatus": "CONFIRMED",
+      "purpose": "按合同周期组织每次保养并留存 Service Report。",
+      "trigger": "报价包含 M 且客户接受，中单后生成整期计划。",
+      "roles": [
+        "报价组",
+        "客户",
+        "系统",
+        "CR / 主管",
+        "师傅",
+        "师傅 / 客户",
+        "下一周期 / 报价组"
+      ],
+      "keyStates": [
+        "报价中",
+        "已中单",
+        "计划已生成",
+        "待保养",
+        "保养中",
+        "待确认",
+        "本次保养完成"
+      ],
+      "decisionIds": [
+        "CONFIRMED-011",
+        "CONFIRMED-012",
+        "CONFIRMED-008",
+        "CONFIRMED-010"
+      ],
+      "openDecisionIds": [],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-011",
+        "FACT-012",
+        "FACT-008",
+        "FACT-010"
+      ],
+      "moduleIds": [
+        "报价",
+        "保养计划",
+        "排期派工",
+        "Service Report"
       ]
     },
     {
       "id": "FLOW-CM",
       "name": "05 CM",
-      "order": 5,
-      "type": "scenario",
       "status": "PARTIAL",
       "summary": "CM 由 CR / 主管直接指定师傅；与原 PM / 其他任务冲突的处理规则待确认。",
       "nodes": [
@@ -652,13 +952,57 @@
           ],
           "description": ""
         }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "由 CR / 主管指定师傅完成 CM 服务。",
+      "trigger": "发生 CM 任务。",
+      "roles": [
+        "CS / CR",
+        "CR / 主管",
+        "师傅",
+        "CR / 主管、师傅",
+        "客户",
+        "师傅 / CR",
+        "归档"
+      ],
+      "keyStates": [
+        "待分派",
+        "待服务",
+        "规则待定",
+        "处理中",
+        "已完工"
+      ],
+      "decisionIds": [
+        "CONFIRMED-014",
+        "CONFIRMED-015",
+        "CONFIRMED-010"
+      ],
+      "openDecisionIds": [
+        "PENDING-002"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-014",
+        "FACT-015",
+        "FACT-010"
+      ],
+      "moduleIds": [
+        "客户服务",
+        "排期派工",
+        "工单",
+        "Service Report"
       ]
     },
     {
       "id": "FLOW-TENDER",
-      "name": "06 政府 Tender",
-      "order": 6,
-      "type": "scenario",
+      "name": "06 Government Tender",
       "status": "PARTIAL",
       "summary": "政府项目标书经处理、报价/回标和结果判断；中标后进入 M、P 或 M+P，内部细节不扩展。",
       "nodes": [
@@ -729,6 +1073,49 @@
           ],
           "description": ""
         }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "处理政府标书结果并进入相应业务类型。",
+      "trigger": "取得政府项目标书。",
+      "roles": [
+        "Tender 负责人",
+        "Tender 团队",
+        "报价组",
+        "报价组 / Tender",
+        "客户 / 政府机构",
+        "业务团队",
+        "对应业务角色"
+      ],
+      "keyStates": [
+        "待处理",
+        "处理中",
+        "等待结果",
+        "已中标 / 未中标",
+        "准备中"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "openDecisionIds": [],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-016",
+        "FACT-009",
+        "FACT-011"
+      ],
+      "moduleIds": [
+        "Tender",
+        "报价",
+        "工单"
       ]
     }
   ]

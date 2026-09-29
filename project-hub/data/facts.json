@@ -1,0 +1,967 @@
+{
+  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "total": 45,
+  "facts": [
+    {
+      "id": "FACT-001",
+      "title": "普通维修主干",
+      "statement": "普通维修/工程业务主干基本确认。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-001",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-001"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-002",
+      "title": "三种维修情况",
+      "statement": "真实维修存在三种主要情况：先报价后维修、保养发现问题后二次维修、现场即时维修。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-002",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-002"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-003",
+      "title": "中单后的准备",
+      "statement": "客户接受报价并中单后，进入材料和施工准备。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-003",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-003"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-004",
+      "title": "预排与正式时间",
+      "statement": "中单后可以先预排师傅和预计施工时间；该时间不是最终与客户确认的正式施工时间。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-004",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-004"
+      ],
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-005",
+      "title": "材料完成后确认时间",
+      "statement": "材料准备完成后，由 CR / 主管负责与客户确认正式施工时间；CR 为客户关系部。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-005",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-005"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-006",
+      "title": "MR 自动生成",
+      "statement": "MR 为材料申请单；系统根据成交报价中的材料信息自动生成 MR，不再由 CR 人工制作。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-006",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-006"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-007",
+      "title": "MR 生成触发点",
+      "statement": "MR 不是报价完成就生成；客户确认报价、报价组确认中单后，系统才按最终成交报价材料生成 MR。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-007",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-007"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-008",
+      "title": "报价组生命周期",
+      "statement": "报价组负责报价完整生命周期和 R1/R2/R3 等版本历史，客户最终接受后由报价组确认中单。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-008",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-008"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-TENDER"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-009",
+      "title": "四个报价入口",
+      "statement": "报价任务有四个主要入口：CS 经 CR/主管、CR 直接发起、Tender、Service Report 选择需要报价。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-009",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-009"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-TENDER"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-010",
+      "title": "SR 与完工确认",
+      "statement": "施工完成后，客户确认/签名，师傅提交 Service Report，CR / 主管简单确认后正式完工。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-010",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-010"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-011",
+      "title": "报价阶段确定业务类型",
+      "statement": "业务类型 M、P、M+P 在报价阶段确定；M+P 表示同一报价同时包含 M 与 P。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-011",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-011"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-TENDER"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-012",
+      "title": "整期保养计划",
+      "statement": "报价包含 M 时，在报价阶段确定保养周期；中单后按保养周期和合同周期生成整期保养计划。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-012",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-012"
+      ],
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-013",
+      "title": "M+P 无固定顺序",
+      "statement": "M+P 不存在固定“P 完成后才 M”的顺序，M 与 P 可分别推进。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-013",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-013"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-014",
+      "title": "CM 业务存在",
+      "statement": "CM 业务真实存在。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-014",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-014"
+      ],
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-015",
+      "title": "CM 直接指定师傅",
+      "statement": "CM 一般无固定插单机制；通常由 CR / 主管直接指定师傅，现场服务后提交 SR 并确认完工。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-015",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-015"
+      ],
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-016",
+      "title": "政府 Tender 基本链路",
+      "statement": "Tender / 标书主要用于政府项目；中标后按业务内容进入 M、P 或 M+P。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-016",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-016"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-017",
+      "title": "完工与收款分离",
+      "statement": "正常发票和收款主要关联报价业务；工单完工与收款完成不是同一业务状态。",
+      "status": "CONFIRMED",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "sourceLocator": "## CONFIRMED-017",
+      "sourcePriority": "明确讨论 Decision",
+      "decisionIds": [
+        "CONFIRMED-017"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-INSTANT"
+      ],
+      "evidenceNote": "来自 2026-09-27 人工确认讨论；原始客户材料继续作为背景证据，不自动替代该结论。"
+    },
+    {
+      "id": "FACT-LEGACY-001",
+      "title": "来电渠道与人工记录",
+      "statement": "客户诉求主要来自电话、WhatsApp、现场或邮件；一期由 CS 人工登记，不自动抓取 WhatsApp。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-72B9835125"
+      ],
+      "legacySourceIds": [
+        "SRC-147"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-002",
+      "title": "仅答疑或转工单",
+      "statement": "CS 先判断能否当场处理；能处理则记录并解决，不能处理则创建/转换为工单。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-72B9835125",
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-147",
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-003",
+      "title": "独立账号",
+      "statement": "一线人员使用独立账号，不得共用账号；离职账号数据保留策略另行确认。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-322654DCD7"
+      ],
+      "legacySourceIds": [
+        "SRC-148"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-004",
+      "title": "PM/CM 分类",
+      "statement": "业务存在 PM 常规维修与 CM 特别任务，但与当前五类 CALL 的映射尚未确认。",
+      "status": "CONFLICT",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-322654DCD7",
+        "FILE-72B9835125",
+        "FILE-863211E410"
+      ],
+      "legacySourceIds": [
+        "SRC-148",
+        "SRC-147",
+        "SRC-083"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-005",
+      "title": "区域分派",
+      "statement": "工单按香港/九龙/新界等区域或 1P、2P、4P、5P、6P、7P 区域码分派。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-E9823D6C4B",
+        "FILE-72B9835125"
+      ],
+      "legacySourceIds": [
+        "SRC-149",
+        "SRC-147"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-006",
+      "title": "推荐派单",
+      "statement": "当前原型在同区域、启用、可接单人员中推荐最低负载者；技能只用于人工筛选。该规则仍待客户确认和 POC。",
+      "status": "OPEN",
+      "legacyStatus": "Derived",
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-863211E410"
+      ],
+      "legacySourceIds": [
+        "SRC-217",
+        "SRC-083"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-007",
+      "title": "接单与拒单",
+      "statement": "师傅可接单或拒单，拒单需填写原因并退回分派；CM 抢占 PM 时能否拒绝存在冲突。",
+      "status": "CONFLICT",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-322654DCD7",
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-148",
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-008",
+      "title": "现场签到",
+      "statement": "现场执行需记录到场时间；是否同时要求 GPS、照片后才进入处理中，以 0702 规则为证但尚未冻结。",
+      "status": "OPEN",
+      "legacyStatus": "Pending",
+      "sourceFileIds": [
+        "FILE-E9823D6C4B",
+        "FILE-822D3601B7"
+      ],
+      "legacySourceIds": [
+        "SRC-149",
+        "SRC-145"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-009",
+      "title": "Before/After 证据",
+      "statement": "可拍照场景应上传处理前后照片；特殊客户/地点可豁免并保留原因或替代证明。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-322654DCD7",
+        "FILE-72B9835125"
+      ],
+      "legacySourceIds": [
+        "SRC-148",
+        "SRC-147"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-008"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-010",
+      "title": "照片数量",
+      "statement": "2026-01-30 沟通提到 Before/After 最多各 10 张；其他资料出现最多 9 张，生产限制待确认。",
+      "status": "CONFLICT",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-E9823D6C4B",
+        "FILE-050F5EFB29"
+      ],
+      "legacySourceIds": [
+        "SRC-149",
+        "SRC-010"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-011",
+      "title": "服务报告编号",
+      "statement": "SR 编号来自预印纸质报告，由师傅填写；OCR 为建议能力，不得视为已交付。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-822D3601B7"
+      ],
+      "legacySourceIds": [
+        "SRC-145"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-012",
+      "title": "一单多 SR",
+      "statement": "一张工单可能对应 2-3 份服务报告；数据结构与页面尚需确认。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-822D3601B7"
+      ],
+      "legacySourceIds": [
+        "SRC-145"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-013",
+      "title": "完工状态",
+      "statement": "0702 说师傅提交完整 SR 后直接完成；早期流程要求 TL 确认；当前需求 F033 写待确认/待审批；原型直接完成。",
+      "status": "PARTIAL",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-822D3601B7",
+        "FILE-050F5EFB29",
+        "FILE-863211E410",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-145",
+        "SRC-010",
+        "SRC-083",
+        "SRC-217"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": "CONFIRMED-010",
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-005"
+      ],
+      "evidenceNote": "历史资料间的完工状态冲突已由较新的 CONFIRMED-010 给出当前结论；旧差异保留，不作为当前未解决冲突。"
+    },
+    {
+      "id": "FACT-LEGACY-014",
+      "title": "接单审批子状态",
+      "statement": "团队工单申请接单应使用独立申请状态，不与工单主状态“待审批”共用。",
+      "status": "OPEN",
+      "legacyStatus": "Derived",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-015",
+      "title": "工单编号",
+      "statement": "私人工单 WO 前缀、政府工单 ECA/ECB/ECP/ECS 等前缀；任务号、项目号、外部 Reference 应分开。具体格式与并发规则待确认。",
+      "status": "OPEN",
+      "legacyStatus": "Pending",
+      "sourceFileIds": [
+        "FILE-822D3601B7",
+        "FILE-72B9835125"
+      ],
+      "legacySourceIds": [
+        "SRC-145",
+        "SRC-147"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-016",
+      "title": "报价独立编号",
+      "statement": "报价编号不从工单号简单派生，并应保留版本/修订记录；已确定报价能否修改需冻结。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B"
+      ],
+      "legacySourceIds": [
+        "SRC-145",
+        "SRC-149"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-017",
+      "title": "后补报价",
+      "statement": "现场不能即时结案或发生配件更换时可提交后补报价请求；具体金额阈值和触发字段存在版本差异。",
+      "status": "CONFLICT",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-050F5EFB29",
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-010",
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-018",
+      "title": "中单后备货采购",
+      "statement": "报价中单后进入 MR/库存/采购/备货，并生成或恢复后续施工任务；责任人和编号规则待确认。",
+      "status": "OPEN",
+      "legacyStatus": "Pending",
+      "sourceFileIds": [
+        "FILE-E9823D6C4B",
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-149",
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-019",
+      "title": "采购数据主系统",
+      "statement": "当前原型同时存在本系统可写采购数据与仓库通只读同步两种方案，不能同时成立。",
+      "status": "CONFLICT",
+      "legacyStatus": "Conflict",
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-217",
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-020",
+      "title": "标书闭环",
+      "statement": "标书需要导入/扫描、分类、报价、导出/回标、中标后 M/P/M+P 分流；当前原型未完成正式回标闭环。",
+      "status": "OPEN",
+      "legacyStatus": "Pending",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C"
+      ],
+      "legacySourceIds": [
+        "SRC-012"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-021",
+      "title": "周期性开票",
+      "statement": "长期维护合约可能按月分次开票，例如一年 12 张；样例和触发规则待会计提供。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-822D3601B7"
+      ],
+      "legacySourceIds": [
+        "SRC-145"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-022",
+      "title": "报告归档",
+      "statement": "报告、照片和完工资料需按工单号或 Project Reference 归档并可检索；保留期、备份与恢复待确认。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-8B59C25CB1",
+        "FILE-822D3601B7"
+      ],
+      "legacySourceIds": [
+        "SRC-150",
+        "SRC-145"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-023",
+      "title": "图片容量",
+      "statement": "图片上传慢、容量大是核心风险；曾估计月量可达 1TB，必须通过真实样本验证压缩、容量与归档方案。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-8B59C25CB1"
+      ],
+      "legacySourceIds": [
+        "SRC-150"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-024",
+      "title": "极简移动端",
+      "statement": "师傅端首屏保持 1-3 个主要入口，避免复杂录入。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-30A625FA6B"
+      ],
+      "legacySourceIds": [
+        "SRC-151"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-025",
+      "title": "弱网离线",
+      "statement": "离线暂存和恢复上传仅为 P1/POC 项，未有生产证据。",
+      "status": "OPEN",
+      "legacyStatus": "Pending",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-217"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-026",
+      "title": "不做实时定位",
+      "statement": "一期不做实时定位监控；仅在到场/处理节点记录必要时间与位置。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-72B9835125"
+      ],
+      "legacySourceIds": [
+        "SRC-147"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-027",
+      "title": "不做薪酬绩效",
+      "statement": "工单一期不包含完整 HR、薪酬和绩效系统。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-72B9835125",
+        "FILE-512C8B8438"
+      ],
+      "legacySourceIds": [
+        "SRC-147",
+        "SRC-146"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-LEGACY-028",
+      "title": "原型非生产",
+      "statement": "当前 HTML 原型使用模拟数据和 localStorage，不代表后端、接口、权限或消息已交付。",
+      "status": "PARTIAL",
+      "legacyStatus": "Confirmed",
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0",
+        "FILE-C0B0934B83"
+      ],
+      "legacySourceIds": [
+        "SRC-217",
+        "SRC-216",
+        "SRC-185"
+      ],
+      "sourcePriority": "历史事实审计",
+      "decisionIds": [],
+      "supersededByDecisionId": null,
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    }
+  ]
+}

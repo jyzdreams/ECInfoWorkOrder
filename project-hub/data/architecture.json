@@ -1,0 +1,162 @@
+{
+  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "ia": [
+    {
+      "id": "overview",
+      "number": "01",
+      "title": "业务全景",
+      "children": []
+    },
+    {
+      "id": "facts",
+      "number": "02",
+      "title": "业务事实库",
+      "children": [
+        "原始资料",
+        "事实条目",
+        "待确认事项",
+        "冲突与差异"
+      ]
+    },
+    {
+      "id": "flows",
+      "number": "03",
+      "title": "业务流程",
+      "children": [
+        "00 真实业务总流程",
+        "01 普通报价维修",
+        "02 保养发现问题后二次维修",
+        "03 现场即时维修",
+        "04 周期保养",
+        "05 CM",
+        "06 Government Tender"
+      ]
+    },
+    {
+      "id": "design",
+      "number": "04",
+      "title": "需求与设计",
+      "children": [
+        "功能清单",
+        "PRD",
+        "Prototype",
+        "SDD",
+        "TDD",
+        "Testing"
+      ]
+    },
+    {
+      "id": "decisions",
+      "number": "05",
+      "title": "决策中心",
+      "children": [
+        "Decision",
+        "Open Question",
+        "Change"
+      ]
+    },
+    {
+      "id": "trace",
+      "number": "06",
+      "title": "追溯矩阵",
+      "children": []
+    },
+    {
+      "id": "status",
+      "number": "07",
+      "title": "项目状态",
+      "children": []
+    }
+  ],
+  "sourcePriority": [
+    "客户原始资料",
+    "明确讨论 Decision",
+    "已确认 PRD",
+    "Prototype",
+    "开发实现"
+  ],
+  "dataResponsibility": {
+    "humanMaintained": [
+      "knowledge/**/*.md",
+      "materials/**/*",
+      "docs/**/*",
+      "prototype/**/*"
+    ],
+    "builder": ".codex/project-hub-build/build-v2.js",
+    "generated": "project-hub/data/*.json",
+    "display": "project-hub/index.html"
+  },
+  "currentKnowledge": [
+    {
+      "role": "KNOWLEDGE_GOVERNANCE",
+      "projectPath": "knowledge/README.md",
+      "fileId": "FILE-40D54A8C7F",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "SOURCE_INDEX",
+      "projectPath": "knowledge/01-source/SOURCE-INDEX.md",
+      "fileId": "FILE-8A886D3BAD",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "DECISION_INDEX",
+      "projectPath": "knowledge/02-decisions/DECISION-INDEX.md",
+      "fileId": "FILE-60ED96DE1C",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "CURRENT_BUSINESS_BASELINE",
+      "projectPath": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "fileId": "FILE-6366380F13",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "BUSINESS_FLOW_DATA",
+      "projectPath": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "fileId": "FILE-6DF78BBE11",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "REQUIREMENT_INDEX",
+      "projectPath": "knowledge/04-requirements/REQUIREMENT-INDEX.md",
+      "fileId": "FILE-EAAC161667",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "OPEN_QUESTION_INDEX",
+      "projectPath": "knowledge/05-pending/OPEN-QUESTIONS.md",
+      "fileId": "FILE-FF2EB9320E",
+      "tier": "CURRENT",
+      "status": "READY"
+    }
+  ],
+  "factStatuses": [
+    "CONFIRMED",
+    "PARTIAL",
+    "OPEN",
+    "CONFLICT"
+  ],
+  "deliverableStatuses": [
+    "MISSING",
+    "DRAFT",
+    "PARTIAL",
+    "READY",
+    "VERIFIED"
+  ],
+  "relationStatuses": [
+    "LINKED",
+    "PARTIAL",
+    "UNLINKED",
+    "MISSING SOURCE",
+    "OPEN",
+    "CONFLICT"
+  ],
+  "note": "文件路径和旧 ID 保持可追溯；新关联仅在有明确证据时计入。"
+}

@@ -1,0 +1,6722 @@
+{
+  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "total": 80,
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "legacyId": "F001",
+      "title": "查看 7 个工单状态的数量和分布",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-001"
+      ],
+      "ruleIds": [
+        "RULE-028",
+        "RULE-003"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-028",
+        "FACT-LEGACY-003"
+      ],
+      "pageIds": [
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-002",
+      "legacyId": "F002",
+      "title": "查看本人、团队或管理范围内的今日待办",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-001"
+      ],
+      "ruleIds": [
+        "RULE-028",
+        "RULE-003"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-028",
+        "FACT-LEGACY-003"
+      ],
+      "pageIds": [
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-003",
+      "legacyId": "F003",
+      "title": "查看异常 CALL、紧急事项、拒单和需关注事项",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-001"
+      ],
+      "ruleIds": [
+        "RULE-028",
+        "RULE-003"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-028",
+        "FACT-LEGACY-003"
+      ],
+      "pageIds": [
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-004",
+      "legacyId": "F004",
+      "title": "查看最近业务动态、状态时间线和最近来电",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-001"
+      ],
+      "ruleIds": [
+        "RULE-028",
+        "RULE-003"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-028",
+        "FACT-LEGACY-003"
+      ],
+      "pageIds": [
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-005",
+      "legacyId": "F005",
+      "title": "接收派单、拒单、完成、报价等业务通知",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0/P1，需确认渠道",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-001"
+      ],
+      "ruleIds": [
+        "RULE-028",
+        "RULE-003"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-028",
+        "FACT-LEGACY-003"
+      ],
+      "pageIds": [
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-006",
+      "legacyId": "F006",
+      "title": "记录来电并判断“仅答疑”或“创建工单”",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-007",
+      "legacyId": "F007",
+      "title": "新建工单、保存草稿、提交和取消",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-008",
+      "legacyId": "F008",
+      "title": "选择客户、联系人并带入客户资料",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-009",
+      "legacyId": "F009",
+      "title": "填写 CALL 代码、类型、区域、标准地点、问题描述和附件",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-010",
+      "legacyId": "F010",
+      "title": "按状态、类型、区域、负责人、师傅、客户和关键词筛选",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-011",
+      "legacyId": "F011",
+      "title": "查看 CALL 详情、处理记录、催单记录和状态时间线",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-012",
+      "legacyId": "F012",
+      "title": "直接完成、取消、补充资料、催单、编辑和关联报价",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0/P1",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-013",
+      "legacyId": "F013",
+      "title": "使用“任务编号”作为分派中心独立流水号，与 CALL 编号分离",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认编号规则",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002"
+      ],
+      "ruleIds": [
+        "RULE-001",
+        "RULE-002",
+        "RULE-004",
+        "RULE-015"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-001",
+        "FACT-LEGACY-002",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-015"
+      ],
+      "pageIds": [
+        "PAGE-002"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-014",
+      "legacyId": "F014",
+      "title": "查看待分派、已分派、申请审批和可接单师傅指标",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-015",
+      "legacyId": "F015",
+      "title": "按任务编号、CALL、客户、区域、状态和类型搜索",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-016",
+      "legacyId": "F016",
+      "title": "在同区域的可接单师傅中推荐负载最低者；无候选人时不跨区推荐、不自动派单",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需 POC 验证",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-017",
+      "legacyId": "F017",
+      "title": "人工按师傅技能筛选候选人；技能不参与自动推荐",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认技能主数据",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-018",
+      "legacyId": "F018",
+      "title": "请假师傅置灰且不可分派；负载过高师傅标记为忙碌",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认阈值",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-019",
+      "legacyId": "F019",
+      "title": "首次分派、改派、派工备注和分派日志",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-011",
+        "CONFIRMED-012",
+        "CONFIRMED-014",
+        "CONFIRMED-015"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-020",
+      "legacyId": "F020",
+      "title": "分派权限按“区域主管”及“对应区域 CR”限制",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需客户确认权限矩阵",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-021",
+      "legacyId": "F021",
+      "title": "分派时由系统自动判定领取完工单或服务报告",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认判定规则",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-022",
+      "legacyId": "F022",
+      "title": "师傅接单、拒单并填写拒单原因",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-014",
+        "CONFIRMED-015",
+        "CONFIRMED-010"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-023",
+      "legacyId": "F023",
+      "title": "主管通过或不通过分派申请",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1，需确认是否保留审批节点",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-322654DCD7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-147",
+        "SRC-148",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-003",
+        "FLOW-009"
+      ],
+      "ruleIds": [
+        "RULE-005",
+        "RULE-006",
+        "RULE-007",
+        "RULE-014"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-005",
+        "FACT-LEGACY-006",
+        "FACT-LEGACY-007",
+        "FACT-LEGACY-014"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-024",
+      "legacyId": "F024",
+      "title": "师傅首页查看今日工作、待确认、待处理和处理中 CALL",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-025",
+      "legacyId": "F025",
+      "title": "查看本人任务列表、优先处理事项和工单详情",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-026",
+      "legacyId": "F026",
+      "title": "接单、拒单、开始处理、记录到场时间",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需真机 POC",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-027",
+      "legacyId": "F027",
+      "title": "填写服务报告编号、系统、目的、完成工作和跟进事项",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012",
+        "CONFIRMED-011",
+        "CONFIRMED-014",
+        "CONFIRMED-015"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-028",
+      "legacyId": "F028",
+      "title": "上传服务报告图片并模拟带入报告数据",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1，需确认 OCR/人工录入方案",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-029",
+      "legacyId": "F029",
+      "title": "上传现场照片、材料照片、附件和车资记录",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认容量和保留期",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-030",
+      "legacyId": "F030",
+      "title": "标记是否需要后补报价、材料或客户确认",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0/P1",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-031",
+      "legacyId": "F031",
+      "title": "记录满意度、电子签名或客户不在场",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0，需确认签名规则",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012",
+        "CONFIRMED-011",
+        "CONFIRMED-014",
+        "CONFIRMED-015"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-032",
+      "legacyId": "F032",
+      "title": "填写完工单编号、材料、照片、签章和备注",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-033",
+      "legacyId": "F033",
+      "title": "暂存并提交完工结果，进入待确认或待审批",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012",
+        "CONFIRMED-011",
+        "CONFIRMED-014",
+        "CONFIRMED-015"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-034",
+      "legacyId": "F034",
+      "title": "离线保存处理记录，恢复网络后上传",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1，需弱网 POC",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-004",
+        "FLOW-005",
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-008",
+        "RULE-009",
+        "RULE-010",
+        "RULE-011",
+        "RULE-012",
+        "RULE-013",
+        "RULE-024",
+        "RULE-025",
+        "RULE-026"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-008",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-010",
+        "FACT-LEGACY-011",
+        "FACT-LEGACY-012",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-024",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-026"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-035",
+      "legacyId": "F035",
+      "title": "按服务报告（SR）和完工单（CP）分类查看文件夹",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-022",
+        "RULE-023"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-036",
+      "legacyId": "F036",
+      "title": "按区域、状态、编号、客户和内容搜索报告",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-022",
+        "RULE-023"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-037",
+      "legacyId": "F037",
+      "title": "查看报告详情并跳转关联 CALL",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-022",
+        "RULE-023"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-038",
+      "legacyId": "F038",
+      "title": "通过 Email 或 WhatsApp 发送报告",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1，需确认模板和渠道",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-022",
+        "RULE-023"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-039",
+      "legacyId": "F039",
+      "title": "记录发送对象、方式、时间和发送日志",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-008"
+      ],
+      "ruleIds": [
+        "RULE-022",
+        "RULE-023"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-040",
+      "legacyId": "F040",
+      "title": "新增、编辑、删除、查看和筛选报价",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-003",
+        "CONFIRMED-006",
+        "CONFIRMED-002",
+        "CONFIRMED-016"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-041",
+      "legacyId": "F041",
+      "title": "维护报价标题、类别、物料、数量、税率、金额和有效期",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-042",
+      "legacyId": "F042",
+      "title": "显示历史物料成本价和供应商参考，不锁定库存",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2，需接口确认",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-043",
+      "legacyId": "F043",
+      "title": "关联 CALL、SR、客户和后补报价请求；服务报告提交时按需生成关联报价",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2，需确认触发条件",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT"
+      ],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-003",
+        "CONFIRMED-006",
+        "CONFIRMED-002"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-044",
+      "legacyId": "F044",
+      "title": "维护报价状态、版本、中标状态和修订记录",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-003",
+        "CONFIRMED-006",
+        "CONFIRMED-002",
+        "CONFIRMED-016"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-045",
+      "legacyId": "F045",
+      "title": "维护报价组通讯录和报价负责人",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-145",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-006"
+      ],
+      "ruleIds": [
+        "RULE-016",
+        "RULE-017"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-016",
+        "FACT-LEGACY-017"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-046",
+      "legacyId": "F046",
+      "title": "新建、导入、编辑、删除和搜索标书",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "ruleIds": [
+        "RULE-020"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-020"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-047",
+      "legacyId": "F047",
+      "title": "维护标书来源、回标方式、截止日期和负责人",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "ruleIds": [
+        "RULE-020"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-020"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-048",
+      "legacyId": "F048",
+      "title": "倒计时查看截止日期、投标状态和中标结果",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "ruleIds": [
+        "RULE-020"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-020"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-049",
+      "legacyId": "F049",
+      "title": "管理标书附件、往来资料和内部备注",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "ruleIds": [
+        "RULE-020"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-020"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-050",
+      "legacyId": "F050",
+      "title": "按区域、技能、日期和重复周期安排标书相关师傅",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2，需确认业务边界",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [
+        "FLOW-010"
+      ],
+      "ruleIds": [
+        "RULE-020"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-020"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-016",
+        "CONFIRMED-009",
+        "CONFIRMED-011"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-051",
+      "legacyId": "F051",
+      "title": "报价已中单时自动建立一张关联备货单；采购部在其下手工新建多张采购单，按供应商分单",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2，需确认联动范围",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-003",
+        "CONFIRMED-006",
+        "CONFIRMED-002"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-052",
+      "legacyId": "F052",
+      "title": "跟踪待下单、已下单、已发货、到货和验收状态",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-053",
+      "legacyId": "F053",
+      "title": "管理供应商和合作状态",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-054",
+      "legacyId": "F054",
+      "title": "关联报价、CALL、工单、物料和到货状态",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-003",
+        "CONFIRMED-007",
+        "CONFIRMED-006",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-001",
+        "CONFIRMED-002",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-012"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-055",
+      "legacyId": "F055",
+      "title": "采购验收完成时可选择自动创建待分派工单",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2，需确认是否启用",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-056",
+      "legacyId": "F056",
+      "title": "新建工单时使用原工单编号加后缀的规则",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2，需确认编号格式",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-72B9835125",
+        "FILE-E9823D6C4B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-147",
+        "SRC-149",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-007"
+      ],
+      "ruleIds": [
+        "RULE-018",
+        "RULE-019"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-018",
+        "FACT-LEGACY-019"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-057",
+      "legacyId": "F057",
+      "title": "查看待开票项目、筛选、批量开票和打印",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-058",
+      "legacyId": "F058",
+      "title": "管理发票金额、账期、重印和收款状态",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-059",
+      "legacyId": "F059",
+      "title": "管理收款、收据编号和收据打印",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-INSTANT"
+      ],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-001",
+        "CONFIRMED-009",
+        "CONFIRMED-008",
+        "CONFIRMED-007",
+        "CONFIRMED-011",
+        "CONFIRMED-013",
+        "CONFIRMED-004",
+        "CONFIRMED-005",
+        "CONFIRMED-012",
+        "CONFIRMED-010",
+        "CONFIRMED-017",
+        "CONFIRMED-002"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-060",
+      "legacyId": "F060",
+      "title": "维护会计客户、账单地址、收件人和账期",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-061",
+      "legacyId": "F061",
+      "title": "按保养合约日期和频率生成月结待开发票",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-011",
+        "CONFIRMED-012",
+        "CONFIRMED-008",
+        "CONFIRMED-010"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-062",
+      "legacyId": "F062",
+      "title": "配置并模拟同步 Peachtree 客户、发票和收款",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P2，必须做接口 POC",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-011"
+      ],
+      "ruleIds": [
+        "RULE-021"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-021"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-063",
+      "legacyId": "F063",
+      "title": "按状态、类型、区域、师傅和客户统计 CALL",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-064",
+      "legacyId": "F064",
+      "title": "查看最近 7 天趋势和报价中单统计",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-065",
+      "legacyId": "F065",
+      "title": "查看未完成、SR 待签名和资料缺失提醒",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0/P1",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-066",
+      "legacyId": "F066",
+      "title": "按角色、状态、工号、电话和邮箱管理用户",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-067",
+      "legacyId": "F067",
+      "title": "管理客户、联系人、标准地点、区域和客户权限",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-068",
+      "legacyId": "F068",
+      "title": "管理工单类型、区域、CALL 代码、状态说明和通知规则",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-069",
+      "legacyId": "F069",
+      "title": "管理报价类别、标书来源、回标方式和标书状态",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-070",
+      "legacyId": "F070",
+      "title": "Excel 导入客户、工单、报价、发票和收款记录",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1/P2",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-071",
+      "legacyId": "F071",
+      "title": "配置附件存储、容量、文件类型、保留期和备份",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P1",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-072",
+      "legacyId": "F072",
+      "title": "角色登录、切换和页面权限控制",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "P0",
+      "sourceFileIds": [
+        "FILE-863211E410",
+        "FILE-8B59C25CB1",
+        "FILE-30A625FA6B",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-083",
+        "SRC-150",
+        "SRC-151",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-022",
+        "RULE-023",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-073",
+      "legacyId": "F073",
+      "title": "按普通/政府客户自动生成唯一 CALL 编号；政府前缀可配置，任务编号与 CALL 编号独立",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求 P0；正式编号、时区、并发防重待确认",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-074",
+      "legacyId": "F074",
+      "title": "按客户/地点配置不可拍照豁免，取消照片强制项并保留原因或替代证明",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求 P0；现场提交校验须验证",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-075",
+      "legacyId": "F075",
+      "title": "配置未接单、未到场、处理超时提醒及负责人；采购状态停滞时通知采购部和报价组",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "工单超时为原需求 P1；采购预警属扩展，阈值/渠道待确认",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-076",
+      "legacyId": "F076",
+      "title": "工单池开放任务、师傅申请接单、主管确认",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求 P1；与直接派单规则统一后启用",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-077",
+      "legacyId": "F077",
+      "title": "简版报销关联一个或多个已完成工单，记录金额与票据附件",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求 P1；本次未核实有独立报销模块，不含完整审批/OCR",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-078",
+      "legacyId": "F078",
+      "title": "PM/CM 业务分类与原型五类 CALL 建立对应关系，保留分类统计",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求 P0；分类映射待确认，不擅自替换原型类型",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [
+        "CONFIRMED-014",
+        "CONFIRMED-015",
+        "CONFIRMED-010"
+      ],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-079",
+      "legacyId": "F079",
+      "title": "项目编号、CALL 编号、任务编号和外部 Reference 分开存储并可关联检索",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求编号关系待确认；需核对字段覆盖和迁移",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-080",
+      "legacyId": "F080",
+      "title": "完成/取消后的报告与附件归档，配置在线保留、备份和恢复规则",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "原需求归档要求；主状态是否新增“已归档”待确认",
+      "sourceFileIds": [
+        "FILE-30B5BF1F0C",
+        "FILE-863211E410",
+        "FILE-822D3601B7",
+        "FILE-72B9835125",
+        "FILE-C0B0934B83",
+        "FILE-D50419124F"
+      ],
+      "legacySourceIds": [
+        "SRC-012",
+        "SRC-083",
+        "SRC-145",
+        "SRC-147",
+        "SRC-185",
+        "SRC-217"
+      ],
+      "flowIds": [],
+      "legacyFlowIds": [
+        "FLOW-002",
+        "FLOW-003",
+        "FLOW-004",
+        "FLOW-008",
+        "FLOW-012"
+      ],
+      "ruleIds": [
+        "RULE-003",
+        "RULE-004",
+        "RULE-009",
+        "RULE-013",
+        "RULE-015",
+        "RULE-022",
+        "RULE-023",
+        "RULE-025",
+        "RULE-028"
+      ],
+      "legacyFactIds": [
+        "FACT-LEGACY-003",
+        "FACT-LEGACY-004",
+        "FACT-LEGACY-009",
+        "FACT-LEGACY-013",
+        "FACT-LEGACY-015",
+        "FACT-LEGACY-022",
+        "FACT-LEGACY-023",
+        "FACT-LEGACY-025",
+        "FACT-LEGACY-028"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "历史知识库 PAGE→REQ 关联；当前原型是否符合 2026-09-27 Decision 需复核。"
+        }
+      ],
+      "prdFileIds": [
+        "FILE-863211E410"
+      ],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    }
+  ],
+  "pages": [
+    {
+      "id": "PAGE-001",
+      "key": "dashboard",
+      "name": "PC 首页",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-003",
+        "REQ-004",
+        "REQ-005",
+        "REQ-063",
+        "REQ-064",
+        "REQ-065",
+        "REQ-066",
+        "REQ-067",
+        "REQ-068",
+        "REQ-069",
+        "REQ-070",
+        "REQ-071",
+        "REQ-072"
+      ],
+      "flowIds": [],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-002",
+      "key": "workorder",
+      "name": "CALL 管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-006",
+        "REQ-007",
+        "REQ-008",
+        "REQ-009",
+        "REQ-010",
+        "REQ-011",
+        "REQ-012",
+        "REQ-013",
+        "REQ-073",
+        "REQ-074",
+        "REQ-075",
+        "REQ-076",
+        "REQ-077",
+        "REQ-078",
+        "REQ-079",
+        "REQ-080"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-003",
+      "key": "dispatch",
+      "name": "分派中心",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-014",
+        "REQ-015",
+        "REQ-016",
+        "REQ-017",
+        "REQ-018",
+        "REQ-019",
+        "REQ-020",
+        "REQ-021",
+        "REQ-022",
+        "REQ-023",
+        "REQ-073",
+        "REQ-074",
+        "REQ-075",
+        "REQ-076",
+        "REQ-077",
+        "REQ-078",
+        "REQ-079",
+        "REQ-080"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-004",
+      "key": "quotations",
+      "name": "报价管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-040",
+        "REQ-041",
+        "REQ-042",
+        "REQ-043",
+        "REQ-044",
+        "REQ-045"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-TENDER",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-005",
+      "key": "tender",
+      "name": "标书管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-046",
+        "REQ-047",
+        "REQ-048",
+        "REQ-049",
+        "REQ-050"
+      ],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-006",
+      "key": "procurement",
+      "name": "备货管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-051",
+        "REQ-052",
+        "REQ-053",
+        "REQ-054",
+        "REQ-055",
+        "REQ-056"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-007",
+      "key": "finance",
+      "name": "会计管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-057",
+        "REQ-058",
+        "REQ-059",
+        "REQ-060",
+        "REQ-061",
+        "REQ-062"
+      ],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-INSTANT",
+        "FLOW-M"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-008",
+      "key": "srFolder",
+      "name": "报告管理",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-035",
+        "REQ-036",
+        "REQ-037",
+        "REQ-038",
+        "REQ-039"
+      ],
+      "flowIds": [],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-009",
+      "key": "report",
+      "name": "统计报表",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-063",
+        "REQ-064",
+        "REQ-065",
+        "REQ-066",
+        "REQ-067",
+        "REQ-068",
+        "REQ-069",
+        "REQ-070",
+        "REQ-071",
+        "REQ-072"
+      ],
+      "flowIds": [],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-010",
+      "key": "settings",
+      "name": "基础设置",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-063",
+        "REQ-064",
+        "REQ-065",
+        "REQ-066",
+        "REQ-067",
+        "REQ-068",
+        "REQ-069",
+        "REQ-070",
+        "REQ-071",
+        "REQ-072",
+        "REQ-073",
+        "REQ-074",
+        "REQ-075",
+        "REQ-076",
+        "REQ-077",
+        "REQ-078",
+        "REQ-079",
+        "REQ-080"
+      ],
+      "flowIds": [
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-011",
+      "key": "masterHome",
+      "name": "师傅首页",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-024",
+        "REQ-025",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029",
+        "REQ-030",
+        "REQ-031",
+        "REQ-032",
+        "REQ-033",
+        "REQ-034"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-012",
+      "key": "tasks",
+      "name": "师傅 CALL",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-024",
+        "REQ-025",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029",
+        "REQ-030",
+        "REQ-031",
+        "REQ-032",
+        "REQ-033",
+        "REQ-034"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-013",
+      "key": "tlHome",
+      "name": "主管首页",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [],
+      "flowIds": [],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-014",
+      "key": "mobileDetail",
+      "name": "移动工单详情",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-024",
+        "REQ-025",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029",
+        "REQ-030",
+        "REQ-031",
+        "REQ-032",
+        "REQ-033",
+        "REQ-034"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-015",
+      "key": "workRecord",
+      "name": "处理记录",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-024",
+        "REQ-025",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029",
+        "REQ-030",
+        "REQ-031",
+        "REQ-032",
+        "REQ-033",
+        "REQ-034",
+        "REQ-073",
+        "REQ-074",
+        "REQ-075",
+        "REQ-076",
+        "REQ-077",
+        "REQ-078",
+        "REQ-079",
+        "REQ-080"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-INSTANT",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-016",
+      "key": "cr",
+      "name": "客户报告",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-035",
+        "REQ-036",
+        "REQ-037",
+        "REQ-038",
+        "REQ-039"
+      ],
+      "flowIds": [],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    },
+    {
+      "id": "PAGE-017",
+      "key": "dispatchMobile",
+      "name": "移动分派中心",
+      "status": "PARTIAL",
+      "fileId": "FILE-D50419124F",
+      "requirementIds": [
+        "REQ-014",
+        "REQ-015",
+        "REQ-016",
+        "REQ-017",
+        "REQ-018",
+        "REQ-019",
+        "REQ-020",
+        "REQ-021",
+        "REQ-022",
+        "REQ-023"
+      ],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M",
+        "FLOW-CM"
+      ],
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-5348ACD2A0"
+      ],
+      "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
+    }
+  ]
+}

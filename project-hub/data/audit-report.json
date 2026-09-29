@@ -1,210 +1,166 @@
 {
   "generatedAt": "2026-09-27T10:35:41.780Z",
-  "project": "EC 工单系统",
-  "phase": "事实审计 / 真实流程澄清 / 原型与客户确认阶段",
-  "baseline": {
-    "prototype": "prototype/（2.0 当前评审入口）",
-    "decision": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
-    "requirementApproval": "80 项功能需求仍为待确认；不得把流程 Decision 自动等同为全部需求批准。",
-    "productionDevelopment": "未进入生产开发",
-    "business": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
-    "businessFileId": "FILE-6366380F13"
-  },
-  "stats": {
-    "scannedFiles": 318,
-    "categories": {
-      "Flow/SOP": 51,
-      "Governance": 44,
-      "Other": 3,
-      "Prototype": 5,
-      "Development/Tooling": 2,
-      "Project Document": 7,
-      "PRD": 11,
-      "SDD": 5,
-      "Prototype Screenshot": 33,
-      "TDD": 1,
-      "Knowledge Base": 8,
-      "Decision": 1,
-      "Source/Reference": 3,
-      "Original Source": 78,
-      "Prototype Asset": 29,
-      "Historical Material": 10,
-      "Delivery": 8,
-      "Verification Record": 10,
-      "Project Hub": 9
-    },
-    "decisions": 20,
-    "confirmedDecisions": 17,
-    "pendingDecisions": 2,
-    "rejectedDecisions": 1,
-    "flows": 7,
-    "scenarioFlows": 6,
-    "linkedPRD": 11,
-    "linkedPrototype": 5,
-    "linkedSDD": 5,
-    "linkedTDD": 1,
-    "linkedDevelopment": 2,
-    "linkedTestUAT": 0,
-    "unidentifiedFiles": 3,
-    "weaklyAssociatedFiles": 199,
-    "activeOpenQuestions": 22,
-    "conflicts": 5
-  },
-  "git": {
-    "branch": "main",
-    "head": "2e06126",
-    "lastCommit": "2e061265dd9853f57c68482385a7314b93f8e06e|2026-09-18T01:00:39+08:00|feat: 依 0831/0901 會議紀要優化報價、標書與分派流程",
-    "recentRequirementRelatedCommits": [
-      "5a700f9|2026-07-23T14:25:55+08:00|合并最新原型修复并补充移动端规格",
-      "e31078e|2026-07-22T23:35:31+08:00|docs: 定義移動端工作台重設",
-      "c25c985|2026-07-07T18:25:54+08:00|feat: 優化UI原型，修復多項功能問題",
-      "89fb61a|2026-07-07T09:42:36+08:00|feat: 系統繁體化、新增採購管理模塊、優化會計UI",
-      "c594152|2026-07-02T19:17:11+08:00|繁体化 UI 原型并补充测试记录",
-      "a9ef559|2026-07-01T20:19:20+08:00|优化报价流程：工单状态和报价状态分离，添加TL选择字段"
-    ],
-    "dirtyEntryCount": 173,
-    "note": "Git 信息仅用于追溯；Project Hub 构建过程未提交、未清理或改写现有工作区。"
-  },
-  "conflicts": [
+  "checks": [
     {
-      "id": "CONFLICT-001",
-      "kind": "Source Conflict",
-      "title": "PM/CM 与 CALL 分类映射未确认",
-      "status": "CONFLICT",
-      "ruleId": "RULE-004",
-      "sourceFileIds": [
-        "FILE-322654DCD7",
-        "FILE-72B9835125",
-        "FILE-863211E410"
-      ],
-      "requirementIds": [
-        "REQ-006",
-        "REQ-007",
-        "REQ-008",
-        "REQ-009",
-        "REQ-010",
-        "REQ-011",
-        "REQ-012",
-        "REQ-013",
-        "REQ-073",
-        "REQ-074",
-        "REQ-075",
-        "REQ-076",
-        "REQ-077",
-        "REQ-078",
-        "REQ-079",
-        "REQ-080"
-      ],
-      "decisionIds": [],
-      "evidenceNote": "业务存在 PM 常规维修与 CM 特别任务，但与当前五类 CALL 的映射尚未确认。"
+      "name": "Current Knowledge 入口",
+      "checked": 7,
+      "issues": 0
     },
     {
-      "id": "CONFLICT-002",
-      "kind": "Source Conflict",
-      "title": "CM 场景师傅拒单权限存在资料差异",
-      "status": "CONFLICT",
-      "ruleId": "RULE-007",
-      "sourceFileIds": [
-        "FILE-322654DCD7",
-        "FILE-30B5BF1F0C"
-      ],
-      "requirementIds": [
-        "REQ-014",
-        "REQ-015",
-        "REQ-016",
-        "REQ-017",
-        "REQ-018",
-        "REQ-019",
-        "REQ-020",
-        "REQ-021",
-        "REQ-022",
-        "REQ-023"
-      ],
-      "decisionIds": [],
-      "evidenceNote": "师傅可接单或拒单，拒单需填写原因并退回分派；CM 抢占 PM 时能否拒绝存在冲突。"
+      "name": "SOURCE ID 映射",
+      "checked": 13,
+      "issues": 0
     },
     {
-      "id": "CONFLICT-003",
-      "kind": "Source Conflict",
-      "title": "Before/After 照片上限 9 张或 10 张",
-      "status": "CONFLICT",
-      "ruleId": "RULE-010",
-      "sourceFileIds": [
-        "FILE-E9823D6C4B",
-        "FILE-050F5EFB29"
-      ],
-      "requirementIds": [
-        "REQ-024",
-        "REQ-025",
-        "REQ-026",
-        "REQ-027",
-        "REQ-028",
-        "REQ-029",
-        "REQ-030",
-        "REQ-031",
-        "REQ-032",
-        "REQ-033",
-        "REQ-034"
-      ],
-      "decisionIds": [],
-      "evidenceNote": "2026-01-30 沟通提到 Before/After 最多各 10 张；其他资料出现最多 9 张，生产限制待确认。"
+      "name": "Legacy 保持历史层",
+      "checked": 8,
+      "issues": 0
     },
     {
-      "id": "CONFLICT-004",
-      "kind": "Source Conflict",
-      "title": "后补报价金额阈值与触发字段版本不一致",
-      "status": "CONFLICT",
-      "ruleId": "RULE-017",
-      "sourceFileIds": [
-        "FILE-050F5EFB29",
-        "FILE-30B5BF1F0C"
-      ],
-      "requirementIds": [
-        "REQ-040",
-        "REQ-041",
-        "REQ-042",
-        "REQ-043",
-        "REQ-044",
-        "REQ-045"
-      ],
-      "decisionIds": [],
-      "evidenceNote": "现场不能即时结案或发生配件更换时可提交后补报价请求；具体金额阈值和触发字段存在版本差异。"
+      "name": "原始资料入口",
+      "checked": 118,
+      "issues": 0
     },
     {
-      "id": "CONFLICT-005",
-      "kind": "Source Conflict",
-      "title": "采购/库存主数据写入权存在两种方案",
-      "status": "CONFLICT",
-      "ruleId": "RULE-019",
-      "sourceFileIds": [
-        "FILE-D50419124F",
-        "FILE-30B5BF1F0C"
-      ],
-      "requirementIds": [
-        "REQ-051",
-        "REQ-052",
-        "REQ-053",
-        "REQ-054",
-        "REQ-055",
-        "REQ-056"
-      ],
-      "decisionIds": [],
-      "evidenceNote": "当前原型同时存在本系统可写采购数据与仓库通只读同步两种方案，不能同时成立。"
+      "name": "Decision 来源",
+      "checked": 20,
+      "issues": 0
     },
     {
-      "id": "CONFLICT-006",
-      "kind": "State Model Conflict",
-      "title": "工单主状态六态、七态与业务卡点模式未统一",
-      "status": "CONFLICT",
-      "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-050F5EFB29",
-        "FILE-D50419124F"
-      ],
-      "requirementIds": [],
-      "decisionIds": [],
-      "evidenceNote": "来自历史知识库 Q-003；当前 Decision 未确认统一状态字典。"
+      "name": "场景事实依据",
+      "checked": 7,
+      "issues": 0
+    },
+    {
+      "name": "PRD 反查当前场景",
+      "checked": 4,
+      "issues": 3
+    },
+    {
+      "name": "原型页面反查 PRD",
+      "checked": 17,
+      "issues": 1
+    },
+    {
+      "name": "需求关联当前业务场景",
+      "checked": 80,
+      "issues": 50
+    },
+    {
+      "name": "原型页面反查需求",
+      "checked": 17,
+      "issues": 1
+    },
+    {
+      "name": "事实条目来源",
+      "checked": 45,
+      "issues": 0
+    },
+    {
+      "name": "Open Question 误标 Confirmed",
+      "checked": 24,
+      "issues": 0
+    },
+    {
+      "name": "旧资料路径",
+      "checked": 490,
+      "issues": 0
+    },
+    {
+      "name": "原型整改自动回归",
+      "checked": 7,
+      "issues": 0
+    },
+    {
+      "name": "原型人工验收",
+      "checked": 1,
+      "issues": 1
     }
+  ],
+  "counts": {
+    "indexedFiles": 490,
+    "sourceFiles": 118,
+    "facts": 45,
+    "sourceAliasMappings": 13,
+    "currentKnowledgeFiles": 7,
+    "decisions": 17,
+    "openQuestions": 21,
+    "pendingQuestions": 2,
+    "questionConflicts": 3,
+    "conflicts": 6,
+    "flows": 7,
+    "requirements": 80,
+    "pages": 17,
+    "explicitTraceEdges": 517,
+    "unlinkedRequirements": 50,
+    "missingDirectSourceRequirements": 0,
+    "indexedFilesWithTrace": 20,
+    "prdFilesLinkedToCurrentFlows": 1,
+    "prototypePagesLinkedToPrd": 16,
+    "prototypeRegressionPassed": 7,
+    "prototypeRegressionTotal": 7,
+    "fullNineHopChains": 0,
+    "strictChainCompletenessPercent": 0,
+    "sourceToPrototypeChains": 30,
+    "sourceToPrototypeCoveragePercent": 38,
+    "sourceCoveragePercent": 100,
+    "decisionSourceCoveragePercent": 100
+  },
+  "unlinkedRequirementIds": [
+    "REQ-001",
+    "REQ-002",
+    "REQ-003",
+    "REQ-004",
+    "REQ-005",
+    "REQ-013",
+    "REQ-014",
+    "REQ-015",
+    "REQ-016",
+    "REQ-017",
+    "REQ-018",
+    "REQ-020",
+    "REQ-021",
+    "REQ-023",
+    "REQ-024",
+    "REQ-025",
+    "REQ-026",
+    "REQ-028",
+    "REQ-029",
+    "REQ-032",
+    "REQ-034",
+    "REQ-035",
+    "REQ-036",
+    "REQ-037",
+    "REQ-038",
+    "REQ-039",
+    "REQ-042",
+    "REQ-045",
+    "REQ-053",
+    "REQ-055",
+    "REQ-056",
+    "REQ-060",
+    "REQ-062",
+    "REQ-063",
+    "REQ-064",
+    "REQ-065",
+    "REQ-066",
+    "REQ-067",
+    "REQ-068",
+    "REQ-069",
+    "REQ-070",
+    "REQ-071",
+    "REQ-072",
+    "REQ-073",
+    "REQ-074",
+    "REQ-075",
+    "REQ-076",
+    "REQ-077",
+    "REQ-079",
+    "REQ-080"
+  ],
+  "missingDirectSourceIds": [],
+  "unclassifiedFiles": [
+    "store/temp.docx"
   ],
   "openQuestions": [
     {
@@ -641,164 +597,152 @@
       "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
     }
   ],
-  "scanBoundary": {
-    "included": "项目根目录中的业务、交付、治理、原型、知识库和 Project Hub 文件。",
-    "excluded": [
-      ".git/ 内部对象",
-      ".tools/",
-      ".uv-cache/",
-      ".uv-tools/",
-      ".agents/",
-      ".codex/",
-      ".DS_Store"
-    ],
-    "reason": "排除版本库内部对象、依赖/运行缓存、Agent 技能与构建中间产物；这些不是项目事实或客户交付文件。"
-  },
-  "knowledgeCompleteness": {
-    "indexedFiles": 490,
-    "sourceFiles": 118,
-    "facts": 45,
-    "sourceAliasMappings": 13,
-    "currentKnowledgeFiles": 7,
-    "decisions": 17,
-    "openQuestions": 21,
-    "pendingQuestions": 2,
-    "questionConflicts": 3,
-    "conflicts": 6,
-    "flows": 7,
-    "requirements": 80,
-    "pages": 17,
-    "explicitTraceEdges": 517,
-    "unlinkedRequirements": 50,
-    "missingDirectSourceRequirements": 0,
-    "indexedFilesWithTrace": 20,
-    "prdFilesLinkedToCurrentFlows": 1,
-    "prototypePagesLinkedToPrd": 16,
-    "prototypeRegressionPassed": 7,
-    "prototypeRegressionTotal": 7,
-    "fullNineHopChains": 0,
-    "strictChainCompletenessPercent": 0,
-    "sourceToPrototypeChains": 30,
-    "sourceToPrototypeCoveragePercent": 38,
-    "sourceCoveragePercent": 100,
-    "decisionSourceCoveragePercent": 100
-  },
-  "delivery": [
+  "conflicts": [
     {
-      "kind": "PRD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-63A5629A35",
-        "FILE-DA0F0DF5B6",
-        "FILE-863211E410",
-        "FILE-471038F751"
+      "id": "CONFLICT-001",
+      "kind": "Source Conflict",
+      "title": "PM/CM 与 CALL 分类映射未确认",
+      "status": "CONFLICT",
+      "ruleId": "RULE-004",
+      "sourceFileIds": [
+        "FILE-322654DCD7",
+        "FILE-72B9835125",
+        "FILE-863211E410"
       ],
-      "count": 4,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+      "requirementIds": [
+        "REQ-006",
+        "REQ-007",
+        "REQ-008",
+        "REQ-009",
+        "REQ-010",
+        "REQ-011",
+        "REQ-012",
+        "REQ-013",
+        "REQ-073",
+        "REQ-074",
+        "REQ-075",
+        "REQ-076",
+        "REQ-077",
+        "REQ-078",
+        "REQ-079",
+        "REQ-080"
+      ],
+      "decisionIds": [],
+      "evidenceNote": "业务存在 PM 常规维修与 CM 特别任务，但与当前五类 CALL 的映射尚未确认。"
     },
     {
-      "kind": "Prototype",
-      "status": "PARTIAL",
-      "fileIds": [
+      "id": "CONFLICT-002",
+      "kind": "Source Conflict",
+      "title": "CM 场景师傅拒单权限存在资料差异",
+      "status": "CONFLICT",
+      "ruleId": "RULE-007",
+      "sourceFileIds": [
+        "FILE-322654DCD7",
+        "FILE-30B5BF1F0C"
+      ],
+      "requirementIds": [
+        "REQ-014",
+        "REQ-015",
+        "REQ-016",
+        "REQ-017",
+        "REQ-018",
+        "REQ-019",
+        "REQ-020",
+        "REQ-021",
+        "REQ-022",
+        "REQ-023"
+      ],
+      "decisionIds": [],
+      "evidenceNote": "师傅可接单或拒单，拒单需填写原因并退回分派；CM 抢占 PM 时能否拒绝存在冲突。"
+    },
+    {
+      "id": "CONFLICT-003",
+      "kind": "Source Conflict",
+      "title": "Before/After 照片上限 9 张或 10 张",
+      "status": "CONFLICT",
+      "ruleId": "RULE-010",
+      "sourceFileIds": [
+        "FILE-E9823D6C4B",
+        "FILE-050F5EFB29"
+      ],
+      "requirementIds": [
+        "REQ-024",
+        "REQ-025",
+        "REQ-026",
+        "REQ-027",
+        "REQ-028",
+        "REQ-029",
+        "REQ-030",
+        "REQ-031",
+        "REQ-032",
+        "REQ-033",
+        "REQ-034"
+      ],
+      "decisionIds": [],
+      "evidenceNote": "2026-01-30 沟通提到 Before/After 最多各 10 张；其他资料出现最多 9 张，生产限制待确认。"
+    },
+    {
+      "id": "CONFLICT-004",
+      "kind": "Source Conflict",
+      "title": "后补报价金额阈值与触发字段版本不一致",
+      "status": "CONFLICT",
+      "ruleId": "RULE-017",
+      "sourceFileIds": [
+        "FILE-050F5EFB29",
+        "FILE-30B5BF1F0C"
+      ],
+      "requirementIds": [
+        "REQ-040",
+        "REQ-041",
+        "REQ-042",
+        "REQ-043",
+        "REQ-044",
+        "REQ-045"
+      ],
+      "decisionIds": [],
+      "evidenceNote": "现场不能即时结案或发生配件更换时可提交后补报价请求；具体金额阈值和触发字段存在版本差异。"
+    },
+    {
+      "id": "CONFLICT-005",
+      "kind": "Source Conflict",
+      "title": "采购/库存主数据写入权存在两种方案",
+      "status": "CONFLICT",
+      "ruleId": "RULE-019",
+      "sourceFileIds": [
+        "FILE-D50419124F",
+        "FILE-30B5BF1F0C"
+      ],
+      "requirementIds": [
+        "REQ-051",
+        "REQ-052",
+        "REQ-053",
+        "REQ-054",
+        "REQ-055",
+        "REQ-056"
+      ],
+      "decisionIds": [],
+      "evidenceNote": "当前原型同时存在本系统可写采购数据与仓库通只读同步两种方案，不能同时成立。"
+    },
+    {
+      "id": "CONFLICT-006",
+      "kind": "State Model Conflict",
+      "title": "工单主状态六态、七态与业务卡点模式未统一",
+      "status": "CONFLICT",
+      "sourceFileIds": [
+        "FILE-822D3601B7",
+        "FILE-050F5EFB29",
         "FILE-D50419124F"
       ],
-      "count": 1,
-      "completion": 35,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "SDD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-AB9B857397",
-        "FILE-90C92DB2E5",
-        "FILE-BC39133650"
-      ],
-      "count": 3,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "TDD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-FC5C709B00"
-      ],
-      "count": 1,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "Testing",
-      "status": "MISSING",
-      "fileIds": [],
-      "count": 0,
-      "completion": 0,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+      "requirementIds": [],
+      "decisionIds": [],
+      "evidenceNote": "来自历史知识库 Q-003；当前 Decision 未确认统一状态字典。"
     }
   ],
-  "gate": "客户确认、原型人工验收与正式 Test/UAT 均未完成；自动回归 7/7 通过，当前处于评审阶段。",
-  "nextActions": [
-    "确认现场收款交接与对账",
-    "确认 CM 与 PM 时间冲突",
-    "人工验收原型整改结果",
-    "冻结一期功能范围与 80 项需求状态",
-    "建立正式 Test/UAT 用例"
-  ],
-  "knowledgeUpstream": {
-    "builder": ".codex/project-hub-build/build-v2.js",
-    "currentKnowledge": [
-      {
-        "role": "KNOWLEDGE_GOVERNANCE",
-        "projectPath": "knowledge/README.md",
-        "fileId": "FILE-40D54A8C7F",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "SOURCE_INDEX",
-        "projectPath": "knowledge/01-source/SOURCE-INDEX.md",
-        "fileId": "FILE-8A886D3BAD",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "DECISION_INDEX",
-        "projectPath": "knowledge/02-decisions/DECISION-INDEX.md",
-        "fileId": "FILE-60ED96DE1C",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "CURRENT_BUSINESS_BASELINE",
-        "projectPath": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
-        "fileId": "FILE-6366380F13",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "BUSINESS_FLOW_DATA",
-        "projectPath": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
-        "fileId": "FILE-6DF78BBE11",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "REQUIREMENT_INDEX",
-        "projectPath": "knowledge/04-requirements/REQUIREMENT-INDEX.md",
-        "fileId": "FILE-EAAC161667",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "OPEN_QUESTION_INDEX",
-        "projectPath": "knowledge/05-pending/OPEN-QUESTIONS.md",
-        "fileId": "FILE-FF2EB9320E",
-        "tier": "CURRENT",
-        "status": "READY"
-      }
-    ],
-    "sourceMappings": 13
-  }
+  "limitations": [
+    "PRD、SDD、TDD 的文件存在与内容覆盖是两回事；未验证的语义边一律显示 PARTIAL。",
+    "当前没有正式 Test/UAT 用例，严格九跳完整链路为 0%。",
+    "旧知识库规则保留来源与旧状态，但本轮不自动提升为新确认 Decision。",
+    "原型整改记录与机器结果显示 7/7 场景自动回归通过；人工验收仍待完成，旧审计发现不计为当前已证实 Prototype Conflict。",
+    "原型与 PRD 的具体字段级冲突需要逐页评审，当前只记录已有证据支持的冲突。"
+  ]
 }

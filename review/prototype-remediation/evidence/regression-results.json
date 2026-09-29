@@ -1,0 +1,58 @@
+{
+  "executed": 7,
+  "total": 7,
+  "coveragePercent": 100,
+  "passed": 7,
+  "failed": 0,
+  "results": [
+    {
+      "id": "SCENE-01",
+      "name": "普通报价维修",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-02",
+      "name": "保养发现问题后二次维修",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-03",
+      "name": "现场即时维修",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-04",
+      "name": "周期保养",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-05",
+      "name": "M+P 独立推进",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-06",
+      "name": "CM",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    },
+    {
+      "id": "SCENE-07",
+      "name": "Tender",
+      "status": "PASS",
+      "detail": "",
+      "pageErrors": []
+    }
+  ]
+}

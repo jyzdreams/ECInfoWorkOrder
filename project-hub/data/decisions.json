@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T17:45:23.963Z",
+  "generatedAt": "2026-09-27T10:35:41.780Z",
   "total": 20,
   "decisions": [
     {
@@ -12,7 +12,26 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "普通维修主干",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "MR / 材料",
+        "排期派工"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-002",
@@ -25,7 +44,26 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "三种维修情况",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report",
+        "保养计划",
+        "财务"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-003",
@@ -37,7 +75,26 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "中单后的准备",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "MR / 材料",
+        "排期派工"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-004",
@@ -48,7 +105,24 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "预排与正式时间",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-005",
@@ -60,7 +134,25 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "材料完成后确认时间",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report",
+        "保养计划"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-006",
@@ -72,7 +164,25 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "MR 自动生成",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report",
+        "保养计划"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-007",
@@ -85,7 +195,27 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "MR 生成触发点",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "MR / 材料",
+        "排期派工",
+        "保养计划"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-008",
@@ -100,7 +230,28 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "报价组生命周期",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "MR / 材料",
+        "排期派工",
+        "保养计划",
+        "Tender"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-009",
@@ -114,7 +265,28 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "四个报价入口",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "MR / 材料",
+        "排期派工",
+        "保养计划",
+        "Tender"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-010",
@@ -129,7 +301,27 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "SR 与完工确认",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "工单",
+        "MR / 材料",
+        "排期派工",
+        "Service Report",
+        "保养计划",
+        "财务",
+        "客户服务"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-011",
@@ -141,7 +333,25 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "报价阶段确定业务类型",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "Tender"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-012",
@@ -152,7 +362,23 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "整期保养计划",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "报价",
+        "保养计划",
+        "排期派工",
+        "Service Report"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-013",
@@ -165,7 +391,27 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "M+P 无固定顺序",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "保养计划",
+        "排期派工",
+        "MR / 材料"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-014",
@@ -176,7 +422,23 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "CM 业务存在",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "排期派工",
+        "工单",
+        "Service Report"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-015",
@@ -187,7 +449,23 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "CM 直接指定师傅",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "排期派工",
+        "工单",
+        "Service Report"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-016",
@@ -198,7 +476,22 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "政府 Tender 基本链路",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "Tender",
+        "报价",
+        "工单"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "CONFIRMED-017",
@@ -210,7 +503,24 @@
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "完工与收款分离",
+      "type": "Decision",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFIRMED"
     },
     {
       "id": "PENDING-001",
@@ -221,31 +531,119 @@
         "FLOW-INSTANT"
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "现场收款内部交接",
+      "type": "Open Question",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "Service Report",
+        "报价",
+        "工单",
+        "财务"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "OPEN"
     },
     {
       "id": "PENDING-002",
       "status": "PENDING",
       "priority": "P0",
-      "content": "CM 与原 PM / 其他任务发生时间冲突时如何处理。",
+      "content": "CM 与原 PM / 其他任务发生时间冲突时如何处理。不得把“师傅接受/拒绝 CM → PM 自动重排”作为已确认规则。",
       "flowIds": [
         "FLOW-CM"
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "CM 时间冲突处理",
+      "type": "Open Question",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "排期派工",
+        "工单",
+        "Service Report"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "OPEN"
     },
     {
       "id": "REJECTED-001",
       "status": "REJECTED",
       "content": "M+P 必须固定按“先 P、P 完成后再 M”的顺序推进。",
-      "reason": "被 CONFIRMED-013 推翻；M 与 P 可按实际业务条件分别推进。",
+      "reason": "依据：CONFIRMED-013。M 与 P 可根据实际业务条件分别推进。",
       "flowIds": [
         "FLOW-MAIN",
         "FLOW-M",
         "FLOW-P"
       ],
       "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
-      "sourceType": "HumanConfirmedDiscussion"
+      "sourceType": "HumanConfirmedDiscussion",
+      "title": "M+P 固定先 P 后 M",
+      "type": "Change History",
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "impactedModules": [
+        "客户服务",
+        "报价",
+        "工单",
+        "Service Report",
+        "财务",
+        "保养计划",
+        "排期派工",
+        "MR / 材料"
+      ],
+      "date": "2026-09-27",
+      "factStatus": "CONFLICT"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-001",
+      "type": "Change",
+      "title": "MR 由手工制作转为中单后自动生成",
+      "content": "已确认 MR 改为中单后由系统自动生成",
+      "decisionIds": [
+        "CONFIRMED-006",
+        "CONFIRMED-007"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "status": "CONFIRMED"
+    },
+    {
+      "id": "CHG-002",
+      "type": "Change",
+      "title": "M+P 固定先 P 后 M 被推翻",
+      "content": "已确认 M 与 P 不设置固定先后顺序",
+      "decisionIds": [
+        "CONFIRMED-013",
+        "REJECTED-001"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7"
+      ],
+      "knowledgeFileIds": [
+        "FILE-60ED96DE1C"
+      ],
+      "status": "CONFIRMED"
     }
   ]
 }
