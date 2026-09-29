@@ -27,9 +27,13 @@ jobs:
 
       - name: Prepare static artifact
         run: |
-          mkdir -p _site
-          cp index.html _site/index.html
-          cp -R ui-prototype _site/ui-prototype
+          mkdir -p _site/prototype
+          cp prototype/index.html _site/index.html
+          cp prototype/ui-upgrade.css _site/ui-upgrade.css
+          cp prototype/remediation.js _site/remediation.js
+          cp prototype/index.html _site/prototype/index.html
+          cp prototype/ui-upgrade.css _site/prototype/ui-upgrade.css
+          cp prototype/remediation.js _site/prototype/remediation.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
