@@ -29,6 +29,9 @@ ui-prototype-v2-complete-flow/.npmrc
 .uv-cache/
 .uv-tools/
 
+# 宜搭工具缓存（含登录凭证 / 字段 Schema / 临时脚本，禁止提交）
+.cache/
+
 # Temporary user staging area (keep its README, ignore staged files)
 store/*
 !store/README.md
