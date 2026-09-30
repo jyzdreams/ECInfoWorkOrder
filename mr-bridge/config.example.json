@@ -1,0 +1,12 @@
+{
+  "port": 8790,
+  "mode": "dry-run",
+  "appType": "APP_RGMX9WOCVWT4XNZC1CQD",
+  "corpId": "dingd127ce6004f5a1851e17927667ced1e3",
+  "openapi": {
+    "appKey": "",
+    "appSecret": "",
+    "systemToken": "",
+    "defaultUserId": ""
+  }
+}

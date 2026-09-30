@@ -1,0 +1,4 @@
+config.json
+config.secret.enc
+node_modules/
+*.log

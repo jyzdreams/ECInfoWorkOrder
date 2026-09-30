@@ -1,0 +1,391 @@
+{
+  "errorCode": "",
+  "errorMsg": "",
+  "success": true,
+  "throwable": "",
+  "traceId": "",
+  "data": [
+    {
+      "creator": "2256462548-935114165",
+      "gmtModified": 1788406131129,
+      "formUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "modifier": "2256462548-935114165",
+      "originatorCorpId": "dingd127ce6004f5a1851e17927667ced1e3",
+      "originator": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "gmtCreate": 1788406099756,
+      "title": "云枢-黄志刚 发起的  MR表單",
+      "modelUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "version": 33,
+      "instValue": "[{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd7jwbn\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"EmployeeField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":[{\"label\":\"云枢-黄志刚\",\"avatar\":\"https://static.dingtalk.com/media/lQLPM32tGySYOq_NAyDNAyCwRP0INbKGHPsHv3YBDXB4AA_800_800.png\",\"key\":\"2256462548-935114165\"}]},\"fieldDataUpdated\":false,\"fieldId\":\"employeeField_2xpc11nsm\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TableField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"totalCount\":1,\"value\":[[{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"qm開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgp1s29\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgu\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"140\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fh0\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":[{\"formType\":\"receipt\",\"formUuid\":\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\",\"instanceId\":\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\",\"subTitle\":\"qm開關\",\"appType\":\"APP_RGMX9WOCVWT4XNZC1CQD\",\"title\":\"EC(電源開關)-啟明-110V-深圳\"}]},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"AssociationFormField\",\"fieldId\":\"associationFormField_mt84dlj2\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"EC(電源開關)-啟明-110V-深圳\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr88\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"110V\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr89\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh4\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh3\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh2\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh5\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"深圳啟明\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtii86g2\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fgt\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"個\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj4\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"電源開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj3\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgz\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"4\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgy\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"140\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgx\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"4\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mt82hr8b\",\"rowId\":\"YJF66NC1KCV8LBOOGMY218RMYN6E337ETYKTMN79\"}]]},\"fieldDataUpdated\":false,\"fieldId\":\"tableField_mt82hr87\",\"format\":null,\"formatControls\":null,\"listNum\":500,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_lcmq1gy22\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_2xpc2qtt5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd4aqt2\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd8psik\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd6rsdb\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd5hrya\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextareaField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textareaField_2xpc330r7\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd9b40y\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"RadioField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{},\"fieldDataUpdated\":false,\"fieldId\":\"radioField_2xpdbbl2r\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"MR0903-4\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_mt84dlj5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null}]",
+      "modifyUser": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "originatorCorpName": "Ec Info Tech Limited（專業版）",
+      "formInstId": "FINST-YJF66NC1KCV8LBOOGMY218RMYN6E363ETYKTMM79",
+      "formData": {
+        "numberField_2xpd6rsdb_value": "",
+        "textareaField_2xpc330r7": "",
+        "employeeField_2xpc11nsm": [
+          "云枢-黄志刚"
+        ],
+        "employeeField_2xpc11nsm_id": [
+          "2256462548-935114165"
+        ],
+        "tableField_mt82hr87": [
+          {
+            "textField_mtgm2fh5": "",
+            "textField_mtgm2fgt": "",
+            "textField_mt84dlj4": "個",
+            "numberField_mtgm2fgz": 35,
+            "textField_mt84dlj3": "電源開關",
+            "textField_mtgp1s29": "qm開關",
+            "numberField_mtgm2fgy": 4,
+            "numberField_mtgm2fh0_value": "140",
+            "numberField_mtgm2fgy_value": "4",
+            "numberField_mtgm2fgx": 140,
+            "numberField_mtgm2fgz_value": "35",
+            "numberField_mt82hr8b": 4,
+            "numberField_mtgm2fh0": 140,
+            "textField_mtii86g2": "深圳啟明",
+            "numberField_mtgm2fgu_value": "35",
+            "textField_mt82hr88": "EC(電源開關)-啟明-110V-深圳",
+            "textField_mt82hr89": "110V",
+            "textareaField_mtgm2fh4": "",
+            "numberField_mtgm2fgu": 35,
+            "numberField_mt82hr8b_value": "4",
+            "numberField_mtgm2fgx_value": "140",
+            "associationFormField_mt84dlj2_id": "\"[{\\\"formType\\\":\\\"receipt\\\",\\\"formUuid\\\":\\\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\\\",\\\"instanceId\\\":\\\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\\\",\\\"subTitle\\\":\\\"qm開關\\\",\\\"appType\\\":\\\"APP_RGMX9WOCVWT4XNZC1CQD\\\",\\\"title\\\":\\\"EC(電源開關)-啟明-110V-深圳\\\"}]\"",
+            "textareaField_mtgm2fh3": "",
+            "textField_mtgm2fh2": ""
+          }
+        ],
+        "numberField_2xpd5hrya_value": "",
+        "numberField_2xpd7jwbn_value": "",
+        "textField_lcmq1gy22": "",
+        "textField_mt84dlj5": "MR0903-4",
+        "textField_2xpc2qtt5": "",
+        "numberField_2xpd4aqt2_value": ""
+      }
+    },
+    {
+      "creator": "2256462548-935114165",
+      "gmtModified": 1788405181006,
+      "formUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "modifier": "2256462548-935114165",
+      "originatorCorpId": "dingd127ce6004f5a1851e17927667ced1e3",
+      "originator": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "gmtCreate": 1788405181006,
+      "title": "云枢-黄志刚 发起的  MR表單",
+      "modelUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "version": 33,
+      "instValue": "[{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd7jwbn\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"EmployeeField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":[{\"label\":\"云枢-黄志刚\",\"avatar\":\"https://static.dingtalk.com/media/lQLPM32tGySYOq_NAyDNAyCwRP0INbKGHPsHv3YBDXB4AA_800_800.png\",\"key\":\"2256462548-935114165\"}]},\"fieldDataUpdated\":false,\"fieldId\":\"employeeField_2xpc11nsm\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TableField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"totalCount\":1,\"value\":[[{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"qm開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgp1s29\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgu\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"245\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fh0\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":[{\"formType\":\"receipt\",\"formUuid\":\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\",\"instanceId\":\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\",\"subTitle\":\"qm開關\",\"appType\":\"APP_RGMX9WOCVWT4XNZC1CQD\",\"title\":\"EC(電源開關)-啟明-110V-深圳\"}]},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"AssociationFormField\",\"fieldId\":\"associationFormField_mt84dlj2\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"EC(電源開關)-啟明-110V-深圳\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr88\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"110V\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr89\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh4\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh3\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh2\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh5\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"深圳啟明\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtii86g2\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fgt\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"個\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj4\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"電源開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj3\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgz\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"7\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgy\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"245\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgx\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"7\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mt82hr8b\",\"rowId\":\"R9666ED1Z4V8OJUDLZIBJC13Q3FT3Z9P9YKTM4YB\"}]]},\"fieldDataUpdated\":false,\"fieldId\":\"tableField_mt82hr87\",\"format\":null,\"formatControls\":null,\"listNum\":500,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_lcmq1gy22\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_2xpc2qtt5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd4aqt2\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd8psik\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd6rsdb\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd5hrya\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextareaField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textareaField_2xpc330r7\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd9b40y\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"RadioField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{},\"fieldDataUpdated\":false,\"fieldId\":\"radioField_2xpdbbl2r\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"MR0903-3\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_mt84dlj5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null}]",
+      "modifyUser": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "originatorCorpName": "Ec Info Tech Limited（專業版）",
+      "formInstId": "FINST-R9666ED1Z4V8OJUDLZIBJC13Q3FT326P9YKTM3YB",
+      "formData": {
+        "numberField_2xpd6rsdb_value": "",
+        "textareaField_2xpc330r7": "",
+        "employeeField_2xpc11nsm": [
+          "云枢-黄志刚"
+        ],
+        "employeeField_2xpc11nsm_id": [
+          "2256462548-935114165"
+        ],
+        "tableField_mt82hr87": [
+          {
+            "textField_mtgm2fh5": "",
+            "textField_mtgm2fgt": "",
+            "textField_mt84dlj4": "個",
+            "numberField_mtgm2fgz": 35,
+            "textField_mt84dlj3": "電源開關",
+            "textField_mtgp1s29": "qm開關",
+            "numberField_mtgm2fgy": 7,
+            "numberField_mtgm2fh0_value": "245",
+            "numberField_mtgm2fgy_value": "7",
+            "numberField_mtgm2fgx": 245,
+            "numberField_mtgm2fgz_value": "35",
+            "numberField_mt82hr8b": 7,
+            "numberField_mtgm2fh0": 245,
+            "textField_mtii86g2": "深圳啟明",
+            "numberField_mtgm2fgu_value": "35",
+            "textField_mt82hr88": "EC(電源開關)-啟明-110V-深圳",
+            "textField_mt82hr89": "110V",
+            "textareaField_mtgm2fh4": "",
+            "numberField_mtgm2fgu": 35,
+            "numberField_mt82hr8b_value": "7",
+            "numberField_mtgm2fgx_value": "245",
+            "associationFormField_mt84dlj2_id": "\"[{\\\"formType\\\":\\\"receipt\\\",\\\"formUuid\\\":\\\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\\\",\\\"instanceId\\\":\\\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\\\",\\\"subTitle\\\":\\\"qm開關\\\",\\\"appType\\\":\\\"APP_RGMX9WOCVWT4XNZC1CQD\\\",\\\"title\\\":\\\"EC(電源開關)-啟明-110V-深圳\\\"}]\"",
+            "textareaField_mtgm2fh3": "",
+            "textField_mtgm2fh2": ""
+          }
+        ],
+        "numberField_2xpd5hrya_value": "",
+        "numberField_2xpd7jwbn_value": "",
+        "textField_lcmq1gy22": "",
+        "textField_mt84dlj5": "MR0903-3",
+        "textField_2xpc2qtt5": "",
+        "numberField_2xpd4aqt2_value": ""
+      }
+    },
+    {
+      "creator": "2256462548-935114165",
+      "gmtModified": 1788403793826,
+      "formUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "modifier": "2256462548-935114165",
+      "originatorCorpId": "dingd127ce6004f5a1851e17927667ced1e3",
+      "originator": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "gmtCreate": 1788403793826,
+      "title": "云枢-黄志刚 发起的  MR表單",
+      "modelUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "version": 31,
+      "instValue": "[{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd7jwbn\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"EmployeeField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":[{\"label\":\"云枢-黄志刚\",\"avatar\":\"https://static.dingtalk.com/media/lQLPM32tGySYOq_NAyDNAyCwRP0INbKGHPsHv3YBDXB4AA_800_800.png\",\"key\":\"2256462548-935114165\"}]},\"fieldDataUpdated\":false,\"fieldId\":\"employeeField_2xpc11nsm\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TableField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"totalCount\":1,\"value\":[[{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"qm開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgp1s29\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgu\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"420\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fh0\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":[{\"formType\":\"receipt\",\"formUuid\":\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\",\"instanceId\":\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\",\"subTitle\":\"qm開關\",\"appType\":\"APP_RGMX9WOCVWT4XNZC1CQD\",\"title\":\"EC(電源開關)-啟明-110V-深圳\"}]},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"AssociationFormField\",\"fieldId\":\"associationFormField_mt84dlj2\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"EC(電源開關)-啟明-110V-深圳\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr88\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"110V\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr89\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh4\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh3\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh2\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh5\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"深圳啟明\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtii86g2\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fgt\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"個\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj4\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"電源開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj3\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgz\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"12\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgy\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"420\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgx\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"12\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mt82hr8b\",\"rowId\":\"4HD66571QMU8U5XWF8BWHCP5N4Y42DXYFXKTMUUC\"}]]},\"fieldDataUpdated\":false,\"fieldId\":\"tableField_mt82hr87\",\"format\":null,\"formatControls\":null,\"listNum\":500,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_lcmq1gy22\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_2xpc2qtt5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd4aqt2\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd8psik\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd6rsdb\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd5hrya\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextareaField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textareaField_2xpc330r7\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd9b40y\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"RadioField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{},\"fieldDataUpdated\":false,\"fieldId\":\"radioField_2xpdbbl2r\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"MR0903-2\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_mt84dlj5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null}]",
+      "modifyUser": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "originatorCorpName": "Ec Info Tech Limited（專業版）",
+      "formInstId": "FINST-4HD66571QMU8U5XWF8BWHCP5N4Y42TSYFXKTMTUC",
+      "formData": {
+        "numberField_2xpd6rsdb_value": "",
+        "textareaField_2xpc330r7": "",
+        "employeeField_2xpc11nsm": [
+          "云枢-黄志刚"
+        ],
+        "employeeField_2xpc11nsm_id": [
+          "2256462548-935114165"
+        ],
+        "tableField_mt82hr87": [
+          {
+            "textField_mtgm2fh5": "",
+            "textField_mtgm2fgt": "",
+            "textField_mt84dlj4": "個",
+            "numberField_mtgm2fgz": 35,
+            "textField_mt84dlj3": "電源開關",
+            "textField_mtgp1s29": "qm開關",
+            "numberField_mtgm2fgy": 12,
+            "numberField_mtgm2fh0_value": "420",
+            "numberField_mtgm2fgy_value": "12",
+            "numberField_mtgm2fgx": 420,
+            "numberField_mtgm2fgz_value": "35",
+            "numberField_mt82hr8b": 12,
+            "numberField_mtgm2fh0": 420,
+            "textField_mtii86g2": "深圳啟明",
+            "numberField_mtgm2fgu_value": "35",
+            "textField_mt82hr88": "EC(電源開關)-啟明-110V-深圳",
+            "textField_mt82hr89": "110V",
+            "textareaField_mtgm2fh4": "",
+            "numberField_mtgm2fgu": 35,
+            "numberField_mt82hr8b_value": "12",
+            "numberField_mtgm2fgx_value": "420",
+            "associationFormField_mt84dlj2_id": "\"[{\\\"formType\\\":\\\"receipt\\\",\\\"formUuid\\\":\\\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\\\",\\\"instanceId\\\":\\\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\\\",\\\"subTitle\\\":\\\"qm開關\\\",\\\"appType\\\":\\\"APP_RGMX9WOCVWT4XNZC1CQD\\\",\\\"title\\\":\\\"EC(電源開關)-啟明-110V-深圳\\\"}]\"",
+            "textareaField_mtgm2fh3": "",
+            "textField_mtgm2fh2": ""
+          }
+        ],
+        "numberField_2xpd5hrya_value": "",
+        "numberField_2xpd7jwbn_value": "",
+        "textField_lcmq1gy22": "",
+        "textField_mt84dlj5": "MR0903-2",
+        "textField_2xpc2qtt5": "",
+        "numberField_2xpd4aqt2_value": ""
+      }
+    },
+    {
+      "creator": "2256462548-935114165",
+      "gmtModified": 1788402742760,
+      "formUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "modifier": "2256462548-935114165",
+      "originatorCorpId": "dingd127ce6004f5a1851e17927667ced1e3",
+      "originator": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "gmtCreate": 1788402742760,
+      "title": "云枢-黄志刚 发起的  MR表單",
+      "modelUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "version": 31,
+      "instValue": "[{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd7jwbn\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"EmployeeField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":[{\"label\":\"云枢-黄志刚\",\"avatar\":\"https://static.dingtalk.com/media/lQLPM32tGySYOq_NAyDNAyCwRP0INbKGHPsHv3YBDXB4AA_800_800.png\",\"key\":\"2256462548-935114165\"}]},\"fieldDataUpdated\":false,\"fieldId\":\"employeeField_2xpc11nsm\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TableField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"totalCount\":1,\"value\":[[{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"qm開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgp1s29\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgu\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"350\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fh0\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":[{\"formType\":\"receipt\",\"formUuid\":\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\",\"instanceId\":\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\",\"subTitle\":\"qm開關\",\"appType\":\"APP_RGMX9WOCVWT4XNZC1CQD\",\"title\":\"EC(電源開關)-啟明-110V-深圳\"}]},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"AssociationFormField\",\"fieldId\":\"associationFormField_mt84dlj2\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"EC(電源開關)-啟明-110V-深圳\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr88\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"110V\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr89\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh4\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh3\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh2\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh5\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"深圳啟明\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtii86g2\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fgt\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"個\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj4\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"電源開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj3\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgz\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"10\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgy\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"350\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgx\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"10\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mt82hr8b\",\"rowId\":\"YJF66NC1GAV8KTZLHYR5O8BPZGAD2VWFTWKTMKJC\"}]]},\"fieldDataUpdated\":false,\"fieldId\":\"tableField_mt82hr87\",\"format\":null,\"formatControls\":null,\"listNum\":500,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_lcmq1gy22\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"121\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_2xpc2qtt5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd4aqt2\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd8psik\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd6rsdb\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd5hrya\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextareaField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textareaField_2xpc330r7\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd9b40y\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"RadioField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{},\"fieldDataUpdated\":false,\"fieldId\":\"radioField_2xpdbbl2r\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"MR0903-1\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_mt84dlj5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null}]",
+      "modifyUser": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "originatorCorpName": "Ec Info Tech Limited（專業版）",
+      "formInstId": "FINST-YJF66NC1GAV8KTZLHYR5O8BPZGAD2ISFTWKTMJJC",
+      "formData": {
+        "numberField_2xpd6rsdb_value": "",
+        "textareaField_2xpc330r7": "",
+        "employeeField_2xpc11nsm": [
+          "云枢-黄志刚"
+        ],
+        "employeeField_2xpc11nsm_id": [
+          "2256462548-935114165"
+        ],
+        "tableField_mt82hr87": [
+          {
+            "textField_mtgm2fh5": "",
+            "textField_mtgm2fgt": "",
+            "textField_mt84dlj4": "個",
+            "numberField_mtgm2fgz": 35,
+            "textField_mt84dlj3": "電源開關",
+            "textField_mtgp1s29": "qm開關",
+            "numberField_mtgm2fgy": 10,
+            "numberField_mtgm2fh0_value": "350",
+            "numberField_mtgm2fgy_value": "10",
+            "numberField_mtgm2fgx": 350,
+            "numberField_mtgm2fgz_value": "35",
+            "numberField_mt82hr8b": 10,
+            "numberField_mtgm2fh0": 350,
+            "textField_mtii86g2": "深圳啟明",
+            "numberField_mtgm2fgu_value": "35",
+            "textField_mt82hr88": "EC(電源開關)-啟明-110V-深圳",
+            "textField_mt82hr89": "110V",
+            "textareaField_mtgm2fh4": "",
+            "numberField_mtgm2fgu": 35,
+            "numberField_mt82hr8b_value": "10",
+            "numberField_mtgm2fgx_value": "350",
+            "associationFormField_mt84dlj2_id": "\"[{\\\"formType\\\":\\\"receipt\\\",\\\"formUuid\\\":\\\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\\\",\\\"instanceId\\\":\\\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\\\",\\\"subTitle\\\":\\\"qm開關\\\",\\\"appType\\\":\\\"APP_RGMX9WOCVWT4XNZC1CQD\\\",\\\"title\\\":\\\"EC(電源開關)-啟明-110V-深圳\\\"}]\"",
+            "textareaField_mtgm2fh3": "",
+            "textField_mtgm2fh2": ""
+          }
+        ],
+        "numberField_2xpd5hrya_value": "",
+        "numberField_2xpd7jwbn_value": "",
+        "textField_lcmq1gy22": "",
+        "textField_mt84dlj5": "MR0903-1",
+        "textField_2xpc2qtt5": "121",
+        "numberField_2xpd4aqt2_value": ""
+      }
+    },
+    {
+      "creator": "2256462548-935114165",
+      "gmtModified": 1788335006057,
+      "formUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "modifier": "2256462548-935114165",
+      "originatorCorpId": "dingd127ce6004f5a1851e17927667ced1e3",
+      "originator": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "gmtCreate": 1788335006057,
+      "title": "云枢-黄志刚 发起的  MR表單",
+      "modelUuid": "FORM-FF9A60A90BD2454CBD0234703EA3462A3DDK",
+      "version": 31,
+      "instValue": "[{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd7jwbn\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"EmployeeField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":[{\"label\":\"云枢-黄志刚\",\"avatar\":\"https://static.dingtalk.com/media/lQLPM32tGySYOq_NAyDNAyCwRP0INbKGHPsHv3YBDXB4AA_800_800.png\",\"key\":\"2256462548-935114165\"}]},\"fieldDataUpdated\":false,\"fieldId\":\"employeeField_2xpc11nsm\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TableField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"totalCount\":1,\"value\":[[{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"qm開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgp1s29\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgu\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"175\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fh0\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":[{\"formType\":\"receipt\",\"formUuid\":\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\",\"instanceId\":\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\",\"subTitle\":\"qm開關\",\"appType\":\"APP_RGMX9WOCVWT4XNZC1CQD\",\"title\":\"EC(電源開關)-啟明-110V-深圳\"}]},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"AssociationFormField\",\"fieldId\":\"associationFormField_mt84dlj2\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"EC(電源開關)-啟明-110V-深圳\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr88\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"110V\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt82hr89\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh4\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextareaField\",\"fieldId\":\"textareaField_mtgm2fh3\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh2\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fh5\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"深圳啟明\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtii86g2\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mtgm2fgt\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"個\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj4\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"電源開關\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"TextField\",\"fieldId\":\"textField_mt84dlj3\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"35\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgz\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"5\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgy\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"175\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mtgm2fgx\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"},{\"listNum\":null,\"formatControls\":null,\"dateType\":null,\"dataVersion\":1,\"fieldData\":{\"value\":\"5\"},\"fieldDataUpdated\":false,\"format\":null,\"options\":[],\"componentName\":\"NumberField\",\"fieldId\":\"numberField_mt82hr8b\",\"rowId\":\"43E66G81YBU8BWXEIBCNGAL89MTX2XXLHSJTMRW4\"}]]},\"fieldDataUpdated\":false,\"fieldId\":\"tableField_mt82hr87\",\"format\":null,\"formatControls\":null,\"listNum\":500,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_lcmq1gy22\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_2xpc2qtt5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd4aqt2\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd8psik\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd6rsdb\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"NumberField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"numberField_2xpd5hrya\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextareaField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"\"},\"fieldDataUpdated\":false,\"fieldId\":\"textareaField_2xpc330r7\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"DateField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":null},\"fieldDataUpdated\":false,\"fieldId\":\"dateField_2xpd9b40y\",\"format\":\"YYYY-MM-DD\",\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"RadioField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{},\"fieldDataUpdated\":false,\"fieldId\":\"radioField_2xpdbbl2r\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null},{\"componentName\":\"TextField\",\"dataVersion\":null,\"dateType\":null,\"fieldData\":{\"value\":\"MR0902-1\"},\"fieldDataUpdated\":false,\"fieldId\":\"textField_mt84dlj5\",\"format\":null,\"formatControls\":null,\"listNum\":null,\"options\":[],\"rowId\":null}]",
+      "modifyUser": {
+        "name": {
+          "pureEn_US": "云枢-黄志刚",
+          "en_US": "云枢-黄志刚",
+          "zh_CN": "云枢-黄志刚",
+          "type": "i18n"
+        },
+        "userId": "2256462548-935114165"
+      },
+      "originatorCorpName": "Ec Info Tech Limited（專業版）",
+      "formInstId": "FINST-43E66G81YBU8BWXEIBCNGAL89MTX2YTLHSJTMQW4",
+      "formData": {
+        "numberField_2xpd6rsdb_value": "",
+        "textareaField_2xpc330r7": "",
+        "employeeField_2xpc11nsm": [
+          "云枢-黄志刚"
+        ],
+        "employeeField_2xpc11nsm_id": [
+          "2256462548-935114165"
+        ],
+        "tableField_mt82hr87": [
+          {
+            "textField_mtgm2fh5": "",
+            "textField_mtgm2fgt": "",
+            "textField_mt84dlj4": "個",
+            "numberField_mtgm2fgz": 35,
+            "textField_mt84dlj3": "電源開關",
+            "textField_mtgp1s29": "qm開關",
+            "numberField_mtgm2fgy": 5,
+            "numberField_mtgm2fh0_value": "175",
+            "numberField_mtgm2fgy_value": "5",
+            "numberField_mtgm2fgx": 175,
+            "numberField_mtgm2fgz_value": "35",
+            "numberField_mt82hr8b": 5,
+            "numberField_mtgm2fh0": 175,
+            "textField_mtii86g2": "深圳啟明",
+            "numberField_mtgm2fgu_value": "35",
+            "textField_mt82hr88": "EC(電源開關)-啟明-110V-深圳",
+            "textField_mt82hr89": "110V",
+            "textareaField_mtgm2fh4": "",
+            "numberField_mtgm2fgu": 35,
+            "numberField_mt82hr8b_value": "5",
+            "numberField_mtgm2fgx_value": "175",
+            "associationFormField_mt84dlj2_id": "\"[{\\\"formType\\\":\\\"receipt\\\",\\\"formUuid\\\":\\\"FORM-0B1995EDEF8D438C8D799F0218E9119AQ325\\\",\\\"instanceId\\\":\\\"FINST-G5666B81ZEU8NDAVNSFEHDCNZ75A2GD9CEITMW3\\\",\\\"subTitle\\\":\\\"qm開關\\\",\\\"appType\\\":\\\"APP_RGMX9WOCVWT4XNZC1CQD\\\",\\\"title\\\":\\\"EC(電源開關)-啟明-110V-深圳\\\"}]\"",
+            "textareaField_mtgm2fh3": "",
+            "textField_mtgm2fh2": ""
+          }
+        ],
+        "numberField_2xpd5hrya_value": "",
+        "numberField_2xpd7jwbn_value": "",
+        "textField_lcmq1gy22": "",
+        "textField_mt84dlj5": "MR0902-1",
+        "textField_2xpc2qtt5": "",
+        "numberField_2xpd4aqt2_value": ""
+      }
+    }
+  ],
+  "totalCount": 11,
+  "currentPage": 1
+}
