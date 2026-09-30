@@ -914,8 +914,6 @@
     /* 備貨單詳情抽屜：下掛採購單卡片與物料明細 */
     .sp-po-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .sp-po-head h4 { margin: 0; }
-    /* 「新建採購」按鈕固定推至標題列最右側 */
-    .sp-po-head-action { margin-left: auto; height: 32px; padding: 0 14px; font-size: 12px; font-weight: 600; }
     /* 備貨單狀態下拉單選：與列表狀態共用同一欄位 */
     .sp-status-select {
       height: var(--control-height);
@@ -1424,7 +1422,7 @@
       .qf-header, .qf-body, .qf-footer { padding-left: 18px; padding-right: 18px; }
     }
 
-    /* ============ 新建採購單：物料明細表格樣式 ============ */
+    /* ============ 採購單物料編輯表格樣式 ============ */
     .po-table-wrap {
       border: 1px solid #eef0f4; border-radius: 10px;
       max-height: 320px; overflow-x: auto; overflow-y: auto;
@@ -3678,9 +3676,14 @@
     .call-history-wrap {
       padding: 0 20px 20px;
     }
+    .wo-detail-card.call-history-card:hover {
+      border-color: var(--line);
+      box-shadow: none;
+    }
     .call-history-content {
       display: block;
     }
+    .wo-detail-card .call-history-head h4 { margin: 0; }
     .call-history-head {
       flex-shrink: 0;
       display: flex;
@@ -3693,11 +3696,11 @@
     }
     .call-history-item {
       padding: 9px 12px;
-      border: 1px solid var(--line);
+      border: 1px solid transparent;
       border-radius: 8px;
       margin-bottom: 6px;
       cursor: pointer;
-      background: var(--panel);
+      background: var(--panel-soft);
     }
     .call-history-item:hover {
       border-color: var(--primary);
@@ -4348,9 +4351,21 @@
       padding-bottom: 8px;
     }
     .tender-page .pc-section { border-color: var(--line); border-radius: 8px; }
-    .tender-page .tender-status-tab { min-height: 42px; min-width: 112px; padding: 8px 14px; }
-    .tender-status-tab span { font-size: 14px; font-weight: 600; }
-    .tender-status-tab strong { font-size: 17px; color: var(--text); line-height: 1; }
+    .tender-page {
+      max-width: none;
+      padding: 12px 12px;
+    }
+    .tender-page .tender-data-page-preview { padding: 10px; }
+    .tender-page .tender-data-page-body { padding: 8px; }
+    .tender-page .tender-filter-panel { padding: 8px; }
+    .tender-page .tender-status-tab {
+      gap: 8px;
+      min-height: 34px;
+      min-width: 0;
+      padding: 6px 12px;
+    }
+    .tender-page .tender-status-tab span { font-size: 12px; font-weight: 600; line-height: 20px; }
+    .tender-page .tender-status-tab strong { font-size: 13px; color: var(--text); line-height: 1; }
     .tender-status-tab:hover { color: var(--primary); background: var(--primary-soft); }
     .tender-status-tab:focus-visible { outline: 3px solid rgba(30, 107, 255, .2); outline-offset: -3px; }
     .tender-status-tab.active {
@@ -4468,6 +4483,7 @@
 
     /* 標書列表：專用欄寬，避免操作欄佔用過多空間造成其他欄位擠壓 */
     .tender-table-wrapper { overflow-x: auto; }
+    .tender-list-block { width: 100%; min-width: 0; }
     .tender-table-wrapper > .tender-table {
       width: 100%;
       min-width: 1120px !important;
@@ -7315,7 +7331,7 @@
     const PURCHASE_STATUSES = ["待下單", "已下單", "已發貨", "已到貨", "已入庫", "已驗收", "已取消"];
     // 備貨單狀態（手動維護，列表與詳情共用同一欄位；待備貨＝尚未新建任何採購單）
     const SP_STATUSES = ["待備貨", "待下單", "已下單", "已發貨", "已到貨", "已入庫", "已驗收", "已取消"];
-    // 採購單數據：本系統保留採購單號、供應商與物料明細欄位（採購單由採購部手動新建）
+    // 採購單數據：備貨詳情展示採購記錄；採購單在倉庫通建立
     // spId 指向所屬備貨單（一個備貨單可關聯多張採購單；供應商與採購單號一對一）
     let purchaseOrders = JSON.parse(localStorage.getItem('ecinfo_purchase_orders')) || [
       {
@@ -9883,7 +9899,6 @@
         <div class="wo-filter-group"><label>區域</label><select class="qf-select" data-call-filter="area"><option value="全部">全部</option>${REGIONS.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.area === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>負責人</label><select class="qf-select" data-call-filter="owner"><option value="全部">全部</option>${owners.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.owner === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>關鍵詞搜索</label><div class="wo-search-wrap"><input type="text" data-call-filter="keyword" value="${escapeHtml(workOrderState.callFilters.keyword)}" placeholder="CALL編號／客戶／聯繫人"><button type="button" class="primary-btn wo-search-btn" data-call-search>搜索</button><button type="button" class="secondary-btn wo-search-btn" data-call-reset>重置</button></div></div>
-        <div class="wo-actions-top"><button type="button" class="primary-btn" data-wo-create>新增CALL</button></div>
       </div>`;
     }
 
@@ -9909,6 +9924,7 @@
       const start = (workOrderState.callPage - 1) * workOrderState.callPageSize;
       const paginated = filtered.slice(start, start + workOrderState.callPageSize);
       return `${renderCallFilters()}
+        <div class="data-table-wrap">
         <table class="wo-table">
           <thead><tr><th>CALL編號</th><th>創建時間</th><th>客戶</th><th>類型</th><th>區域</th><th>狀態</th><th>負責人</th><th style="text-align:center;">操作</th></tr></thead>
           <tbody>${filtered.length ? paginated.map(t => `
@@ -9922,7 +9938,9 @@
               <td>${escapeHtml(t.tl || "待分派")}</td>
               <td class="wo-td-actions"><button class="wo-view-btn" data-wo-view="${escapeHtml(t.id)}">查看詳情</button></td>
             </tr>`).join("") : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">暫無匹配 CALL</td></tr>'}</tbody>
-        </table>${renderCallPagination(filtered.length)}`;
+        </table>
+        </div>
+        ${renderCallPagination(filtered.length)}`;
     }
 
     function renderWorkOrderPage() {
@@ -9935,7 +9953,14 @@
         <section class="page active">
           <div class="wo-layout ${hasDrawer ? 'with-drawer' : ''}">
             <div class="wo-list-section">
-              ${renderWorkOrderViewTabs()}
+              <div class="wo-data-page-toolbar">
+                ${renderWorkOrderViewTabs()}
+                <div class="component-data-page-actions">
+                  ${isCallView
+                    ? '<button type="button" class="primary-btn" data-wo-create>+ 新增CALL</button>'
+                    : '<button type="button" class="primary-btn" data-cust-create>+ 新增客戶</button>'}
+                </div>
+              </div>
               ${isCallView ? renderCallViewContent() : `${renderCustomerFilters()}${renderCustomerTable()}${renderCustomerPagination()}`}
             </div>
             ${hasCustomerDrawer && selectedCustomer ? renderCustomerDetailDrawer(selectedCustomer) : ''}
@@ -10090,15 +10115,17 @@
             </div>
             <!-- 歷史Call列表區（摘要 + 分頁） -->
             <div class="call-history-wrap">
-              <div class="call-history-head">
-                <h4 style="margin:0;">歷史CALL（${total}）</h4>
-                <div style="display:flex;gap:8px;align-items:center;">
-                  ${currentRole().key === "CR" ? `<button class="primary-btn customer-action-btn" data-cust-new-quotation="${customer.id}">+ 新建報價</button>` : ""}
-                  <button class="primary-btn customer-action-btn" data-cust-new-call="${customer.id}">+ 新建CALL</button>
+              <div class="wo-detail-card call-history-card">
+                <div class="call-history-head">
+                  <h4>歷史CALL（${total}）</h4>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    ${currentRole().key === "CR" ? `<button class="primary-btn customer-action-btn" data-cust-new-quotation="${customer.id}">+ 新建報價</button>` : ""}
+                    <button class="primary-btn customer-action-btn" data-cust-new-call="${customer.id}">+ 新建CALL</button>
+                  </div>
                 </div>
-              </div>
-              <div class="call-history-content">
-                ${renderCallHistoryContentHtml(customer)}
+                <div class="call-history-content">
+                  ${renderCallHistoryContentHtml(customer)}
+                </div>
               </div>
             </div>
           </div>
@@ -10179,9 +10206,6 @@
               <button type="button" class="secondary-btn wo-search-btn" data-cust-reset>重置</button>
             </div>
           </div>
-          <div class="wo-actions-top">
-            <button class="primary-btn" data-cust-create>新增客戶</button>
-          </div>
         </div>
       `;
     }
@@ -10213,6 +10237,7 @@
       const paginated = filtered.slice(start, start + workOrderState.pageSize);
 
       return `
+        <div class="data-table-wrap">
         <table class="wo-table">
           <thead>
             <tr>
@@ -10256,6 +10281,7 @@
             `}).join("")}
           </tbody>
         </table>
+        </div>
       `;
     }
 
@@ -11844,14 +11870,29 @@
             <div class="card-head">
               <div>
                 <h2>組件庫</h2>
-                <p>系統前端統一使用的基礎組件、篩選操作列、資料表與詳情抽屜規格。後續模組新增頁面時，請以 CALL 管理的視圖與詳情結構為準。</p>
+                <p>系統前端統一使用的資料頁、篩選、表格、分頁、詳情抽屜與新增彈窗規格。所有 PC 業務模組以 CALL 管理的資訊密度與互動結構為準。</p>
               </div>
-              <span class="chip">v1.0</span>
+              <span class="chip">v2.0</span>
             </div>
 
             <section class="component-section">
+              <h3>統一規格摘要</h3>
+              <p>以下數值是資料頁的公共基線；業務頁只決定欄位與操作，不再自行修改尺寸。</p>
+              <div class="component-spec-grid">
+                <div class="component-spec-item"><span>視圖 Tab</span><strong>12px · 高 34px</strong></div>
+                <div class="component-spec-item"><span>篩選控制項</span><strong>12px · 高 34px</strong></div>
+                <div class="component-spec-item"><span>表格</span><strong>表頭 12px · 正文 13px</strong></div>
+                <div class="component-spec-item"><span>資料行</span><strong>最小高度 56px</strong></div>
+                <div class="component-spec-item"><span>分頁</span><strong>高 40px · 頁碼 28px</strong></div>
+                <div class="component-spec-item"><span>內容卡片</span><strong>圓角 12px · 內距 16px</strong></div>
+                <div class="component-spec-item"><span>詳情抽屜</span><strong>固定頭尾 · 內容捲動</strong></div>
+                <div class="component-spec-item"><span>新增彈窗</span><strong>標題／表單／操作三段式</strong></div>
+              </div>
+            </section>
+
+            <section class="component-section">
               <h3>按鈕</h3>
-              <p>主要操作使用藍色主按鈕；次要操作使用淺色按鈕；危險操作只在確認流程中使用。</p>
+              <p>主要操作使用系統主色按鈕；次要操作使用淺色按鈕；危險操作只在確認流程中使用。</p>
               <div class="component-row">
                 <button class="primary-btn" type="button">+ 新建CALL</button>
                 <button class="secondary-btn" type="button">重置</button>
@@ -12020,17 +12061,67 @@
             </section>
 
             <section class="component-section">
-              <h3>彈窗與抽屜</h3>
-              <p>新建或編輯使用置中彈窗；查看詳情使用右側抽屜；不可逆操作使用確認彈窗。</p>
-              <div class="component-overlay-preview">
-                <div class="component-modal-preview"><strong>新增／編輯彈窗</strong>標題、表單內容與底部操作列保持固定順序。</div>
-                <div class="component-drawer-preview"><strong>詳情抽屜</strong>由右側滑出，不壓縮原清單。</div>
+              <h3>新增彈窗與詳情抽屜</h3>
+              <p>新增／編輯使用置中彈窗；查看詳情使用右側抽屜。兩者均使用固定頭部、分組內容及固定底部操作列。</p>
+              <div class="component-overlay-stage">
+                <div class="component-modal-full-preview" role="group" aria-label="新增CALL彈窗組件預覽">
+                  <div class="component-overlay-head">
+                    <div><strong>新增 CALL</strong><span>填寫客戶、CALL 資訊與附件</span></div>
+                    <button class="modal-close-icon" type="button" aria-label="關閉">×</button>
+                  </div>
+                  <div class="component-overlay-body">
+                    <div class="component-overlay-card">
+                      <h4>基本資訊</h4>
+                      <div class="component-overlay-fields">
+                        <div class="component-overlay-field"><label>客戶類型 *</label><select><option>私人</option></select></div>
+                        <div class="component-overlay-field"><label>客戶 *</label><select><option>港島商業中心</option></select></div>
+                        <div class="component-overlay-field"><label>區域 *</label><input value="1區" readonly></div>
+                        <div class="component-overlay-field"><label>主管 *</label><select><option>林主管</option></select></div>
+                      </div>
+                    </div>
+                    <div class="component-overlay-card">
+                      <h4>CALL 資訊</h4>
+                      <div class="component-overlay-fields">
+                        <div class="component-overlay-field"><label>CALL 類型 *</label><select><option>DLP 保養維修</option></select></div>
+                        <div class="component-overlay-field"><label>優先級</label><select><option>普通</option></select></div>
+                        <div class="component-overlay-field wide"><label>問題描述 *</label><textarea>電路有問題</textarea></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="component-overlay-foot"><button class="secondary-btn" type="button">取消</button><button class="primary-btn" type="button">提交 CALL</button></div>
+                </div>
+
+                <div class="component-drawer-full-preview" role="group" aria-label="CALL詳情抽屜結構預覽">
+                  <div class="component-overlay-head">
+                    <div><strong>WO-20260927-001</strong><span>CALL 詳情 · DLP 保養維修</span></div>
+                    ${statusBadge("待確認")}
+                  </div>
+                  <div class="component-overlay-body">
+                    <div class="component-overlay-card">
+                      <h4>客戶資訊</h4>
+                      <div class="component-call-detail-grid">
+                        <div class="component-call-detail-item"><span class="component-call-detail-label">客戶名稱</span><span class="component-call-detail-value">港島商業中心</span></div>
+                        <div class="component-call-detail-item"><span class="component-call-detail-label">聯絡人</span><span class="component-call-detail-value">陳先生</span></div>
+                        <div class="component-call-detail-item full-width"><span class="component-call-detail-label">地址</span><span class="component-call-detail-value">中環德輔道中 88 號</span></div>
+                      </div>
+                    </div>
+                    <div class="component-overlay-card">
+                      <h4>CALL 資訊</h4>
+                      <div class="component-call-detail-grid">
+                        <div class="component-call-detail-item"><span class="component-call-detail-label">區域</span><span class="component-call-detail-value">1區</span></div>
+                        <div class="component-call-detail-item"><span class="component-call-detail-label">優先級</span><span class="component-call-detail-value">普通</span></div>
+                        <div class="component-call-detail-item full-width"><span class="component-call-detail-label">問題描述</span><span class="component-call-detail-value">電路有問題</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="component-overlay-foot"><button class="secondary-btn" type="button">編輯工單</button></div>
+                </div>
               </div>
             </section>
 
             <section class="component-section">
-              <h3>CALL 詳情側邊欄</h3>
-              <p>CALL 詳情固定由右側滑出，按「客戶信息、CALL信息、處理進度、附件」分組，底部保留編輯工單入口。</p>
+              <h3>CALL 詳情字段分組</h3>
+              <p>完整字段按「客戶信息、CALL信息、處理進度、附件」分組；此分組同時套用於頁內側欄及直接附加到頁面的獨立側欄。</p>
               <div class="component-call-drawer-preview" role="group" aria-label="CALL詳情側邊欄組件預覽">
                 <div class="component-call-drawer-header">
                   <div>
@@ -12083,9 +12174,12 @@
             <section class="component-section">
               <h3>使用規則</h3>
               <ul class="component-rule-list">
-                <li><strong>資料表</strong>表頭固定淺色底，資料行以 56px 為最小高度，支援橫向捲動。</li>
-                <li><strong>狀態</strong>一律使用圓角狀態標籤，顏色依流程狀態保持一致。</li>
-                <li><strong>長文字</strong>表格內容單行截斷並以 title 顯示完整文字，避免撐高列高。</li>
+                <li><strong>資料頁</strong>頁內不重複顯示頂部標題；Tab 與主要操作同列，內容使用完整可用寬度。</li>
+                <li><strong>篩選與表格</strong>篩選在表格上方；表格支援橫向捲動，操作欄需要時固定在右側。</li>
+                <li><strong>分頁</strong>分頁位於表格捲動區之外，不跟隨明細欄位橫向捲動。</li>
+                <li><strong>詳情</strong>使用右側抽屜，資料按業務主題分組；標籤 11px、內容 13px。</li>
+                <li><strong>新增與編輯</strong>使用置中彈窗，表單以卡片分組，底部只保留取消和主提交操作。</li>
+                <li><strong>狀態與危險操作</strong>狀態使用固定語意色；刪除只放在確認流程，不出現在列表主操作。</li>
               </ul>
             </section>
           </div>
@@ -16591,7 +16685,7 @@
       }
     }
 
-    // 報價「已中單」時自動建立備貨單（與報價一對一）；採購單改由採購部於詳情頁手動新建
+    // 報價「已中單」時自動建立備貨單（與報價一對一）；採購單在倉庫通建立
     function createSpFromQuotationAndNotify(quotationId) {
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
@@ -16601,7 +16695,7 @@
         return;
       }
       const sp = createSpFromQuotation(quotationId);
-      toast(`已自動建立備貨單 ${sp.id}，請於詳情頁手動新建採購單`);
+      toast(`已自動建立備貨單 ${sp.id}，採購單請於倉庫通建立`);
     }
 
     // 報價「已中單」時通知會計部待開發票（財務閉環）
@@ -16630,7 +16724,7 @@
       // 按類別通知相屬主管（+CR for M線）
       notifyQuotationCategory(quotation, `狀態變更為「${newStatus}」`);
 
-      // 報價狀態變更為「已中單」時，自動建立備貨單（採購單由採購部於詳情頁手動新建）
+      // 報價狀態變更為「已中單」時，自動建立備貨單（採購單於倉庫通建立）
       if (newStatus === "已中單") {
         createSpFromQuotationAndNotify(quotationId);
       }
@@ -17476,7 +17570,7 @@
 
       return `
         <div class="pc-container">
-          <div class="pc-header">
+          <div class="pc-header pc-header-title-only">
             <h1>備貨管理</h1>
           </div>
 
@@ -17614,17 +17708,13 @@
             <div class="wo-detail-section">
               <div class="sp-po-head">
                 <h4>採購單（${activePOs.length}）</h4>
-                <button class="primary-btn sp-po-head-action" data-sp-add-po="${sp.id}">新建採購</button>
               </div>
               ${pos.length ? pos.map(po => renderSpPoCard(po)).join('') : `
                 <div class="wo-detail-card sp-empty">
-                  <p>此備貨單尚未建立採購單。</p>
-                  <p class="muted">點擊右上角「新建採購」補錄採購單號、供應商與物料明細。</p>
+                  <p>此備貨單尚無採購記錄。</p>
+                  <p class="muted">採購單請於倉庫通建立。</p>
                 </div>`}
             </div>
-          </div>
-          <div class="wo-drawer-footer">
-            <button class="ghost-btn" data-sp-close>關閉</button>
           </div>
         </aside>
       `;
@@ -17702,8 +17792,6 @@
         changeSpStatus(select.dataset.spStatusSelect, e.target.value);
         if (document.getElementById("spDrawerOverlay")) showSpDrawer(spId);
       }));
-      // 新建採購單（帶入所屬備貨單編號）
-      container.querySelectorAll("[data-sp-add-po]").forEach(btn => btn.addEventListener("click", () => createPurchaseOrder(btn.dataset.spAddPo)));
       // 編輯採購單物料明細
       container.querySelectorAll("[data-sp-edit-po]").forEach(btn => btn.addEventListener("click", () => editPoItems(btn.dataset.spEditPo)));
       // 採購單狀態流轉（下單/發貨/到貨/入庫存/驗收/取消），完成後刷新抽屜
@@ -18343,238 +18431,6 @@
           newContainer.querySelectorAll("[data-open-schedule-panel]").forEach(btn => btn.addEventListener("click", () => openTicketScheduleModal(btn.dataset.openSchedulePanel)));
         }
         render();
-      });
-    }
-
-    // 新建採購單（由備貨單詳情抽屜的「新建採購」發起，spId 為所屬備貨單編號）
-    // 採購單由採購部手動新建，本系統保留採購單號、供應商與物料明細欄位
-    function createPurchaseOrder(spId) {
-      const sp = stockPreparations.find(s => s.id === spId);
-      const modal = document.createElement("div");
-      modal.className = "qf-overlay";
-      const defaultExpectedDate = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
-      // 已存在的供應商名稱（供輸入時提示，系統不維護供應商主數據）
-      const knownSuppliers = [...new Set(purchaseOrders.map(po => po.supplierName).filter(Boolean))];
-      modal.innerHTML = `
-        <div class="qf-modal">
-          <div class="qf-header">
-            <div>
-              <h3>新建採購單</h3>
-              <div class="qf-sub">所屬備貨單 ${sp ? escapeHtml(sp.id) : '-'}　·　請輸入採購單號、供應商與物料明細</div>
-            </div>
-            <button type="button" class="qf-close" data-close-modal aria-label="關閉">×</button>
-          </div>
-          <form id="createPOForm">
-            <div class="qf-body">
-              <!-- 卡片 ①：基本資訊 -->
-              <div class="qf-card">
-                <div class="qf-card-title">基本資訊<span class="qf-card-sub">採購單號、供應商與關聯單據</span></div>
-                <div class="qf-grid">
-                  <div class="qf-field">
-                    <label class="qf-label">採購單號<span class="req">*</span></label>
-                    <input class="qf-input" name="poNumber" type="text" required placeholder="請輸入採購單號">
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">供應商<span class="req">*</span></label>
-                    <input class="qf-input" name="supplierName" type="text" required list="poSupplierOptions" placeholder="請輸入供應商名稱">
-                    <datalist id="poSupplierOptions">
-                      ${knownSuppliers.map(name => `<option value="${escapeHtml(name)}"></option>`).join("")}
-                    </datalist>
-                    <div class="qf-hint">供應商與採購單號一對一，由倉庫提供</div>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">客戶名稱<span class="opt">（選填）</span></label>
-                    <input class="qf-input" name="customerName" type="text" value="${sp ? escapeHtml(sp.customerName || "") : ""}" placeholder="請輸入客戶名稱">
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">關聯報價<span class="opt">（選填）</span></label>
-                    <select class="qf-select" name="quotationId">
-                      <option value="">不關聯報價</option>
-                      ${quotations.map(q => `<option value="${q.id}" ${sp && sp.quotationId === q.id ? "selected" : ""}>${q.id} - ${q.title}</option>`).join("")}
-                    </select>
-                    <div class="qf-hint">選擇報價後自動帶出物料明細</div>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">關聯工單<span class="opt">（選填）</span></label>
-                    <select class="qf-select" name="ticketId">
-                      <option value="">不關聯工單</option>
-                      ${tickets.map(t => `<option value="${t.id}">${t.id} - ${t.customer}</option>`).join("")}
-                    </select>
-                    <div class="qf-hint">選擇工單後自動帶出關聯報價</div>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">預計到貨日期<span class="req">*</span></label>
-                    <input class="qf-input" name="expectedDate" type="date" value="${defaultExpectedDate}" required>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 卡片 ②：物料明細（選擇關聯報價後自動帶出） -->
-              <div class="qf-card">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-                  <div class="qf-card-title" style="margin:0;">物料明細<span class="qf-card-sub">採購物料清單與金額</span></div>
-                  <button type="button" class="qf-btn qf-btn-save" id="poAddItemBtn" style="min-width:auto;padding:7px 16px;">+ 新增物料</button>
-                </div>
-                <div class="po-table-wrap">
-                  <table class="po-table">
-                    <thead>
-                      <tr>
-                        <th>物料名稱</th>
-                        <th style="width:140px;">規格/型號</th>
-                        <th style="width:80px;text-align:center;">數量</th>
-                        <th style="width:90px;text-align:center;">單位</th>
-                        <th style="width:120px;text-align:right;">單價(HKD)</th>
-                        <th style="width:110px;text-align:right;" title="由倉庫通同步的歷史成本價，僅供定價參考">成本價參考</th>
-                        <th style="width:120px;text-align:right;">小計</th>
-                        <th style="width:50px;"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="poItemsBody"></tbody>
-                  </table>
-                </div>
-                <div class="po-total-bar">
-                  <span>採購總金額</span>
-                  <strong><span class="po-currency">HKD</span><span id="poTotalAmount">0.00</span></strong>
-                </div>
-              </div>
-
-              <!-- 卡片 ③：備註 -->
-              <div class="qf-card">
-                <div class="qf-card-title">備註<span class="qf-card-sub">補充說明</span></div>
-                <div class="qf-field wide">
-                  <textarea class="qf-textarea" name="remark" placeholder="請輸入備註（選填）" style="min-height:120px;"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="qf-footer">
-              <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
-              <button type="submit" class="qf-btn qf-btn-save">建立採購單</button>
-            </div>
-          </form>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
-      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
-
-      // 物料明細管理：新增一列、自動計算小計與總金額、刪除物料
-      const itemsBody = modal.querySelector("#poItemsBody");
-      const totalEl = modal.querySelector("#poTotalAmount");
-      const recalcTotal = () => {
-        let total = 0;
-        itemsBody.querySelectorAll("tr").forEach(tr => {
-          const qty = parseFloat(tr.querySelector("[data-po-qty]")?.value) || 0;
-          const price = parseFloat(tr.querySelector("[data-po-price]")?.value) || 0;
-          const subtotal = qty * price;
-          const subtotalEl = tr.querySelector("[data-po-subtotal]");
-          if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
-          total += subtotal;
-        });
-        totalEl.textContent = total.toFixed(2);
-      };
-      // 新增一列物料行（可帶入預設值）
-      const addItemRow = (item = {}) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><input class="po-input" data-po-name value="${item.name || ""}" placeholder="請輸入物料名稱"></td>
-          <td><input class="po-input" data-po-spec value="${item.spec || ""}" placeholder="規格/型號"></td>
-          <td><input class="po-input po-input-sm" data-po-qty type="number" min="1" value="${item.qty || 1}"></td>
-          <td><select class="po-input" data-po-unit><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
-          <td><input class="po-input po-input-price" data-po-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}"></td>
-          <td class="po-subtotal" data-po-subtotal>0.00</td>
-          <td style="text-align:center;"><button type="button" class="po-remove" data-po-remove title="刪除">×</button></td>
-        `;
-        itemsBody.appendChild(tr);
-        tr.querySelector("[data-po-qty]").addEventListener("input", recalcTotal);
-        tr.querySelector("[data-po-price]").addEventListener("input", recalcTotal);
-        tr.querySelector("[data-po-remove]").addEventListener("click", () => { tr.remove(); recalcTotal(); });
-        if (item.unit) tr.querySelector("[data-po-unit]").value = item.unit;
-        recalcTotal();
-      };
-      modal.querySelector("#poAddItemBtn").addEventListener("click", () => addItemRow());
-
-      // 選擇工單後自動帶出關聯報價
-      const ticketSelect = modal.querySelector("[name='ticketId']");
-      const quotationSelect = modal.querySelector("[name='quotationId']");
-      ticketSelect.addEventListener("change", () => {
-        const ticket = tickets.find(t => t.id === ticketSelect.value);
-        if (ticket) {
-          const relatedQuotation = quotations.find(q => q.ticketId === ticket.id);
-          if (relatedQuotation) {
-            quotationSelect.value = relatedQuotation.id;
-            // 觸發 change 事件以帶出物料明細
-            quotationSelect.dispatchEvent(new Event("change"));
-          }
-        }
-      });
-
-      // 選擇關聯報價後自動帶出物料明細
-      quotationSelect.addEventListener("change", () => {
-        // 清空現有物料行
-        itemsBody.innerHTML = "";
-        const quotation = quotations.find(q => q.id === quotationSelect.value);
-        if (quotation && quotation.items && quotation.items.length > 0) {
-          // 從報價帶出物料明細
-          quotation.items.forEach(item => addItemRow(item));
-        } else {
-          // 無物料明細時預設一行空行
-          addItemRow();
-        }
-      });
-
-      // 預設新增一行空物料
-      addItemRow();
-
-      // 表單提交：驗證採購單號與供應商、收集物料明細、生成採購單
-      const form = modal.querySelector("#createPOForm");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        // 採購單號必填校驗
-        const poNumber = (formData.get("poNumber") || "").trim();
-        if (!poNumber) { toast("請輸入採購單號", "error"); return; }
-        // 採購單號重複校驗
-        if (purchaseOrders.some(p => p.id === poNumber)) {
-          toast("採購單號已存在，請使用其他編號", "error");
-          return;
-        }
-        const supplierName = (formData.get("supplierName") || "").trim();
-        if (!supplierName) { toast("請輸入供應商名稱", "error"); return; }
-        // 收集物料明細
-        const items = [];
-        itemsBody.querySelectorAll("tr").forEach(tr => {
-          const name = tr.querySelector("[data-po-name]").value.trim();
-          if (!name) return;
-          const spec = tr.querySelector("[data-po-spec]").value.trim();
-          const qty = parseInt(tr.querySelector("[data-po-qty]").value) || 1;
-          const unit = tr.querySelector("[data-po-unit]").value;
-          const unitPrice = parseFloat(tr.querySelector("[data-po-price]").value) || 0;
-          items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice });
-        });
-        const totalAmount = items.reduce((sum, i) => sum + i.amount, 0);
-        const po = {
-          id: poNumber,
-          spId: spId || "",
-          quotationId: formData.get("quotationId") || "",
-          ticketId: formData.get("ticketId") || "",
-          customerName: formData.get("customerName") || "",
-          supplierName,
-          items,
-          totalAmount,
-          status: "待下單",
-          orderDate: "",
-          expectedDate: formData.get("expectedDate"),
-          arrivedDate: "",
-          remark: formData.get("remark") || "",
-          createdBy: currentRole().name
-        };
-        purchaseOrders.unshift(po);
-        saveDataToLocalStorage();
-        toast(`採購單 ${poNumber} 已新建`);
-        modal.remove();
-        render();
-        // 若備貨單詳情抽屜開啟中，即時刷新內容
-        if (spId && document.getElementById("spDrawerOverlay")) showSpDrawer(spId);
       });
     }
 
@@ -20165,7 +20021,8 @@
         paginationPages.push(pagination.totalPages);
       }
       return `
-        <div class="pc-table-wrapper tender-table-wrapper">
+        <div class="tender-list-block">
+          <div class="pc-table-wrapper tender-table-wrapper">
           <table class="pc-table tender-table">
             <colgroup>
               <col class="tender-col-id"><col class="tender-col-project"><col class="tender-col-client"><col class="tender-col-amount"><col class="tender-col-date"><col class="tender-col-date"><col class="tender-col-countdown"><col class="tender-col-status"><col class="tender-col-owner"><col class="tender-col-quotation"><col class="tender-col-actions">
@@ -20213,6 +20070,7 @@
               }).join("")}
             </tbody>
           </table>
+          </div>
           <div class="um-pagination tender-pagination" aria-label="標書列表分頁">
             <span class="tender-page-summary">第 ${pagination.total ? (pagination.page - 1) * pagination.pageSize + 1 : 0}-${Math.min(pagination.page * pagination.pageSize, pagination.total)} 筆，共 ${pagination.total} 筆，每頁
               <select class="tender-page-size" data-tender-page-size aria-label="每頁筆數">

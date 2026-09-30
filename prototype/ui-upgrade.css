@@ -613,6 +613,433 @@ button:disabled { cursor: not-allowed; }
 }
 [data-theme="dark"] input[type="date"] { color-scheme: dark; }
 
+/* Component Library v2.0 — CALL 管理作為所有 PC 資料頁的唯一視覺基線。 */
+:root {
+  --data-page-gap: 12px;
+  --data-page-padding: 16px;
+  --filter-panel-padding: 12px;
+  --table-head-height: 42px;
+  --table-row-height: 56px;
+  --pagination-height: 40px;
+  --drawer-header-height: 64px;
+  --drawer-footer-height: 64px;
+  --modal-header-height: 64px;
+}
+
+/* 資料頁骨架：移除重複頁內標題，放大實際列表區域。 */
+#pcPages .pc-container {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+#pcPages .pc-header {
+  justify-content: flex-end;
+  margin-bottom: var(--data-page-gap);
+}
+#pcPages .pc-header > h1 { display: none; }
+#pcPages .pc-header-title-only { display: none; }
+#pcPages .wo-layout,
+#pcPages .qm-layout,
+#pcPages .dispatch-list-section,
+#pcPages .component-data-page-preview {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+#pcPages .wo-list-section,
+#pcPages .qm-list-section,
+#pcPages .dispatch-list-section > .pc-section,
+#pcPages .pc-container > .pc-section,
+#pcPages .component-data-page-body {
+  padding: var(--data-page-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--surface-radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+#pcPages .wo-data-page-toolbar,
+#pcPages .component-data-page-toolbar,
+#pcPages .tender-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: var(--data-page-gap);
+}
+#pcPages .wo-data-page-toolbar .wo-view-tabs,
+#pcPages .component-data-page-toolbar .wo-view-tabs,
+#pcPages .tender-toolbar-row .tender-status-tabs {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+#pcPages .component-data-page-actions,
+#pcPages .tender-toolbar-row .pc-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 視圖 Tab：CALL、派工、會計與標書共用相同尺寸。 */
+#pcPages .wo-view-tabs,
+#pcPages .dispatch-tabs,
+#pcPages .proc-tabs,
+#pcPages .tender-status-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  min-height: 35px;
+  margin-bottom: var(--data-page-gap);
+  border-bottom: 1px solid var(--line);
+}
+#pcPages .wo-view-tab,
+#pcPages .dispatch-tab,
+#pcPages .proc-tab,
+#pcPages .tender-status-tab {
+  min-width: 0;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  box-shadow: none;
+}
+#pcPages .dispatch-tab span,
+#pcPages .tender-status-tab span { font-size: 12px; font-weight: 600; line-height: 20px; }
+#pcPages .dispatch-tab-count,
+#pcPages .tender-status-tab strong { font-size: 12px; font-weight: 700; line-height: 20px; color: currentColor; }
+#pcPages .wo-view-tab:hover,
+#pcPages .dispatch-tab:hover,
+#pcPages .proc-tab:hover,
+#pcPages .tender-status-tab:hover { color: var(--primary-strong); background: transparent; }
+#pcPages .wo-view-tab.active,
+#pcPages .dispatch-tab.active,
+#pcPages .proc-tab.active,
+#pcPages .tender-status-tab.active {
+  color: var(--primary-strong);
+  border-bottom-color: var(--primary);
+  background: transparent;
+}
+
+/* 篩選區：標籤、控制項、搜索及右側操作遵循同一節奏。 */
+#pcPages .wo-filters,
+#pcPages .filters,
+#pcPages .fin-filter-bar,
+#pcPages .um-toolbar,
+#pcPages .cm-toolbar {
+  gap: 10px;
+  margin-bottom: var(--data-page-gap);
+  padding: var(--filter-panel-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--surface-radius);
+  background: var(--panel);
+  box-shadow: none;
+}
+#pcPages .wo-filter-group,
+#pcPages .field { gap: 4px; }
+#pcPages .wo-filter-group label,
+#pcPages .field label,
+#pcPages .qm-filter-group label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+}
+#pcPages .wo-filter-group input,
+#pcPages .wo-filter-group select,
+#pcPages .wo-filter-group .qf-select-trigger,
+#pcPages .field input,
+#pcPages .field select,
+#pcPages .fin-filter-bar input,
+#pcPages .fin-filter-bar select {
+  min-height: var(--control-height);
+  height: var(--control-height);
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
+}
+#pcPages .wo-actions-top { align-items: flex-end; gap: 8px; margin-left: auto; }
+#pcPages .wo-search-wrap { min-height: var(--control-height); gap: 6px; }
+#pcPages .wo-search-btn { height: var(--control-height); min-height: var(--control-height); }
+
+/* 資料表：統一表頭、正文字號、行高與橫向捲動。 */
+#pcPages .data-table-wrap,
+#pcPages .pc-table-wrapper,
+#pcPages .qm-table-scroll {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--surface-radius);
+  background: var(--panel);
+}
+#pcPages .wo-table,
+#pcPages .qm-table,
+#pcPages .um-table,
+#pcPages .cm-table,
+#pcPages .dm-table,
+#pcPages .pc-table,
+#pcPages .data-table-wrap > table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+#pcPages .wo-table th,
+#pcPages .qm-table th,
+#pcPages .um-table th,
+#pcPages .cm-table th,
+#pcPages .dm-table th,
+#pcPages .pc-table th,
+#pcPages .data-table-wrap > table th {
+  height: var(--table-head-height);
+  padding: 0 10px;
+  background: var(--panel-soft);
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: .15px;
+  vertical-align: middle;
+}
+#pcPages .wo-table td,
+#pcPages .qm-table td,
+#pcPages .um-table td,
+#pcPages .cm-table td,
+#pcPages .dm-table td,
+#pcPages .pc-table td,
+#pcPages .data-table-wrap > table td {
+  min-height: var(--table-row-height);
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+  vertical-align: middle;
+}
+
+/* 分頁：固定在表格外層，由摘要、每頁筆數和頁碼三部分構成。 */
+#pcPages .um-pagination,
+#pcPages .call-history-pagination,
+#pcPages .tender-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: var(--pagination-height);
+  margin-top: 0;
+  padding: 10px 4px 2px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 28px;
+}
+#pcPages .um-pagination > span,
+#pcPages .tender-page-summary {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 28px;
+}
+#pcPages .um-pagination select,
+#pcPages .tender-page-size,
+#pcPages .call-history-pagination select {
+  width: auto !important;
+  min-width: 56px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 22px 0 8px !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  font-size: 12px !important;
+  line-height: 26px !important;
+}
+#pcPages .um-pg-btns,
+#pcPages .call-history-pagination .pg-btns { display: flex; align-items: center; gap: 4px; min-height: 28px; }
+#pcPages .um-pg-btns button,
+#pcPages .call-history-pagination .pg-btns button,
+#pcPages .call-history-pagination .pg-size-btn {
+  min-width: 28px;
+  width: auto;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 詳情抽屜：固定頭部、可捲動內容、固定底部操作。 */
+#pcPages .wo-drawer,
+#pcPages .dm-drawer,
+#woDrawerOverlay .wo-drawer { border-radius: 0; background: var(--panel); }
+#pcPages .wo-drawer-header,
+#woDrawerOverlay .wo-drawer-header,
+#pcPages .dm-drawer-head {
+  min-height: var(--drawer-header-height);
+  padding: 16px 20px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+#pcPages .wo-drawer-title h3,
+#woDrawerOverlay .wo-drawer-title h3,
+#pcPages .dm-drawer-head h3 { font-size: 16px; font-weight: 650; }
+#pcPages .wo-drawer-body,
+#woDrawerOverlay .wo-drawer-body,
+#pcPages .dm-drawer-body { padding: 16px 18px; background: var(--bg); }
+#pcPages .wo-detail-section,
+#woDrawerOverlay .wo-detail-section { margin-bottom: 12px; }
+#pcPages .wo-detail-card,
+#woDrawerOverlay .wo-detail-card {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--surface-radius);
+  background: var(--panel);
+  box-shadow: none;
+}
+#pcPages .wo-detail-card h4,
+#woDrawerOverlay .wo-detail-card h4 { margin-bottom: 12px; font-size: 14px; }
+#pcPages .wo-detail-grid,
+#woDrawerOverlay .wo-detail-grid { gap: 10px; }
+#pcPages .wo-detail-item,
+#woDrawerOverlay .wo-detail-item { min-height: 52px; padding: 8px 10px; border-radius: 7px; }
+#pcPages .wo-drawer-footer,
+#woDrawerOverlay .wo-drawer-footer,
+#pcPages .dm-drawer-footer {
+  min-height: var(--drawer-footer-height);
+  padding: 12px 18px;
+  justify-content: flex-end;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+}
+
+/* 新增／編輯彈窗：統一標題、內容卡片及底部操作列。 */
+.qf-modal,
+.dispatch-modal,
+.um-modal,
+.dm-modal,
+.dm-confirm,
+.wo-modal-content {
+  border: 1px solid var(--line);
+  border-radius: var(--overlay-radius);
+  background: var(--panel);
+  box-shadow: 0 24px 80px #1027332e;
+}
+.qf-header,
+.dispatch-modal-head,
+.um-modal-head,
+.dm-modal-head,
+.wo-modal-header {
+  min-height: var(--modal-header-height);
+  padding: 16px 20px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.qf-header h3,
+.dispatch-modal-head h2,
+.um-modal-head h2,
+.dm-modal-head h2,
+.wo-modal-header h3 { margin: 0; color: var(--text); font-size: 17px; font-weight: 650; }
+.qf-body,
+.dispatch-modal-body,
+.dm-modal-body,
+.wo-modal-body { padding: 18px 20px; background: var(--bg); }
+.qf-card { padding: 16px; margin-bottom: 14px; border-radius: var(--surface-radius); }
+.qf-card-title { margin-bottom: 14px; }
+.qf-grid { gap: 14px 16px; }
+.qf-footer,
+.dispatch-modal-footer,
+.um-modal-actions,
+.dm-modal-footer,
+.wo-modal-footer {
+  min-height: 60px;
+  margin-top: 0;
+  padding: 12px 20px;
+  justify-content: flex-end;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  box-shadow: none;
+}
+
+/* 組件庫中的完整彈層示例。 */
+.component-spec-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.component-spec-item { padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-soft); }
+.component-spec-item span { display: block; color: var(--muted); font-size: 11px; }
+.component-spec-item strong { display: block; margin-top: 4px; color: var(--text); font-size: 13px; }
+.component-overlay-stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: 16px; padding: 16px; border: 1px dashed var(--line); border-radius: 10px; background: var(--bg); }
+.component-modal-full-preview,
+.component-drawer-full-preview { overflow: hidden; border: 1px solid var(--line); background: var(--panel); box-shadow: var(--shadow); }
+.component-modal-full-preview { border-radius: var(--overlay-radius); }
+.component-drawer-full-preview { border-radius: 0; }
+.component-overlay-head,
+.component-overlay-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 54px; padding: 10px 14px; background: var(--panel); }
+.component-overlay-head { border-bottom: 1px solid var(--line); }
+.component-overlay-head strong { font-size: 14px; }
+.component-overlay-head span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+.component-overlay-body { display: grid; gap: 10px; padding: 12px; background: var(--bg); }
+.component-overlay-foot { justify-content: flex-end; border-top: 1px solid var(--line); }
+.component-overlay-card { padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.component-overlay-card h4 { margin: 0 0 10px; font-size: 13px; }
+.component-overlay-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.component-overlay-field { min-width: 0; }
+.component-overlay-field.wide { grid-column: 1 / -1; }
+.component-overlay-field label { display: block; margin-bottom: 4px; color: var(--muted); font-size: 11px; }
+.component-overlay-field input,
+.component-overlay-field select,
+.component-overlay-field textarea { width: 100%; min-height: 34px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--text); font-size: 12px; }
+.component-overlay-field textarea { min-height: 64px; resize: none; }
+
+@media (max-width: 900px) {
+  .component-spec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .component-overlay-stage { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  #pcPages .wo-list-section,
+  #pcPages .qm-list-section,
+  #pcPages .dispatch-list-section > .pc-section,
+  #pcPages .pc-container > .pc-section { padding: 12px; }
+  #pcPages .wo-filters,
+  #pcPages .filters { padding: 10px; }
+  #pcPages .wo-view-tabs,
+  #pcPages .dispatch-tabs,
+  #pcPages .proc-tabs,
+  #pcPages .tender-status-tabs { overflow-x: auto; }
+  #pcPages .wo-view-tab,
+  #pcPages .dispatch-tab,
+  #pcPages .proc-tab,
+  #pcPages .tender-status-tab { flex: 0 0 auto; }
+  #pcPages .wo-data-page-toolbar,
+  #pcPages .component-data-page-toolbar,
+  #pcPages .tender-toolbar-row { align-items: stretch; flex-wrap: wrap; }
+  #pcPages .wo-data-page-toolbar .wo-view-tabs,
+  #pcPages .component-data-page-toolbar .wo-view-tabs,
+  #pcPages .tender-toolbar-row .tender-status-tabs { flex-basis: 100%; }
+  #pcPages .component-data-page-actions,
+  #pcPages .tender-toolbar-row .pc-header-actions { width: 100%; justify-content: flex-end; }
+  #pcPages .um-pagination,
+  #pcPages .call-history-pagination,
+  #pcPages .tender-pagination { align-items: flex-start; flex-direction: column; }
+  .component-spec-grid,
+  .component-overlay-fields { grid-template-columns: 1fr; }
+  .component-overlay-field.wide { grid-column: auto; }
+}
+
 @media (max-width: 1100px) {
   .app { grid-template-columns: 200px minmax(0,1fr); }
   .content { padding: 20px; }
