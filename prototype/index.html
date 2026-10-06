@@ -14333,7 +14333,7 @@
               <th>備貨狀態</th>
               <th>負責人</th>
               <th>報價日期</th>
-              <th>含稅金額</th>
+              <th>報價金額</th>
               <th style="text-align:center;">操作</th>
             </tr>
           </thead>
@@ -14533,7 +14533,7 @@
                   <h5>報價條款</h5>
                   <div class="wo-detail-grid">
                     <div class="wo-detail-item">
-                      <span class="wo-detail-label">含稅金額</span>
+                      <span class="wo-detail-label">報價金額</span>
                       <span class="wo-detail-value" style="font-weight:700;color:var(--primary-strong);">HKD ${Number(quotation.totalAmount || 0).toLocaleString()}</span>
                     </div>
                     <div class="wo-detail-item">
@@ -14785,7 +14785,7 @@
           <div class="wo-drawer-footer qm-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
             <button class="secondary-btn" data-quotation-history="${quotation.id}">報價歷史</button>
             ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">修訂報價</button>` : ""}
-            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-mark-won="${quotation.id}">標記中單</button>` : ""}
+            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="${quotation.isInviteTender ? "primary-btn" : "secondary-btn"}" data-mark-won="${quotation.id}">${quotation.isInviteTender ? "標記中標" : "標記中單"}</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(quotation.procurementStatus)) && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
             ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
@@ -15450,7 +15450,7 @@
             <section class="quotation-history-detail-section">
               <h3>報價條款</h3>
               <div class="quotation-history-detail-grid">
-                <div><span>含稅金額</span><strong class="quotation-history-detail-total">HKD ${Number(version.totalAmount ?? version.amount ?? 0).toLocaleString()}</strong></div>
+                <div><span>報價金額</span><strong class="quotation-history-detail-total">HKD ${Number(version.totalAmount ?? version.amount ?? 0).toLocaleString()}</strong></div>
                 <div><span>未稅金額</span><strong>HKD ${Number(version.amount || 0).toLocaleString()}</strong></div>
                 <div><span>付款方式</span><strong>${escapeHtml(version.paymentMethod || "未設定")}</strong></div>
                 <div><span>交期</span><strong>${escapeHtml(version.deliveryTime || "確認後排程")}</strong></div>
@@ -15639,13 +15639,13 @@
         <table class="totals">
           <tr><th style="width:160px;">總金額</th><td>HKD ${Number(quotation.amount || 0).toLocaleString()}</td></tr>
           <tr><th>稅率</th><td>${(Number(quotation.taxRate || 0) * 100).toFixed(0)}%</td></tr>
-          <tr><th>含稅金額</th><td class="total">HKD ${Number(quotation.totalAmount || 0).toLocaleString()}</td></tr>
+          <tr><th>報價金額</th><td class="total">HKD ${Number(quotation.totalAmount || 0).toLocaleString()}</td></tr>
           ${quotation.bargainAmount ? `<tr><th>議價後金額</th><td><strong>HKD ${Number(quotation.bargainAmount).toLocaleString()}</strong></td></tr>` : ""}
         </table>
         <div class="section-title">條款與有效期</div>
         <div class="terms">
           1. 本報價單有效期至：<strong>${escapeHtml(quotation.validUntil || "自報價日起 30 天")}</strong>，逾期需另行確認。<br>
-          2. 上述金額以港幣（HKD）計算；如涉稅項，以含稅金額為準。<br>
+          2. 上述金額以港幣（HKD）計算；如涉稅項，以報價金額為準。<br>
           3. 付款方式：<strong>${escapeHtml(quotation.paymentMethod || "完工後付（Post-payment）")}</strong>；工程／物料交期：<strong>${escapeHtml(quotation.deliveryTime || "確認後排程")}</strong>。<br>
           ${quotation.warrantyPeriod ? `4. 保修期：<strong>${escapeHtml(quotation.warrantyPeriod)}</strong>（自完工日起計）。<br>` : ""}
         </div>
@@ -16005,9 +16005,7 @@
       } else {
         if (projectJobNo) projectJobNo.value = "";
         const emsdRefNo = form.querySelector('[name="emsdRefNo"]');
-        const inviteResult = form.querySelector('[name="inviteResult"]');
         if (emsdRefNo) emsdRefNo.value = "";
-        if (inviteResult) inviteResult.value = "";
       }
     }
 
@@ -16088,7 +16086,7 @@
                       <option value="3個月">3個月</option>
                       <option value="60天">60天</option>
                       <option value="90天">90天</option>
-                      <option value="1年">1年</option>
+                      <option value="1年" selected>1年</option>
                     </select>
                   </div>
                 </div>
@@ -16158,14 +16156,6 @@
                   <div class="qf-field qf-hidden" data-invite-detail>
                     <label class="qf-label" for="qf-emsdRefNo">EMSD 參考編號／邀請編號</label>
                     <input class="qf-input" id="qf-emsdRefNo" name="emsdRefNo" disabled placeholder="政府客戶必填，例如 EMSD/2026/xxxx；私人客戶免填">
-                  </div>
-                  <div class="qf-field qf-hidden" data-invite-detail>
-                    <label class="qf-label" for="qf-inviteResult">邀請結果</label>
-                    <select class="qf-select" id="qf-inviteResult" name="inviteResult" disabled>
-                      <option value="">待確認</option>
-                      <option value="已中標">已中標</option>
-                      <option value="未中標">未中標</option>
-                    </select>
                   </div>
                 </div>
               </div>
@@ -16941,17 +16931,21 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
-      // 自動生成 Tender 編號：TD + 年份後兩位 + 5位序號（如 TD2600001）
+      // 自動生成 Tender 編號：一般報價用 TD + 年份後兩位 + 5位序號（如 TD2600001）
+      // 邀請報價用標書模組統一格式 T-年份-序號，中標時會同步生成對應標書記錄
       const tdYy = String(new Date().getFullYear()).slice(-2);
       const tenderSeq = String(quotations.filter(q => q.bidStatus === "已中標").length + 1).padStart(5, "0");
-      const autoTenderNo = `TD${tdYy}${tenderSeq}`;
+      const autoTenderNo = quotation.isInviteTender ? generateTenderNo() : `TD${tdYy}${tenderSeq}`;
+      // 邀請報價為「標記中標」，一般報價為「標記中單」，文案與按鈕保持一致
+      const markActionLabel = quotation.isInviteTender ? "標記中標" : "標記中單";
+      const markConfirmLabel = quotation.isInviteTender ? "確認中標" : "確認中單";
 
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
         <div class="um-modal" style="max-width:520px;">
           <div class="um-modal-head">
-            <h2>標記中單 - ${escapeHtml(quotation.id)}</h2>
+            <h2>${markActionLabel} - ${escapeHtml(quotation.id)}</h2>
             <button class="um-modal-close" data-close-modal>×</button>
           </div>
           <form id="markWonForm">
@@ -16976,7 +16970,7 @@
             </div>
             <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border);">
               <button type="button" class="secondary-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">確認中單</button>
+              <button type="submit" class="primary-btn">${markConfirmLabel}</button>
             </div>
           </form>
         </div>
@@ -17006,8 +17000,41 @@
         // 按類別通知相屬主管（+CR for M線）
         notifyQuotationCategory(quotation, "已確認中標");
 
+        // 邀請報價中標：主動生成對應標書記錄（若尚未生成），並與報價互相關聯
+        if (quotation.isInviteTender) {
+          const existingTender = tenders.find(t => t.relatedQuotationId === quotation.id);
+          if (!existingTender) {
+            const todayDate = new Date().toISOString().slice(0, 10);
+            // 標書編號沿用彈窗輸入值；若與現有標書撞號則由系統重新生成
+            const newTenderNo = (tenderNo && !tenders.some(t => t.id === tenderNo)) ? tenderNo : generateTenderNo();
+            tenders.unshift({
+              id: newTenderNo,
+              projectName: quotation.title || `${quotation.customerName || ""} - 邀請報價`,
+              client: quotation.customerName || "",
+              tenderCategory: quotation.category || "",
+              tenderSource: quotation.source || "",
+              tenderRegion: quotation.area || "",
+              tenderValue: tenderAmount,
+              tenderDate: quotation.createdAt || todayDate,
+              deadline: quotation.deadline || "",
+              status: "已中標",
+              owner: quotation.owner || "",
+              relatedQuotationId: quotation.id,
+              description: quotation.remark || "",
+              submittedDate: todayDate,
+              resultDate: todayDate,
+              competitorCount: 0,
+              remark: `由邀請報價 ${quotation.id} 標記中標自動生成`,
+              history: [{ action: "系統生成", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `邀請報價 ${quotation.id} 中標，系統自動生成標書` }]
+            });
+            // 回寫標書編號，確保報價與標書編號一致
+            quotation.tenderNo = newTenderNo;
+            toast(`已生成標書 ${newTenderNo}`, "success");
+          }
+        }
+
         saveDataToLocalStorage();
-        toast("已標記爲中單，CC通知採購部");
+        toast(quotation.isInviteTender ? "已標記為中標，並生成關聯標書" : "已標記爲中單，CC通知採購部");
         modal.remove();
         render();
 
@@ -20381,6 +20408,7 @@
 
           <div class="wo-drawer-footer tender-drawer-footer">
             <button class="ghost-btn" data-tender-edit="${t.id}">編輯</button>
+            ${t.status !== "已中標" && t.status !== "未中標" && t.status !== "不投標" ? `<button class="primary-btn" data-tender-mark-won="${t.id}">標記中標</button>` : ""}
             ${t.status !== "已中標" && t.status !== "未中標" && t.status !== "不投標" ? `<button class="primary-btn" data-tender-status="${t.id}">更新狀態</button>` : ""}
             ${false ? `<button class="secondary-btn" data-tender-export="${t.id}">匯出標書</button>` : ""}
           </div>
