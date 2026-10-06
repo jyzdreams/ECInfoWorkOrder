@@ -400,56 +400,6 @@
     return html.replace('</div>\n          <div class="wo-drawer-footer wo-call-actions">', `${panel}</div>\n          <div class="wo-drawer-footer wo-call-actions">`);
   };
 
-  const originalProcurement = renderProcurement;
-  renderProcurement = function () {
-    const original = originalProcurement();
-    const synced = materialRequests.filter(mr => mr.warehouseSync?.status === "已同步").length;
-    const pending = materialRequests.length - synced;
-    const selected = findMr(window.ecRemediation.selectedMrId) || materialRequests[0];
-    const syncPanel = `<div class="rem-card rem-warehouse-overview">
-      <div class="rem-warehouse-head">
-        <div><h3>材料申請單 → 倉庫通</h3><p class="muted">報價中單後，系統按成交版物料自動生成 MR，並主動同步到宜搭應用「倉庫通」。</p></div>
-        <span class="tag success">REAL DEMO · 宜搭線上</span>
-      </div>
-      <div class="rem-grid rem-sync-metrics">
-        <div><span class="rem-label">材料申請單</span><strong>${materialRequests.length}</strong></div>
-        <div><span class="rem-label">已同步</span><strong>${synced}</strong></div>
-        <div><span class="rem-label">待處理／失敗</span><strong>${pending}</strong></div>
-        <div><span class="rem-label">目標應用</span><strong>${WAREHOUSE_APP}</strong></div>
-      </div>
-      <div class="pc-table-wrapper rem-mr-table"><table class="pc-table"><thead><tr><th>MR</th><th>報價</th><th>物料行</th><th>同步狀態</th><th>倉庫通記錄</th><th>操作</th></tr></thead><tbody>
-        ${materialRequests.map(mr => `<tr><td>${safe(mr.id)}</td><td>${safe(mr.quotationId)}</td><td>${mr.lines.length}</td><td><span class="tag ${mr.warehouseSync?.status === "已同步" ? "success" : "warning"}">${safe(mr.warehouseSync?.status || "待同步")}</span></td><td>${safe(mr.warehouseSync?.externalRecordId || "-")}</td><td><div class="po-actions"><button class="wo-view-btn" data-rem-mr="${safe(mr.id)}">查看</button>${mr.warehouseSync?.status === "已同步" ? "" : `<button class="primary-btn" data-rem-warehouse-sync="${safe(mr.id)}">重試同步</button>`}</div></td></tr>`).join("") || '<tr><td colspan="6" style="text-align:center;color:var(--muted);">尚無材料申請單；P／M+P 報價中單後自動生成。</td></tr>'}
-      </tbody></table></div>
-      ${selected ? renderMaterialRequestDetail(selected) : ""}
-    </div>`;
-    const marker = '<div class="pc-section">';
-    return original.includes(marker) ? original.replace(marker, `${syncPanel}${marker}`) : `${syncPanel}${original}`;
-  };
-
-  function renderMaterialRequestDetail(mr) {
-    const sync = mr.warehouseSync || {};
-    return `<div class="rem-card rem-mr-detail" data-rem-mr-detail="${safe(mr.id)}">
-      <div class="rem-warehouse-head"><div><h4>${safe(mr.id)} · 材料申請詳情</h4><p class="muted">成交報價 ${safe(mr.quotationId)} R${safe(mr.acceptedRevision)} · ${safe(mr.customerName || "未設定客戶")}</p></div><span class="tag ${sync.status === "已同步" ? "success" : "warning"}">${safe(sync.status || "待同步")}</span></div>
-      <div class="rem-grid">
-        <div><span class="rem-label">倉庫通記錄 ID</span><strong>${safe(sync.externalRecordId || "尚未取得")}</strong></div>
-        <div><span class="rem-label">倉庫通 MR 號碼</span><strong>${safe(sync.remoteMrId || mr.remoteMrId || "待生成")}</strong></div>
-        <div><span class="rem-label">冪等鍵</span><strong>${safe(sync.idempotencyKey || `EC-MR:${mr.id}`)}</strong></div>
-        <div><span class="rem-label">最近同步</span><strong>${safe(sync.syncedAt || sync.lastAttemptAt || "尚未同步")}</strong></div>
-        <div><span class="rem-label">同步模式</span><strong>${safe(sync.mode || WAREHOUSE_SYNC_MODE)}</strong></div>
-      </div>
-      ${sync.errorMessage ? `<p class="rem-sync-error">同步错误：${safe(sync.errorMessage)}</p>` : ""}
-      <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>物料</th><th>規格</th><th>申請數量</th><th>已備數量</th></tr></thead><tbody>
-        ${mr.lines.map(line => `<tr><td>${safe(line.name)}</td><td>${safe(line.spec || "-")}</td><td>${safe(line.qty)} ${safe(line.unit)}</td><td><input type="number" min="0" max="${safe(line.qty)}" value="${safe(line.preparedQty || 0)}" data-rem-prepared="${safe(mr.id)}" data-line="${safe(line.id)}" ${["PUR", "ADMIN"].includes(state.role) ? "" : "disabled"}></td></tr>`).join("")}
-      </tbody></table></div>
-      <div class="rem-actions">
-        ${["PUR", "ADMIN"].includes(state.role) ? `<button class="secondary-btn" data-rem-mr-save="${safe(mr.id)}">保存備貨進度</button><button class="primary-btn" data-rem-mr-ready="${safe(mr.id)}">標記材料就緒</button>` : '<span class="muted">由倉管維護備貨進度。</span>'}
-        ${sync.status === "已同步" ? "" : `<button class="secondary-btn" data-rem-warehouse-sync="${safe(mr.id)}">重試同步倉庫通</button>`}
-        ${sync.workbenchUrl ? `<a class="secondary-btn" href="${safe(sync.workbenchUrl)}" target="_blank" rel="noopener noreferrer">打開倉庫通</a>` : ""}
-      </div>
-      <p class="muted">已按仓库通真实 Schema 映射 MR 号码、场地、报价单号、合同总价，以及物料名称／编码／规格／单位／数量／预算单价／预算金额。</p>
-    </div>`;
-  }
-
   if (!PAGES.some(p => p.key === "maintenance")) PAGES.splice(3, 0, { key: "maintenance", label: "保養計劃", icon: "📅", sub: "成交 M 報價的整期上門計劃" });
   ["CR", "TL", "QUO"].forEach(role => { if (Array.isArray(ROLE_PAGES[role]) && !ROLE_PAGES[role].includes("maintenance")) ROLE_PAGES[role].push("maintenance"); });
   const originalPc = renderPc;
@@ -519,9 +469,7 @@
     .rem-empty-items{margin:12px 0 0}
     .rem-won-form .rem-actions{justify-content:flex-end;margin-top:0;padding-top:16px;border-top:1px solid var(--line)}
     .rem-won-form .rem-actions button{min-width:104px;height:40px}
-    .rem-warehouse-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.rem-warehouse-head h3,.rem-warehouse-head h4{margin-bottom:4px}
-    .rem-mr-table{margin-top:14px}.rem-mr-detail{border-color:color-mix(in srgb,var(--primary) 32%,var(--line));box-shadow:0 12px 28px rgba(15,23,42,.06)}
-    .rem-mr-detail input[type="number"]{width:92px}.rem-sync-metrics strong{font-size:18px}.rem-warehouse-card{margin:0}.rem-sync-error{color:#b42318;background:#fef3f2;padding:10px;border-radius:7px}
+    .rem-warehouse-card{margin:0}
     @media(max-width:760px){.rem-grid{grid-template-columns:1fr}.rem-toolbar{flex-direction:column}.rem-won-modal{width:calc(100vw - 20px)}.rem-won-modal .um-modal-head{padding:18px 18px 14px}.rem-won-form{padding:16px 18px 18px}.rem-won-field-grid{grid-template-columns:1fr}.rem-final-list .rem-item{grid-template-columns:1fr;gap:9px}}
   </style>`);
 
