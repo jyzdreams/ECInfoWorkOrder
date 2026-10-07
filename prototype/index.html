@@ -738,6 +738,8 @@
       box-shadow: 0 12px 28px rgba(15, 23, 42, .16);
     }
     .search-select-menu[hidden] { display: none; }
+    /* 下拉選項位於會裁剪的容器（如 modal）內時，改用 fixed 定位並掛到 body，避免被 overflow/層級遮擋 */
+    .search-select-menu.is-fixed { position: fixed; z-index: 4000; }
     .search-select-search {
       width: 100%;
       min-width: 0 !important;
@@ -10799,13 +10801,22 @@
 
     function closeSearchableSelects(except) {
       document.querySelectorAll(".search-select-menu:not([hidden])").forEach(menu => {
-        if (menu !== except) menu.hidden = true;
+        if (menu === except) return;
+        menu.hidden = true;
+        // 若面板曾被掛到 body（modal 場景），收起時歸位到原包裝層
+        if (menu._wrapper && menu.parentNode !== menu._wrapper) menu._wrapper.appendChild(menu);
+        menu.classList.remove("is-fixed");
+        menu.style.top = "";
+        menu.style.left = "";
+        menu.style.width = "";
       });
     }
 
     function refreshSearchableSelect(select) {
       const wrapper = select?.closest(".search-select");
       if (wrapper) {
+        // 面板若曾掛到 body（modal 場景），移除包裝層時一併清除，避免殘留
+        document.querySelectorAll(".search-select-menu").forEach(m => { if (m._wrapper === wrapper && m.parentNode !== wrapper) m.remove(); });
         wrapper.parentNode.insertBefore(select, wrapper);
         wrapper.remove();
       }
@@ -10888,30 +10899,66 @@
               if (option.disabled) return;
               select.value = option.value;
               updateValue();
-              menu.hidden = true;
-              trigger.setAttribute("aria-expanded", "false");
+              hideMenu();
               select.dispatchEvent(new Event("input", { bubbles: true }));
               select.dispatchEvent(new Event("change", { bubbles: true }));
             });
             options.appendChild(item);
           });
         };
+        // 選單若位於會裁剪的容器（modal）內，改用 fixed 定位並掛到 body，避免被 overflow／層級遮擋
+        const repositionMenu = () => {
+          if (!menu.classList.contains("is-fixed")) return;
+          const rect = trigger.getBoundingClientRect();
+          menu.style.top = `${rect.bottom + 4}px`;
+          menu.style.left = `${rect.left}px`;
+          menu.style.width = `${rect.width}px`;
+          // 下方空間不足且上方足夠時向上展開
+          const menuHeight = menu.offsetHeight;
+          if (rect.bottom + 4 + menuHeight > window.innerHeight && rect.top - 4 - menuHeight > 0) {
+            menu.style.top = `${rect.top - menuHeight - 4}px`;
+          }
+        };
+        // 收起選單：隱藏並（若曾掛到 body）歸位到原包裝層
+        const hideMenu = () => {
+          menu.hidden = true;
+          trigger.setAttribute("aria-expanded", "false");
+          menu.classList.remove("is-fixed");
+          menu.style.top = "";
+          menu.style.left = "";
+          menu.style.width = "";
+          if (menu.parentNode !== wrapper) wrapper.appendChild(menu);
+        };
         const open = () => {
           if (select.disabled) return;
           closeSearchableSelects(menu);
           search.value = "";
           renderOptions();
+          if (select.closest(".um-modal, .qf-modal")) {
+            menu.classList.add("is-fixed");
+            if (menu.parentNode !== document.body) document.body.appendChild(menu);
+          } else {
+            menu.classList.remove("is-fixed");
+            if (menu.parentNode !== wrapper) wrapper.appendChild(menu);
+            menu.style.top = "";
+            menu.style.left = "";
+            menu.style.width = "";
+          }
           menu.hidden = false;
           trigger.setAttribute("aria-expanded", "true");
+          repositionMenu();
           requestAnimationFrame(() => search.focus());
         };
+        // 開啟期間隨容器滾動／視窗縮放重新定位（fixed 不受父層滾動影響）
+        const onViewportChange = () => { if (!menu.hidden && menu.classList.contains("is-fixed")) repositionMenu(); };
+        window.addEventListener("scroll", onViewportChange, true);
+        window.addEventListener("resize", onViewportChange);
 
-        trigger.addEventListener("click", () => menu.hidden ? open() : (menu.hidden = true, trigger.setAttribute("aria-expanded", "false")));
+        trigger.addEventListener("click", () => menu.hidden ? open() : hideMenu());
         search.addEventListener("input", () => renderOptions(search.value));
         search.addEventListener("keydown", event => {
           if (event.key === "Escape") {
-            menu.hidden = true;
-            trigger.setAttribute("aria-expanded", "false");
+            hideMenu();
             trigger.focus();
           }
         });
@@ -10919,6 +10966,7 @@
 
         select.parentNode.insertBefore(wrapper, select);
         wrapper.append(trigger, menu, select);
+        menu._wrapper = wrapper; // 記錄原包裝層，modal 場景掛到 body 後可歸位
         select.classList.add("search-select-native");
         updateValue();
         renderOptions();
@@ -10927,7 +10975,8 @@
       if (!searchableSelectDismissBound) {
         searchableSelectDismissBound = true;
         document.addEventListener("pointerdown", event => {
-          if (!event.target.closest(".search-select")) closeSearchableSelects();
+          // 點擊下拉面板本身（可能已掛到 body）不算「外部點擊」
+          if (!event.target.closest(".search-select") && !event.target.closest(".search-select-menu")) closeSearchableSelects();
         });
       }
 
@@ -15155,8 +15204,8 @@
       } catch (e) { items = []; }
       // 根據物料明細自動計算總金額
       const amount = items.reduce((sum, item) => sum + (item.amount || (item.qty || 1) * (item.unitPrice || 0)), 0);
-      const taxRate = quotation.taxRate || 0;
-      const newTotalAmount = calculateTax(amount, taxRate);
+      // 會計部會議（0928）：不需要稅率，報價總金額＝明細合計
+      const newTotalAmount = amount;
 
       // 版本號規則（會議決策）：僅「價格變動」才升版本（R1/R2）；純文字修改不升版，但仍保留 History
       const priceChanged = Number(quotation.amount || 0) !== Number(amount)
@@ -15732,7 +15781,6 @@
         </table>
         <table class="totals">
           <tr><th style="width:160px;">總金額</th><td>HKD ${Number(quotation.amount || 0).toLocaleString()}</td></tr>
-          <tr><th>稅率</th><td>${(Number(quotation.taxRate || 0) * 100).toFixed(0)}%</td></tr>
           <tr><th>報價金額</th><td class="total">HKD ${Number(quotation.totalAmount || 0).toLocaleString()}</td></tr>
           ${quotation.bargainAmount ? `<tr><th>議價後金額</th><td><strong>HKD ${Number(quotation.bargainAmount).toLocaleString()}</strong></td></tr>` : ""}
         </table>
@@ -15937,10 +15985,6 @@
     function paginateQuotations(filtered) {
       const start = (quotationState.currentPage - 1) * quotationState.pageSize;
       return filtered.slice(start, start + quotationState.pageSize);
-    }
-
-    function calculateTax(amount, taxRate) {
-      return amount * (1 + taxRate);
     }
 
     function openQuotationModalFromTicket(ticketId) {
@@ -16250,6 +16294,14 @@
                   <div class="qf-field qf-hidden" data-invite-detail>
                     <label class="qf-label" for="qf-emsdRefNo">EMSD 參考編號／邀請編號</label>
                     <input class="qf-input" id="qf-emsdRefNo" name="emsdRefNo" disabled placeholder="政府客戶必填，例如 EMSD/2026/xxxx；私人客戶免填">
+                  </div>
+                  <div class="qf-field qf-hidden" data-invite-detail>
+                    <label class="qf-label" for="qf-referenceQuotation">參考報價單</label>
+                    <select class="qf-select" id="qf-referenceQuotation" name="referenceQuotationId" disabled>
+                      <option value="">請選擇參考報價單（選後帶出物料）</option>
+                      ${quotations.map(q => `<option value="${q.id}">${q.id} - ${escapeHtml(q.customerName || "")} (${escapeHtml(q.title || "")})</option>`).join("")}
+                    </select>
+                    <div class="qf-hint">選擇後會將該報價單的物料明細帶入下方「物料明細」</div>
                   </div>
                 </div>
               </div>
@@ -16563,8 +16615,8 @@
         resolvedCustomerId = matchedCustomer.id;
       }
       const amount = parseFloat(formData.get("amount")) || 0;
-      const taxRate = parseFloat(formData.get("taxRate")) || 0;
-      const totalAmount = calculateTax(amount, taxRate);
+      // 會計部會議（0928）：不需要稅率，報價總金額＝明細合計
+      const totalAmount = amount;
       const sourceTicketId = formData.get("sourceTicketId") || "";
       // 解析物料明細數據（從報價頁面物料明細表格收集）
       const itemsStr = formData.get("items") || "[]";
@@ -16581,7 +16633,7 @@
           quotation.createdAt = formData.get("createdAt") || quotation.createdAt;
           quotation.validUntil = formData.get("validUntil") || quotation.validUntil;
           quotation.amount = amount;
-          quotation.taxRate = taxRate;
+          quotation.taxRate = 0;
           quotation.totalAmount = totalAmount;
           quotation.bargainAmount = parseFloat(formData.get("bargainAmount")) || null;
           quotation.status = formData.get("status") || quotation.status;
@@ -16614,7 +16666,7 @@
           customerName: formData.get("customerName") || customer?.nameZh || "",
           area: formData.get("area") || ticket?.area || "",
           amount: amount,
-          taxRate: taxRate,
+          taxRate: 0,
           totalAmount: totalAmount,
           bargainAmount: parseFloat(formData.get("bargainAmount")) || null,
           // 直接新增的報價已進入報價處理階段；「待報價」只保留給 CS／Call 請求草稿。
@@ -17334,16 +17386,13 @@
 
       // Auto-calculate total amount
       const amountInput = modal.querySelector("[name='amount']");
-      const taxRateInput = modal.querySelector("[name='taxRate']");
       const totalAmountInput = modal.querySelector("[name='totalAmount']");
-      if (amountInput && taxRateInput && totalAmountInput) {
+      if (amountInput && totalAmountInput) {
         const calculate = () => {
-          const amount = parseFloat(amountInput.value) || 0;
-          const taxRate = parseFloat(taxRateInput.value) || 0;
-          totalAmountInput.value = calculateTax(amount, taxRate).toFixed(2);
+          // 會計部會議（0928）：不需要稅率，總金額＝明細合計
+          totalAmountInput.value = (parseFloat(amountInput.value) || 0).toFixed(2);
         };
         amountInput.addEventListener("input", calculate);
-        taxRateInput.addEventListener("input", calculate);
       }
 
       // 物料明細管理：新增一列、自動計算小計與總金額、刪除物料（從採購單移植）
@@ -17417,6 +17466,21 @@
         // 關聯客戶「＋ 新增」按鈕：建立新客戶後回填下拉並選中（下拉框本身最多顯示 6 條、可滑動）
         const qfNewCustomerBtn = modal.querySelector("[data-qf-new-customer]");
         if (qfNewCustomerBtn) qfNewCustomerBtn.addEventListener("click", () => createQuotationCustomer(modal.querySelector("#qf-customerName")));
+        // 邀請報價：選擇「參考報價單」後帶出其物料明細到下方物料表
+        const qfRefSelect = modal.querySelector("#qf-referenceQuotation");
+        if (qfRefSelect) {
+          qfRefSelect.addEventListener("change", () => {
+            const refQuotation = quotations.find(q => q.id === qfRefSelect.value);
+            qfItemsBody.innerHTML = "";
+            const refItems = refQuotation && Array.isArray(refQuotation.items) ? refQuotation.items : [];
+            if (refItems.length) {
+              refItems.forEach(item => addQfItemRow(item));
+            } else {
+              addQfItemRow();
+            }
+            recalcQfTotal();
+          });
+        }
         // 預設新增一行空物料
         addQfItemRow();
       }
@@ -19040,6 +19104,22 @@
       return items;
     }
 
+    // 會計部會議（0928）②：判斷報價「開票文件」是否齊全
+    // 完工紙＝completionPaperStatus（已完工／無需完工紙視為齊備）；PO＝customerOrder；
+    // 照片＝關聯工單附件（若客戶地址標示「不可拍照」則豁免）。回傳缺少項標籤陣列，空＝齊全。
+    function getQuotationMissingDocs(quotation) {
+      if (!quotation || quotation.isMaintenance) return [];
+      const missing = [];
+      if (!["已完工", "無需完工紙"].includes(quotation.completionPaperStatus || "")) missing.push("完工紙");
+      if (!quotation.customerOrder) missing.push("客戶確認PO");
+      const ticket = tickets.find(t => t.id === quotation.ticketId);
+      const hasPhoto = Boolean(ticket && Array.isArray(ticket.attachments) && ticket.attachments.length > 0);
+      const customer = customers.find(c => c.nameZh === quotation.customerName);
+      const photoExempt = Boolean(customer && Array.isArray(customer.addresses) && customer.addresses.some(a => a.noPhoto));
+      if (!hasPhoto && !photoExempt) missing.push("照片");
+      return missing;
+    }
+
     // 渲染待開票頁面：只需 Job Code（報價編號），支援篩選、全選、批量開票、自動生成發票號
     function renderFinPending(pendingInvoices) {
       // F1：合併 M 類保養合約依條款自動生成的週期性待開票（已開票的期間不再列出）
@@ -19116,9 +19196,14 @@
               </tr>
             </thead>
             <tbody>
-              ${filtered.map(q => `
+              ${filtered.map(q => {
+                const sourceQuotation = quotations.find(item => item.id === q.id);
+                const missingDocs = sourceQuotation ? getQuotationMissingDocs(sourceQuotation) : [];
+                const blocked = missingDocs.length > 0;
+                const docLabel = sourceQuotation ? (blocked ? `欠：${missingDocs.join("、")}` : "相片/完工紙/SR/確認") : "合約";
+                return `
                 <tr>
-                  <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check></td>
+                  <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check${blocked ? ' disabled' : ''}></td>
                   <td><strong>${q.ourRef || q.id}</strong></td>
                   <td>${q.customerName}</td>
                   <td>${q.title || '-'}</td>
@@ -19127,11 +19212,13 @@
                   <td>${q.billingPeriod || '—'}</td>
                   <td>${q.serviceStart ? `${q.serviceStart} ~ ${q.serviceEnd}` : '—'}</td>
                   <td>${q.billingCycle || '一次性'}</td>
-                  <td><span style="font-size:12px;color:var(--muted);">${q.isMaintenance ? '合約' : '相片/完工紙/SR/確認'}</span></td>
-                  <td><span class="tag warning">待開票</span></td>
-                  <td><button class="link-btn" data-create-invoice-for="${q.id}" data-job-code="${q.ourRef || ''}">開票</button></td>
+                  <td><span style="font-size:12px;color:${blocked ? 'var(--danger)' : 'var(--muted)'};">${docLabel}</span></td>
+                  <td>${blocked ? '<span class="tag danger">欠文件</span>' : '<span class="tag warning">待開票</span>'}</td>
+                  <td>${blocked
+                    ? `<button class="link-btn" type="button" disabled title="缺少：${missingDocs.join("、")}" style="opacity:.5;cursor:not-allowed;">開票</button>`
+                    : `<button class="link-btn" data-create-invoice-for="${q.id}" data-job-code="${q.ourRef || ''}">開票</button>`}</td>
                 </tr>
-              `).join('') || '<tr><td colspan="12" style="text-align:center;color:var(--muted);">暫無待開票項目</td></tr>'}
+              `;}).join('') || '<tr><td colspan="12" style="text-align:center;color:var(--muted);">暫無待開票項目</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -19363,16 +19450,28 @@
       const selected = Array.from(document.querySelectorAll(".fin-row-check:checked")).map(cb => cb.value);
       if (selected.length === 0) { toast("請先選擇待開票項目", "error"); return; }
       const today = new Date().toISOString().slice(0, 10);
+      // ⑧：任一選中項的開票金額低於其報價總金額時，需填寫原因
+      const lowItems = selected.map(id => {
+        const q = quotations.find(item => item.id === id);
+        if (!q) return null;
+        const total = Number(q.totalAmount || q.amount || 0);
+        const amt = Number(q.tenderAmount || q.amount || 0);
+        return amt < total ? { id, amount: amt, total } : null;
+      }).filter(Boolean);
+      const needReason = lowItems.length > 0;
+      const defaultNo = generateInvoiceNo();
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
         <div class="um-modal" style="max-width:520px;">
           <div class="um-modal-head"><h2>批量開具發票</h2><button class="um-modal-close" data-close-modal>×</button></div>
           <div style="padding:20px 24px;">
-            <p style="color:var(--muted);font-size:13px;margin:0 0 16px;">已選 ${selected.length} 筆待開票。請輸入第一張發票號，餘下將自動順序生成。發票內容及金額將根據 CS/報價組輸入的資料滙出。</p>
-            <div class="field"><label class="required">第一張發票號</label><input id="batchFirstNo" placeholder="如 INV-202607-020" value="INV-202607-020"></div>
+            <p style="color:var(--muted);font-size:13px;margin:0 0 16px;">已選 ${selected.length} 筆待開票。系統已依「年月日+序號」自動生成第一張發票號，如需可手動修改，餘下將自動順序生成。發票內容及金額將根據 CS/報價組輸入的資料滙出。</p>
+            <div class="field"><label class="required">第一張發票號</label><input id="batchFirstNo" placeholder="如 20261006-001" value="${defaultNo}"></div>
             <div class="field"><label>發票日期（可手動變更）</label><input type="date" id="batchInvDate" value="${today}"></div>
-            <p style="font-size:12px;color:var(--muted);background:var(--bg);padding:10px;border-radius:6px;margin:12px 0 0;">ℹ 加完發票號後，系統自動生成發票連同該單工程相關的相片、完工紙、SR 及客戶確認 work order/confirmation，並自動彈出列印發票功能。</p>
+            ${needReason ? `
+            <div class="field"><label class="required">低於報價總金額原因（${lowItems.length} 筆）</label><textarea id="batchLowReason" placeholder="部分發票金額低於報價總金額，請說明原因" style="min-height:70px;"></textarea></div>` : ""}
+            <p style="font-size:12px;color:var(--muted);background:var(--bg);padding:10px;border-radius:6px;margin:12px 0 0;">ℹ 開完發票後，系統自動生成發票連同該單工程相關的相片、完工紙、SR 及客戶確認 work order/confirmation，並自動彈出列印發票功能。</p>
           </div>
           <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
             <button type="button" class="ghost-btn" data-close-modal>取消</button>
@@ -19387,6 +19486,9 @@
         const firstNo = modal.querySelector("#batchFirstNo").value.trim();
         const invDate = modal.querySelector("#batchInvDate").value;
         if (!firstNo) { toast("請輸入第一張發票號", "error"); return; }
+        // ⑧：低於報價總金額必須填寫原因
+        const lowReason = needReason ? (modal.querySelector("#batchLowReason").value || "").trim() : "";
+        if (needReason && !lowReason) { toast("有發票金額低於報價總金額，請填寫原因", "error"); return; }
         // 解析發票號前綴與數字部分，自動順序生成
         const match = firstNo.match(/^(.*?)(\d+)$/);
         const prefix = match ? match[1] : firstNo;
@@ -19399,10 +19501,15 @@
           // 查找對應的待開票項目（報價或保養合約）
           const q = quotations.find(item => item.id === id);
           if (q) {
+            const total = Number(q.totalAmount || q.amount || 0);
+            const amt = Number(q.tenderAmount || q.amount || 0);
+            const isLow = amt < total;
             invoices.push({
               id: invoiceNo, invoiceNo: invoiceNo, quotationId: q.id, customerName: q.customerName,
               amount: q.tenderAmount || q.amount, invoiceDate: invDate, dueDate: "",
-              status: "已開具", taxRate: 0, remark: q.title || "", amountChanged: false
+              status: "已開具", taxRate: 0, remark: q.title || "", amountChanged: false,
+              lowAmountReason: isLow ? lowReason : "",
+              referenceTotal: isLow ? total : undefined
             });
           } else {
             // M 類保養合約依條款自動生成的週期待開票：以 id 反查合約與期間（F1）
@@ -19443,6 +19550,10 @@
             ${targetInvoices.map(inv => {
               const q = quotations.find(item => item.id === inv.quotationId);
               const jobId = q ? q.ourRef : (inv.jobCode || inv.quotationId || '—');
+              // 會計部會議（0928）①：發票顯示客戶英文名稱，以及地點的中英文地址
+              const cust = customers.find(c => c.nameZh === inv.customerName);
+              const addr = cust && Array.isArray(cust.addresses) ? cust.addresses[0] : null;
+              const nameEn = cust ? (cust.nameEn || '') : '';
               return `
                 <div class="fin-receipt-preview">
                   <div class="fin-receipt-header">
@@ -19452,8 +19563,10 @@
                   </div>
                   <div class="fin-receipt-body">
                     <div class="fin-receipt-row"><span><strong>發票號:</strong> ${inv.invoiceNo}${inv.reprintCount ? '<span style="color:#b91c1c;font-weight:700;margin-left:6px;">（重印 REPRINT）</span>' : ''}</span><span><strong>日期:</strong> ${inv.invoiceDate}</span></div>
-                    <div class="fin-receipt-row"><span><strong>To:</strong> ${inv.customerName}</span><span><strong>Job ID:</strong> ${jobId}</span></div>
+                    <div class="fin-receipt-row"><span><strong>To:</strong> ${escapeHtml(inv.customerName)}${nameEn ? ` / ${escapeHtml(nameEn)}` : ''}</span><span><strong>Job ID:</strong> ${jobId}</span></div>
+                    ${addr ? `<div class="fin-receipt-row"><span><strong>地點:</strong> ${escapeHtml(addr.addressZh || '')}</span><span>${escapeHtml(addr.addressEn || '')}</span></div>` : ''}
                     <div class="fin-receipt-row"><strong>金額: HK$${inv.amount.toLocaleString()}</strong></div>
+                    ${inv.lowAmountReason ? `<p style="font-size:12px;color:#b45309;margin:8px 0 0;">※ 開票金額低於報價總金額（HKD ${Number(inv.referenceTotal || 0).toLocaleString()}），原因：${escapeHtml(inv.lowAmountReason)}</p>` : ''}
                     <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">附件：相片、完工紙、SR ${q ? q.srNo : ''} 及客戶確認 work order/confirmation</p>
                   </div>
                 </div>
@@ -22400,6 +22513,23 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       });
     }
 
+    // 生成發票號：YYYYMMDD-NNN（年月日+當日遞增序號），依現有發票號避免撞號
+    // 會計部會議（0928）：發票號用「年日+遞增」規則，序號隨日期自然歸零
+    function generateInvoiceNo() {
+      const d = new Date();
+      const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+      const prefix = `${ymd}-`;
+      let maxSeq = 0;
+      invoices.forEach(inv => {
+        const no = inv.invoiceNo || "";
+        if (no.startsWith(prefix)) {
+          const seq = parseInt(no.slice(prefix.length), 10);
+          if (!isNaN(seq) && seq > maxSeq) maxSeq = seq;
+        }
+      });
+      return `${prefix}${String(maxSeq + 1).padStart(3, '0')}`;
+    }
+
     // 開具發票
     function createInvoice(pendingId) {
       // 待開票項目可能是報價單，也可能是保養合約依條款自動生成的週期帳單（F1）
@@ -22408,10 +22538,22 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const contractItem = quotation ? null : contracts.flatMap(c => generateContractBillingItems(c)).find(item => item.id === pendingId);
       if (!quotation && !contractItem) return;
       const base = quotation
-        ? { customerName: quotation.customerName, amount: quotation.tenderAmount || quotation.amount || 0, taxRate: quotation.taxRate || 0.1, title: quotation.title || "", jobCode: quotation.ourRef || quotation.id }
+        ? { customerName: quotation.customerName, amount: quotation.tenderAmount || quotation.amount || 0, taxRate: 0, title: quotation.title || "", jobCode: quotation.ourRef || quotation.id }
         : { customerName: contractItem.customerName, amount: contractItem.tenderAmount || 0, taxRate: 0, title: contractItem.title || "", jobCode: contractItem.ourRef };
 
-      const defaultInvoiceNo = `INV-2026-${String(invoices.length + 1).padStart(3, '0')}`;
+      // 會計部會議（0928）②：完工紙＋客戶確認PO＋照片 齊全才可開票，否則提示欠文件
+      if (quotation) {
+        const missingDocs = getQuotationMissingDocs(quotation);
+        if (missingDocs.length > 0) {
+          toast(`文件不齊全（缺少：${missingDocs.join("、")}），暫不可開票`, "error");
+          return;
+        }
+      }
+      // 會計部會議（0928）⑧：開票金額低於報價總金額時需填寫原因
+      const quotationTotal = quotation ? Number(quotation.totalAmount || quotation.amount || 0) : 0;
+      const lowAmount = Boolean(quotation) && base.amount < quotationTotal;
+
+      const defaultInvoiceNo = generateInvoiceNo();
       const defaultDate = new Date().toISOString().slice(0, 10);
       const defaultDueDate = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
       const modal = document.createElement("div");
@@ -22446,10 +22588,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                   <input value="${base.amount.toFixed(2)}" readonly style="background:var(--bg);text-align:right;">
                 </div>
                 <div class="field">
-                  <label>稅率</label>
-                  <input value="${(base.taxRate * 100)}%" readonly style="background:var(--bg);">
-                </div>
-                <div class="field">
                   <label>付款方式</label>
                   <select name="paymentTiming">
                     <option value="後付款（Post-payment）">後付款（Post-payment）</option>
@@ -22478,6 +22616,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                   <label>備註</label>
                   <input name="remark" value="${escapeHtml(base.title)}" placeholder="可修改備註">
                 </div>
+                ${lowAmount ? `
+                <div class="field" style="grid-column:span 2;">
+                  <label class="required">低於報價總金額原因</label>
+                  <textarea name="lowAmountReason" required placeholder="本次開票金額 HKD ${base.amount.toLocaleString()} 低於報價總金額 HKD ${quotationTotal.toLocaleString()}，請說明原因" style="min-height:70px;"></textarea>
+                </div>` : ""}
               </div>
             </div>
             <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
@@ -22494,6 +22637,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(form);
+        // ⑧：開票金額低於報價總金額必須填寫原因
+        const lowAmountReason = (formData.get("lowAmountReason") || "").trim();
+        if (lowAmount && !lowAmountReason) { toast("開票金額低於報價總金額，請填寫原因", "error"); return; }
         const invoice = {
           id: `INV-${Date.now()}`,
           quotationId: quotation ? quotation.id : "",
@@ -22504,7 +22650,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           dueDate: formData.get("dueDate"),
           status: '已開具',
           invoiceNo: formData.get("invoiceNo"),
-          taxRate: base.taxRate,
+          taxRate: 0,
+          lowAmountReason: lowAmountReason || "",
+          referenceTotal: lowAmount ? quotationTotal : undefined,
           paymentTiming: formData.get("paymentTiming") || "後付款（Post-payment）",
           warranty: formData.get("warranty") || "",
           remark: formData.get("remark") || base.title
@@ -25817,7 +25965,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
       // 待開票全選 / 取消全選
       document.querySelectorAll("[data-fin-select-all]").forEach(cb => cb.addEventListener("change", (e) => {
-        document.querySelectorAll(".fin-row-check").forEach(row => { row.checked = e.target.checked; });
+        // 欠文件（disabled）的列不參與全選
+        document.querySelectorAll(".fin-row-check").forEach(row => { if (!row.disabled) row.checked = e.target.checked; });
         updateFinSelectedCount();
       }));
       // 待開票單行選擇
