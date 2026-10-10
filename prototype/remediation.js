@@ -270,10 +270,25 @@
       </form></div>`;
     document.body.appendChild(modal);
     modal.querySelectorAll("[data-rem-close]").forEach(button => button.addEventListener("click", () => modal.remove()));
-    modal.querySelector("form").addEventListener("submit", event => {
+    const wonForm = modal.querySelector("form");
+    wonForm.addEventListener("submit", event => {
       event.preventDefault();
       if (confirmWon(q, event.currentTarget)) modal.remove();
     });
+    // 原生必填驗證未通過時不會觸發 submit 事件，補上明確提示與聚焦，
+    // 否則按下「確認中單」會看似完全無反應（狀態不會有任何變化）
+    const wonSubmitBtn = wonForm.querySelector('button[type="submit"]');
+    if (wonSubmitBtn) {
+      wonSubmitBtn.addEventListener("click", () => {
+        if (wonForm.checkValidity()) return;
+        const invalid = wonForm.querySelector(":invalid");
+        const labelText = invalid
+          ? (invalid.closest("label")?.querySelector("span")?.textContent || invalid.getAttribute("name") || "")
+          : "";
+        toast(labelText ? `請先完成必填欄位：${labelText}` : "請先完成必填欄位", "error");
+        if (invalid && typeof invalid.focus === "function") invalid.focus();
+      });
+    }
   };
   const originalUpdateQuoteStatus = updateQuotationStatus;
   updateQuotationStatus = function (form, id) {
@@ -295,7 +310,14 @@
       existing.category ||= t.tenderCategory || "";
       existing.tenderNo ||= id;
     } else {
-      createQuotationFromTender(t);
+      // 透過「新建標書」建立的標書可能尚未關聯報價：先彈窗詢問是否立即創建報價
+      const wantCreate = await showConfirmDialog({
+        title: "創建報價",
+        message: `標書「${t.projectName || t.id}」尚未關聯報價。是否立即創建報價？選擇「否」則可稍後在報價管理中手動創建並關聯。`,
+        confirmText: "是，創建報價",
+        cancelText: "否，稍後手動創建"
+      });
+      if (wantCreate) createQuotationFromTender(t);
     }
     saveDataToLocalStorage();
     state.selectedTenderId = null;

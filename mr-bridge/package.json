@@ -1,0 +1,14 @@
+{
+  "name": "mr-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "EC 工单系统 <-> 仓库通 MR 表单 中间服务",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -780,6 +780,15 @@
     .search-select-option:hover,
     .search-select-option.active { background: var(--primary-soft); color: var(--primary-strong); }
     .search-select-option:disabled { cursor: not-allowed; color: var(--muted); }
+    /* 選項帶副標題（如政府客戶的合約編號）時改為兩行顯示 */
+    .search-select-option.has-sub {
+      white-space: normal;
+      text-overflow: clip;
+      line-height: 1.35;
+      min-height: 44px;
+    }
+    .search-select-option-sub { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .search-select-option.active .search-select-option-sub { color: inherit; opacity: .75; }
     .search-select-empty { padding: 10px 8px; color: var(--muted); font-size: 12px; text-align: center; }
     .required::after { content: " *"; color: var(--danger); }
     .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -1371,6 +1380,10 @@
     .qf-select-opt.selected { background: #eff6ff; color: var(--primary, #1e6bff); font-weight: 600; }
     .qf-select-opt.disabled { color: #d1d5db; cursor: not-allowed; }
     .qf-select-opt.disabled:hover { background: transparent; }
+    /* 選項帶副標題（如政府客戶的合約編號）時改為兩行顯示 */
+    .qf-select-opt.has-sub { flex-direction: column; align-items: flex-start; justify-content: center; }
+    .qf-select-opt .qf-select-opt-sub { display: block; font-size: 11px; color: #9ca3af; margin-top: 2px; }
+    .qf-select-opt.selected .qf-select-opt-sub { color: inherit; opacity: .75; }
     .qf-select-wrap.qf-readonly .qf-select-trigger { background: #f3f4f6 !important; color: #6b7280 !important; cursor: not-allowed; }
     .qf-select-wrap.qf-readonly .qf-select-trigger::after { display: none; }
     /* 工單模態框淡入動畫：避免 backdrop-filter 突然應用導致閃爍 */
@@ -1418,6 +1431,25 @@
     .qf-btn-cancel:hover { background: #f9fafb; color: #1f2937; border-color: #d1d5db; }
     .qf-btn-save { background: var(--primary, #1e6bff); color: #fff; }
     .qf-btn-save:hover { background: var(--primary-strong, #1849cc); box-shadow: 0 4px 12px rgba(30,107,255,.3); }
+    /* 貨期控件：數字區間（起始–結束）+ 單位下拉（days / week） */
+    .lead-time-control { display: flex; align-items: center; gap: 8px; }
+    .lead-time-control .lead-time-num { width: 76px; flex: 0 0 auto; text-align: center; }
+    .lead-time-control .lead-time-sep { color: var(--muted); }
+    /* 單位下拉：隱藏原生箭頭，改用自繪 caret，視覺與其他輸入框一致 */
+    .lead-time-unit-wrap { position: relative; display: inline-flex; flex: 0 0 auto; }
+    .lead-time-unit-wrap .lead-time-unit {
+      width: 110px;
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+    .lead-time-unit-wrap .lead-time-caret {
+      position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: var(--muted); font-size: 12px; line-height: 1;
+    }
+    /* 結束值小於起始值時的錯誤態 */
+    .lead-time-num.lead-time-error { border-color: var(--danger, #dc2626) !important; background: var(--danger-soft, #fef2f2) !important; }
+    .lead-time-error-msg { color: var(--danger, #dc2626) !important; }
     @media (max-width: 720px) {
       .qf-grid { grid-template-columns: 1fr; }
       .qf-modal { max-width: 100%; }
@@ -1504,6 +1536,10 @@
     .po-total-bar span { font-size: 13px; font-weight: 600; color: #374151; }
     .po-total-bar strong { font-size: 18px; font-weight: 700; color: #1e40af; }
     .po-total-bar .po-currency { font-size: 12px; color: #6b7280; font-weight: 500; margin-right: 4px; }
+    /* 總價 / 折扣輸入（置於報價總金額左側） */
+    .po-total-bar .po-total-inputs { display: flex; align-items: center; gap: 16px; margin-right: auto; }
+    .po-total-bar .po-discount-field { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #374151; }
+    .po-total-bar .po-discount-field input { width: 96px; height: 30px; padding: 0 8px; border: 1px solid #dbeafe; border-radius: 6px; text-align: right; font: inherit; font-size: 13px; background: #fff; }
     .po-empty-row { text-align: center; color: #9ca3af; padding: 32px 12px !important; font-size: 13px; }
 
     .photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
@@ -2880,29 +2916,12 @@
     .text-divider { color: var(--line); margin: 0 2px; user-select: none; }
 
     /* ===== Customer Management Module ===== */
-    .cm-layout {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 14px;
-      align-items: start;
-      min-height: calc(100vh - 132px);
-    }
-    .cm-sidebar, .cm-list-panel, .cm-detail-panel {
+    .cm-list-panel, .cm-detail-panel {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 12px;
       box-shadow: var(--shadow);
       padding: 16px;
-    }
-    .cm-sidebar-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
-      margin: 0 0 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
-      text-transform: uppercase;
-      letter-spacing: .5px;
     }
     .cm-category-item {
       display: flex;
@@ -2934,71 +2953,9 @@
     }
     .cm-category-item.active .cat-count { background: var(--primary); color: #fff; }
     .cm-list-panel { display: grid; gap: 12px; align-content: start; min-width: 0; }
-    .cm-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .cm-toolbar input, .cm-toolbar select {
-      flex: 1;
-      min-width: 120px;
-      min-height: 34px;
-      font-size: 13px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--text);
-      border-radius: 7px;
-      padding: 6px 10px;
-      outline: none;
-    }
-    .cm-toolbar input:focus, .cm-toolbar select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30,107,255,.12); }
-    .cm-customer-card {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      margin: 0;
-      cursor: pointer;
-      transition: all .15s ease;
-      background: var(--panel);
-    }
-    .cm-customer-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(30,107,255,.08); }
-    .cm-customer-card.selected { border-color: var(--primary); background: var(--primary-soft); }
-    .cm-customer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .cm-customer-name {
-      font-size: 14px;
-      font-weight: 700;
-      margin: 0;
-    }
-    .cm-customer-name-en {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .cm-customer-meta {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .cm-customer-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .cm-customer-actions {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .cm-customer-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-    .cm-customer-card .ghost-btn { min-height: var(--height-table-action); padding: 0 10px; }
-    .cm-customer-card .ghost-btn:last-child { margin-left: auto; }
+    /* 客戶列表表格：政府客戶同名不同合約編號，以表格呈現更清晰 */
+    .cm-table { table-layout: auto; word-break: break-word; }
+    .cm-table td .cm-table-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
     .cm-detail-panel { display: grid; gap: 14px; align-content: start; }
     .cm-detail-modal {
       width: min(880px, 94vw);
@@ -3090,8 +3047,6 @@
     [data-theme="dark"] .customer-level-重要 { background: #3a1518; color: #ff9fbb; }
 
     @media (max-width: 860px) {
-      .cm-layout { grid-template-columns: 1fr; }
-      .cm-customer-list { grid-template-columns: 1fr; }
       .cm-detail-modal .info-list,
       .cm-detail-modal .cm-contact-card .info-list,
       .cm-detail-modal .cm-address-card .info-list { grid-template-columns: 1fr; }
@@ -3184,6 +3139,29 @@
     .wo-list-section .wo-table {
       table-layout: auto;
       word-break: break-word;
+    }
+    /* CALL 管理：凍結頂部工具列與篩選區，僅下方表格區域可滾動（避免整頁滾動） */
+    .wo-list-section.wo-list-freeze {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 180px);
+      overflow: hidden;
+    }
+    .wo-list-section.wo-list-freeze > .wo-data-page-toolbar,
+    .wo-list-section.wo-list-freeze > .wo-filters,
+    .wo-list-section.wo-list-freeze > .um-pagination { flex: 0 0 auto; }
+    .wo-list-section.wo-list-freeze > .data-table-wrap {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+    }
+    /* 表頭列一併凍結：表格區域滾動時表頭固定在最上方 */
+    .wo-list-section.wo-list-freeze > .data-table-wrap thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--panel-soft);
+      box-shadow: inset 0 -1px 0 var(--line);
     }
     .wo-view-tabs {
       display: flex;
@@ -4377,7 +4355,7 @@
     .tender-status-tab.active strong { color: var(--primary); }
     .tender-filters {
       display: grid;
-      grid-template-columns: repeat(4, minmax(125px, 1fr)) minmax(125px, 1fr) minmax(250px, 1.6fr);
+      grid-template-columns: repeat(4, minmax(125px, 1fr)) minmax(250px, 1.6fr);
       align-items: end;
       gap: 12px;
     }
@@ -4837,6 +4815,26 @@
     .sr-folder-metrics .pc-card:nth-child(4)::after { color: #7e22ce; }
     .sr-folder-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
     .sr-folder-metrics + .pc-section { padding: 14px; }
+
+    /* 客戶管理：頂部統計概覽卡（對齊報告管理指標卡樣式，可點擊篩選） */
+    .cm-customer-metrics { gap: 8px; margin-bottom: 14px; }
+    .cm-customer-metrics .pc-card {
+      min-height: 82px;
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+    }
+    .cm-customer-metrics .pc-card h3 { margin-bottom: 2px; font-size: 12px; }
+    .cm-customer-metrics .pc-card .pc-metric { font-size: 22px; }
+    .cm-customer-metrics .pc-card .pc-label { margin-top: 2px; font-size: 11px; }
+    .cm-customer-metrics .pc-card.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+    .cm-customer-metrics .pc-card.active h3 { color: var(--primary-strong); }
+    .cm-customer-metrics .pc-card:focus-visible { outline: 3px solid rgba(37, 99, 235, .28); outline-offset: 2px; }
     .sr-report-modal { width: min(920px, 100%); }
     .sr-report-modal .dispatch-modal-body { padding: 18px 20px; }
     .sr-report-summary {
@@ -4919,7 +4917,6 @@
     .um-role-sidebar,
     .um-list-panel,
     .um-detail-panel,
-    .cm-sidebar,
     .cm-list-panel,
     .cm-detail-panel {
       border: 1px solid var(--line);
@@ -4967,8 +4964,6 @@
     .wo-filter-group select,
     .um-toolbar input,
     .um-toolbar select,
-    .cm-toolbar input,
-    .cm-toolbar select,
     .sr-filter-controls select,
     .sr-folder-search,
     .tender-search-input,
@@ -4988,8 +4983,6 @@
     .wo-filter-group select,
     .um-toolbar input,
     .um-toolbar select,
-    .cm-toolbar input,
-    .cm-toolbar select,
     .sr-filter-controls select,
     .sr-folder-search,
     .tender-search-input { min-height: var(--control-height); }
@@ -7544,12 +7537,8 @@
           q.status = newStatus;
           migrated = true;
         }
-        // 歷史資料中的「報價組自主新增」已代表報價單已建立，不能再顯示為待報價。
-        // 「待報價」保留給 CS／CR 發起、尚未由報價組處理的草稿。
-        if (q.status === "待報價" && ["報價組自主新增", "自主新增"].includes(q.source)) {
-          q.status = "報價中";
-          migrated = true;
-        }
+        // 註：不再把「自主新增」的待報價強制改為報價中。
+        // 「待報價」現為所有新建報價的起點（尚未發出報價單），由「發出報價單」推進為「報價中」。
       });
       if (migrated) saveDataToLocalStorage();
     })();
@@ -7791,7 +7780,6 @@
     let customerState = {
       categoryFilter: "全部",
       searchKeyword: "",
-      filterType: "全部",
       filterLevel: "全部",
       filterStatus: "全部",
       selectedCustomerId: null,
@@ -7832,7 +7820,6 @@
       isSettingsPopoverOpen: false,
       finTab: "pending",
       tenderTab: "待投標",
-      tenderStatusFilter: "全部",
       tenderFilters: { category: "全部", region: "全部", owner: "全部", source: "全部" },
       tenderSearch: "",
       tenderPage: 1,
@@ -7852,6 +7839,7 @@
       srFolderSearch: "",
       srFolderArea: "全部",
       srFolderStatus: "全部",
+      srFolderObjective: "全部",
       srFolderMetricModal: null,
       srFolderReportTicketId: null,
       crSearch: "",
@@ -9606,7 +9594,7 @@
     function renderList() {
       const ownerOptions = [...new Set(tickets.flatMap(t => [t.owner, t.master]).filter(Boolean))];
       const masterOptions = [...new Set(tickets.map(t => t.master).filter(Boolean))];
-      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh }));
+      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: govCustomerSub(c) }));
 
       // 視圖模式快速篩選（#33 區域主管視圖）
       const unfinishedStatuses = ["待分派", "待處理", "處理中", "需跟進"];
@@ -9673,7 +9661,7 @@
     function customerFilter(key, label, options) {
       return `<div class="field"><label>${label}</label><select data-filter="${key}">
         <option value="全部" ${state.filters[key] === "全部" ? "selected" : ""}>全部</option>
-        ${options.map(o => `<option value="${o.id}" ${state.filters[key] === o.id ? "selected" : ""}>${o.name}</option>`).join("")}
+        ${options.map(o => `<option value="${o.id}"${o.sub ? ` data-sub="${escapeHtml(o.sub)}"` : ""} ${state.filters[key] === o.id ? "selected" : ""}>${o.name}</option>`).join("")}
       </select></div>`;
     }
 
@@ -9928,18 +9916,22 @@
       return `${renderCallFilters()}
         <div class="data-table-wrap">
         <table class="wo-table">
-          <thead><tr><th>CALL編號</th><th>創建時間</th><th>客戶</th><th>類型</th><th>區域</th><th>狀態</th><th>負責人</th><th style="text-align:center;">操作</th></tr></thead>
-          <tbody>${filtered.length ? paginated.map(t => `
+          <thead><tr><th>CALL編號</th><th>創建時間</th><th>客戶名稱</th><th>類型</th><th>區域</th><th>狀態</th><th>負責人</th><th style="text-align:center;">操作</th></tr></thead>
+          <tbody>${filtered.length ? paginated.map(t => {
+            // 政府客戶名稱可重複，帶出對應客戶的合約編號作副標題以區分
+            const cust = customers.find(c => c.id === t.customerId) || customers.find(c => c.nameZh === t.customer);
+            const custSub = govCustomerSub(cust);
+            return `
             <tr>
               <td><button class="wo-id-link" data-wo-view="${escapeHtml(t.id)}">${escapeHtml(t.id)}</button></td>
               <td class="wo-created-at">${escapeHtml(formatCallDateTime(t.createdAt).replace("未記錄", "-"))}</td>
-              <td><div class="wo-customer-name">${escapeHtml(t.customer)}</div></td>
+              <td><div class="wo-customer-name">${escapeHtml(t.customer)}</div>${custSub ? `<div style="color:var(--muted);font-size:12px;margin-top:2px;">${escapeHtml(custSub)}</div>` : ''}</td>
               <td>${escapeHtml(t.type)}</td>
               <td>${escapeHtml(t.area || "-")}</td>
               <td>${statusBadge(t.status)}</td>
               <td>${escapeHtml(t.tl || "待分派")}</td>
               <td class="wo-td-actions"><button class="wo-view-btn" data-wo-view="${escapeHtml(t.id)}">查看詳情</button></td>
-            </tr>`).join("") : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">暫無匹配 CALL</td></tr>'}</tbody>
+            </tr>`; }).join("") : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">暫無匹配 CALL</td></tr>'}</tbody>
         </table>
         </div>
         ${renderCallPagination(filtered.length)}`;
@@ -9954,7 +9946,7 @@
       return `
         <section class="page active">
           <div class="wo-layout ${hasDrawer ? 'with-drawer' : ''}">
-            <div class="wo-list-section">
+            <div class="wo-list-section wo-list-freeze">
               <div class="wo-data-page-toolbar">
                 ${renderWorkOrderViewTabs()}
                 <div class="component-data-page-actions">
@@ -10268,7 +10260,7 @@
               return `
               <tr>
                 <td><button class="wo-id-link" data-cust-view="${c.id}">${escapeHtml(c.id)}</button></td>
-                <td><div class="wo-customer-name">${escapeHtml(c.nameZh)}${c.nameEn ? ` <span style="color:var(--muted);font-size:12px;">${escapeHtml(c.nameEn)}</span>` : ''}</div></td>
+                <td><div class="wo-customer-name">${escapeHtml(c.nameZh)}${c.nameEn ? ` <span style="color:var(--muted);font-size:12px;">${escapeHtml(c.nameEn)}</span>` : ''}</div>${govCustomerSub(c) ? `<div style="color:var(--muted);font-size:12px;margin-top:2px;">${escapeHtml(govCustomerSub(c))}</div>` : ''}</td>
                 <td>${escapeHtml(c.type)}</td>
                 <td>${escapeHtml(customerArea)}</td>
                 <td>${escapeHtml(c.level)}</td>
@@ -10451,8 +10443,8 @@
                         <option value="">請先選擇客戶類型</option>
                         ${isEdit && ticket.customerId ? (() => {
                           const c = customers.find(c => c.id === ticket.customerId);
-                          return c ? `<option value="${c.id}" selected>${c.nameZh} (${c.nameEn})</option>` : '';
-                        })() : (!isEdit && presetCustomer ? `<option value="${presetCustomer.id}" selected>${escapeHtml(presetCustomer.nameZh)} (${escapeHtml(presetCustomer.nameEn)})</option>` : '')}
+                          return c ? `<option value="${c.id}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""} selected>${c.nameZh} (${c.nameEn})</option>` : '';
+                        })() : (!isEdit && presetCustomer ? `<option value="${presetCustomer.id}"${govCustomerSub(presetCustomer) ? ` data-sub="${escapeHtml(govCustomerSub(presetCustomer))}"` : ""} selected>${escapeHtml(presetCustomer.nameZh)} (${escapeHtml(presetCustomer.nameEn)})</option>` : '')}
                       </select>
                     </div>
                     <div class="qf-field">
@@ -10474,7 +10466,7 @@
                         })() : '<option value="">請選擇主管</option>')}
                       </select>
                     </div>
-                    <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="callCodeFieldWrap">
+                    <div class="qf-field ${(isEdit ? customers.find(c => c.id === ticket.customerId)?.type === '政府' : presetCustomerType === '政府') ? '' : 'hidden'}" id="callCodeFieldWrap">
                       <label class="qf-label">Call代碼<span class="req">*</span></label>
                       <div style="display:flex;gap:6px;align-items:center;">
                         <select class="qf-select" name="callCode" id="callCodeSelect" style="flex:1;">
@@ -10484,7 +10476,7 @@
                         <button type="button" class="secondary-btn" id="addCallCodeBtn" title="新增 Call代碼" style="padding:8px 10px;min-width:36px;font-size:16px;">+</button>
                       </div>
                     </div>
-                    <div class="qf-field ${isEdit && customers.find(c => c.id === ticket.customerId)?.type === '政府' ? '' : 'hidden'}" id="jNumberField">
+                    <div class="qf-field ${(isEdit ? customers.find(c => c.id === ticket.customerId)?.type === '政府' : presetCustomerType === '政府') ? '' : 'hidden'}" id="jNumberField">
                       <label class="qf-label">J No.</label>
                       <input class="qf-input" type="text" name="jNumber" value="${isEdit ? escapeHtml(ticket.jNumber || '') : (presetCustomer && presetCustomer.jNumber ? escapeHtml(presetCustomer.jNumber) : '')}" placeholder="如：J 12345">
                     </div>
@@ -10832,7 +10824,11 @@
       if (wrapper) {
         const valSpan = wrapper.querySelector(".search-select-value");
         const selected = select.options[select.selectedIndex];
-        if (valSpan) valSpan.textContent = selected?.textContent.trim() || "請選擇";
+        if (valSpan) {
+          // 與 updateValue 保持一致：有副標題時一併顯示（如合約編號）
+          const sub = selected && selected.dataset ? selected.dataset.sub : "";
+          valSpan.textContent = selected ? `${selected.textContent.trim()}${sub ? ` · ${sub}` : ""}` : "請選擇";
+        }
       }
     }
 
@@ -10877,12 +10873,18 @@
 
         const updateValue = () => {
           const selected = select.options[select.selectedIndex];
-          value.textContent = selected?.textContent.trim() || "請選擇";
+          // 有副標題時一併顯示（如「客戶名稱 · 合約編號」），方便識別同名政府客戶
+          const sub = selected && selected.dataset ? selected.dataset.sub : "";
+          value.textContent = selected ? `${selected.textContent.trim()}${sub ? ` · ${sub}` : ""}` : "請選擇";
           trigger.disabled = select.disabled;
         };
         const renderOptions = (keyword = "") => {
           const query = keyword.trim().toLocaleLowerCase();
-          const matched = Array.from(select.options).filter(option => option.textContent.trim().toLocaleLowerCase().includes(query));
+          // 搜尋比對同時包含副標題（如合約編號），方便用合約編號定位客戶
+          const matched = Array.from(select.options).filter(option => {
+            const haystack = `${option.textContent} ${(option.dataset && option.dataset.sub) || ""}`.trim().toLocaleLowerCase();
+            return haystack.includes(query);
+          });
           options.innerHTML = "";
           if (!matched.length) {
             options.innerHTML = '<div class="search-select-empty">沒有符合的選項</div>';
@@ -10891,10 +10893,16 @@
           matched.forEach(option => {
             const item = document.createElement("button");
             item.type = "button";
-            item.className = `search-select-option${option.selected ? " active" : ""}`;
-            item.textContent = option.textContent.trim();
+            const sub = option.dataset ? option.dataset.sub : "";
+            item.className = `search-select-option${option.selected ? " active" : ""}${sub ? " has-sub" : ""}`;
             item.disabled = option.disabled;
             item.dataset.value = option.value;
+            // 有副標題時渲染兩行（主標題 + 副標題），否則維持單行
+            if (sub) {
+              item.innerHTML = `<span class="search-select-option-main">${escapeHtml(option.textContent.trim())}</span><span class="search-select-option-sub">${escapeHtml(sub)}</span>`;
+            } else {
+              item.textContent = option.textContent.trim();
+            }
             item.addEventListener("click", () => {
               if (option.disabled) return;
               select.value = option.value;
@@ -11005,7 +11013,7 @@
         return;
       }
       const filtered = customers.filter(c => c.type === type);
-      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}">${c.nameZh} (${c.nameEn})</option>`).join("");
+      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${c.nameZh} (${c.nameEn})</option>`).join("");
       refreshSearchableSelect(select);
     }
 
@@ -11019,7 +11027,11 @@
         return;
       }
       const filtered = customers.filter(c => c.type === type);
-      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}" ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`).join("");
+      // 政府客戶在選項副標題顯示合約編號，方便區分同名客戶
+      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => {
+        const sub = govCustomerSub(c);
+        return `<option value="${c.id}"${sub ? ` data-sub="${escapeHtml(sub)}"` : ""} ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`;
+      }).join("");
       refreshSearchableSelect(select);
       // 切換客戶類型後，自動觸發一次客戶變化聯動（清除已帶出的區域/主管/聯繫人等）
       if (!preselectedCustomerId) {
@@ -13584,31 +13596,39 @@
       }
     }
 
+    // 渲染客戶管理頁：頂部統計概覽（兼作客戶分類切換）+ 客戶列表
     function renderCustomerPage() {
       return `
         <section class="page active">
-          <div class="cm-layout">
-            ${renderCustomerSidebar()}
+          <div class="pc-container">
+            ${renderCustomerMetrics()}
             ${renderCustomerList()}
           </div>
         </section>
       `;
     }
 
-    function renderCustomerSidebar() {
-      const categories = [
-        { key: "全部", label: "全部客戶", count: customers.length },
-        { key: "政府", label: "政府客戶", count: customers.filter(c => c.type === "政府").length },
-        { key: "私人", label: "私人客戶", count: customers.filter(c => c.type === "私人").length }
+    // 渲染客戶管理頂部統計概覽（對齊報告管理指標卡樣式，點擊可快速篩選）
+    function renderCustomerMetrics() {
+      const governmentCount = customers.filter(c => c.type === "政府").length;
+      const privateCount = customers.filter(c => c.type === "私人").length;
+      const vipCount = customers.filter(c => c.level === "VIP").length;
+      // 未套用任何分類/等級篩選時，「客戶總數」卡呈選中態
+      const totalActive = customerState.categoryFilter === "全部" && customerState.filterLevel === "全部";
+      const metrics = [
+        { key: "total", label: "客戶總數", value: customers.length, note: "全部客戶", active: totalActive },
+        { key: "government", label: "政府客戶", value: governmentCount, note: "政府合約客戶", active: customerState.categoryFilter === "政府" },
+        { key: "private", label: "私人客戶", value: privateCount, note: "私人客戶", active: customerState.categoryFilter === "私人" },
+        { key: "vip", label: "VIP 客戶", value: vipCount, note: "重點維護客戶", active: customerState.filterLevel === "VIP" }
       ];
 
       return `
-        <div class="cm-sidebar">
-          <div class="cm-sidebar-title">客戶分類</div>
-          ${categories.map(cat => `
-            <button class="cm-category-item ${customerState.categoryFilter === cat.key ? "active" : ""}" data-customer-category="${cat.key}">
-              <span class="cat-name">${cat.label}</span>
-              <span class="cat-count">${cat.count}</span>
+        <div class="pc-grid cm-customer-metrics">
+          ${metrics.map(m => `
+            <button type="button" class="pc-card ${m.active ? "active" : ""}" data-customer-metric="${m.key}" aria-label="查看${m.label}">
+              <h3>${m.label}</h3>
+              <div class="pc-metric">${m.value}</div>
+              <div class="pc-label">${m.note}</div>
             </button>
           `).join("")}
         </div>
@@ -13622,50 +13642,79 @@
 
       return `
         <div class="cm-list-panel">
-          <div class="cm-toolbar">
-            <input type="text" placeholder="搜索客戶名稱/編號/聯繫人/電話/地址" value="${customerState.searchKeyword}" data-customer-search>
-            <select data-customer-filter-type>
-              <option value="全部" ${customerState.filterType === "全部" ? "selected" : ""}>全部類型</option>
-              <option value="政府" ${customerState.filterType === "政府" ? "selected" : ""}>政府</option>
-              <option value="私人" ${customerState.filterType === "私人" ? "selected" : ""}>私人</option>
-            </select>
-            <select data-customer-filter-level>
-              <option value="全部" ${customerState.filterLevel === "全部" ? "selected" : ""}>全部等級</option>
-              <option value="普通" ${customerState.filterLevel === "普通" ? "selected" : ""}>普通</option>
-              <option value="VIP" ${customerState.filterLevel === "VIP" ? "selected" : ""}>VIP</option>
-              <option value="重要" ${customerState.filterLevel === "重要" ? "selected" : ""}>重要</option>
-            </select>
-            <select data-customer-filter-status>
-              <option value="全部" ${customerState.filterStatus === "全部" ? "selected" : ""}>全部狀態</option>
-              <option value="啓用" ${customerState.filterStatus === "啓用" ? "selected" : ""}>啟用</option>
-              <option value="禁用" ${customerState.filterStatus === "禁用" ? "selected" : ""}>禁用</option>
-            </select>
-            <button class="primary-btn" data-create-customer>新增客戶</button>
+          <div class="wo-filters cm-filters">
+            <div class="wo-filter-group cm-filter-search">
+              <label>關鍵詞搜索</label>
+              <input type="text" placeholder="客戶名稱/編號/聯繫人/電話/地址" value="${customerState.searchKeyword}" data-customer-search>
+            </div>
+            <div class="wo-filter-group">
+              <label>客戶等級</label>
+              <select data-customer-filter-level>
+                <option value="全部" ${customerState.filterLevel === "全部" ? "selected" : ""}>全部等級</option>
+                <option value="普通" ${customerState.filterLevel === "普通" ? "selected" : ""}>普通</option>
+                <option value="VIP" ${customerState.filterLevel === "VIP" ? "selected" : ""}>VIP</option>
+                <option value="重要" ${customerState.filterLevel === "重要" ? "selected" : ""}>重要</option>
+              </select>
+            </div>
+            <div class="wo-filter-group">
+              <label>客戶狀態</label>
+              <select data-customer-filter-status>
+                <option value="全部" ${customerState.filterStatus === "全部" ? "selected" : ""}>全部狀態</option>
+                <option value="啓用" ${customerState.filterStatus === "啓用" ? "selected" : ""}>啟用</option>
+                <option value="禁用" ${customerState.filterStatus === "禁用" ? "selected" : ""}>禁用</option>
+              </select>
+            </div>
+            <div class="wo-actions-top">
+              <button class="primary-btn" data-create-customer>新增客戶</button>
+            </div>
           </div>
-          <div class="cm-customer-list">
-            ${paginated.length ? paginated.map(c => `
-              <div class="cm-customer-card ${customerState.selectedCustomerId === c.id ? "selected" : ""}" data-customer-row="${c.id}">
-                <div class="cm-customer-header">
-                  <div>
-                    <h3 class="cm-customer-name">${c.nameZh}</h3>
-                    <div class="cm-customer-name-en">${c.nameEn}</div>
-                  </div>
-                  <span class="tag customer-level-${c.level}">${c.level}</span>
-                </div>
-                <div class="cm-customer-meta">
-                  <span>📋 ${c.id}</span>
-                  <span>🏢 ${c.type}</span>
-                  <span>📍 ${c.addresses[0]?.area || "未設置"}</span>
-                  <span>👤 ${c.contacts[0]?.name || "未設置"}</span>
-                  <span>📞 ${c.contacts[0]?.phone || "未設置"}</span>
-                  <span class="tag user-status-${c.status}">${c.status}</span>
-                </div>
-                <div class="cm-customer-actions">
-                  <button class="ghost-btn" data-view-customer="${c.id}">查看</button>
-                  <button class="ghost-btn" data-edit-customer="${c.id}">編輯</button>
-                </div>
-              </div>
-            `).join("") : '<div class="cm-empty-detail" style="grid-column:1 / -1;min-height:220px;">暫無符合條件的客戶</div>'}
+          <div class="data-table-wrap">
+            <table class="wo-table cm-table">
+              <thead>
+                <tr>
+                  <th>客戶編號</th>
+                  <th>客戶名稱</th>
+                  <th>類型</th>
+                  <th>合約編號</th>
+                  <th>等級</th>
+                  <th>狀態</th>
+                  <th>區域</th>
+                  <th>主要聯繫人</th>
+                  <th style="text-align:center;">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${paginated.length ? paginated.map(c => `
+                  <tr data-customer-row="${c.id}">
+                    <td><button class="wo-id-link" data-view-customer="${c.id}">${c.id}</button></td>
+                    <td>
+                      <div class="wo-customer-name">${escapeHtml(c.nameZh)}</div>
+                      ${c.nameEn ? `<div class="cm-table-sub">${escapeHtml(c.nameEn)}</div>` : ""}
+                    </td>
+                    <td><span class="tag">${escapeHtml(c.type)}</span></td>
+                    <td>${c.type === "政府" && c.contractNumber ? escapeHtml(c.contractNumber) : '<span class="cm-table-sub">—</span>'}</td>
+                    <td><span class="tag customer-level-${c.level}">${escapeHtml(c.level)}</span></td>
+                    <td><span class="tag user-status-${c.status}">${escapeHtml(c.status)}</span></td>
+                    <td>${c.addresses[0]?.area ? escapeHtml(c.addresses[0].area) : '<span class="cm-table-sub">未設置</span>'}</td>
+                    <td>
+                      ${c.contacts[0]?.name
+                        ? `<div>${escapeHtml(c.contacts[0].name)}</div>${c.contacts[0].phone ? `<div class="cm-table-sub">${escapeHtml(c.contacts[0].phone)}</div>` : ""}`
+                        : '<span class="cm-table-sub">未設置</span>'}
+                    </td>
+                    <td class="wo-td-actions">
+                      <div class="wo-actions-group">
+                        <button class="wo-view-btn" data-view-customer="${c.id}">查看</button>
+                        <button class="wo-view-btn" data-edit-customer="${c.id}">編輯</button>
+                      </div>
+                    </td>
+                  </tr>
+                `).join("") : `
+                  <tr>
+                    <td colspan="9" style="text-align:center;padding:40px;color:var(--muted);">暫無符合條件的客戶</td>
+                  </tr>
+                `}
+              </tbody>
+            </table>
           </div>
           <div class="um-pagination">
             <span>共 ${filtered.length} 條記錄，第 ${customerState.currentPage}/${totalPages || 1} 頁</span>
@@ -13687,7 +13736,7 @@
           <div class="cm-detail-panel">
             <div class="cm-empty-detail">
               <div class="icon">🏢</div>
-              <div>點擊左側客戶查看詳情</div>
+              <div>請選擇客戶查看詳情</div>
             </div>
           </div>
         `;
@@ -13852,8 +13901,7 @@
           if (c.type !== customerState.categoryFilter) return false;
         }
 
-        // Type filter
-        if (customerState.filterType !== "全部" && c.type !== customerState.filterType) return false;
+        // 客戶類型由左側分類與頂部統計卡控制，此處不再重複篩選
 
         // Level filter
         if (customerState.filterLevel !== "全部" && c.level !== customerState.filterLevel) return false;
@@ -13920,7 +13968,9 @@
                 <div class="qf-grid">
                   <div class="qf-field">
                     <label class="qf-label">客戶名稱（中文）<span class="req">*</span></label>
-                    <input class="qf-input" name="nameZh" required placeholder="請輸入中文名稱">
+                    <input class="qf-input" name="nameZh" required autocomplete="off" placeholder="請輸入中文名稱">
+                    <div id="custNameSuggest" class="hidden" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
+                    <div class="qf-hint">輸入關鍵詞時，下方會推薦既有客戶（點擊即填入）；若為新客戶，直接輸入名稱即可</div>
                   </div>
                   <div class="qf-field">
                     <label class="qf-label">客戶名稱（英文）<span class="req">*</span></label>
@@ -14057,7 +14107,7 @@
         </div>
       `;
       document.body.appendChild(modal);
-      bindCustomerModalEvents(modal);
+      bindCustomerModalEvents(modal, onCreated);
     }
 
     function openEditCustomer(customerId) {
@@ -14209,7 +14259,75 @@
         </div>
       `;
       document.body.appendChild(modal);
-      bindCustomerModalEvents(modal, onCreated);
+      bindCustomerModalEvents(modal);
+    }
+
+    // 政府客戶下拉副標題：顯示合約編號，用於區分同名的政府客戶
+    function govCustomerSub(customer) {
+      if (!customer || customer.type !== "政府") return "";
+      return customer.contractNumber ? `合約編號 ${customer.contractNumber}` : "未填合約編號";
+    }
+
+    // 客戶名稱正規化：去除空白與常見標點並轉小寫，用於比對「同一名稱的不同寫法」
+    function normalizeCustomerName(name) {
+      return String(name == null ? "" : name)
+        .replace(/[\s\u3000\-_()（）【】\[\]{}.,，。、/\\'"]/g, "")
+        .toLowerCase();
+    }
+
+    // 在既有「政府」客戶中尋找與輸入名稱高度相似者（正規化後相同或互相包含）
+    function findSimilarGovernmentCustomer(name) {
+      const norm = normalizeCustomerName(name);
+      if (!norm) return null;
+      return customers.find(c => {
+        if (c.type !== "政府") return false;
+        const other = normalizeCustomerName(c.nameZh);
+        if (!other) return false;
+        return other === norm || other.includes(norm) || norm.includes(other);
+      }) || null;
+    }
+
+    // 新增政府客戶前的校驗（僅完整表單模式）：
+    // 1) 同名 + 同合約編號 → 阻止重複錄入（名稱＋合約編號為政府客戶唯一鍵）
+    // 2) 名稱與既有政府客戶高度相似 → 提示改用既有名稱，確保名稱完全一致
+    // 回傳已建立的客戶；校驗未通過回傳 null，表單保持開啟
+    async function createCustomerWithGuard(formData, modal) {
+      if (formData.get("type") === "政府" && modal.querySelector("#govContractField")) {
+        const nameZh = (formData.get("nameZh") || "").trim();
+        const contractNumber = (formData.get("contractNumber") || "").trim();
+
+        // 1) 同名 + 同合約編號：唯一鍵重複，直接阻止
+        const duplicate = customers.find(c => c.type === "政府"
+          && normalizeCustomerName(c.nameZh) === normalizeCustomerName(nameZh)
+          && (c.contractNumber || "").trim() === contractNumber);
+        if (duplicate) {
+          toast(`已存在相同名稱與合約編號的政府客戶（${duplicate.id}），請勿重複錄入`, "error");
+          return null;
+        }
+
+        // 2) 高度相似名稱：引導使用者改用既有名稱，避免同名不同寫法
+        const similar = findSimilarGovernmentCustomer(nameZh);
+        if (similar && similar.nameZh !== nameZh) {
+          const useExisting = await showConfirmDialog({
+            title: "客戶名稱可能不一致",
+            message: `偵測到相似名稱「${similar.nameZh}」，與你輸入的「${nameZh}」可能為同一政府客戶。是否改用既有名稱以保持一致？（合約編號仍按你輸入的內容保存）`,
+            confirmText: "用既有名稱",
+            cancelText: "保留輸入名稱"
+          });
+          if (useExisting) {
+            formData.set("nameZh", similar.nameZh);
+            formData.set("nameEn", similar.nameEn || formData.get("nameEn") || "");
+            if (similar.governmentPrefix) formData.set("governmentPrefix", similar.governmentPrefix);
+            if (similar.jNumber) formData.set("jNumber", similar.jNumber);
+            // 同步表單顯示，讓使用者看到最終採用的名稱
+            const nameInput = modal.querySelector('[name="nameZh"]');
+            if (nameInput) nameInput.value = similar.nameZh;
+            const nameEnInput = modal.querySelector('[name="nameEn"]');
+            if (nameEnInput) nameEnInput.value = formData.get("nameEn");
+          }
+        }
+      }
+      return saveCustomer(formData, false);
     }
 
     function saveCustomer(formData, isEdit = false, customerId = null) {
@@ -14227,6 +14345,13 @@
           // F7：會計部聯絡人（CS 端錄入，供財務對接與單據追溯）＋ 樓宇地址
           customer.accountingContact = formData.get("accountingContact") || customer.accountingContact || "";
           customer.buildingAddress = formData.get("buildingAddress") || customer.buildingAddress || "";
+
+          // 政府客戶專屬欄位（編輯時可調整合約編號 / J Number / 工單前綴）
+          if (customer.type === "政府") {
+            if (formData.has("governmentPrefix")) customer.governmentPrefix = formData.get("governmentPrefix") || customer.governmentPrefix || "";
+            if (formData.has("contractNumber")) customer.contractNumber = formData.get("contractNumber") || "";
+            if (formData.has("jNumber")) customer.jNumber = formData.get("jNumber") || "";
+          }
 
           if (customer.contacts.length > 0) {
             customer.contacts[0].name = formData.get("contactName") || customer.contacts[0].name;
@@ -14273,6 +14398,12 @@
             noPhoto: formData.get("noPhoto") === "true",
             noPhotoReason: formData.get("noPhotoReason") || ""
           }],
+          // 政府客戶專屬欄位：工單前綴 / 合約編號 / J Number（名稱＋合約編號為唯一鍵）
+          ...(formData.get("type") === "政府" ? {
+            governmentPrefix: formData.get("governmentPrefix") || "",
+            contractNumber: formData.get("contractNumber") || "",
+            jNumber: formData.get("jNumber") || ""
+          } : {}),
           createdAt: new Date().toISOString().slice(0, 10),
           createdBy: "CS-001"
         };
@@ -14322,12 +14453,47 @@
         updateGovFields(); // 初始化
       });
 
+      // 客戶名稱（中文）：輸入關鍵詞時，於下方推薦既有客戶名稱（去重），點擊標籤即填入
+      const custNameInput = modal.querySelector('[name="nameZh"]');
+      const custNameSuggest = modal.querySelector("#custNameSuggest");
+      if (custNameInput && custNameSuggest) {
+        // 既有客戶中文名去重（同一名稱只推薦一次）
+        const existingNames = [...new Set(customers.map(c => (c.nameZh || "").trim()).filter(Boolean))];
+        const renderNameSuggest = () => {
+          const keyword = (custNameInput.value || "").trim().toLowerCase();
+          // 未輸入或已完全等於某既有名稱時，不顯示推薦
+          const matched = keyword
+            ? existingNames.filter(name => name.toLowerCase().includes(keyword) && name.toLowerCase() !== keyword)
+            : [];
+          if (!matched.length) {
+            custNameSuggest.classList.add("hidden");
+            custNameSuggest.innerHTML = "";
+            return;
+          }
+          custNameSuggest.innerHTML = matched.slice(0, 8).map(name =>
+            `<button type="button" data-suggest-name="${escapeHtml(name)}" style="padding:4px 10px;border:1px solid var(--line);border-radius:99px;background:var(--panel-soft);color:var(--primary);font-size:12px;cursor:pointer;">${escapeHtml(name)}</button>`
+          ).join("");
+          custNameSuggest.classList.remove("hidden");
+        };
+        custNameInput.addEventListener("input", renderNameSuggest);
+        custNameSuggest.addEventListener("click", (e) => {
+          const chip = e.target.closest("[data-suggest-name]");
+          if (!chip) return;
+          custNameInput.value = chip.dataset.suggestName;
+          custNameSuggest.classList.add("hidden");
+          custNameSuggest.innerHTML = "";
+          custNameInput.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+      }
+
       const createForm = modal.querySelector("#createCustomerForm");
       if (createForm) {
-        createForm.addEventListener("submit", (e) => {
+        createForm.addEventListener("submit", async (e) => {
           e.preventDefault();
           const formData = new FormData(createForm);
-          const created = saveCustomer(formData, false);
+          // 政府客戶：先做名稱一致性與「同名 + 同合約編號」重複校驗；未通過則保留表單
+          const created = await createCustomerWithGuard(formData, modal);
+          if (!created) return;
           modal.remove();
           // 由其他表單（如報價新增）呼叫時，回傳新客戶以完成回填
           if (typeof onCreated === "function") onCreated(created);
@@ -14406,7 +14572,7 @@
     function renderQuotationFilters() {
       const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
       const areaOptions = (dictData["區域"] || []).filter(r => isEnabled(r.status));
-      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh }));
+      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: govCustomerSub(c) }));
 
       return `
         <div class="wo-filters">
@@ -14435,7 +14601,7 @@
             <label>客戶</label>
             <select class="qf-select" data-qm-filter="filterCustomer">
               <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
-              ${customerOptions.map(c => `<option value="${c.id}" ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
+              ${customerOptions.map(c => `<option value="${c.id}"${c.sub ? ` data-sub="${escapeHtml(c.sub)}"` : ""} ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
             </select>
           </div>
           <div class="wo-filter-group">
@@ -14611,6 +14777,12 @@
                     <span class="wo-detail-label">有效期至</span>
                     <span class="wo-detail-value">${quotation.validUntil}</span>
                   </div>
+                  ${(formatLeadTime(quotation.leadTime) || quotation.leadTimeText) ? `
+                  <div class="wo-detail-item">
+                    <span class="wo-detail-label">貨期</span>
+                    <span class="wo-detail-value">${escapeHtml(formatLeadTime(quotation.leadTime) || quotation.leadTimeText)}</span>
+                  </div>
+                  ` : ""}
                   ${quotation.inventoryStatus ? `
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">庫存判定</span>
@@ -14700,12 +14872,10 @@
                     <table class="po-table qm-material-table" style="width:100%;min-width:0;table-layout:fixed;">
                       <thead>
                         <tr>
-                          <th style="width:28%;">物料名稱</th>
-                          <th style="width:24%;">規格/型號</th>
-                          <th style="width:9%;text-align:center;">數量</th>
-                          <th style="width:9%;text-align:center;">單位</th>
-                          <th style="width:15%;text-align:right;">單價(HKD)</th>
-                          <th style="width:15%;text-align:right;">小計</th>
+                          <th style="width:40%;">物料名稱</th>
+                          <th style="width:26%;">規格/型號</th>
+                          <th style="width:16%;text-align:center;">數量</th>
+                          <th style="width:18%;text-align:center;">單位</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -14715,8 +14885,6 @@
                             <td>${escapeHtml(item.spec || '-')}</td>
                             <td style="text-align:center;">${item.qty || 1}</td>
                             <td style="text-align:center;">${escapeHtml(item.unit || '個')}</td>
-                            <td style="text-align:right;">${(item.unitPrice || 0).toFixed(2)}</td>
-                            <td style="text-align:right;font-weight:600;">${(item.amount || (item.qty || 1) * (item.unitPrice || 0)).toFixed(2)}</td>
                           </tr>
                         `).join("")}
                       </tbody>
@@ -14724,7 +14892,7 @@
                   </div>
                   <div class="po-total-bar">
                     <span>報價總金額</span>
-                    <strong><span class="po-currency">HKD</span><span>${(quotation.amount || 0).toFixed(2)}</span></strong>
+                    <strong><span class="po-currency">HKD</span><span>${(quotation.totalAmount || 0).toFixed(2)}</span></strong>
                   </div>
                 ` : '<div style="text-align:center;padding:20px;color:var(--muted);">暫無物料明細</div>'}
                 </div>
@@ -14928,7 +15096,8 @@
           <div class="wo-drawer-footer qm-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
             <button class="secondary-btn" data-quotation-history="${quotation.id}">報價歷史</button>
             ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">修訂報價</button>` : ""}
-            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="${quotation.isInviteTender ? "primary-btn" : "secondary-btn"}" data-mark-won="${quotation.id}">${quotation.isInviteTender ? "標記中標" : "標記中單"}</button>` : ""}
+            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="${quotation.isInviteTender ? "primary-btn" : "secondary-btn"}" data-mark-won="${quotation.id}">標記中單</button>` : ""}
+            ${quotation.isInviteTender ? `<button class="primary-btn" data-mark-tender-won="${quotation.id}">標記中標</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(quotation.procurementStatus)) && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
             ${quotation.procurementStatus === "已關單" ? `<span class="tag success" style="align-self:center;">已關單</span>` : ""}
@@ -15024,6 +15193,7 @@
                     <label style="${labelStyle}">有效期至</label>
                     <input name="validUntil" type="date" value="${escapeHtml((quotation.validUntil || '').slice(0, 10))}" style="${inputStyle}">
                   </div>
+                  ${renderLeadTimeField(quotation.leadTime, "inline", { field: fieldStyle, label: labelStyle, input: inputStyle })}
                   <div style="${fieldStyle}">
                     <label style="${labelStyle}">接收來源</label>
                     <select name="source" style="${inputStyle}">
@@ -15055,13 +15225,11 @@
                       <thead>
                         <tr>
                           <th>物料名稱</th>
-                          <th style="width:110px;">規格/型號</th>
+                          <th style="width:140px;">規格/型號</th>
                           <th style="width:100px;text-align:center;">數量</th>
                           <th style="width:100px;text-align:center;">單位</th>
-                          <th style="width:110px;text-align:right;">單價(HKD)</th>
-                          <th style="width:110px;text-align:right;">小計</th>
-                          <th style="width:110px;">Location</th>
-                          <th style="width:130px;">備註</th>
+                          <th style="width:150px;">Location</th>
+                          <th style="width:180px;">備註</th>
                           <th style="width:40px;"></th>
                         </tr>
                       </thead>
@@ -15069,10 +15237,13 @@
                     </table>
                   </div>
                   <div class="po-total-bar">
+                    <div class="po-total-inputs">
+                      <label class="po-discount-field">總價（HKD）<input type="number" id="qe-amount" name="amount" min="0" step="0.01" value="${Number(quotation.amount || 0)}" placeholder="0"></label>
+                      <label class="po-discount-field">折扣（%）<input type="number" id="qe-discount" name="discount" min="0" max="100" step="0.01" value="${Number(quotation.discount || 0)}" placeholder="0"></label>
+                    </div>
                     <span>報價總金額</span>
                     <strong><span class="po-currency">HKD</span><span id="qeTotalAmount">0.00</span></strong>
                   </div>
-                  <input type="hidden" name="amount" id="qe-amount" value="${quotation.amount || 0}">
                   <div style="${fieldStyle};margin-top:14px;">
                     <label style="${labelStyle}">備註</label>
                     <textarea name="remark" placeholder="請輸入備註（選填）" style="${textareaStyle}">${escapeHtml(quotation.remark || '')}</textarea>
@@ -15202,10 +15373,11 @@
         const itemsJson = formData.get("items");
         if (itemsJson) items = JSON.parse(itemsJson);
       } catch (e) { items = []; }
-      // 根據物料明細自動計算總金額
-      const amount = items.reduce((sum, item) => sum + (item.amount || (item.qty || 1) * (item.unitPrice || 0)), 0);
-      // 會計部會議（0928）：不需要稅率，報價總金額＝明細合計
-      const newTotalAmount = amount;
+      // 簡化：物料明細不逐行填價，總價由側邊欄底部「總價」輸入（name=amount）
+      const amount = parseFloat(formData.get("amount")) || 0;
+      // 折扣（減免百分比，填10=9折）：報價總金額＝總價×(1−折扣%)
+      const discount = Math.min(Math.max(parseFloat(formData.get("discount")) || 0, 0), 100);
+      const newTotalAmount = amount * (1 - discount / 100);
 
       // 版本號規則（會議決策）：僅「價格變動」才升版本（R1/R2）；純文字修改不升版，但仍保留 History
       const priceChanged = Number(quotation.amount || 0) !== Number(amount)
@@ -15235,6 +15407,12 @@
       quotation.createdAt = formData.get("createdAt") || quotation.createdAt;
       quotation.deadline = formData.get("deadline") || quotation.deadline;
       quotation.validUntil = formData.get("validUntil") || quotation.validUntil;
+      // 貨期（區間 + 單位）
+      const drawerLeadTime = readLeadTimeFromForm(formData);
+      if (drawerLeadTime) {
+        quotation.leadTime = drawerLeadTime;
+        quotation.leadTimeText = formatLeadTime(drawerLeadTime);
+      }
       quotation.source = formData.get("source") || quotation.source;
       // 政府邀請報價（ITQ）欄位
       quotation.isInviteTender = formData.get("isInviteTender") === "on";
@@ -15244,6 +15422,7 @@
       quotation.inventoryStatus = formData.get("inventoryStatus") || quotation.inventoryStatus || "";
       quotation.items = items;
       quotation.amount = amount;
+      quotation.discount = discount;
       quotation.totalAmount = newTotalAmount;
       quotation.remark = (formData.get("remark") || "").trim();
       // 三態庫存判定：未知貨品無參考價錢 → 通知採購部索取預估價
@@ -15277,6 +15456,7 @@
     function bindQuotationDrawerEvents() {
       const drawer = document.querySelector(".qm-layout .wo-drawer");
       if (!drawer) return;
+      bindLeadTimeFields(drawer);
 
       drawer.querySelectorAll("[data-qm-close]").forEach(btn => btn.addEventListener("click", closeQuotationDrawer));
       drawer.querySelectorAll("[data-qm-detail-tab]").forEach(btn => btn.addEventListener("click", () => {
@@ -15328,23 +15508,18 @@
         // 綁定物料明細事件：新增、刪除、自動計算小計與總金額
         const qeItemsBody = drawer.querySelector("#qeItemsBody");
         const qeTotalEl = drawer.querySelector("#qeTotalAmount");
-        const qeAmountHidden = drawer.querySelector("#qe-amount");
+        const qeAmountInput = drawer.querySelector("#qe-amount");
+        const qeDiscountEl = drawer.querySelector("#qe-discount");
         if (qeItemsBody && qeTotalEl) {
-          // 重新計算所有行小計與總金額，並同步到隱藏的 amount 字段
+          // 簡化：物料明細不逐行填價，改由底部「總價」手動輸入；報價總金額＝總價×(1−折扣%)
           const recalcQeTotal = () => {
-            let total = 0;
-            qeItemsBody.querySelectorAll("tr").forEach(tr => {
-              const qty = parseFloat(tr.querySelector("[data-qe-qty]")?.value) || 0;
-              const price = parseFloat(tr.querySelector("[data-qe-price]")?.value) || 0;
-              const subtotal = qty * price;
-              const subtotalEl = tr.querySelector("[data-qe-subtotal]");
-              if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
-              total += subtotal;
-            });
-            qeTotalEl.textContent = total.toFixed(2);
-            if (qeAmountHidden) qeAmountHidden.value = total.toFixed(2);
+            const subtotal = parseFloat(qeAmountInput?.value) || 0;
+            const discount = Math.min(Math.max(parseFloat(qeDiscountEl?.value) || 0, 0), 100);
+            qeTotalEl.textContent = (subtotal * (1 - discount / 100)).toFixed(2);
           };
-          // 新增一列物料行（若傳入 item 則帶入數據）
+          if (qeAmountInput) qeAmountInput.addEventListener("input", recalcQeTotal);
+          if (qeDiscountEl) qeDiscountEl.addEventListener("input", recalcQeTotal);
+          // 新增一列物料行（若傳入 item 則帶入數據；不填單價）
           const addQeItemRow = (item = {}) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -15352,29 +15527,13 @@
               <td><input class="po-input" data-qe-spec value="${item.spec || ""}" style="width:100%;"></td>
               <td><input class="po-input" data-qe-qty type="number" min="1" value="${item.qty || 1}" style="width:100%;text-align:center;"></td>
               <td><select class="po-input" data-qe-unit style="width:100%;"><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
-              <td><input class="po-input" data-qe-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}" style="width:100%;text-align:right;"></td>
-              <td class="po-cost" data-qe-cost style="text-align:right;color:var(--muted);">-</td>
-              <td class="po-subtotal" data-qe-subtotal>0.00</td>
               <td><input class="po-input" data-qe-location value="${escapeHtml(item.location || "")}" placeholder="具體位置（選填）" style="width:100%;"></td>
               <td><input class="po-input" data-qe-remark value="${escapeHtml(item.remark || "")}" placeholder="備註（選填）" style="width:100%;"></td>
               <td style="text-align:center;"><button type="button" class="po-remove" data-qe-remove title="刪除">×</button></td>
             `;
             qeItemsBody.appendChild(tr);
-            // 物料名稱變更時，即時查詢並顯示成本價參考（無記錄則留空）
-            const refreshQeCost = () => {
-              const costCell = tr.querySelector("[data-qe-cost]");
-              if (!costCell) return;
-              const cost = getInventoryCostPrice(tr.querySelector("[data-qe-name]")?.value);
-              costCell.textContent = cost === null ? "-" : `HKD ${cost.toFixed(2)}`;
-              costCell.style.color = cost === null ? "var(--muted)" : "var(--primary-strong)";
-            };
-            tr.querySelector("[data-qe-name]").addEventListener("input", refreshQeCost);
-            refreshQeCost();
-            tr.querySelector("[data-qe-qty]").addEventListener("input", recalcQeTotal);
-            tr.querySelector("[data-qe-price]").addEventListener("input", recalcQeTotal);
-            tr.querySelector("[data-qe-remove]").addEventListener("click", () => { tr.remove(); recalcQeTotal(); });
+            tr.querySelector("[data-qe-remove]").addEventListener("click", () => tr.remove());
             if (item.unit) tr.querySelector("[data-qe-unit]").value = item.unit;
-            recalcQeTotal();
           };
           // 綁定「+ 新增物料」按鈕
           const qeAddBtn = drawer.querySelector("#qeAddItemBtn");
@@ -15386,6 +15545,7 @@
           } else {
             addQeItemRow();
           }
+          recalcQeTotal();
         }
 
         editForm.addEventListener("submit", (e) => {
@@ -15401,11 +15561,10 @@
               const spec = tr.querySelector("[data-qe-spec]")?.value.trim() || "";
               const qty = parseInt(tr.querySelector("[data-qe-qty]")?.value) || 1;
               const unit = tr.querySelector("[data-qe-unit]")?.value || "個";
-              const unitPrice = parseFloat(tr.querySelector("[data-qe-price]")?.value) || 0;
-              // 會議決策：每行 Item 增加 Location（具體位置）與 Remark（備註），皆為選填
+              // 簡化：物料明細不再逐行填價（總價於底部輸入），僅記錄物料資訊
               const location = tr.querySelector("[data-qe-location]")?.value.trim() || "";
               const remark = tr.querySelector("[data-qe-remark]")?.value.trim() || "";
-              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark });
+              items.push({ name, spec, qty, unit, location, remark });
             });
             formData.append("items", JSON.stringify(items));
           }
@@ -15764,7 +15923,7 @@
         </table>
         <div class="section-title">報價明細</div>
         <table class="items">
-          <thead><tr><th style="width:40px;">#</th><th>物料／服務名稱</th><th style="width:130px;">規格／型號</th><th style="width:60px;">數量</th><th style="width:60px;">單位</th><th style="width:100px;">單價(HKD)</th><th style="width:110px;">小計(HKD)</th>${showItemExtra ? '<th style="width:110px;">Location</th><th style="width:120px;">備註</th>' : ""}</tr></thead>
+          <thead><tr><th style="width:40px;">#</th><th>物料／服務名稱</th><th style="width:160px;">規格／型號</th><th style="width:70px;">數量</th><th style="width:70px;">單位</th>${showItemExtra ? '<th style="width:150px;">Location</th><th style="width:160px;">備註</th>' : ""}</tr></thead>
           <tbody>
             ${items.length ? items.map((it, idx) => `<tr>
               <td class="center">${idx + 1}</td>
@@ -15772,15 +15931,13 @@
               <td>${escapeHtml(it.spec || "")}</td>
               <td class="center">${Number(it.qty || 0)}</td>
               <td class="center">${escapeHtml(it.unit || "")}</td>
-              <td class="num">${Number(it.unitPrice || 0).toLocaleString()}</td>
-              <td class="num">${(Number(it.qty || 0) * Number(it.unitPrice || 0)).toLocaleString()}</td>
               ${showItemExtra ? `<td>${escapeHtml(it.location || "")}</td><td>${escapeHtml(it.remark || "")}</td>` : ""}
-            </tr>`).join("") : `<tr><td colspan="${showItemExtra ? 9 : 7}" class="center" style="color:#9ca3af;">暫無物料明細</td></tr>`}
+            </tr>`).join("") : `<tr><td colspan="${showItemExtra ? 6 : 4}" class="center" style="color:#9ca3af;">暫無物料明細</td></tr>`}
           </tbody>
-          <tfoot><tr><td colspan="${showItemExtra ? 8 : 6}" style="text-align:right;">明細合計</td><td class="num">${itemsSubtotal.toLocaleString()}</td>${showItemExtra ? '<td colspan="2"></td>' : ""}</tr></tfoot>
         </table>
         <table class="totals">
-          <tr><th style="width:160px;">總金額</th><td>HKD ${Number(quotation.amount || 0).toLocaleString()}</td></tr>
+          <tr><th style="width:160px;">總價</th><td>HKD ${Number(quotation.amount || 0).toLocaleString()}</td></tr>
+          ${Number(quotation.discount || 0) > 0 ? `<tr><th>折扣</th><td>-${Number(quotation.discount)}%</td></tr>` : ""}
           <tr><th>報價金額</th><td class="total">HKD ${Number(quotation.totalAmount || 0).toLocaleString()}</td></tr>
           ${quotation.bargainAmount ? `<tr><th>議價後金額</th><td><strong>HKD ${Number(quotation.bargainAmount).toLocaleString()}</strong></td></tr>` : ""}
         </table>
@@ -15937,9 +16094,6 @@
 
     function filterQuotations() {
       return quotations.filter(q => {
-        // 標書衍生的報價不在報價管理顯示（會議決策：標書資料僅於標書管理模組閉環）
-        if (q.sourceTenderId) return false;
-
         // 報價狀態篩選
         if (quotationState.statusFilter !== "全部" && q.status !== quotationState.statusFilter) return false;
 
@@ -16106,6 +16260,9 @@
         const option = document.createElement("option");
         option.value = newCustomer.nameZh;
         option.textContent = newCustomer.nameZh + (newCustomer.nameEn ? ` (${newCustomer.nameEn})` : "");
+        // 政府客戶補上合約編號副標題，與既有選項顯示一致
+        const sub = govCustomerSub(newCustomer);
+        if (sub) option.dataset.sub = sub;
         select.appendChild(option);
         select.value = newCustomer.nameZh;
         syncSearchableSelectDisplay(select);
@@ -16133,6 +16290,11 @@
         field.classList.toggle("qf-hidden", !input.checked);
         field.querySelectorAll("input, select, .search-select-trigger").forEach(control => { control.disabled = !input.checked; });
       });
+      // 啟用邀請報價：頁尾僅保留「新建報價並生成標書」；未啟用：僅保留「新建」
+      const withTenderBtn = form.querySelector("[data-create-quotation-with-tender]");
+      if (withTenderBtn) withTenderBtn.classList.toggle("qf-hidden", !input.checked);
+      const onlyQuotationBtn = form.querySelector("[data-create-quotation-only]");
+      if (onlyQuotationBtn) onlyQuotationBtn.classList.toggle("qf-hidden", input.checked);
       const projectJobNo = form.querySelector('[name="projectJobNo"]');
       if (input.checked) {
         if (projectJobNo && !projectJobNo.value) {
@@ -16145,6 +16307,96 @@
         const emsdRefNo = form.querySelector('[name="emsdRefNo"]');
         if (emsdRefNo) emsdRefNo.value = "";
       }
+    }
+
+    // 貨期文字：30 days / 30-60 days（供表單預覽、報價詳情顯示共用）
+    function formatLeadTime(leadTime) {
+      if (!leadTime) return "";
+      const from = leadTime.from == null ? "" : String(leadTime.from).trim();
+      const to = leadTime.to == null ? "" : String(leadTime.to).trim();
+      const unit = leadTime.unit || "days";
+      if (!from && !to) return "";
+      if (from && to) return `${from}-${to} ${unit}`;
+      return `${from || to} ${unit}`;
+    }
+
+    // 渲染貨期欄位：數字區間（起始／結束）＋ 單位下拉（days / week），預設 30 days
+    // variant: "qf"（彈窗 qf-* 樣式）／"field"（.field 樣式）／"inline"（抽屜表單內聯樣式，需傳 styles）
+    function renderLeadTimeField(leadTime, variant = "qf", styles = {}) {
+      const from = leadTime && leadTime.from != null && leadTime.from !== "" ? leadTime.from : 30;
+      const to = leadTime && leadTime.to != null && leadTime.to !== "" ? leadTime.to : "";
+      const unit = (leadTime && leadTime.unit) || "days";
+      const isInline = variant === "inline";
+      const wrapperClass = variant === "qf" ? "qf-field" : variant === "field" ? "field" : "";
+      const labelClass = variant === "qf" ? "qf-label" : "";
+      const inputClass = variant === "qf" ? "qf-input" : "";
+      const selectClass = variant === "qf" ? "qf-select" : "";
+      const wrapperStyle = isInline ? ` style="${styles.field || ""}"` : "";
+      const labelStyle = isInline ? ` style="${styles.label || ""}"` : "";
+      const numStyle = isInline ? ` style="${styles.input || ""}width:76px;text-align:center;"` : "";
+      const unitStyle = isInline ? ` style="${styles.input || ""}width:100px;"` : "";
+      const previewClass = variant === "qf" ? "qf-hint" : "";
+      const previewStyle = isInline ? ` style="font-size:12px;color:var(--muted);margin-top:4px;"` : (variant === "field" ? ` style="font-size:12px;color:var(--muted);margin-top:4px;"` : "");
+      return `
+        <div class="${wrapperClass}"${wrapperStyle} data-lead-time-field>
+          <label class="${labelClass}"${labelStyle}>貨期</label>
+          <div class="lead-time-control">
+            <input class="${inputClass} lead-time-num"${numStyle} type="number" min="1" step="1" name="leadTimeFrom" value="${escapeHtml(String(from))}" placeholder="30">
+            <span class="lead-time-sep">–</span>
+            <input class="${inputClass} lead-time-num"${numStyle} type="number" min="1" step="1" name="leadTimeTo" value="${escapeHtml(String(to))}" placeholder="選填">
+            <span class="lead-time-unit-wrap">
+              <select class="${selectClass} lead-time-unit"${unitStyle} name="leadTimeUnit" data-native-select>
+                <option value="days" ${unit === "days" ? "selected" : ""}>days</option>
+                <option value="week" ${unit === "week" ? "selected" : ""}>week</option>
+              </select>
+              <span class="lead-time-caret">⌄</span>
+            </span>
+          </div>
+          <div class="${previewClass}"${previewStyle} data-lead-time-preview>${escapeHtml(formatLeadTime({ from, to, unit }))}</div>
+        </div>`;
+    }
+
+    // 綁定貨期控件：輸入時即時更新預覽，並校驗「結束值不可小於起始值」
+    function bindLeadTimeFields(scope) {
+      scope.querySelectorAll("[data-lead-time-field]").forEach(field => {
+        const preview = field.querySelector("[data-lead-time-preview]");
+        if (!preview) return;
+        const fromEl = field.querySelector('[name="leadTimeFrom"]');
+        const toEl = field.querySelector('[name="leadTimeTo"]');
+        const unitEl = field.querySelector('[name="leadTimeUnit"]');
+        const update = () => {
+          const fromRaw = (fromEl?.value || "").trim();
+          const toRaw = (toEl?.value || "").trim();
+          const from = parseInt(fromRaw, 10);
+          const to = parseInt(toRaw, 10);
+          // 結束值必須大於起始值（不可小於、也不可等於）
+          const invalid = toRaw !== "" && !isNaN(from) && !isNaN(to) && to <= from;
+          if (toEl) {
+            toEl.min = isNaN(from) ? "1" : String(from + 1);
+            toEl.classList.toggle("lead-time-error", invalid);
+            // 同步設定為原生驗證錯誤，避免不合法的區間被儲存
+            toEl.setCustomValidity(invalid ? "結束值必須大於起始值" : "");
+          }
+          preview.classList.toggle("lead-time-error-msg", invalid);
+          preview.textContent = invalid
+            ? `結束值必須大於起始值（需 > ${from}）`
+            : formatLeadTime({ from: fromRaw, to: toRaw, unit: unitEl?.value });
+        };
+        field.querySelectorAll("input, select").forEach(el => {
+          el.addEventListener("input", update);
+          el.addEventListener("change", update);
+        });
+        update();
+      });
+    }
+
+    // 從表單讀取貨期；表單若無此欄位則回傳 undefined（避免覆蓋既有值）
+    function readLeadTimeFromForm(formData) {
+      if (!formData.has("leadTimeFrom")) return undefined;
+      const from = String(formData.get("leadTimeFrom") || "").trim();
+      const to = String(formData.get("leadTimeTo") || "").trim();
+      const unit = formData.get("leadTimeUnit") || "days";
+      return { from, to, unit };
     }
 
     function openCreateQuotation(presetCustomerId = null) {
@@ -16209,6 +16461,7 @@
                     <label class="qf-label" for="qf-validUntil">有效期至</label>
                     <input class="qf-input" id="qf-validUntil" name="validUntil" type="date" value="${validUntilStr}">
                   </div>
+                  ${renderLeadTimeField()}
                   <div class="qf-field">
                     <label class="qf-label" for="qf-paymentMethod">付款方式</label>
                     <select class="qf-select" id="qf-paymentMethod" name="paymentMethod">
@@ -16218,7 +16471,7 @@
                     </select>
                   </div>
                   <div class="qf-field">
-                    <label class="qf-label" for="qf-warrantyPeriod">保修期</label>
+                    <label class="qf-label" for="qf-warrantyPeriod">保固期</label>
                     <select class="qf-select" id="qf-warrantyPeriod" name="warrantyPeriod">
                       <option value="">無</option>
                       <option value="3個月">3個月</option>
@@ -16259,9 +16512,9 @@
                         <select class="qf-select" id="qf-customerName" name="customerName" required onchange="onQuotationCustomerChange(this)">
                           ${presetCustomer
                             // 由客戶檔案帶入時僅鎖定該客戶，不提供新增
-                            ? `<option value="${escapeHtml(presetCustomer.nameZh)}" selected>${escapeHtml(presetCustomer.nameZh)}</option>`
-                            // 其他入口：列出既有客戶供選擇
-                            : `<option value="">請選擇客戶</option>${customers.map(c => `<option value="${escapeHtml(c.nameZh)}">${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
+                            ? `<option value="${escapeHtml(presetCustomer.nameZh)}" selected${govCustomerSub(presetCustomer) ? ` data-sub="${escapeHtml(govCustomerSub(presetCustomer))}"` : ""}>${escapeHtml(presetCustomer.nameZh)}</option>`
+                            // 其他入口：列出既有客戶供選擇（政府客戶名稱可重複，副標題顯示合約編號以區分）
+                            : `<option value="">請選擇客戶</option>${customers.map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
                         </select>
                       </div>
                       ${presetCustomer ? "" : `<button type="button" class="qf-btn qf-btn-cancel" data-qf-new-customer style="min-width:auto;height:40px;padding:0 14px;white-space:nowrap;">＋ 新增</button>`}
@@ -16317,14 +16570,11 @@
                     <thead>
                       <tr>
                         <th>物料名稱</th>
-                        <th style="width:140px;">規格/型號</th>
-                        <th style="width:80px;text-align:center;">數量</th>
-                        <th style="width:90px;text-align:center;">單位</th>
-                        <th style="width:120px;text-align:right;">單價(HKD)</th>
-                        <th style="width:110px;text-align:right;" title="由倉庫通同步的歷史成本價，僅供定價參考">成本價參考</th>
-                        <th style="width:120px;text-align:right;">小計</th>
-                        <th style="width:120px;" title="該物料／服務的具體施工位置（選填）">Location</th>
-                        <th style="width:140px;" title="該行的補充備註（選填）">備註</th>
+                        <th style="width:160px;">規格/型號</th>
+                        <th style="width:90px;text-align:center;">數量</th>
+                        <th style="width:100px;text-align:center;">單位</th>
+                        <th style="width:160px;" title="該物料／服務的具體施工位置（選填）">Location</th>
+                        <th style="width:200px;" title="該行的補充備註（選填）">備註</th>
                         <th style="width:50px;"></th>
                       </tr>
                     </thead>
@@ -16332,10 +16582,13 @@
                   </table>
                 </div>
                 <div class="po-total-bar">
+                  <div class="po-total-inputs">
+                    <label class="po-discount-field">總價（HKD）<input type="number" id="qf-amount" name="amount" min="0" step="0.01" value="0" placeholder="0"></label>
+                    <label class="po-discount-field">折扣（%）<input type="number" id="qf-discount" name="discount" min="0" max="100" step="0.01" value="0" placeholder="0"></label>
+                  </div>
                   <span>報價總金額</span>
                   <strong><span class="po-currency">HKD</span><span id="qfTotalAmount">0.00</span></strong>
                 </div>
-                <input type="hidden" name="amount" id="qf-amount" value="0">
                 <div class="qf-field wide" style="margin-top:18px;">
                   <label class="qf-label" for="qf-inventoryStatus">庫存判定<span class="qf-card-sub">查閱庫存數量與價錢（三態）</span></label>
                   <select class="qf-select" id="qf-inventoryStatus" name="inventoryStatus">
@@ -16352,7 +16605,8 @@
               </div>
             </div>
             <div class="qf-footer">
-              <button type="submit" class="qf-btn qf-btn-save">新增</button>
+              <button type="submit" class="qf-btn qf-btn-save" data-create-quotation-only>新建報價</button>
+              <button type="button" class="qf-btn qf-btn-save qf-hidden" data-create-quotation-with-tender>新建報價並生成標書</button>
             </div>
           </form>
         </div>
@@ -16395,6 +16649,7 @@
               <div class="field"><label>報價日期</label><input name="createdAt" type="date" value="${quotation.createdAt}"></div>
               <div class="field"><label>回覆截止日期</label><input name="deadline" type="date" value="${quotation.deadline || ""}"></div>
               <div class="field"><label>有效期至</label><input name="validUntil" type="date" value="${quotation.validUntil}"></div>
+              ${renderLeadTimeField(quotation.leadTime, "field")}
               <div class="field"><label>付款方式</label>
                 <select name="paymentMethod">
                   ${["完工後付（Post-payment）", "先付全款（Pre-payment）", "先付定金（Deposit）"].map(m => `<option value="${m}" ${(quotation.paymentMethod || "完工後付（Post-payment）") === m ? "selected" : ""}>${m}</option>`).join("")}
@@ -16615,8 +16870,9 @@
         resolvedCustomerId = matchedCustomer.id;
       }
       const amount = parseFloat(formData.get("amount")) || 0;
-      // 會計部會議（0928）：不需要稅率，報價總金額＝明細合計
-      const totalAmount = amount;
+      // 折扣（減免百分比，填10=9折）：報價總金額＝明細合計×(1−折扣%)
+      const discount = Math.min(Math.max(parseFloat(formData.get("discount")) || 0, 0), 100);
+      const totalAmount = amount * (1 - discount / 100);
       const sourceTicketId = formData.get("sourceTicketId") || "";
       // 解析物料明細數據（從報價頁面物料明細表格收集）
       const itemsStr = formData.get("items") || "[]";
@@ -16634,6 +16890,7 @@
           quotation.validUntil = formData.get("validUntil") || quotation.validUntil;
           quotation.amount = amount;
           quotation.taxRate = 0;
+          quotation.discount = discount;
           quotation.totalAmount = totalAmount;
           quotation.bargainAmount = parseFloat(formData.get("bargainAmount")) || null;
           quotation.status = formData.get("status") || quotation.status;
@@ -16651,6 +16908,12 @@
           // 付款方式與保修期（會議決策）：入單時同步錄入，供報價單條款顯示
           quotation.paymentMethod = formData.get("paymentMethod") || quotation.paymentMethod || "完工後付（Post-payment）";
           quotation.warrantyPeriod = formData.get("warrantyPeriod") || quotation.warrantyPeriod || "";
+          // 貨期（區間 + 單位）
+          const editedLeadTime = readLeadTimeFromForm(formData);
+          if (editedLeadTime) {
+            quotation.leadTime = editedLeadTime;
+            quotation.leadTimeText = formatLeadTime(editedLeadTime);
+          }
           quotation.customerName = formData.get("customerName") || quotation.customerName || "";
           quotation.area = formData.get("area") || quotation.area || "";
           quotation.items = quotationItems;
@@ -16667,10 +16930,12 @@
           area: formData.get("area") || ticket?.area || "",
           amount: amount,
           taxRate: 0,
+          discount: discount,
           totalAmount: totalAmount,
           bargainAmount: parseFloat(formData.get("bargainAmount")) || null,
-          // 直接新增的報價已進入報價處理階段；「待報價」只保留給 CS／Call 請求草稿。
-          status: formData.get("status") || "報價中",
+          // 新建報價一律從「待報價」開始（尚未發出報價單）；
+          // 流程：待報價 →（發出報價單）→ 報價中 → 客戶回覆 → 已中單／丟單
+          status: formData.get("status") || "待報價",
           owner: formData.get("owner"),
           ownerPhone: users.find(u => u.name === formData.get("owner"))?.phone || "",
           ownerTeam: users.find(u => u.name === formData.get("owner"))?.area || "",
@@ -16689,6 +16954,9 @@
           inviteResult: formData.get("inviteResult") || "",
           paymentMethod: formData.get("paymentMethod") || "完工後付（Post-payment）",
           warrantyPeriod: formData.get("warrantyPeriod") || "",
+          // 貨期（區間 + 單位），預設 30 days
+          leadTime: readLeadTimeFromForm(formData) || { from: 30, to: "", unit: "days" },
+          leadTimeText: formatLeadTime(readLeadTimeFromForm(formData) || { from: 30, to: "", unit: "days" }),
           ourRef: generateOurRef(),
           inventoryStatus: formData.get("inventoryStatus") || "",
           attachments: [],
@@ -17082,9 +17350,9 @@
       const tdYy = String(new Date().getFullYear()).slice(-2);
       const tenderSeq = String(quotations.filter(q => q.bidStatus === "已中標").length + 1).padStart(5, "0");
       const autoTenderNo = quotation.isInviteTender ? generateTenderNo() : `TD${tdYy}${tenderSeq}`;
-      // 邀請報價為「標記中標」，一般報價為「標記中單」，文案與按鈕保持一致
-      const markActionLabel = quotation.isInviteTender ? "標記中標" : "標記中單";
-      const markConfirmLabel = quotation.isInviteTender ? "確認中標" : "確認中單";
+      // 統一為「標記中單」（標書是否中標改由報價詳情的【標記中標】按鈕控制）
+      const markActionLabel = "標記中單";
+      const markConfirmLabel = "確認中單";
 
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
@@ -17188,6 +17456,32 @@
           setTimeout(() => startProcurement(quotationId), 300);
         }
       });
+    }
+
+    // 邀請報價：把此報價自動生成的標書標記為「已中標」
+    // 僅更新標書狀態（不觸發 updateTenderStatus 的報價建立流程，避免重複建單）
+    function markLinkedTenderWon(quotationId) {
+      const quotation = quotations.find(q => q.id === quotationId);
+      if (!quotation) return;
+      const tender = tenders.find(t => t.relatedQuotationId === quotation.id)
+        || tenders.find(t => t.id === (quotation.tenderNo || quotation.sourceTenderId));
+      if (!tender) {
+        toast("未找到此報價關聯的標書，請先以「新建報價並生成標書」建立", "error");
+        return;
+      }
+      if (tender.status === "已中標") {
+        toast(`標書 ${tender.id} 已是「已中標」狀態`, "error");
+        return;
+      }
+      const today = new Date().toISOString().slice(0, 10);
+      tender.status = "已中標";
+      if (!tender.submittedDate) tender.submittedDate = today;
+      if (!tender.resultDate) tender.resultDate = today;
+      if (!tender.history) tender.history = [];
+      tender.history.push({ action: "標記中標", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `由報價 ${quotation.id} 標記中標` });
+      saveDataToLocalStorage();
+      toast(`標書 ${tender.id} 已標記為中標`, "success");
+      refreshQuotationDrawer();
     }
 
     // 啓動採購
@@ -17323,6 +17617,7 @@
     }
 
     function bindQuotationModalEvents(modal) {
+      bindLeadTimeFields(modal);
       modal.querySelectorAll("[data-close-modal]").forEach(btn => {
         btn.addEventListener("click", () => modal.remove());
       });
@@ -17398,23 +17693,18 @@
       // 物料明細管理：新增一列、自動計算小計與總金額、刪除物料（從採購單移植）
       const qfItemsBody = modal.querySelector("#qfItemsBody");
       const qfTotalEl = modal.querySelector("#qfTotalAmount");
-      const qfAmountHidden = modal.querySelector("#qf-amount");
+      const qfAmountInput = modal.querySelector("#qf-amount");
+      const qfDiscountEl = modal.querySelector("#qf-discount");
       if (qfItemsBody && qfTotalEl) {
-        // 重新計算所有行小計與總金額，並同步到隱藏的 amount 字段
+        // 簡化：物料明細不逐行填價，改由底部「總價」手動輸入；報價總金額＝總價×(1−折扣%)
         const recalcQfTotal = () => {
-          let total = 0;
-          qfItemsBody.querySelectorAll("tr").forEach(tr => {
-            const qty = parseFloat(tr.querySelector("[data-qf-qty]")?.value) || 0;
-            const price = parseFloat(tr.querySelector("[data-qf-price]")?.value) || 0;
-            const subtotal = qty * price;
-            const subtotalEl = tr.querySelector("[data-qf-subtotal]");
-            if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
-            total += subtotal;
-          });
-          qfTotalEl.textContent = total.toFixed(2);
-          if (qfAmountHidden) qfAmountHidden.value = total.toFixed(2);
+          const subtotal = parseFloat(qfAmountInput?.value) || 0;
+          const discount = Math.min(Math.max(parseFloat(qfDiscountEl?.value) || 0, 0), 100);
+          qfTotalEl.textContent = (subtotal * (1 - discount / 100)).toFixed(2);
         };
-        // 新增一列物料行（item 可從 MR/報價帶入預填，單價留空由用戶填寫）
+        if (qfAmountInput) qfAmountInput.addEventListener("input", recalcQfTotal);
+        if (qfDiscountEl) qfDiscountEl.addEventListener("input", recalcQfTotal);
+        // 新增一列物料行（item 可從參考報價單帶入預填；不填單價，總價於底部輸入）
         const addQfItemRow = (item = {}) => {
           const tr = document.createElement("tr");
           const unitEl = document.createElement("select");
@@ -17437,29 +17727,13 @@
             <td><input class="po-input" data-qf-spec value="${escapeHtml(item.spec || "")}" placeholder="規格/型號"></td>
             <td><input class="po-input po-input-sm" data-qf-qty type="number" min="1" value="${item.qty || 1}"></td>
             <td class="po-unit-cell"></td>
-            <td><input class="po-input po-input-price" data-qf-price type="number" step="0.01" min="0" value="${item.unitPrice || 0}"></td>
-            <td class="po-cost" data-qf-cost style="text-align:right;color:var(--muted);">-</td>
-            <td class="po-subtotal" data-qf-subtotal>0.00</td>
             <td><input class="po-input" data-qf-location value="${escapeHtml(item.location || "")}" placeholder="具體位置（選填）"></td>
             <td><input class="po-input" data-qf-remark value="${escapeHtml(item.remark || "")}" placeholder="備註（選填）"></td>
             <td style="text-align:center;"><button type="button" class="po-remove" data-qf-remove title="刪除">×</button></td>
           `;
           tr.querySelector(".po-unit-cell").appendChild(unitEl);
           qfItemsBody.appendChild(tr);
-          // 物料名稱變更時，即時查詢並顯示成本價參考（無記錄則留空）
-          const refreshQfCost = () => {
-            const costCell = tr.querySelector("[data-qf-cost]");
-            if (!costCell) return;
-            const cost = getInventoryCostPrice(tr.querySelector("[data-qf-name]")?.value);
-            costCell.textContent = cost === null ? "-" : `HKD ${cost.toFixed(2)}`;
-            costCell.style.color = cost === null ? "var(--muted)" : "var(--primary-strong)";
-          };
-          tr.querySelector("[data-qf-name]").addEventListener("input", refreshQfCost);
-          refreshQfCost();
-          tr.querySelector("[data-qf-qty]").addEventListener("input", recalcQfTotal);
-          tr.querySelector("[data-qf-price]").addEventListener("input", recalcQfTotal);
-          tr.querySelector("[data-qf-remove]").addEventListener("click", () => { tr.remove(); recalcQfTotal(); });
-          recalcQfTotal();
+          tr.querySelector("[data-qf-remove]").addEventListener("click", () => tr.remove());
         };
         const qfAddBtn = modal.querySelector("#qfAddItemBtn");
         if (qfAddBtn) qfAddBtn.addEventListener("click", () => addQfItemRow());
@@ -17487,10 +17761,9 @@
 
       const createForm = modal.querySelector("#createQuotationForm");
       if (createForm) {
-        createForm.addEventListener("submit", (e) => {
-          e.preventDefault();
+        // 收集表單資料（含物料明細），供「僅新增報價」與「新建報價並生成標書」共用
+        const buildCreateFormData = () => {
           const formData = new FormData(createForm);
-          // 收集物料明細數據並附加到 formData
           const qfItemsBody = modal.querySelector("#qfItemsBody");
           if (qfItemsBody) {
             const items = [];
@@ -17500,17 +17773,37 @@
               const spec = tr.querySelector("[data-qf-spec]")?.value.trim() || "";
               const qty = parseInt(tr.querySelector("[data-qf-qty]")?.value) || 1;
               const unit = tr.querySelector("[data-qf-unit]")?.value || "個";
-              const unitPrice = parseFloat(tr.querySelector("[data-qf-price]")?.value) || 0;
-              // 會議決策：每行 Item 增加 Location（具體位置）與 Remark（備註），皆為選填
+              // 簡化：物料明細不再逐行填價（總價於底部輸入），僅記錄物料資訊
               const location = tr.querySelector("[data-qf-location]")?.value.trim() || "";
               const remark = tr.querySelector("[data-qf-remark]")?.value.trim() || "";
-              items.push({ name, spec, qty, unit, unitPrice, amount: qty * unitPrice, location, remark });
+              items.push({ name, spec, qty, unit, location, remark });
             });
             formData.append("items", JSON.stringify(items));
           }
-          saveQuotation(formData, false);
+          return formData;
+        };
+        createForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          saveQuotation(buildCreateFormData(), false);
           modal.remove();
         });
+        // 新建報價並生成標書：先建立報價，再依報價資訊建立標書並雙向關聯
+        const withTenderBtn = modal.querySelector("[data-create-quotation-with-tender]");
+        if (withTenderBtn) {
+          withTenderBtn.addEventListener("click", () => {
+            const formData = buildCreateFormData();
+            const quotationId = formData.get("id");
+            saveQuotation(formData, false);
+            const savedQuotation = quotations.find(q => q.id === quotationId);
+            if (!savedQuotation) {
+              toast("報價建立失敗，請確認報價編號後重試", "error");
+              return;
+            }
+            const tender = createTenderFromQuotation(savedQuotation);
+            modal.remove();
+            if (tender) toast(`已新增報價 ${savedQuotation.id} 並生成標書 ${tender.id}`, "success");
+          });
+        }
       }
 
       const editForm = modal.querySelector("#editQuotationForm");
@@ -20016,12 +20309,10 @@
 
     function getTenderFilteredList() {
       const tab = state.tenderTab || "all";
-      const statusFilter = state.tenderStatusFilter || "全部";
       const filters = state.tenderFilters || {};
       const search = (state.tenderSearch || "").toLowerCase().trim();
       const filtered = tenders.filter(t => {
         if (tab !== "all" && t.status !== tab) return false;
-        if (statusFilter !== "全部" && t.status !== statusFilter) return false;
         if (filters.category && filters.category !== "全部" && getTenderFilterValue(t, "category") !== filters.category) return false;
         if (filters.region && filters.region !== "全部" && getTenderFilterValue(t, "region") !== filters.region) return false;
         if (filters.owner && filters.owner !== "全部" && getTenderFilterValue(t, "owner") !== filters.owner) return false;
@@ -20048,7 +20339,6 @@
         "不投標": tenders.filter(t => t.status === "不投標").length
       };
       const tab = state.tenderTab || "待投標";
-      const statusFilter = state.tenderStatusFilter || "全部";
       const filters = state.tenderFilters || { category: "全部", region: "全部", owner: "全部", source: "全部" };
       const filtered = getTenderFilteredList();
       const filterOptions = (key) => [...new Set(tenders.map(t => getTenderFilterValue(t, key)))].sort((a, b) => a.localeCompare(b, "zh-Hant"));
@@ -20068,15 +20358,10 @@
           <div class="component-data-page-preview tender-data-page-preview">
             <div class="tender-toolbar-row">
             <div class="tender-status-tabs" role="tablist" aria-label="標書狀態">
-              <button type="button" class="tender-status-tab ${tab === "待投標" ? "active" : ""}" data-tender-tab="待投標" role="tab" aria-selected="${tab === "待投標"}">
-                <span>待投標</span><strong>${counts["待投標"]}</strong>
-              </button>
-              <button type="button" class="tender-status-tab ${tab === "已中標" ? "active" : ""}" data-tender-tab="已中標" role="tab" aria-selected="${tab === "已中標"}">
-                <span>已中標</span><strong>${counts["已中標"]}</strong>
-              </button>
-              <button type="button" class="tender-status-tab ${tab === "未中標" ? "active" : ""}" data-tender-tab="未中標" role="tab" aria-selected="${tab === "未中標"}">
-                <span>未中標</span><strong>${counts["未中標"]}</strong>
-              </button>
+              ${[["all", "全部", counts.all], ["待投標", "待投標", counts["待投標"]], ["已投標", "已投標", counts["已投標"]], ["已中標", "已中標", counts["已中標"]], ["未中標", "未中標", counts["未中標"]], ["已取消", "已取消", counts["已取消"]], ["不投標", "不投標", counts["不投標"]]].map(([value, label, count]) => `
+              <button type="button" class="tender-status-tab ${tab === value ? "active" : ""}" data-tender-tab="${value}" role="tab" aria-selected="${tab === value}">
+                <span>${label}</span><strong>${count}</strong>
+              </button>`).join("")}
             </div>
             <div class="pc-header-actions">
               <button class="secondary-btn" data-tender-import title="匯入系統掃描標書（流程：主動尋找/被動接收→匯入掃描→自動分配類別區域→通知主管）">匯入標書</button>
@@ -20087,18 +20372,6 @@
           <div class="component-data-page-body tender-data-page-body">
             <div class="component-call-filter-panel tender-filter-panel">
             <div class="wo-filters tender-filters">
-              <div class="wo-filter-group">
-                <label>標書狀態</label>
-                <select class="qf-select" data-tender-status-filter>
-                  <option value="全部" ${statusFilter === "全部" ? "selected" : ""}>全部 (${counts.all})</option>
-                  <option value="待投標" ${statusFilter === "待投標" ? "selected" : ""}>待投標 (${counts["待投標"] || 0})</option>
-                  <option value="已投標" ${statusFilter === "已投標" ? "selected" : ""}>已投標 (${counts["已投標"] || 0})</option>
-                  <option value="已中標" ${statusFilter === "已中標" ? "selected" : ""}>已中標 (${counts["已中標"]})</option>
-                  <option value="未中標" ${statusFilter === "未中標" ? "selected" : ""}>未中標 (${counts["未中標"]})</option>
-                  <option value="已取消" ${statusFilter === "已取消" ? "selected" : ""}>已取消 (${counts["已取消"] || 0})</option>
-                  <option value="不投標" ${statusFilter === "不投標" ? "selected" : ""}>不投標 (${counts["不投標"]})</option>
-                </select>
-              </div>
               ${renderFilter("category", "標書類別")}
               ${renderFilter("region", "區域")}
               ${renderFilter("owner", "EC負責人")}
@@ -20987,7 +21260,7 @@
                   <label class="qf-label">客戶 ${requiredStar}</label>
                   <select class="qf-input" name="client" id="tenderClientSelect" required data-search-select-enhanced="true">
                     <option value="">請選擇客戶</option>
-                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}" data-area="${escapeHtml(c.area || '')}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
+                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""} data-area="${escapeHtml(c.area || '')}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
                   </select>
                 </div>
                 <!-- EC負責人（下拉單選，依客戶所在區域篩選） -->
@@ -21367,7 +21640,7 @@
                     <label class="qf-label">客戶</label>
                     <select class="qf-input" name="client">
                       <option value="">請選擇客戶</option>
-                      ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}">${escapeHtml(c.nameZh)}</option>`).join("")}
+                      ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}</option>`).join("")}
                     </select>
                   </div>
                   <div class="qf-field">
@@ -21836,6 +22109,43 @@
       }
     }
 
+    // 由報價生成標書（政府邀請報價場景）：依報價資訊建立標書，並與報價雙向關聯
+    // 報價端記錄 tenderNo / sourceTenderId，標書端記錄 relatedQuotationId
+    function createTenderFromQuotation(quotation) {
+      if (!quotation) return null;
+      const today = new Date().toISOString().slice(0, 10);
+      const tender = {
+        id: generateTenderNo(),
+        projectName: quotation.title || `${quotation.customerName || ""} - 邀請報價項目`,
+        client: quotation.customerName || "",
+        owner: quotation.owner || currentRole().name || "",
+        tenderValue: Number(quotation.totalAmount || 0),
+        status: "待投標",
+        tenderDate: today,
+        deadline: normalizeTenderDeadline(quotation.deadline),
+        submittedDate: "",
+        resultDate: "",
+        relatedQuotationId: quotation.id,
+        tenderCategory: quotation.category || "",
+        tenderSource: "",
+        replyMethod: "",
+        tenderRegion: quotation.area || "",
+        description: quotation.remark || "",
+        remark: `由報價 ${quotation.id} 生成`,
+        attachments: [],
+        otherDocs: [],
+        history: [{ action: "由報價生成標書", time: new Date().toLocaleString('zh-TW'), actor: currentRole().name, changes: `來源報價 ${quotation.id}` }]
+      };
+      if (tenders.find(x => x.id === tender.id)) tender.id = generateTenderNo();
+      tenders.unshift(tender);
+      // 雙向關聯：報價端也記錄標書編號，供報價管理顯示與追溯
+      quotation.tenderNo = tender.id;
+      quotation.sourceTenderId = tender.id;
+      notifyTenderAssigned(tender);
+      saveDataToLocalStorage();
+      return tender;
+    }
+
     // 確認投遞標書（保留投標中狀態，僅記錄投遞日期）
     async function submitTender(tenderId) {
       const t = tenders.find(x => x.id === tenderId);
@@ -21954,6 +22264,7 @@
       const search = (state.srFolderSearch || "").toLowerCase().trim();
       const areaFilter = state.srFolderArea || "全部";
       const statusFilter = state.srFolderStatus || "全部";
+      const objectiveFilter = state.srFolderObjective || "全部";
 
       let filtered = srTickets;
       if (areaFilter !== "全部") {
@@ -21962,6 +22273,10 @@
       }
       if (statusFilter !== "全部") {
         filtered = filtered.filter(t => t.status === statusFilter);
+      }
+      if (objectiveFilter !== "全部") {
+        // 服務報告目的為多選字段，命中任一項即視為符合
+        filtered = filtered.filter(t => (t.srObjectives || []).includes(objectiveFilter));
       }
       if (search) {
         filtered = filtered.filter(t =>
@@ -21977,6 +22292,11 @@
 
       // 收集所有出現過的區域（用於篩選下拉）
       const allAreas = ["全部", ...new Set(srTickets.map(t => t.srArea || t.area || "").filter(Boolean))];
+      // 收集服務報告目的（含 SR 表單的標準 4 項，用於篩選下拉）
+      const allObjectives = ["全部", ...new Set([
+        "Routine Check", "Fault Report", "Emergency Call", "Others",
+        ...srTickets.flatMap(t => t.srObjectives || [])
+      ])];
 
       return `
         <div class="pc-container">
@@ -22015,6 +22335,12 @@
                 <label>狀態</label>
                 <select class="qf-select" data-sr-folder-status>
                   ${["全部", "待確認", "待處理", "處理中", "待完工確認", "已完成", "已取消"].map(s => `<option value="${s}" ${statusFilter === s ? 'selected' : ''}>${s === '全部' ? '全部狀態' : s}</option>`).join("")}
+                </select>
+              </div>
+              <div class="wo-filter-group">
+                <label>Objective</label>
+                <select class="qf-select" data-sr-folder-objective>
+                  ${allObjectives.map(o => `<option value="${escapeHtml(o)}" ${objectiveFilter === o ? 'selected' : ''}>${o === '全部' ? '全部目的' : escapeHtml(o)}</option>`).join("")}
                 </select>
               </div>
               <div class="wo-filter-group">
@@ -22333,7 +22659,7 @@
                 <th>客戶</th>
                 <th>區域</th>
                 <th>系統</th>
-                <th>目的</th>
+                <th>Objective</th>
                 <th>保養類型</th>
                 <th>工單狀態</th>
                 <th>建立時間</th>
@@ -25718,8 +26044,19 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       // Customer management events
       document.querySelectorAll("[data-create-customer]").forEach(btn => btn.addEventListener("click", openCreateCustomer));
-      document.querySelectorAll("[data-customer-category]").forEach(btn => btn.addEventListener("click", () => {
-        customerState.categoryFilter = btn.dataset.customerCategory;
+      // 頂部統計卡：點擊快速切換篩選（再次點擊同一張卡則取消該篩選）
+      document.querySelectorAll("[data-customer-metric]").forEach(btn => btn.addEventListener("click", () => {
+        const key = btn.dataset.customerMetric;
+        if (key === "total") {
+          customerState.categoryFilter = "全部";
+          customerState.filterLevel = "全部";
+        } else if (key === "government") {
+          customerState.categoryFilter = customerState.categoryFilter === "政府" ? "全部" : "政府";
+        } else if (key === "private") {
+          customerState.categoryFilter = customerState.categoryFilter === "私人" ? "全部" : "私人";
+        } else if (key === "vip") {
+          customerState.filterLevel = customerState.filterLevel === "VIP" ? "全部" : "VIP";
+        }
         customerState.currentPage = 1;
         render();
       }));
@@ -25727,14 +26064,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (customerSearch) {
         customerSearch.addEventListener("input", () => {
           customerState.searchKeyword = customerSearch.value;
-          customerState.currentPage = 1;
-          render();
-        });
-      }
-      const customerFilterType = document.querySelector("[data-customer-filter-type]");
-      if (customerFilterType) {
-        customerFilterType.addEventListener("change", () => {
-          customerState.filterType = customerFilterType.value;
           customerState.currentPage = 1;
           render();
         });
@@ -25837,6 +26166,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       document.querySelectorAll("[data-send-quotation]").forEach(btn => btn.addEventListener("click", () => openSendQuotationModal(btn.dataset.sendQuotation)));
       document.querySelectorAll("[data-mark-won]").forEach(btn => btn.addEventListener("click", () => markQuotationWon(btn.dataset.markWon)));
+      document.querySelectorAll("[data-mark-tender-won]").forEach(btn => btn.addEventListener("click", () => markLinkedTenderWon(btn.dataset.markTenderWon)));
       document.querySelectorAll("[data-mark-no-offer]").forEach(btn => btn.addEventListener("click", () => markNoOffer(btn.dataset.markNoOffer)));
       document.querySelectorAll("[data-create-revision]").forEach(btn => btn.addEventListener("click", () => createQuotationRevision(btn.dataset.createRevision)));
       document.querySelectorAll("[data-start-procurement]").forEach(btn => btn.addEventListener("click", () => startProcurement(btn.dataset.startProcurement)));
@@ -26003,17 +26333,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-peachtree-sync]").forEach(btn => btn.addEventListener("click", openPeachtreeSyncModal));
       // Peachtree 配置按鈕
       document.querySelectorAll("[data-peachtree-config]").forEach(btn => btn.addEventListener("click", openPeachtreeConfigModal));
-      // 標書管理 Tab 切換
+      // 標書管理狀態 Tab 切換（狀態篩選改為固定 Tab，不再使用下拉）
       document.querySelectorAll("[data-tender-tab]").forEach(tab => tab.addEventListener("click", () => {
         state.tenderTab = tab.dataset.tenderTab;
-        state.tenderStatusFilter = "全部";
-        state.tenderPage = 1;
-        render();
-      }));
-      // 標書狀態與附加篩選條件
-      document.querySelectorAll("[data-tender-status-filter]").forEach(sel => sel.addEventListener("change", () => {
-        state.tenderStatusFilter = sel.value;
-        state.tenderTab = "all";
         state.tenderPage = 1;
         render();
       }));
@@ -26208,6 +26530,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.srFolderStatus = e.target.value;
         render();
       }));
+      // SR 文件夾：Objective（服務報告目的）篩選
+      document.querySelectorAll("[data-sr-folder-objective]").forEach(sel => sel.addEventListener("change", (e) => {
+        state.srFolderObjective = e.target.value;
+        render();
+      }));
       // SR 文件夾：搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
       document.querySelectorAll("[data-sr-folder-search-btn]").forEach(btn => btn.addEventListener("click", () => {
         const input = document.querySelector("[data-sr-folder-search]");
@@ -26218,6 +26545,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-sr-folder-reset]").forEach(btn => btn.addEventListener("click", () => {
         state.srFolderArea = "全部";
         state.srFolderStatus = "全部";
+        state.srFolderObjective = "全部";
         state.srFolderSearch = "";
         render();
       }));
