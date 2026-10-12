@@ -1,0 +1,124 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📱 移動端":
+      - generic: 📱
+      - generic: 移動端
+- main:
+  - heading "首頁" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "周 周師傅 師傅 · 外勤 · 九龍 ⌄":
+    - generic: 周
+    - strong: 周師傅
+    - generic: 師傅 · 外勤 · 九龍
+    - generic: ⌄
+  - button "查看全部 CALL":
+    - generic: CALL總數
+    - generic: "17"
+    - generic: 點擊列表篩選查看
+  - button "查看待分派 CALL":
+    - generic: 待分派
+    - generic: "7"
+    - generic: 點擊列表篩選查看
+  - button "查看待確認 CALL":
+    - generic: 待確認
+    - generic: "2"
+    - generic: 點擊列表篩選查看
+  - button "查看待處理 CALL":
+    - generic: 待處理
+    - generic: "2"
+    - generic: 點擊列表篩選查看
+  - button "查看處理中 CALL":
+    - generic: 處理中
+    - generic: "3"
+    - generic: 點擊列表篩選查看
+  - button "查看待審批 CALL":
+    - generic: 待審批
+    - generic: "0"
+    - generic: 點擊列表篩選查看
+  - button "查看待完工確認 CALL":
+    - generic: 待完工確認
+    - generic: "0"
+    - generic: 點擊列表篩選查看
+  - button "查看已完成 CALL":
+    - generic: 已完成
+    - generic: "2"
+    - generic: 點擊列表篩選查看
+  - button "查看已取消 CALL":
+    - generic: 已取消
+    - generic: "1"
+    - generic: 點擊列表篩選查看
+  - heading "今日待辦" [level=2]
+  - button "查看列表"
+  - button "WO-DEMO-CM"
+  - generic: 待分派
+  - strong: 九龍國際廣場
+  - paragraph: 整改走查 糾正維修
+  - button "WO-DEMO-MP-P"
+  - generic: 待分派
+  - strong: 九龍國際廣場
+  - paragraph: 整改走查 工程維修
+  - button "WO-DEMO-M-01"
+  - generic: 待處理
+  - strong: 九龍國際廣場
+  - paragraph: 整改走查 DLP 保養維修
+  - button "WO-DEMO-P"
+  - generic: 待分派
+  - strong: 九龍國際廣場
+  - paragraph: 整改走查 工程維修
+  - button "WO-20260615-001"
+  - generic: 待分派
+  - strong: 港島商業中心
+  - paragraph: 客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。
+  - heading "異常CALL" [level=2]
+  - button "查看列表"
+  - button "WO-20260615-002"
+  - generic: 緊急
+  - strong: 九龍屋苑管理處
+  - paragraph: 停車場出入口閘機保養，現場反饋開合速度變慢。
+  - button "WO-20260614-008"
+  - generic: 緊急
+  - strong: 新界住宅項目
+  - paragraph: 當前現場任務未完成，無法按時到場。
+  - button "WO-20260613-010"
+  - generic: 需關注
+  - strong: 灣仔商業大廈
+  - paragraph: 臨時協助現場設備移位，需補充位置照片後繼續處理。
+  - heading "最近動態" [level=2]
+  - generic: 2026-06-15
+  - strong:
+    - text: 09-27 09:00 ·
+    - button "開啟 WO-DEMO-CM": WO-DEMO-CM
+  - paragraph: 整改走查樣例
+  - strong:
+    - text: 09-27 09:00 ·
+    - button "開啟 WO-DEMO-INSTANT": WO-DEMO-INSTANT
+  - paragraph: 整改走查樣例
+  - strong:
+    - text: 09-27 09:00 ·
+    - button "開啟 WO-DEMO-MP-P": WO-DEMO-MP-P
+  - paragraph: 整改走查樣例
+  - strong:
+    - text: 09-27 09:00 ·
+    - button "開啟 WO-DEMO-M-01": WO-DEMO-M-01
+  - paragraph: 整改走查樣例
+  - strong:
+    - text: 09-27 09:00 ·
+    - button "開啟 WO-DEMO-P": WO-DEMO-P
+  - paragraph: 整改走查樣例
+  - heading "📞 最近來電" [level=2]
+  - button "查看全部來電"
+  - generic: 暫無來電記錄
+- generic: 已切換至 周師傅（師傅）

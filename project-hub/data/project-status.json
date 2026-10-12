@@ -4,10 +4,10 @@
   "phase": "事实审计 / 真实流程澄清 / 原型与客户确认阶段",
   "baseline": {
     "prototype": "prototype/（2.0 当前评审入口）",
-    "decision": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+    "decision": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
     "requirementApproval": "80 项功能需求仍为待确认；不得把流程 Decision 自动等同为全部需求批准。",
     "productionDevelopment": "未进入生产开发",
-    "business": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+    "business": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
     "businessFileId": "FILE-6366380F13"
   },
   "stats": {
@@ -747,53 +747,53 @@
     "建立正式 Test/UAT 用例"
   ],
   "knowledgeUpstream": {
-    "builder": ".codex/project-hub-build/build-v2.js",
+    "builder": "project-hub/scripts/build-v2.js",
     "currentKnowledge": [
       {
         "role": "KNOWLEDGE_GOVERNANCE",
-        "projectPath": "knowledge/README.md",
+        "projectPath": "docs/knowledge/README.md",
         "fileId": "FILE-40D54A8C7F",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "SOURCE_INDEX",
-        "projectPath": "knowledge/01-source/SOURCE-INDEX.md",
+        "projectPath": "docs/knowledge/01-source/SOURCE-INDEX.md",
         "fileId": "FILE-8A886D3BAD",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "DECISION_INDEX",
-        "projectPath": "knowledge/02-decisions/DECISION-INDEX.md",
+        "projectPath": "docs/knowledge/02-decisions/DECISION-INDEX.md",
         "fileId": "FILE-60ED96DE1C",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "CURRENT_BUSINESS_BASELINE",
-        "projectPath": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+        "projectPath": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
         "fileId": "FILE-6366380F13",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "BUSINESS_FLOW_DATA",
-        "projectPath": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+        "projectPath": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
         "fileId": "FILE-6DF78BBE11",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "REQUIREMENT_INDEX",
-        "projectPath": "knowledge/04-requirements/REQUIREMENT-INDEX.md",
+        "projectPath": "docs/knowledge/04-requirements/REQUIREMENT-INDEX.md",
         "fileId": "FILE-EAAC161667",
         "tier": "CURRENT",
         "status": "READY"
       },
       {
         "role": "OPEN_QUESTION_INDEX",
-        "projectPath": "knowledge/05-pending/OPEN-QUESTIONS.md",
+        "projectPath": "docs/knowledge/05-pending/OPEN-QUESTIONS.md",
         "fileId": "FILE-FF2EB9320E",
         "tier": "CURRENT",
         "status": "READY"

@@ -1,0 +1,619 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+- main:
+  - heading "會計管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔 1":
+    - text: 🔔
+    - generic: "1"
+  - button "陳 陳會計 會計部 · 會計部 ⌄":
+    - generic: 陳
+    - strong: 陳會計
+    - generic: 會計部 · 會計部
+    - generic: ⌄
+  - button "開具發票"
+  - button "登記收款"
+  - heading "待開票" [level=3]
+  - generic: "30"
+  - generic: 已中標未開票 ＋ 合約週期帳單
+  - heading "待收款" [level=3]
+  - generic: "1"
+  - generic: HKD 49,500
+  - heading "本月收款" [level=3]
+  - generic: 3,080
+  - generic: HKD
+  - heading "發票總數" [level=3]
+  - generic: "2"
+  - generic: 已開具發票
+  - button "待開票 (30)"
+  - button "發票管理 (2)"
+  - button "收款記錄 (1)"
+  - button "客戶檔案 (4)"
+  - button "保養合約 (3)"
+  - textbox "關鍵字（Job Code / 客戶 / 描述）"
+  - textbox
+  - button "全部類型 ⌄":
+    - generic: 全部類型
+    - generic: ⌄
+  - combobox:
+    - option "全部類型" [selected]
+    - option "工程"
+    - option "M類保養"
+  - button "清除"
+  - checkbox "全選"
+  - text: 全選
+  - generic: 已選 0 筆
+  - button "批量開具發票" [disabled]
+  - button "列印選取" [disabled]
+  - table:
+    - rowgroup:
+      - row "Job Code 客戶 描述 金額 類型 Billing Period 服務起止日期 付款週期 附件 狀態 操作":
+        - columnheader
+        - columnheader "Job Code"
+        - columnheader "客戶"
+        - columnheader "描述"
+        - columnheader "金額"
+        - columnheader "類型"
+        - columnheader "Billing Period"
+        - columnheader "服務起止日期"
+        - columnheader "付款週期"
+        - columnheader "附件"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "QT-DEMO-M 九龍國際廣場 2026-09-27 M 業務走查樣例 HKD 12,000 工程 — — 一次性 欠：完工紙、客戶確認PO 欠文件 開票":
+        - cell:
+          - checkbox [disabled]
+        - cell "QT-DEMO-M":
+          - strong: QT-DEMO-M
+        - cell "九龍國際廣場"
+        - cell "2026-09-27 M 業務走查樣例"
+        - cell "HKD 12,000"
+        - cell "工程":
+          - generic: 工程
+        - cell "—"
+        - cell "—"
+        - cell "一次性"
+        - cell "欠：完工紙、客戶確認PO"
+        - cell "欠文件":
+          - generic: 欠文件
+        - cell "開票":
+          - button "開票" [disabled]
+      - row "QT-DEMO-MP 九龍國際廣場 2026-09-27 M+P 業務走查樣例 HKD 3,040 工程 — — 一次性 欠：完工紙、客戶確認PO 欠文件 開票":
+        - cell:
+          - checkbox [disabled]
+        - cell "QT-DEMO-MP":
+          - strong: QT-DEMO-MP
+        - cell "九龍國際廣場"
+        - cell "2026-09-27 M+P 業務走查樣例"
+        - cell "HKD 3,040"
+        - cell "工程":
+          - generic: 工程
+        - cell "—"
+        - cell "—"
+        - cell "一次性"
+        - cell "欠：完工紙、客戶確認PO"
+        - cell "欠文件":
+          - generic: 欠文件
+        - cell "開票":
+          - button "開票" [disabled]
+      - row "4M123456 海栢花園管理處 2026-06 保養合約結算 HKD 4,500 M類保養 2026-06 2026-06-01 ~ 2026-06-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-06 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-06"
+        - cell "2026-06-01 ~ 2026-06-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-07 保養合約結算 HKD 4,500 M類保養 2026-07 2026-07-01 ~ 2026-07-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-07 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-07"
+        - cell "2026-07-01 ~ 2026-07-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-08 保養合約結算 HKD 4,500 M類保養 2026-08 2026-08-01 ~ 2026-08-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-08 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-08"
+        - cell "2026-08-01 ~ 2026-08-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-09 保養合約結算 HKD 4,500 M類保養 2026-09 2026-09-01 ~ 2026-09-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-09 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-09"
+        - cell "2026-09-01 ~ 2026-09-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-10 保養合約結算 HKD 4,500 M類保養 2026-10 2026-10-01 ~ 2026-10-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-10 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-10"
+        - cell "2026-10-01 ~ 2026-10-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-11 保養合約結算 HKD 4,500 M類保養 2026-11 2026-11-01 ~ 2026-11-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-11 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-11"
+        - cell "2026-11-01 ~ 2026-11-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2026-12 保養合約結算 HKD 4,500 M類保養 2026-12 2026-12-01 ~ 2026-12-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2026-12 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-12"
+        - cell "2026-12-01 ~ 2026-12-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2027-01 保養合約結算 HKD 4,500 M類保養 2027-01 2027-01-01 ~ 2027-01-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2027-01 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-01"
+        - cell "2027-01-01 ~ 2027-01-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2027-02 保養合約結算 HKD 4,500 M類保養 2027-02 2027-02-01 ~ 2027-02-28 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2027-02 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-02"
+        - cell "2027-02-01 ~ 2027-02-28"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2027-03 保養合約結算 HKD 4,500 M類保養 2027-03 2027-03-01 ~ 2027-03-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2027-03 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-03"
+        - cell "2027-03-01 ~ 2027-03-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2027-04 保養合約結算 HKD 4,500 M類保養 2027-04 2027-04-01 ~ 2027-04-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2027-04 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-04"
+        - cell "2027-04-01 ~ 2027-04-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123456 海栢花園管理處 2027-05 保養合約結算 HKD 4,500 M類保養 2027-05 2027-05-01 ~ 2027-05-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123456":
+          - strong: 4M123456
+        - cell "海栢花園管理處"
+        - cell "2027-05 保養合約結算"
+        - cell "HKD 4,500"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-05"
+        - cell "2027-05-01 ~ 2027-05-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-06 保養合約結算 HKD 5,800 M類保養 2026-06 2026-06-01 ~ 2026-06-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-06 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-06"
+        - cell "2026-06-01 ~ 2026-06-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-07 保養合約結算 HKD 5,800 M類保養 2026-07 2026-07-01 ~ 2026-07-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-07 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-07"
+        - cell "2026-07-01 ~ 2026-07-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-08 保養合約結算 HKD 5,800 M類保養 2026-08 2026-08-01 ~ 2026-08-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-08 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-08"
+        - cell "2026-08-01 ~ 2026-08-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-09 保養合約結算 HKD 5,800 M類保養 2026-09 2026-09-01 ~ 2026-09-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-09 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-09"
+        - cell "2026-09-01 ~ 2026-09-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-10 保養合約結算 HKD 5,800 M類保養 2026-10 2026-10-01 ~ 2026-10-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-10 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-10"
+        - cell "2026-10-01 ~ 2026-10-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-11 保養合約結算 HKD 5,800 M類保養 2026-11 2026-11-01 ~ 2026-11-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-11 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-11"
+        - cell "2026-11-01 ~ 2026-11-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2026-12 保養合約結算 HKD 5,800 M類保養 2026-12 2026-12-01 ~ 2026-12-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2026-12 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-12"
+        - cell "2026-12-01 ~ 2026-12-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2027-01 保養合約結算 HKD 5,800 M類保養 2027-01 2027-01-01 ~ 2027-01-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2027-01 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-01"
+        - cell "2027-01-01 ~ 2027-01-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2027-02 保養合約結算 HKD 5,800 M類保養 2027-02 2027-02-01 ~ 2027-02-28 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2027-02 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-02"
+        - cell "2027-02-01 ~ 2027-02-28"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2027-03 保養合約結算 HKD 5,800 M類保養 2027-03 2027-03-01 ~ 2027-03-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2027-03 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-03"
+        - cell "2027-03-01 ~ 2027-03-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2027-04 保養合約結算 HKD 5,800 M類保養 2027-04 2027-04-01 ~ 2027-04-30 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2027-04 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-04"
+        - cell "2027-04-01 ~ 2027-04-30"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123457 高衛物業管理 2027-05 保養合約結算 HKD 5,800 M類保養 2027-05 2027-05-01 ~ 2027-05-31 每月 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123457":
+          - strong: 4M123457
+        - cell "高衛物業管理"
+        - cell "2027-05 保養合約結算"
+        - cell "HKD 5,800"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2027-05"
+        - cell "2027-05-01 ~ 2027-05-31"
+        - cell "每月"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123458 九龍國際廣場 2026-01 保養合約結算 HKD 12,000 M類保養 2026-01 2026-01-01 ~ 2026-03-31 每季 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123458":
+          - strong: 4M123458
+        - cell "九龍國際廣場"
+        - cell "2026-01 保養合約結算"
+        - cell "HKD 12,000"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-01"
+        - cell "2026-01-01 ~ 2026-03-31"
+        - cell "每季"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123458 九龍國際廣場 2026-04 保養合約結算 HKD 12,000 M類保養 2026-04 2026-04-01 ~ 2026-06-30 每季 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123458":
+          - strong: 4M123458
+        - cell "九龍國際廣場"
+        - cell "2026-04 保養合約結算"
+        - cell "HKD 12,000"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-04"
+        - cell "2026-04-01 ~ 2026-06-30"
+        - cell "每季"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123458 九龍國際廣場 2026-07 保養合約結算 HKD 12,000 M類保養 2026-07 2026-07-01 ~ 2026-09-30 每季 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123458":
+          - strong: 4M123458
+        - cell "九龍國際廣場"
+        - cell "2026-07 保養合約結算"
+        - cell "HKD 12,000"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-07"
+        - cell "2026-07-01 ~ 2026-09-30"
+        - cell "每季"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+      - row "4M123458 九龍國際廣場 2026-10 保養合約結算 HKD 12,000 M類保養 2026-10 2026-10-01 ~ 2026-12-31 每季 合約 待開票 開票":
+        - cell:
+          - checkbox
+        - cell "4M123458":
+          - strong: 4M123458
+        - cell "九龍國際廣場"
+        - cell "2026-10 保養合約結算"
+        - cell "HKD 12,000"
+        - cell "M類保養":
+          - generic: M類保養
+        - cell "2026-10"
+        - cell "2026-10-01 ~ 2026-12-31"
+        - cell "每季"
+        - cell "合約"
+        - cell "待開票":
+          - generic: 待開票
+        - cell "開票":
+          - button "開票"
+- generic: 已切換至 陳會計（會計部）

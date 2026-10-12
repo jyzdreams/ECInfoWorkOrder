@@ -1,0 +1,336 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "CALL管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - tablist "CALL視圖與客戶視圖":
+    - tab "CALL視圖" [selected]
+    - tab "客戶視圖"
+  - button "+ 新增CALL"
+  - generic: CALL狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+    - option "處理中"
+    - option "待處理"
+    - option "待確認"
+    - option "已完成"
+    - option "已取消"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "DLP 保養維修"
+    - option "工程維修"
+    - option "工程項目"
+    - option "投訴"
+    - option "糾正維修"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+    - option "3區"
+    - option "4區"
+    - option "5區"
+    - option "6區"
+    - option "7區"
+    - option "7A區"
+    - option "8區"
+    - option "MTR"
+    - option "EMSD"
+    - option "ASD"
+    - option "軟件組"
+    - option "EV Charge"
+    - option "Maintenance-HTCL"
+    - option "Project 1(生)"
+    - option "Project 1 MTR"
+    - option "Project 1(Sam)"
+    - option "Project 1(Johnny)"
+    - option "Project 1(Roy)"
+    - option "Project 1(Eric)"
+    - option "Project 2(Joe)"
+    - option "Project 1-1541"
+    - option "Project 1-1962EM20T"
+    - option "Project 1-1105"
+    - option "Project 1-2489"
+    - option "Project 1-2458"
+    - option "Project/Maintenance"
+  - generic: 負責人
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "李組長"
+    - option "王組長"
+  - generic: 關鍵詞搜索
+  - textbox "CALL編號／客戶／聯繫人"
+  - button "搜索"
+  - button "重置"
+  - table:
+    - rowgroup:
+      - row "CALL編號 創建時間 客戶 類型 區域 狀態 負責人 操作":
+        - columnheader "CALL編號"
+        - columnheader "創建時間"
+        - columnheader "客戶"
+        - columnheader "類型"
+        - columnheader "區域"
+        - columnheader "狀態"
+        - columnheader "負責人"
+        - columnheader "操作"
+    - rowgroup:
+      - row "WO-DEMO-CM 2026-09-27 09:00 九龍國際廣場 糾正維修 2區 待分派 李組長 查看詳情":
+        - cell "WO-DEMO-CM":
+          - button "WO-DEMO-CM"
+        - cell "2026-09-27 09:00"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "糾正維修"
+        - cell "2區"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-DEMO-INSTANT 2026-09-27 09:00 九龍國際廣場 工程維修 2區 處理中 李組長 查看詳情":
+        - cell "WO-DEMO-INSTANT":
+          - button "WO-DEMO-INSTANT"
+        - cell "2026-09-27 09:00"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "工程維修"
+        - cell "2區"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-DEMO-MP-P 2026-09-27 09:00 九龍國際廣場 工程維修 2區 待分派 李組長 查看詳情":
+        - cell "WO-DEMO-MP-P":
+          - button "WO-DEMO-MP-P" [active]
+        - cell "2026-09-27 09:00"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "工程維修"
+        - cell "2區"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-DEMO-M-01 2026-09-27 09:00 九龍國際廣場 DLP 保養維修 2區 待處理 李組長 查看詳情":
+        - cell "WO-DEMO-M-01":
+          - button "WO-DEMO-M-01"
+        - cell "2026-09-27 09:00"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "DLP 保養維修"
+        - cell "2區"
+        - cell "待處理":
+          - generic: 待處理
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-DEMO-P 2026-09-27 09:00 九龍國際廣場 工程維修 2區 待分派 李組長 查看詳情":
+        - cell "WO-DEMO-P":
+          - button "WO-DEMO-P"
+        - cell "2026-09-27 09:00"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "工程維修"
+        - cell "2區"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-004 2026-06-15 10:20 新界住宅項目 保養維修 3區 待處理 李組長 查看詳情":
+        - cell "WO-20260615-004":
+          - button "WO-20260615-004"
+        - cell "2026-06-15 10:20"
+        - cell "新界住宅項目":
+          - generic: 新界住宅項目
+        - cell "保養維修"
+        - cell "3區"
+        - cell "待處理":
+          - generic: 待處理
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-003 2026-06-15 10:02 安全監控管理有限公司 工程維修 3區 待確認 王組長 查看詳情":
+        - cell "WO-20260615-003":
+          - button "WO-20260615-003"
+        - cell "2026-06-15 10:02"
+        - cell "安全監控管理有限公司":
+          - generic: 安全監控管理有限公司
+        - cell "工程維修"
+        - cell "3區"
+        - cell "待確認":
+          - generic: 待確認
+        - cell "王組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-002 2026-06-15 09:28 九龍屋苑管理處 保養維修 2區 待分派 李組長 查看詳情":
+        - cell "WO-20260615-002":
+          - button "WO-20260615-002"
+        - cell "2026-06-15 09:28"
+        - cell "九龍屋苑管理處":
+          - generic: 九龍屋苑管理處
+        - cell "保養維修"
+        - cell "2區"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-001 2026-06-15 09:10 港島商業中心 保養維修 1區 待分派 李組長 查看詳情":
+        - cell "WO-20260615-001":
+          - button "WO-20260615-001"
+        - cell "2026-06-15 09:10"
+        - cell "港島商業中心":
+          - generic: 港島商業中心
+        - cell "保養維修"
+        - cell "1區"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-005 2026-06-15 08:20 灣仔商業大廈 保養維修 1區 處理中 李組長 查看詳情":
+        - cell "WO-20260615-005":
+          - button "WO-20260615-005"
+        - cell "2026-06-15 08:20"
+        - cell "灣仔商業大廈":
+          - generic: 灣仔商業大廈
+        - cell "保養維修"
+        - cell "1區"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "李組長"
+        - cell "查看詳情":
+          - button "查看詳情"
+  - text: 共 17 條記錄，每頁
+  - combobox:
+    - option "10" [selected]
+    - option "20"
+    - option "50"
+  - text: 條，第 1/2 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "2"
+  - button "›"
+- generic: 歡迎回來，系統管理員！
+- dialog "CALL詳情":
+  - heading "WO-DEMO-MP-P" [level=3]
+  - generic: CALL詳情 · 工程維修
+  - generic: 待分派
+  - button "關閉": ×
+  - heading "客戶信息" [level=4]
+  - generic: 客戶名稱
+  - generic: 九龍國際廣場
+  - generic: 聯繫人
+  - generic: 陳先生
+  - generic: 聯繫電話
+  - generic: +852 9000 0000
+  - generic: 地址
+  - generic: 九龍國際廣場
+  - heading "CALL信息" [level=4]
+  - generic: CALL類型
+  - generic: 工程維修
+  - generic: 區域
+  - generic: 2區
+  - generic: 來源渠道
+  - generic: 電話
+  - generic: 優先級
+  - generic: 普通
+  - generic: 創建時間
+  - generic: 2026-09-27 09:00
+  - generic: 問題描述
+  - generic: 整改走查 工程維修
+  - heading "處理進度" [level=4]
+  - generic: 當前狀態
+  - generic: 待分派
+  - generic: 當前負責人
+  - generic: 李組長
+  - generic: 主管
+  - generic: 李組長
+  - generic: 排程狀態
+  - generic: 未排程
+  - generic: 預排師傅
+  - generic: 未預排
+  - generic: 預計時間
+  - generic: 未預排
+  - generic: 正式施工時間
+  - generic: 未確認
+  - generic: 服務報告
+  - generic: 未提交
+  - heading "附件" [level=4]
+  - generic: 暫無附件
+  - heading "履約狀態" [level=4]
+  - generic: 報價、備貨與完工確認
+  - generic: 材料狀態
+  - strong: MR-QT-DEMO-MP · 待備貨
+  - generic: 完工確認
+  - strong: 未完成
+  - button "編輯工單"

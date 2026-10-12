@@ -1,0 +1,207 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "客戶管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "林 林主管 管理員 · 管理部 ⌄":
+    - generic: 林
+    - strong: 林主管
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - generic: 客戶分類
+  - button "全部客戶 12":
+    - generic: 全部客戶
+    - generic: "12"
+  - button "政府客戶 3":
+    - generic: 政府客戶
+    - generic: "3"
+  - button "私人客戶 9":
+    - generic: 私人客戶
+    - generic: "9"
+  - textbox "搜索客戶名稱/編號/聯繫人/電話/地址"
+  - button "全部類型 ⌄":
+    - generic: 全部類型
+    - generic: ⌄
+  - combobox:
+    - option "全部類型" [selected]
+    - option "政府"
+    - option "私人"
+  - button "全部等級 ⌄":
+    - generic: 全部等級
+    - generic: ⌄
+  - combobox:
+    - option "全部等級" [selected]
+    - option "普通"
+    - option "VIP"
+    - option "重要"
+  - button "全部狀態 ⌄":
+    - generic: 全部狀態
+    - generic: ⌄
+  - combobox:
+    - option "全部狀態" [selected]
+    - option "啟用"
+    - option "禁用"
+  - button "新增客戶"
+  - heading "港島商業中心" [level=3]
+  - generic: HK Commercial Center
+  - generic: VIP
+  - generic: 📋 CUST-0001
+  - generic: 🏢 私人
+  - generic: 📍 1區
+  - generic: 👤 陳先生
+  - generic: 📞 +852 9123 4567
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "九龍國際廣場" [level=3]
+  - generic: Kowloon International Plaza
+  - generic: 重要
+  - generic: 📋 CUST-0002
+  - generic: 🏢 私人
+  - generic: 📍 2區
+  - generic: 👤 李小姐
+  - generic: 📞 +852 9234 5678
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "新界花園住宅" [level=3]
+  - generic: NT Garden Residence
+  - generic: 普通
+  - generic: 📋 CUST-0003
+  - generic: 🏢 私人
+  - generic: 📍 3區
+  - generic: 👤 張女士
+  - generic: 📞 +852 9345 6789
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "香港政府大樓" [level=3]
+  - generic: HK Government Building
+  - generic: 重要
+  - generic: 📋 CUST-0004
+  - generic: 🏢 政府
+  - generic: 📍 1區
+  - generic: 👤 何先生
+  - generic: 📞 +852 9456 7890
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "維多利亞酒店" [level=3]
+  - generic: Victoria Hotel
+  - generic: VIP
+  - generic: 📋 CUST-0005
+  - generic: 🏢 私人
+  - generic: 📍 1區
+  - generic: 👤 陳經理
+  - generic: 📞 +852 9567 8901
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "九龍灣工業大廈" [level=3]
+  - generic: Kowloon Bay Industrial Building
+  - generic: 普通
+  - generic: 📋 CUST-0006
+  - generic: 🏢 私人
+  - generic: 📍 2區
+  - generic: 👤 黃先生
+  - generic: 📞 +852 9678 9012
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "青衣邨住宅" [level=3]
+  - generic: Tsing Yi Estate
+  - generic: 普通
+  - generic: 📋 CUST-0007
+  - generic: 🏢 私人
+  - generic: 📍 3區
+  - generic: 👤 林小姐
+  - generic: 📞 +852 9789 0123
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "將軍澳醫院" [level=3]
+  - generic: Tseung Kwan O Hospital
+  - generic: 重要
+  - generic: 📋 CUST-0008
+  - generic: 🏢 政府
+  - generic: 📍 3區
+  - generic: 👤 周醫生
+  - generic: 📞 +852 9890 1234
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "銅鑼灣購物中心" [level=3]
+  - generic: Causeway Bay Shopping Mall
+  - generic: VIP
+  - generic: 📋 CUST-0009
+  - generic: 🏢 私人
+  - generic: 📍 1區
+  - generic: 👤 吳小姐
+  - generic: 📞 +852 9901 2345
+  - generic: 啓用
+  - button "查看"
+  - button "編輯"
+  - heading "荃灣工廠大廈" [level=3]
+  - generic: Tsuen Wan Factory Building
+  - generic: 普通
+  - generic: 📋 CUST-0010
+  - generic: 🏢 私人
+  - generic: 📍 3區
+  - generic: 👤 鄭先生
+  - generic: 📞 +852 9012 3456
+  - generic: 禁用
+  - button "查看"
+  - button "編輯"
+  - generic: 共 12 條記錄，第 1/2 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "2"
+  - button "›"
+- generic: 已切換至 林主管（管理員）

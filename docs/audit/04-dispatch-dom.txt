@@ -1,0 +1,265 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "分派中心" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - tablist "派工狀態":
+    - tab "待分派 7" [selected]:
+      - generic: 待分派
+      - strong: "7"
+    - tab "已分派 7":
+      - generic: 已分派
+      - strong: "7"
+    - tab "已完成 2":
+      - generic: 已完成
+      - strong: "2"
+  - generic: 狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+    - option "3區"
+  - generic: 客戶
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "九龍國際廣場"
+    - option "九龍屋苑管理處"
+    - option "新界住宅項目"
+    - option "港島商業中心"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "保養維修"
+    - option "工程維修"
+    - option "糾正維修"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - button "模擬超時"
+  - table:
+    - rowgroup:
+      - row "任務編號 關聯工單 客戶 區域 CALL類型 內容摘要 目前師傅 狀態 分派時間 更新時間 操作":
+        - columnheader "任務編號"
+        - columnheader "關聯工單"
+        - columnheader "客戶"
+        - columnheader "區域"
+        - columnheader "CALL類型"
+        - columnheader "內容摘要"
+        - columnheader "目前師傅"
+        - columnheader "狀態"
+        - columnheader "分派時間"
+        - columnheader "更新時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "T-261007-001 WO-DEMO-CM 九龍國際廣場 2區 糾正維修 整改走查 糾正維修 - 待分派 - 09-27 09:00 分派 查看":
+        - cell "T-261007-001":
+          - button "T-261007-001"
+        - cell "WO-DEMO-CM":
+          - button "WO-DEMO-CM"
+        - cell "九龍國際廣場":
+          - strong: 九龍國際廣場
+        - cell "2區"
+        - cell "糾正維修"
+        - cell "整改走查 糾正維修":
+          - generic "整改走查 糾正維修"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "09-27 09:00"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-002 WO-DEMO-MP-P 九龍國際廣場 2區 工程維修 整改走查 工程維修 - 待分派 - 09-27 09:00 分派 查看":
+        - cell "T-261007-002":
+          - button "T-261007-002"
+        - cell "WO-DEMO-MP-P":
+          - button "WO-DEMO-MP-P"
+        - cell "九龍國際廣場":
+          - strong: 九龍國際廣場
+        - cell "2區"
+        - cell "工程維修"
+        - cell "整改走查 工程維修":
+          - generic "整改走查 工程維修"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "09-27 09:00"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-003 WO-DEMO-P 九龍國際廣場 2區 工程維修 整改走查 工程維修 - 待分派 - 09-27 09:00 分派 查看":
+        - cell "T-261007-003":
+          - button "T-261007-003"
+        - cell "WO-DEMO-P":
+          - button "WO-DEMO-P"
+        - cell "九龍國際廣場":
+          - strong: 九龍國際廣場
+        - cell "2區"
+        - cell "工程維修"
+        - cell "整改走查 工程維修":
+          - generic "整改走查 工程維修"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "09-27 09:00"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-004 WO-20260615-002 九龍屋苑管理處 2區 保養維修 停車場出入口閘機保養，現場反饋開合速度變慢。 - 待分派 - 06-15 09:40 分派 查看":
+        - cell "T-261007-004":
+          - button "T-261007-004"
+        - cell "WO-20260615-002":
+          - button "WO-20260615-002"
+        - cell "九龍屋苑管理處":
+          - strong: 九龍屋苑管理處
+        - cell "2區"
+        - cell "保養維修"
+        - cell "停車場出入口閘機保養，現場反饋開合速度變慢。":
+          - generic "停車場出入口閘機保養，現場反饋開合速度變慢。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "06-15 09:40"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-005 WO-20260615-001 港島商業中心 1區 保養維修 客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。 - 待分派 - 06-15 09:10 分派 查看":
+        - cell "T-261007-005":
+          - button "T-261007-005"
+        - cell "WO-20260615-001":
+          - button "WO-20260615-001"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "保養維修"
+        - cell "客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。":
+          - generic "客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "06-15 09:10"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-006 WO-20260614-008 新界住宅項目 3區 保養維修 水浸報警設備檢查，前次分派被拒單，需要重新分派。 - 待分派 - 06-14 16:40 分派 查看":
+        - cell "T-261007-006":
+          - button "T-261007-006"
+        - cell "WO-20260614-008":
+          - button "WO-20260614-008"
+        - cell "新界住宅項目":
+          - strong: 新界住宅項目
+        - cell "3區"
+        - cell "保養維修"
+        - cell "水浸報警設備檢查，前次分派被拒單，需要重新分派。":
+          - generic "水浸報警設備檢查，前次分派被拒單，需要重新分派。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "06-14 16:40"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261007-007 WO-20260612-012 港島商業中心 1區 工程維修 客戶提出臨時設備測試需求，需 CS 確認是否進入派工。 - 待分派 - 06-12 09:00 分派 查看":
+        - cell "T-261007-007":
+          - button "T-261007-007"
+        - cell "WO-20260612-012":
+          - button "WO-20260612-012"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "客戶提出臨時設備測試需求，需 CS 確認是否進入派工。":
+          - generic "客戶提出臨時設備測試需求，需 CS 確認是否進入派工。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "06-12 09:00"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+  - text: 共 7 條，每頁
+  - combobox:
+    - option "10" [selected]
+    - option "20"
+    - option "50"
+  - text: 條，第 1/1 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "›" [disabled]
+- generic: 歡迎回來，系統管理員！

@@ -1,0 +1,118 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "保養計劃" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - paragraph: 服務週期取自成交 M 報價，不取自會計 Billing Cycle。每期可獨立排期、提交 SR 並確認。
+  - heading "MP-QT-DEMO-MP · 九龍國際廣場" [level=3]
+  - paragraph: 成交報價 QT-DEMO-MP R1 · 每 6 個月 · 2026-10-01 至 2027-09-30
+  - table:
+    - rowgroup:
+      - row "期次 計劃到訪 CALL 狀態 操作":
+        - columnheader "期次"
+        - columnheader "計劃到訪"
+        - columnheader "CALL"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "QT-DEMO-MP-M-01 2026-10-01 未建 待排期 待 CR／主管排期":
+        - cell "QT-DEMO-MP-M-01"
+        - cell "2026-10-01"
+        - cell "未建"
+        - cell "待排期"
+        - cell "待 CR／主管排期"
+      - row "QT-DEMO-MP-M-02 2027-04-01 未建 待排期 待 CR／主管排期":
+        - cell "QT-DEMO-MP-M-02"
+        - cell "2027-04-01"
+        - cell "未建"
+        - cell "待排期"
+        - cell "待 CR／主管排期"
+  - heading "MP-QT-DEMO-M · 九龍國際廣場" [level=3]
+  - paragraph: 成交報價 QT-DEMO-M R2 · 每 3 個月 · 2026-10-01 至 2027-09-30
+  - table:
+    - rowgroup:
+      - row "期次 計劃到訪 CALL 狀態 操作":
+        - columnheader "期次"
+        - columnheader "計劃到訪"
+        - columnheader "CALL"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "QT-DEMO-M-M-01 2026-10-01 WO-DEMO-M-01 待處理 查看 CALL":
+        - cell "QT-DEMO-M-M-01"
+        - cell "2026-10-01"
+        - cell "WO-DEMO-M-01"
+        - cell "待處理"
+        - cell "查看 CALL":
+          - button "查看 CALL"
+      - row "QT-DEMO-M-M-02 2027-01-01 未建 待排期 待 CR／主管排期":
+        - cell "QT-DEMO-M-M-02"
+        - cell "2027-01-01"
+        - cell "未建"
+        - cell "待排期"
+        - cell "待 CR／主管排期"
+      - row "QT-DEMO-M-M-03 2027-04-01 未建 待排期 待 CR／主管排期":
+        - cell "QT-DEMO-M-M-03"
+        - cell "2027-04-01"
+        - cell "未建"
+        - cell "待排期"
+        - cell "待 CR／主管排期"
+      - row "QT-DEMO-M-M-04 2027-07-01 未建 待排期 待 CR／主管排期":
+        - cell "QT-DEMO-M-M-04"
+        - cell "2027-07-01"
+        - cell "未建"
+        - cell "待排期"
+        - cell "待 CR／主管排期"
+- generic: 歡迎回來，系統管理員！

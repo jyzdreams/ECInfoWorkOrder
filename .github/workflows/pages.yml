@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - prototype/index.html
+      - prototype/ui-upgrade.css
+      - prototype/remediation.js
   workflow_dispatch:
 
 permissions:

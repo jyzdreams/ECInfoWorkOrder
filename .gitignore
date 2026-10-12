@@ -29,6 +29,26 @@ ui-prototype-v2-complete-flow/.npmrc
 .uv-cache/
 .uv-tools/
 
+# Local full snapshots (versioned historical prototype stays in archive/)
+/backups/
+
+# Disposable audit parsing cache and one-off assembly helpers
+# Keep official audit/review reports, screenshots, DOM and regression evidence.
+/docs/audit/extracted/
+/docs/audit/scan_sources.py
+/docs/audit/build_audit_model.py
+/docs/audit/assemble_report.py
+
+# Local test reports, caches and static publication staging
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+test-results/
+playwright-report/
+/_site/
+
 # 宜搭工具缓存（含登录凭证 / 字段 Schema / 临时脚本，禁止提交）
 .cache/
 
@@ -38,6 +58,11 @@ store/*
 
 # Debug logs and temporary output
 *.log
+*.inspect.ndjson
+~$*.xlsx
+~$*.docx
+.~*.xlsx
+.~*.docx
 debug.log
 pdf_output.txt
 pdf_text.txt

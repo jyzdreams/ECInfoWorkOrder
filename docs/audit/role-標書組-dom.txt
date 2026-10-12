@@ -1,0 +1,46 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+- main:
+  - heading "CALL" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "郭 郭標書 標書組 · 標書組 ⌄":
+    - generic: 郭
+    - strong: 郭標書
+    - generic: 標書組 · 標書組
+    - generic: ⌄
+  - button "待確認"
+  - button "待處理"
+  - button "處理中"
+  - button "已完成"
+  - generic: 暫無待處理任務
+  - button "CALL":
+    - generic: CALL
+  - button "首頁":
+    - generic: 首頁
+  - button "首頁":
+    - generic: 首頁
+  - button "CALL":
+    - generic: CALL
+  - button "分派":
+    - generic: 分派
+  - button "工單":
+    - generic: 工單
+  - button "處理":
+    - generic: 處理
+- generic: 已切換至 郭標書（標書組）

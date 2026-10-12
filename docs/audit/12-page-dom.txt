@@ -1,0 +1,289 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "統計報表" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - generic: 工單總數
+  - generic: "17"
+  - generic: 較上週 +12%
+  - generic: 已完成
+  - generic: "2"
+  - generic: 閉環工單
+  - generic: 待處理
+  - generic: "2"
+  - generic: 需 TL / 主管處理
+  - generic: 已取消
+  - generic: "1"
+  - generic: 進入基礎統計
+  - generic: ⚠
+  - heading "Outstanding 檢查提醒" [level=2]
+  - generic: 每月一號自動提醒
+  - generic: "12"
+  - generic: 未完成工單（待分派/處理中）
+  - generic: "3"
+  - generic: SR 待上傳簽名正本
+  - generic: "0"
+  - generic: 保養工單未標記保養類型
+  - strong: 待跟進工單：
+  - button "WO-DEMO-CM"
+  - button "WO-DEMO-INSTANT"
+  - button "WO-DEMO-MP-P"
+  - button "WO-DEMO-M-01"
+  - button "WO-DEMO-P"
+  - text: 等 12 項
+  - heading "按狀態統計" [level=2]
+  - generic: 待分派
+  - strong: "7"
+  - generic: 待確認
+  - strong: "2"
+  - generic: 待處理
+  - strong: "2"
+  - generic: 處理中
+  - strong: "3"
+  - generic: 待審批
+  - strong: "0"
+  - generic: 待完工確認
+  - strong: "0"
+  - generic: 已完成
+  - strong: "2"
+  - generic: 已取消
+  - strong: "1"
+  - heading "按工單類型統計" [level=2]
+  - generic: DLP 保養維修
+  - strong: "1"
+  - generic: 工程維修
+  - strong: "7"
+  - generic: 工程項目
+  - strong: "0"
+  - generic: 投訴
+  - strong: "0"
+  - generic: 糾正維修
+  - strong: "1"
+  - heading "按區域統計" [level=2]
+  - generic: 1區
+  - strong: "5"
+  - generic: 2區
+  - strong: "9"
+  - generic: 3區
+  - strong: "3"
+  - generic: 4區
+  - strong: "0"
+  - generic: 5區
+  - strong: "0"
+  - generic: 6區
+  - strong: "0"
+  - generic: 7區
+  - strong: "0"
+  - generic: 7A區
+  - strong: "0"
+  - generic: 8區
+  - strong: "0"
+  - generic: MTR
+  - strong: "0"
+  - generic: EMSD
+  - strong: "0"
+  - generic: ASD
+  - strong: "0"
+  - generic: 軟件組
+  - strong: "0"
+  - generic: EV Charge
+  - strong: "0"
+  - generic: Maintenance-HTCL
+  - strong: "0"
+  - generic: Project 1(生)
+  - strong: "0"
+  - generic: Project 1 MTR
+  - strong: "0"
+  - generic: Project 1(Sam)
+  - strong: "0"
+  - generic: Project 1(Johnny)
+  - strong: "0"
+  - generic: Project 1(Roy)
+  - strong: "0"
+  - generic: Project 1(Eric)
+  - strong: "0"
+  - generic: Project 2(Joe)
+  - strong: "0"
+  - generic: Project 1-1541
+  - strong: "0"
+  - generic: Project 1-1962EM20T
+  - strong: "0"
+  - generic: Project 1-1105
+  - strong: "0"
+  - generic: Project 1-2489
+  - strong: "0"
+  - generic: Project 1-2458
+  - strong: "0"
+  - generic: Project/Maintenance
+  - strong: "0"
+  - heading "按師傅統計" [level=2]
+  - generic: 未分派
+  - strong: "8"
+  - generic: 周師傅
+  - strong: "4"
+  - generic: 吳師傅
+  - strong: "2"
+  - generic: 黃師傅
+  - strong: "1"
+  - generic: 梁師傅
+  - strong: "2"
+  - heading "按客戶統計" [level=2]
+  - generic: 九龍國際廣場
+  - strong: "5"
+  - generic: 港島商業中心
+  - strong: "3"
+  - generic: 九龍屋苑管理處
+  - strong: "3"
+  - generic: 安全監控管理有限公司
+  - strong: "2"
+  - generic: 新界住宅項目
+  - strong: "2"
+  - generic: 灣仔商業大廈
+  - strong: "2"
+  - generic: 報價單總數
+  - generic: "12"
+  - generic: 所有報價
+  - generic: 已中單
+  - generic: "4"
+  - generic: 成功中標
+  - generic: 未中單
+  - generic: "3"
+  - generic: 失去機會
+  - generic: 中單率
+  - generic: 33.3%
+  - generic: 成功率
+  - heading "按客戶統計中單情況" [level=2]
+  - table:
+    - rowgroup:
+      - row "客戶名稱 報價總數 中單數 中單率":
+        - columnheader "客戶名稱"
+        - columnheader "報價總數"
+        - columnheader "中單數"
+        - columnheader "中單率"
+    - rowgroup:
+      - row "九龍國際廣場 5 2 40.0%":
+        - cell "九龍國際廣場"
+        - cell "5"
+        - cell "2"
+        - cell "40.0%":
+          - generic: 40.0%
+      - row "新界花園住宅 2 1 50.0%":
+        - cell "新界花園住宅"
+        - cell "2"
+        - cell "1"
+        - cell "50.0%":
+          - generic: 50.0%
+      - row "香港政府大樓 1 1 100.0%":
+        - cell "香港政府大樓"
+        - cell "1"
+        - cell "1"
+        - cell "100.0%":
+          - generic: 100.0%
+      - row "維多利亞酒店 2 0 0.0%":
+        - cell "維多利亞酒店"
+        - cell "2"
+        - cell "0"
+        - cell "0.0%":
+          - generic: 0.0%
+      - row "港島商業中心 1 0 0.0%":
+        - cell "港島商業中心"
+        - cell "1"
+        - cell "0"
+        - cell "0.0%":
+          - generic: 0.0%
+      - row "九龍灣工業大廈 1 0 0.0%":
+        - cell "九龍灣工業大廈"
+        - cell "1"
+        - cell "0"
+        - cell "0.0%":
+          - generic: 0.0%
+  - heading "按區域統計中單情況" [level=2]
+  - table:
+    - rowgroup:
+      - row "區域 報價總數 中單數 中單率":
+        - columnheader "區域"
+        - columnheader "報價總數"
+        - columnheader "中單數"
+        - columnheader "中單率"
+    - rowgroup:
+      - row "2區 6 3 50.0%":
+        - cell "2區"
+        - cell "6"
+        - cell "3"
+        - cell "50.0%":
+          - generic: 50.0%
+      - row "3區 3 1 33.3%":
+        - cell "3區"
+        - cell "3"
+        - cell "1"
+        - cell "33.3%":
+          - generic: 33.3%
+      - row "1區 3 0 0.0%":
+        - cell "1區"
+        - cell "3"
+        - cell "0"
+        - cell "0.0%":
+          - generic: 0.0%
+  - heading "最近 7 天趨勢" [level=2]
+  - generic: 基礎趨勢
+  - generic: 06-9
+  - generic: 06-10
+  - generic: 06-11
+  - generic: 06-12
+  - generic: 06-13
+  - generic: 06-14
+  - generic: 06-15
+  - paragraph: 第一版只做狀態、類型、區域、師傅、客戶等基礎統計，不做成本、績效、SLA、財務、採購或複雜 BI。
+- generic: 備貨單 SP-261007-0001 狀態：待備貨 → 已驗收

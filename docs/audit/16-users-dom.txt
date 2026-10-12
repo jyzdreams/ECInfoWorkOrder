@@ -1,0 +1,312 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "用戶管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "林 林主管 管理員 · 管理部 ⌄":
+    - generic: 林
+    - strong: 林主管
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - heading "用戶管理" [level=2]
+  - paragraph: 管理系統用戶、角色和權限配置。
+  - button "新增用戶"
+  - heading "上線計劃與工作交接" [level=2]
+  - paragraph: 專案層級安排，非日常操作。
+  - list:
+    - strong: 正式生效日
+    - text: ：2027-01-01；生效前安排至少 1 個月全員並行試運行（Parallel Run）。
+    - strong: 數據策略
+    - text: ：不進行舊系統全量歷史遷移，新業務自生效日起於新系統錄入；歷史單據由舊渠道查詢。
+    - strong: 主數據前置
+    - text: ：上線前須完成地點（大地點＋子位置）、客戶、物料等主數據清洗與導入。
+    - strong: 工作交接
+    - text: ：沿用 OA／釘釘「流程交接」，員工離職或放長假（一週以上）時指定代理人，待辦流程與審批權限臨時轉移，假期結束後回復。
+  - heading "角色分類" [level=3]
+  - button "全部用戶 42":
+    - generic: 全部用戶
+    - generic: "42"
+  - button "客戶服務部 6":
+    - generic: 客戶服務部
+    - generic: "6"
+  - button "客戶關係部 3":
+    - generic: 客戶關係部
+    - generic: "3"
+  - button "主管 4":
+    - generic: 主管
+    - generic: "4"
+  - button "師傅 16":
+    - generic: 師傅
+    - generic: "16"
+  - button "報價組 3":
+    - generic: 報價組
+    - generic: "3"
+  - button "標書組 1":
+    - generic: 標書組
+    - generic: "1"
+  - button "採購部 3":
+    - generic: 採購部
+    - generic: "3"
+  - button "會計部 3":
+    - generic: 會計部
+    - generic: "3"
+  - button "管理員 2":
+    - generic: 管理員
+    - generic: "2"
+  - button "管理層 1":
+    - generic: 管理層
+    - generic: "1"
+  - textbox "搜索用戶名/工號/電話/郵箱"
+  - button "全部角色 ⌄":
+    - generic: 全部角色
+    - generic: ⌄
+  - combobox:
+    - option "全部角色" [selected]
+    - option "客戶服務部"
+    - option "客戶關係部"
+    - option "主管"
+    - option "師傅"
+    - option "報價組"
+    - option "標書組"
+    - option "採購部"
+    - option "會計部"
+    - option "管理員"
+    - option "管理層"
+  - button "全部狀態 ⌄":
+    - generic: 全部狀態
+    - generic: ⌄
+  - combobox:
+    - option "全部狀態" [selected]
+    - option "啓用"
+    - option "禁用"
+    - option "離職"
+  - table:
+    - rowgroup:
+      - row "用戶 工號 角色 區域 電話 狀態 最後登錄 操作":
+        - columnheader "用戶"
+        - columnheader "工號"
+        - columnheader "角色"
+        - columnheader "區域"
+        - columnheader "電話"
+        - columnheader "狀態"
+        - columnheader "最後登錄"
+        - columnheader "操作"
+    - rowgroup:
+      - row "陳 陳大文 master.chen@ecinfo.com EMP0008 師傅 2區 +85291234567 啓用 2026-06-21 09:32 查看 編輯":
+        - cell "陳 陳大文 master.chen@ecinfo.com":
+          - generic: 陳
+          - strong: 陳大文
+          - text: master.chen@ecinfo.com
+        - cell "EMP0008"
+        - cell "師傅":
+          - generic: 師傅
+        - cell "2區"
+        - cell "+85291234567"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 09:32"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "陳 陳小姐 cs.chan@ecinfo.com EMP0001 客戶服務部 1區 +85291001001 啓用 2026-06-21 08:15 查看 編輯":
+        - cell "陳 陳小姐 cs.chan@ecinfo.com":
+          - generic: 陳
+          - strong: 陳小姐
+          - text: cs.chan@ecinfo.com
+        - cell "EMP0001"
+        - cell "客戶服務部":
+          - generic: 客戶服務部
+        - cell "1區"
+        - cell "+85291001001"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 08:15"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "李 李組長 tl.lee@ecinfo.com EMP0002 主管 2區 +85291002002 啓用 2026-06-21 08:45 查看 編輯":
+        - cell "李 李組長 tl.lee@ecinfo.com":
+          - generic: 李
+          - strong: 李組長
+          - text: tl.lee@ecinfo.com
+        - cell "EMP0002"
+        - cell "主管":
+          - generic: 主管
+        - cell "2區"
+        - cell "+85291002002"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 08:45"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "王 王組長 tl.wang@ecinfo.com EMP0003 主管 3區 +85291003003 啓用 2026-06-20 17:20 查看 編輯":
+        - cell "王 王組長 tl.wang@ecinfo.com":
+          - generic: 王
+          - strong: 王組長
+          - text: tl.wang@ecinfo.com
+        - cell "EMP0003"
+        - cell "主管":
+          - generic: 主管
+        - cell "3區"
+        - cell "+85291003003"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-20 17:20"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "周 周師傅 master.zhou@ecinfo.com EMP0004 師傅 2區 +85291004004 啓用 2026-06-21 10:05 查看 編輯":
+        - cell "周 周師傅 master.zhou@ecinfo.com":
+          - generic: 周
+          - strong: 周師傅
+          - text: master.zhou@ecinfo.com
+        - cell "EMP0004"
+        - cell "師傅":
+          - generic: 師傅
+        - cell "2區"
+        - cell "+85291004004"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 10:05"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "吳 吳師傅 master.wu@ecinfo.com EMP0005 師傅 1區 +85291005005 啓用 2026-06-21 07:50 查看 編輯":
+        - cell "吳 吳師傅 master.wu@ecinfo.com":
+          - generic: 吳
+          - strong: 吳師傅
+          - text: master.wu@ecinfo.com
+        - cell "EMP0005"
+        - cell "師傅":
+          - generic: 師傅
+        - cell "1區"
+        - cell "+85291005005"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 07:50"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "黃 黃師傅 master.wong@ecinfo.com EMP0006 師傅 3區 +85291006006 啓用 2026-06-20 16:30 查看 編輯":
+        - cell "黃 黃師傅 master.wong@ecinfo.com":
+          - generic: 黃
+          - strong: 黃師傅
+          - text: master.wong@ecinfo.com
+        - cell "EMP0006"
+        - cell "師傅":
+          - generic: 師傅
+        - cell "3區"
+        - cell "+85291006006"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-20 16:30"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "梁 梁師傅 master.leung@ecinfo.com EMP0007 師傅 2區 +85291007007 啓用 2026-06-21 09:00 查看 編輯":
+        - cell "梁 梁師傅 master.leung@ecinfo.com":
+          - generic: 梁
+          - strong: 梁師傅
+          - text: master.leung@ecinfo.com
+        - cell "EMP0007"
+        - cell "師傅":
+          - generic: 師傅
+        - cell "2區"
+        - cell "+85291007007"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 09:00"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "林 林主管 admin.lam@ecinfo.com EMP0009 管理員 1區 +85291009009 啓用 2026-06-21 08:00 查看 編輯":
+        - cell "林 林主管 admin.lam@ecinfo.com":
+          - generic: 林
+          - strong: 林主管
+          - text: admin.lam@ecinfo.com
+        - cell "EMP0009"
+        - cell "管理員":
+          - generic: 管理員
+        - cell "1區"
+        - cell "+85291009009"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-21 08:00"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+      - row "張 張主管 supervisor.cheung@ecinfo.com EMP0010 主管 2區 +85291010010 啓用 2026-06-20 14:20 查看 編輯":
+        - cell "張 張主管 supervisor.cheung@ecinfo.com":
+          - generic: 張
+          - strong: 張主管
+          - text: supervisor.cheung@ecinfo.com
+        - cell "EMP0010"
+        - cell "主管":
+          - generic: 主管
+        - cell "2區"
+        - cell "+85291010010"
+        - cell "啓用":
+          - generic: 啓用
+        - cell "2026-06-20 14:20"
+        - cell "查看 編輯":
+          - button "查看"
+          - button "編輯"
+  - generic: 共 42 條記錄，第 1/5 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "2"
+  - button "3"
+  - button "4"
+  - button "5"
+  - button "›"
+  - generic: 👤
+  - generic: 點擊左側用戶查看詳情
+- generic: 已切換至 林主管（管理員）

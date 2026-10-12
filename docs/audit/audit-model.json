@@ -1,0 +1,1622 @@
+{
+  "flows": [
+    {
+      "id": "FLOW-CALL",
+      "name": "客户受理与来电/CALL",
+      "legacy": "FLOW-002",
+      "roles": "CS/CR",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-DISPATCH",
+      "name": "分派/改派/团队申请",
+      "legacy": "FLOW-003",
+      "roles": "CR/TL/师傅",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-ONSITE",
+      "name": "现场签到/检查/处理",
+      "legacy": "FLOW-004",
+      "roles": "师傅/客户",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "ASSUMPTION",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-CLOSE",
+      "name": "客户确认/SR/正式完工",
+      "legacy": "FLOW-005",
+      "roles": "客户/师傅/CR/TL",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "ASSUMPTION",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-QUOTE",
+      "name": "报价/修订/客户接受/中单",
+      "legacy": "FLOW-006",
+      "roles": "报价组/客户/CR",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-MR",
+      "name": "MR/库存/采购/备货",
+      "legacy": "FLOW-007A",
+      "roles": "仓务/采购/CR/Project",
+      "dimensions": {
+        "业务规则": "CONFLICT",
+        "角色": "CONFLICT",
+        "状态": "CONFLICT",
+        "字段": "PENDING_CUSTOMER",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "ASSUMPTION",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-P",
+      "name": "正式预约/后续施工",
+      "legacy": "FLOW-007B/FLOW-P",
+      "roles": "CR/TL/师傅/客户",
+      "dimensions": {
+        "业务规则": "ASSUMPTION",
+        "角色": "CONFIRMED",
+        "状态": "ASSUMPTION",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-M",
+      "name": "整期计划/周期保养",
+      "legacy": "FLOW-M",
+      "roles": "报价组/CR/TL/师傅",
+      "dimensions": {
+        "业务规则": "ASSUMPTION",
+        "角色": "CONFIRMED",
+        "状态": "ASSUMPTION",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-MP",
+      "name": "M+P 独立履约",
+      "legacy": "FLOW-MAIN/M/P",
+      "roles": "报价组/CR/Project/师傅",
+      "dimensions": {
+        "业务规则": "ASSUMPTION",
+        "角色": "CONFIRMED",
+        "状态": "ASSUMPTION",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "MISSING",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-MAINT-ISSUE",
+      "name": "保养发现问题后二次维修",
+      "legacy": "FLOW-MAINT-ISSUE",
+      "roles": "师傅/报价/仓务/CR",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "ASSUMPTION",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-INSTANT",
+      "name": "现场即时维修及收款",
+      "legacy": "FLOW-INSTANT",
+      "roles": "师傅/客户/报价/财务",
+      "dimensions": {
+        "业务规则": "ASSUMPTION",
+        "角色": "CONFIRMED",
+        "状态": "PENDING_CUSTOMER",
+        "字段": "PENDING_CUSTOMER",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "MISSING",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-SR",
+      "name": "SR/CP/附件/归档/发送",
+      "legacy": "FLOW-008",
+      "roles": "师傅/CR/CS/财务",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFLICT",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-CM",
+      "name": "CM 直派/冲突与重排",
+      "legacy": "FLOW-009/FLOW-CM",
+      "roles": "CR/TL/师傅/CS",
+      "dimensions": {
+        "业务规则": "ASSUMPTION",
+        "角色": "CONFIRMED",
+        "状态": "PENDING_CUSTOMER",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-TENDER",
+      "name": "标书/回标/中标/履约",
+      "legacy": "FLOW-010/FLOW-TENDER",
+      "roles": "Tender/报价/采购/Project",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "CONFIRMED",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-FINANCE",
+      "name": "资料交会计/开票/收款",
+      "legacy": "FLOW-011",
+      "roles": "报价/采购/财务/师傅",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "ASSUMPTION",
+        "取消": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    },
+    {
+      "id": "FLOW-MASTER",
+      "name": "账号/权限/客户/合约/主数据",
+      "legacy": "FLOW-012",
+      "roles": "管理员/CS/CR/Sales/报价/Tender",
+      "dimensions": {
+        "业务规则": "CONFIRMED",
+        "角色": "CONFIRMED",
+        "状态": "CONFLICT",
+        "字段": "CONFIRMED",
+        "必填规则": "ASSUMPTION",
+        "操作权限": "PENDING_CUSTOMER",
+        "数据权限": "PENDING_CUSTOMER",
+        "按钮": "ASSUMPTION",
+        "通知": "ASSUMPTION",
+        "附件": "CONFIRMED",
+        "异常处理": "PENDING_CUSTOMER",
+        "退回": "PENDING_CUSTOMER",
+        "取消": "ASSUMPTION",
+        "修改": "PENDING_CUSTOMER",
+        "重开": "PENDING_CUSTOMER",
+        "历史记录": "ASSUMPTION",
+        "审计记录": "CONFIRMED",
+        "关联业务对象": "CONFIRMED"
+      },
+      "coverage": "PARTIAL"
+    }
+  ],
+  "facts": [
+    {
+      "id": "AUD-R001",
+      "rule": "电话/WhatsApp/现场/邮件人工受理",
+      "source": "S04 p6-8;S02 p7",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-CALL / 来电记录",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R002",
+      "rule": "CS 答疑解决或转交现场工单",
+      "source": "S08 SOP01 A1/A2/A3",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-CALL / 当前CALL抽屉缺正常答疑出口",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R003",
+      "rule": "客户资料可中英文检索",
+      "source": "S02 p7 00:11:07;S06 P37",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-MASTER / 客户列表已支持，人员缺英文",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R004",
+      "rule": "客户可有多份合约、客户记录可重复",
+      "source": "S05 P14/P17",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MASTER / 客户单合约字段",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R005",
+      "rule": "JNO 与客户无关、CALL 输入 JNO",
+      "source": "S05 P14",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-CALL / JNO仍从客户带出且政府才显示",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R006",
+      "rule": "CS/Sales/报价/Tender 可新建客户",
+      "source": "S05 P16",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MASTER / Sales缺角色，Tender缺主档入口",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R007",
+      "rule": "客户来电可追溯历史及区域",
+      "source": "S04 p6-8;S01 第二份编号讨论",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-CALL / 客户历史CALL可见",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R008",
+      "rule": "人员独立账号及动作留痕",
+      "source": "S03 p4-5",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-MASTER / 快速切角色仅演示",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R009",
+      "rule": "CR 只看对应区域数据",
+      "source": "S06 P40",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MASTER / CR实测见1/2/3区",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R010",
+      "rule": "指定夜班组长可看全区CALL",
+      "source": "S06 P41",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MASTER / 无夜班范围配置",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R011",
+      "rule": "区域人工分派与团队申请审核",
+      "source": "S02 p7 00:28:42;S03 p4",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-DISPATCH / 主干存在",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R012",
+      "rule": "同区最低负载推荐、负载3为忙碌",
+      "source": "原型 getMasters 与旧F016/F018",
+      "level": "L4",
+      "confidence": "低",
+      "mapping": "FLOW-DISPATCH / 阈值和推荐无客户依据",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R013",
+      "rule": "师傅收到指派后一律不得拒绝",
+      "source": "原型 actionButtons 注释;S08存在选择分支",
+      "level": "L4",
+      "confidence": "低",
+      "mapping": "FLOW-DISPATCH / 缺拒单但未见客户确认",
+      "status": "CONFLICT",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R014",
+      "rule": "接单申请审批用独立对象",
+      "source": "S08衍生建议;旧Q005",
+      "level": "L3",
+      "confidence": "低",
+      "mapping": "FLOW-DISPATCH / 待审批仍主状态",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R015",
+      "rule": "现场签到/Before/After/客户签章",
+      "source": "S02 p6-7;S13 SR/照片/CP",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-ONSITE / 主干可见",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R016",
+      "rule": "不可拍照客户不强制照片",
+      "source": "S03 p4/7 00:46:09",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-ONSITE / 提交无条件Before/After",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R017",
+      "rule": "Before/After 上限各10张",
+      "source": "S02有关照片段;旧流程每类9张",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-ONSITE / 上限口径冲突",
+      "status": "CONFLICT",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R018",
+      "rule": "SR 编号来自预印纸、师傅录入",
+      "source": "S01 第一份供应方六位介绍与第三份客户00:14:25七位示例；S13 No栏",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-SR / 六位字段与客户七位示例0486580冲突",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R019",
+      "rule": "已交SR可编辑及重交",
+      "source": "S01 第二份00:32:05-00:34:23 L1792-1846",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-SR / 已完成编辑入口但会重开状态",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R020",
+      "rule": "报价来源可关联2-3个SR或电话/email",
+      "source": "S01 第三份00:14:47-00:15:44 L2972-3005",
+      "level": "L1",
+      "confidence": "高",
+      "mapping": "FLOW-SR/QUOTE / 只有单个srNo/sourceSrNo",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R021",
+      "rule": "SR 提交后 CR/主管简单确认才完工",
+      "source": "S07 CONFIRMED-010;S02 p7主管审核；S01早期语义不同",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-CLOSE / 当前工作基线采用，需保留确认出处",
+      "status": "CONFLICT",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R022",
+      "rule": "SR“需要报价”自动产生任务",
+      "source": "S07 CONFIRMED-009;S08 SOP02 N1-N4",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-MAINT-ISSUE / 第二次提交被旧needQuotation门槛抑制",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R023",
+      "rule": "SR 增加保固选项并直接通知采购",
+      "source": "S06 P23",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-ONSITE/MR / 缺选项和通知",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R024",
+      "rule": "师傅可脱离CALL自主新建SR",
+      "source": "S06 P25“能否”",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-SR / 这是请求讨论，不是已批准独立业务",
+      "status": "PENDING_CUSTOMER",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R025",
+      "rule": "SR 文案需要中文",
+      "source": "S06 P21;S13双语纸样",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-SR / System/Objective仍英语选项",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R026",
+      "rule": "报告管理增加Objective筛选",
+      "source": "S06 P34",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-SR / 只有关键词覆盖目的",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R027",
+      "rule": "报价版本历史及确认后不改原版",
+      "source": "S02 p7 00:38:40;S13多版报价",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-QUOTE / R快照有；纯文字不升版为额外规则",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R028",
+      "rule": "报价组负责完整生命周期及中单",
+      "source": "S07 CONFIRMED-008",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-QUOTE / owner选项仍TL/ADMIN",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R029",
+      "rule": "四个报价入口（CS经CR/TL/CR/Tender/SR）",
+      "source": "S07 CONFIRMED-009",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-QUOTE / CS队列已无渲染、Tender仅中标后建任务",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R030",
+      "rule": "成交报价自动生成MR",
+      "source": "S07 CONFIRMED-006/007",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-MR / 自动函数有，无材料不会产生MR",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R031",
+      "rule": "无报价中标时采购手填MR",
+      "source": "S05 P10;S02 p6 00:05:00 walk-in",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-TENDER/MR / 全部强制新报价",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R032",
+      "rule": "仓管能自主新增MR",
+      "source": "S06 P31",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MR / 仓管角色和表单缺失",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R033",
+      "rule": "MR状况已完成/已取消/处理中",
+      "source": "S06 P28/P29",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-MR / 实际内部待备货/备货中/材料就绪",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R034",
+      "rule": "采购单在仓库通创建",
+      "source": "S11 §2所记2026-09-30用户说明",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-MR / EC新建PO已移除，读写其他字段仍需核对",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R035",
+      "rule": "收货/备货后再交现场施工",
+      "source": "S02 p6 00:02:00;S13 CP与照片",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-P / MR到正式时间断点",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R036",
+      "rule": "预排不是正式时间、材料好再由CR确认",
+      "source": "S07 CONFIRMED-004/005",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-P / 分日期但门槛只控制预约，不控制开工",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R037",
+      "rule": "M报价约定周期、中单生成整期计划",
+      "source": "S07 CONFIRMED-011/012",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-M / 月步进与首期日期规则未获L1支持",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R038",
+      "rule": "M+P 两支可独立推进",
+      "source": "S07 CONFIRMED-013/REJECTED-001",
+      "level": "L3",
+      "confidence": "中",
+      "mapping": "FLOW-MP / 与旧SOP P后M冲突，按当前工作决策留并行",
+      "status": "CONFLICT",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R039",
+      "rule": "CM 存在且通常由CR/主管直派",
+      "source": "S03 p3-4;S07 CONFIRMED-014/015",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-CM / 无固定自动重排",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R040",
+      "rule": "CM 与 PM 冲突如何重排/拒绝",
+      "source": "S07 PENDING-002;S08 SOP01 C1/C2",
+      "level": "L3",
+      "confidence": "低",
+      "mapping": "FLOW-CM / 仍待客户规则",
+      "status": "PENDING_CUSTOMER",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R041",
+      "rule": "现场收款后登记/交款/对账",
+      "source": "S07 PENDING-001",
+      "level": "L3",
+      "confidence": "低",
+      "mapping": "FLOW-INSTANT/FINANCE / 没有交接规则",
+      "status": "PENDING_CUSTOMER",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R042",
+      "rule": "完工与收款独立",
+      "source": "S07 CONFIRMED-017;S01报价/财务分离讨论",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-CLOSE/FINANCE / 数据对象分开",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R043",
+      "rule": "Tender 六状态字典",
+      "source": "S05 P7",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-TENDER / 字典已补齐，Tab筛选不完整",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R044",
+      "rule": "Tender负责人不必填/截止默认17:00",
+      "source": "S05 P4",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-TENDER / 新建部分已修，旧日期文案不一致",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R045",
+      "rule": "邀请报价无需邀请结果且可关联标书中标",
+      "source": "S05 P21/P23/P24",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-TENDER/QUOTE / 旧编辑仍有inviteResult",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R046",
+      "rule": "报价保修默认1年、有效60/90天",
+      "source": "S05 P22",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-QUOTE / 保修1年已带出、有效仍30天",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R047",
+      "rule": "折扣和只列材料不列价格、手填总价",
+      "source": "S06 P2/P3;S13 IMG_190316含discount",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-QUOTE / 无discount、总价为明细合计",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R048",
+      "rule": "Delivery 默认30天/天周/范围可手填",
+      "source": "S06 P5-P8;S13报价条款",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-QUOTE / 新建无完整交期控件",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R049",
+      "rule": "保修改保固/签名历史/盖章/OurRef版本001",
+      "source": "S06 P12/P14/P15",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-QUOTE / 仍保修/R编号，未见签名主档",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R050",
+      "rule": "私人续保按时长比例提醒CR/主管",
+      "source": "S05 P27/P28",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-M / 续保触发和政府差别未完整定义",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R051",
+      "rule": "开票需CP/照片/客户确认PO，缺则欠文件",
+      "source": "S05 P33;S02 p6 00:03:00",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-FINANCE / 普通成交漏入队列；字符串/任意附件判据且豁免取任意地址",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R052",
+      "rule": "特殊开票须写原因",
+      "source": "S05 P34",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE / 欠文件只有禁用按钮",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R053",
+      "rule": "财务不需要税率",
+      "source": "S05 P35",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE/QUOTE / 新合计去税，旧Mock10%仍保留",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R054",
+      "rule": "开票/到期日都默认当前日",
+      "source": "S05 P36",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE / 单笔+30天、批量到期空",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R055",
+      "rule": "发票编号每月清零",
+      "source": "S05 P37“年日+递增（每月清零）”",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE / 实现按日计数；正式前缀仍需澄清",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R056",
+      "rule": "发票描述合同/PO/PM period",
+      "source": "S05 P38;S13发票样张",
+      "level": "L2",
+      "confidence": "高",
+      "mapping": "FLOW-FINANCE / 合约链分开且描述仅标题",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R057",
+      "rule": "低于报价总额须填原因",
+      "source": "S05 P39",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE / 单/批部分实现但修改金额可绕过",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R058",
+      "rule": "M合约按月/按期多次开票",
+      "source": "S01 第三份财务账单/保养讨论",
+      "level": "L1",
+      "confidence": "中",
+      "mapping": "FLOW-FINANCE / 独立Mock合约，不接成交M",
+      "status": "CONFIRMED",
+      "traceable": true
+    },
+    {
+      "id": "AUD-R059",
+      "rule": "2027-01-01生效/一月并行/一周代理",
+      "source": "原型用户管理交接说明；未找到原始出处",
+      "level": "L4",
+      "confidence": "低",
+      "mapping": "FLOW-MASTER / 不能视为客户承诺",
+      "status": "ASSUMPTION",
+      "traceable": false
+    },
+    {
+      "id": "AUD-R060",
+      "rule": "借用系统/升降机申请",
+      "source": "S05 P42",
+      "level": "L1",
+      "confidence": "低",
+      "mapping": "FLOW-MASTER / 仅一句诉求，不擅自纳入工单一期",
+      "status": "PENDING_CUSTOMER",
+      "traceable": true
+    }
+  ],
+  "roles": [
+    {
+      "role": "CS",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "CONFIRMED",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "CONFIRMED",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "受理/主档与全部CALL；详情正常取消/答疑出口缺失",
+      "next": "报价需求交CR/TL；队列入口缺失"
+    },
+    {
+      "role": "CR",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "CONFIRMED",
+        "创建": "CONFIRMED",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "受理/报价/派工/保养；PC全区数据与0930冲突",
+      "next": "QUO/师傅/财务"
+    },
+    {
+      "role": "TL/Super",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "CONFIRMED",
+        "修改": "CONFIRMED",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "分派、保养与确认；列表仍可看全区，派工按姓名",
+      "next": "师傅/CR/财务"
+    },
+    {
+      "role": "夜班组长",
+      "checks": {
+        "职责依据": "PENDING_CUSTOMER",
+        "登录可见": "MISSING",
+        "创建": "MISSING",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "MISSING"
+      },
+      "current": "未配置全区例外身份，不能复制普通TL当作完成",
+      "next": "跨区域CS/师傅"
+    },
+    {
+      "role": "MASTER",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "CONFIRMED",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "本人移动任务；PC首页/报告可能显示非本人记录",
+      "next": "CR/TL/报价；保固采购缺失"
+    },
+    {
+      "role": "QUO",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "CONFIRMED",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "报价/保养，负责人候选排除其他QUO；无CALL页面",
+      "next": "仓务/采购/CR/财务"
+    },
+    {
+      "role": "TENDER",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "CONFIRMED",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "标书/报价；缺正常回标/导出和主档客户入口",
+      "next": "QUO/Project/CR/采购"
+    },
+    {
+      "role": "PUR",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "备货/报表；无手填MR，SP状态任意修改",
+      "next": "仓务/CR/Project"
+    },
+    {
+      "role": "WAREHOUSE",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "MISSING",
+        "创建": "MISSING",
+        "修改": "MISSING",
+        "确认/退回": "MISSING",
+        "取消/关闭": "MISSING",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "事实存在，未建立角色、MR录入与物料交接入口",
+      "next": "PUR/师傅/CR/Project"
+    },
+    {
+      "role": "PROJECT",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "MISSING",
+        "修改": "MISSING",
+        "确认/退回": "MISSING",
+        "取消/关闭": "MISSING",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "SOP中的P负责部门，TL代替没有确认依据",
+      "next": "仓务/师傅/CR"
+    },
+    {
+      "role": "FIN",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "CONFIRMED",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "发票/收款/独立客户合约主档；正常和特殊开票不完整",
+      "next": "客户/报价/现场交款人待定"
+    },
+    {
+      "role": "ADMIN",
+      "checks": {
+        "职责依据": "ASSUMPTION",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "全页面；配置/临时业务兜底没有逐动作批准矩阵",
+      "next": "各业务负责人"
+    },
+    {
+      "role": "BOSS",
+      "checks": {
+        "职责依据": "ASSUMPTION",
+        "登录可见": "PENDING_CUSTOMER",
+        "创建": "PENDING_CUSTOMER",
+        "修改": "PENDING_CUSTOMER",
+        "确认/退回": "PENDING_CUSTOMER",
+        "取消/关闭": "PENDING_CUSTOMER",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "全页面及开票按钮；管理层只读/审批/操作职责未确定",
+      "next": "业务主管/财务"
+    },
+    {
+      "role": "SALES",
+      "checks": {
+        "职责依据": "CONFIRMED",
+        "登录可见": "MISSING",
+        "创建": "MISSING",
+        "修改": "MISSING",
+        "确认/退回": "MISSING",
+        "取消/关闭": "MISSING",
+        "数据范围": "PENDING_CUSTOMER",
+        "下一责任人": "CONFIRMED"
+      },
+      "current": "0928指明可新建客户；当前无Sales身份",
+      "next": "CR/报价"
+    }
+  ],
+  "states": [
+    {
+      "id": "ST-01",
+      "transition": "来电登记→仅答疑完成",
+      "flow": "FLOW-CALL",
+      "result": "BLOCKED",
+      "reason": "代码有旧表单但当前正常入口不可达"
+    },
+    {
+      "id": "ST-02",
+      "transition": "来电→现场CALL",
+      "flow": "FLOW-CALL",
+      "result": "PARTIAL",
+      "reason": "新CALL能建，来电记录保全和合同/JNO冲突"
+    },
+    {
+      "id": "ST-03",
+      "transition": "CS报价需求→CR/TL转交→待报价",
+      "flow": "FLOW-QUOTE",
+      "result": "BLOCKED",
+      "reason": "quoteRequests存储及监听存在，转交组件未生成"
+    },
+    {
+      "id": "ST-04",
+      "transition": "待分派→指定师傅→待确认",
+      "flow": "FLOW-DISPATCH",
+      "result": "PARTIAL",
+      "reason": "主干有，预排/正式门槛与区域按用户不完整"
+    },
+    {
+      "id": "ST-05",
+      "transition": "待确认→收到→待处理",
+      "flow": "FLOW-DISPATCH",
+      "result": "COMPLETE",
+      "reason": "本人师傅入口和到场时间弹窗、动作记录可追"
+    },
+    {
+      "id": "ST-06",
+      "transition": "团队申请→待审批→通过/退回",
+      "flow": "FLOW-DISPATCH",
+      "result": "PARTIAL",
+      "reason": "有操作，独立申请对象/取消申请规则未定"
+    },
+    {
+      "id": "ST-07",
+      "transition": "待处理→签到→处理中",
+      "flow": "FLOW-ONSITE",
+      "result": "COMPLETE",
+      "reason": "本轮点击签到后处理中且保留时间记录"
+    },
+    {
+      "id": "ST-08",
+      "transition": "处理中→SR→待完工确认",
+      "flow": "FLOW-CLOSE",
+      "result": "PARTIAL",
+      "reason": "有主干但不可拍照、多SR和附件条件缺失"
+    },
+    {
+      "id": "ST-09",
+      "transition": "待完工确认→CR/TL确认→已完成",
+      "flow": "FLOW-CLOSE",
+      "result": "PARTIAL",
+      "reason": "动作有，逐记录权限及证据核验不完整"
+    },
+    {
+      "id": "ST-10",
+      "transition": "待完工确认→退回→处理中",
+      "flow": "FLOW-CLOSE",
+      "result": "PARTIAL",
+      "reason": "返回无结构化退回原因/旧SR快照"
+    },
+    {
+      "id": "ST-11",
+      "transition": "报价中→修订→R版本沟通",
+      "flow": "FLOW-QUOTE",
+      "result": "PARTIAL",
+      "reason": "R历史有，事实要求的非价格变更历史与成交冻结不完整"
+    },
+    {
+      "id": "ST-12",
+      "transition": "客户接受→QUO中单→锁定成交",
+      "flow": "FLOW-QUOTE",
+      "result": "PARTIAL",
+      "reason": "函数有日期依据、角色检查，正式出处和新报价链未完整验证；本轮普通成交成功但不进入财务队列"
+    },
+    {
+      "id": "ST-13",
+      "transition": "中单物料→自动MR",
+      "flow": "FLOW-MR",
+      "result": "PARTIAL",
+      "reason": "函数有唯一ID，真实写入本轮未执行"
+    },
+    {
+      "id": "ST-14",
+      "transition": "MR→材料就绪→CR正式预约",
+      "flow": "FLOW-MR/P",
+      "result": "BLOCKED",
+      "reason": "MR处理组件缺失；SP已验收不回写MR"
+    },
+    {
+      "id": "ST-15",
+      "transition": "M中单→整期计划",
+      "flow": "FLOW-M",
+      "result": "PARTIAL",
+      "reason": "已有种子计划；新增报价缺周期控件且计划规则未确认"
+    },
+    {
+      "id": "ST-16",
+      "transition": "M期次→本期CALL→本期完工",
+      "flow": "FLOW-M",
+      "result": "PARTIAL",
+      "reason": "可以建立和回写，但联系/地址/后续动作有缺口"
+    },
+    {
+      "id": "ST-17",
+      "transition": "M+P→独立M/P出口",
+      "flow": "FLOW-MP",
+      "result": "BLOCKED",
+      "reason": "M可独立建CALL，P卡在MR就绪且客户来源决策未完整归档"
+    },
+    {
+      "id": "ST-18",
+      "transition": "SR需要报价→再次报价",
+      "flow": "FLOW-MAINT-ISSUE",
+      "result": "PARTIAL",
+      "reason": "首次有；第二份SR受到!t.needQuotation抑制"
+    },
+    {
+      "id": "ST-19",
+      "transition": "CM直派→现场SR→确认",
+      "flow": "FLOW-CM",
+      "result": "PARTIAL",
+      "reason": "主干保留，时间冲突规则待定"
+    },
+    {
+      "id": "ST-20",
+      "transition": "Tender待投标→已投标→结果",
+      "flow": "FLOW-TENDER",
+      "result": "PARTIAL",
+      "reason": "六态可选，正式回标动作无入口且合法迁移未定义"
+    },
+    {
+      "id": "ST-21",
+      "transition": "无报价中标→手填MR→施工",
+      "flow": "FLOW-TENDER/MR",
+      "result": "BLOCKED",
+      "reason": "0928明确入口，当前一律新建报价"
+    },
+    {
+      "id": "ST-22",
+      "transition": "完整资料→正常发票",
+      "flow": "FLOW-FINANCE",
+      "result": "PARTIAL",
+      "reason": "有门槛但照片/CP真实性、金额和到期日期不一致；普通成交status与财务bidStatus筛选错配"
+    },
+    {
+      "id": "ST-23",
+      "transition": "欠文件→特殊开票+原因",
+      "flow": "FLOW-FINANCE",
+      "result": "BLOCKED",
+      "reason": "缺特殊出口"
+    },
+    {
+      "id": "ST-24",
+      "transition": "开票→收款记录→财务独立完成",
+      "flow": "FLOW-FINANCE",
+      "result": "PARTIAL",
+      "reason": "演示单据独立，部分/超额/冲销/现场对账规则未定"
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "EX-01",
+      "scenario": "不可拍照客户/地点",
+      "flow": "FLOW-ONSITE",
+      "result": "FAIL",
+      "reason": "S03明确豁免；当前无条件至少各一张"
+    },
+    {
+      "id": "EX-02",
+      "scenario": "客户不在场/不能签名",
+      "flow": "FLOW-CLOSE",
+      "result": "PARTIAL",
+      "reason": "checkbox放行；谁补签/何时确认未定义"
+    },
+    {
+      "id": "EX-03",
+      "scenario": "货品错误/数量不足",
+      "flow": "FLOW-MR",
+      "result": "PARTIAL",
+      "reason": "旧PO有rejectGoods；MR逐行缺量页面缺失"
+    },
+    {
+      "id": "EX-04",
+      "scenario": "完全无材料的施工",
+      "flow": "FLOW-P",
+      "result": "PARTIAL",
+      "reason": "可无MR；可正式预约对象及依据待明确"
+    },
+    {
+      "id": "EX-05",
+      "scenario": "无报价中标或walk-in",
+      "flow": "FLOW-TENDER/MR",
+      "result": "FAIL",
+      "reason": "原始资料已有，当前路径缺失"
+    },
+    {
+      "id": "EX-06",
+      "scenario": "MR取消/处理后完成",
+      "flow": "FLOW-MR",
+      "result": "FAIL",
+      "reason": "0930三状态未展示、取消联动未定义"
+    },
+    {
+      "id": "EX-07",
+      "scenario": "报价未接受/丢单",
+      "flow": "FLOW-QUOTE",
+      "result": "PARTIAL",
+      "reason": "丢单可选，任务/计划/MR是否撤销未定义"
+    },
+    {
+      "id": "EX-08",
+      "scenario": "报价多次修订",
+      "flow": "FLOW-QUOTE",
+      "result": "PARTIAL",
+      "reason": "有快照但内容变更不全、001输出缺失"
+    },
+    {
+      "id": "EX-09",
+      "scenario": "成交后变更物料/范围",
+      "flow": "FLOW-QUOTE",
+      "result": "PENDING",
+      "reason": "新版本重新接受及MR补差/撤回规则未定"
+    },
+    {
+      "id": "EX-10",
+      "scenario": "CM与PM时间冲突",
+      "flow": "FLOW-CM",
+      "result": "PENDING",
+      "reason": "客户仍需决定，未硬编码自动重排是正确"
+    },
+    {
+      "id": "EX-11",
+      "scenario": "接单拒绝/未接单",
+      "flow": "FLOW-DISPATCH",
+      "result": "PENDING",
+      "reason": "私有任务只收到，原SOP选择权与工作决策不清"
+    },
+    {
+      "id": "EX-12",
+      "scenario": "无同区师傅/请假",
+      "flow": "FLOW-DISPATCH",
+      "result": "PARTIAL",
+      "reason": "候选为空、请假置灰有，跨区支援/负载阈值未定"
+    },
+    {
+      "id": "EX-13",
+      "scenario": "接单申请被驳回",
+      "flow": "FLOW-DISPATCH",
+      "result": "PARTIAL",
+      "reason": "有返回待分派，通知与独立申请历史未完整"
+    },
+    {
+      "id": "EX-14",
+      "scenario": "确认不通过退回补充",
+      "flow": "FLOW-CLOSE",
+      "result": "PARTIAL",
+      "reason": "动作有，原因/撤回既有财务及新SR历史缺失"
+    },
+    {
+      "id": "EX-15",
+      "scenario": "已完成SR修改/重交",
+      "flow": "FLOW-SR",
+      "result": "FAIL",
+      "reason": "会重新待完工确认且单对象覆盖，闭环语义未冻结"
+    },
+    {
+      "id": "EX-16",
+      "scenario": "一业务关联多个SR",
+      "flow": "FLOW-SR/QUOTE",
+      "result": "FAIL",
+      "reason": "主对象只有单SR字段，不能归档多份结构化报告"
+    },
+    {
+      "id": "EX-17",
+      "scenario": "现场收款交款/对账异常",
+      "flow": "FLOW-INSTANT",
+      "result": "PENDING",
+      "reason": "PENDING-001未决"
+    },
+    {
+      "id": "EX-18",
+      "scenario": "欠文件特殊开票",
+      "flow": "FLOW-FINANCE",
+      "result": "FAIL",
+      "reason": "只有禁用正常开票"
+    },
+    {
+      "id": "EX-19",
+      "scenario": "低于报价开票原因",
+      "flow": "FLOW-FINANCE",
+      "result": "PARTIAL",
+      "reason": "单/批有原因，改金额的入口未同一门槛"
+    },
+    {
+      "id": "EX-20",
+      "scenario": "部分收款/超额/冲销",
+      "flow": "FLOW-FINANCE",
+      "result": "PENDING",
+      "reason": "无已确认分配/核销规则"
+    },
+    {
+      "id": "EX-21",
+      "scenario": "弱网恢复与冲突重试",
+      "flow": "FLOW-ONSITE",
+      "result": "FAIL",
+      "reason": "模拟回放未复制完整SR/客户签名/确认字段"
+    },
+    {
+      "id": "EX-22",
+      "scenario": "任务取消/重开/终止",
+      "flow": "各FLOW",
+      "result": "PENDING",
+      "reason": "需分对象定义授权、理由和衍生对象处理"
+    },
+    {
+      "id": "EX-23",
+      "scenario": "禁用离职账号/长期代理",
+      "flow": "FLOW-MASTER",
+      "result": "PARTIAL",
+      "reason": "禁用信息有、代理只文案且日期阈值无出处"
+    },
+    {
+      "id": "EX-24",
+      "scenario": "通知到达但接收人无页权限",
+      "flow": "FLOW-QUOTE/SR",
+      "result": "FAIL",
+      "reason": "QUO通知目标workorder，ROLE_PAGES不允许"
+    }
+  ],
+  "metrics": {
+    "requirementCompleteness": {
+      "numerator": 94,
+      "denominator": 288,
+      "percent": 32.6
+    },
+    "prototypeBusinessCoverage": {
+      "numerator": 0,
+      "denominator": 16,
+      "percent": 0.0
+    },
+    "factTraceability": {
+      "numerator": 44,
+      "denominator": 60,
+      "percent": 73.3
+    },
+    "rolePermissionCompleteness": {
+      "numerator": 34,
+      "denominator": 112,
+      "percent": 30.4
+    },
+    "stateCompleteness": {
+      "numerator": 2,
+      "denominator": 24,
+      "percent": 8.3
+    },
+    "exceptionCompleteness": {
+      "numerator": 0,
+      "denominator": 24,
+      "percent": 0.0
+    }
+  }
+}

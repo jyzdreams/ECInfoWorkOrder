@@ -1,0 +1,189 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "報告管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - button "報告總數 3 服務報告 + 完工單 查看明細 >":
+    - heading "報告總數" [level=3]
+    - generic: "3"
+    - generic: 服務報告 + 完工單
+    - text: 查看明細 >
+  - button "待處理 0 等待師傅處理 查看明細 >":
+    - heading "待處理" [level=3]
+    - generic: "0"
+    - generic: 等待師傅處理
+    - text: 查看明細 >
+  - button "處理中 1 師傅處理中的工單 查看明細 >":
+    - heading "處理中" [level=3]
+    - generic: "1"
+    - generic: 師傅處理中的工單
+    - text: 查看明細 >
+  - button "已完成 2 已完工的報告 查看明細 >":
+    - heading "已完成" [level=3]
+    - generic: "2"
+    - generic: 已完工的報告
+    - text: 查看明細 >
+  - generic: 區域
+  - button "全部區域 ⌄":
+    - generic: 全部區域
+    - generic: ⌄
+  - combobox:
+    - option "全部區域" [selected]
+    - option "1區"
+    - option "2區"
+  - generic: 狀態
+  - button "全部狀態 ⌄":
+    - generic: 全部狀態
+    - generic: ⌄
+  - combobox:
+    - option "全部狀態" [selected]
+    - option "待確認"
+    - option "待處理"
+    - option "處理中"
+    - option "待完工確認"
+    - option "已完成"
+    - option "已取消"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - table:
+    - rowgroup:
+      - row "類型 報告編號 工單編號 客戶 區域 系統 目的 保養類型 工單狀態 建立時間 操作":
+        - columnheader "類型"
+        - columnheader "報告編號"
+        - columnheader "工單編號"
+        - columnheader "客戶"
+        - columnheader "區域"
+        - columnheader "系統"
+        - columnheader "目的"
+        - columnheader "保養類型"
+        - columnheader "工單狀態"
+        - columnheader "建立時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "服務報告 SR-250412 WO-20260613-010 灣仔商業大廈 1區 IT、Doorphone Others 非保養 處理中 06-13 14:35 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250412":
+          - generic "SR-250412"
+        - cell "WO-20260613-010":
+          - button "WO-20260613-010"
+        - cell "灣仔商業大廈":
+          - generic "灣仔商業大廈"
+        - cell "1區":
+          - generic "1區"
+        - cell "IT、Doorphone":
+          - generic "IT、Doorphone"
+        - cell "Others":
+          - generic "Others"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "06-13 14:35":
+          - generic "06-13 14:35"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-250315 WO-20260614-006 港島商業中心 1區 Access Control Routine Check 季檢 已完成 06-14 14:10 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250315":
+          - generic "SR-250315"
+        - cell "WO-20260614-006":
+          - button "WO-20260614-006"
+        - cell "港島商業中心":
+          - generic "港島商業中心"
+        - cell "1區":
+          - generic "1區"
+        - cell "Access Control":
+          - generic "Access Control"
+        - cell "Routine Check":
+          - generic "Routine Check"
+        - cell "季檢":
+          - generic "季檢"
+        - cell "已完成":
+          - generic: 已完成
+        - cell "06-14 14:10":
+          - generic "06-14 14:10"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-250298 WO-20260613-009 安全監控管理有限公司 2區 CCTV Fault Report 非保養 已完成 06-13 11:10 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250298":
+          - generic "SR-250298"
+        - cell "WO-20260613-009":
+          - button "WO-20260613-009"
+        - cell "安全監控管理有限公司":
+          - generic "安全監控管理有限公司"
+        - cell "2區":
+          - generic "2區"
+        - cell "CCTV":
+          - generic "CCTV"
+        - cell "Fault Report":
+          - generic "Fault Report"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "已完成":
+          - generic: 已完成
+        - cell "06-13 11:10":
+          - generic "06-13 11:10"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+- generic: 備貨單 SP-261007-0001 狀態：待備貨 → 已驗收

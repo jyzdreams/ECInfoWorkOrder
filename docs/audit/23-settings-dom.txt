@@ -1,0 +1,112 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "字典管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "林 林主管 管理員 · 管理部 ⌄":
+    - generic: 林
+    - strong: 林主管
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - button "🔌 測試連接"
+  - button "💾 保存配置"
+  - heading "已用空間" [level=3]
+  - generic: 2.3 GB
+  - generic: 共 100 GB（2%）
+  - heading "服務商" [level=3]
+  - generic: 阿里雲 OSS
+  - generic: 區域：香港
+  - heading "最後同步" [level=3]
+  - generic: 2026-07-13 09:30
+  - generic: 自動備份：✓ 已啟用
+  - heading "自動清理" [level=3]
+  - generic: "365"
+  - generic: 天後自動刪除舊文件
+  - heading "服務器配置" [level=3]
+  - generic: 服務商 *
+  - button "阿里雲 OSS ⌄":
+    - generic: 阿里雲 OSS
+    - generic: ⌄
+  - combobox:
+    - option "阿里雲 OSS" [selected]
+    - option "騰訊雲 COS"
+    - option "AWS S3"
+    - option "Azure Blob"
+    - option "本地服務器"
+  - generic: 區域 *
+  - textbox: 香港
+  - generic: Endpoint / 端點地址 *
+  - textbox: https://oss-cn-hongkong.ecinfo.com
+  - generic: Bucket / 儲存空間名稱 *
+  - textbox: ecinfo-attachments
+  - generic: Access Key *
+  - textbox: AKIA****ECINFO
+  - generic: Secret Key
+  - textbox "出於安全考量不顯示原值": <redacted>
+  - generic: 最大文件大小 (MB) *
+  - spinbutton: "50"
+  - generic: 允許的文件類型（逗號分隔） *
+  - textbox: pdf,jpg,jpeg,png,docx,xlsx
+  - generic: 自動刪除天數
+  - spinbutton: "365"
+  - generic: 總空間 (GB)
+  - spinbutton: "100"
+  - checkbox "啟用自動備份（每日凌晨 3:00 自動備份到備份服務器）" [checked]
+  - text: 啟用自動備份（每日凌晨 3:00 自動備份到備份服務器）
+  - heading "空間使用情況" [level=3]
+  - generic: 已使用 2.3 GB / 100 GB
+  - generic: 2%
+  - generic: 剩餘空間：97.7 GB
+  - heading "說明" [level=3]
+  - generic: • 此配置用於上傳 PDF、圖片等附件到雲端服務器，支持工單附件、SR 照片、報價 PDF 等文件存儲。
+  - generic: • 修改配置後請點擊「測試連接」驗證可用性，確認無誤後點擊「保存配置」。
+  - generic: • 系統會自動按設定的天數清理過期文件，請根據實際需求調整。
+  - generic: • 建議啟用自動備份以防止數據丟失。
+- generic: 已切換至 林主管（管理員）

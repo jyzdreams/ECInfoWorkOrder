@@ -1,0 +1,81 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+- main:
+  - heading "會計管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔 1":
+    - text: 🔔
+    - generic: "1"
+  - button "陳 陳會計 會計部 · 會計部 ⌄":
+    - generic: 陳
+    - strong: 陳會計
+    - generic: 會計部 · 會計部
+    - generic: ⌄
+  - button "開具發票"
+  - button "登記收款"
+  - heading "待開票" [level=3]
+  - generic: "30"
+  - generic: 已中標未開票 ＋ 合約週期帳單
+  - heading "待收款" [level=3]
+  - generic: "1"
+  - generic: HKD 49,500
+  - heading "本月收款" [level=3]
+  - generic: 3,080
+  - generic: HKD
+  - heading "發票總數" [level=3]
+  - generic: "2"
+  - generic: 已開具發票
+  - button "待開票 (30)"
+  - button "發票管理 (2)"
+  - button "收款記錄 (1)"
+  - button "客戶檔案 (4)"
+  - button "保養合約 (3)"
+  - textbox "關鍵字（Job Code / 客戶 / 描述）" [active]: QT-DEMO-P
+  - textbox
+  - button "全部類型 ⌄":
+    - generic: 全部類型
+    - generic: ⌄
+  - combobox:
+    - option "全部類型" [selected]
+    - option "工程"
+    - option "M類保養"
+  - button "清除"
+  - checkbox "全選"
+  - text: 全選
+  - generic: 已選 0 筆
+  - button "批量開具發票" [disabled]
+  - button "列印選取" [disabled]
+  - table:
+    - rowgroup:
+      - row "Job Code 客戶 描述 金額 類型 Billing Period 服務起止日期 付款週期 附件 狀態 操作":
+        - columnheader
+        - columnheader "Job Code"
+        - columnheader "客戶"
+        - columnheader "描述"
+        - columnheader "金額"
+        - columnheader "類型"
+        - columnheader "Billing Period"
+        - columnheader "服務起止日期"
+        - columnheader "付款週期"
+        - columnheader "附件"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "暫無待開票項目":
+        - cell "暫無待開票項目"
+- generic: 已切換至 陳會計（會計部）

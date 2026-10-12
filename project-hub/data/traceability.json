@@ -6,7 +6,7 @@
     {
       "sourceId": "SOURCE-001",
       "fileId": "FILE-618C5F54C7",
-      "projectPath": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "projectPath": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "name": "2026-09-27 真实业务流程讨论",
       "typeStatus": "Decision / READY",
       "associations": "FACT-001～017；CONFIRMED-001～017、PENDING-001～002、REJECTED-001"
@@ -94,7 +94,7 @@
     {
       "sourceId": "SOURCE-012",
       "fileId": "FILE-863211E410",
-      "projectPath": "materials/raw/ec-workorder/12-requirements-latest-20260919.md",
+      "projectPath": "materials/歷史原型/ec-workorder/12-requirements-latest-20260919.md",
       "name": "当前需求草案",
       "typeStatus": "PRD / DRAFT",
       "associations": "80 条历史 REQ 的主要关联文档，全部仍待确认"
@@ -102,7 +102,7 @@
     {
       "sourceId": "SOURCE-013",
       "fileId": "FILE-30B5BF1F0C",
-      "projectPath": "docs/08-sop-prototype-requirements-alignment-audit.md",
+      "projectPath": "docs/audit/2026-09-26/08-sop-prototype-requirements-alignment-audit.md",
       "name": "旧流程与原型对齐审计",
       "typeStatus": "Requirement Reference / DRAFT",
       "associations": "历史冲突、Open Question 和范围审计"
@@ -4474,91 +4474,91 @@
       "from": "SOURCE-001",
       "to": "FILE-618C5F54C7",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-002",
       "to": "FILE-822D3601B7",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-003",
       "to": "FILE-3278F5370C",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-004",
       "to": "FILE-E9823D6C4B",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-005",
       "to": "FILE-72B9835125",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-006",
       "to": "FILE-322654DCD7",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-007",
       "to": "FILE-512C8B8438",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-008",
       "to": "FILE-30A625FA6B",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-009",
       "to": "FILE-8B59C25CB1",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-010",
       "to": "FILE-6B1D069224",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-011",
       "to": "FILE-D50419124F",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-012",
       "to": "FILE-863211E410",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
       "from": "SOURCE-013",
       "to": "FILE-30B5BF1F0C",
       "kind": "SOURCE_ALIAS_TO_FILE",
-      "evidence": "knowledge/01-source/SOURCE-INDEX.md",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"
     },
     {
@@ -5573,189 +5573,189 @@
       "from": "CONFIRMED-001",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-002",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-003",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-004",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-005",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-006",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-007",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-008",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-009",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-010",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-011",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-012",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-013",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-014",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-015",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-016",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "CONFIRMED-017",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "PENDING-001",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "PENDING-002",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "REJECTED-001",
       "to": "FILE-6366380F13",
       "kind": "DECISION_TO_BASELINE",
-      "evidence": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "evidence": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-MAIN",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-P",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-MAINT-ISSUE",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-INSTANT",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-M",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-CM",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {
       "from": "FILE-6366380F13",
       "to": "FLOW-TENDER",
       "kind": "BASELINE_TO_FLOW",
-      "evidence": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "evidence": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "status": "LINKED"
     },
     {

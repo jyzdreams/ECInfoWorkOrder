@@ -1,0 +1,236 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "標書管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "林 林主管 管理員 · 管理部 ⌄":
+    - generic: 林
+    - strong: 林主管
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - tablist "標書狀態":
+    - tab "待投標 5" [selected]:
+      - generic: 待投標
+      - strong: "5"
+    - tab "已中標 1":
+      - generic: 已中標
+      - strong: "1"
+    - tab "未中標 1":
+      - generic: 未中標
+      - strong: "1"
+  - button "匯入標書"
+  - button "新建標書"
+  - generic: 標書狀態
+  - button "全部 (8) ⌄":
+    - generic: 全部 (8)
+    - generic: ⌄
+  - combobox:
+    - option "全部 (8)" [selected]
+    - option "待投標 (5)"
+    - option "已投標 (0)"
+    - option "已中標 (1)"
+    - option "未中標 (1)"
+    - option "已取消 (0)"
+    - option "不投標 (1)"
+  - generic: 標書類別
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "M"
+    - option "M+P"
+    - option "P"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+    - option "3區"
+  - generic: EC負責人
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "王組長"
+    - option "李組長"
+    - option "張經理"
+  - generic: 標書來源
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "未設定"
+    - option "郵寄"
+    - option "傳真"
+    - option "電子郵件"
+    - option "電話"
+  - generic: 搜索
+  - textbox "標書編號／項目名稱／客戶"
+  - button "搜索"
+  - table:
+    - rowgroup:
+      - row "標書編號 項目名稱 客戶 標書金額 接受標書日期 截止日期 距離截止日期 標書狀態 EC負責人 已發出報價編號 操作":
+        - columnheader "標書編號"
+        - columnheader "項目名稱"
+        - columnheader "客戶"
+        - columnheader "標書金額"
+        - columnheader "接受標書日期"
+        - columnheader "截止日期"
+        - columnheader "距離截止日期"
+        - columnheader "標書狀態"
+        - columnheader "EC負責人"
+        - columnheader "已發出報價編號"
+        - columnheader "操作"
+    - rowgroup:
+      - row "TD-DEMO-MP 政府保養及工程走查 香港政府大樓 HKD 84,000 2026-09-27 2026-10-30 剩 23 天 待投標 李組長 無 查看詳情":
+        - cell "TD-DEMO-MP":
+          - button "TD-DEMO-MP"
+        - cell "政府保養及工程走查"
+        - cell "香港政府大樓"
+        - cell "HKD 84,000"
+        - cell "2026-09-27"
+        - cell "2026-10-30"
+        - cell "剩 23 天":
+          - strong: 剩 23 天
+        - cell "待投標":
+          - generic: 待投標
+        - cell "李組長"
+        - cell "無"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "TD-DEMO-M 政府保養項目走查 香港政府大樓 HKD 48,000 2026-09-27 2026-10-30 剩 23 天 待投標 李組長 無 查看詳情":
+        - cell "TD-DEMO-M":
+          - button "TD-DEMO-M"
+        - cell "政府保養項目走查"
+        - cell "香港政府大樓"
+        - cell "HKD 48,000"
+        - cell "2026-09-27"
+        - cell "2026-10-30"
+        - cell "剩 23 天":
+          - strong: 剩 23 天
+        - cell "待投標":
+          - generic: 待投標
+        - cell "李組長"
+        - cell "無"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "TD-DEMO-2026 政府門禁工程走查 香港政府大樓 HKD 36,000 2026-09-27 2026-10-30 剩 23 天 待投標 李組長 無 查看詳情":
+        - cell "TD-DEMO-2026":
+          - button "TD-DEMO-2026"
+        - cell "政府門禁工程走查"
+        - cell "香港政府大樓"
+        - cell "HKD 36,000"
+        - cell "2026-09-27"
+        - cell "2026-10-30"
+        - cell "剩 23 天":
+          - strong: 剩 23 天
+        - cell "待投標":
+          - generic: 待投標
+        - cell "李組長"
+        - cell "無"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "T-2026-005 學校廣播系統採購 已逾期 教育局 HKD 180,000 2026-06-20 2026-07-25 已逾期 待投標 李組長 無 查看詳情":
+        - cell "T-2026-005":
+          - button "T-2026-005"
+        - cell "學校廣播系統採購 已逾期":
+          - text: 學校廣播系統採購
+          - generic: 已逾期
+        - cell "教育局"
+        - cell "HKD 180,000"
+        - cell "2026-06-20"
+        - cell "2026-07-25"
+        - cell "已逾期":
+          - strong: 已逾期
+        - cell "待投標":
+          - generic: 待投標
+        - cell "李組長"
+        - cell "無"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "T-2026-001 政府大樓安防系統升級招標 已逾期 EMSD 機電工程署 HKD 850,000 2026-05-10 2026-07-15 已逾期 待投標 張經理 QT-20260621-002 查看詳情":
+        - cell "T-2026-001":
+          - button "T-2026-001"
+        - cell "政府大樓安防系統升級招標 已逾期":
+          - text: 政府大樓安防系統升級招標
+          - generic: 已逾期
+        - cell "EMSD 機電工程署"
+        - cell "HKD 850,000"
+        - cell "2026-05-10"
+        - cell "2026-07-15"
+        - cell "已逾期":
+          - strong: 已逾期
+        - cell "待投標":
+          - generic: 待投標
+        - cell "張經理"
+        - cell "QT-20260621-002":
+          - button "QT-20260621-002"
+        - cell "查看詳情":
+          - button "查看詳情"
+  - generic "標書列表分頁":
+    - text: 第 1-5 筆，共 5 筆，每頁
+    - button "5 ⌄":
+      - generic: "5"
+      - generic: ⌄
+    - combobox "每頁筆數":
+      - option "5" [selected]
+      - option "10"
+      - option "20"
+    - text: 筆
+    - button "上一頁" [disabled]: ‹
+    - button "1"
+    - button "下一頁" [disabled]: ›
+- generic: 已切換至 林主管（管理員）

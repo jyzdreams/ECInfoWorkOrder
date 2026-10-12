@@ -10,7 +10,7 @@
         "FLOW-MAIN",
         "FLOW-P"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "普通维修主干",
@@ -42,7 +42,7 @@
         "FLOW-MAINT-ISSUE",
         "FLOW-INSTANT"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "三种维修情况",
@@ -73,7 +73,7 @@
         "FLOW-MAIN",
         "FLOW-P"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "中单后的准备",
@@ -103,7 +103,7 @@
       "flowIds": [
         "FLOW-P"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "预排与正式时间",
@@ -132,7 +132,7 @@
         "FLOW-P",
         "FLOW-MAINT-ISSUE"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "材料完成后确认时间",
@@ -162,7 +162,7 @@
         "FLOW-P",
         "FLOW-MAINT-ISSUE"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "MR 自动生成",
@@ -193,7 +193,7 @@
         "FLOW-P",
         "FLOW-MAINT-ISSUE"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "MR 生成触发点",
@@ -228,7 +228,7 @@
         "FLOW-INSTANT",
         "FLOW-TENDER"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "报价组生命周期",
@@ -263,7 +263,7 @@
         "FLOW-MAINT-ISSUE",
         "FLOW-TENDER"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "四个报价入口",
@@ -299,7 +299,7 @@
         "FLOW-M",
         "FLOW-CM"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "SR 与完工确认",
@@ -331,7 +331,7 @@
         "FLOW-MAIN",
         "FLOW-TENDER"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "报价阶段确定业务类型",
@@ -360,7 +360,7 @@
       "flowIds": [
         "FLOW-M"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "整期保养计划",
@@ -389,7 +389,7 @@
         "FLOW-M",
         "FLOW-P"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "M+P 无固定顺序",
@@ -420,7 +420,7 @@
       "flowIds": [
         "FLOW-CM"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "CM 业务存在",
@@ -447,7 +447,7 @@
       "flowIds": [
         "FLOW-CM"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "CM 直接指定师傅",
@@ -474,7 +474,7 @@
       "flowIds": [
         "FLOW-TENDER"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "政府 Tender 基本链路",
@@ -501,7 +501,7 @@
         "FLOW-MAIN",
         "FLOW-INSTANT"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "confirmedAt": "2026-09-27",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "完工与收款分离",
@@ -530,7 +530,7 @@
       "flowIds": [
         "FLOW-INSTANT"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "现场收款内部交接",
       "type": "Open Question",
@@ -557,7 +557,7 @@
       "flowIds": [
         "FLOW-CM"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "CM 时间冲突处理",
       "type": "Open Question",
@@ -586,7 +586,7 @@
         "FLOW-M",
         "FLOW-P"
       ],
-      "source": "knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
+      "source": "docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md",
       "sourceType": "HumanConfirmedDiscussion",
       "title": "M+P 固定先 P 后 M",
       "type": "Change History",

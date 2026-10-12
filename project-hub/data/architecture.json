@@ -77,61 +77,61 @@
   ],
   "dataResponsibility": {
     "humanMaintained": [
-      "knowledge/**/*.md",
+      "docs/knowledge/**/*.md",
       "materials/**/*",
       "docs/**/*",
       "prototype/**/*"
     ],
-    "builder": ".codex/project-hub-build/build-v2.js",
+    "builder": "project-hub/scripts/build-v2.js",
     "generated": "project-hub/data/*.json",
     "display": "project-hub/index.html"
   },
   "currentKnowledge": [
     {
       "role": "KNOWLEDGE_GOVERNANCE",
-      "projectPath": "knowledge/README.md",
+      "projectPath": "docs/knowledge/README.md",
       "fileId": "FILE-40D54A8C7F",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "SOURCE_INDEX",
-      "projectPath": "knowledge/01-source/SOURCE-INDEX.md",
+      "projectPath": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "fileId": "FILE-8A886D3BAD",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "DECISION_INDEX",
-      "projectPath": "knowledge/02-decisions/DECISION-INDEX.md",
+      "projectPath": "docs/knowledge/02-decisions/DECISION-INDEX.md",
       "fileId": "FILE-60ED96DE1C",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "CURRENT_BUSINESS_BASELINE",
-      "projectPath": "knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+      "projectPath": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
       "fileId": "FILE-6366380F13",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "BUSINESS_FLOW_DATA",
-      "projectPath": "knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+      "projectPath": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
       "fileId": "FILE-6DF78BBE11",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "REQUIREMENT_INDEX",
-      "projectPath": "knowledge/04-requirements/REQUIREMENT-INDEX.md",
+      "projectPath": "docs/knowledge/04-requirements/REQUIREMENT-INDEX.md",
       "fileId": "FILE-EAAC161667",
       "tier": "CURRENT",
       "status": "READY"
     },
     {
       "role": "OPEN_QUESTION_INDEX",
-      "projectPath": "knowledge/05-pending/OPEN-QUESTIONS.md",
+      "projectPath": "docs/knowledge/05-pending/OPEN-QUESTIONS.md",
       "fileId": "FILE-FF2EB9320E",
       "tier": "CURRENT",
       "status": "READY"

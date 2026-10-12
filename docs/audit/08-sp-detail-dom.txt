@@ -1,0 +1,162 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "備貨管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "系 系統管理員 管理員 · 管理部 ⌄":
+    - generic: 系
+    - strong: 系統管理員
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - heading "待備貨" [level=3]
+  - generic: "1"
+  - generic: 尚未關聯任何採購單
+  - heading "採購中" [level=3]
+  - generic: "3"
+  - generic: 待下單 / 已下單 / 已發貨
+  - heading "已到貨" [level=3]
+  - generic: "0"
+  - generic: 已到貨 / 已入庫 / 已驗收
+  - heading "本月採購額" [level=3]
+  - generic: 26,450
+  - generic: HKD
+  - table:
+    - rowgroup:
+      - row "備貨編號 客戶名稱 關聯報價 狀態 預計到貨時間 操作":
+        - columnheader "備貨編號"
+        - columnheader "客戶名稱"
+        - columnheader "關聯報價"
+        - columnheader "狀態"
+        - columnheader "預計到貨時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "SP-261007-0001 九龍國際廣場 QT-DEMO-MP 待備貨 - 查看":
+        - cell "SP-261007-0001":
+          - button "SP-261007-0001" [active]
+        - cell "九龍國際廣場"
+        - cell "QT-DEMO-MP":
+          - button "QT-DEMO-MP"
+        - cell "待備貨":
+          - generic: 待備貨
+        - cell "-"
+        - cell "查看":
+          - button "查看"
+      - row "SP-260620-0001 香港政府大樓 QT-20260621-004 已下單 2026-06-30 查看":
+        - cell "SP-260620-0001":
+          - button "SP-260620-0001"
+        - cell "香港政府大樓"
+        - cell "QT-20260621-004":
+          - button "QT-20260621-004"
+        - cell "已下單":
+          - generic: 已下單
+        - cell "2026-06-30"
+        - cell "查看":
+          - button "查看"
+      - row "SP-260618-0002 新界花園住宅 QT-20260621-006 已發貨 2026-06-28 查看":
+        - cell "SP-260618-0002":
+          - button "SP-260618-0002"
+        - cell "新界花園住宅"
+        - cell "QT-20260621-006":
+          - button "QT-20260621-006"
+        - cell "已發貨":
+          - generic: 已發貨
+        - cell "2026-06-28"
+        - cell "查看":
+          - button "查看"
+      - row "SP-260615-0003 港島會議中心 - 待下單 2026-07-05 查看":
+        - cell "SP-260615-0003":
+          - button "SP-260615-0003"
+        - cell "港島會議中心"
+        - cell "-"
+        - cell "待下單":
+          - generic: 待下單
+        - cell "2026-07-05"
+        - cell "查看":
+          - button "查看"
+- generic: 歡迎回來，系統管理員！
+- dialog "備貨單詳情":
+  - heading "SP-261007-0001" [level=3]
+  - generic: 待備貨
+  - button "×"
+  - heading "備貨單資訊" [level=4]
+  - generic: 備貨編號
+  - generic: SP-261007-0001
+  - generic: 客戶名稱
+  - generic: 九龍國際廣場
+  - generic: 關聯報價
+  - button "QT-DEMO-MP"
+  - generic: 狀態
+  - button "待備貨 ⌄":
+    - generic: 待備貨
+    - generic: ⌄
+  - combobox "變更備貨單狀態":
+    - option "待備貨" [selected]
+    - option "待下單"
+    - option "已下單"
+    - option "已發貨"
+    - option "已到貨"
+    - option "已入庫"
+    - option "已驗收"
+    - option "已取消"
+  - generic: 預計到貨時間
+  - generic: "-"
+  - generic: 採購單數量
+  - generic: 0 張
+  - generic: 採購總金額
+  - generic: HKD 0
+  - generic: 建立人
+  - generic: 林主管
+  - generic: 建立日期
+  - generic: 2026-10-07
+  - generic: 備註
+  - generic: 由報價 QT-DEMO-MP 自動建立
+  - heading "採購單（0）" [level=4]
+  - paragraph: 此備貨單尚無採購記錄。
+  - paragraph: 採購單請於倉庫通建立。

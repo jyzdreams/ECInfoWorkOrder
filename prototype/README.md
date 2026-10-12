@@ -1,6 +1,8 @@
 # ECInfo CALL 系统原型 2.0
 
-本目录是当前主原型，定位为 2.0 版本。它基于 1.0 归档原型 `archive/prototype-1.0/`，并按 2026-09-27 已确认业务流程完成一轮 Prototype 整改。整改依据与验证结果见 `review/prototype-remediation/`。
+本目录是当前主原型，定位为 2.0 版本。它基于 1.0 归档原型 `archive/prototype-1.0/`，并按 2026-09-27 已确认业务流程完成一轮 Prototype 整改。整改依据与验证结果见 `docs/review/prototype-remediation/`。
+
+2026-10-11目录整理：本目录是唯一当前原型，推进任务从[根入口](../README.md)指定Excel读取，知识从[Project Hub](../project-hub/index.html)查看，底层规则保留在docs/knowledge/。[10/07审计](../docs/audit/PROTOTYPE-FINALIZATION-AUDIT.md)仍为NOT READY，历史7场景PASS不代表后续反馈已全对齐。本次只调整文档与路径，未改原型HTML/CSS/JS、代理或模拟数据。
 
 ## 打开
 
@@ -11,7 +13,7 @@
 - 1.0 原版位于 `archive/prototype-1.0/`，本目录是当前评审入口。
 - `index.html` 承载现有页面、模拟数据与主交互；`ui-upgrade.css` 承载视觉样式。
 - `remediation.js` 承载本轮已确认的报价、MR、保养计划、CALL、Tender 和完工交接原型逻辑。
-- 报价中单且存在物料行时，会生成唯一 MR，并通过本地代理写入真实宜搭应用“仓库通”的 `MR表單`；报价详情和备货管理可查看真实 `formInstId`、远端 MR 号码、幂等键与物料明细。实现边界见 `../docs/09-warehouse-tong-sync-demo.md`。
+- 报价中单且存在物料行时，会生成唯一 MR，并通过本地代理写入真实宜搭应用“仓库通”的 `MR表單`；报价详情和备货管理可查看真实 `formInstId`、远端 MR 号码、幂等键与物料明细。实现边界见 `../docs/analysis/09-warehouse-tong-sync-demo.md`。
 - 窄屏登录页面可纵向滚动；移动端仍保留原有师傅/主管工作台、底部导航与现场处理抽屉。
 
 原型业务数据仍以模拟数据和浏览器本地存储为主，不是生产系统；报价中单后的仓库通动作会真实写入宜搭，并强制以 `MR-DEMO-*` 标识演示数据。该链路只验证单向创建，R-05 仓储主系统、R-12 权限矩阵及 CP/SR 完整映射仍待人工决策。同一域名下沿用相同的本地存储键；如需隔离演示数据，请使用不同端口或浏览器配置。

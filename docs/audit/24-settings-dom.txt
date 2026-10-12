@@ -1,0 +1,110 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+    - button "📑 標書管理":
+      - generic: 📑
+      - generic: 標書管理
+    - button "🛒 備貨管理":
+      - generic: 🛒
+      - generic: 備貨管理
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+- main:
+  - heading "字典管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "林 林主管 管理員 · 管理部 ⌄":
+    - generic: 林
+    - strong: 林主管
+    - generic: 管理員 · 管理部
+    - generic: ⌄
+  - heading "📊 Excel 導入" [level=2]
+  - paragraph: 通過 Excel 批量導入數據到系統，支持客戶、工單、報價、發票、收款記錄
+  - generic: ℹ 模擬說明：此為原型演示，模擬 Excel 文件上傳、數據解析和導入流程。實際部署時將使用 SheetJS（xlsx 庫）解析 Excel 文件。
+  - heading "導入類型" [level=4]
+  - button "🏢 客戶資料":
+    - generic: 🏢
+    - generic: 客戶資料
+  - button "📋 工單記錄":
+    - generic: 📋
+    - generic: 工單記錄
+  - button "💰 報價記錄":
+    - generic: 💰
+    - generic: 報價記錄
+  - button "🧾 發票記錄":
+    - generic: 🧾
+    - generic: 發票記錄
+  - button "💵 收款記錄":
+    - generic: 💵
+    - generic: 收款記錄
+  - heading "模板下載" [level=3]
+  - button "⬇ 下載 客戶資料 模板"
+  - generic: 模板包含以下字段（首行為表頭）：
+  - generic: 1. 客戶編號
+  - generic: 2. 中文名稱
+  - generic: 3. 英文名稱
+  - generic: 4. 類型(政府/私人)
+  - generic: 5. 等級(普通/VIP/重要)
+  - generic: 6. 聯繫人
+  - generic: 7. 電話
+  - generic: 8. 郵箱
+  - generic: 9. 區域
+  - generic: 10. 地址
+  - generic: 11. Peachtree ID
+  - heading "上傳 Excel 文件" [level=3]
+  - generic: 📁
+  - generic: 點擊或拖拽 Excel 文件到此區域上傳
+  - generic: 支持 .xlsx, .xls 格式，文件大小不超過 10MB
+  - heading "導入歷史記錄" [level=3]
+  - table:
+    - rowgroup:
+      - row "導入時間 類型 文件名 總行數 成功 失敗 狀態 操作人":
+        - columnheader "導入時間"
+        - columnheader "類型"
+        - columnheader "文件名"
+        - columnheader "總行數"
+        - columnheader "成功"
+        - columnheader "失敗"
+        - columnheader "狀態"
+        - columnheader "操作人"
+    - rowgroup:
+      - row "暫無導入記錄":
+        - cell "暫無導入記錄"
+- generic: 已切換至 林主管（管理員）

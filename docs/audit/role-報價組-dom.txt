@@ -1,0 +1,88 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "💰 報價管理":
+      - generic: 💰
+      - generic: 報價管理
+- main:
+  - heading "CR首頁" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "報 報價李 報價組 · 報價組 ⌄":
+    - generic: 報
+    - strong: 報價李
+    - generic: 報價組 · 報價組
+    - generic: ⌄
+  - generic: 報
+  - generic: CUSTOMER RELATION WORKSPACE
+  - heading "報價李" [level=1]
+  - paragraph: 2區 · 區域 CALL 概覽
+  - generic: 在線
+  - generic: 2區
+  - heading "掌握區域 CALL" [level=2]
+  - paragraph: 目前有 4 張 CALL 等待安排師傅
+  - strong: "4"
+  - generic: 待分派
+  - button "查看區域 CALL →":
+    - text: 查看區域 CALL
+    - generic: →
+  - button "分派中心"
+  - region "區域 CALL 統計":
+    - button "區域 CALL 8 全部工作單":
+      - generic: 區域 CALL
+      - strong: "8"
+      - generic: 全部工作單
+    - button "待分派 4 需要安排":
+      - generic: 待分派
+      - strong: "4"
+      - generic: 需要安排
+    - button "處理中 3 跟進中":
+      - generic: 處理中
+      - strong: "3"
+      - generic: 跟進中
+  - heading "優先跟進" [level=2]
+  - button "全部 CALL 8"
+  - button "查看 WO-20260615-002":
+    - strong: WO-20260615-002
+    - generic: 待分派
+    - heading "九龍屋苑管理處" [level=3]
+    - paragraph: 保養維修 · 2區 · 李組長
+    - generic: ›
+  - button "查看 WO-DEMO-M-01":
+    - strong: WO-DEMO-M-01
+    - generic: 處理中
+    - heading "九龍國際廣場" [level=3]
+    - paragraph: DLP 保養維修 · 2區 · 周師傅
+    - generic: ›
+  - button "查看 WO-DEMO-CM":
+    - strong: WO-DEMO-CM
+    - generic: 待分派
+    - heading "九龍國際廣場" [level=3]
+    - paragraph: 糾正維修 · 2區 · 李組長
+    - generic: ›
+  - button "CALL":
+    - generic: CALL
+  - button "首頁":
+    - generic: 首頁
+  - button "首頁":
+    - generic: 首頁
+  - button "CALL":
+    - generic: CALL
+  - button "分派":
+    - generic: 分派
+  - button "工單":
+    - generic: 工單
+  - button "處理":
+    - generic: 處理
+- generic: 已切換至 報價李（報價組）

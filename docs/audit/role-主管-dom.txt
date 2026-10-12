@@ -1,0 +1,492 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+    - button "📱 移動端":
+      - generic: 📱
+      - generic: 移動端
+- main:
+  - heading "組件庫" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔 2":
+    - text: 🔔
+    - generic: "2"
+  - button "李 李組長 主管 · 九龍團隊 ⌄":
+    - generic: 李
+    - strong: 李組長
+    - generic: 主管 · 九龍團隊
+    - generic: ⌄
+  - heading "組件庫" [level=2]
+  - paragraph: 系統前端統一使用的資料頁、篩選、表格、分頁、詳情抽屜與新增彈窗規格。所有 PC 業務模組以 CALL 管理的資訊密度與互動結構為準。
+  - generic: v2.0
+  - heading "統一規格摘要" [level=3]
+  - paragraph: 以下數值是資料頁的公共基線；業務頁只決定欄位與操作，不再自行修改尺寸。
+  - generic: 視圖 Tab
+  - strong: 12px · 高 34px
+  - generic: 篩選控制項
+  - strong: 12px · 高 34px
+  - generic: 表格
+  - strong: 表頭 12px · 正文 13px
+  - generic: 資料行
+  - strong: 最小高度 56px
+  - generic: 分頁
+  - strong: 高 40px · 頁碼 28px
+  - generic: 內容卡片
+  - strong: 圓角 12px · 內距 16px
+  - generic: 詳情抽屜
+  - strong: 固定頭尾 · 內容捲動
+  - generic: 新增彈窗
+  - strong: 標題／表單／操作三段式
+  - heading "按鈕" [level=3]
+  - paragraph: 主要操作使用系統主色按鈕；次要操作使用淺色按鈕；危險操作只在確認流程中使用。
+  - button "+ 新建CALL"
+  - button "重置"
+  - button "取消"
+  - button "刪除"
+  - button "查看詳情"
+  - heading "狀態與資訊卡" [level=3]
+  - paragraph: 流程狀態以固定顏色呈現；資訊卡只承載一個明確指標或一組同類資料，避免混用不同層級的文字。
+  - generic: 待分派
+  - generic: 待確認
+  - generic: 待處理
+  - generic: 處理中
+  - generic: 已完成
+  - generic: 已取消
+  - generic: 待分派
+  - strong: "4"
+  - generic: 點擊列表篩選查看
+  - generic: 今日待辦
+  - strong: "8"
+  - generic: 需要優先處理的 CALL
+  - generic: 最近更新
+  - strong: 06-15 11:35
+  - generic: WO-20260615-005
+  - heading "篩選與操作列" [level=3]
+  - paragraph: 清單頁的篩選欄位靠左排列，常用操作固定靠右，欄位標籤位於控制項上方。
+  - generic: 狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "保養維修"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "九龍"
+  - generic: 關鍵詞搜索
+  - textbox "CALL編號、客戶、聯繫人"
+  - button "重置"
+  - button "+ 新建CALL"
+  - heading "CALL 管理視圖與篩選" [level=3]
+  - paragraph: CALL 管理固定提供「CALL視圖」與「客戶視圖」；兩個視圖沿用同一套欄位標籤、搜索、重置及新增操作規格。
+  - tablist "CALL管理視圖":
+    - tab "CALL視圖" [selected]
+    - tab "客戶視圖"
+  - generic: CALL視圖篩選
+  - generic: 工作隊列
+  - generic: CALL狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+    - option "待確認"
+    - option "處理中"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "保養維修"
+    - option "工程維修"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+  - generic: 負責人
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+    - option "陳大文"
+  - generic: 關鍵詞搜索
+  - textbox "CALL編號／客戶／聯繫人"
+  - button "搜索"
+  - button "重置"
+  - button "+ 新增CALL"
+  - generic: 客戶視圖篩選
+  - generic: 客戶主檔
+  - generic: 客戶類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "政府"
+    - option "私人"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+    - option "3區"
+  - generic: 客戶級別
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "VIP"
+    - option "重要"
+    - option "普通"
+  - generic: 關鍵詞搜索
+  - textbox "客戶編號／名稱／聯絡人／電話"
+  - button "搜索"
+  - button "重置"
+  - button "+ 新增客戶"
+  - heading "表單欄位" [level=3]
+  - paragraph: 所有桌面端欄位使用 12px 標籤、34px 控制項、4px 標籤間距與一致的 focus ring。
+  - generic: 客戶名稱
+  - textbox: 港島商業中心
+  - generic: 服務區域
+  - button "香港 ⌄":
+    - generic: 香港
+    - generic: ⌄
+  - combobox:
+    - option "香港" [selected]
+  - heading "CALL 管理完整資料頁" [level=3]
+  - paragraph: 資料頁不重複顯示頁面標題；視圖 Tab 與右側操作同列，下面依序放置篩選、資料表與分頁。
+  - generic "CALL管理完整資料頁組件預覽":
+    - tablist "CALL資料頁視圖":
+      - tab "CALL視圖"
+      - tab "客戶視圖" [selected]
+    - button "+ 新增客戶"
+    - generic: 客戶類型
+    - button "全部 ⌄":
+      - generic: 全部
+      - generic: ⌄
+    - combobox:
+      - option "全部" [selected]
+      - option "政府"
+      - option "私人"
+    - generic: 區域
+    - button "全部 ⌄":
+      - generic: 全部
+      - generic: ⌄
+    - combobox:
+      - option "全部" [selected]
+      - option "1區"
+      - option "2區"
+      - option "3區"
+    - generic: 客戶級別
+    - button "全部 ⌄":
+      - generic: 全部
+      - generic: ⌄
+    - combobox:
+      - option "全部" [selected]
+      - option "VIP"
+      - option "重要"
+      - option "普通"
+    - generic: 關鍵詞搜索
+    - textbox "客戶編號／名稱／聯絡人／電話"
+    - button "搜索"
+    - button "重置"
+    - table:
+      - rowgroup:
+        - row "客戶編號 客戶名稱 客戶類型 區域 級別 聯絡人 電話 操作":
+          - columnheader "客戶編號"
+          - columnheader "客戶名稱"
+          - columnheader "客戶類型"
+          - columnheader "區域"
+          - columnheader "級別"
+          - columnheader "聯絡人"
+          - columnheader "電話"
+          - columnheader "操作"
+      - rowgroup:
+        - row "CUST–0001 港島商業中心HK Commercial Center 私人 1區 VIP 陳先生 +852 9123 4567 查看詳情":
+          - cell "CUST–0001":
+            - button "CUST–0001"
+          - cell "港島商業中心HK Commercial Center":
+            - strong: 港島商業中心
+            - text: HK Commercial Center
+          - cell "私人"
+          - cell "1區"
+          - cell "VIP"
+          - cell "陳先生"
+          - cell "+852 9123 4567"
+          - cell "查看詳情":
+            - button "查看詳情"
+        - row "CUST–0002 九龍國際廣場Kowloon International Plaza 私人 2區 重要 李小姐 +852 9234 5678 查看詳情":
+          - cell "CUST–0002":
+            - button "CUST–0002"
+          - cell "九龍國際廣場Kowloon International Plaza":
+            - strong: 九龍國際廣場
+            - text: Kowloon International Plaza
+          - cell "私人"
+          - cell "2區"
+          - cell "重要"
+          - cell "李小姐"
+          - cell "+852 9234 5678"
+          - cell "查看詳情":
+            - button "查看詳情"
+        - row "CUST–0003 新界花園住宅NT Garden Residence 私人 3區 普通 張女士 +852 9345 6789 查看詳情":
+          - cell "CUST–0003":
+            - button "CUST–0003"
+          - cell "新界花園住宅NT Garden Residence":
+            - strong: 新界花園住宅
+            - text: NT Garden Residence
+          - cell "私人"
+          - cell "3區"
+          - cell "普通"
+          - cell "張女士"
+          - cell "+852 9345 6789"
+          - cell "查看詳情":
+            - button "查看詳情"
+    - generic "CALL資料頁分頁預覽":
+      - text: 共 12 條記錄，每頁
+      - button "10 ⌄":
+        - generic: "10"
+        - generic: ⌄
+      - combobox "每頁筆數":
+        - option "10" [selected]
+        - option "20"
+        - option "50"
+      - text: 條，第
+      - strong: 1/2
+      - text: 頁
+      - button "上一頁" [disabled]: ‹
+      - button "1"
+      - button "2"
+      - button "下一頁": ›
+  - heading "標準資料表" [level=3]
+  - paragraph: 所有業務清單使用同一套表頭、行高、狀態與操作欄規格。
+  - generic: CALL 管理標準
+  - table:
+    - rowgroup:
+      - row "CALL編號 客戶 聯繫人 區域 CALL狀態 更新時間 操作":
+        - columnheader "CALL編號"
+        - columnheader "客戶"
+        - columnheader "聯繫人"
+        - columnheader "區域"
+        - columnheader "CALL狀態"
+        - columnheader "更新時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "WO-20260615-001 港島商業中心 陳先生 香港 待分派 06-15 09:10 查看詳情":
+        - cell "WO-20260615-001":
+          - button "WO-20260615-001"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "陳先生"
+        - cell "香港"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "06-15 09:10"
+        - cell "查看詳情":
+          - button "查看詳情"
+      - row "WO-20260615-002 九龍屋苑管理處 何小姐 九龍 處理中 06-15 09:40 查看詳情":
+        - cell "WO-20260615-002":
+          - button "WO-20260615-002"
+        - cell "九龍屋苑管理處":
+          - strong: 九龍屋苑管理處
+        - cell "何小姐"
+        - cell "九龍"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "06-15 09:40"
+        - cell "查看詳情":
+          - button "查看詳情"
+  - heading "分頁" [level=3]
+  - paragraph: 清單底部固定顯示記錄總數、每頁筆數、當前頁碼與翻頁操作；頁碼按鈕沿用統一的選中、停用與懸停狀態。
+  - generic "分頁組件預覽":
+    - text: 共 12 條記錄，每頁
+    - button "10 ⌄":
+      - generic: "10"
+      - generic: ⌄
+    - combobox "每頁筆數":
+      - option "10" [selected]
+      - option "20"
+      - option "50"
+    - text: 條，第
+    - strong: 1/2
+    - text: 頁
+    - button "上一頁" [disabled]: ‹
+    - button "1"
+    - button "2"
+    - button "下一頁": ›
+  - heading "新增彈窗與詳情抽屜" [level=3]
+  - paragraph: 新增／編輯使用置中彈窗；查看詳情使用右側抽屜。兩者均使用固定頭部、分組內容及固定底部操作列。
+  - group "新增CALL彈窗組件預覽":
+    - strong: 新增 CALL
+    - generic: 填寫客戶、CALL 資訊與附件
+    - button "關閉": ×
+    - heading "基本資訊" [level=4]
+    - generic: 客戶類型 *
+    - button "私人 ⌄":
+      - generic: 私人
+      - generic: ⌄
+    - combobox:
+      - option "私人" [selected]
+    - generic: 客戶 *
+    - button "港島商業中心 ⌄":
+      - generic: 港島商業中心
+      - generic: ⌄
+    - combobox:
+      - option "港島商業中心" [selected]
+    - generic: 區域 *
+    - textbox: 1區
+    - generic: 主管 *
+    - button "林主管 ⌄":
+      - generic: 林主管
+      - generic: ⌄
+    - combobox:
+      - option "林主管" [selected]
+    - heading "CALL 資訊" [level=4]
+    - generic: CALL 類型 *
+    - button "DLP 保養維修 ⌄":
+      - generic: DLP 保養維修
+      - generic: ⌄
+    - combobox:
+      - option "DLP 保養維修" [selected]
+    - generic: 優先級
+    - button "普通 ⌄":
+      - generic: 普通
+      - generic: ⌄
+    - combobox:
+      - option "普通" [selected]
+    - generic: 問題描述 *
+    - textbox: 電路有問題
+    - button "取消"
+    - button "提交 CALL"
+  - group "CALL詳情抽屜結構預覽":
+    - strong: WO-20260927-001
+    - generic: CALL 詳情 · DLP 保養維修
+    - generic: 待確認
+    - heading "客戶資訊" [level=4]
+    - generic: 客戶名稱
+    - generic: 港島商業中心
+    - generic: 聯絡人
+    - generic: 陳先生
+    - generic: 地址
+    - generic: 中環德輔道中 88 號
+    - heading "CALL 資訊" [level=4]
+    - generic: 區域
+    - generic: 1區
+    - generic: 優先級
+    - generic: 普通
+    - generic: 問題描述
+    - generic: 電路有問題
+    - button "編輯工單"
+  - heading "CALL 詳情字段分組" [level=3]
+  - paragraph: 完整字段按「客戶信息、CALL信息、處理進度、附件」分組；此分組同時套用於頁內側欄及直接附加到頁面的獨立側欄。
+  - group "CALL詳情側邊欄組件預覽":
+    - strong: WO-20260927-001
+    - generic: CALL詳情 · DLP 保養維修
+    - generic: 待確認
+    - heading "客戶信息" [level=4]
+    - generic: 客戶名稱
+    - generic: 港島商業中心
+    - generic: 聯繫人
+    - generic: 陳先生
+    - generic: 聯繫電話
+    - generic: +852 9123 4567
+    - generic: 地址
+    - generic: 未設定
+    - heading "CALL信息" [level=4]
+    - generic: CALL類型
+    - generic: DLP 保養維修
+    - generic: 區域
+    - generic: 1區
+    - generic: 來源渠道
+    - generic: 電話
+    - generic: 優先級
+    - generic: 普通
+    - generic: 創建時間
+    - generic: 2026-09-27 20:02
+    - generic: 問題描述
+    - generic: 電路有問題
+    - heading "處理進度" [level=4]
+    - generic: 當前狀態
+    - generic: 待確認
+    - generic: 當前負責人
+    - generic: 待分派
+    - generic: 主管
+    - generic: 未設定
+    - generic: 排程狀態
+    - generic: 未排程
+    - generic: 預計時間
+    - generic: 未預排
+    - generic: 服務報告
+    - generic: 未提交
+    - heading "附件" [level=4]
+    - generic: 暫無附件
+    - button "編輯工單"
+  - heading "使用規則" [level=3]
+  - list:
+    - strong: 資料頁
+    - text: 頁內不重複顯示頂部標題；Tab 與主要操作同列，內容使用完整可用寬度。
+    - strong: 篩選與表格
+    - text: 篩選在表格上方；表格支援橫向捲動，操作欄需要時固定在右側。
+    - strong: 分頁
+    - text: 分頁位於表格捲動區之外，不跟隨明細欄位橫向捲動。
+    - strong: 詳情
+    - text: 使用右側抽屜，資料按業務主題分組；標籤 11px、內容 13px。
+    - strong: 新增與編輯
+    - text: 使用置中彈窗，表單以卡片分組，底部只保留取消和主提交操作。
+    - strong: 狀態與危險操作
+    - text: 狀態使用固定語意色；刪除只放在確認流程，不出現在列表主操作。
+- generic: 已切換至 李組長（主管）

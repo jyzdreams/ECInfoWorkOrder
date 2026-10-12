@@ -1,0 +1,22 @@
+{
+  "counts": {
+    "P0": 14,
+    "P1": 22,
+    "P2": 4,
+    "Customer": 16
+  },
+  "stepRows": 64,
+  "coreRules": 60,
+  "flows": 16,
+  "roleViews": 14,
+  "stateTransitions": 24,
+  "exceptionScenarios": 24,
+  "brokenLocalLinks": [],
+  "readOnly": {
+    "baselineFiles": 3971,
+    "changed": [],
+    "missing": [],
+    "newOutsideAudit": []
+  },
+  "reportBytes": 103122
+}
