@@ -243,9 +243,11 @@
     const tender = q.sourceTenderId ? tenders.find(t => t.id === q.sourceTenderId) : null;
     const modal = document.createElement("div");
     modal.className = "um-modal-overlay";
+    // 成交版本顯示該報價的「Our Ref」值（與報價詳情 Our Ref 欄位一致：ourRef + R版本後綴）
+    const ourRefDisplay = `${q.ourRef || q.id || "N/A"}${Number(q.revision || 0) > 0 ? `R${q.revision}` : ""}`;
     modal.innerHTML = `<div class="um-modal rem-won-modal"><div class="um-modal-head"><div><h2>客戶接受最終報價</h2><p class="rem-modal-sub">${safe(id)} · 請記錄客戶確認資料</p></div><button class="um-modal-close" data-rem-close aria-label="關閉">×</button></div>
       <form data-rem-won-form="${safe(id)}" class="rem-won-form">
-        <div class="rem-note"><span>成交版本</span><strong>${quoteVersion(q)}</strong><span>類別</span><strong>${safe(q.category || "未設定")}</strong>${tender ? `<span>標書</span><strong>${safe(tender.id)}</strong>` : ""}</div>
+        <div class="rem-note"><span>成交版本</span><strong>${safe(ourRefDisplay)}</strong><span>類別</span><strong>${safe(q.category || "未設定")}</strong>${tender ? `<span>標書</span><strong>${safe(tender.id)}</strong>` : ""}</div>
         <div class="rem-won-field-grid">
           <label class="rem-won-field"><span>客戶接受日期</span><input type="date" name="customerAcceptedAt" value="${today()}" required></label>
           <label class="rem-won-field"><span>客戶訂單號（如有）</span><input name="customerOrder" value="${safe(q.customerOrder || "")}" placeholder="可選填"></label>
@@ -345,6 +347,9 @@
       <div class="wo-detail-item"><span class="wo-detail-label">客戶名稱</span><span class="wo-detail-value">${safe(q.customerName || "未設定")}</span></div>
       <div class="wo-detail-item"><span class="wo-detail-label">客戶編號</span><span class="wo-detail-value" style="color:var(--primary);font-weight:600;">${safe(q.customerId || "未設定")}</span></div>
     </div></div></div>`;
+    // 上次同步失敗時顯示具體原因，方便手動重試
+    const warehouseError = mr && mr.warehouseSync?.errorMessage
+      ? `<p class="rem-warning">上次同步失敗：${safe(mr.warehouseSync.errorMessage)}</p>` : "";
     const warehousePanel = mr ? `<div class="wo-detail-section"><div class="wo-detail-card rem-card rem-warehouse-card">
       <div class="wo-detail-card-heading"><h4>倉庫通同步</h4><span class="tag ${mr.warehouseSync?.status === "已同步" ? "success" : "warning"}">${safe(mr.warehouseSync?.status || "待同步")}</span></div>
       <div class="rem-grid">
@@ -353,12 +358,29 @@
         <div><span class="rem-label">同步模式</span><strong>${safe(mr.warehouseSync?.mode || WAREHOUSE_SYNC_MODE)}</strong></div>
         <div><span class="rem-label">同步時間</span><strong>${safe(mr.warehouseSync?.syncedAt || "待同步")}</strong></div>
       </div>
+      ${warehouseError}
       <p class="muted">此演示会写入真实宜搭「MR表單」；所有远端单号统一使用 MR-DEMO 前缀。</p>
+      <div class="rem-actions"><button class="secondary-btn" type="button" data-rem-resync="${safe(mr.id)}">重新同步</button></div>
     </div></div>` : "";
     return html
       .replace('<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">', `<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">${customerPanel}${warehousePanel}`)
       .replace('<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">', '<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">');
   };
+
+  // 手動重新同步：報價詳情「倉庫通同步」卡片上的按鈕，供同步失敗或需重試時補救
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-rem-resync]");
+    if (!button) return;
+    const mr = findMr(button.dataset.remResync);
+    if (!mr) return;
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = "同步中…";
+    const result = await syncMaterialRequestToWarehouseTong(mr, { force: true });
+    // 同步函式會自行 toast 並 render()；若成功再補一則明確提示
+    if (result && result.status === "已同步") toast("已重新同步倉庫通", "success");
+    else { button.disabled = false; button.textContent = label; }
+  });
 
   const originalWorkOrderDrawer = renderWorkOrderDrawer;
   renderWorkOrderDrawer = function (t) {
@@ -401,7 +423,7 @@
   document.head.insertAdjacentHTML("beforeend", `<style>
     .rem-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0;color:var(--text)}
     .rem-card h3,.rem-card h4{margin:0 0 10px}.rem-card p{margin:8px 0}.rem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .rem-grid>div{background:var(--panel-soft);border-radius:8px;padding:10px}.rem-label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.rem-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.rem-actions label{font-size:12px;color:var(--muted)}.rem-warning{font-size:12px;color:var(--muted)}
+    .rem-grid>div{background:var(--panel-soft);border-radius:8px;padding:10px;min-width:0;overflow-wrap:anywhere;word-break:break-word}.rem-grid>div strong,.rem-grid>div span{overflow-wrap:anywhere;word-break:break-word}.rem-label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.rem-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.rem-actions label{font-size:12px;color:var(--muted)}.rem-warning{font-size:12px;color:var(--muted)}
     .rem-tabs{display:flex;gap:8px;margin:12px 0}.rem-tabs button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:7px;padding:8px 16px;cursor:pointer}
     .rem-tabs button.active{background:var(--primary);color:white}.rem-toolbar{display:flex;gap:16px;margin:12px 0}.rem-toolbar label,.rem-card label{display:flex;gap:8px;align-items:center}
     .rem-card input,.rem-card select,.rem-toolbar input,.rem-toolbar select{border:1px solid var(--line);border-radius:6px;padding:7px;background:var(--panel);color:var(--text)}

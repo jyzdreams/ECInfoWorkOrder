@@ -21,6 +21,23 @@ PROTOTYPE_ROOT = Path(__file__).resolve().parent
 MAX_REQUEST_BYTES = 256 * 1024
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
+# 倉庫通「基礎檔案 › 產品信息管理」視圖的來源表單「产品信息」：原型物料明細單選下拉的產品來源
+PRODUCT_FORM_UUID = "FORM-HT866U9151NDSK4993GFJCG4K9JL2DBXFHULLH"
+# 產品信息表單欄位 ID（用於把查詢結果解析為產品清單）
+PRODUCT_FIELD_NAME = "textField_lluh6s8y"       # 貨品名稱
+PRODUCT_FIELD_CODE = "textField_mrxfgkng"       # 貨品編號（下拉顯示值）
+PRODUCT_FIELD_SPEC = "textField_lluief3m"       # 規格
+PRODUCT_FIELD_CATEGORY = "selectField_lluief3n"  # EC貨物類型
+PRODUCT_FIELD_UNIT = "selectField_lluief3o"     # 單位
+PRODUCT_FIELD_PRICE = "numberField_lluief3q"    # 銷售價格
+
+# 倉庫通「供應商價格」表單：MR 子表「物料名稱」關聯欄位所指向的表單
+PRICE_FORM_UUID = "FORM-0B1995EDEF8D438C8D799F0218E9119AQ325"
+PRICE_FIELD_CODE = "textField_lluou1c5"   # 貨品編號（關聯主欄位）
+PRICE_FIELD_NAME = "textField_llvlifra"   # 產品名稱（關聯副欄位）
+# MR 子表「物料名稱」關聯欄位 ID
+MR_FIELD_MATERIAL_NAME = "associationFormField_mt84dlj2"
+
 
 def _resolve_node():
     candidates = [
@@ -88,7 +105,9 @@ def _run_openyida(arguments):
     )
     combined = "\n".join(part for part in (result.stdout, result.stderr) if part)
     if result.returncode != 0:
-        raise RuntimeError(f"OpenYida 调用失败（{result.returncode}）")
+        # 帶上 CLI 最後一行輸出，方便定位參數或權限錯誤
+        detail = combined.strip().splitlines()[-1].strip() if combined.strip() else ""
+        raise RuntimeError(f"OpenYida 调用失败（{result.returncode}）{('：' + detail) if detail else ''}")
     response = _last_json_object(combined)
     if not response.get("success"):
         raise RuntimeError(response.get("errorMsg") or "OpenYida 返回失败")
@@ -117,16 +136,94 @@ def _number(value, default=0):
         return default
 
 
+def _list_products():
+    """查詢倉庫通「產品信息管理」來源表單產品信息，回傳原型物料單選下拉可用的產品清單。"""
+    response = _run_openyida([
+        "data", "query", "form", APP_TYPE, PRODUCT_FORM_UUID,
+        "--page", "1", "--size", "200",
+    ])
+    products = []
+    for record in response.get("data") or []:
+        components = record.get("instValue")
+        if isinstance(components, str):
+            try:
+                components = json.loads(components)
+            except json.JSONDecodeError:
+                components = []
+        values = {}
+        for component in components or []:
+            values[component.get("fieldId")] = (component.get("fieldData") or {}).get("value")
+        code = values.get(PRODUCT_FIELD_CODE)
+        if not code:
+            continue
+        products.append({
+            "code": str(code),
+            "name": str(values.get(PRODUCT_FIELD_NAME) or ""),
+            "spec": str(values.get(PRODUCT_FIELD_SPEC) or ""),
+            "category": str(values.get(PRODUCT_FIELD_CATEGORY) or ""),
+            "unit": str(values.get(PRODUCT_FIELD_UNIT) or ""),
+            "unitPrice": _number(values.get(PRODUCT_FIELD_PRICE)),
+            "instanceId": record.get("formInstId") or "",
+        })
+    return products
+
+
+def _query_price_record_by_code(code):
+    """按貨品編號查詢倉庫通「供應商價格」表單記錄（供 MR 子表『物料名稱』關聯欄位使用）。"""
+    search = [{
+        "key": PRICE_FIELD_CODE,
+        "value": code,
+        "type": "TEXT",
+        "operator": "eq",
+    }]
+    response = _run_openyida([
+        "data", "query", "form", APP_TYPE, PRICE_FORM_UUID,
+        "--page", "1", "--size", "1",
+        "--search-json", json.dumps(search, ensure_ascii=False),
+    ])
+    records = response.get("data") or []
+    return records[0] if records else None
+
+
+def _material_name_association(code):
+    """把貨品編號轉為 MR 子表『物料名稱』關聯欄位的值；「供應商價格」查不到對應記錄時回傳 None。"""
+    record = _query_price_record_by_code(code)
+    if not record:
+        return None
+    components = record.get("instValue")
+    if isinstance(components, str):
+        try:
+            components = json.loads(components)
+        except json.JSONDecodeError:
+            components = []
+    product_name = ""
+    for component in components or []:
+        if component.get("fieldId") == PRICE_FIELD_NAME:
+            product_name = (component.get("fieldData") or {}).get("value") or ""
+            break
+    # create 介面對關聯欄位要求「陣列」；查詢回傳才是 {"value":[...]} 的包裝
+    return [{
+        "formType": "receipt",
+        "formUuid": PRICE_FORM_UUID,
+        "instanceId": record.get("formInstId") or "",
+        "subTitle": str(product_name),
+        "appType": APP_TYPE,
+        "title": str(code),
+    }]
+
+
 def _build_yida_record(payload):
     mr_number = str(payload.get("sourceRecordId") or "").strip()
     quotation_id = str(payload.get("quotationId") or "").strip()
     revision = payload.get("quotationRevision", 0)
     lines = []
+    # 貨品編號 → 關聯欄位值 的快取，避免同一物料重複查詢宜搭
+    association_cache = {}
     for index, material in enumerate(payload.get("materials") or [], start=1):
         quantity = _number(material.get("quantity"))
         unit_price = _number(material.get("unitPrice"))
         amount = _number(material.get("amount"), quantity * unit_price)
-        lines.append({
+        line = {
             "textField_mtgp1s29": str(material.get("name") or "演示材料"),
             "textField_mt82hr88": str(material.get("code") or f"DEMO-{quotation_id}-{index}"),
             "numberField_mt82hr8b": quantity,
@@ -137,7 +234,20 @@ def _build_yida_record(payload):
             "numberField_mtgm2fgu": unit_price,
             "numberField_mtgm2fgx": amount,
             "textareaField_mtgm2fh3": f"【演示资料】来源报价 {quotation_id} R{revision}",
-        })
+        }
+        # 子表「物料名稱」為關聯欄位：以貨品編號到「供應商價格」查對應記錄，寫入其 instanceId；
+        # 查不到（該貨品編號在供應商價格中無記錄）或查詢失敗時留空，不影響其餘欄位寫入。
+        material_code = str(material.get("name") or "").strip()
+        if material_code:
+            if material_code not in association_cache:
+                try:
+                    association_cache[material_code] = _material_name_association(material_code)
+                except Exception as error:
+                    print(f"[warehouse] 查詢物料名稱關聯失敗（{material_code}）：{error}")
+                    association_cache[material_code] = None
+            if association_cache[material_code]:
+                line[MR_FIELD_MATERIAL_NAME] = association_cache[material_code]
+        lines.append(line)
     customer = str(payload.get("customerName") or "未指定场地")
     if "演示" not in customer:
         customer = f"{customer}（演示）"
@@ -217,6 +327,13 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 "appType": APP_TYPE,
                 "formUuid": FORM_UUID,
             })
+            return
+        if urlparse(self.path).path == "/api/warehouse-tong/products":
+            try:
+                self._json_response(200, {"success": True, "products": _list_products()})
+            except Exception as error:
+                self.log_error("List warehouse products failed: %s", error)
+                self._json_response(502, {"success": False, "message": str(error)})
             return
         super().do_GET()
 

@@ -5668,6 +5668,58 @@
       return matched ? MATERIAL_SUPPLIER_MOCK[matched] : "未指定供應商";
     }
 
+    // ===== 倉庫通產品清單（來源：宜搭「供應商價格」表單）=====
+    // 報價物料明細的「物料名稱」改為單選下拉，選項與倉庫通一致，避免同步時匹配不到產品
+    let warehouseProducts = [];
+    // 先讀取 localStorage 快取，讓尚未向代理取得清單時也能顯示單選
+    (function loadWarehouseProductsFromCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem("ecinfo_warehouse_products") || "[]");
+        if (Array.isArray(cached)) warehouseProducts = cached;
+      } catch (e) { warehouseProducts = []; }
+    })();
+
+    // 向本地代理查詢倉庫通產品清單；無代理或離線時沿用快取（沒有則維持手填）
+    async function loadWarehouseProducts() {
+      try {
+        const res = await fetch("/api/warehouse-tong/products");
+        const data = await res.json();
+        if (data && data.success && Array.isArray(data.products)) {
+          warehouseProducts = data.products;
+          localStorage.setItem("ecinfo_warehouse_products", JSON.stringify(data.products));
+        }
+      } catch (e) { /* 無代理或離線：沿用快取或手填 */ }
+    }
+
+    // 產品選項清單：以倉庫通「貨品編號」為顯示值（同名不同編號僅取其一，去重）
+    function warehouseProductCodes() {
+      const seen = new Set();
+      const codes = [];
+      warehouseProducts.forEach(p => {
+        const c = String(p.code || p.name || "").trim();
+        if (c && !seen.has(c)) { seen.add(c); codes.push(c); }
+      });
+      return codes;
+    }
+
+    // 渲染物料名稱欄位：有倉庫通產品清單時為單選下拉（顯示貨品編號），否則回退為文字輸入
+    // value：目前值；dataAttr：如 "data-qf-name"（保留原資料屬性供既有收集邏輯使用）
+    function materialNameFieldHtml(value, dataAttr) {
+      const current = String(value || "").trim();
+      const codes = warehouseProductCodes();
+      if (!codes.length) {
+        return `<input class="po-input" ${dataAttr} value="${escapeHtml(current)}" placeholder="請輸入物料名稱">`;
+      }
+      const options = [`<option value="">請選擇物料</option>`].concat(
+        codes.map(c => `<option value="${escapeHtml(c)}" ${c === current ? "selected" : ""}>${escapeHtml(c)}</option>`)
+      );
+      // 既有報價可能含非產品主檔的自訂名稱，保留為可選項避免遺失
+      if (current && !codes.includes(current)) {
+        options.push(`<option value="${escapeHtml(current)}" selected>${escapeHtml(current)}（自訂）</option>`);
+      }
+      return `<select class="po-input" ${dataAttr}>${options.join("")}</select>`;
+    }
+
     // ===== Unified Dictionary Management System =====
     // Dictionary type configuration (defines fields, labels for each type)
     const DICT_CONFIG = {
@@ -10843,6 +10895,8 @@
           // 有副標題時一併顯示（如「客戶名稱 · 合約編號」），方便識別同名政府客戶
           const sub = selected && selected.dataset ? selected.dataset.sub : "";
           value.textContent = selected ? `${selected.textContent.trim()}${sub ? ` · ${sub}` : ""}` : "請選擇";
+          // 收合狀態文字過長會被省略，懸浮觸發器時以 title 顯示全稱
+          trigger.title = value.textContent;
           trigger.disabled = select.disabled;
         };
         const renderOptions = (keyword = "") => {
@@ -10864,6 +10918,8 @@
             item.className = `search-select-option${option.selected ? " active" : ""}${sub ? " has-sub" : ""}`;
             item.disabled = option.disabled;
             item.dataset.value = option.value;
+            // 選項文字過長會被省略（ellipsis），懸浮選項時以 title 顯示全稱
+            item.title = `${option.textContent.trim()}${sub ? ` · ${sub}` : ""}`;
             // 有副標題時渲染兩行（主標題 + 副標題），否則維持單行
             if (sub) {
               item.innerHTML = `<span class="search-select-option-main">${escapeHtml(option.textContent.trim())}</span><span class="search-select-option-sub">${escapeHtml(sub)}</span>`;
@@ -15664,7 +15720,7 @@
           const addQeItemRow = (item = {}) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-              <td><input class="po-input" data-qe-name value="${item.name || ""}" style="width:100%;"></td>
+              <td>${materialNameFieldHtml(item.name, "data-qe-name")}</td>
               <td><input class="po-input" data-qe-spec value="${item.spec || ""}" style="width:100%;"></td>
               <td><input class="po-input" data-qe-qty type="number" min="1" value="${item.qty || 1}" style="width:100%;text-align:center;"></td>
               <td><select class="po-input" data-qe-unit style="width:100%;"><option>個</option><option>套</option><option>件</option><option>批</option><option>箱</option></select></td>
@@ -16007,9 +16063,15 @@
       const priceCell = value => Number(value || 0) > 0 ? `$${fmtMoney(value)}` : "—";
       const amountCell = value => Number(value || 0) > 0 ? `$${fmtMoney(value)}` : "Included";
       const itemsSubtotal = items.reduce((sum, it) => sum + Number(it.qty || 0) * Number(it.unitPrice || 0), 0);
-      // 折扣百分比（0 表示無折扣），並據此算出折後總額
+      // 折扣百分比（0 表示無折扣）
       const discountRate = Number(quotation.discount || 0);
-      const netTotal = discountRate > 0 ? itemsSubtotal * (1 - discountRate / 100) : itemsSubtotal;
+      // 報價總金額：以報價單儲存的折後總額 totalAmount 為準；
+      // 本原型物料明細不逐行填單價，明細合計恆為 0，故不能只靠明細相加。
+      const storedNetTotal = Number(quotation.totalAmount || 0);
+      const baseAmount = Number(quotation.amount || 0);
+      const netTotal = storedNetTotal > 0
+        ? storedNetTotal
+        : (baseAmount > 0 ? (discountRate > 0 ? baseAmount * (1 - discountRate / 100) : baseAmount) : itemsSubtotal);
       // 日期格式化：資料存 YYYY-MM-DD，紙樣統一顯示為 日/月/年
       const fmtDate = value => {
         const matched = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -16112,7 +16174,7 @@
         <div class="terms-title">Terms &amp; Conditions</div>
         <div class="term-row"><span class="k">Payment</span><span>: ${escapeHtml(quotation.paymentMethod || "")}</span></div>
         <div class="term-row"><span class="k">Validity</span><span>: ${escapeHtml(fmtDate(quotation.validUntil))}</span></div>
-        <div class="term-row"><span class="k">Delivery time</span><span>: ${escapeHtml(quotation.deliveryTime || "")}</span></div>
+        <div class="term-row"><span class="k">Delivery time</span><span>: ${escapeHtml(formatLeadTime(quotation.leadTime) || quotation.leadTimeText || quotation.deliveryTime || "")}</span></div>
         <div class="term-row"><span class="k">Warranty</span><span>: ${escapeHtml(quotation.warrantyPeriod || "")}</span></div>
         <div class="bottom">
           <div class="col">
@@ -17920,7 +17982,7 @@
           }
           if (item.unit) unitEl.value = item.unit;
           tr.innerHTML = `
-            <td><input class="po-input" data-qf-name value="${escapeHtml(item.name || "")}" placeholder="請輸入物料名稱"></td>
+            <td>${materialNameFieldHtml(item.name, "data-qf-name")}</td>
             <td><input class="po-input" data-qf-spec value="${escapeHtml(item.spec || "")}" placeholder="規格/型號"></td>
             <td><input class="po-input po-input-sm" data-qf-qty type="number" min="1" value="${item.qty || 1}"></td>
             <td class="po-unit-cell"></td>
@@ -18091,10 +18153,19 @@
       return (sp && sp.status) || "待備貨";
     }
 
-    // 變更備貨單狀態（詳情下拉單選觸發），並同步關聯報價的採購狀態
-    function changeSpStatus(spId, newStatus) {
+    // 變更備貨單狀態（詳情下拉單選觸發）：同步報價採購狀態，並依新狀態觸發通知／自動建單
+    async function changeSpStatus(spId, newStatus) {
       const sp = stockPreparations.find(s => s.id === spId);
       if (!sp || !SP_STATUSES.includes(newStatus) || sp.status === newStatus) return;
+
+      // 「已驗收」需先選擇工單類型（排程／非排程／不建工單），未選擇則不變更狀態
+      let verifyScheduleType = "";
+      if (newStatus === "已驗收") {
+        const scheduleType = await showTicketTypeDialog();
+        if (!scheduleType) return; // 用戶取消
+        verifyScheduleType = scheduleType;
+      }
+
       const oldStatus = sp.status;
       sp.status = newStatus;
       // 報價的採購狀態跟隨備貨單狀態（備貨單為採購進度的唯一來源）
@@ -18102,9 +18173,59 @@
         const quotation = quotations.find(q => q.id === sp.quotationId);
         if (quotation) quotation.procurementStatus = newStatus;
       }
-      saveDataToLocalStorage();
+
+      // 先提示狀態變更，再執行連動：連動產生的提示（如「已自動建立待分派工單」）才不會被覆寫
       toast(`備貨單 ${spId} 狀態：${oldStatus} → ${newStatus}`);
+      // 依新狀態觸發對應動作（與採購單流程對齊）
+      triggerSpStatusEffects(sp, newStatus, verifyScheduleType);
+
+      saveDataToLocalStorage();
       render();
+    }
+
+    // 取得備貨單所屬區域：優先關聯工單，其次報價（含標書區域），最後客戶首個地址
+    function getSpArea(sp) {
+      const ticket = sp.ticketId ? tickets.find(t => t.id === sp.ticketId) : null;
+      if (ticket && ticket.area) return ticket.area;
+      const quotation = sp.quotationId ? quotations.find(q => q.id === sp.quotationId) : null;
+      if (quotation) {
+        if (quotation.area) return quotation.area;
+        const tender = quotation.sourceTenderId ? tenders.find(x => x.id === quotation.sourceTenderId) : null;
+        if (tender && tender.tenderRegion) return tender.tenderRegion;
+        const customer = customers.find(c => c.nameZh === quotation.customerName || c.id === quotation.customerId);
+        if (customer && customer.addresses && customer.addresses[0]) return customer.addresses[0].area;
+      }
+      return "";
+    }
+
+    // 備貨單狀態變更後的連動：通知相關角色；「已驗收」時自動建立待分派工單
+    function triggerSpStatusEffects(sp, newStatus, verifyScheduleType) {
+      const area = getSpArea(sp);
+      if (newStatus === "已到貨") {
+        // 已收貨通知：所屬主管 + 倉務（採購部/管理員代表）
+        const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && u.area === area);
+        createNotification({ module: "procurement", level: "action", title: "備貨已收貨通知", content: sp.id, subContent: `${sp.customerName || ""} · 貨品已到貨，請安排入庫存`, targetPage: "procurement", targetId: sp.id, receiverId: areaTl?.id, receiverRole: "TEAM_LEADER" });
+        users.filter(u => (u.role === "PUR" || u.role === "ADMIN") && u.status === "啓用").forEach(u => {
+          createNotification({ module: "procurement", level: "action", title: "備貨已收貨通知（倉務）", content: sp.id, subContent: `${sp.customerName || ""} · 請入庫存`, targetPage: "procurement", targetId: sp.id, receiverId: u.id, receiverRole: "PURCHASE" });
+        });
+      }
+      if (newStatus === "已入庫") {
+        // 通知所屬 CR 部：貨品已入庫，待確認貨品
+        const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === area);
+        createNotification({ module: "procurement", level: "action", title: "貨品已入庫，待確認", content: sp.id, subContent: `${sp.customerName || ""} · 請確認貨品（正確→驗收 / 錯誤→通知採購倉務）`, targetPage: "procurement", targetId: sp.id, receiverId: areaCr?.id, receiverRole: "CR" });
+      }
+      if (newStatus === "已驗收" && verifyScheduleType !== "不建工單") {
+        // 同一備貨單只自動建單一次，避免狀態來回切換造成重複
+        if (sp.generatedTicketIds && sp.generatedTicketIds.length) return;
+        const created = createPendingWorkOrdersFromProcurement({
+          ticketId: sp.ticketId,
+          quotationId: sp.quotationId,
+          sourceLabel: `備貨單 ${sp.id}`,
+          scheduleType: verifyScheduleType,
+          sourceFields: { sourceSpId: sp.id }
+        });
+        if (created.length) sp.generatedTicketIds = created;
+      }
     }
 
     // 計算備貨單預計到貨時間：取所有子採購單預計到貨日最晚者（最後一張到齊才算齊貨）
@@ -18226,8 +18347,12 @@
     function renderSpDetailDrawer(sp) {
       const pos = getSpPurchaseOrders(sp.id, true);
       const activePOs = pos.filter(po => po.status !== "已取消");
-      const totalAmount = activePOs.reduce((sum, po) => sum + (po.totalAmount || 0), 0);
       const quotation = sp.quotationId ? quotations.find(q => q.id === sp.quotationId) : null;
+      // 採購總金額：直接取關聯報價的折後總額（報價金額）；
+      // 僅「無關聯報價」的歷史備貨單才回退為加總子採購單金額
+      const totalAmount = quotation
+        ? Number(quotation.totalAmount || 0)
+        : activePOs.reduce((sum, po) => sum + (po.totalAmount || 0), 0);
       return `
         <div class="wo-drawer-backdrop" data-sp-close aria-hidden="true"></div>
         <aside class="wo-drawer" role="dialog" aria-modal="true" aria-label="備貨單詳情">
@@ -18374,8 +18499,8 @@
       // 關閉抽屜
       container.querySelectorAll("[data-sp-close]").forEach(btn => btn.addEventListener("click", hideSpDrawer));
       // 備貨單狀態下拉單選：變更後外層列表與抽屜同步更新
-      container.querySelectorAll("[data-sp-status-select]").forEach(select => select.addEventListener("change", (e) => {
-        changeSpStatus(select.dataset.spStatusSelect, e.target.value);
+      container.querySelectorAll("[data-sp-status-select]").forEach(select => select.addEventListener("change", async (e) => {
+        await changeSpStatus(select.dataset.spStatusSelect, e.target.value);
         if (document.getElementById("spDrawerOverlay")) showSpDrawer(spId);
       }));
       // 編輯採購單物料明細
@@ -18626,6 +18751,139 @@
       return stockPreparation ? getSpStatus(stockPreparation.id) : null;
     }
 
+    // 驗收完成後自動建立待分派工單（採購單與備貨單共用同一套邏輯）
+    // 情況1：來源關聯了原工單（Call→工單→報價→備貨）→ 通知該工單 TL，並基於原工單 ID 加 (N) 後綴
+    // 情況2：來源僅關聯報價（標書→報價→備貨）→ 依報價客戶資訊建立全新工單
+    // sourceLabel 為來源描述（如「採購單 PO-xxx」「備貨單 SP-xxx」），用於紀錄與通知文字
+    function createPendingWorkOrdersFromProcurement({ ticketId, quotationId, sourceLabel, scheduleType, sourceFields = {} }) {
+      const createdIds = [];
+      const nowStr = () => {
+        const now = new Date();
+        return `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+      };
+
+      // 情況1：有關聯工單
+      if (ticketId) {
+        const ticket = tickets.find(t => t.id === ticketId);
+        if (!ticket) return createdIds;
+        const tlUser = users.find(u => u.name === ticket.tl && u.role === "TL" && isEnabled(u.status));
+        if (tlUser) {
+          createNotification({
+            module: "ticket",
+            level: "action",
+            title: "採購完畢，可派出工單",
+            content: `工單 ${ticket.id} - ${ticket.customer}`,
+            subContent: `${sourceLabel} 已驗收完成，客戶 ${ticket.customer}（區域：${ticket.area}）的工單可派工處理。聯繫人：${ticket.contact || "無"}，電話：${ticket.phone || "無"}`,
+            targetPage: "dispatch",
+            targetId: ticket.id,
+            receiverId: tlUser.id,
+            receiverRole: "TEAM_LEADER"
+          });
+        }
+
+        // 自動建立待分派工單：原工單 ID 加 (N) 後綴（無後綴加 (2)，已有後綴則遞增）
+        const origId = ticket.id;
+        const suffixMatch = origId.match(/^(.+)\((\d+)\)$/);
+        const newId = suffixMatch ? `${suffixMatch[1]}(${parseInt(suffixMatch[2], 10) + 1})` : `${origId}(2)`;
+        if (!tickets.find(t => t.id === newId)) {
+          const dateStr = nowStr();
+          const creatorName = currentRole().name;
+          tickets.unshift({
+            id: newId,
+            customerId: ticket.customerId,
+            type: ticket.type,
+            customer: ticket.customer,
+            contact: ticket.contact,
+            phone: ticket.phone,
+            channel: ticket.channel,
+            area: ticket.area,
+            address: ticket.address,
+            status: "待分派",
+            owner: creatorName,
+            tl: ticket.tl,
+            master: "",
+            createdAt: dateStr,
+            updatedAt: dateStr,
+            desc: ticket.desc,
+            records: [{ time: dateStr.slice(-5), actor: creatorName, text: `${sourceLabel} 驗收完成，自動建立派工工單，原工單：${origId}。` }],
+            attachments: [],
+            tags: [],
+            urgent: false,
+            parentTicketId: origId,
+            scheduleType,
+            ...sourceFields
+          });
+          createdIds.push(newId);
+          toast(`已自動建立待分派工單 ${newId}`);
+        }
+        return createdIds;
+      }
+
+      // 情況2：無關聯工單，但有報價（標書→報價→備貨線路）
+      if (quotationId) {
+        const quotation = quotations.find(q => q.id === quotationId);
+        if (!quotation || !quotation.customerName) return createdIds;
+        const customer = customers.find(c => c.nameZh === quotation.customerName || c.id === quotation.customerId);
+        const tender = quotation.sourceTenderId ? tenders.find(x => x.id === quotation.sourceTenderId) : null;
+        const customerArea = quotation.area || (tender ? tender.tenderRegion : "") || (customer && customer.addresses && customer.addresses[0] ? customer.addresses[0].area : "");
+        const addressObj = customer && customer.addresses ? customer.addresses.find(a => a.area === customerArea) || customer.addresses[0] : null;
+        const contactObj = customer && customer.contacts && customer.contacts.length > 0 ? customer.contacts[0] : null;
+
+        // 依客戶類型自動判斷前綴：政府用 ECA，其他用 WO
+        const newTicketId = generateWorkOrderId(customer);
+        if (tickets.find(t => t.id === newTicketId)) return createdIds;
+        const dateStr = nowStr();
+        const creatorName = currentRole().name;
+        tickets.unshift({
+          id: newTicketId,
+          customerId: (customer && customer.id) || quotation.customerId || "",
+          type: (customer && customer.type) || "私人",
+          customer: quotation.customerName,
+          contact: contactObj ? contactObj.name : "",
+          phone: contactObj ? contactObj.phone : "",
+          channel: "採購驗收",
+          area: customerArea,
+          address: addressObj ? addressObj.addressZh : "",
+          status: "待分派",
+          owner: creatorName,
+          tl: addressObj ? addressObj.tl : "",
+          master: "",
+          createdAt: dateStr,
+          updatedAt: dateStr,
+          desc: quotation.title || quotation.remark || `由${sourceLabel}驗收完成自動建立`,
+          records: [{ time: dateStr.slice(-5), actor: creatorName, text: `${sourceLabel} 驗收完成，由報價 ${quotation.id} 自動建立派工工單。` }],
+          attachments: [],
+          tags: [],
+          urgent: false,
+          parentTicketId: "",
+          sourceQuotationId: quotation.id,
+          scheduleType,
+          ...sourceFields
+        });
+        createdIds.push(newTicketId);
+        toast(`已自動建立待分派工單 ${newTicketId}`);
+
+        // 通知該區域 TL 有新工單待分派
+        if (addressObj && addressObj.tl) {
+          const tlUser = users.find(u => u.name === addressObj.tl && u.role === "TL" && isEnabled(u.status));
+          if (tlUser) {
+            createNotification({
+              module: "ticket",
+              level: "action",
+              title: "採購完畢，新工單待分派",
+              content: `工單 ${newTicketId} - ${quotation.customerName}`,
+              subContent: `${sourceLabel} 已驗收完成，客戶 ${quotation.customerName}（區域：${customerArea}）的新工單可派工處理。`,
+              targetPage: "dispatch",
+              targetId: newTicketId,
+              receiverId: tlUser.id,
+              receiverRole: "TEAM_LEADER"
+            });
+          }
+        }
+      }
+      return createdIds;
+    }
+
     // 採購單狀態流轉
     async function poAction(poId, action) {
       const po = purchaseOrders.find(p => p.id === poId);
@@ -18695,148 +18953,15 @@
       toast(step.msg);
 
       // 採購驗收完成時，自動建立待分派工單（使用者選擇「不建工單」時不建立）
-      // 情況1：採購單關聯了原工單（Call→工單→報價→採購），基於原工單 ID 添加 (N) 後綴
-      // 情況2：採購單僅關聯報價（標書→報價→採購），基於報價客戶信息創建全新工單
       if (action === "verify" && verifyScheduleType !== "不建工單") {
-        if (po.ticketId) {
-          // 情況1：有關聯工單，通知對應工單的 TL 並基於原工單 ID 添加 (N) 後綴建立新工單
-          const ticket = tickets.find(t => t.id === po.ticketId);
-          if (ticket) {
-            const tlUser = users.find(u => u.name === ticket.tl && u.role === "TL" && isEnabled(u.status));
-            if (tlUser) {
-              createNotification({
-                module: "ticket",
-                level: "action",
-                title: "採購完畢，可派出工單",
-                content: `工單 ${ticket.id} - ${ticket.customer}`,
-                subContent: `採購單 ${po.id} 已驗收完成，客戶 ${ticket.customer}（區域：${ticket.area}）的工單可派工處理。聯繫人：${ticket.contact || "無"}，電話：${ticket.phone || "無"}`,
-                targetPage: "dispatch",
-                targetId: ticket.id,
-                receiverId: tlUser.id,
-                receiverRole: "TEAM_LEADER"
-              });
-            }
-
-            // 自動建立待分派工單：基於原工單 ID 添加 (N) 後綴
-            // 規則：原工單 WO-20260615-003 → 新工單 WO-20260615-003(2)
-            //       若原工單已有 (N) 後綴，則遞增為 (N+1)
-            const origId = ticket.id;
-            let newId;
-            const suffixMatch = origId.match(/^(.+)\((\d+)\)$/);
-            if (suffixMatch) {
-              // 原 ID 已有 (N) 後綴，遞增為 (N+1)
-              newId = `${suffixMatch[1]}(${parseInt(suffixMatch[2], 10) + 1})`;
-            } else {
-              // 原 ID 無後綴，添加 (2)
-              newId = `${origId}(2)`;
-            }
-
-            // 避免重複建立（理論上採購單狀態已變為「已驗收」不會再次觸發，但仍做防護）
-            if (!tickets.find(t => t.id === newId)) {
-              const now = new Date();
-              const dateStr = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-              const creatorName = currentRole().name;
-              const newTicket = {
-                id: newId,
-                customerId: ticket.customerId,
-                type: ticket.type,
-                customer: ticket.customer,
-                contact: ticket.contact,
-                phone: ticket.phone,
-                channel: ticket.channel,
-                area: ticket.area,
-                address: ticket.address,
-                status: "待分派",
-                owner: creatorName,
-                tl: ticket.tl,
-                master: "",
-                createdAt: dateStr,
-                updatedAt: dateStr,
-                desc: ticket.desc,
-                records: [{ time: dateStr.slice(-5), actor: creatorName, text: `採購驗收完成（採購單 ${po.id}），自動建立派工工單，原工單：${origId}。` }],
-                attachments: [],
-                tags: [],
-                urgent: false,
-                parentTicketId: origId,  // 關聯原工單 ID
-                sourcePOId: po.id,       // 關聯採購單 ID
-                scheduleType: verifyScheduleType  // 排程標記
-              };
-              tickets.unshift(newTicket);
-              saveDataToLocalStorage();
-              toast(`已自動建立待分派工單 ${newId}`);
-            }
-          }
-        } else if (po.quotationId) {
-          // 情況2：無關聯工單，但有關聯報價（標書→報價→採購線路）
-          // 基於報價的客戶信息創建全新工單
-          const quotation = quotations.find(q => q.id === po.quotationId);
-          if (quotation && quotation.customerName) {
-            // 從客戶表查找客戶詳情（聯繫人、電話、地址、類型）
-            const customer = customers.find(c => c.nameZh === quotation.customerName || c.id === quotation.customerId);
-            // 區域優先取報價區域；報價未帶區域時回退取標書區域，最後回退取客戶首個地址區域
-            const tender = quotation.sourceTenderId ? tenders.find(x => x.id === quotation.sourceTenderId) : null;
-            const customerArea = quotation.area || (tender ? tender.tenderRegion : "") || (customer && customer.addresses && customer.addresses[0] ? customer.addresses[0].area : "");
-            const addressObj = customer && customer.addresses ? customer.addresses.find(a => a.area === customerArea) || customer.addresses[0] : null;
-            const contactObj = customer && customer.contacts && customer.contacts.length > 0 ? customer.contacts[0] : null;
-
-            // 生成全新工單編號（依客戶類型自動判斷前綴：政府用 ECA，其他用 WO）
-            const newTicketId = generateWorkOrderId(customer);
-
-            // 避免重複建立
-            if (!tickets.find(t => t.id === newTicketId)) {
-              const now = new Date();
-              const dateStr = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-              const creatorName = currentRole().name;
-              const newTicket = {
-                id: newTicketId,
-                customerId: (customer && customer.id) || quotation.customerId || "",
-                type: (customer && customer.type) || "私人",
-                customer: quotation.customerName,
-                contact: contactObj ? contactObj.name : "",
-                phone: contactObj ? contactObj.phone : "",
-                channel: "採購驗收",
-                area: customerArea,
-                address: addressObj ? addressObj.addressZh : "",
-                status: "待分派",
-                owner: creatorName,
-                tl: addressObj ? addressObj.tl : "",
-                master: "",
-                createdAt: dateStr,
-                updatedAt: dateStr,
-                desc: quotation.title || quotation.remark || `由採購單 ${po.id} 驗收完成自動建立`,
-                records: [{ time: dateStr.slice(-5), actor: creatorName, text: `採購驗收完成（採購單 ${po.id}），由報價 ${quotation.id} 自動建立派工工單。` }],
-                attachments: [],
-                tags: [],
-                urgent: false,
-                parentTicketId: "",              // 無原工單
-                sourcePOId: po.id,               // 關聯採購單 ID
-                sourceQuotationId: quotation.id, // 關聯報價 ID
-                scheduleType: verifyScheduleType // 排程標記
-              };
-              tickets.unshift(newTicket);
-              saveDataToLocalStorage();
-              toast(`已自動建立待分派工單 ${newTicketId}`);
-
-              // 通知該區域的 TL 有新工單待分派
-              if (addressObj && addressObj.tl) {
-                const tlUser = users.find(u => u.name === addressObj.tl && u.role === "TL" && isEnabled(u.status));
-                if (tlUser) {
-                  createNotification({
-                    module: "ticket",
-                    level: "action",
-                    title: "採購完畢，新工單待分派",
-                    content: `工單 ${newTicketId} - ${quotation.customerName}`,
-                    subContent: `採購單 ${po.id} 已驗收完成，客戶 ${quotation.customerName}（區域：${customerArea}）的新工單可派工處理。`,
-                    targetPage: "dispatch",
-                    targetId: newTicketId,
-                    receiverId: tlUser.id,
-                    receiverRole: "TEAM_LEADER"
-                  });
-                }
-              }
-            }
-          }
-        }
+        const created = createPendingWorkOrdersFromProcurement({
+          ticketId: po.ticketId,
+          quotationId: po.quotationId,
+          sourceLabel: `採購單 ${po.id}`,
+          scheduleType: verifyScheduleType,
+          sourceFields: { sourcePOId: po.id }
+        });
+        if (created.length) saveDataToLocalStorage();
       }
 
       render();
@@ -26319,6 +26444,25 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-edit-quotation-drawer]").forEach(btn => btn.addEventListener("click", () => openQuotationEditDrawer(btn.dataset.editQuotationDrawer)));
       document.querySelectorAll("[data-delete-quotation]").forEach(btn => btn.addEventListener("click", () => deleteQuotation(btn.dataset.deleteQuotation)));
 
+      // 報價抽屜在 render() 時以內聯方式重建（見 renderQuotationPage），
+      // 以下元件原本只綁在 bindQuotationDrawerEvents，重建後會失效（例如列印報價無法重複開啟），故一併在此綁定。
+      document.querySelectorAll("[data-print-quotation]").forEach(btn => btn.addEventListener("click", () => exportQuotationPdf(btn.dataset.printQuotation)));
+      document.querySelectorAll("[data-quotation-history]").forEach(btn => btn.addEventListener("click", () => openQuotationHistory(btn.dataset.quotationHistory)));
+      document.querySelectorAll("[data-qm-owner-phone]").forEach(btn => btn.addEventListener("click", () => {
+        toast(`${btn.textContent.trim()}：${btn.dataset.qmOwnerPhone}`, "success");
+      }));
+      document.querySelectorAll("[data-qm-detail-tab]").forEach(btn => btn.addEventListener("click", () => {
+        const target = btn.dataset.qmDetailTab;
+        document.querySelectorAll("[data-qm-detail-tab]").forEach(tab => {
+          const active = tab.dataset.qmDetailTab === target;
+          tab.classList.toggle("active", active);
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        document.querySelectorAll("[data-qm-detail-panel]").forEach(panel => {
+          panel.classList.toggle("active", panel.dataset.qmDetailPanel === target);
+        });
+      }));
+
       // 報價操作事件（保留：標記中標、不投標、創建修訂版、啟動採購、完工紙管理、採購部關單）
       document.querySelectorAll("[data-update-quotation-status]").forEach(btn => btn.addEventListener("click", () => openUpdateQuotationStatus(btn.dataset.updateQuotationStatus)));
       document.querySelectorAll("[data-send-quotation]").forEach(btn => btn.addEventListener("click", () => openSendQuotationModal(btn.dataset.sendQuotation)));
@@ -27670,6 +27814,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     })();
 
     render();
+
+    // 向本地代理載入倉庫通產品清單，供報價物料明細單選下拉使用
+    loadWarehouseProducts();
 
     // 全局事件委託：確保彈窗關閉按鈕始終能響應（不依賴 bindEvents 執行時機）
     // 覆蓋報告管理、首頁指標、分派中心等所有 dispatch-modal 類型彈窗的關閉
