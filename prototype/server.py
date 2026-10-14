@@ -38,14 +38,23 @@ def _resolve_cli():
     configured = os.environ.get("OPENYIDA_CLI_PATH")
     if configured and Path(configured).is_file():
         return configured
+    # Windows 上 npm 全局安裝的 openyida 是 .CMD/.ps1 包裝腳本，
+    # 而本服務用 node 直接執行；node 無法執行包裝腳本，故必須優先找
+    # node_modules 下的 yida.js 入口，否則每次調用都會以 exit code 1 失敗。
+    candidates = []
     executable = shutil.which("openyida")
     if executable:
         resolved = Path(executable).resolve()
-        if resolved.is_file():
-            return str(resolved)
-    fallback = Path("/opt/homebrew/lib/node_modules/openyida/bin/yida.js")
-    if fallback.is_file():
-        return str(fallback)
+        candidates.append(resolved.parent / "node_modules" / "openyida" / "bin" / "yida.js")
+        candidates.append(resolved)
+    # 各平台 npm 全局安裝前綴的常見路徑（Windows %APPDATA%\npm、macOS Homebrew、/usr/local）
+    prefixes = [Path(os.environ.get("APPDATA", "")) / "npm", Path("/opt/homebrew"), Path("/usr/local")]
+    for prefix in prefixes:
+        candidates.append(prefix / "lib" / "node_modules" / "openyida" / "bin" / "yida.js")
+        candidates.append(prefix / "node_modules" / "openyida" / "bin" / "yida.js")
+    for candidate in candidates:
+        if candidate.is_file():
+            return str(candidate)
     raise RuntimeError("找不到 OpenYida CLI；请设置 OPENYIDA_CLI_PATH")
 
 

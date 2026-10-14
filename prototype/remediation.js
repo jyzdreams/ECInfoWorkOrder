@@ -210,9 +210,6 @@
     const acceptedAt = form.elements.customerAcceptedAt.value;
     const acceptanceNote = form.elements.acceptanceNote.value.trim();
     if (!acceptedAt || !acceptanceNote) { toast("請記錄客戶接受日期及依據", "error"); return false; }
-    if (isM(q) && (!Number.isInteger(Number(q.serviceEveryMonths)) || Number(q.serviceEveryMonths) < 1 || !q.contractStart || !q.contractEnd || q.contractEnd < q.contractStart)) {
-      toast("M 報價須先設定服務週期及合約期間", "error"); return false;
-    }
     const selectors = [...form.querySelectorAll("[data-final-item-type]")];
     if (selectors.some(select => !select.value)) { toast("請逐項區分報價物料與服務", "error"); return false; }
     selectors.forEach(select => { q.items[Number(select.dataset.finalItemType)].itemType = select.value; });
@@ -220,11 +217,6 @@
     q.acceptanceNote = acceptanceNote;
     q.acceptedRevision = Number(q.revision || 0);
     q.acceptedItems = clone(q.items || []);
-    if (isM(q)) {
-      q.acceptedServiceEveryMonths = Number(q.serviceEveryMonths);
-      q.acceptedContractStart = q.contractStart;
-      q.acceptedContractEnd = q.contractEnd;
-    }
     q.acceptedByQuotationTeam = currentRole().name;
     q.wonAt = new Date().toLocaleString("zh-HK");
     q.customerOrder = form.elements.customerOrder.value.trim();
@@ -232,7 +224,6 @@
     q.status = "已中單";
     if (materialLines(q).length) createMr(q);
     else q.materialReadiness = "無需物料";
-    if (isM(q)) createMaintenancePlan(q);
     if (!q.history) q.history = [];
     q.history.push({ action: "客戶接受並中單", time: q.wonAt, actor: currentRole().name,
       changes: `${quoteVersion(q)} · ${q.category} · ${acceptanceNote}` });
@@ -345,38 +336,6 @@
     get quoteRequests() { return quoteRequests; }, get warehouseSyncLogs() { return warehouseSyncLogs; },
     createMr, createMaintenancePlan, findMr, findPlan, warehousePayload, syncMaterialRequestToWarehouseTong };
 
-  /* 报价阶段维护服务周期；Billing Cycle 仍归财务模块，二者互不读取。 */
-  const cycleFields = q => `<div class="rem-card"><h4>M 保養服務週期（M／M+P 填寫）</h4>
-    <div class="rem-grid"><label>每幾個月服務一次<input type="number" min="1" max="60" name="serviceEveryMonths" value="${safe(q?.serviceEveryMonths || "")}"></label>
-    <label>合約開始<input type="date" name="contractStart" value="${safe(q?.contractStart || "")}"></label>
-    <label>合約結束<input type="date" name="contractEnd" value="${safe(q?.contractEnd || "")}"></label></div>
-    <p class="muted">這是上門保養週期，不是會計帳單週期。</p></div>`;
-  const originalQuoteEditForm = renderQuotationEditForm;
-  renderQuotationEditForm = function (q) {
-    const next = Number(q.revision || 0) + 1;
-    const hint = `<div class="rem-note">當前 R${Number(q.revision || 0)}；手動保存修訂版將生成 R${next}。一般編輯只有價格變動時自動升版，歷史版保留快照。</div>`;
-    return originalQuoteEditForm(q).replace("</form>", `${hint}${cycleFields(q)}</form>`);
-  };
-  function copyCycle(q, form) {
-    if (!q || !form.has("serviceEveryMonths")) return;
-    q.serviceEveryMonths = Number(form.get("serviceEveryMonths")) || null;
-    q.contractStart = form.get("contractStart") || "";
-    q.contractEnd = form.get("contractEnd") || "";
-    saveDataToLocalStorage();
-  }
-  const originalSaveQuote = saveQuotation;
-  saveQuotation = function (form, isEdit = false, id = null) {
-    originalSaveQuote(form, isEdit, id);
-    copyCycle(findQuote(id || form.get("id")), form);
-    render();
-  };
-  const originalSaveQuoteEdit = saveQuotationEdit;
-  saveQuotationEdit = function (form, id, isRevision) {
-    originalSaveQuoteEdit(form, id, isRevision);
-    copyCycle(findQuote(id), form);
-    render();
-  };
-
   const originalQuoteDrawer = renderQuotationDrawer;
   renderQuotationDrawer = function (q) {
     const html = originalQuoteDrawer(q);
@@ -422,22 +381,7 @@
     return html.replace('</div>\n          <div class="wo-drawer-footer wo-call-actions">', `${panel}</div>\n          <div class="wo-drawer-footer wo-call-actions">`);
   };
 
-  if (!PAGES.some(p => p.key === "maintenance")) PAGES.splice(3, 0, { key: "maintenance", label: "保養計劃", icon: "📅", sub: "成交 M 報價的整期上門計劃" });
-  ["CR", "TL", "QUO"].forEach(role => { if (Array.isArray(ROLE_PAGES[role]) && !ROLE_PAGES[role].includes("maintenance")) ROLE_PAGES[role].push("maintenance"); });
-  const originalPc = renderPc;
-  renderPc = function () {
-    if (state.page !== "maintenance") return originalPc();
-    document.querySelector("#pcPages").innerHTML = renderMaintenancePage();
-  };
-  function renderMaintenancePage() {
-    return `<section class="page active"><div class="pc-container"><div class="pc-header"><h1>整期保養計劃</h1></div>
-      <p class="muted">服務週期取自成交 M 報價，不取自會計 Billing Cycle。每期可獨立排期、提交 SR 並確認。</p>
-      ${maintenancePlans.map(plan => `<div class="rem-card"><h3>${safe(plan.id)} · ${safe(plan.customerName)}</h3>
-        <p>成交報價 ${safe(plan.quotationId)} R${safe(plan.acceptedRevision)} · 每 ${safe(plan.serviceEveryMonths)} 個月 · ${safe(plan.contractStart)} 至 ${safe(plan.contractEnd)}</p>
-        <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>期次</th><th>計劃到訪</th><th>CALL</th><th>狀態</th><th>操作</th></tr></thead><tbody>
-        ${plan.visits.map(v => { const t = tickets.find(t => t.id === v.ticketId); return `<tr><td>${safe(v.id)}</td><td>${safe(v.dueDate)}</td><td>${safe(v.ticketId || "未建")}</td><td>${safe(t?.status || v.status)}</td><td>${v.ticketId ? `<button class="wo-view-btn" data-rem-call="${safe(v.ticketId)}">查看 CALL</button>` : ["CR", "TL"].includes(state.role) ? `<button class="primary-btn" data-rem-create-visit="${safe(plan.id)}" data-visit="${safe(v.id)}">建立本期 CALL</button>` : "待 CR／主管排期"}</td></tr>`; }).join("")}</tbody></table></div></div>`).join("") || '<div class="rem-card">尚無成交 M 報價的保養計劃。</div>'}
-      </div></section>`;
-  }
+  /* 保養計劃模組暫時隱藏：不再註冊 PAGES/ROLE_PAGES，也不覆寫 renderPc。 */
 
   const originalUpdateTicket = updateTicket;
   updateTicket = function (id, patch, note) {

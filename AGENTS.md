@@ -3,6 +3,17 @@ For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
 <!-- SPECKIT END -->
 
+## 项目执行前置规则（处理 EC 项目前必读）
+
+处理 EC 项目前，必须读取项目 `README.md`，以及 `docs/governance/` 下的：
+
+- `FILE-WRITING-RULES.md`
+- `TEAM-COLLABORATION.md`
+- `GITHUB-SUBMISSION-RULES.md`
+
+所有文件修改、协作、提交和交接必须遵循这些规则。
+无法读取时明确说明，不得声称已经遵守。
+
 ## 当前项目文件规则
 
 本项目当前以 `docs/governance/FILE-WRITING-RULES.md` 作为文件写入和目录归类规则。开始创建、移动或生成文件前，必须先读取该文件；如果历史路径与当前目录结构冲突，以用户当前目录和该规则为准，不自动恢复已移动或删除的历史文件。
