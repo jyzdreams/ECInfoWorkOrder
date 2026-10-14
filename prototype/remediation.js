@@ -224,6 +224,14 @@
     q.status = "已中單";
     if (materialLines(q).length) createMr(q);
     else q.materialReadiness = "無需物料";
+    // M／M+P：中單後依「保養排期」（開始／結束日期＋間隔）自動生成整期保養計劃（流程 04 M-03）
+    if (isM(q)) {
+      q.acceptedServiceEveryMonths = q.serviceEveryMonths;
+      q.acceptedContractStart = q.contractStart;
+      q.acceptedContractEnd = q.contractEnd;
+      const plan = createMaintenancePlan(q);
+      if (plan) q.maintenancePlanId = plan.id;
+    }
     if (!q.history) q.history = [];
     q.history.push({ action: "客戶接受並中單", time: q.wonAt, actor: currentRole().name,
       changes: `${quoteVersion(q)} · ${q.category} · ${acceptanceNote}` });

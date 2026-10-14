@@ -5899,9 +5899,10 @@
     function initDictData() {
       const defaults = {
         "工單類型": [
-          { id: "DT001", name: "DLP 保養維修", code: "CALL", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DT002", name: "工程維修", code: "PM", status: "啓用", createdAt: "2026-01-01" },
-          { id: "DT003", name: "工程項目", code: "PRJ", status: "啓用", createdAt: "2026-01-01" }
+          { id: "DT001", name: "M（保養）", code: "M", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT002", name: "P（工程）", code: "P", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT003", name: "M+P（保養＋工程）", code: "M+P", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT004", name: "維修", code: "REPAIR", status: "啓用", createdAt: "2026-01-01" }
         ],
         "區域": [
           { id: "DR001", name: "1區", code: "1", description: "用於分派和統計", status: "啓用", createdAt: "2026-01-01" },
@@ -6038,6 +6039,17 @@
             { id: "DT-S04", name: "郵寄", code: "MAIL", description: "透過郵寄接收標書", status: "啓用", createdAt: "2026-01-01" },
             { id: "DT-S05", name: "專人遞送", code: "COURIER", description: "專人遞送標書", status: "啓用", createdAt: "2026-01-01" }
           ];
+        }
+        // 遷移：工單類型改為與報價類別一致（M／P／M+P）並新增「維修」，取代舊的分類清單
+        const workOrderTypeDefaults = [
+          { id: "DT001", name: "M（保養）", code: "M", description: "保養類別", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT002", name: "P（工程）", code: "P", description: "工程類別", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT003", name: "M+P（保養＋工程）", code: "M+P", description: "保養加工程類別", status: "啓用", createdAt: "2026-01-01" },
+          { id: "DT004", name: "維修", code: "REPAIR", description: "維修類別", status: "啓用", createdAt: "2026-01-01" }
+        ];
+        if (!Array.isArray(stored["工單類型"]) || stored["工單類型"].length === 0
+          || stored["工單類型"].some(t => !workOrderTypeDefaults.some(d => d.name === t.name))) {
+          stored["工單類型"] = workOrderTypeDefaults;
         }
         // 遷移：補充「回標方式」字典（新功能）
         if (!stored["回標方式"] || !Array.isArray(stored["回標方式"]) || stored["回標方式"].length === 0) {
@@ -6369,6 +6381,26 @@
         attachments: [], tags: ["待確認範圍"], urgent: false
       }
     ];
+    }
+
+    // 遷移：工單（CALL）類型對齊新分類 M（保養）／P（工程）／M+P（保養＋工程）／維修
+    // 僅處理已知的舊類型值，未識別的值保持原樣；以旗標確保只執行一次
+    if (!localStorage.getItem("ecinfo_ticket_type_migrated_v1")) {
+      const LEGACY_TICKET_TYPE_MAP = {
+        "DLP 保養維修": "M（保養）",
+        "保養維修": "M（保養）",
+        "PM": "M（保養）",
+        "工程項目": "P（工程）",
+        "工程維修": "維修",
+        "糾正維修": "維修",
+        "投訴": "維修"
+      };
+      tickets.forEach(t => {
+        const mapped = LEGACY_TICKET_TYPE_MAP[t.type];
+        if (mapped) t.type = mapped;
+      });
+      localStorage.setItem("ecinfo_ticket_type_migrated_v1", "true");
+      localStorage.setItem('ecinfo_tickets', JSON.stringify(tickets));
     }
 
     // 用戶管理角色分類：與上方角色切換欄位（ROLES）保持一致
@@ -10389,17 +10421,13 @@
                   <div class="wo-detail-item"><span class="wo-detail-label">當前狀態</span><span class="wo-detail-value">${statusBadge(ticket.status)}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">當前負責人</span><span class="wo-detail-value">${escapeHtml(ticket.owner || "待分派")}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">主管</span><span class="wo-detail-value">${isEditing ? editSelect("tl", supervisors, ticket.tl) : escapeHtml(ticket.tl || "未設定")}</span></div>
+                  ${ticket.maintenanceVisitNo ? `<div class="wo-detail-item full-width"><span class="wo-detail-label">保養期次</span><span class="wo-detail-value">第 ${ticket.maintenanceVisitNo} 期${ticket.parentTicketId ? `（原工單 ${escapeHtml(ticket.parentTicketId)}）` : ""}</span></div>` : ""}
                   <div class="wo-detail-item"><span class="wo-detail-label">排程狀態</span><span class="wo-detail-value"><span class="tag ${ticket.scheduleType === "已排程" ? "success" : "warning"}">${escapeHtml(ticket.scheduleType || "未排程")}</span></span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">預排師傅</span><span class="wo-detail-value">${escapeHtml(ticket.scheduleMaster || "未預排")}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">預計時間</span><span class="wo-detail-value">${escapeHtml(ticket.scheduleDate || "未預排")}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">正式施工時間</span><span class="wo-detail-value">${escapeHtml(ticket.formalAppointmentAt || "未確認")}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">服務報告</span><span class="wo-detail-value">${escapeHtml(ticket.serviceReportNo || "未提交")}</span></div>
                   ${ticket.scheduleRepeat ? `<div class="wo-detail-item full-width"><span class="wo-detail-label">排程週期</span><span class="wo-detail-value">${escapeHtml(ticket.scheduleRepeat)}</span></div>` : ""}
-                  ${["CR", "TL", "ADMIN", "BOSS"].includes(currentRole().key) ? `
-                  <div class="wo-detail-item full-width" style="margin-top:10px;">
-                    <button type="button" class="primary-btn" data-open-schedule-panel="${ticket.id}" style="padding:7px 16px;font-size:13px;">${ticket.scheduleType === "已排程" ? "變更排程" : "安排排程"}</button>
-                  </div>
-                  ` : ""}
                 </div>
               </div>
             </div>
@@ -10601,9 +10629,6 @@
       container.querySelectorAll("[data-action]").forEach(btn => btn.addEventListener("click", () => {
         performAction(btn.dataset.action, btn.dataset.id);
       }));
-      container.querySelectorAll("[data-open-schedule-panel]").forEach(btn => btn.addEventListener("click", () => {
-        openTicketScheduleModal(btn.dataset.openSchedulePanel);
-      }));
       container.querySelectorAll("[data-request-quotation-ticket]").forEach(btn => btn.addEventListener("click", () => {
         const tid = btn.dataset.requestQuotationTicket;
         requestQuotationFromCall({ ticketId: tid });
@@ -10682,14 +10707,6 @@
       // 鎖定背景滾動
       document.body.classList.add("drawer-open");
       bindWorkOrderDrawerEvents(container);
-      // 排程入口：若為驗收後創建的工單，自動進入排程編輯模式
-      if (window._ticketScheduleTarget === ticketId) {
-        window._ticketScheduleTarget = null;
-        setTimeout(() => {
-          const scheduleBtn = container.querySelector("[data-open-schedule-panel]");
-          if (scheduleBtn) scheduleBtn.click();
-        }, 100);
-      }
     }
 
     // 移除工單詳情側邊欄 DOM
@@ -15077,6 +15094,7 @@
             </div>
             ` : ""}
 
+            ${renderMaintenanceScheduleCard(quotation)}
             </div>
             <div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">
             ${quotation.status === "已中單" ? `
@@ -15201,6 +15219,85 @@
           </div>
         </aside>
       `;
+    }
+
+    // 保養排期：保養間隔選項（1/2/3/6/12 個月），供報價新增／編輯／詳情共用
+    function maintenanceIntervalOptions(selected) {
+      const options = [[1, "每月"], [2, "每兩月"], [3, "每季（3 個月）"], [6, "每半年（6 個月）"], [12, "每年"]];
+      const value = Number(selected);
+      return options.map(([v, label]) => `<option value="${v}" ${value === v ? "selected" : ""}>${label}</option>`).join("");
+    }
+
+    // 保養排期：把間隔月數轉成顯示文字
+    function maintenanceIntervalText(months) {
+      const value = Number(months);
+      if (!value) return "未設定";
+      return ({ 1: "每月", 2: "每兩月", 3: "每季（3 個月）", 6: "每半年（6 個月）", 12: "每年" })[value] || `每 ${value} 個月`;
+    }
+
+    // 保養排期：報價編輯表單可編輯欄位（類別 M（保養）／M+P 適用；中單後生成整期計劃）
+    function renderMaintenanceScheduleInputs(quotation, inputStyle) {
+      const q = quotation || {};
+      return `
+                    <div class="wo-detail-item">
+                      <span class="wo-detail-label">保養開始日期</span>
+                      <input name="contractStart" type="date" value="${escapeHtml(String(q.contractStart || "").slice(0, 10))}" style="${inputStyle}">
+                    </div>
+                    <div class="wo-detail-item">
+                      <span class="wo-detail-label">保養結束日期</span>
+                      <input name="contractEnd" type="date" value="${escapeHtml(String(q.contractEnd || "").slice(0, 10))}" style="${inputStyle}">
+                    </div>
+                    <div class="wo-detail-item">
+                      <span class="wo-detail-label">保養間隔</span>
+                      <select name="serviceEveryMonths" style="${inputStyle}">
+                        <option value="">請選擇保養間隔</option>
+                        ${maintenanceIntervalOptions(q.serviceEveryMonths)}
+                      </select>
+                    </div>
+                    <div class="wo-detail-item full-width">
+                      <div style="font-size:12px;color:var(--muted);">適用於類別 M（保養）／M+P；中單後系統會依開始／結束日期與間隔自動生成整期保養計劃。</div>
+                    </div>`;
+    }
+
+    // 保養排期：報價詳情只讀卡（顯示合約起訖、間隔與已生成的整期計劃）
+    function renderMaintenanceScheduleCard(quotation) {
+      const plan = (window.ecRemediation && quotation.maintenancePlanId)
+        ? window.ecRemediation.findPlan(quotation.maintenancePlanId) : null;
+      return `
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>保養排期</h4>
+                <div class="wo-detail-grid">
+                  <div class="wo-detail-item"><span class="wo-detail-label">保養開始日期</span><span class="wo-detail-value">${escapeHtml(quotation.contractStart || "未設定")}</span></div>
+                  <div class="wo-detail-item"><span class="wo-detail-label">保養結束日期</span><span class="wo-detail-value">${escapeHtml(quotation.contractEnd || "未設定")}</span></div>
+                  <div class="wo-detail-item"><span class="wo-detail-label">保養間隔</span><span class="wo-detail-value">${escapeHtml(maintenanceIntervalText(quotation.serviceEveryMonths))}</span></div>
+                  <div class="wo-detail-item"><span class="wo-detail-label">整期保養計劃</span><span class="wo-detail-value">${plan ? `${escapeHtml(plan.id)} · 共 ${plan.visits.length} 期` : "未生成"}</span></div>
+                </div>
+              </div>
+            </div>`;
+    }
+
+    // 保養排期：新增報價彈窗欄位（qf- 樣式）
+    function renderMaintenanceScheduleQfFields() {
+      return `
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-contractStart">保養開始日期</label>
+                    <input class="qf-input" id="qf-contractStart" name="contractStart" type="date">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-contractEnd">保養結束日期</label>
+                    <input class="qf-input" id="qf-contractEnd" name="contractEnd" type="date">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-serviceEveryMonths">保養間隔</label>
+                    <select class="qf-select" id="qf-serviceEveryMonths" name="serviceEveryMonths">
+                      <option value="">請選擇保養間隔</option>
+                      ${maintenanceIntervalOptions()}
+                    </select>
+                  </div>
+                  <div class="qf-field wide">
+                    <div class="qf-hint">適用於類別 M（保養）／M+P；中單後系統會依開始／結束日期與間隔自動生成整期保養計劃。</div>
+                  </div>`;
     }
 
     // 渲染報價側邊欄內編輯表單（點擊【報價】按鈕後在側邊欄內直接編輯，不開彈窗）
@@ -15364,6 +15461,15 @@
                   <div class="qm-detail-subsection">
                     <h5>備註</h5>
                     <textarea name="remark" placeholder="請輸入備註（選填）" style="${textareaStyle}">${escapeHtml(quotation.remark || '')}</textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wo-detail-section">
+                <div class="wo-detail-card">
+                  <h4>保養排期</h4>
+                  <div class="wo-detail-grid">
+                    ${renderMaintenanceScheduleInputs(quotation, inputStyle)}
                   </div>
                 </div>
               </div>
@@ -15621,6 +15727,11 @@
       quotation.emsdRefNo = formData.get("emsdRefNo") || quotation.emsdRefNo || "";
       quotation.inviteResult = formData.get("inviteResult") || quotation.inviteResult || "";
       quotation.inventoryStatus = formData.get("inventoryStatus") || quotation.inventoryStatus || "";
+      // 保養排期（類別 M／M+P）：合約起訖與保養間隔，供中單後生成整期保養計劃
+      quotation.contractStart = formData.get("contractStart") || quotation.contractStart || "";
+      quotation.contractEnd = formData.get("contractEnd") || quotation.contractEnd || "";
+      const editedInterval = parseInt(formData.get("serviceEveryMonths"), 10);
+      if (editedInterval >= 1) quotation.serviceEveryMonths = editedInterval;
       quotation.items = items;
       quotation.amount = amount;
       quotation.discount = discount;
@@ -16445,6 +16556,14 @@
               </div>
               <div class="field"><label>Project Job 編號</label><input name="projectJobNo" readonly placeholder="勾選招標邀請後自動生成"></div>
               <div class="field"><label class="required">總金額</label><input name="amount" type="number" step="0.01" required placeholder="請輸入金額"></div>
+              <div class="field"><label>保養開始日期</label><input name="contractStart" type="date"></div>
+              <div class="field"><label>保養結束日期</label><input name="contractEnd" type="date"></div>
+              <div class="field"><label>保養間隔</label>
+                <select name="serviceEveryMonths">
+                  <option value="">請選擇保養間隔</option>
+                  ${maintenanceIntervalOptions()}
+                </select>
+              </div>
               <div class="field" style="grid-column:span 2;"><label>備註</label><textarea name="remark" rows="3" placeholder="請輸入報價備註"></textarea></div>
             </div>
             <div class="um-modal-actions">
@@ -16854,6 +16973,14 @@
                   <textarea class="qf-textarea" id="qf-remark" name="remark" rows="3" placeholder="請輸入報價備註"></textarea>
                 </div>
               </div>
+
+              <!-- 卡片 4：保養排期（類別 M／M+P 適用） -->
+              <div class="qf-card">
+                <div class="qf-card-title">保養排期</div>
+                <div class="qf-grid">
+                  ${renderMaintenanceScheduleQfFields()}
+                </div>
+              </div>
             </div>
             <div class="qf-footer">
               <button type="submit" class="qf-btn qf-btn-save" data-create-quotation-only>新建報價</button>
@@ -16945,6 +17072,14 @@
                 </select>
               </div>
               <div class="field"><label>總金額</label><input name="amount" type="number" step="0.01" value="${quotation.amount}"></div>
+              <div class="field"><label>保養開始日期</label><input name="contractStart" type="date" value="${escapeHtml(String(quotation.contractStart || "").slice(0, 10))}"></div>
+              <div class="field"><label>保養結束日期</label><input name="contractEnd" type="date" value="${escapeHtml(String(quotation.contractEnd || "").slice(0, 10))}"></div>
+              <div class="field"><label>保養間隔</label>
+                <select name="serviceEveryMonths">
+                  <option value="">請選擇保養間隔</option>
+                  ${maintenanceIntervalOptions(quotation.serviceEveryMonths)}
+                </select>
+              </div>
               <div class="field" style="grid-column:span 2;"><label>備註</label><textarea name="remark" rows="3">${quotation.remark || ""}</textarea></div>
             </div>
             <div class="um-modal-actions">
@@ -17182,6 +17317,11 @@
           quotation.area = formData.get("area") || quotation.area || "";
           quotation.items = quotationItems;
           quotation.inventoryStatus = formData.get("inventoryStatus") || quotation.inventoryStatus || "";
+          // 保養排期（類別 M／M+P）：合約起訖與保養間隔
+          quotation.contractStart = formData.get("contractStart") || quotation.contractStart || "";
+          quotation.contractEnd = formData.get("contractEnd") || quotation.contractEnd || "";
+          const editInterval = parseInt(formData.get("serviceEveryMonths"), 10);
+          if (editInterval >= 1) quotation.serviceEveryMonths = editInterval;
           toast("報價信息已更新");
         }
       } else {
@@ -17223,6 +17363,10 @@
           leadTimeText: formatLeadTime(readLeadTimeFromForm(formData) || { from: 30, to: "", unit: "days" }),
           ourRef: generateOurRef(),
           inventoryStatus: formData.get("inventoryStatus") || "",
+          // 保養排期（類別 M／M+P）：合約起訖與保養間隔
+          contractStart: formData.get("contractStart") || "",
+          contractEnd: formData.get("contractEnd") || "",
+          serviceEveryMonths: parseInt(formData.get("serviceEveryMonths"), 10) || null,
           attachments: [],
           remark: formData.get("remark") || "",
           items: quotationItems,
@@ -18762,6 +18906,10 @@
     // sourceLabel 為來源描述（如「採購單 PO-xxx」「備貨單 SP-xxx」），用於紀錄與通知文字
     function createPendingWorkOrdersFromProcurement({ ticketId, quotationId, sourceLabel, scheduleType, sourceFields = {} }) {
       const createdIds = [];
+      // 依最新規則：只有 M+P（保養＋工程）才需要排班；其他來源一律視為非排程
+      const sourceTicket = ticketId ? tickets.find(t => t.id === ticketId) : null;
+      const sourceType = String((sourceTicket && sourceTicket.type) || "").replace(/＋/g, "+");
+      const effectiveScheduleType = (scheduleType === "不建工單" || sourceType.includes("M+P")) ? scheduleType : "非排程";
       const nowStr = () => {
         const now = new Date();
         return `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
@@ -18815,7 +18963,7 @@
             tags: [],
             urgent: false,
             parentTicketId: origId,
-            scheduleType,
+            scheduleType: effectiveScheduleType,
             ...sourceFields
           });
           createdIds.push(newId);
@@ -18862,7 +19010,7 @@
           urgent: false,
           parentTicketId: "",
           sourceQuotationId: quotation.id,
-          scheduleType,
+          scheduleType: effectiveScheduleType,
           ...sourceFields
         });
         createdIds.push(newTicketId);
@@ -19148,6 +19296,204 @@
         }
         render();
       });
+    }
+
+    // 僅 M+P（保養＋工程）工單：分派時一併進行保養排程；M（保養）、P（工程）、維修都只做一般分派
+    // 由排程自動建立的期次工單（有 maintenanceVisitNo）同樣只做一般分派，不再排程
+    function needsMaintenanceSchedule(ticket) {
+      if (!ticket || ticket.maintenanceVisitNo) return false;
+      const type = String(ticket.type || "").replace(/＋/g, "+");
+      return type.includes("M+P");
+    }
+
+    // 由首期時間與「月」間隔推算第 n 期時間（保留時分；月底溢出保護，如 1/31 → 2/28）
+    function addMonthsToDateTime(dateTime, months) {
+      const matched = String(dateTime || "").match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+      if (!matched) return "";
+      const [, y, m, d, hh, mm] = matched;
+      const date = new Date(Number(y), Number(m) - 1, Number(d), Number(hh), Number(mm));
+      const day = date.getDate();
+      date.setDate(1);
+      date.setMonth(date.getMonth() + months);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+      date.setDate(Math.min(day, lastDay));
+      const pad = n => String(n).padStart(2, "0");
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    }
+
+    // P+M 保養排程彈窗：設定保養次數與間隔，自動生成期次列表，逐期可選師傅與時間
+    // 確認後：第 1 期＝本工單的分派；其餘各期存為 maintenanceVisits，到期自動建立工單
+    function openMaintenanceScheduleModal(ticketId) {
+      const ticket = ticketById(ticketId);
+      if (!ticket) return;
+      const areaMasters = getMastersForDispatch().filter(m => m.area === ticket.area);
+      const existingVisits = Array.isArray(ticket.maintenanceVisits) ? ticket.maintenanceVisits : [];
+      const existingCount = Number(ticket.maintenanceCount || 0) || (existingVisits.length + 1);
+      const pad = n => String(n).padStart(2, "0");
+      const now = new Date();
+      const defaultFirst = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T09:00`;
+      const masterOptionsHtml = selected => areaMasters.map(m => `<option value="${escapeHtml(m.name)}" ${selected === m.name ? "selected" : ""} ${m.status !== "可接單" ? "disabled" : ""}>${escapeHtml(m.name)}（${escapeHtml(m.area)} · ${escapeHtml(m.status)}）</option>`).join("");
+
+      const modal = document.createElement("div");
+      modal.className = "dispatch-modal-overlay";
+      modal.innerHTML = `
+        <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="分派與保養排程" style="width:min(780px, calc(100vw - 32px));">
+          <header class="dispatch-modal-head">
+            <div><h2>分派與保養排程 · ${escapeHtml(ticket.id)}</h2><p>M+P（保養＋工程）：設定保養次數與間隔後逐期安排師傅與時間；第 1 期即本工單的分派，其餘各期到期自動建立工單。</p></div>
+            <button type="button" class="modal-close-icon" data-ms-close aria-label="關閉" title="關閉">×</button>
+          </header>
+          <div class="dispatch-modal-body">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+              <div class="field"><label>保養次數</label><input type="number" min="1" max="60" step="1" value="${existingCount}" data-ms-count style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;"></div>
+              <div class="field"><label>保養間隔</label><select data-native-select data-ms-interval style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;">
+                ${[[1, "每月"], [2, "每兩月"], [3, "每季（3 個月）"], [6, "每半年（6 個月）"], [12, "每年"]].map(([v, label]) => `<option value="${v}" ${Number(ticket.maintenanceIntervalMonths || 1) === v ? "selected" : ""}>${label}</option>`).join("")}
+              </select></div>
+              <div class="field"><label>首期時間</label><input type="datetime-local" data-ms-first value="${escapeHtml(ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : defaultFirst)}" style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;"></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px;">
+              <strong style="font-size:14px;">保養期次</strong>
+              <button type="button" class="secondary-btn" data-ms-generate>依次數與間隔重新生成</button>
+            </div>
+            <div style="max-height:320px;overflow:auto;border:1px solid var(--line);border-radius:8px;">
+              <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                <thead><tr>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);width:80px;">期次</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);">師傅</th>
+                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);width:230px;">時間</th>
+                </tr></thead>
+                <tbody data-ms-rows></tbody>
+              </table>
+            </div>
+            <p class="muted" style="font-size:12px;margin-top:10px;">${areaMasters.length ? `僅列出區域「${escapeHtml(ticket.area)}」的師傅 ${areaMasters.length} 位。` : `區域「${escapeHtml(ticket.area)}」目前沒有可排程的師傅，請先於基礎設置確認人員歸屬區域。`}</p>
+          </div>
+          <footer class="dispatch-modal-footer">
+            <button class="ghost-btn" data-ms-close>取消</button>
+            <button class="primary-btn" data-ms-confirm="${escapeHtml(ticket.id)}">確認分派與排程</button>
+          </footer>
+        </section>`;
+      document.body.appendChild(modal);
+
+      const rowsBody = modal.querySelector("[data-ms-rows]");
+      const countInput = modal.querySelector("[data-ms-count]");
+      const intervalSelect = modal.querySelector("[data-ms-interval]");
+      const firstInput = modal.querySelector("[data-ms-first]");
+
+      // 生成期次列（保留使用者已選的師傅與時間）
+      const buildRows = () => {
+        const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 60);
+        const interval = parseInt(intervalSelect.value, 10) || 1;
+        const first = firstInput.value || defaultFirst;
+        const prev = [];
+        rowsBody.querySelectorAll("[data-ms-master]").forEach((sel, i) => {
+          prev.push({ master: sel.value, dateTime: rowsBody.querySelector(`[data-ms-datetime="${i + 1}"]`)?.value || "" });
+        });
+        rowsBody.innerHTML = "";
+        for (let i = 1; i <= count; i++) {
+          const saved = prev[i - 1] || {};
+          const fallbackMaster = saved.master || (i === 1 ? (ticket.master || ticket.scheduleMaster || "") : (prev[0] && prev[0].master) || "");
+          const dateTime = saved.dateTime || (i === 1 ? (ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : first) : addMonthsToDateTime(first, interval * (i - 1)));
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td style="padding:8px 10px;border-bottom:1px solid var(--line);">第 ${i} 期</td>
+            <td style="padding:8px 10px;border-bottom:1px solid var(--line);"><select data-native-select data-ms-master="${i}" style="width:100%;height:34px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);">${masterOptionsHtml(fallbackMaster)}</select></td>
+            <td style="padding:8px 10px;border-bottom:1px solid var(--line);"><input type="datetime-local" data-ms-datetime="${i}" value="${escapeHtml(dateTime)}" style="width:100%;height:34px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);box-sizing:border-box;"></td>`;
+          rowsBody.appendChild(tr);
+        }
+      };
+      buildRows();
+
+      modal.querySelector("[data-ms-generate]").addEventListener("click", buildRows);
+      modal.querySelectorAll("[data-ms-close]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", event => { if (event.target === modal) modal.remove(); });
+
+      modal.querySelector("[data-ms-confirm]").addEventListener("click", () => {
+        const rows = [...rowsBody.querySelectorAll("tr")].map((tr, index) => ({
+          no: index + 1,
+          master: tr.querySelector("[data-ms-master]")?.value || "",
+          dateTime: tr.querySelector("[data-ms-datetime]")?.value || ""
+        }));
+        if (!rows.length) { toast("請先生成保養期次", "error"); return; }
+        if (rows.some(r => !r.master)) { toast("請為每一期選擇師傅", "error"); return; }
+        if (rows.some(r => !r.dateTime)) { toast("請為每一期填寫時間", "error"); return; }
+        const first = rows[0];
+        const rest = rows.slice(1).map(r => ({ no: r.no, master: r.master, dateTime: r.dateTime, status: "待排期", ticketId: "" }));
+        const assignedAt = new Date().toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\//g, "-");
+        // 第 1 期＝本工單分派（沿用一般分派語義：狀態轉待確認並通知師傅）
+        updateTicket(ticket.id, {
+          status: "待確認",
+          owner: first.master,
+          master: first.master,
+          assignedAt,
+          assignedAtTs: Date.now(),
+          assignedBy: currentRole().name,
+          scheduleType: "已排程",
+          scheduleMaster: first.master,
+          scheduleDate: first.dateTime.replace("T", " "),
+          maintenanceCount: rows.length,
+          maintenanceIntervalMonths: parseInt(intervalSelect.value, 10) || 1,
+          maintenanceVisits: rest
+        }, `P+M 保養排程：共 ${rows.length} 期；第 1 期分派給 ${first.master}（${first.dateTime}），其餘 ${rest.length} 期已排程。`);
+        triggerNotification("ticket.assigned", { ticketId: ticket.id });
+        modal.remove();
+        render();
+        toast(`已排程 ${rows.length} 期；第 1 期分派給 ${first.master}，其餘各期到期自動建立工單`);
+      });
+    }
+
+    // P+M 保養排程：各期到期（時間 <= 現在）時自動建立工單並分派給該期師傅
+    function processMaintenanceVisits() {
+      const now = Date.now();
+      let changed = false;
+      // 時間戳格式（MM-DD HH:mm），與自動建單流程一致
+      const nowStr = () => {
+        const d = new Date();
+        const pad = n => String(n).padStart(2, "0");
+        return `${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      };
+      tickets.slice().forEach(t => {
+        if (!Array.isArray(t.maintenanceVisits) || !t.maintenanceVisits.length) return;
+        t.maintenanceVisits.forEach(visit => {
+          if (visit.status !== "待排期") return;
+          const ts = Date.parse(visit.dateTime);
+          if (!ts || ts > now) return;
+          const newId = `${t.id}(${visit.no})`;
+          if (!tickets.find(x => x.id === newId)) {
+            const dateStr = nowStr();
+            tickets.unshift({
+              id: newId,
+              customerId: t.customerId,
+              type: t.type,
+              customer: t.customer,
+              contact: t.contact,
+              phone: t.phone,
+              channel: t.channel,
+              area: t.area,
+              address: t.address,
+              status: "待分派",
+              owner: "系統自動",
+              tl: t.tl,
+              master: visit.master,
+              createdAt: dateStr,
+              updatedAt: dateStr,
+              desc: `${t.id} P+M 保養第 ${visit.no} 期（到期自動建立）`,
+              records: [{ time: dateStr.slice(-5), actor: "系統", text: `P+M 保養第 ${visit.no} 期到期，自動建立工單並分派給 ${visit.master}。` }],
+              attachments: [],
+              tags: [],
+              urgent: false,
+              parentTicketId: t.id,
+              // 標示為原工單的第 N 期保養（詳情顯示用；此類工單只需一般分派）
+              maintenanceVisitNo: visit.no,
+              scheduleType: "已排程",
+              scheduleMaster: visit.master,
+              scheduleDate: visit.dateTime.replace("T", " ")
+            });
+            toast(`P+M 保養第 ${visit.no} 期到期，已自動建立工單 ${newId} 並分派給 ${visit.master}`);
+          }
+          visit.status = "已建單";
+          visit.ticketId = newId;
+          changed = true;
+        });
+      });
+      if (changed) saveDataToLocalStorage();
     }
 
     // 會計部頁面渲染
@@ -24037,11 +24383,10 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                 ${photoGrid("客戶電子簽名", t.signature ? [t.signature] : [])}
               </section>
               ${records.length ? `<section class="mobile-process-block"><h3>流轉紀錄</h3><div style="display:grid;gap:10px;">${records.map(record => `<div style="font-size:12px;"><strong>${escapeHtml(record.action || "更新")}</strong><div class="muted">${escapeHtml(record.time || "")} · ${escapeHtml(record.actor || "")}</div>${record.changes ? `<div style="margin-top:3px;">${escapeHtml(record.changes)}</div>` : ""}</div>`).join("")}</div></section>` : ""}
-              ${["CR", "TL", "ADMIN", "BOSS"].includes(currentRole().key) ? `
+              ${(t.scheduleType || t.scheduleMaster || t.scheduleDate || t.maintenanceVisitNo) ? `
               <section class="mobile-process-block">
                 <h3>排程</h3>
-                <div style="display:grid;gap:8px;">${detailRow("排程狀態", t.scheduleType || "未排程")}${t.scheduleMaster ? detailRow("預約師傅", t.scheduleMaster) : ""}${t.scheduleDate ? detailRow("執行日期", t.scheduleDate) : ""}${t.scheduleRepeat ? detailRow("排程週期", t.scheduleRepeat) : ""}</div>
-                <div class="mobile-actions" style="margin-top:10px;"><button class="primary-btn" data-mobile-schedule="${t.id}">${t.scheduleType === "已排程" ? "變更排程" : "安排排程"}</button></div>
+                <div style="display:grid;gap:8px;">${t.maintenanceVisitNo ? detailRow("保養期次", `第 ${t.maintenanceVisitNo} 期${t.parentTicketId ? `（原工單 ${t.parentTicketId}）` : ""}`) : ""}${detailRow("排程狀態", t.scheduleType || "未排程")}${t.scheduleMaster ? detailRow("預約師傅", t.scheduleMaster) : ""}${t.scheduleDate ? detailRow("執行日期", t.scheduleDate) : ""}${t.scheduleRepeat ? detailRow("排程週期", t.scheduleRepeat) : ""}</div>
               </section>` : ""}
             </div>
           </section>
@@ -25523,6 +25868,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
       document.querySelectorAll("[data-dispatch-open]").forEach(btn => btn.addEventListener("click", () => {
         const ticket = ticketById(btn.dataset.dispatchOpen);
+        // M（保養）與 M+P（保養＋工程）：分派與保養排程在同一個彈窗內一起完成
+        if (needsMaintenanceSchedule(ticket)) { openMaintenanceScheduleModal(btn.dataset.dispatchOpen); return; }
         const recommendedMaster = getRecommendedDispatchMaster(ticket);
         state.selectedDispatchId = btn.dataset.dispatchOpen;
         state.selectedMaster = recommendedMaster?.name || "";
@@ -25924,13 +26271,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
         state.mobileDetailTicketId = null;
         render();
-      }));
-      // 移動端工單排程：先關閉詳情彈層，再沿用 PC 的排程彈窗 openTicketScheduleModal
-      document.querySelectorAll("[data-mobile-schedule]").forEach(btn => btn.addEventListener("click", () => {
-        const ticketId = btn.dataset.mobileSchedule;
-        state.mobileDetailTicketId = null;
-        render();
-        openTicketScheduleModal(ticketId);
       }));
       document.querySelectorAll("[data-mobile-process-checkin]").forEach(btn => btn.addEventListener("click", () => {
         const t = ticketById(state.mobileProcessTicketId);
@@ -27608,6 +27948,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     function render() {
       // 自動觸發週期排程：到期排程自動生成工單（首次執行在數據初始化之後）
       processRecurringSchedules();
+      // P+M 保養排程：各期到期自動建立工單並分派
+      processMaintenanceVisits();
       // 未登入時只渲染登入頁，不渲染應用主體
       if (state.view === "login") {
         // 確保登入頁可見（移除 hidden class）
@@ -27830,6 +28172,10 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       localStorage.removeItem("ecinfo_login");
       state.view = "login";
     })();
+
+    // 啟動時把字典同步到舊陣列（TYPES／REGIONS／STATUSES／callCodes），
+    // 否則 TYPES 會停留在程式內的初始字面值，導致新建 CALL 的類型下拉顯示舊資料
+    syncDictToLegacy();
 
     render();
 
