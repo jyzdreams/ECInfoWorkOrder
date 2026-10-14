@@ -10395,6 +10395,11 @@
                   <div class="wo-detail-item"><span class="wo-detail-label">正式施工時間</span><span class="wo-detail-value">${escapeHtml(ticket.formalAppointmentAt || "未確認")}</span></div>
                   <div class="wo-detail-item"><span class="wo-detail-label">服務報告</span><span class="wo-detail-value">${escapeHtml(ticket.serviceReportNo || "未提交")}</span></div>
                   ${ticket.scheduleRepeat ? `<div class="wo-detail-item full-width"><span class="wo-detail-label">排程週期</span><span class="wo-detail-value">${escapeHtml(ticket.scheduleRepeat)}</span></div>` : ""}
+                  ${["CR", "TL", "ADMIN", "BOSS"].includes(currentRole().key) ? `
+                  <div class="wo-detail-item full-width" style="margin-top:10px;">
+                    <button type="button" class="primary-btn" data-open-schedule-panel="${ticket.id}" style="padding:7px 16px;font-size:13px;">${ticket.scheduleType === "已排程" ? "變更排程" : "安排排程"}</button>
+                  </div>
+                  ` : ""}
                 </div>
               </div>
             </div>
@@ -24032,6 +24037,12 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                 ${photoGrid("客戶電子簽名", t.signature ? [t.signature] : [])}
               </section>
               ${records.length ? `<section class="mobile-process-block"><h3>流轉紀錄</h3><div style="display:grid;gap:10px;">${records.map(record => `<div style="font-size:12px;"><strong>${escapeHtml(record.action || "更新")}</strong><div class="muted">${escapeHtml(record.time || "")} · ${escapeHtml(record.actor || "")}</div>${record.changes ? `<div style="margin-top:3px;">${escapeHtml(record.changes)}</div>` : ""}</div>`).join("")}</div></section>` : ""}
+              ${["CR", "TL", "ADMIN", "BOSS"].includes(currentRole().key) ? `
+              <section class="mobile-process-block">
+                <h3>排程</h3>
+                <div style="display:grid;gap:8px;">${detailRow("排程狀態", t.scheduleType || "未排程")}${t.scheduleMaster ? detailRow("預約師傅", t.scheduleMaster) : ""}${t.scheduleDate ? detailRow("執行日期", t.scheduleDate) : ""}${t.scheduleRepeat ? detailRow("排程週期", t.scheduleRepeat) : ""}</div>
+                <div class="mobile-actions" style="margin-top:10px;"><button class="primary-btn" data-mobile-schedule="${t.id}">${t.scheduleType === "已排程" ? "變更排程" : "安排排程"}</button></div>
+              </section>` : ""}
             </div>
           </section>
         </div>`;
@@ -25913,6 +25924,13 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (btn.classList.contains("mobile-process-overlay") && event.target !== btn) return;
         state.mobileDetailTicketId = null;
         render();
+      }));
+      // 移動端工單排程：先關閉詳情彈層，再沿用 PC 的排程彈窗 openTicketScheduleModal
+      document.querySelectorAll("[data-mobile-schedule]").forEach(btn => btn.addEventListener("click", () => {
+        const ticketId = btn.dataset.mobileSchedule;
+        state.mobileDetailTicketId = null;
+        render();
+        openTicketScheduleModal(ticketId);
       }));
       document.querySelectorAll("[data-mobile-process-checkin]").forEach(btn => btn.addEventListener("click", () => {
         const t = ticketById(state.mobileProcessTicketId);
