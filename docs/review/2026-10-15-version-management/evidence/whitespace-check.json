@@ -1,0 +1,7 @@
+{
+  "current_governance_diff_check": "PASS",
+  "preserved_earlier_evidence_check_exit": 2,
+  "preserved_earlier_warning_files": 25,
+  "warning_count": 209,
+  "explanation": "Earlier report Markdown line breaks and captured DOM trailing whitespace preserved byte-for-byte; no business evidence rewritten."
+}

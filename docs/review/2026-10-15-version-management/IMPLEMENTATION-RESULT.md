@@ -47,7 +47,7 @@ main规则是服务器端限制；同事仍能在自己的本地副本改文件�
 | Hub路径 | build-v2.js --check-paths：requiredPaths=20、missing=0、uniqueFileIds=786、writes=0；未重建业务数据 |
 | 发布YAML | Ruby Psych解析通过；6个本地条件场景通过：仅本人main手动满足条件，同事、工作分支、push、同事重跑、fork均不满足；没有实际dispatch |
 | 小批次差异演练 | 隔离仓库两个候选改动，只同步示例获准的措辞，未采纳“待客户→已批准”；[演练说明](SYNC-REVIEW-EXAMPLE.md)、[技术证据](evidence/rehearsal.json) |
-| Git/备份 | git diff --check；压缩包逐文件哈希及Git bundle校验见[备份验证](evidence/backup-validation.json) |
+| Git/备份 | 本批治理文件git diff --cached --check通过；存量报告/DOM证据含原有行尾空格，保留字节，不改历史证据，见[检查边界](evidence/whitespace-check.json)；压缩包逐文件哈希及Git bundle校验见[备份验证](evidence/backup-validation.json) |
 
 上述演练不是同事真实提交，也不是用户或客户实际批准业务状态。业务17组回归是之前版本的现有证据，本批不重复宣称全链验收通过。
 
