@@ -3,6 +3,17 @@ For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
 <!-- SPECKIT END -->
 
+## 项目执行前置规则（处理 EC 项目前必读）
+
+处理 EC 项目前，必须读取项目 `README.md`，以及 `docs/governance/` 下的：
+
+- `FILE-WRITING-RULES.md`
+- `TEAM-COLLABORATION.md`
+- `GITHUB-SUBMISSION-RULES.md`
+
+所有文件修改、协作、提交和交接必须遵循这些规则。
+无法读取时明确说明，不得声称已经遵守。
+
 ## 当前项目文件规则
 
 本项目当前以 `docs/governance/FILE-WRITING-RULES.md` 作为文件写入和目录归类规则。开始创建、移动或生成文件前，必须先读取该文件；如果历史路径与当前目录结构冲突，以用户当前目录和该规则为准，不自动恢复已移动或删除的历史文件。
@@ -28,6 +39,12 @@ shell commands, and other important information, read the current plan
 ### GitHub共享与过程产物（2026-10-12）
 
 提交前读取docs/governance/GITHUB-SUBMISSION-RULES.md。Codex临时产物、工具缓存、本地backups、审计提取缓存、inspect记录和锁文件不提交；正式报告及其引用证据、可复用测试源码和Hub必要工具保留。停止跟踪只处理准确清单，保留本地文件与同事暂存修改，不全目录清空索引。目录/治理任务不擅自创建提交、推送或触发发布。.github/仅维护GitHub配置，业务规范放docs/governance/。
+
+### 每轮固定进展汇报（2026-10-12用户确定）
+
+2026-10-14补充：每个回复须显示当前整体推进位置，不能只有本轮变更。最终回复先列当前阶段/批次、已走通部分（局部/整链分开）、未完成/阻塞和下一执行动作，再报告推进表、原型、知识库的本轮变化；答疑也适用。中间更新说明当前检查节点。依据现有主表/证据，不新增台账或编造百分比。
+
+每次对话结束都在最终回复中按“推进表、原型、知识库”三项汇报相对本轮开始的实际变化，遵循docs/governance/TEAM-COLLABORATION.md第7节。写明具体编号/页面/规则、完成或验证状态、未解决事项和下一步；没有变化也明确写“本轮无变化”并说明原因。历史成果只作为当前基线，不反复算成本轮新增；资料整理、客户确认、原型修改、业务验收分别记录。对话汇报不是第二套进度台账，不因汇报而修改Excel状态或重建Hub。
 
 ### 任务完成后的交接流程
 

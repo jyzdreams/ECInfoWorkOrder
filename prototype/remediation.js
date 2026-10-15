@@ -63,7 +63,7 @@
         specification: line.spec,
         unit: line.unit,
         quantity: line.qty,
-        code: line.code || `DEMO-${mr.quotationId}-${line.id}`,
+        code: warehouseProducts.find(p => String(p.code) === String(line.name))?.code || line.code || `DEMO-${mr.quotationId}-${line.id}`,
         category: line.category || "演示材料",
         brand: line.brand || "Demo",
         unitPrice: Number(line.unitPrice || 0),
@@ -145,9 +145,11 @@
       return mr.warehouseSync;
     }
   }
-  // SR 是已确认的现场服务主单据；这里只决定主链入口，不判定 CP 是否另需存档。
-  resolvePaperTypeByMaterial = function () {
-    return { type: "服務報告", reason: "現場服務先提交 SR，CR／主管確認後完工；CP 適用規則待確認" };
+  // SOURCE-022最新说明按服务阶段分流，不以物料数量或存在报价本身判定。
+  resolvePaperTypeByMaterial = function (ticket) {
+    return requiresCompletionPaper(ticket)
+      ? {type:"完工單",reason:"報價中單维修交完工紙CP，先交主管核對"}
+      : {type:"服務報告",reason:"保養或CALL上門服務交Service Report"};
   };
 
   function createMr(q, options = {}) {
@@ -165,6 +167,9 @@
       ticketId: q.ticketId || q.sourceTicketId || "",
       customerName: q.customerName || "",
       contractTotal: Number(q.totalAmount || q.amount || 0),
+      // SOURCE-022 用户2026-10-14允许演示申请直接完成；旧status仍是材料状态，不据此放行施工。
+      requestStatus: "已完成",
+      requestStatusMode: "DEMO",
       status: "待備貨",
       createdAt: new Date().toLocaleString("zh-HK"),
       lines: lines.map((item, index) => ({
@@ -232,7 +237,10 @@
     q.status = "已中單";
     if (materialLines(q).length) createMr(q);
     else q.materialReadiness = "無需物料";
-    if (isM(q)) createMaintenancePlan(q);
+    if (isM(q)) {
+      const plan = createMaintenancePlan(q);
+      if (plan) q.maintenancePlanId = plan.id;
+    }
     if (!q.history) q.history = [];
     q.history.push({ action: "客戶接受並中單", time: q.wonAt, actor: currentRole().name,
       changes: `${quoteVersion(q)} · ${q.category} · ${acceptanceNote}` });
@@ -331,11 +339,13 @@
     if (state.role !== "CS") return originalRequestQuotation(source);
     const key = source.ticketId || source.callLogId;
     if (quoteRequests.some(r => r.sourceId === key && r.status === "待轉交")) { toast("已有待轉交的報價需求", "error"); return; }
-    const ticket = source.ticketId ? ticketById(source.ticketId) : null;
-    quoteRequests.unshift({ id: `QR-${Date.now()}`, sourceId: key, ticketId: source.ticketId || "", callLogId: source.callLogId || "",
+    const log = source.callLogId ? callLogs.find(l => l.id === source.callLogId) : null;
+    const ticket = ticketById(source.ticketId || log?.workOrderId);
+    quoteRequests.unshift({ id: `QR-${Date.now()}`, sourceId: key, ticketId: ticket?.id || "", callLogId: source.callLogId || "",
       customerName: ticket?.customer || "", area: ticket?.area || "", requestedAt: new Date().toLocaleString("zh-HK"),
       requestedBy: currentRole().name, status: "待轉交" });
     if (ticket) ticket.quotationRequested = true;
+    if (log) log.quotationRequested = true;
     saveDataToLocalStorage();
     toast("已交 CR／主管審閱報價需求", "success");
     render();
@@ -346,16 +356,15 @@
     createMr, createMaintenancePlan, findMr, findPlan, warehousePayload, syncMaterialRequestToWarehouseTong };
 
   /* 报价阶段维护服务周期；Billing Cycle 仍归财务模块，二者互不读取。 */
-  const cycleFields = q => `<div class="rem-card"><h4>M 保養服務週期（M／M+P 填寫）</h4>
-    <div class="rem-grid"><label>每幾個月服務一次<input type="number" min="1" max="60" name="serviceEveryMonths" value="${safe(q?.serviceEveryMonths || "")}"></label>
-    <label>合約開始<input type="date" name="contractStart" value="${safe(q?.contractStart || "")}"></label>
-    <label>合約結束<input type="date" name="contractEnd" value="${safe(q?.contractEnd || "")}"></label></div>
-    <p class="muted">這是上門保養週期，不是會計帳單週期。</p></div>`;
+  const cycleFields = q => `<div class="wo-detail-section" data-maintenance-schedule-fields>
+    <div class="wo-detail-card"><h4>保養排期</h4><div class="wo-detail-grid">
+      ${renderMaintenanceScheduleInputs(q, "width:100%;height:34px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);")}
+    </div><p class="muted">這是上門保養週期，不是會計帳單週期。</p></div></div>`;
   const originalQuoteEditForm = renderQuotationEditForm;
   renderQuotationEditForm = function (q) {
     const next = Number(q.revision || 0) + 1;
     const hint = `<div class="rem-note">當前 R${Number(q.revision || 0)}；手動保存修訂版將生成 R${next}。一般編輯只有價格變動時自動升版，歷史版保留快照。</div>`;
-    return originalQuoteEditForm(q).replace("</form>", `${hint}${cycleFields(q)}</form>`);
+    return originalQuoteEditForm(q).replace('<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">', `<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">${hint}${cycleFields(q)}`);
   };
   function copyCycle(q, form) {
     if (!q || !form.has("serviceEveryMonths")) return;
@@ -382,10 +391,20 @@
     const html = originalQuoteDrawer(q);
     if (quotationState.editMode) return html;
     const mr = quoteMr(q);
+    const materialPanel = mr ? `<div class="wo-detail-section"><div class="wo-detail-card">
+      <h4>材料申請與備齊</h4><div class="wo-detail-grid">
+        <div class="wo-detail-item"><span class="wo-detail-label">材料申請單</span><span class="wo-detail-value">${safe(mr.id)}</span></div>
+        <div class="wo-detail-item"><span class="wo-detail-label">MR 申請狀態</span><span class="wo-detail-value">${safe(mr.requestStatus || "未記錄審批結果")}${mr.requestStatusMode === "DEMO" ? "（演示）" : ""}</span></div>
+        <div class="wo-detail-item"><span class="wo-detail-label">材料狀態</span><span class="wo-detail-value">${safe(mr.status || "未記錄")}</span></div>
+      </div><p class="muted">MR 申請完成與材料備齊分開記錄；材料備齊後再安排施工。</p>
+    </div></div>` : "";
     const customerPanel = `<div class="wo-detail-section"><div class="wo-detail-card"><h4>客戶信息</h4><div class="wo-detail-grid">
       <div class="wo-detail-item"><span class="wo-detail-label">客戶名稱</span><span class="wo-detail-value">${safe(q.customerName || "未設定")}</span></div>
       <div class="wo-detail-item"><span class="wo-detail-label">客戶編號</span><span class="wo-detail-value" style="color:var(--primary);font-weight:600;">${safe(q.customerId || "未設定")}</span></div>
     </div></div></div>`;
+    // 上次同步失敗時顯示具體原因，方便手動重試
+    const warehouseError = mr && mr.warehouseSync?.errorMessage
+      ? `<p class="rem-warning">上次同步失敗：${safe(mr.warehouseSync.errorMessage)}</p>` : "";
     const warehousePanel = mr ? `<div class="wo-detail-section"><div class="wo-detail-card rem-card rem-warehouse-card">
       <div class="wo-detail-card-heading"><h4>倉庫通同步</h4><span class="tag ${mr.warehouseSync?.status === "已同步" ? "success" : "warning"}">${safe(mr.warehouseSync?.status || "待同步")}</span></div>
       <div class="rem-grid">
@@ -394,28 +413,46 @@
         <div><span class="rem-label">同步模式</span><strong>${safe(mr.warehouseSync?.mode || WAREHOUSE_SYNC_MODE)}</strong></div>
         <div><span class="rem-label">同步時間</span><strong>${safe(mr.warehouseSync?.syncedAt || "待同步")}</strong></div>
       </div>
+      ${warehouseError}
+      ${["QUO", "ADMIN"].includes(state.role) ? `<div class="rem-actions"><button class="secondary-btn" type="button" data-rem-resync="${safe(mr.id)}" ${mr.warehouseSync?.status === "同步中" ? "disabled" : ""}>重新同步</button></div>` : ""}
       <p class="muted">此演示会写入真实宜搭「MR表單」；所有远端单号统一使用 MR-DEMO 前缀。</p>
     </div></div>` : "";
     return html
       .replace('<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">', `<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">${customerPanel}${warehousePanel}`)
-      .replace('<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">', '<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">');
+      .replace('<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">', `<div class="qm-detail-tab-panel" role="tabpanel" data-qm-detail-panel="delivery">${q.status === "已中單" ? materialPanel : ""}`);
   };
+
+  // 手動重新同步：報價詳情「倉庫通同步」卡片上的按鈕，供同步失敗或需重試時補救
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-rem-resync]");
+    if (!button) return;
+    const mr = findMr(button.dataset.remResync);
+    if (!mr || !["QUO", "ADMIN"].includes(state.role) || mr.warehouseSync?.status === "同步中") return;
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = "同步中…";
+    const result = await syncMaterialRequestToWarehouseTong(mr, { force: true });
+    // 同步函式會自行 toast 並 render()；若成功再補一則明確提示
+    if (result && result.status === "已同步") toast("已重新同步倉庫通", "success");
+    else { button.disabled = false; button.textContent = label; }
+  });
 
   const originalWorkOrderDrawer = renderWorkOrderDrawer;
   renderWorkOrderDrawer = function (t) {
     const q = quoteForTicket(t), mr = q ? quoteMr(q) : null;
-    const ready = !mr || mr.status === "材料就緒";
+    const ready = hasReadyMaterialsForTicket(t);
     const needsContractPanel = Boolean(q || mr || t.status === "待完工確認" || t.confirmedAt);
     const panel = needsContractPanel ? `<div class="wo-detail-section rem-progress-section">
       <div class="wo-detail-card rem-card rem-contract-card">
         <div class="wo-detail-card-heading"><h4>履約狀態</h4><span class="wo-detail-card-hint">報價、備貨與完工確認</span></div>
         <div class="rem-grid">
-          <div><span class="rem-label">材料狀態</span><strong>${mr ? `${safe(mr.id)} · ${safe(mr.status)}` : q?.status === "已中單" ? "無材料申請" : "未關聯成交報價"}</strong></div>
+          <div><span class="rem-label">材料狀態</span><strong>${mr ? `${safe(mr.id)} · ${safe(mr.status)}` : q?.status === "已中單" ? ready ? "無需物料" : "未取得材料申請與備齊記錄" : "未關聯成交報價"}</strong></div>
           <div><span class="rem-label">完工確認</span><strong>${t.confirmedAt ? `${safe(t.confirmedBy || "")} · ${safe(t.confirmedAt)}` : "未完成"}</strong></div>
+          <div><span class="rem-label">本次單據</span><strong>${requiresCompletionPaper(t) ? `完工紙CP · ${safe(t.cpNo || "未填寫")} · ${safe(t.cpStatus || "未提交")}` : `服務報告SR · ${safe(t.serviceReportNo || "未提交")}`}</strong></div>
         </div>
-        ${["CR", "TL"].includes(state.role) ? `<div class="rem-actions">${t.status === "待完工確認" ? `<button class="primary-btn" data-rem-confirm="${safe(t.id)}">確認 SR 並完工</button><button class="secondary-btn" data-rem-return="${safe(t.id)}">退回補充</button>` : ""}
-        ${q && q.status === "已中單" ? `<label>與客戶確認正式時間 <input type="date" data-rem-formal-date="${safe(t.id)}" value="${safe(t.formalAppointmentAt || "")}" ${ready ? "" : "disabled"}></label><button class="primary-btn" data-rem-formal-save="${safe(t.id)}" ${ready ? "" : "disabled"}>確認正式時間</button>` : ""}</div>
-        ${mr && !ready ? '<p class="muted rem-warning">材料未就緒，可先預排，但不可確認正式施工時間。</p>' : ""}` : ""}
+        ${["CR", "TL"].includes(state.role) ? `<div class="rem-actions">${t.status === "待完工確認" && (!requiresCompletionPaper(t) || (state.role === "TL" && t.tl === currentRole().name)) ? `<button class="primary-btn" data-rem-confirm="${safe(t.id)}" ${canConfirmCurrentReport(t) ? "" : 'disabled title="主管收件已明確，EC完工確認職責待核實"'}>${requiresCompletionPaper(t) ? "確認完工紙並完工" : "確認 SR 並完工"}</button><button class="secondary-btn" data-rem-return="${safe(t.id)}">退回補充</button>` : ""}
+        </div><p class="muted">主管派工時在備註寫約定時間與具體事項，通常以電話溝通；不要求另填獨立預約日期欄。</p>
+        ${q?.status === "已中單" && !ready ? '<p class="muted rem-warning">材料未就緒，可先預排，不能確認正式分派施工。</p>' : ""}` : ""}
       </div>
     </div>` : "";
     const html = originalWorkOrderDrawer(t);
@@ -426,9 +463,41 @@
   ["CR", "TL", "QUO"].forEach(role => { if (Array.isArray(ROLE_PAGES[role]) && !ROLE_PAGES[role].includes("maintenance")) ROLE_PAGES[role].push("maintenance"); });
   const originalPc = renderPc;
   renderPc = function () {
-    if (state.page !== "maintenance") return originalPc();
-    document.querySelector("#pcPages").innerHTML = renderMaintenancePage();
+    if (state.page === "maintenance") {
+      document.querySelector("#pcPages").innerHTML = renderMaintenancePage();
+      return;
+    }
+    originalPc();
+    if (["CR", "TL"].includes(state.role) && ["dashboard", "quotations"].includes(state.page)) {
+      const host = document.querySelector(state.page === "quotations" ? "#pcPages .qm-list-section" : "#pcPages .page.active");
+      if (host) host.insertAdjacentHTML("afterbegin", renderQuoteRequestQueue());
+    }
   };
+
+  // INT-20261013-04: expose the already-existing request/forward model, not a new approval policy.
+  function requestTicket(request) {
+    return ticketById(request.ticketId || callLogs.find(l => l.id === request.callLogId)?.workOrderId);
+  }
+  function canForwardQuoteRequest(request) {
+    const ticket = requestTicket(request);
+    if (state.role === "CR") return canReadCurrentCRArea(ticket?.area || request.area);
+    if (state.role === "TL") return Boolean(ticket && ticket.tl === currentRole().name);
+    return false;
+  }
+  function requestQuotation(request) {
+    const ticketId = requestTicket(request)?.id || request.ticketId;
+    return quotations.find(q => (ticketId && (q.ticketId === ticketId || q.sourceTicketId === ticketId)) ||
+      (request.callLogId && q.sourceCallId === request.callLogId));
+  }
+  function renderQuoteRequestQueue() {
+    const rows = quoteRequests.filter(canForwardQuoteRequest);
+    return `<section class="rem-card" aria-label="報價需求轉交"><h3>報價需求轉交</h3>
+      <p class="muted">查看來源，將既有報價需求轉交報價組。</p>
+      <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>來源</th><th>客戶</th><th>提出人</th><th>狀態</th><th>轉交記錄</th><th>操作</th></tr></thead><tbody>
+      ${rows.map(r => { const q = requestQuotation(r), ticket = requestTicket(r); return `<tr><td>${ticket ? `<button class="wo-view-btn" data-rem-call="${safe(ticket.id)}">${safe(ticket.id)}</button>` : safe(r.callLogId)}</td><td>${safe(r.customerName || ticket?.customer)}</td><td>${safe(r.requestedBy)}</td><td>${safe(r.status)}</td>
+        <td>${safe(r.forwardedBy || "待轉交")}${r.forwardedAt ? `<br>${safe(r.forwardedAt)}` : ""}</td><td>${r.status === "待轉交" ? `<button class="primary-btn" data-rem-forward-quote="${safe(r.id)}">轉交報價組</button>` : `<span class="muted">${safe(q?.id || "已轉交")}</span>`}</td></tr>`; }).join("") || '<tr><td colspan="6" class="muted">暫無對應的報價需求</td></tr>'}
+      </tbody></table></div></section>`;
+  }
   function renderMaintenancePage() {
     return `<section class="page active"><div class="pc-container"><div class="pc-header"><h1>整期保養計劃</h1></div>
       <p class="muted">服務週期取自成交 M 報價，不取自會計 Billing Cycle。每期可獨立排期、提交 SR 並確認。</p>
@@ -457,7 +526,7 @@
   document.head.insertAdjacentHTML("beforeend", `<style>
     .rem-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0;color:var(--text)}
     .rem-card h3,.rem-card h4{margin:0 0 10px}.rem-card p{margin:8px 0}.rem-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .rem-grid>div{background:var(--panel-soft);border-radius:8px;padding:10px}.rem-label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.rem-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.rem-actions label{font-size:12px;color:var(--muted)}.rem-warning{font-size:12px;color:var(--muted)}
+    .rem-grid>div{background:var(--panel-soft);border-radius:8px;padding:10px;min-width:0;overflow-wrap:anywhere;word-break:break-word}.rem-grid>div strong,.rem-grid>div span{overflow-wrap:anywhere;word-break:break-word}.rem-label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.rem-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.rem-actions label{font-size:12px;color:var(--muted)}.rem-warning{font-size:12px;color:var(--muted)}
     .rem-tabs{display:flex;gap:8px;margin:12px 0}.rem-tabs button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:7px;padding:8px 16px;cursor:pointer}
     .rem-tabs button.active{background:var(--primary);color:white}.rem-toolbar{display:flex;gap:16px;margin:12px 0}.rem-toolbar label,.rem-card label{display:flex;gap:8px;align-items:center}
     .rem-card input,.rem-card select,.rem-toolbar input,.rem-toolbar select{border:1px solid var(--line);border-radius:6px;padding:7px;background:var(--panel);color:var(--text)}
@@ -492,6 +561,7 @@
     .rem-won-form .rem-actions{justify-content:flex-end;margin-top:0;padding-top:16px;border-top:1px solid var(--line)}
     .rem-won-form .rem-actions button{min-width:104px;height:40px}
     .rem-warehouse-card{margin:0}
+    button[data-dispatch-confirm]:disabled,button[data-md-submit]:disabled{background:var(--line);color:var(--muted);border-color:var(--line);cursor:not-allowed}
     @media(max-width:760px){.rem-grid{grid-template-columns:1fr}.rem-toolbar{flex-direction:column}.rem-won-modal{width:calc(100vw - 20px)}.rem-won-modal .um-modal-head{padding:18px 18px 14px}.rem-won-form{padding:16px 18px 18px}.rem-won-field-grid{grid-template-columns:1fr}.rem-final-list .rem-item{grid-template-columns:1fr;gap:9px}}
   </style>`);
 
@@ -501,16 +571,28 @@
     if (target.dataset.remCall) { showWorkOrderDrawer(target.dataset.remCall); return; }
     if (target.dataset.remForwardQuote) {
       const request = quoteRequests.find(r => r.id === target.dataset.remForwardQuote);
-      if (!request || !["CR", "TL"].includes(state.role)) return;
+      if (!request || !canForwardQuoteRequest(request) || request.status !== "待轉交") return;
+      const oldIds = new Set(quotations.map(q => q.id));
+      originalRequestQuotation({ ticketId: requestTicket(request)?.id || request.ticketId, callLogId: request.callLogId });
+      const quote = requestQuotation(request);
+      if (!quote) { toast("尚未建立關聯報價，需求保留待轉交", "error"); return; }
       request.status = "已轉交"; request.forwardedBy = currentRole().name; request.forwardedAt = new Date().toLocaleString("zh-HK");
-      originalRequestQuotation({ ticketId: request.ticketId, callLogId: request.callLogId });
+      if (!oldIds.has(quote.id)) {
+        // The existing editor increments revision; a new request must start at its existing R0 baseline.
+        quote.revision = 0;
+        quote.revisions = [];
+        quote.requestedBy = request.requestedBy;
+        quote.requestedAt = request.requestedAt;
+        quote.history.push({action:"轉交報價組",time:request.forwardedAt,actor:request.forwardedBy,
+          changes:`${request.requestedBy} 提出的需求；來源 ${request.ticketId || request.callLogId}`});
+      }
       saveDataToLocalStorage(); render(); return;
     }
     if (target.dataset.remConfirm) { performAction("confirmClose", target.dataset.remConfirm); render(); return; }
     if (target.dataset.remReturn) { performAction("returnWork", target.dataset.remReturn); render(); return; }
     if (target.dataset.remFormalSave) {
       const t = ticketById(target.dataset.remFormalSave), q = quoteForTicket(t), mr = q && quoteMr(q);
-      if (!["CR", "TL"].includes(state.role) || !q || q.status !== "已中單" || (mr && mr.status !== "材料就緒")) return;
+      if (!["CR", "TL"].includes(state.role) || !q || q.status !== "已中單" || !hasReadyMaterialsForTicket(t)) return;
       const input = document.querySelector(`[data-rem-formal-date="${CSS.escape(t.id)}"]`);
       if (!input?.value) { toast("請選擇已與客戶確認的正式施工日期", "error"); return; }
       updateTicket(t.id, { formalAppointmentAt: input.value, formalConfirmedBy: currentRole().name, formalConfirmedAt: new Date().toLocaleString("zh-HK") }, "CR／主管與客戶確認正式施工時間。");
