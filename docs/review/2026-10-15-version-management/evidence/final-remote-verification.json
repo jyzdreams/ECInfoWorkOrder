@@ -1,0 +1,40 @@
+{
+  "baseline_commit": "859834d46a984a54738f01cea923370d3ad049d0",
+  "remote_main_matches": true,
+  "branch": "main",
+  "workflow_state": "active",
+  "workflow_trigger": "manual only; remote file bytes previously verified",
+  "new_runs_for_baseline": [],
+  "owner_rule_id": 25166977,
+  "owner_only": true,
+  "history_guard_id": 25166991,
+  "main_effective_rule_types": [
+    "creation",
+    "update",
+    "deletion",
+    "non_fast_forward"
+  ],
+  "deployment_branch_policy": [
+    {
+      "id": 53585273,
+      "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3k1MzU4NTI3Mw==",
+      "name": "main",
+      "type": "branch"
+    }
+  ],
+  "post_restart": {
+    "shared_file_hash_check": 835,
+    "unexpected_business_changes": 0,
+    "preview_http_200": [
+      "prototype/index.html",
+      "project-hub/index.html"
+    ],
+    "hub_path_check": {
+      "requiredPaths": 20,
+      "missing": 0,
+      "uniqueFileIds": 786,
+      "writes": 0
+    }
+  },
+  "no_dispatch_or_deployment_approval_performed": true
+}
