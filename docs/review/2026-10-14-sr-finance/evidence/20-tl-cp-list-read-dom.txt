@@ -1,0 +1,327 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📋 CALL管理":
+      - generic: 📋
+      - generic: CALL管理
+    - button "📤 分派中心":
+      - generic: 📤
+      - generic: 分派中心
+    - button "📅 保養計劃":
+      - generic: 📅
+      - generic: 保養計劃
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+    - button "⚙️ 基礎設置 ▶":
+      - generic: ⚙️
+      - generic: 基礎設置
+      - generic: ▶
+    - button "📖 字典管理"
+    - button "🏢 客戶管理"
+    - button "👤 用戶管理"
+    - button "🖥️ 服務器空間"
+    - button "📊 Excel 導入"
+    - button "🧩 組件庫"
+    - button "📱 移動端":
+      - generic: 📱
+      - generic: 移動端
+- main:
+  - heading "報告管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "趙 趙組長 主管 · 九龍團隊 ⌄":
+    - generic: 趙
+    - strong: 趙組長
+    - generic: 主管 · 九龍團隊
+    - generic: ⌄
+  - button "報告總數 6 服務報告 + 完工單 查看明細 >":
+    - heading "報告總數" [level=3]
+    - generic: "6"
+    - generic: 服務報告 + 完工單
+    - text: 查看明細 >
+  - button "待處理 0 等待師傅處理 查看明細 >":
+    - heading "待處理" [level=3]
+    - generic: "0"
+    - generic: 等待師傅處理
+    - text: 查看明細 >
+  - button "處理中 2 師傅處理中的工單 查看明細 >":
+    - heading "處理中" [level=3]
+    - generic: "2"
+    - generic: 師傅處理中的工單
+    - text: 查看明細 >
+  - button "已完成 3 已完工的報告 查看明細 >":
+    - heading "已完成" [level=3]
+    - generic: "3"
+    - generic: 已完工的報告
+    - text: 查看明細 >
+  - generic: 區域
+  - button "全部區域 ⌄":
+    - generic: 全部區域
+    - generic: ⌄
+  - combobox:
+    - option "全部區域" [selected]
+    - option "1區"
+    - option "2區"
+  - generic: 狀態
+  - button "全部狀態 ⌄":
+    - generic: 全部狀態
+    - generic: ⌄
+  - combobox:
+    - option "全部狀態" [selected]
+    - option "待確認"
+    - option "待處理"
+    - option "處理中"
+    - option "待完工確認"
+    - option "已完成"
+    - option "已取消"
+  - generic: Objective
+  - button "全部目的 ⌄":
+    - generic: 全部目的
+    - generic: ⌄
+  - combobox:
+    - option "全部目的" [selected]
+    - option "Routine Check"
+    - option "Fault Report"
+    - option "Emergency Call"
+    - option "Others"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - table:
+    - rowgroup:
+      - row "類型 報告編號 工單編號 客戶 區域 系統 Objective 保養類型 工單狀態 建立時間 操作":
+        - columnheader "類型"
+        - columnheader "報告編號"
+        - columnheader "工單編號"
+        - columnheader "客戶"
+        - columnheader "區域"
+        - columnheader "系統"
+        - columnheader "Objective"
+        - columnheader "保養類型"
+        - columnheader "工單狀態"
+        - columnheader "建立時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "服務報告 SR-250412 WO-20260613-010 灣仔商業大廈 1區 IT、Doorphone Others 非保養 處理中 06-13 14:35 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250412":
+          - generic "SR-250412"
+        - cell "WO-20260613-010":
+          - button "WO-20260613-010"
+        - cell "灣仔商業大廈":
+          - generic "灣仔商業大廈"
+        - cell "1區":
+          - generic "1區"
+        - cell "IT、Doorphone":
+          - generic "IT、Doorphone"
+        - cell "Others":
+          - generic "Others"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "06-13 14:35":
+          - generic "06-13 14:35"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-250315 WO-20260614-006 港島商業中心 1區 Access Control Routine Check 季檢 已完成 06-14 14:10 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250315":
+          - generic "SR-250315"
+        - cell "WO-20260614-006":
+          - button "WO-20260614-006"
+        - cell "港島商業中心":
+          - generic "港島商業中心"
+        - cell "1區":
+          - generic "1區"
+        - cell "Access Control":
+          - generic "Access Control"
+        - cell "Routine Check":
+          - generic "Routine Check"
+        - cell "季檢":
+          - generic "季檢"
+        - cell "已完成":
+          - generic: 已完成
+        - cell "06-14 14:10":
+          - generic "06-14 14:10"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-250298 WO-20260613-009 安全監控管理有限公司 2區 CCTV Fault Report 非保養 已完成 06-13 11:10 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-250298":
+          - generic "SR-250298"
+        - cell "WO-20260613-009":
+          - button "WO-20260613-009"
+        - cell "安全監控管理有限公司":
+          - generic "安全監控管理有限公司"
+        - cell "2區":
+          - generic "2區"
+        - cell "CCTV":
+          - generic "CCTV"
+        - cell "Fault Report":
+          - generic "Fault Report"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "已完成":
+          - generic: 已完成
+        - cell "06-13 11:10":
+          - generic "06-13 11:10"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "完工單 CP-123459 WO-20261013-002 港島商業中心 1區 - - 非保養 待完工確認 10-13 20:20 查看工單 查看報告":
+        - cell "完工單":
+          - generic: 完工單
+        - cell "CP-123459":
+          - generic "CP-123459"
+        - cell "WO-20261013-002":
+          - button "WO-20261013-002"
+        - cell "港島商業中心":
+          - generic "港島商業中心"
+        - cell "1區":
+          - generic "1區"
+        - cell "-":
+          - generic "-"
+        - cell "-":
+          - generic "-"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "待完工確認":
+          - generic: 待完工確認
+        - cell "10-13 20:20":
+          - generic "10-13 20:20"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-0765432 WO-20261014-001 港島商業中心 1區 - - 非保養 已完成 10-14 12:26 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-0765432":
+          - generic "SR-0765432"
+        - cell "WO-20261014-001":
+          - button "WO-20261014-001"
+        - cell "港島商業中心":
+          - generic "港島商業中心"
+        - cell "1區":
+          - generic "1區"
+        - cell "-":
+          - generic "-"
+        - cell "-":
+          - generic "-"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "已完成":
+          - generic: 已完成
+        - cell "10-14 12:26":
+          - generic "10-14 12:26"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+      - row "服務報告 SR-0123456 WO-DEMO-INSTANT 九龍國際廣場 2區 - - 非保養 處理中 09-27 09:00 查看工單 查看報告":
+        - cell "服務報告":
+          - generic: 服務報告
+        - cell "SR-0123456":
+          - generic "SR-0123456"
+        - cell "WO-DEMO-INSTANT":
+          - button "WO-DEMO-INSTANT"
+        - cell "九龍國際廣場":
+          - generic "九龍國際廣場"
+        - cell "2區":
+          - generic "2區"
+        - cell "-":
+          - generic "-"
+        - cell "-":
+          - generic "-"
+        - cell "非保養":
+          - generic "非保養"
+        - cell "處理中":
+          - generic: 處理中
+        - cell "09-27 09:00":
+          - generic "09-27 09:00"
+        - cell "查看工單 查看報告":
+          - button "查看工單"
+          - button "查看報告"
+  - dialog "完工單詳情":
+    - heading "完工單詳情" [level=2]
+    - paragraph: CP-123459 · WO-20261013-002
+    - button "關閉": ×
+    - generic: 客戶
+    - strong: 港島商業中心
+    - generic: CALL 狀態
+    - generic: 待完工確認
+    - generic: 師傅
+    - strong: 趙師傅
+    - heading "基本資料" [level=3]
+    - generic: 聯繫人
+    - strong: 陳先生
+    - generic: 聯繫電話
+    - strong: +852 9123 4567
+    - generic: 服務區域
+    - strong: 1區
+    - generic: 地址
+    - strong: 中環德輔道中88號
+    - generic: 完工日期
+    - strong: 2026-10-14
+    - generic: 建立時間
+    - strong: 10-13 20:20
+    - heading "成交維修清單" [level=3]
+    - paragraph: Q-1791894085369
+    - paragraph: 僅本地合成维修服务费（無物料） · CP交主管验证 · 1 個
+    - heading "完工單圖片" [level=3]
+    - img "完工單圖片"
+    - heading "Before Service 照片" [level=3]
+    - img "Before Service 照片"
+    - heading "After Service 照片" [level=3]
+    - img "After Service 照片"
+    - heading "客戶電子簽名" [level=3]
+    - img "客戶電子簽名"
+    - heading "備註" [level=3]
+    - paragraph: PM-CP-ROUTING 僅本地合成测试完工纸。无实际客户签名/施工/验收；提交先交主管，暂不关闭。
+    - heading "流轉紀錄" [level=3]
+    - strong: 趙師傅
+    - generic: 15:06
+    - paragraph: 師傅提交維修完工紙（電子完工紙），先交主管 趙組長 核對。
+    - strong: 趙師傅
+    - generic: 15:05
+    - paragraph: 師傅開始填寫完工單。
+    - strong: 趙師傅
+    - generic: 15:03
+    - paragraph: 師傅開始填寫完工單。
+    - strong: 趙師傅
+    - generic: 15:00
+    - paragraph: 已上傳完工單實體單據照片（存檔，未做文字識別）。
+    - strong: 趙師傅
+    - generic: 14:59
+    - paragraph: 師傅開始填寫完工單。
+    - strong: 趙師傅
+    - generic: 14:59
+    - paragraph: 師傅已完成現場打卡，狀態自動轉為「處理中」。
+    - strong: 趙師傅
+    - generic: 14:59
+    - paragraph: 師傅已收到 CALL，進入待處理。
+    - strong: 趙組長
+    - generic: 14:59
+    - paragraph: Team Leader 已分派給 趙師傅，領取完工單。備註：PM-CP-ROUTING 僅本地測試：無物料报价维修，師傅交CP先由主管核對；非真实施工/预约或客户签批。
+    - strong: 陳小姐
+    - generic: 20:20
+    - paragraph: 創建工單
+    - button "查看 CALL"
+- generic: 歡迎回來，趙組長！

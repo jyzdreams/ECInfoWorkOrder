@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "generatedAt": "2026-10-14T09:09:45.503Z",
   "ia": [
     {
       "id": "overview",
@@ -29,7 +29,9 @@
         "03 现场即时维修",
         "04 周期保养",
         "05 CM",
-        "06 Government Tender"
+        "06 Government Tender",
+        "07 MR申请与仓库交接",
+        "08 完工资料、开票与收款"
       ]
     },
     {
@@ -133,6 +135,19 @@
       "role": "OPEN_QUESTION_INDEX",
       "projectPath": "docs/knowledge/05-pending/OPEN-QUESTIONS.md",
       "fileId": "FILE-FF2EB9320E",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "role": "LATEST_REQUIREMENT_RECORDS",
+      "projectPath": "docs/knowledge/03-business/LATEST-REQUIREMENTS-20261012.md",
+      "fileId": "FILE-2C429173CC",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "projectPath": "docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md",
+      "fileId": "FILE-CE3522C7AE",
       "tier": "CURRENT",
       "status": "READY"
     }

@@ -1,0 +1,343 @@
+- main:
+  - heading "報價管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "鄒 鄒組長 報價組 · 報價組 ⌄":
+    - generic: 鄒
+    - strong: 鄒組長
+    - generic: 報價組 · 報價組
+    - generic: ⌄
+  - generic: 報價狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待報價"
+    - option "報價中"
+    - option "需修訂"
+    - option "已中單"
+    - option "丟單"
+  - generic: 類別
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "M（保養）"
+    - option "P（工程）"
+    - option "M+P（保養＋工程）"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+    - option "2區"
+    - option "3區"
+    - option "4區"
+    - option "5區"
+    - option "6區"
+    - option "7區"
+    - option "7A區"
+    - option "8區"
+    - option "MTR"
+    - option "EMSD"
+    - option "ASD"
+    - option "軟件組"
+    - option "EV Charge"
+    - option "Maintenance-HTCL"
+    - option "Project 1(生)"
+    - option "Project 1 MTR"
+    - option "Project 1(Sam)"
+    - option "Project 1(Johnny)"
+    - option "Project 1(Roy)"
+    - option "Project 1(Eric)"
+    - option "Project 2(Joe)"
+    - option "Project 1-1541"
+    - option "Project 1-1962EM20T"
+    - option "Project 1-1105"
+    - option "Project 1-2489"
+    - option "Project 1-2458"
+    - option "Project/Maintenance"
+  - generic: 客戶
+  - button "全部客戶 ⌄":
+    - generic: 全部客戶
+    - generic: ⌄
+  - combobox:
+    - option "全部客戶" [selected]
+    - option "港島商業中心"
+    - option "九龍國際廣場"
+    - option "新界花園住宅"
+    - option "香港政府大樓"
+    - option "維多利亞酒店"
+    - option "九龍灣工業大廈"
+    - option "青衣邨住宅"
+    - option "將軍澳醫院"
+    - option "銅鑼灣購物中心"
+    - option "荃灣工廠大廈"
+    - option "觀塘住宅大廈"
+    - option "西九龍文化中心"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - button "+ 新增報價"
+  - table:
+    - rowgroup:
+      - row "報價編號 報價標題 關聯工單 客戶名稱 類別 報價狀態 備貨狀態 負責人 報價日期 報價金額 操作":
+        - columnheader "報價編號"
+        - columnheader "報價標題"
+        - columnheader "關聯工單"
+        - columnheader "客戶名稱"
+        - columnheader "類別"
+        - columnheader "報價狀態"
+        - columnheader "備貨狀態"
+        - columnheader "負責人"
+        - columnheader "報價日期"
+        - columnheader "報價金額"
+        - columnheader "操作"
+    - rowgroup:
+      - row "1P2600016 PM-SR-FINANCE-20261014 僅本地測試服務費 WO-20261014-001 港島商業中心 P 已中單 無需物料 鄒組長 2026-10-14 HKD 1,200 详情":
+        - cell "1P2600016":
+          - button "1P2600016"
+        - cell "PM-SR-FINANCE-20261014 僅本地測試服務費"
+        - cell "WO-20261014-001":
+          - button "WO-20261014-001"
+        - cell "港島商業中心":
+          - generic: 港島商業中心
+        - cell "P":
+          - generic: P
+        - cell "已中單":
+          - generic: 已中單
+        - cell "無需物料"
+        - cell "鄒組長"
+        - cell "2026-10-14"
+        - cell "HKD 1,200":
+          - strong: HKD 1,200
+        - cell "详情":
+          - button "详情"
+      - row "Q-1791894303350 港島商業中心 - 工程維修 WO-20261013-003 港島商業中心 P 已中單 待備貨 鄒組長 2026-10-13 HKD 1,200 详情":
+        - cell "Q-1791894303350":
+          - button "Q-1791894303350"
+        - cell "港島商業中心 - 工程維修"
+        - cell "WO-20261013-003":
+          - button "WO-20261013-003"
+        - cell "港島商業中心":
+          - generic: 港島商業中心
+        - cell "P":
+          - generic: P
+        - cell "已中單":
+          - generic: 已中單
+        - cell "待備貨":
+          - generic: 待備貨
+        - cell "鄒組長"
+        - cell "2026-10-13"
+        - cell "HKD 1,200":
+          - strong: HKD 1,200
+        - cell "详情":
+          - button "详情"
+      - row "Q-1791894085369 PM-CP-ROUTING-20261014 僅本地维修清单测试 WO-20261013-002 港島商業中心 P 已中單 無需物料 鄒組長 2026-10-13 HKD 1,200 详情":
+        - cell "Q-1791894085369":
+          - button "Q-1791894085369"
+        - cell "PM-CP-ROUTING-20261014 僅本地维修清单测试"
+        - cell "WO-20261013-002":
+          - button "WO-20261013-002"
+        - cell "港島商業中心":
+          - generic: 港島商業中心
+        - cell "P":
+          - generic: P
+        - cell "已中單":
+          - generic: 已中單
+        - cell "無需物料"
+        - cell "鄒組長"
+        - cell "2026-10-13"
+        - cell "HKD 1,200":
+          - strong: HKD 1,200
+        - cell "详情":
+          - button "详情"
+      - row "1P2600013 PM-INTERNAL-20261013 门禁维修报价 WO-20261013-001 港島商業中心 P 已中單 已驗收 趙組長 2026-10-13 HKD 1,200 详情":
+        - cell "1P2600013":
+          - button "1P2600013"
+        - cell "PM-INTERNAL-20261013 门禁维修报价"
+        - cell "WO-20261013-001":
+          - button "WO-20261013-001"
+        - cell "港島商業中心":
+          - generic: 港島商業中心
+        - cell "P":
+          - generic: P
+        - cell "已中單":
+          - generic: 已中單
+        - cell "已驗收":
+          - generic: 已驗收
+        - cell "趙組長"
+        - cell "2026-10-13"
+        - cell "HKD 1,200":
+          - strong: HKD 1,200
+        - cell "详情":
+          - button "详情"
+      - row "QT-DEMO-P 2026-09-27 P 業務走查樣例 WO-DEMO-P 九龍國際廣場 P 報價中 未建立備貨單 張報價 2026-09-27 HKD 3,040 報價 详情":
+        - cell "QT-DEMO-P":
+          - button "QT-DEMO-P"
+        - cell "2026-09-27 P 業務走查樣例"
+        - cell "WO-DEMO-P":
+          - button "WO-DEMO-P"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "P":
+          - generic: P
+        - cell "報價中":
+          - generic: 報價中
+        - cell "未建立備貨單"
+        - cell "張報價"
+        - cell "2026-09-27"
+        - cell "HKD 3,040":
+          - strong: HKD 3,040
+        - cell "報價 详情":
+          - button "報價"
+          - button "详情"
+      - row "QT-DEMO-M 2026-09-27 M 業務走查樣例 WO-DEMO-M-01 九龍國際廣場 M 已中單 無需物料 張報價 2026-09-27 HKD 12,000 详情":
+        - cell "QT-DEMO-M":
+          - button "QT-DEMO-M"
+        - cell "2026-09-27 M 業務走查樣例"
+        - cell "WO-DEMO-M-01":
+          - button "WO-DEMO-M-01"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "M":
+          - generic: M
+        - cell "已中單":
+          - generic: 已中單
+        - cell "無需物料"
+        - cell "張報價"
+        - cell "2026-09-27"
+        - cell "HKD 12,000":
+          - strong: HKD 12,000
+        - cell "详情":
+          - button "详情"
+      - row "QT-DEMO-MP 2026-09-27 M+P 業務走查樣例 WO-DEMO-MP-P 九龍國際廣場 M+P 已中單 待備貨 張報價 2026-09-27 HKD 3,040 详情":
+        - cell "QT-DEMO-MP":
+          - button "QT-DEMO-MP"
+        - cell "2026-09-27 M+P 業務走查樣例"
+        - cell "WO-DEMO-MP-P":
+          - button "WO-DEMO-MP-P"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "M+P":
+          - generic: M+P
+        - cell "已中單":
+          - generic: 已中單
+        - cell "待備貨":
+          - generic: 待備貨
+        - cell "張報價"
+        - cell "2026-09-27"
+        - cell "HKD 3,040":
+          - strong: HKD 3,040
+        - cell "详情":
+          - button "详情"
+      - row "QT-20260621-002 閘機保養服務報價 WO-20260615-002 九龍國際廣場 - 報價中 未建立備貨單 王組長 2026-06-21 HKD 13,200 報價 详情":
+        - cell "QT-20260621-002":
+          - button "QT-20260621-002"
+        - cell "閘機保養服務報價"
+        - cell "WO-20260615-002":
+          - button "WO-20260615-002"
+        - cell "九龍國際廣場":
+          - generic: 九龍國際廣場
+        - cell "-"
+        - cell "報價中":
+          - generic: 報價中
+        - cell "未建立備貨單"
+        - cell "王組長"
+        - cell "2026-06-21"
+        - cell "HKD 13,200":
+          - strong: HKD 13,200
+        - cell "報價 详情":
+          - button "報價"
+          - button "详情"
+      - row "QT-20260621-003 監控設備安裝報價 WO-20260615-003 新界花園住宅 - 待報價 未建立備貨單 李組長 2026-06-21 HKD 27,500 報價 详情":
+        - cell "QT-20260621-003":
+          - button "QT-20260621-003"
+        - cell "監控設備安裝報價"
+        - cell "WO-20260615-003":
+          - button "WO-20260615-003"
+        - cell "新界花園住宅":
+          - generic: 新界花園住宅
+        - cell "-"
+        - cell "待報價":
+          - generic: 待報價
+        - cell "未建立備貨單"
+        - cell "李組長"
+        - cell "2026-06-21"
+        - cell "HKD 27,500":
+          - strong: HKD 27,500
+        - cell "報價 详情":
+          - button "報價"
+          - button "详情"
+      - row "QT-20260621-004 CCTV系統升級報價 WO-20260615-004 香港政府大樓 - 已中單 已下單 王組長 2026-06-20 HKD 49,500 详情":
+        - cell "QT-20260621-004":
+          - button "QT-20260621-004"
+        - cell "CCTV系統升級報價"
+        - cell "WO-20260615-004":
+          - button "WO-20260615-004"
+        - cell "香港政府大樓":
+          - generic: 香港政府大樓
+        - cell "-"
+        - cell "已中單":
+          - generic: 已中單
+        - cell "已下單":
+          - generic: 已下單
+        - cell "王組長"
+        - cell "2026-06-20"
+        - cell "HKD 49,500":
+          - strong: HKD 49,500
+        - cell "详情":
+          - button "详情"
+  - text: 共 16 條記錄，每頁
+  - combobox "每頁顯示筆數":
+    - option "10" [selected]
+    - option "20"
+    - option "50"
+  - text: 條，第 1/2 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "2"
+  - button "›"
+  - complementary:
+    - heading "Q-1791894085369" [level=3]
+    - generic: 已中單
+    - button "列印報價"
+    - button "關閉": ×
+    - tablist "報價詳情分頁":
+      - tab "報價信息"
+      - tab "交付信息" [active] [selected]
+    - tabpanel:
+      - heading "備貨信息" [level=4]
+      - generic: 備貨狀態
+      - generic: 無需物料
+      - text: （由備貨管理同步，僅供查看）
+      - heading "分派信息" [level=4]
+      - generic: 關聯工單
+      - generic: WO-20261013-002
+      - generic: 負責師傅
+      - generic: 趙師傅
+      - generic: 預排日期
+      - generic: 未預排
+      - generic: 派工狀態
+      - generic: 已完成
+      - heading "完成情況" [level=4]
+      - generic: 施工狀態
+      - generic: 已完成
+      - generic: S/R 編號
+      - generic: 未提交
+      - generic: 完工單
+      - generic: CP-123459
+      - generic: 派工時間與事項
+      - generic: PM-CP-ROUTING 僅本地測試：無物料报价维修，師傅交CP先由主管核對；非真实施工/预约或客户签批。
+      - generic: 完工確認
+      - generic: 14/10/2026 下午3:14:16
+    - button "報價歷史"
+- generic: 歡迎回來，鄒組長！

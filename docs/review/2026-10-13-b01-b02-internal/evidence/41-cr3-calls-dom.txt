@@ -1,0 +1,214 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				2587 button 🏠 首頁
+					2588 text 🏠
+					2589 text 首頁
+				2590 button 📋 CALL管理
+					2591 text 📋
+					2592 text CALL管理
+				2593 button 📤 分派中心
+					2594 text 📤
+					2595 text 分派中心
+				2596 button 📅 保養計劃
+					2597 text 📅
+					2598 text 保養計劃
+				2599 button 💰 報價管理
+					2600 text 💰
+					2601 text 報價管理
+				2602 button 🛒 備貨管理
+					2603 text 🛒
+					2604 text 備貨管理
+				2605 button 📁 報告管理
+					2606 text 📁
+					2607 text 報告管理
+				2608 button 📊 統計報表
+					2609 text 📊
+					2610 text 統計報表
+				2611 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					2612 text ⚙️
+					2613 text 基礎設置
+					2614 text ▶
+				2615 container
+					2616 button 📖 字典管理
+					2617 button 🏢 客戶管理
+					2618 button 👤 用戶管理
+					2619 button 🖥️ 服務器空間
+					2620 button 📊 Excel 導入
+					2621 button 🧩 組件庫
+				2622 button 📱 移動端
+					2623 text 📱
+					2624 text 移動端
+		53 container
+			54 heading CALL管理, Value: 1, ID: pageTitle
+				2625 text CALL管理
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			2447 button 李 李關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				2626 text 李
+				2627 text 李關係
+				2628 text 客戶關係部 · 客戶關係部
+				2451 text ⌄
+			2629 container
+				2630 tab group CALL視圖與客戶視圖
+					2631 tab (selected, settable, boolean) CALL視圖, Value: 1
+					2632 tab (selectable, settable, boolean) 客戶視圖, Value: 0
+				2633 button + 新增CALL
+				2634 text CALL狀態
+				2635 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2636 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2637 menu
+						2638 (selected) 全部
+						2639 待分派
+						2640 處理中
+						2641 待處理
+						2642 待確認
+						2643 已完成
+						2644 已取消
+				2645 text CALL類型
+				2646 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2647 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2648 menu
+						2649 (selected) 全部
+						2650 DLP 保養維修
+						2651 工程維修
+						2652 工程項目
+						2653 投訴
+						2654 糾正維修
+				2655 text 區域
+				2656 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2657 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2658 menu
+						2659 (selected) 全部
+						2660 1區
+						2661 2區
+						2662 3區
+						2663 4區
+						2664 5區
+						2665 6區
+						2666 7區
+						2667 7A區
+						2668 8區
+						2669 MTR
+						2670 EMSD
+						2671 ASD
+						2672 軟件組
+						2673 EV Charge
+						2674 Maintenance-HTCL
+						2675 Project 1(生)
+						2676 Project 1 MTR
+						2677 Project 1(Sam)
+						2678 Project 1(Johnny)
+						2679 Project 1(Roy)
+						2680 Project 1(Eric)
+						2681 Project 2(Joe)
+						2682 Project 1-1541
+						2683 Project 1-1962EM20T
+						2684 Project 1-1105
+						2685 Project 1-2489
+						2686 Project 1-2458
+						2687 Project/Maintenance
+				2688 text 負責人
+				2689 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2690 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2691 menu
+						2692 (selected) 全部
+						2693 趙組長
+						2694 李組長
+						2695 王組長
+				2696 text 關鍵詞搜索
+				2697 text field (settable)
+				2698 button 搜索
+				2699 button 重置
+				2700 table
+					2701 row
+						2702 cell
+							2703 text CALL編號
+						2704 cell
+							2705 text 創建時間
+						2706 cell
+							2707 text 客戶名稱
+						2708 cell
+							2709 text 類型
+						2710 cell
+							2711 text 區域
+						2712 cell
+							2713 text 狀態
+						2714 cell
+							2715 text 負責人
+						2716 cell
+							2717 text 操作
+					2718 row
+						2719 cell
+							2720 button WO-20260615-004
+						2721 cell
+							2722 text 2026-06-15 10:20
+						2723 cell
+							2724 text 新界住宅項目
+							2725 text 合約編號 0471667
+						2726 cell
+							2727 text 保養維修
+						2728 cell
+							2729 text 3區
+						2730 cell
+							2731 text 待處理
+						2732 cell
+							2733 text 李組長
+						2734 cell
+							2735 button 查看詳情
+					2736 row
+						2737 cell
+							2738 button WO-20260615-003
+						2739 cell
+							2740 text 2026-06-15 10:02
+						2741 cell
+							2742 text 安全監控管理有限公司
+						2743 cell
+							2744 text 工程維修
+						2745 cell
+							2746 text 3區
+						2747 cell
+							2748 text 待確認
+						2749 cell
+							2750 text 王組長
+						2751 cell
+							2752 button 查看詳情
+					2753 row
+						2754 cell
+							2755 button WO-20260614-008
+						2756 cell
+							2757 text 2026-06-14 16:10
+						2758 cell
+							2759 text 新界住宅項目
+							2760 text 合約編號 0471667
+						2761 cell
+							2762 text 保養維修
+						2763 cell
+							2764 text 3區
+						2765 cell
+							2766 text 待分派
+						2767 cell
+							2768 text 王組長
+						2769 cell
+							2770 button 查看詳情
+				2771 text 共 3 條記錄，每頁
+				2772 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					2773 menu
+						2774 (selected) 10
+						2775 20
+						2776 50
+				2777 text 條，第 1/1 頁
+				2778 button (disabled) ‹
+				2779 button 1
+				2780 button (disabled) ›
+	2586 text 已切換至 李關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

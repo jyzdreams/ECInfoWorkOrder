@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
-  "total": 80,
+  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "total": 119,
   "requirements": [
     {
       "id": "REQ-001",
@@ -6235,6 +6235,2238 @@
       ],
       "decisionIds": [],
       "note": "关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。"
+    },
+    {
+      "id": "REQ-UPD-001",
+      "legacyId": "UPD-001",
+      "title": "合同编号维护",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P1",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-001"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001",
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "需要维护合同编号；证据状态：记录明确诉求。来源 SOURCE-014 P1；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-002",
+      "legacyId": "UPD-002",
+      "title": "CALL的JNO独立",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P14",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-002"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "新建CALL输入JNO；JNO不绑定客户；证据状态：记录明确诉求。来源 SOURCE-014 P14；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-003",
+      "legacyId": "UPD-003",
+      "title": "客户多合同与重复客户",
+      "module": "CALL受理与工单管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P17",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-003"
+      ],
+      "pageIds": [
+        "PAGE-002",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "客户可有多个合同；允许重复客户记录，去重口径仍待定；证据状态：记录明确诉求。来源 SOURCE-014 P17；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-004",
+      "legacyId": "UPD-004",
+      "title": "新增客户职责",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P16",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-004"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "标书组、Sales、报价组、CS需要新增客户入口；实际授权映射待确认；证据状态：记录明确诉求。来源 SOURCE-014 P16；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-005",
+      "legacyId": "UPD-005",
+      "title": "人员双语姓名与搜索",
+      "module": "统计、客户和基础设置",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P37",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-005"
+      ],
+      "pageIds": [
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "姓名需中英文，并可按中英文搜索；证据状态：记录明确诉求。来源 SOURCE-015 P37；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-006",
+      "legacyId": "UPD-006",
+      "title": "CR区域可见范围",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P40",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-006"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "客户关系部查看对应区域的数据；证据状态：记录明确诉求。来源 SOURCE-015 P40；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-007",
+      "legacyId": "UPD-007",
+      "title": "指定夜班组长全区CALL",
+      "module": "分派与调度",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P41",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-007"
+      ],
+      "pageIds": [
+        "PAGE-003",
+        "PAGE-017",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-017",
+          "name": "移动分派中心",
+          "key": "dispatchMobile",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "某几个夜班组长可看所有区域CALL；名单与动作授权未给出；证据状态：记录明确诉求。来源 SOURCE-015 P41；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-008",
+      "legacyId": "UPD-008",
+      "title": "标书负责人非必填",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P4",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-008"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "新建标书EC负责人不用必填；证据状态：记录明确诉求。来源 SOURCE-014 P4；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-009",
+      "legacyId": "UPD-009",
+      "title": "标书日期时间",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P4",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-009"
+      ],
+      "pageIds": [
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "需要具体时间，截止时间默认17:00；原文重命名表达需按字段核对；证据状态：记录明确诉求。来源 SOURCE-014 P4；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-010",
+      "legacyId": "UPD-010",
+      "title": "标书六种状态",
+      "module": "标书管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P6/P7",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-010"
+      ],
+      "pageIds": [
+        "PAGE-005",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "待投标、已投标、已中标、未中标、已取消、不投标；合法转换另确认；证据状态：记录明确诉求。来源 SOURCE-014 P6/P7；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-011",
+      "legacyId": "UPD-011",
+      "title": "无报价的手工MR",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P10",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-MR"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-011"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "中标但无报价时，采购部手工填写MR；证据状态：记录明确诉求。来源 SOURCE-014 P10；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-012",
+      "legacyId": "UPD-012",
+      "title": "邀请报价与标书关联",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P21/P24",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-012"
+      ],
+      "pageIds": [
+        "PAGE-004",
+        "PAGE-005"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-005",
+          "name": "标书管理",
+          "key": "tender",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "邀请报价需要关联标书；可标记中标并生成标书，标书也可中标；双对象同步规则待定；证据状态：记录明确诉求。来源 SOURCE-014 P21/P24；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-013",
+      "legacyId": "UPD-013",
+      "title": "报价保固默认与有效期",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P22",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-013"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "原文保修默认1年；报价有效期60天、90天，不应混入保固选项；证据状态：记录明确诉求。来源 SOURCE-014 P22；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-014",
+      "legacyId": "UPD-014",
+      "title": "取消邀请结果字段",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P23",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-014"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "邀请结果不需要；证据状态：记录明确诉求。来源 SOURCE-014 P23；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-015",
+      "legacyId": "UPD-015",
+      "title": "报价金额名称",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P26",
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-015"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "含税金额改为报价金额，不由此推断其他税务政策；证据状态：记录明确诉求。来源 SOURCE-014 P26；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-016",
+      "legacyId": "UPD-016",
+      "title": "保养续保主动报价",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P27",
+      "flowIds": [
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-016"
+      ],
+      "pageIds": [
+        "PAGE-004",
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "保养合同续保时主动发起报价；证据状态：记录明确诉求。来源 SOURCE-014 P27；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-017",
+      "legacyId": "UPD-017",
+      "title": "续保提醒对象与比例",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P28",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-017"
+      ],
+      "pageIds": [
+        "PAGE-001",
+        "PAGE-007",
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "私人合同提醒主管和CR；提到1/2、1/3时长比例，具体适用与政府规则未定；证据状态：记录明确诉求。来源 SOURCE-014 P28；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-018",
+      "legacyId": "UPD-018",
+      "title": "参考报价带出物料",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P29",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-018"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "邀请报价选择参考报价单后带出物料；证据状态：记录明确诉求。来源 SOURCE-014 P29；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-019",
+      "legacyId": "UPD-019",
+      "title": "报价折扣",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P2",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-019"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "需要discount；原文未明确百分比还是金额；证据状态：记录明确诉求。来源 SOURCE-015 P2；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-020",
+      "legacyId": "UPD-020",
+      "title": "只填物料和总价",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P3",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-020"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "支持不填写明细价格，只填物料及总价；证据状态：记录明确诉求。来源 SOURCE-015 P3；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-021",
+      "legacyId": "UPD-021",
+      "title": "货期范围与单位",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P5/P6/P7/P8",
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-021"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "默认30 days，可选日/周；数字和范围手填，例30–60 days、6–8 week；证据状态：记录明确诉求。来源 SOURCE-015 P5/P6/P7/P8；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-022",
+      "legacyId": "UPD-022",
+      "title": "报价历史签名与公司章",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P12",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-022"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "保存历史签名；按负责人生成签名并加公司章；实际签署授权待确认；证据状态：记录明确诉求。来源 SOURCE-015 P12；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-023",
+      "legacyId": "UPD-023",
+      "title": "保固术语",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P14",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-023"
+      ],
+      "pageIds": [
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "新增报价的保修期改为保固期；证据状态：记录明确诉求。来源 SOURCE-015 P14；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-024",
+      "legacyId": "UPD-024",
+      "title": "Our Ref版本001",
+      "module": "报价管理",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P15",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-024"
+      ],
+      "pageIds": [
+        "PAGE-004",
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "Our Ref输出版本001；完整编号前缀与修订格式仍需对照；证据状态：记录明确诉求。来源 SOURCE-015 P15；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-025",
+      "legacyId": "UPD-025",
+      "title": "服务报告中文",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P21",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-025"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "服务报告需要中文；选项词汇应保留客户术语对应；证据状态：记录明确诉求。来源 SOURCE-015 P21；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-026",
+      "legacyId": "UPD-026",
+      "title": "保固服务通知采购",
+      "module": "首页与通知",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P23",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-MR"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-026"
+      ],
+      "pageIds": [
+        "PAGE-001",
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "SR增加保固期选项；选择后直接通知采购，判定和收费规则未给出；证据状态：记录明确诉求。来源 SOURCE-015 P23；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-027",
+      "legacyId": "UPD-027",
+      "title": "独立新增SR问题",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "独立入口待决定",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P25",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-027"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015",
+        "PAGE-008",
+        "PAGE-016",
+        "PAGE-004"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-004",
+          "name": "报价管理",
+          "key": "quotations",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "原文为“能否自己新增SR”；这是待决入口，不是已批准功能；证据状态：待客户决策。来源 SOURCE-015 P25；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-028",
+      "legacyId": "UPD-028",
+      "title": "MR业务状况",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P28/P29",
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-028"
+      ],
+      "pageIds": [
+        "PAGE-006"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "MR需完成状态及已完成、已取消、处理中三个状况；证据状态：记录明确诉求。来源 SOURCE-015 P28/P29；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-029",
+      "legacyId": "UPD-029",
+      "title": "仓管自主新增MR",
+      "module": "备货与采购",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P31",
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-029"
+      ],
+      "pageIds": [
+        "PAGE-006",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-006",
+          "name": "备货管理",
+          "key": "procurement",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "仓管需要自主新增MR；EC和仓库通写入边界仍待确认；证据状态：记录明确诉求。来源 SOURCE-015 P31；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-030",
+      "legacyId": "UPD-030",
+      "title": "报告Objective筛选",
+      "module": "报告与文档",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-015 P34",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-030"
+      ],
+      "pageIds": [
+        "PAGE-008",
+        "PAGE-016"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-008",
+          "name": "报告管理",
+          "key": "srFolder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-016",
+          "name": "客户报告",
+          "key": "cr",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "报告管理需要Objective筛选；证据状态：记录明确诉求。来源 SOURCE-015 P34；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-031",
+      "legacyId": "UPD-031",
+      "title": "财务地点英文名称",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P32",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-031"
+      ],
+      "pageIds": [
+        "PAGE-007",
+        "PAGE-009",
+        "PAGE-010",
+        "PAGE-001"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-009",
+          "name": "统计报表",
+          "key": "report",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-001",
+          "name": "PC 首页",
+          "key": "dashboard",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "地点需要英文名称；证据状态：记录明确诉求。来源 SOURCE-014 P32；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-032",
+      "legacyId": "UPD-032",
+      "title": "待开票与欠文件",
+      "module": "移动端现场执行",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P33",
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-032"
+      ],
+      "pageIds": [
+        "PAGE-011",
+        "PAGE-012",
+        "PAGE-014",
+        "PAGE-015",
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-011",
+          "name": "师傅首页",
+          "key": "masterHome",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-012",
+          "name": "师傅 CALL",
+          "key": "tasks",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-014",
+          "name": "移动工单详情",
+          "key": "mobileDetail",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "完工纸、照片、客户确认PO齐备才待开票，否则欠文件；不同服务适用清单待确认；证据状态：记录明确诉求。来源 SOURCE-014 P33；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-033",
+      "legacyId": "UPD-033",
+      "title": "特殊开票原因",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P34",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-033"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "特殊开票需要原因；例如客户同意完工；授权人员与审批细则未给出；证据状态：记录明确诉求。来源 SOURCE-014 P34；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-034",
+      "legacyId": "UPD-034",
+      "title": "发票无需税率字段",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P35",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-034"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "会计不需要税率字段；证据状态：记录明确诉求。来源 SOURCE-014 P35；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-035",
+      "legacyId": "UPD-035",
+      "title": "发票两日期默认当天",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P36",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-035"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "开票日期和到期日期默认当前日期；证据状态：记录明确诉求。来源 SOURCE-014 P36；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-036",
+      "legacyId": "UPD-036",
+      "title": "发票编号月重置",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P37",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-036"
+      ],
+      "pageIds": [
+        "PAGE-007",
+        "PAGE-002",
+        "PAGE-003",
+        "PAGE-015",
+        "PAGE-010"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-002",
+          "name": "CALL 管理",
+          "key": "workorder",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-003",
+          "name": "分派中心",
+          "key": "dispatch",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-015",
+          "name": "处理记录",
+          "key": "workRecord",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        },
+        {
+          "id": "PAGE-010",
+          "name": "基础设置",
+          "key": "settings",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "原文“年日+递增（每月清零）”；前缀精确格式未明，不能自行补为年月日；证据状态：记录明确诉求。来源 SOURCE-014 P37；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-037",
+      "legacyId": "UPD-037",
+      "title": "发票描述",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P38",
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-M"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-037"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "invoice描述应包含合同编号、PO、PM period；证据状态：记录明确诉求。来源 SOURCE-014 P38；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-038",
+      "legacyId": "UPD-038",
+      "title": "低额开票原因",
+      "module": "会计与外部接口",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议本期分批纳入",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P39",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-038"
+      ],
+      "pageIds": [
+        "PAGE-007"
+      ],
+      "pages": [
+        {
+          "id": "PAGE-007",
+          "name": "会计管理",
+          "key": "finance",
+          "status": "PARTIAL",
+          "fileId": "FILE-D50419124F",
+          "basis": "对应旧REQ的页面主题映射，未认定字段/动作已覆盖。"
+        }
+      ],
+      "prdFileIds": [],
+      "prototypeFileIds": [
+        "FILE-D50419124F"
+      ],
+      "decisionIds": [],
+      "note": "开票总价低于报价总金额时需要填写原因；证据状态：记录明确诉求。来源 SOURCE-014 P39；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
+    },
+    {
+      "id": "REQ-UPD-039",
+      "legacyId": "UPD-039",
+      "title": "借用及升降机线索",
+      "module": "原需求补充与上线约束",
+      "status": "OPEN",
+      "approvalStatus": "待确认",
+      "scope": "建议后续单独评审",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "legacySourceIds": [],
+      "sourceLocator": "SOURCE-014 P42",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyFlowIds": [],
+      "ruleIds": [],
+      "legacyFactIds": [],
+      "latestFactIds": [
+        "FACT-UPD-039"
+      ],
+      "pageIds": [],
+      "pages": [],
+      "prdFileIds": [],
+      "prototypeFileIds": [],
+      "decisionIds": [],
+      "note": "仅一行“借用系统、升降机申请”，缺场景、责任和范围，先保留线索；证据状态：待客户决策。来源 SOURCE-014 P42；L3：沟通工作副本，逐段核对；确认身份未附。范围/规则批准和原型全链验收未完成。"
     }
   ],
   "pages": [
@@ -6259,7 +8491,18 @@
         "REQ-069",
         "REQ-070",
         "REQ-071",
-        "REQ-072"
+        "REQ-072",
+        "REQ-UPD-001",
+        "REQ-UPD-003",
+        "REQ-UPD-004",
+        "REQ-UPD-005",
+        "REQ-UPD-006",
+        "REQ-UPD-007",
+        "REQ-UPD-010",
+        "REQ-UPD-017",
+        "REQ-UPD-026",
+        "REQ-UPD-029",
+        "REQ-UPD-031"
       ],
       "flowIds": [],
       "sourceFileIds": [
@@ -6290,7 +8533,13 @@
         "REQ-077",
         "REQ-078",
         "REQ-079",
-        "REQ-080"
+        "REQ-080",
+        "REQ-UPD-001",
+        "REQ-UPD-002",
+        "REQ-UPD-003",
+        "REQ-UPD-017",
+        "REQ-UPD-024",
+        "REQ-UPD-036"
       ],
       "flowIds": [
         "FLOW-MAIN",
@@ -6326,7 +8575,14 @@
         "REQ-077",
         "REQ-078",
         "REQ-079",
-        "REQ-080"
+        "REQ-080",
+        "REQ-UPD-001",
+        "REQ-UPD-002",
+        "REQ-UPD-006",
+        "REQ-UPD-007",
+        "REQ-UPD-017",
+        "REQ-UPD-024",
+        "REQ-UPD-036"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6351,7 +8607,20 @@
         "REQ-042",
         "REQ-043",
         "REQ-044",
-        "REQ-045"
+        "REQ-045",
+        "REQ-UPD-012",
+        "REQ-UPD-013",
+        "REQ-UPD-014",
+        "REQ-UPD-015",
+        "REQ-UPD-016",
+        "REQ-UPD-018",
+        "REQ-UPD-019",
+        "REQ-UPD-020",
+        "REQ-UPD-021",
+        "REQ-UPD-022",
+        "REQ-UPD-023",
+        "REQ-UPD-024",
+        "REQ-UPD-027"
       ],
       "flowIds": [
         "FLOW-MAIN",
@@ -6378,7 +8647,11 @@
         "REQ-047",
         "REQ-048",
         "REQ-049",
-        "REQ-050"
+        "REQ-050",
+        "REQ-UPD-008",
+        "REQ-UPD-009",
+        "REQ-UPD-010",
+        "REQ-UPD-012"
       ],
       "flowIds": [
         "FLOW-TENDER"
@@ -6401,7 +8674,10 @@
         "REQ-053",
         "REQ-054",
         "REQ-055",
-        "REQ-056"
+        "REQ-056",
+        "REQ-UPD-011",
+        "REQ-UPD-028",
+        "REQ-UPD-029"
       ],
       "flowIds": [
         "FLOW-MAIN",
@@ -6426,7 +8702,17 @@
         "REQ-059",
         "REQ-060",
         "REQ-061",
-        "REQ-062"
+        "REQ-062",
+        "REQ-UPD-016",
+        "REQ-UPD-017",
+        "REQ-UPD-031",
+        "REQ-UPD-032",
+        "REQ-UPD-033",
+        "REQ-UPD-034",
+        "REQ-UPD-035",
+        "REQ-UPD-036",
+        "REQ-UPD-037",
+        "REQ-UPD-038"
       ],
       "flowIds": [
         "FLOW-MAIN",
@@ -6450,7 +8736,9 @@
         "REQ-036",
         "REQ-037",
         "REQ-038",
-        "REQ-039"
+        "REQ-039",
+        "REQ-UPD-027",
+        "REQ-UPD-030"
       ],
       "flowIds": [],
       "sourceFileIds": [
@@ -6475,7 +8763,16 @@
         "REQ-069",
         "REQ-070",
         "REQ-071",
-        "REQ-072"
+        "REQ-072",
+        "REQ-UPD-001",
+        "REQ-UPD-003",
+        "REQ-UPD-004",
+        "REQ-UPD-005",
+        "REQ-UPD-006",
+        "REQ-UPD-007",
+        "REQ-UPD-010",
+        "REQ-UPD-029",
+        "REQ-UPD-031"
       ],
       "flowIds": [],
       "sourceFileIds": [
@@ -6508,7 +8805,20 @@
         "REQ-077",
         "REQ-078",
         "REQ-079",
-        "REQ-080"
+        "REQ-080",
+        "REQ-UPD-001",
+        "REQ-UPD-002",
+        "REQ-UPD-003",
+        "REQ-UPD-004",
+        "REQ-UPD-005",
+        "REQ-UPD-006",
+        "REQ-UPD-007",
+        "REQ-UPD-010",
+        "REQ-UPD-017",
+        "REQ-UPD-024",
+        "REQ-UPD-029",
+        "REQ-UPD-031",
+        "REQ-UPD-036"
       ],
       "flowIds": [
         "FLOW-CM"
@@ -6536,7 +8846,11 @@
         "REQ-031",
         "REQ-032",
         "REQ-033",
-        "REQ-034"
+        "REQ-034",
+        "REQ-UPD-025",
+        "REQ-UPD-026",
+        "REQ-UPD-027",
+        "REQ-UPD-032"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6568,7 +8882,11 @@
         "REQ-031",
         "REQ-032",
         "REQ-033",
-        "REQ-034"
+        "REQ-034",
+        "REQ-UPD-025",
+        "REQ-UPD-026",
+        "REQ-UPD-027",
+        "REQ-UPD-032"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6614,7 +8932,11 @@
         "REQ-031",
         "REQ-032",
         "REQ-033",
-        "REQ-034"
+        "REQ-034",
+        "REQ-UPD-025",
+        "REQ-UPD-026",
+        "REQ-UPD-027",
+        "REQ-UPD-032"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6654,7 +8976,16 @@
         "REQ-077",
         "REQ-078",
         "REQ-079",
-        "REQ-080"
+        "REQ-080",
+        "REQ-UPD-001",
+        "REQ-UPD-002",
+        "REQ-UPD-017",
+        "REQ-UPD-024",
+        "REQ-UPD-025",
+        "REQ-UPD-026",
+        "REQ-UPD-027",
+        "REQ-UPD-032",
+        "REQ-UPD-036"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6680,7 +9011,9 @@
         "REQ-036",
         "REQ-037",
         "REQ-038",
-        "REQ-039"
+        "REQ-039",
+        "REQ-UPD-027",
+        "REQ-UPD-030"
       ],
       "flowIds": [],
       "sourceFileIds": [
@@ -6705,7 +9038,9 @@
         "REQ-020",
         "REQ-021",
         "REQ-022",
-        "REQ-023"
+        "REQ-023",
+        "REQ-UPD-006",
+        "REQ-UPD-007"
       ],
       "flowIds": [
         "FLOW-P",
@@ -6718,5 +9053,19 @@
       ],
       "evidenceNote": "由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。"
     }
-  ]
+  ],
+  "preparation": {
+    "reviewedAt": "2026-10-12",
+    "version": "PREP-20261012-v1",
+    "latestRequests": 39,
+    "oldRequirementCount": 80,
+    "clientQuestions": 16,
+    "draftUatCount": 16,
+    "mainPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx",
+    "clientPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统客户范围与关键问题确认表-v1.xlsx",
+    "reviewPath": "docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md",
+    "progressSource": "仅README指定Excel维护任务进度；本页统计为知识主题关联。",
+    "prototypeCurrentVerified": false,
+    "scopeApproval": "本期范围待客户确认"
+  }
 }

@@ -1,0 +1,124 @@
+- main:
+  - heading "CALL" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "周 周師傅 師傅 · 外勤 · 九龍 ⌄":
+    - generic: 周
+    - strong: 周師傅
+    - generic: 師傅 · 外勤 · 九龍
+    - generic: ⌄
+  - button "待確認"
+  - button "待處理"
+  - button "處理中"
+  - button "已完成"
+  - button "WO-DEMO-INSTANT"
+  - generic: 處理中
+  - strong: 工程維修
+  - generic: 九龍國際廣場 · 2區
+  - generic: 九龍國際廣場
+  - strong: 聯繫人：
+  - text: 陳先生
+  - strong: 電話：
+  - text: +852 9000 0000
+  - generic: 電話
+  - button "繼續處理"
+  - button "首頁":
+    - generic: 首頁
+  - button "CALL":
+    - generic: CALL
+  - dialog "現場處理":
+    - heading "處理 CALL" [level=2]
+    - paragraph: WO-DEMO-INSTANT · 九龍國際廣場
+    - button "關閉": ×
+    - navigation "服務處理步驟":
+      - button "簽到"
+      - button "服務中"
+      - button "服務報告"
+    - generic: 上傳服務報告
+    - generic: 服務報告圖片*
+    - img "服務報告"
+    - button "重新上傳服務報告"
+    - button "加入示例圖片"
+    - generic: 已有紙單請按原單編號回錄，圖片只作存檔，不會自動填寫現場結果。EC新單列印目標為編號自動遞增；列印和紙單編號識別尚未接入。
+    - generic: 已上傳報告圖片 · 14-10-2026 09:58
+    - generic: 基本信息
+    - generic: 服務報告 (SR)*
+    - textbox "6位數字，例如：123456": "123456"
+    - generic: 客戶名稱
+    - textbox: 九龍國際廣場
+    - generic: 賬戶編號
+    - textbox: CUST-0002
+    - generic: 合約/參照編號
+    - textbox
+    - generic: 聯絡人
+    - textbox: 陳先生
+    - generic: 聯絡電話號碼
+    - textbox: +852 9000 0000
+    - generic: 地址
+    - textbox: 九龍國際廣場
+    - generic: 服務內容
+    - generic: 系統 System（可多選）
+    - generic: Access Control
+    - generic: CCTV
+    - generic: Alarm
+    - generic: SMATV
+    - generic: IT
+    - generic: Car Park
+    - generic: Doorphone
+    - generic: Others
+    - generic: 目的 Objective（可多選）
+    - generic: Routine Check
+    - generic: Fault Report
+    - generic: Emergency Call
+    - generic: Others
+    - generic: 已完成的工作
+    - generic: 完成工作*
+    - textbox "描述本次完成的工作內容...": 本地模拟复测：保留人工记录，不是真实施工结果。
+    - button "🎤"
+    - generic: 需跟進事項*
+    - textbox "描述需跟進的事項...": 本地测试：尚未业务验收。
+    - button "🎤"
+    - generic: 其他附件
+    - generic: 車資（HKD）
+    - spinbutton
+    - generic: 記錄每日實際交通支出，供 HR 報銷參考
+    - generic: 是否需要報價*
+    - radio "否"
+    - text: 否
+    - radio "是"
+    - text: 是
+    - generic: 請選擇是否需要報價
+    - generic: 是否後補報價*
+    - radio "否"
+    - text: 否
+    - radio "是"
+    - text: 是
+    - generic: 後補報價＝現場已直接更換零件（一般為小額），事後補錄報價單用於結算；屬「先執行後補單」流程
+    - generic: 客戶滿意度
+    - button "😀 非常滿意":
+      - generic: 😀
+      - text: 非常滿意
+    - button "🙂 滿意":
+      - generic: 🙂
+      - text: 滿意
+    - button "😐 一般":
+      - generic: 😐
+      - text: 一般
+    - button "🙁 不滿意":
+      - generic: 🙁
+      - text: 不滿意
+    - generic: 客戶確認
+    - checkbox "客戶負責人未能簽署"
+    - text: 客戶負責人未能簽署
+    - generic: 勾選表示客戶負責人不在場，無法當場簽署
+    - generic: 客戶電子簽名*
+    - generic "客戶電子簽名"
+    - generic: 請由客戶在框內手寫簽名
+    - button "清除" [disabled]
+    - button "完成並提交服務報告"
+    - generic: 提交 SR 後待 CR／主管確認完工
+    - button "返回服務中"
+- generic: 歡迎回來，周師傅！

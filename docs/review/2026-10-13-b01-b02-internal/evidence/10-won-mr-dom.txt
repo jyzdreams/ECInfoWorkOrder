@@ -1,0 +1,447 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				1606 button 🏠 首頁
+					1607 text 🏠
+					1608 text 首頁
+				1609 button 📅 保養計劃
+					1610 text 📅
+					1611 text 保養計劃
+				1612 button 💰 報價管理
+					1613 text 💰
+					1614 text 報價管理
+		52 container
+			53 heading 報價管理, Value: 1, ID: pageTitle
+				1615 text 報價管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			1601 button 鄒 鄒組長 報價組 · 報價組 ⌄, ID: userMenuBtn
+				1616 text 鄒
+				1617 text 鄒組長
+				1618 text 報價組 · 報價組
+				1605 text ⌄
+			1619 container
+				1620 text 報價狀態
+				1621 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1622 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1623 menu
+						1624 (selected) 全部
+						1625 待報價
+						1626 報價中
+						1627 需修訂
+						1628 已中單
+						1629 丟單
+				1630 text 類別
+				1631 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1632 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1633 menu
+						1634 (selected) 全部
+						1635 M（保養）
+						1636 P（工程）
+						1637 M+P（保養＋工程）
+				1638 text 區域
+				1639 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1640 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1641 menu
+						1642 (selected) 全部
+						1643 1區
+						1644 2區
+						1645 3區
+						1646 4區
+						1647 5區
+						1648 6區
+						1649 7區
+						1650 7A區
+						1651 8區
+						1652 MTR
+						1653 EMSD
+						1654 ASD
+						1655 軟件組
+						1656 EV Charge
+						1657 Maintenance-HTCL
+						1658 Project 1(生)
+						1659 Project 1 MTR
+						1660 Project 1(Sam)
+						1661 Project 1(Johnny)
+						1662 Project 1(Roy)
+						1663 Project 1(Eric)
+						1664 Project 2(Joe)
+						1665 Project 1-1541
+						1666 Project 1-1962EM20T
+						1667 Project 1-1105
+						1668 Project 1-2489
+						1669 Project 1-2458
+						1670 Project/Maintenance
+				1671 text 客戶
+				1672 pop up button (collapsed) 全部客戶 ⌄, Secondary Actions: Expand
+				1673 pop up button (collapsed, settable) Value: 全部客戶, Secondary Actions: Expand
+					1674 menu
+						1675 (selected) 全部客戶
+						1676 港島商業中心
+						1677 九龍國際廣場
+						1678 新界花園住宅
+						1679 香港政府大樓
+						1680 維多利亞酒店
+						1681 九龍灣工業大廈
+						1682 青衣邨住宅
+						1683 將軍澳醫院
+						1684 銅鑼灣購物中心
+						1685 荃灣工廠大廈
+						1686 觀塘住宅大廈
+						1687 西九龍文化中心
+				1688 text 關鍵詞搜索
+				1689 text field (settable)
+				1690 button 搜索
+				1691 button 重置
+				1692 button + 新增報價
+				1693 table
+					1694 row
+						1695 cell
+							1696 text 報價編號
+						1697 cell
+							1698 text 報價標題
+						1699 cell
+							1700 text 關聯工單
+						1701 cell
+							1702 text 客戶名稱
+						1703 cell
+							1704 text 類別
+						1705 cell
+							1706 text 報價狀態
+						1707 cell
+							1708 text 備貨狀態
+						1709 cell
+							1710 text 負責人
+						1711 cell
+							1712 text 報價日期
+						1713 cell
+							1714 text 報價金額
+						1715 cell
+							1716 text 操作
+					1717 row
+						1718 cell
+							1719 button 1P2600013
+						1720 cell
+							1721 text PM-INTERNAL-20261013 门禁维修报价
+						1722 cell
+							1723 button WO-20261013-001
+						1724 cell
+							1725 text 港島商業中心
+						1726 cell
+							1727 text P
+						1728 cell
+							1729 text 已中單
+						1730 cell
+							1731 text 待備貨
+						1732 cell
+							1733 text 趙組長
+						1734 cell
+							1735 text 2026-10-13
+						1736 cell
+							1737 text HKD 1,200
+						1738 cell
+							1739 button 详情
+					1740 row
+						1741 cell
+							1742 button QT-DEMO-P
+						1743 cell
+							1744 text 2026-09-27 P 業務走查樣例
+						1745 cell
+							1746 button WO-DEMO-P
+						1747 cell
+							1748 text 九龍國際廣場
+						1749 cell
+							1750 text P
+						1751 cell
+							1752 text 報價中
+						1753 cell
+							1754 text 未建立備貨單
+						1755 cell
+							1756 text 張報價
+						1757 cell
+							1758 text 2026-09-27
+						1759 cell
+							1760 text HKD 3,040
+						1761 cell
+							1762 button 報價
+							1763 button 详情
+					1764 row
+						1765 cell
+							1766 button QT-DEMO-M
+						1767 cell
+							1768 text 2026-09-27 M 業務走查樣例
+						1769 cell
+							1770 button WO-DEMO-M-01
+						1771 cell
+							1772 text 九龍國際廣場
+						1773 cell
+							1774 text M
+						1775 cell
+							1776 text 已中單
+						1777 cell
+							1778 text 未建立備貨單
+						1779 cell
+							1780 text 張報價
+						1781 cell
+							1782 text 2026-09-27
+						1783 cell
+							1784 text HKD 12,000
+						1785 cell
+							1786 button 详情
+					1787 row
+						1788 cell
+							1789 button QT-DEMO-MP
+						1790 cell
+							1791 text 2026-09-27 M+P 業務走查樣例
+						1792 cell
+							1793 button WO-DEMO-MP-P
+						1794 cell
+							1795 text 九龍國際廣場
+						1796 cell
+							1797 text M+P
+						1798 cell
+							1799 text 已中單
+						1800 cell
+							1801 text 待備貨
+						1802 cell
+							1803 text 張報價
+						1804 cell
+							1805 text 2026-09-27
+						1806 cell
+							1807 text HKD 3,040
+						1808 cell
+							1809 button 详情
+					1810 row
+						1811 cell
+							1812 button QT-20260621-002
+						1813 cell
+							1814 text 閘機保養服務報價
+						1815 cell
+							1816 button WO-20260615-002
+						1817 cell
+							1818 text 九龍國際廣場
+						1819 cell
+							1820 text -
+						1821 cell
+							1822 text 報價中
+						1823 cell
+							1824 text 未建立備貨單
+						1825 cell
+							1826 text 王組長
+						1827 cell
+							1828 text 2026-06-21
+						1829 cell
+							1830 text HKD 13,200
+						1831 cell
+							1832 button 報價
+							1833 button 详情
+					1834 row
+						1835 cell
+							1836 button QT-20260621-003
+						1837 cell
+							1838 text 監控設備安裝報價
+						1839 cell
+							1840 button WO-20260615-003
+						1841 cell
+							1842 text 新界花園住宅
+						1843 cell
+							1844 text -
+						1845 cell
+							1846 text 待報價
+						1847 cell
+							1848 text 未建立備貨單
+						1849 cell
+							1850 text 李組長
+						1851 cell
+							1852 text 2026-06-21
+						1853 cell
+							1854 text HKD 27,500
+						1855 cell
+							1856 button 報價
+							1857 button 详情
+					1858 row
+						1859 cell
+							1860 button QT-20260621-004
+						1861 cell
+							1862 text CCTV系統升級報價
+						1863 cell
+							1864 button WO-20260615-004
+						1865 cell
+							1866 text 香港政府大樓
+						1867 cell
+							1868 text -
+						1869 cell
+							1870 text 已中單
+						1871 cell
+							1872 text 已下單
+						1873 cell
+							1874 text 王組長
+						1875 cell
+							1876 text 2026-06-20
+						1877 cell
+							1878 text HKD 49,500
+						1879 cell
+							1880 button 详情
+					1881 row
+						1882 cell
+							1883 button QT-20260621-005
+						1884 cell
+							1885 text 廣播系統維修報價
+						1886 cell
+							1887 button WO-20260615-005
+						1888 cell
+							1889 text 維多利亞酒店
+						1890 cell
+							1891 text -
+						1892 cell
+							1893 text 報價中
+						1894 cell
+							1895 text 未建立備貨單
+						1896 cell
+							1897 text 李組長
+						1898 cell
+							1899 text 2026-06-19
+						1900 cell
+							1901 text HKD 7,480
+						1902 cell
+							1903 button 報價
+							1904 button 详情
+					1905 row
+						1906 cell
+							1907 button QT-20260621-006
+						1908 cell
+							1909 text 門禁控制器保養報價
+						1910 cell
+							1911 button WO-20260614-006
+						1912 cell
+							1913 text 港島商業中心
+						1914 cell
+							1915 text -
+						1916 cell
+							1917 text 報價中
+						1918 cell
+							1919 text 已發貨
+						1920 cell
+							1921 text 王組長
+						1922 cell
+							1923 text 2026-06-14
+						1924 cell
+							1925 text HKD 3,850
+						1926 cell
+							1927 button 報價
+							1928 button 详情
+					1929 row
+						1930 cell
+							1931 button QT-20260621-007
+						1932 cell
+							1933 text 水浸報警系統檢查報價
+						1934 cell
+							1935 button WO-20260614-008
+						1936 cell
+							1937 text 九龍灣工業大廈
+						1938 cell
+							1939 text -
+						1940 cell
+							1941 text 待報價
+						1942 cell
+							1943 text 未建立備貨單
+						1944 cell
+							1945 text 李組長
+						1946 cell
+							1947 text 2026-06-14
+						1948 cell
+							1949 text HKD 5,720
+						1950 cell
+							1951 button 報價
+							1952 button 详情
+				1953 text 共 13 條記錄，每頁
+				1954 pop up button (collapsed, settable) Description: 每頁顯示筆數, Value: 10, Secondary Actions: Expand
+					1955 menu
+						1956 (selected) 10
+						1957 20
+						1958 50
+				1959 text 條，第 1/2 頁
+				1960 button (disabled) ‹
+				1961 button 1
+				1962 button 2
+				1963 button ›
+				1964 heading 1P2600013, Value: 3
+					1965 text 1P2600013
+				1966 text 已中單
+				1967 button 列印報價
+				1968 button 關閉
+				1969 container
+					1970 tab group 報價詳情分頁
+						1971 tab (selected, settable, boolean) 報價信息, Value: 1
+						1972 tab (selectable, settable, boolean) 交付信息, Value: 0
+					1973 heading 客戶信息, Value: 4
+						1974 text 客戶信息
+					1975 text 客戶名稱 港島商業中心 客戶編號 CUST-0001
+					1976 heading 倉庫通同步, Value: 4
+						1977 text 倉庫通同步
+					1978 text 同步失敗 材料申請單
+					1979 text MR-1P2600013
+					1980 text 倉庫通記錄
+					1981 text 尚未取得
+					1982 text 同步模式
+					1983 text REAL · 宜搭線上
+					1984 text 同步時間
+					1985 text 待同步
+					1986 text 此演示会写入真实宜搭「MR表單」；所有远端单号统一使用 MR-DEMO 前缀。
+					1987 heading 基本信息, Value: 4
+						1988 text 基本信息
+					1989 text 報價標題 PM-INTERNAL-20261013 门禁维修报价 OUR REF 2P260013 類別 P（工程） 報價狀態 已中單 負責人
+					1990 button 趙組長, Help: 點擊查看聯繫電話
+					1991 text 報價日期 2026-10-13 回覆截止日期 2026-10-27 有效期至 2026-11-24 貨期 30 days
+					1992 heading 關聯信息, Value: 4
+						1993 text 關聯信息
+					1994 text 關聯工單
+					1995 button WO-20261013-001
+					1996 text 工單狀態 待分派 S/R編號 無
+					1997 heading 報價內容, Value: 4
+						1998 text 報價內容
+					1999 heading 報價條款, Value: 5
+						2000 text 報價條款
+					2001 text 報價金額 HKD 1,200 付款方式 完工後付（Post-payment） 交期 確認後排程 保修期 未設定
+					2002 heading 物料明細, Value: 5
+						2003 text 物料明細
+					2004 table
+						2005 row
+							2006 cell
+								2007 text 物料名稱
+							2008 cell
+								2009 text 規格/型號
+							2010 cell
+								2011 text 數量
+							2012 cell
+								2013 text 單位
+						2014 row
+							2015 cell
+								2016 text 门禁电源（内部走查）
+							2017 cell
+								2018 text 12V 本地测试
+							2019 cell
+								2020 text 1
+							2021 cell
+								2022 text 個
+					2023 text 報價總金額
+					2024 container
+						2025 text HKD 1200.00
+					2026 heading 附件, Value: 5
+						2027 text 附件
+					2028 text 暫無附件
+					2029 heading 備註, Value: 5
+						2030 text 備註
+					2031 text 仅用于本地内部走查；当前负责人列表不含报价组，不表示批准该职责。
+				2032 button 報價歷史
+	2033 text 倉庫通同步失敗：宜搭接口返回 501
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

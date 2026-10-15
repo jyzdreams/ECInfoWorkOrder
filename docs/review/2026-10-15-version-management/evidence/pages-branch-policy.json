@@ -1,0 +1,11 @@
+{
+  "total_count": 1,
+  "branch_policies": [
+    {
+      "id": 53585273,
+      "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3k1MzU4NTI3Mw==",
+      "name": "main",
+      "type": "branch"
+    }
+  ]
+}

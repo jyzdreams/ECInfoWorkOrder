@@ -1,0 +1,452 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				3116 button 🏠 首頁
+					3117 text 🏠
+					3118 text 首頁
+				3119 button 📋 CALL管理
+					3120 text 📋
+					3121 text CALL管理
+				3122 button 📤 分派中心
+					3123 text 📤
+					3124 text 分派中心
+				3125 button 📅 保養計劃
+					3126 text 📅
+					3127 text 保養計劃
+				3128 button 💰 報價管理
+					3129 text 💰
+					3130 text 報價管理
+				3131 button 📑 標書管理
+					3132 text 📑
+					3133 text 標書管理
+				3134 button 🛒 備貨管理
+					3135 text 🛒
+					3136 text 備貨管理
+				3137 button 💵 會計管理
+					3138 text 💵
+					3139 text 會計管理
+				3140 button 📁 報告管理
+					3141 text 📁
+					3142 text 報告管理
+				3143 button 📊 統計報表
+					3144 text 📊
+					3145 text 統計報表
+				3146 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					3147 text ⚙️
+					3148 text 基礎設置
+					3149 text ▶
+				3150 button 📖 字典管理
+				3151 button 🏢 客戶管理
+				3152 button 👤 用戶管理
+				3153 button 🖥️ 服務器空間
+				3154 button 📊 Excel 導入
+				3155 button 🧩 組件庫
+		52 container
+			53 heading 用戶管理, Value: 1, ID: pageTitle
+				3156 text 用戶管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			2794 button 林 林主管 管理員 · 管理部 ⌄, ID: userMenuBtn
+				3157 text 林
+				3158 text 林主管
+				3159 text 管理員 · 管理部
+				2798 text ⌄
+			3160 container
+				3161 heading 用戶管理, Value: 2
+					3162 text 用戶管理
+				3163 text 管理系統用戶、角色和權限配置。
+				3164 button 新增用戶
+				3165 heading 上線計劃與工作交接, Value: 2
+					3166 text 上線計劃與工作交接
+				3167 text 專案層級安排，非日常操作。
+				3168 content list
+					3169 container
+						3170 AXListMarker • 
+						3171 text 正式生效日 ：2027-01-01；生效前安排至少 1 個月全員並行試運行（Parallel Run）。
+					3172 container
+						3173 AXListMarker • 
+						3174 text 數據策略 ：不進行舊系統全量歷史遷移，新業務自生效日起於新系統錄入；歷史單據由舊渠道查詢。
+					3175 container
+						3176 AXListMarker • 
+						3177 text 主數據前置 ：上線前須完成地點（大地點＋子位置）、客戶、物料等主數據清洗與導入。
+					3178 container
+						3179 AXListMarker • 
+						3180 text 工作交接 ：沿用 OA／釘釘「流程交接」，員工離職或放長假（一週以上）時指定代理人，待辦流程與審批權限臨時轉移，假期結束後回復。
+				3181 heading 角色分類, Value: 3
+					3182 text 角色分類
+				3183 button 全部用戶 42
+					3184 text 全部用戶
+					3185 text 42
+				3186 button 客戶服務部 6
+					3187 text 客戶服務部
+					3188 text 6
+				3189 button 客戶關係部 3
+					3190 text 客戶關係部
+					3191 text 3
+				3192 button 主管 4
+					3193 text 主管
+					3194 text 4
+				3195 button 師傅 16
+					3196 text 師傅
+					3197 text 16
+				3198 button 報價組 3
+					3199 text 報價組
+					3200 text 3
+				3201 button 標書組 1
+					3202 text 標書組
+					3203 text 1
+				3204 button 採購部 3
+					3205 text 採購部
+					3206 text 3
+				3207 button 會計部 3
+					3208 text 會計部
+					3209 text 3
+				3210 button 管理員 2
+					3211 text 管理員
+					3212 text 2
+				3213 button 管理層 1
+					3214 text 管理層
+					3215 text 1
+				3216 text field (settable)
+				3217 pop up button (collapsed) 全部角色 ⌄, Secondary Actions: Expand
+				3218 pop up button (collapsed, settable) Value: 全部角色, Secondary Actions: Expand
+					3219 menu
+						3220 (selected) 全部角色
+						3221 客戶服務部
+						3222 客戶關係部
+						3223 主管
+						3224 師傅
+						3225 報價組
+						3226 標書組
+						3227 採購部
+						3228 會計部
+						3229 管理員
+						3230 管理層
+				3231 pop up button (collapsed) 全部狀態 ⌄, Secondary Actions: Expand
+				3232 pop up button (collapsed, settable) Value: 全部狀態, Secondary Actions: Expand
+					3233 menu
+						3234 (selected) 全部狀態
+						3235 啓用
+						3236 禁用
+						3237 離職
+				3238 table
+					3239 row
+						3240 cell
+							3241 text 用戶
+						3242 cell
+							3243 text 工號
+						3244 cell
+							3245 text 角色
+						3246 cell
+							3247 text 區域
+						3248 cell
+							3249 text 電話
+						3250 cell
+							3251 text 狀態
+						3252 cell
+							3253 text 最後登錄
+						3254 cell
+							3255 text 操作
+					3256 row
+						3257 cell
+							3258 text 陳
+							3259 container
+								3260 text 陳大文 master.chen@ecinfo.com
+						3261 cell
+							3262 text EMP0008
+						3263 cell
+							3264 text 師傅
+						3265 cell
+							3266 text 2區
+						3267 cell
+							3268 text +85291234567
+						3269 cell
+							3270 text 啓用
+						3271 cell
+							3272 text 2026-06-21 09:32
+						3273 cell
+							3274 button 查看
+							3275 button 編輯
+					3276 row
+						3277 cell
+							3278 text 陳
+							3279 container
+								3280 text 陳小姐 cs.chan@ecinfo.com
+						3281 cell
+							3282 text EMP0001
+						3283 cell
+							3284 text 客戶服務部
+						3285 cell
+							3286 text 1區
+						3287 cell
+							3288 text +85291001001
+						3289 cell
+							3290 text 啓用
+						3291 cell
+							3292 text 2026-06-21 08:15
+						3293 cell
+							3294 button 查看
+							3295 button 編輯
+					3296 row
+						3297 cell
+							3298 text 李
+							3299 container
+								3300 text 李組長 tl.lee@ecinfo.com
+						3301 cell
+							3302 text EMP0002
+						3303 cell
+							3304 text 主管
+						3305 cell
+							3306 text 2區
+						3307 cell
+							3308 text +85291002002
+						3309 cell
+							3310 text 啓用
+						3311 cell
+							3312 text 2026-06-21 08:45
+						3313 cell
+							3314 button 查看
+							3315 button 編輯
+					3316 row
+						3317 cell
+							3318 text 王
+							3319 container
+								3320 text 王組長 tl.wang@ecinfo.com
+						3321 cell
+							3322 text EMP0003
+						3323 cell
+							3324 text 主管
+						3325 cell
+							3326 text 3區
+						3327 cell
+							3328 text +85291003003
+						3329 cell
+							3330 text 啓用
+						3331 cell
+							3332 text 2026-06-20 17:20
+						3333 cell
+							3334 button 查看
+							3335 button 編輯
+					3336 row
+						3337 cell
+							3338 text 周
+							3339 container
+								3340 text 周師傅 master.zhou@ecinfo.com
+						3341 cell
+							3342 text EMP0004
+						3343 cell
+							3344 text 師傅
+						3345 cell
+							3346 text 2區
+						3347 cell
+							3348 text +85291004004
+						3349 cell
+							3350 text 啓用
+						3351 cell
+							3352 text 2026-06-21 10:05
+						3353 cell
+							3354 button 查看
+							3355 button 編輯
+					3356 row
+						3357 cell
+							3358 text 吳
+							3359 container
+								3360 text 吳師傅 master.wu@ecinfo.com
+						3361 cell
+							3362 text EMP0005
+						3363 cell
+							3364 text 師傅
+						3365 cell
+							3366 text 1區
+						3367 cell
+							3368 text +85291005005
+						3369 cell
+							3370 text 啓用
+						3371 cell
+							3372 text 2026-06-21 07:50
+						3373 cell
+							3374 button 查看
+							3375 button 編輯
+					3376 row
+						3377 cell
+							3378 text 黃
+							3379 container
+								3380 text 黃師傅 master.wong@ecinfo.com
+						3381 cell
+							3382 text EMP0006
+						3383 cell
+							3384 text 師傅
+						3385 cell
+							3386 text 3區
+						3387 cell
+							3388 text +85291006006
+						3389 cell
+							3390 text 啓用
+						3391 cell
+							3392 text 2026-06-20 16:30
+						3393 cell
+							3394 button 查看
+							3395 button 編輯
+					3396 row
+						3397 cell
+							3398 text 梁
+							3399 container
+								3400 text 梁師傅 master.leung@ecinfo.com
+						3401 cell
+							3402 text EMP0007
+						3403 cell
+							3404 text 師傅
+						3405 cell
+							3406 text 2區
+						3407 cell
+							3408 text +85291007007
+						3409 cell
+							3410 text 啓用
+						3411 cell
+							3412 text 2026-06-21 09:00
+						3413 cell
+							3414 button 查看
+							3415 button 編輯
+					3416 row
+						3417 cell
+							3418 text 林
+							3419 container
+								3420 text 林主管 admin.lam@ecinfo.com
+						3421 cell
+							3422 text EMP0009
+						3423 cell
+							3424 text 管理員
+						3425 cell
+							3426 text 1區
+						3427 cell
+							3428 text +85291009009
+						3429 cell
+							3430 text 啓用
+						3431 cell
+							3432 text 2026-06-21 08:00
+						3433 cell
+							3434 button 查看
+							3435 button 編輯
+					3436 row
+						3437 cell
+							3438 text 張
+							3439 container
+								3440 text 張主管 supervisor.cheung@ecinfo.com
+						3441 cell
+							3442 text EMP0010
+						3443 cell
+							3444 text 主管
+						3445 cell
+							3446 text 2區
+						3447 cell
+							3448 text +85291010010
+						3449 cell
+							3450 text 啓用
+						3451 cell
+							3452 text 2026-06-20 14:20
+						3453 cell
+							3454 button 查看
+							3455 button 編輯
+				3456 text 共 42 條記錄，第 1/5 頁
+				3457 button (disabled) ‹
+				3458 button 1
+				3459 button 2
+				3460 button 3
+				3461 button 4
+				3462 button 5
+				3463 button ›
+				3464 text 👤 點擊左側用戶查看詳情
+	3115 text 已切換至 林主管（管理員）
+	3465 container
+		3466 heading 新增用戶, Value: 3
+			3467 text 新增用戶
+		3468 text 填寫用戶基本資訊
+		3469 button ×
+		3470 container createUserForm
+			3471 text 基本資訊 用戶個人與帳號
+			3472 container
+				3473 text 姓名 *
+			3474 text field (settable)
+			3475 container
+				3476 text 工號 *
+			3477 text field (settable)
+			3478 container
+				3479 text 手機號 *
+			3480 text field (settable)
+			3481 text 郵箱
+			3482 text field (settable)
+			3483 container
+				3484 text 角色 *
+			3485 container
+				3486 pop up button (collapsed) 請選擇角色 ⌄, Secondary Actions: Expand
+				3487 pop up button (collapsed, settable) Value: 請選擇角色, Secondary Actions: Expand
+					3488 menu
+						3489 (selected) 請選擇角色
+						3490 客戶服務部
+						3491 客戶關係部
+						3492 主管
+						3493 師傅
+						3494 報價組
+						3495 標書組
+						3496 採購部
+						3497 會計部
+						3498 管理員
+						3499 管理層
+			3500 text 所屬區域
+			3501 container
+				3502 pop up button (collapsed) 請選擇區域 ⌄, Secondary Actions: Expand
+				3503 pop up button (collapsed, settable) Value: 請選擇區域, Secondary Actions: Expand
+					3504 menu
+						3505 (selected) 請選擇區域
+						3506 1區
+						3507 2區
+						3508 3區
+						3509 4區
+						3510 5區
+						3511 6區
+						3512 7區
+						3513 7A區
+						3514 8區
+						3515 MTR
+						3516 EMSD
+						3517 ASD
+						3518 軟件組
+						3519 EV Charge
+						3520 Maintenance-HTCL
+						3521 Project 1(生)
+						3522 Project 1 MTR
+						3523 Project 1(Sam)
+						3524 Project 1(Johnny)
+						3525 Project 1(Roy)
+						3526 Project 1(Eric)
+						3527 Project 2(Joe)
+						3528 Project 1-1541
+						3529 Project 1-1962EM20T
+						3530 Project 1-1105
+						3531 Project 1-2489
+						3532 Project 1-2458
+						3533 Project/Maintenance
+			3534 text 直屬主管
+			3535 text field (settable)
+			3536 text 初始密碼
+			3537 text field (settable)
+			3538 text 狀態
+			3539 container
+				3540 pop up button (collapsed) 啓用 ⌄, Secondary Actions: Expand
+				3541 pop up button (collapsed, settable) Value: 啓用, Secondary Actions: Expand
+					3542 menu
+						3543 (selected) 啓用
+						3544 禁用
+			3545 container
+				3546 button 取消
+				3547 button 保存
+
+The focused UI element is 3164 button 新增用戶

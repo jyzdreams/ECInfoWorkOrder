@@ -1,0 +1,97 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+- main:
+  - heading "會計管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "陳 陳會計 會計部 · 會計部 ⌄":
+    - generic: 陳
+    - strong: 陳會計
+    - generic: 會計部 · 會計部
+    - generic: ⌄
+  - button "開具發票"
+  - button "登記收款"
+  - heading "待開票" [level=3]
+  - generic: "31"
+  - generic: 普通維修完工接件／標書 ＋ 合約週期帳單
+  - heading "待收款" [level=3]
+  - generic: "1"
+  - generic: HKD 49,500
+  - heading "本月收款" [level=3]
+  - generic: 3,080
+  - generic: HKD
+  - heading "發票總數" [level=3]
+  - generic: "2"
+  - generic: 已開具發票
+  - button "待開票 (31)"
+  - button "發票管理 (2)"
+  - button "收款記錄 (1)"
+  - button "客戶檔案 (4)"
+  - button "保養合約 (3)"
+  - textbox "關鍵字（Job Code / 客戶 / 描述）": PM-SR-FINANCE
+  - textbox [active]
+  - button "全部類型 ⌄":
+    - generic: 全部類型
+    - generic: ⌄
+  - combobox:
+    - option "全部類型" [selected]
+    - option "工程"
+    - option "M類保養"
+  - button "清除"
+  - checkbox "全選"
+  - text: 全選
+  - generic: 已選 0 筆
+  - button "批量開具發票" [disabled]
+  - button "列印選取" [disabled]
+  - table:
+    - rowgroup:
+      - row "Job Code 客戶 描述 金額 類型 Billing Period 服務起止日期 付款週期 附件 狀態 操作":
+        - columnheader
+        - columnheader "Job Code"
+        - columnheader "客戶"
+        - columnheader "描述"
+        - columnheader "金額"
+        - columnheader "類型"
+        - columnheader "Billing Period"
+        - columnheader "服務起止日期"
+        - columnheader "付款週期"
+        - columnheader "附件"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "2P260016 港島商業中心 PM-SR-FINANCE-20261014 僅本地測試服務費 HKD 1,200 工程 — — 一次性 欠：完工紙 欠文件 查看工單 查看SR 開票":
+        - cell:
+          - checkbox [disabled]
+        - cell "2P260016":
+          - strong: 2P260016
+        - cell "港島商業中心"
+        - cell "PM-SR-FINANCE-20261014 僅本地測試服務費"
+        - cell "HKD 1,200"
+        - cell "工程":
+          - generic: 工程
+        - cell "—"
+        - cell "—"
+        - cell "一次性"
+        - cell "欠：完工紙"
+        - cell "欠文件":
+          - generic: 欠文件
+        - cell "查看工單 查看SR 開票":
+          - button "查看工單"
+          - button "查看SR"
+          - button "開票" [disabled]
+- generic: 歡迎回來，陳會計！

@@ -1,0 +1,262 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				2587 button 🏠 首頁
+					2588 text 🏠
+					2589 text 首頁
+				2590 button 📋 CALL管理
+					2591 text 📋
+					2592 text CALL管理
+				2593 button 📤 分派中心
+					2594 text 📤
+					2595 text 分派中心
+				2596 button 📅 保養計劃
+					2597 text 📅
+					2598 text 保養計劃
+				2599 button 💰 報價管理
+					2600 text 💰
+					2601 text 報價管理
+				2602 button 🛒 備貨管理
+					2603 text 🛒
+					2604 text 備貨管理
+				2605 button 📁 報告管理
+					2606 text 📁
+					2607 text 報告管理
+				2608 button 📊 統計報表
+					2609 text 📊
+					2610 text 統計報表
+				2611 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					2612 text ⚙️
+					2613 text 基礎設置
+					2614 text ▶
+				2615 container
+					2616 button 📖 字典管理
+					2617 button 🏢 客戶管理
+					2618 button 👤 用戶管理
+					2619 button 🖥️ 服務器空間
+					2620 button 📊 Excel 導入
+					2621 button 🧩 組件庫
+				2622 button 📱 移動端
+					2623 text 📱
+					2624 text 移動端
+		53 container
+			54 heading 報價管理, Value: 1, ID: pageTitle
+				2625 text 報價管理
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			2447 button 李 李關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				2626 text 李
+				2627 text 李關係
+				2628 text 客戶關係部 · 客戶關係部
+				2451 text ⌄
+			2629 container
+				2630 container 報價需求轉交
+					2631 heading 報價需求轉交, Value: 3
+						2632 text 報價需求轉交
+					2633 text 查看來源，將既有報價需求轉交報價組。
+					2634 table
+						2635 row
+							2636 cell
+								2637 text 來源
+							2638 cell
+								2639 text 客戶
+							2640 cell
+								2641 text 提出人
+							2642 cell
+								2643 text 狀態
+							2644 cell
+								2645 text 轉交記錄
+							2646 cell
+								2647 text 操作
+						2648 row
+							2649 cell
+								2650 text 暫無對應的報價需求
+				2651 text 報價狀態
+				2652 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2653 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2654 menu
+						2655 (selected) 全部
+						2656 待報價
+						2657 報價中
+						2658 需修訂
+						2659 已中單
+						2660 丟單
+				2661 text 類別
+				2662 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2663 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2664 menu
+						2665 (selected) 全部
+						2666 M（保養）
+						2667 P（工程）
+						2668 M+P（保養＋工程）
+				2669 text 區域
+				2670 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2671 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2672 menu
+						2673 (selected) 全部
+						2674 1區
+						2675 2區
+						2676 3區
+						2677 4區
+						2678 5區
+						2679 6區
+						2680 7區
+						2681 7A區
+						2682 8區
+						2683 MTR
+						2684 EMSD
+						2685 ASD
+						2686 軟件組
+						2687 EV Charge
+						2688 Maintenance-HTCL
+						2689 Project 1(生)
+						2690 Project 1 MTR
+						2691 Project 1(Sam)
+						2692 Project 1(Johnny)
+						2693 Project 1(Roy)
+						2694 Project 1(Eric)
+						2695 Project 2(Joe)
+						2696 Project 1-1541
+						2697 Project 1-1962EM20T
+						2698 Project 1-1105
+						2699 Project 1-2489
+						2700 Project 1-2458
+						2701 Project/Maintenance
+				2702 text 客戶
+				2703 pop up button (collapsed) 全部客戶 ⌄, Secondary Actions: Expand
+				2704 pop up button (collapsed, settable) Value: 全部客戶, Secondary Actions: Expand
+					2705 menu
+						2706 (selected) 全部客戶
+						2707 港島商業中心
+						2708 九龍國際廣場
+						2709 新界花園住宅
+						2710 香港政府大樓
+						2711 維多利亞酒店
+						2712 九龍灣工業大廈
+						2713 青衣邨住宅
+						2714 將軍澳醫院
+						2715 銅鑼灣購物中心
+						2716 荃灣工廠大廈
+						2717 觀塘住宅大廈
+						2718 西九龍文化中心
+				2719 text 關鍵詞搜索
+				2720 text field (settable)
+				2721 button 搜索
+				2722 button 重置
+				2723 button + 新增報價
+				2724 table
+					2725 row
+						2726 cell
+							2727 text 報價編號
+						2728 cell
+							2729 text 報價標題
+						2730 cell
+							2731 text 關聯工單
+						2732 cell
+							2733 text 客戶名稱
+						2734 cell
+							2735 text 類別
+						2736 cell
+							2737 text 報價狀態
+						2738 cell
+							2739 text 備貨狀態
+						2740 cell
+							2741 text 負責人
+						2742 cell
+							2743 text 報價日期
+						2744 cell
+							2745 text 報價金額
+						2746 cell
+							2747 text 操作
+					2748 row
+						2749 cell
+							2750 button QT-20260621-003
+						2751 cell
+							2752 text 監控設備安裝報價
+						2753 cell
+							2754 button WO-20260615-003
+						2755 cell
+							2756 text 新界花園住宅
+						2757 cell
+							2758 text -
+						2759 cell
+							2760 text 待報價
+						2761 cell
+							2762 text 未建立備貨單
+						2763 cell
+							2764 text 李組長
+						2765 cell
+							2766 text 2026-06-21
+						2767 cell
+							2768 text HKD 27,500
+						2769 cell
+							2770 button 報價
+							2771 button 详情
+					2772 row
+						2773 cell
+							2774 button QT-20260621-004
+						2775 cell
+							2776 text CCTV系統升級報價
+						2777 cell
+							2778 button WO-20260615-004
+						2779 cell
+							2780 text 香港政府大樓
+						2781 cell
+							2782 text -
+						2783 cell
+							2784 text 已中單
+						2785 cell
+							2786 text 已下單
+						2787 cell
+							2788 text 王組長
+						2789 cell
+							2790 text 2026-06-20
+						2791 cell
+							2792 text HKD 49,500
+						2793 cell
+							2794 button 详情
+					2795 row
+						2796 cell
+							2797 button QT-20260621-007
+						2798 cell
+							2799 text 水浸報警系統檢查報價
+						2800 cell
+							2801 button WO-20260614-008
+						2802 cell
+							2803 text 九龍灣工業大廈
+						2804 cell
+							2805 text -
+						2806 cell
+							2807 text 待報價
+						2808 cell
+							2809 text 未建立備貨單
+						2810 cell
+							2811 text 李組長
+						2812 cell
+							2813 text 2026-06-14
+						2814 cell
+							2815 text HKD 5,720
+						2816 cell
+							2817 button 報價
+							2818 button 详情
+				2819 text 共 3 條記錄，每頁
+				2820 pop up button (collapsed, settable) Description: 每頁顯示筆數, Value: 10, Secondary Actions: Expand
+					2821 menu
+						2822 (selected) 10
+						2823 20
+						2824 50
+				2825 text 條，第 1/1 頁
+				2826 button (disabled) ‹
+				2827 button 1
+				2828 button (disabled) ›
+	2586 text 已切換至 李關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

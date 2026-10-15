@@ -1,0 +1,25 @@
+{
+  "protectedFileCount": 802,
+  "changedOriginalFiles": [
+    ".github/README.md",
+    ".github/workflows/pages.yml",
+    "AGENTS.md",
+    "README.md",
+    "docs/governance/GITHUB-SUBMISSION-RULES.md",
+    "prototype/README.md",
+    "prototype/index.html",
+    "prototype/remediation.js",
+    "prototype/server.py"
+  ],
+  "unrelatedOriginalFilesPreserved": 793,
+  "stagedUnchanged": true,
+  "headUnchanged": true,
+  "branch": "codex/github-integration-20261014",
+  "browserGroupsPassed": 11,
+  "offlineAdapterCasesPassed": 8,
+  "prototypeMatchesCandidate": true,
+  "hubRebuilt": false,
+  "realWarehouseWrites": 0,
+  "committed": false,
+  "pushed": false
+}

@@ -1,0 +1,257 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				1481 button 🏠 首頁
+					1482 text 🏠
+					1483 text 首頁
+				1484 button 📋 CALL管理
+					1485 text 📋
+					1486 text CALL管理
+				1487 button 📤 分派中心
+					1488 text 📤
+					1489 text 分派中心
+				1490 button 📅 保養計劃
+					1491 text 📅
+					1492 text 保養計劃
+				1493 button 💰 報價管理
+					1494 text 💰
+					1495 text 報價管理
+				1496 button 🛒 備貨管理
+					1497 text 🛒
+					1498 text 備貨管理
+				1499 button 📁 報告管理
+					1500 text 📁
+					1501 text 報告管理
+				1502 button 📊 統計報表
+					1503 text 📊
+					1504 text 統計報表
+				1505 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					1506 text ⚙️
+					1507 text 基礎設置
+					1508 text ▶
+				1509 container
+					1510 button 📖 字典管理
+					1511 button 🏢 客戶管理
+					1512 button 👤 用戶管理
+					1513 button 🖥️ 服務器空間
+					1514 button 📊 Excel 導入
+					1515 button 🧩 組件庫
+				1516 button 📱 移動端
+					1517 text 📱
+					1518 text 移動端
+		53 container
+			54 heading 分派中心, Value: 1, ID: pageTitle
+				1519 text 分派中心
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			1124 button 陳 陳關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				1520 text 陳
+				1521 text 陳關係
+				1522 text 客戶關係部 · 客戶關係部
+				1128 text ⌄
+			1523 container
+				1524 tab group 派工狀態
+					1525 tab (selected, settable, boolean) 待分派 5, Value: 1
+待分派
+5
+					1526 tab (selectable, settable, boolean) 已分派 2, Value: 0
+已分派
+2
+					1527 tab (selectable, settable, boolean) 已完成 1, Value: 0
+已完成
+1
+				1528 text 狀態
+				1529 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1530 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1531 menu
+						1532 (selected) 全部
+						1533 待分派
+				1534 text 區域
+				1535 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1536 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1537 menu
+						1538 (selected) 全部
+						1539 1區
+				1540 text 客戶
+				1541 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1542 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1543 menu
+						1544 (selected) 全部
+						1545 港島商業中心
+				1546 text CALL類型
+				1547 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1548 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1549 menu
+						1550 (selected) 全部
+						1551 保養維修
+						1552 工程維修
+				1553 text 關鍵詞搜索
+				1554 text field (settable)
+				1555 button 搜索
+				1556 button 重置
+				1557 button 模擬超時, Help: 演示：將活躍工單的分派/接單/處理時間回撥5分鐘並立即觸發超時通知
+				1558 table
+					1559 row
+						1560 cell
+							1561 text 任務編號
+						1562 cell
+							1563 text 關聯工單
+						1564 cell
+							1565 text 客戶
+						1566 cell
+							1567 text 區域
+						1568 cell
+							1569 text CALL類型
+						1570 cell
+							1571 text 內容摘要
+						1572 cell
+							1573 text 目前師傅
+						1574 cell
+							1575 text 狀態
+						1576 cell
+							1577 text 分派時間
+						1578 cell
+							1579 text 更新時間
+						1580 cell
+							1581 text 操作
+					1582 row
+						1583 cell
+							1584 button T-261013-009
+						1585 cell
+							1586 button WO-20261013-003
+						1587 cell
+							1588 text 港島商業中心
+						1589 cell
+							1590 text 1區
+						1591 cell
+							1592 text 工程維修
+						1593 cell
+							1594 text PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。
+						1595 cell
+							1596 text -
+						1597 cell
+							1598 text 待分派
+						1599 cell
+							1600 text -
+						1601 cell
+							1602 text 10-13 20:24
+						1603 cell
+							1604 button 分派
+							1605 button 查看
+					1606 row
+						1607 cell
+							1608 button T-261013-010
+						1609 cell
+							1610 button WO-20261013-002
+						1611 cell
+							1612 text 港島商業中心
+						1613 cell
+							1614 text 1區
+						1615 cell
+							1616 text 工程維修
+						1617 cell
+							1618 text PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。
+						1619 cell
+							1620 text -
+						1621 cell
+							1622 text 待分派
+						1623 cell
+							1624 text -
+						1625 cell
+							1626 text 10-13 20:20
+						1627 cell
+							1628 button 分派
+							1629 button 查看
+					1630 row
+						1631 cell
+							1632 button T-261013-011
+						1633 cell
+							1634 button WO-20261013-001
+						1635 cell
+							1636 text 港島商業中心
+						1637 cell
+							1638 text 1區
+						1639 cell
+							1640 text 工程維修
+						1641 cell
+							1642 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。
+						1643 cell
+							1644 text -
+						1645 cell
+							1646 text 待分派
+						1647 cell
+							1648 text -
+						1649 cell
+							1650 text 10-13 17:51
+						1651 cell
+							1652 button 分派
+							1653 button 查看
+					1654 row
+						1655 cell
+							1656 button T-261013-012
+						1657 cell
+							1658 button WO-20260615-001
+						1659 cell
+							1660 text 港島商業中心
+						1661 cell
+							1662 text 1區
+						1663 cell
+							1664 text 保養維修
+						1665 cell
+							1666 text 客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。
+						1667 cell
+							1668 text -
+						1669 cell
+							1670 text 待分派
+						1671 cell
+							1672 text -
+						1673 cell
+							1674 text 06-15 09:10
+						1675 cell
+							1676 button 分派
+							1677 button 查看
+					1678 row
+						1679 cell
+							1680 button T-261013-013
+						1681 cell
+							1682 button WO-20260612-012
+						1683 cell
+							1684 text 港島商業中心
+						1685 cell
+							1686 text 1區
+						1687 cell
+							1688 text 工程維修
+						1689 cell
+							1690 text 客戶提出臨時設備測試需求，需 CS 確認是否進入派工。
+						1691 cell
+							1692 text -
+						1693 cell
+							1694 text 待分派
+						1695 cell
+							1696 text -
+						1697 cell
+							1698 text 06-12 09:00
+						1699 cell
+							1700 button 分派
+							1701 button 查看
+				1702 text 共 5 條，每頁
+				1703 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					1704 menu
+						1705 (selected) 10
+						1706 20
+						1707 50
+				1708 text 條，第 1/1 頁
+				1709 button (disabled) ‹
+				1710 button 1
+				1711 button (disabled) ›
+	1480 text 已切換至 陳關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

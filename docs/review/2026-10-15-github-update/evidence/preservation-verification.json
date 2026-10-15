@@ -1,0 +1,18 @@
+{
+  "remote": "f17aca30121ec398df25894644b4c9f216d9e924",
+  "protectedOriginalFiles": 820,
+  "changedOriginalFiles": [
+    "README.md",
+    "prototype/README.md",
+    "prototype/index.html",
+    "prototype/remediation.js"
+  ],
+  "unrelatedOriginalFilesPreserved": 816,
+  "stagedUnchanged": true,
+  "headUnchanged": true,
+  "browserGroupsPassed": 17,
+  "realWarehouseWrites": 0,
+  "hubRebuilt": false,
+  "committed": false,
+  "pushed": false
+}

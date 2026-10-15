@@ -1,0 +1,193 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
++	612 container
++		613 heading 新增報價, Value: 3
++			614 text 新增報價
++		615 button 關閉
++		616 container createQuotationForm
++			617 container
++				618 text 基本資訊 報價標題 *
++				619 text field (settable) 報價標題 *, ID: qf-title
++				620 text 報價編號 （自動生成）
++				621 text field 選擇類別和區域後自動生成
++				622 text 類別 *
++				623 pop up button (collapsed) P（工程） ⌄, Secondary Actions: Expand
++				624 pop up button (collapsed, settable) 類別 *, Value: P（工程）, ID: qf-category, Secondary Actions: Expand
++					625 menu
++						626 M（保養）
++						627 (selected) P（工程）
++						628 M+P（保養＋工程）
++				629 text 報價負責人 *
++				630 pop up button (collapsed) 系統管理員 ⌄, Secondary Actions: Expand
++				631 pop up button (collapsed, settable) 報價負責人 *, Value: 系統管理員, ID: qf-owner, Secondary Actions: Expand
++					632 menu
++						633 請選擇負責人
++						634 李組長
++						635 王組長
++						636 林主管
++						637 張主管
++						638 趙組長
++						639 (selected) 系統管理員
++				640 text 報價日期 *
++				641 date field (settable) 報價日期 *, Value: 2026-10-12, ID: qf-createdAt
++					642 container
++						643 stepper
++						644 stepper
++						645 stepper
++					646 pop up button 显示日期选择器 显示日期选择器
++				647 text 回覆截止日期
++				648 date field (settable) 回覆截止日期, Value: 2026-10-26, ID: qf-deadline
++					649 container
++						650 stepper
++						651 stepper
++						652 stepper
++					653 pop up button 显示日期选择器 显示日期选择器
++				654 text 有效期至
++				655 date field (settable) 有效期至, Value: 2026-11-11, ID: qf-validUntil
++					656 container
++						657 stepper
++						658 stepper
++						659 stepper
++					660 pop up button 显示日期选择器 显示日期选择器
++				661 text 貨期
++				662 stepper (settable, integer) 30
++				663 text –
++				664 stepper (settable)
++				665 pop up button (collapsed, settable) Value: days, Secondary Actions: Expand
++					666 menu
++						667 (selected) days
++						668 week
++				669 text ⌄ 30 days 付款方式
++				670 pop up button (collapsed) 完工後付（Post-payment） ⌄, Secondary Actions: Expand
++				671 pop up button (collapsed, settable) 付款方式, Value: 完工後付（Post-payment）, ID: qf-paymentMethod, Secondary Actions: Expand
++					672 menu
++						673 (selected) 完工後付（Post-payment）
++						674 先付全款（Pre-payment）
++						675 先付定金（Deposit）
++				676 text 保固期
++				677 pop up button (collapsed) 1年 ⌄, Secondary Actions: Expand
++				678 pop up button (collapsed, settable) 保固期, Value: 1年, ID: qf-warrantyPeriod, Secondary Actions: Expand
++					679 menu
++						680 無
++						681 3個月
++						682 60天
++						683 90天
++						684 (selected) 1年
++				685 text 關聯資訊 接受來源 *
++				686 pop up button (collapsed) 自主新增 ⌄, Secondary Actions: Expand
++				687 pop up button (collapsed, settable) 接受來源 *, Value: 自主新增, ID: qf-source, Secondary Actions: Expand
++					688 menu
++						689 請選擇接受來源
++						690 Service Report
++						691 CR
++						692 (selected) 自主新增
++				693 text 關聯客戶 *
++				694 pop up button (collapsed) 請選擇客戶 ⌄, Secondary Actions: Expand
++				695 pop up button (collapsed, settable) 關聯客戶 *, Value: 請選擇客戶, ID: qf-customerName, Secondary Actions: Expand
++					696 menu
++						697 (selected) 請選擇客戶
++						698 港島商業中心 (HK Commercial Center)
++						699 九龍國際廣場 (Kowloon International Plaza)
++						700 新界花園住宅 (NT Garden Residence)
++						701 香港政府大樓 (HK Government Building)
++						702 維多利亞酒店 (Victoria Hotel)
++						703 九龍灣工業大廈 (Kowloon Bay Industrial Building)
++						704 青衣邨住宅 (Tsing Yi Estate)
++						705 將軍澳醫院 (Tseung Kwan O Hospital)
++						706 銅鑼灣購物中心 (Causeway Bay Shopping Mall)
++						707 荃灣工廠大廈 (Tsuen Wan Factory Building)
++						708 觀塘住宅大廈 (Kwun Tong Residential Building)
++						709 西九龍文化中心 (West Kowloon Cultural Centre)
++				710 button ＋ 新增
++				711 text 區域 *
++				712 pop up button (collapsed) 請選擇區域 ⌄, Secondary Actions: Expand
++				713 pop up button (collapsed, settable) 區域 *, Value: 請選擇區域, ID: qf-area, Secondary Actions: Expand
++					714 menu
++						715 (selected) 請選擇區域
++						716 1區
++						717 2區
++						718 3區
++						719 4區
++						720 5區
++						721 6區
++						722 7區
++						723 7A區
++						724 8區
++						725 MTR
++						726 EMSD
++						727 ASD
++						728 軟件組
++						729 EV Charge
++						730 Maintenance-HTCL
++						731 Project 1(生)
++						732 Project 1 MTR
++						733 Project 1(Sam)
++						734 Project 1(Johnny)
++						735 Project 1(Roy)
++						736 Project 1(Eric)
++						737 Project 2(Joe)
++						738 Project 1-1541
++						739 Project 1-1962EM20T
++						740 Project 1-1105
++						741 Project 1-2489
++						742 Project 1-2458
++						743 Project/Maintenance
++				744 text 政府邀請報價 (Invite Tender)
++				745 checkbox (settable, integer) Description: 啟用邀請報價, Value: 0, ID: isInviteTenderChk
++				746 text 啟用邀請報價 適用政府客戶（EMSD 等）的正式邀請報價；啟用後自動產生 Project Job 編號，並可填寫客戶提供的邀請編號 物料明細
++				747 button + 新增物料, ID: qfAddItemBtn
++				748 table
++					749 row
++						750 cell
++							751 text 物料名稱
++						752 cell
++							753 text 規格/型號
++						754 cell
++							755 text 數量
++						756 cell
++							757 text 單位
++						758 cell 該物料／服務的具體施工位置（選填）
++							759 text Location
++						760 cell 該行的補充備註（選填）
++							761 text 備註
++					762 row
++						763 cell
++							764 text field (settable)
++						765 cell
++							766 text field (settable)
++						767 cell
++							768 stepper (settable, integer) 1
++						769 cell
++							770 container
++								771 pop up button (collapsed) 個 ⌄, Secondary Actions: Expand
++								772 pop up button (collapsed, settable) Value: 個, Secondary Actions: Expand
++									773 menu
++										774 (selected) 個
++										775 套
++										776 件
++										777 批
++										778 箱
++						779 cell
++							780 text field (settable)
++						781 cell
++							782 text field (settable)
++						783 cell
++							784 button ×, Help: 刪除
++				785 text 總價（HKD）
++				786 stepper (settable, integer) 總價（HKD）, Value: 0, ID: qf-amount
++				787 text 折扣（%）
++				788 stepper (settable, integer) 折扣（%）, Value: 0, ID: qf-discount
++				789 text 報價總金額 HKD
++				790 text 0.00
++				791 text 庫存判定 查閱庫存數量與價錢（三態）
++				792 pop up button (collapsed) 請選擇庫存判定 ⌄, Secondary Actions: Expand
++				793 pop up button (collapsed, settable) 庫存判定 查閱庫存數量與價錢（三態）, Value: 請選擇庫存判定, ID: qf-inventoryStatus, Secondary Actions: Expand
++					794 menu
++						795 (selected) 請選擇庫存判定
++						796 有存貨 有參考價錢
++						797 無存貨 有參考價錢
++						798 未知貨品 無參考價錢（需向採購部索取預估價）
++				799 text 備註
++				800 text entry area (settable) 備註, ID: qf-remark
++			801 button 新建報價
+The focused UI element is 340 button + 新增報價

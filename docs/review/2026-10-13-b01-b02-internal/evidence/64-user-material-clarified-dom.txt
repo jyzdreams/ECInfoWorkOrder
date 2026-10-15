@@ -1,0 +1,335 @@
+- complementary:
+  - generic: EC
+  - strong: Project Hub
+  - generic: 事实与交付中心
+  - navigation:
+    - button "01 业务全景":
+      - generic: "01"
+      - text: 业务全景
+    - button "02 业务流程":
+      - generic: "02"
+      - text: 业务流程
+    - button "03 系统需求":
+      - generic: "03"
+      - text: 系统需求
+    - button "04 原型与设计":
+      - generic: "04"
+      - text: 原型与设计
+    - button "05 待确认问题":
+      - generic: "05"
+      - text: 待确认问题
+    - button "06 项目状态":
+      - generic: "06"
+      - text: 项目状态
+    - button "A 证据与追溯":
+      - generic: A
+      - text: 证据与追溯
+  - link "历史知识库 ↗":
+    - /url: ../knowledge-base/index.html
+  - link "当前原型 ↗":
+    - /url: ../prototype/index.html
+  - link "维护说明 ↗":
+    - /url: README.md
+  - link "知识同步协议 ↗":
+    - /url: ../docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md
+- main:
+  - paragraph: EC 工单系统 · Single Source of Truth
+  - heading "业务全景" [level=1]
+  - generic: ⌕
+  - searchbox "⌕"
+  - heading "材料交接已按你的说明记录" [level=2]
+  - paragraph: 已按你的说明记录：仓管在仓库通负责备货并确认材料备齐，一般由主管安排师傅施工。
+  - paragraph: 业务顺序：中单/中标后主管在EC工单系统看到待安排施工，备货完成后安排；师傅带材料和Service Report去现场。
+  - paragraph: 本轮已说明仓管/仓库通、主管在EC查看及施工顺序；当前没有待回答的岗位或系统问题，后续资料仍不清楚再逐项向用户核实。
+  - paragraph: 下一步：Codex核对中单/中标后EC待安排任务、仓库通备齐结果在EC的承接、施工门槛及师傅出发前Service Report入口；未核映射不填默认规则。
+  - link "查看例子和依据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - heading "首批内部核对与整改复测 · 2026-10-13" [level=2]
+  - paragraph: 交付分页面板重绘问题已修复；保固期与截止日期保存、清空、刷新及两个新增入口默认显示已局部复测。TASK-045继续进行中；材料断点、有效期细则和精确编号仍未解决，完整维修链未通过，暂不客户定稿。
+  - link "需求与流程对照":
+    - /url: ../docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - link "整改前走查":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md
+  - link "首轮整改证据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md
+  - link "报价局部整改证据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/QUOTATION-REMEDIATION-RESULT.md
+  - link "材料断点候选":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - paragraph: 本页展示知识和版本验证结论；任务进度只维护README指定Excel。 已实现、内部子项通过、客户批准和业务验收分别记录。
+  - heading "定稿准备 · 2026-10-12" [level=2]
+  - paragraph: 已核对39项沟通要求，整理16个客户决策主题。原80个REQ保留；客户范围、原型全链验收和签收尚未完成。
+  - link "打开推进总表":
+    - /url: ../outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%8E%A8%E8%BF%9B%E6%80%BB%E8%A1%A8-v2.xlsx
+  - link "客户范围与问题表":
+    - /url: ../outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E5%AE%A2%E6%88%B7%E8%8C%83%E5%9B%B4%E4%B8%8E%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4%E8%A1%A8-v1.xlsx
+  - link "本轮原型复核":
+    - /url: ../docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md
+  - paragraph: 仅README指定Excel维护任务进度；本页统计为知识主题关联。 下一步：先内部核对需求与流程、实际走查原型并处理明确缺口，再准备客户评审方案。必要信息可提前澄清。
+  - paragraph: EC 工单系统 · Business Flow First
+  - heading "EC 真实业务地图" [level=2]
+  - paragraph: 客户需求进入报价，经中单 Gate 分流至 M / P / M+P，最终汇合到服务、SR 与完成；点击节点可下钻查看依据。
+  - generic: 报价生命周期 → 中单 Gate → M / P / M+P → 履约 / SR / 完成
+  - generic: ▲ 报价任务 ↓
+  - generic: "01"
+  - strong: 业务入口与报价生命周期
+  - generic: 客户需求进入报价，客户接受最终版本后，由报价组确认中单
+  - button "客户需求 提出需求 →":
+    - strong: 客户需求
+    - generic: 提出需求
+    - text: →
+  - button "CS / CR 识别与受理 →":
+    - strong: CS / CR
+    - generic: 识别与受理
+    - text: →
+  - button "报价任务 进入报价链路 →":
+    - strong: 报价任务
+    - generic: 进入报价链路
+    - text: →
+  - button "报价组 R1 / R2 / R3… →":
+    - strong: 报价组
+    - generic: R1 / R2 / R3…
+    - text: →
+  - button "客户确认 接受最终报价 →":
+    - strong: 客户确认
+    - generic: 接受最终报价
+    - text: →
+  - button "中单 Gate 报价组确认中单":
+    - strong: 中单 Gate
+    - generic: 报价组确认中单
+  - generic: ↓ 中单后按业务类型分流
+  - generic: "02"
+  - strong: 中单后业务分流
+  - generic: 首页只展示履约骨架，详细节点在业务流程页查看
+  - button "P Project / 报价维修":
+    - generic: P
+    - generic: Project / 报价维修
+  - button "自动生成 MR ›"
+  - button "材料 / 采购 ›"
+  - button "正式服务时间 ›"
+  - button "施工"
+  - button "M Maintenance / 周期保养":
+    - generic: M
+    - generic: Maintenance / 周期保养
+  - button "整期 Maintenance Plan ›"
+  - button "周期排期 ›"
+  - button "上门保养"
+  - generic: M+P
+  - generic: 同一报价 · 中单后双线推进
+  - generic: 同一报价 → 中单 → M + P
+  - button "M 线 Maintenance":
+    - strong: M 线
+    - generic: Maintenance
+  - button "P 线 MR / 材料 / 施工":
+    - strong: P 线
+    - generic: MR / 材料 / 施工
+  - paragraph: 独立或并行推进 · 无固定先后顺序
+  - generic: ↓ P 施工 / M 保养 / M+P 对应业务执行汇合
+  - generic: "03"
+  - strong: 履约汇合与业务完成
+  - generic: 现场执行结果统一进入客户确认、SR 与完工确认
+  - button "现场服务 施工 / 保养 →":
+    - strong: 现场服务
+    - generic: 施工 / 保养
+    - text: →
+  - button "客户确认 / 签名 确认现场结果 →":
+    - strong: 客户确认 / 签名
+    - generic: 确认现场结果
+    - text: →
+  - button "Service Report 师傅提交 SR →":
+    - strong: Service Report
+    - generic: 师傅提交 SR
+    - text: →
+  - button "CR / 主管确认 简单确认 →":
+    - strong: CR / 主管确认
+    - generic: 简单确认
+    - text: →
+  - button "完成 工单 / 本次保养完成":
+    - strong: 完成
+    - generic: 工单 / 本次保养完成
+  - generic: Service Report
+  - strong: 需要报价？
+  - button "↖ 是 ↖ 回到顶部「报价任务」 重新进入报价生命周期":
+    - text: ↖
+    - generic: 是
+    - generic: ↖ 回到顶部「报价任务」
+    - generic: 重新进入报价生命周期
+  - generic: 否
+  - generic: CR / 主管确认
+  - generic: →
+  - generic: 完成
+  - strong: 业务完成 ≠ 收款完成
+  - generic: 财务独立跟踪
+  - complementary:
+    - text: 特殊入口
+    - heading "CM" [level=3]
+    - generic: PARTIAL
+    - generic: CM
+    - generic: →
+    - generic: 指定师傅
+    - generic: →
+    - generic: 服务
+    - generic: →
+    - generic: SR
+    - generic: →
+    - generic: 完成
+    - text: 时间冲突
+    - generic: PENDING
+    - button "查看场景 →"
+    - text: 特殊入口
+    - heading "Government Tender" [level=3]
+    - generic: PARTIAL
+    - generic: Tender
+    - generic: →
+    - generic: 报价 / 回标
+    - generic: →
+    - generic: 结果
+    - generic: 中标
+    - strong: → M / P / M+P
+    - button "查看场景 →"
+  - heading "7 个核心业务场景" [level=2]
+  - paragraph: 点击已有入口进入对应业务流程；M+P 暂无独立详情页，仅保留入口状态
+  - button "01 CONFIRMED 普通报价维修 报价中单后自动生成 MR，材料就绪后确认时间并施工。 待确认 7":
+    - generic: "01"
+    - generic: CONFIRMED
+    - heading "普通报价维修" [level=3]
+    - paragraph: 报价中单后自动生成 MR，材料就绪后确认时间并施工。
+    - generic: 待确认 7
+  - button "02 CONFIRMED 保养发现问题后二次维修 保养 SR 选择需要报价，回到报价、中单、MR 与二次上门。 待确认 2":
+    - generic: "02"
+    - generic: CONFIRMED
+    - heading "保养发现问题后二次维修" [level=3]
+    - paragraph: 保养 SR 选择需要报价，回到报价、中单、MR 与二次上门。
+    - generic: 待确认 2
+  - button "03 PARTIAL 现场即时维修 现场即时处理真实存在；收款登记、交款和对账仍待确认。 待确认 1":
+    - generic: "03"
+    - generic: PARTIAL
+    - heading "现场即时维修" [level=3]
+    - paragraph: 现场即时处理真实存在；收款登记、交款和对账仍待确认。
+    - generic: 待确认 1
+  - button "04 CONFIRMED 周期保养 中单后生成整期 Maintenance Plan，按周期排期和上门保养。 待确认 4":
+    - generic: "04"
+    - generic: CONFIRMED
+    - heading "周期保养" [level=3]
+    - paragraph: 中单后生成整期 Maintenance Plan，按周期排期和上门保养。
+    - generic: 待确认 4
+  - generic "该场景暂无独立详情页":
+    - generic: "05"
+    - generic: CONFIRMED
+    - heading "M+P" [level=3]
+    - paragraph: 同一报价下 M 与 P 独立或并行推进，没有固定先后顺序。
+    - generic: 独立入口 · 详情待后续建立
+  - button "06 PARTIAL CM CR / 主管直接指定师傅；时间冲突处理仍待确认。 待确认 2":
+    - generic: "06"
+    - generic: PARTIAL
+    - heading "CM" [level=3]
+    - paragraph: CR / 主管直接指定师傅；时间冲突处理仍待确认。
+    - generic: 待确认 2
+  - button "07 PARTIAL Government Tender 报价 / 回标后判断结果，中标后进入 M、P 或 M+P。 待确认 1":
+    - generic: "07"
+    - generic: PARTIAL
+    - heading "Government Tender" [level=3]
+    - paragraph: 报价 / 回标后判断结果，中标后进入 M、P 或 M+P。
+    - generic: 待确认 1
+  - heading "项目状态摘要" [level=2]
+  - paragraph: 业务地图之后再看确认、缺口和交付覆盖
+  - button "17 历史讨论记录":
+    - strong: "17"
+    - text: 历史讨论记录
+  - button "16 Pending / Open":
+    - strong: "16"
+    - text: Pending / Open
+  - button "6 Conflict":
+    - strong: "6"
+    - text: Conflict
+  - button "119 80历史REQ＋39补录":
+    - strong: "119"
+    - text: 80历史REQ＋39补录
+  - button "25% 主题关联（非验收）":
+    - strong: 25%
+    - text: 主题关联（非验收）
+  - button "2.0 Prototype":
+    - strong: "2.0"
+    - text: Prototype
+  - heading "角色地图" [level=2]
+  - paragraph: 角色职责、负责阶段和参与流程来自现有角色资料与 Flow 关联；待映射表示现有 Flow 未明确该角色
+  - button "CS 客户服务部 参与：真实业务总流程、普通报价维修、CM":
+    - strong: CS
+    - generic: 客户服务部
+    - generic: 参与：真实业务总流程、普通报价维修、CM
+  - button "CR 客户关系部 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修":
+    - strong: CR
+    - generic: 客户关系部
+    - generic: 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+  - button "TL 主管 / Team Leader 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修":
+    - strong: TL
+    - generic: 主管 / Team Leader
+    - generic: 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+  - button "MASTER 师傅 / 现场维修人员 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修":
+    - strong: MASTER
+    - generic: 师傅 / 现场维修人员
+    - generic: 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+  - button "QUO 报价组 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修":
+    - strong: QUO
+    - generic: 报价组
+    - generic: 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+  - button "TENDER 标书组 参与：Government Tender":
+    - strong: TENDER
+    - generic: 标书组
+    - generic: 参与：Government Tender
+  - button "PUR 采购部 参与：MR申请与仓库交接":
+    - strong: PUR
+    - generic: 采购部
+    - generic: 参与：MR申请与仓库交接
+  - button "WAREHOUSE 仓务部 参与：普通报价维修、保养发现问题后二次维修、MR申请与仓库交接":
+    - strong: WAREHOUSE
+    - generic: 仓务部
+    - generic: 参与：普通报价维修、保养发现问题后二次维修、MR申请与仓库交接
+  - button "PROJECT Project 主管 参与：待映射":
+    - strong: PROJECT
+    - generic: Project 主管
+    - generic: 参与：待映射
+  - button "FIN 会计部 参与：真实业务总流程、普通报价维修、现场即时维修":
+    - strong: FIN
+    - generic: 会计部
+    - generic: 参与：真实业务总流程、普通报价维修、现场即时维修
+  - button "ADMIN 管理员 参与：待映射":
+    - strong: ADMIN
+    - generic: 管理员
+    - generic: 参与：待映射
+  - button "BOSS 管理层 参与：待映射":
+    - strong: BOSS
+    - generic: 管理层
+    - generic: 参与：待映射
+  - heading "当前关键业务问题" [level=2]
+  - button "P0 本期纳入哪些业务，哪些明确放后续？"
+  - button "P0 各业务对象的状态含义、入口和终态怎样对应？"
+  - button "P0 实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？"
+  - button "P0 EC与仓库通分别填写和确认哪些MR/备货字段，如何回传材料就绪？"
+  - button "P0 CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？"
+  - button "查看全部业务问题 →"
+  - heading "项目交付状态" [level=2]
+  - paragraph: 交付状态放在业务理解之后；仅表示资料与追溯核验程度
+  - button "PRD DRAFT 4 个文件 · 待内容核验":
+    - strong: PRD
+    - generic: DRAFT
+    - generic: 4 个文件 · 待内容核验
+  - button "Prototype PARTIAL 1 个文件 · 待内容核验":
+    - strong: Prototype
+    - generic: PARTIAL
+    - generic: 1 个文件 · 待内容核验
+  - button "SDD DRAFT 3 个文件 · 待内容核验":
+    - strong: SDD
+    - generic: DRAFT
+    - generic: 3 个文件 · 待内容核验
+  - button "TDD DRAFT 1 个文件 · 待内容核验":
+    - strong: TDD
+    - generic: DRAFT
+    - generic: 1 个文件 · 待内容核验
+  - button "Testing DRAFT 1 个文件 · 待内容核验":
+    - strong: Testing
+    - generic: DRAFT
+    - generic: 1 个文件 · 待内容核验
+- complementary:
+  - button: ×
+- status

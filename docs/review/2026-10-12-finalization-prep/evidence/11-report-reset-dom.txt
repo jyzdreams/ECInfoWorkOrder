@@ -1,0 +1,63 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~					1223 pop up button (collapsed) 全部目的 ⌄, Secondary Actions: Expand
+~					1224 pop up button (collapsed, settable) Value: 全部目的, Secondary Actions: Expand
+~							1226 (selected) 全部目的
+~							1227 Routine Check
+~							1263 text SR-250412
+~							1265 button WO-20260613-010
+~							1267 text 灣仔商業大廈
+~							1271 text IT、Doorphone
+~							1273 text Others
+~							1275 text 非保養
+~							1277 text 處理中
+~							1279 text 06-13 14:35
++					1283 row
++						1284 cell
++							1285 text 服務報告
++						1286 cell
++							1287 text SR-250315
++						1288 cell
++							1289 button WO-20260614-006
++						1290 cell
++							1291 text 港島商業中心
++						1292 cell
++							1293 text 1區
++						1294 cell
++							1295 text Access Control
++						1296 cell
++							1297 text Routine Check
++						1298 cell
++							1299 text 季檢
++						1300 cell
++							1301 text 已完成
++						1302 cell
++							1303 text 06-14 14:10
++						1304 cell
++							1305 button 查看工單
++							1306 button 查看報告
++					1307 row
++						1308 cell
++							1309 text 服務報告
++						1310 cell
++							1311 text SR-250298
++						1312 cell
++							1313 button WO-20260613-009
++						1314 cell
++							1315 text 安全監控管理有限公司
++						1316 cell
++							1317 text 2區
++						1318 cell
++							1319 text CCTV
++						1320 cell
++							1321 text Fault Report
++						1322 cell
++							1323 text 非保養
++						1324 cell
++							1325 text 已完成
++						1326 cell
++							1327 text 06-13 11:10
++						1328 cell
++							1329 button 查看工單
++							1330 button 查看報告
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html

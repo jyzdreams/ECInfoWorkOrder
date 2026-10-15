@@ -1,0 +1,380 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				3116 button 🏠 首頁
+					3117 text 🏠
+					3118 text 首頁
+				3119 button 📋 CALL管理
+					3120 text 📋
+					3121 text CALL管理
+				3122 button 📤 分派中心
+					3123 text 📤
+					3124 text 分派中心
+				3125 button 📅 保養計劃
+					3126 text 📅
+					3127 text 保養計劃
+				3128 button 💰 報價管理
+					3129 text 💰
+					3130 text 報價管理
+				3131 button 📑 標書管理
+					3132 text 📑
+					3133 text 標書管理
+				3134 button 🛒 備貨管理
+					3135 text 🛒
+					3136 text 備貨管理
+				3137 button 💵 會計管理
+					3138 text 💵
+					3139 text 會計管理
+				3140 button 📁 報告管理
+					3141 text 📁
+					3142 text 報告管理
+				3143 button 📊 統計報表
+					3144 text 📊
+					3145 text 統計報表
+				3146 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					3147 text ⚙️
+					3148 text 基礎設置
+					3149 text ▶
+				3150 button 📖 字典管理
+				3151 button 🏢 客戶管理
+				3152 button 👤 用戶管理
+				3153 button 🖥️ 服務器空間
+				3154 button 📊 Excel 導入
+				3155 button 🧩 組件庫
+		52 container
+			53 heading 客戶管理, Value: 1, ID: pageTitle
+				3156 text 客戶管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			2794 button 林 林主管 管理員 · 管理部 ⌄, ID: userMenuBtn
+				3157 text 林
+				3158 text 林主管
+				3159 text 管理員 · 管理部
+				2798 text ⌄
+			3160 container
+				3161 button 查看客戶總數
+					3162 heading 客戶總數, Value: 3
+						3163 text 客戶總數
+					3164 text 12
+					3165 text 全部客戶
+				3166 button 查看政府客戶
+					3167 heading 政府客戶, Value: 3
+						3168 text 政府客戶
+					3169 text 3
+					3170 text 政府合約客戶
+				3171 button 查看私人客戶
+					3172 heading 私人客戶, Value: 3
+						3173 text 私人客戶
+					3174 text 9
+					3175 text 私人客戶
+				3176 button 查看VIP 客戶
+					3177 heading VIP 客戶, Value: 3
+						3178 text VIP 客戶
+					3179 text 4
+					3180 text 重點維護客戶
+				3181 text 關鍵詞搜索
+				3182 text field (settable)
+				3183 text 客戶等級
+				3184 pop up button (collapsed) 全部等級 ⌄, Secondary Actions: Expand
+				3185 pop up button (collapsed, settable) Value: 全部等級, Secondary Actions: Expand
+					3186 menu
+						3187 (selected) 全部等級
+						3188 普通
+						3189 VIP
+						3190 重要
+				3191 text 客戶狀態
+				3192 pop up button (collapsed) 全部狀態 ⌄, Secondary Actions: Expand
+				3193 pop up button (collapsed, settable) Value: 全部狀態, Secondary Actions: Expand
+					3194 menu
+						3195 (selected) 全部狀態
+						3196 啟用
+						3197 禁用
+				3198 button 新增客戶
+				3199 table
+					3200 row
+						3201 cell
+							3202 text 客戶編號
+						3203 cell
+							3204 text 客戶名稱
+						3205 cell
+							3206 text 類型
+						3207 cell
+							3208 text 合約編號
+						3209 cell
+							3210 text 等級
+						3211 cell
+							3212 text 狀態
+						3213 cell
+							3214 text 區域
+						3215 cell
+							3216 text 主要聯繫人
+						3217 cell
+							3218 text 操作
+					3219 row
+						3220 cell
+							3221 button CUST-0001
+						3222 cell
+							3223 text 港島商業中心
+							3224 text HK Commercial Center
+						3225 cell
+							3226 text 私人
+						3227 cell
+							3228 text —
+						3229 cell
+							3230 text VIP
+						3231 cell
+							3232 text 啓用
+						3233 cell
+							3234 text 1區
+						3235 cell
+							3236 text 陳先生
+							3237 text +852 9123 4567
+						3238 cell
+							3239 button 查看
+							3240 button 編輯
+					3241 row
+						3242 cell
+							3243 button CUST-0002
+						3244 cell
+							3245 text 九龍國際廣場
+							3246 text Kowloon International Plaza
+						3247 cell
+							3248 text 私人
+						3249 cell
+							3250 text —
+						3251 cell
+							3252 text 重要
+						3253 cell
+							3254 text 啓用
+						3255 cell
+							3256 text 2區
+						3257 cell
+							3258 text 李小姐
+							3259 text +852 9234 5678
+						3260 cell
+							3261 button 查看
+							3262 button 編輯
+					3263 row
+						3264 cell
+							3265 button CUST-0003
+						3266 cell
+							3267 text 新界花園住宅
+							3268 text NT Garden Residence
+						3269 cell
+							3270 text 私人
+						3271 cell
+							3272 text —
+						3273 cell
+							3274 text 普通
+						3275 cell
+							3276 text 啓用
+						3277 cell
+							3278 text 3區
+						3279 cell
+							3280 text 張女士
+							3281 text +852 9345 6789
+						3282 cell
+							3283 button 查看
+							3284 button 編輯
+					3285 row
+						3286 cell
+							3287 button CUST-0004
+						3288 cell
+							3289 text 香港政府大樓
+							3290 text HK Government Building
+						3291 cell
+							3292 text 政府
+						3293 cell
+							3294 text 0471667
+						3295 cell
+							3296 text 重要
+						3297 cell
+							3298 text 啓用
+						3299 cell
+							3300 text 1區
+						3301 cell
+							3302 text 何先生
+							3303 text +852 9456 7890
+						3304 cell
+							3305 button 查看
+							3306 button 編輯
+					3307 row
+						3308 cell
+							3309 button CUST-0005
+						3310 cell
+							3311 text 維多利亞酒店
+							3312 text Victoria Hotel
+						3313 cell
+							3314 text 私人
+						3315 cell
+							3316 text —
+						3317 cell
+							3318 text VIP
+						3319 cell
+							3320 text 啓用
+						3321 cell
+							3322 text 1區
+						3323 cell
+							3324 text 陳經理
+							3325 text +852 9567 8901
+						3326 cell
+							3327 button 查看
+							3328 button 編輯
+					3329 row
+						3330 cell
+							3331 button CUST-0006
+						3332 cell
+							3333 text 九龍灣工業大廈
+							3334 text Kowloon Bay Industrial Building
+						3335 cell
+							3336 text 私人
+						3337 cell
+							3338 text —
+						3339 cell
+							3340 text 普通
+						3341 cell
+							3342 text 啓用
+						3343 cell
+							3344 text 2區
+						3345 cell
+							3346 text 黃先生
+							3347 text +852 9678 9012
+						3348 cell
+							3349 button 查看
+							3350 button 編輯
+					3351 row
+						3352 cell
+							3353 button CUST-0007
+						3354 cell
+							3355 text 青衣邨住宅
+							3356 text Tsing Yi Estate
+						3357 cell
+							3358 text 私人
+						3359 cell
+							3360 text —
+						3361 cell
+							3362 text 普通
+						3363 cell
+							3364 text 啓用
+						3365 cell
+							3366 text 3區
+						3367 cell
+							3368 text 林小姐
+							3369 text +852 9789 0123
+						3370 cell
+							3371 button 查看
+							3372 button 編輯
+					3373 row
+						3374 cell
+							3375 button CUST-0008
+						3376 cell
+							3377 text 將軍澳醫院
+							3378 text Tseung Kwan O Hospital
+						3379 cell
+							3380 text 政府
+						3381 cell
+							3382 text 0482334
+						3383 cell
+							3384 text 重要
+						3385 cell
+							3386 text 啓用
+						3387 cell
+							3388 text 3區
+						3389 cell
+							3390 text 周醫生
+							3391 text +852 9890 1234
+						3392 cell
+							3393 button 查看
+							3394 button 編輯
+					3395 row
+						3396 cell
+							3397 button CUST-0009
+						3398 cell
+							3399 text 銅鑼灣購物中心
+							3400 text Causeway Bay Shopping Mall
+						3401 cell
+							3402 text 私人
+						3403 cell
+							3404 text —
+						3405 cell
+							3406 text VIP
+						3407 cell
+							3408 text 啓用
+						3409 cell
+							3410 text 1區
+						3411 cell
+							3412 text 吳小姐
+							3413 text +852 9901 2345
+						3414 cell
+							3415 button 查看
+							3416 button 編輯
+					3417 row
+						3418 cell
+							3419 button CUST-0010
+						3420 cell
+							3421 text 荃灣工廠大廈
+							3422 text Tsuen Wan Factory Building
+						3423 cell
+							3424 text 私人
+						3425 cell
+							3426 text —
+						3427 cell
+							3428 text 普通
+						3429 cell
+							3430 text 禁用
+						3431 cell
+							3432 text 3區
+						3433 cell
+							3434 text 鄭先生
+							3435 text +852 9012 3456
+						3436 cell
+							3437 button 查看
+							3438 button 編輯
+				3439 text 共 12 條記錄，第 1/2 頁
+				3440 button (disabled) ‹
+				3441 button 1
+				3442 button 2
+				3443 button ›
+	3115 text 已切換至 林主管（管理員）
+	3444 container 客戶詳情
+		3445 container
+			3446 heading 客戶詳情, Value: 2
+				3447 text 客戶詳情
+			3448 button 關閉
+		3449 container
+			3450 text 香
+			3451 heading 香港政府大樓, Value: 3
+				3452 text 香港政府大樓
+			3453 text HK Government Building · CUST-0004
+			3454 button 編輯
+			3455 button 刪除
+			3456 heading 基本資訊, Value: 4
+				3457 text 基本資訊
+			3458 text 客戶名稱（中文） 香港政府大樓 客戶名稱（英文） HK Government Building 客戶編號 CUST-0004 Peachtree ID 未對應 客戶類型 政府 合約編號 0471667 J Number J 12345 工單前綴 ECA 客戶等級 重要 客戶狀態 啓用 創建時間 2026-01-20 創建人 CS-001
+			3459 heading 聯繫人資訊, Value: 4
+				3460 text 聯繫人資訊
+			3461 text 會計部聯絡人 —
+			3462 heading 聯繫人 1, Value: 4
+				3463 text 聯繫人 1
+			3464 text 姓名 何先生 職位 設施管理主任 電話 +852 9456 7890 WhatsApp +852 9456 7890 郵箱 ho@gov.hk
+			3465 heading 地址資訊, Value: 4
+				3466 text 地址資訊
+			3467 heading 地址 1, Value: 4
+				3468 text 地址 1
+			3469 text 區域 1區 中文地址 金鐘添馬艦政府總部 英文地址 Central Government Offices, Admiralty 默認Team Leader TL-001 是否不可拍照 是 不可拍照原因 政府保密要求
+			3470 heading 合約信息（預留）, Value: 4
+				3471 text 合約信息（預留）
+			3472 text 項目編號 待補充 合約編號 待補充 合約週期 待補充 服務類型 待補充
+			3473 heading 客戶統計, Value: 4
+				3474 text 客戶統計
+			3475 text 22 累計工單數量 6 本月工單數量 2 處理中工單 16 已完成工單
+
+The focused UI element is 3287 button CUST-0004

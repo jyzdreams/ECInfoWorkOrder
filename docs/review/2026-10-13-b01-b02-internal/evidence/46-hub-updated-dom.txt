@@ -1,0 +1,340 @@
+Browser tab: 2, Title: "EC Project Hub · Single Source of Truth", URL: "http://127.0.0.1:18814/project-hub/index.html".
+0 AXWebArea EC Project Hub · Single Source of Truth, URL: 127.0.0.1:18814/project-hub/index.html
+	1 container
+		2 text EC Project Hub 事实与交付中心
+		3 container nav
+			4 button 01 业务全景
+				5 text 01
+				6 text 业务全景
+			7 button 02 业务流程
+				8 text 02
+				9 text 业务流程
+			10 button 03 系统需求
+				11 text 03
+				12 text 系统需求
+			13 button 04 原型与设计
+				14 text 04
+				15 text 原型与设计
+			16 button 05 待确认问题
+				17 text 05
+				18 text 待确认问题
+			19 button 06 项目状态
+				20 text 06
+				21 text 项目状态
+			22 button A 证据与追溯
+				23 text A
+				24 text 证据与追溯
+		25 link Description: 历史知识库 ↗, Value: 127.0.0.1:18814/knowledge-base/index.html
+		26 link Description: 当前原型 ↗, Value: 127.0.0.1:18814/prototype/index.html
+		27 link Description: 维护说明 ↗, Value: 127.0.0.1:18814/project-hub/README.md
+		28 link Description: 知识同步协议 ↗, Value: 127.0.0.1:18814/docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md
+	29 container
+		30 text EC 工单系统 · SINGLE SOURCE OF TRUTH
+		31 heading 业务全景, Value: 1, ID: view-title
+			32 text 业务全景
+		33 container
+			34 text ⌕
+			35 search text field (settable) ⌕, ID: global-search
+		36 container content
+			37 container
+				38 heading 首批内部核对与整改复测 · 2026-10-13, Value: 2
+					39 text 首批内部核对与整改复测 · 2026-10-13
+				40 text 两组明确问题已修改并完成限定场景复测；完整维修链仍未通过，暂不组织客户定稿。
+				41 link Description: 需求与流程对照, Value: 127.0.0.1:18814/docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+				42 link Description: 整改前走查, Value: 127.0.0.1:18814/docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md
+				43 link Description: 整改与复测证据, Value: 127.0.0.1:18814/docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md
+				44 link Description: 材料断点候选, Value: 127.0.0.1:18814/docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+				45 text 本页展示知识和版本验证结论；任务进度只维护README指定Excel。 已实现、内部子项通过、客户批准和业务验收分别记录。
+			46 container
+				47 heading 定稿准备 · 2026-10-12, Value: 2
+					48 text 定稿准备 · 2026-10-12
+				49 text 已核对39项沟通要求，整理16个客户决策主题。原80个REQ保留；客户范围、原型全链验收和签收尚未完成。
+				50 link Description: 打开推进总表, Value: 127.0.0.1:18814/outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%8E%A8%E8%BF%9B%E6%80%BB%E8%A1%A8-v2.xlsx
+				51 link Description: 客户范围与问题表, Value: 127.0.0.1:18814/outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E5%AE%A2%E6%88%B7%E8%8C%83%E5%9B%B4%E4%B8%8E%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4%E8%A1%A8-v1.xlsx
+				52 link Description: 本轮原型复核, Value: 127.0.0.1:18814/docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md
+				53 text 仅README指定Excel维护任务进度；本页统计为知识主题关联。 下一步：先内部核对需求与流程、实际走查原型并处理明确缺口，再准备客户评审方案。必要信息可提前澄清。
+			54 text EC 工单系统 · BUSINESS FLOW FIRST
+			55 heading EC 真实业务地图, Value: 2
+				56 text EC 真实业务地图
+			57 text 客户需求进入报价，经中单 Gate 分流至 M / P / M+P，最终汇合到服务、SR 与完成；点击节点可下钻查看依据。
+			58 container
+				59 text 报价生命周期  →  中单 Gate  →  M / P / M+P  →  履约 / SR / 完成
+				60 container
+					61 text 01 业务入口与报价生命周期 客户需求进入报价，客户接受最终版本后，由报价组确认中单
+					62 button 客户需求 提出需求 →
+						63 text 客户需求
+						64 text 提出需求
+						65 text →
+					66 button CS / CR 识别与受理 →
+						67 text CS / CR
+						68 text 识别与受理
+						69 text →
+					70 button 报价任务 进入报价链路 →
+						71 text 报价任务
+						72 text 进入报价链路
+						73 text →
+					74 button 报价组 R1 / R2 / R3… →
+						75 text 报价组
+						76 text R1 / R2 / R3…
+						77 text →
+					78 button 客户确认 接受最终报价 →
+						79 text 客户确认
+						80 text 接受最终报价
+						81 text →
+					82 button 中单 Gate 报价组确认中单
+						83 text 中单 Gate
+						84 text 报价组确认中单
+				85 container
+					86 text ↓ 中单后按业务类型分流
+				87 container
+					88 text 02 中单后业务分流 首页只展示履约骨架，详细节点在业务流程页查看
+					89 button P Project / 报价维修
+						90 text P
+						91 text Project / 报价维修
+					92 button 自动生成 MR ›
+						93 text 自动生成 MR
+						94 text ›
+					95 button 材料 / 采购 ›
+						96 text 材料 / 采购
+						97 text ›
+					98 button 正式服务时间 ›
+						99 text 正式服务时间
+						100 text ›
+					101 button 施工
+					102 button M Maintenance / 周期保养
+						103 text M
+						104 text Maintenance / 周期保养
+					105 button 整期 Maintenance Plan ›
+						106 text 整期 Maintenance Plan
+						107 text ›
+					108 button 周期排期 ›
+						109 text 周期排期
+						110 text ›
+					111 button 上门保养
+					112 text M+P 同一报价 · 中单后双线推进 同一报价  →  中单  →  M + P
+					113 button M 线 Maintenance
+						114 text M 线
+						115 text Maintenance
+					116 button P 线 MR / 材料 / 施工
+						117 text P 线
+						118 text MR / 材料 / 施工
+					119 text 独立或并行推进 · 无固定先后顺序
+				120 container
+					121 text ↓ P 施工 / M 保养 / M+P 对应业务执行汇合
+				122 container
+					123 text 03 履约汇合与业务完成 现场执行结果统一进入客户确认、SR 与完工确认
+					124 button 现场服务 施工 / 保养 →
+						125 text 现场服务
+						126 text 施工 / 保养
+						127 text →
+					128 button 客户确认 / 签名 确认现场结果 →
+						129 text 客户确认 / 签名
+						130 text 确认现场结果
+						131 text →
+					132 button Service Report 师傅提交 SR →
+						133 text Service Report
+						134 text 师傅提交 SR
+						135 text →
+					136 button CR / 主管确认 简单确认 →
+						137 text CR / 主管确认
+						138 text 简单确认
+						139 text →
+					140 button 完成 工单 / 本次保养完成
+						141 text 完成
+						142 text 工单 / 本次保养完成
+					143 text SERVICE REPORT
+					144 text 需要报价？
+					145 button ↖ 是 ↖ 回到顶部「报价任务」 重新进入报价生命周期
+						146 text ↖
+						147 text 是
+						148 text ↖ 回到顶部「报价任务」
+						149 text 重新进入报价生命周期
+					150 text 否
+					151 text CR / 主管确认
+					152 text →
+					153 text 完成
+				154 container
+					155 text 业务完成 ≠ 收款完成 财务独立跟踪
+				156 container
+					157 text 特殊入口
+					158 heading CM, Value: 3
+						159 text CM
+					160 text PARTIAL CM → 指定师傅 → 服务 → SR → 完成 时间冲突 PENDING
+					161 button 查看场景 →
+				162 container
+					163 text 特殊入口
+					164 heading Government Tender, Value: 3
+						165 text Government Tender
+					166 text PARTIAL Tender → 报价 / 回标 → 结果 中标 → M / P / M+P
+					167 button 查看场景 →
+			168 container
+				169 heading 7 个核心业务场景, Value: 2
+					170 text 7 个核心业务场景
+				171 text 点击已有入口进入对应业务流程；M+P 暂无独立详情页，仅保留入口状态
+				172 button 01 CONFIRMED 普通报价维修 报价中单后自动生成 MR，材料就绪后确认时间并施工。 待确认 7
+					173 text 01
+					174 text CONFIRMED
+					175 heading 普通报价维修, Value: 3
+						176 text 普通报价维修
+					177 text 报价中单后自动生成 MR，材料就绪后确认时间并施工。
+					178 text 待确认 7
+				179 button 02 CONFIRMED 保养发现问题后二次维修 保养 SR 选择需要报价，回到报价、中单、MR 与二次上门。 待确认 2
+					180 text 02
+					181 text CONFIRMED
+					182 heading 保养发现问题后二次维修, Value: 3
+						183 text 保养发现问题后二次维修
+					184 text 保养 SR 选择需要报价，回到报价、中单、MR 与二次上门。
+					185 text 待确认 2
+				186 button 03 PARTIAL 现场即时维修 现场即时处理真实存在；收款登记、交款和对账仍待确认。 待确认 1
+					187 text 03
+					188 text PARTIAL
+					189 heading 现场即时维修, Value: 3
+						190 text 现场即时维修
+					191 text 现场即时处理真实存在；收款登记、交款和对账仍待确认。
+					192 text 待确认 1
+				193 button 04 CONFIRMED 周期保养 中单后生成整期 Maintenance Plan，按周期排期和上门保养。 待确认 4
+					194 text 04
+					195 text CONFIRMED
+					196 heading 周期保养, Value: 3
+						197 text 周期保养
+					198 text 中单后生成整期 Maintenance Plan，按周期排期和上门保养。
+					199 text 待确认 4
+				200 container 该场景暂无独立详情页
+					201 text 05 CONFIRMED
+					202 heading M+P, Value: 3
+						203 text M+P
+					204 text 同一报价下 M 与 P 独立或并行推进，没有固定先后顺序。
+					205 text 独立入口 · 详情待后续建立
+				206 button 06 PARTIAL CM CR / 主管直接指定师傅；时间冲突处理仍待确认。 待确认 2
+					207 text 06
+					208 text PARTIAL
+					209 heading CM, Value: 3
+						210 text CM
+					211 text CR / 主管直接指定师傅；时间冲突处理仍待确认。
+					212 text 待确认 2
+				213 button 07 PARTIAL Government Tender 报价 / 回标后判断结果，中标后进入 M、P 或 M+P。 待确认 1
+					214 text 07
+					215 text PARTIAL
+					216 heading Government Tender, Value: 3
+						217 text Government Tender
+					218 text 报价 / 回标后判断结果，中标后进入 M、P 或 M+P。
+					219 text 待确认 1
+			220 container
+				221 heading 项目状态摘要, Value: 2
+					222 text 项目状态摘要
+				223 text 业务地图之后再看确认、缺口和交付覆盖
+				224 button 17 历史讨论记录
+					225 text 17
+					226 text 历史讨论记录
+				227 button 16 Pending / Open
+					228 text 16
+					229 text Pending / Open
+				230 button 6 Conflict
+					231 text 6
+					232 text Conflict
+				233 button 119 80历史REQ＋39补录
+					234 text 119
+					235 text 80历史REQ＋39补录
+				236 button 25% 主题关联（非验收）
+					237 text 25%
+					238 text 主题关联（非验收）
+				239 button 2.0 Prototype
+					240 text 2.0
+					241 text Prototype
+			242 container
+				243 heading 角色地图, Value: 2
+					244 text 角色地图
+				245 text 角色职责、负责阶段和参与流程来自现有角色资料与 Flow 关联；待映射表示现有 Flow 未明确该角色
+				246 button CS 客户服务部 参与：真实业务总流程、普通报价维修、CM
+					247 text CS
+					248 text 客户服务部
+					249 text 参与：真实业务总流程、普通报价维修、CM
+				250 button CR 客户关系部 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+					251 text CR
+					252 text 客户关系部
+					253 text 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+				254 button TL 主管 / Team Leader 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+					255 text TL
+					256 text 主管 / Team Leader
+					257 text 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+				258 button MASTER 师傅 / 现场维修人员 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+					259 text MASTER
+					260 text 师傅 / 现场维修人员
+					261 text 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+				262 button QUO 报价组 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+					263 text QUO
+					264 text 报价组
+					265 text 参与：真实业务总流程、普通报价维修、保养发现问题后二次维修
+				266 button TENDER 标书组 参与：Government Tender
+					267 text TENDER
+					268 text 标书组
+					269 text 参与：Government Tender
+				270 button PUR 采购部 参与：MR申请与仓库交接
+					271 text PUR
+					272 text 采购部
+					273 text 参与：MR申请与仓库交接
+				274 button WAREHOUSE 仓务部 参与：普通报价维修、保养发现问题后二次维修、MR申请与仓库交接
+					275 text WAREHOUSE
+					276 text 仓务部
+					277 text 参与：普通报价维修、保养发现问题后二次维修、MR申请与仓库交接
+				278 button PROJECT Project 主管 参与：待映射
+					279 text PROJECT
+					280 text Project 主管
+					281 text 参与：待映射
+				282 button FIN 会计部 参与：真实业务总流程、普通报价维修、现场即时维修
+					283 text FIN
+					284 text 会计部
+					285 text 参与：真实业务总流程、普通报价维修、现场即时维修
+				286 button ADMIN 管理员 参与：待映射
+					287 text ADMIN
+					288 text 管理员
+					289 text 参与：待映射
+				290 button BOSS 管理层 参与：待映射
+					291 text BOSS
+					292 text 管理层
+					293 text 参与：待映射
+			294 container
+				295 heading 当前关键业务问题, Value: 2
+					296 text 当前关键业务问题
+				297 button P0 本期纳入哪些业务，哪些明确放后续？
+					298 text P0
+					299 text  本期纳入哪些业务，哪些明确放后续？
+				300 button P0 各业务对象的状态含义、入口和终态怎样对应？
+					301 text P0
+					302 text  各业务对象的状态含义、入口和终态怎样对应？
+				303 button P0 实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？
+					304 text P0
+					305 text  实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？
+				306 button P0 EC与仓库通分别填写和确认哪些MR/备货字段，如何回传材料就绪？
+					307 text P0
+					308 text  EC与仓库通分别填写和确认哪些MR/备货字段，如何回传材料就绪？
+				309 button P0 CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？
+					310 text P0
+					311 text  CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？
+				312 button 查看全部业务问题 →
+			313 container
+				314 heading 项目交付状态, Value: 2
+					315 text 项目交付状态
+				316 text 交付状态放在业务理解之后；仅表示资料与追溯核验程度
+				317 button PRD DRAFT 4 个文件 · 待内容核验
+					318 text PRD
+					319 text DRAFT
+					320 text 4 个文件 · 待内容核验
+				321 button Prototype PARTIAL 1 个文件 · 待内容核验
+					322 text Prototype
+					323 text PARTIAL
+					324 text 1 个文件 · 待内容核验
+				325 button SDD DRAFT 3 个文件 · 待内容核验
+					326 text SDD
+					327 text DRAFT
+					328 text 3 个文件 · 待内容核验
+				329 button TDD DRAFT 1 个文件 · 待内容核验
+					330 text TDD
+					331 text DRAFT
+					332 text 1 个文件 · 待内容核验
+				333 button Testing DRAFT 1 个文件 · 待内容核验
+					334 text Testing
+					335 text DRAFT
+					336 text 1 个文件 · 待内容核验
+
+The focused UI element is 0 AXWebArea EC Project Hub · Single Source of Truth, URL: 127.0.0.1:18814/project-hub/index.html

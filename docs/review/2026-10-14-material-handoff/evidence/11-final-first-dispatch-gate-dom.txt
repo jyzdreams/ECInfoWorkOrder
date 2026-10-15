@@ -1,0 +1,224 @@
+- main:
+  - heading "分派中心" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "趙 趙組長 主管 · 九龍團隊 ⌄":
+    - generic: 趙
+    - strong: 趙組長
+    - generic: 主管 · 九龍團隊
+    - generic: ⌄
+  - tablist "派工狀態":
+    - tab "待分派 3" [selected]:
+      - generic: 待分派
+      - strong: "3"
+    - tab "已分派 0":
+      - generic: 已分派
+      - strong: "0"
+    - tab "已完成 0":
+      - generic: 已完成
+      - strong: "0"
+  - generic: 狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+  - generic: 客戶
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "港島商業中心"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "工程維修"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - button "模擬超時"
+  - table:
+    - rowgroup:
+      - row "任務編號 關聯工單 客戶 區域 CALL類型 內容摘要 目前師傅 狀態 分派時間 更新時間 操作":
+        - columnheader "任務編號"
+        - columnheader "關聯工單"
+        - columnheader "客戶"
+        - columnheader "區域"
+        - columnheader "CALL類型"
+        - columnheader "內容摘要"
+        - columnheader "目前師傅"
+        - columnheader "狀態"
+        - columnheader "分派時間"
+        - columnheader "更新時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "T-261013-009 WO-20261013-003 港島商業中心 1區 工程維修 PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。 - 待分派 - 10-13 20:24 分派 查看":
+        - cell "T-261013-009":
+          - button "T-261013-009"
+        - cell "WO-20261013-003":
+          - button "WO-20261013-003"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。":
+          - generic "PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 20:24"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261013-010 WO-20261013-002 港島商業中心 1區 工程維修 PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。 - 待分派 - 10-13 20:20 分派 查看":
+        - cell "T-261013-010":
+          - button "T-261013-010"
+        - cell "WO-20261013-002":
+          - button "WO-20261013-002"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。":
+          - generic "PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 20:20"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261013-011 WO-20261013-001 港島商業中心 1區 工程維修 PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。 - 待分派 - 10-13 17:51 分派 查看":
+        - cell "T-261013-011":
+          - button "T-261013-011"
+        - cell "WO-20261013-001":
+          - button "WO-20261013-001"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。":
+          - generic "PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 17:51"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+  - text: 共 3 條，每頁
+  - combobox:
+    - option "10" [selected]
+    - option "20"
+    - option "50"
+  - text: 條，第 1/1 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "›" [disabled]
+  - dialog "分派 CALL":
+    - heading "分派 CALL · WO-20261013-003" [level=2]
+    - paragraph: 已按區域「1區」篩選 4 位師傅，當前符合條件 4 位。
+    - button "關閉": ×
+    - textbox "搜索師傅姓名 / 區域 / 技能"
+    - generic: 狀態
+    - button "全部 ⌄":
+      - generic: 全部
+      - generic: ⌄
+    - combobox "狀態":
+      - option "全部" [selected]
+      - option "可接單"
+      - option "忙碌"
+      - option "請假"
+    - generic: 技能
+    - button "全部 ⌄":
+      - generic: 全部
+      - generic: ⌄
+    - combobox "技能":
+      - option "全部" [selected]
+      - option "CM"
+      - option "設備檢查"
+      - option "保養"
+      - option "PM"
+      - option "CCTV"
+    - table:
+      - rowgroup:
+        - row "師傅 區域 今日負載 技能 狀態 操作":
+          - columnheader "師傅"
+          - columnheader "區域"
+          - columnheader "今日負載"
+          - columnheader "技能"
+          - columnheader "狀態"
+          - columnheader "操作"
+      - rowgroup:
+        - row "選擇趙師傅 趙師傅 可接單 1區 0 CM、保養 區域匹配 详情" [selected]:
+          - cell "選擇趙師傅 趙師傅 可接單":
+            - radio "選擇趙師傅" [checked]
+            - strong: 趙師傅
+            - generic: 可接單
+          - cell "1區"
+          - cell "0"
+          - cell "CM、保養"
+          - cell "區域匹配":
+            - generic: 區域匹配
+          - cell "详情":
+            - button "详情"
+        - row "選擇楊師傅 楊師傅 可接單 1區 0 PM、CCTV 區域匹配 详情":
+          - cell "選擇楊師傅 楊師傅 可接單":
+            - radio "選擇楊師傅"
+            - strong: 楊師傅
+            - generic: 可接單
+          - cell "1區"
+          - cell "0"
+          - cell "PM、CCTV"
+          - cell "區域匹配":
+            - generic: 區域匹配
+          - cell "详情":
+            - button "详情"
+        - row "選擇許師傅 許師傅 可接單 1區 0 CM、設備檢查 區域匹配 详情":
+          - cell "選擇許師傅 許師傅 可接單":
+            - radio "選擇許師傅"
+            - strong: 許師傅
+            - generic: 可接單
+          - cell "1區"
+          - cell "0"
+          - cell "CM、設備檢查"
+          - cell "區域匹配":
+            - generic: 區域匹配
+          - cell "详情":
+            - button "详情"
+        - row "選擇吳師傅 吳師傅 負載 1 1區 1 CM、設備檢查 區域匹配 详情":
+          - cell "選擇吳師傅 吳師傅 負載 1":
+            - radio "選擇吳師傅"
+            - strong: 吳師傅
+            - generic: 負載 1
+          - cell "1區"
+          - cell "1"
+          - cell "CM、設備檢查"
+          - cell "區域匹配":
+            - generic: 區域匹配
+          - cell "详情":
+            - button "详情"
+    - generic: 派工備註
+    - textbox "填寫派工說明或現場注意事項"
+    - paragraph: 材料尚未備齊，可先預排；MR 申請完成不代表可以施工。
+    - button "確認分派" [disabled]
+- generic: 歡迎回來，趙組長！

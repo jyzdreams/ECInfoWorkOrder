@@ -1,5 +1,7 @@
 # ECInfo CALL 系统原型 2.0
 
+2026-10-15正式维护规则：main由用户jyzdreams及其授权AI维护；同事仅修改独立工作分支，经差异审查与用户采用后同步。Pages改为用户手动触发并审批，推送不自动发布。见[正式版规范](../docs/governance/FORMAL-VERSION-WORKFLOW.md)。当前已恢复内部核对；以下暂停/未推送描述仅代表原批次。业务代码本轮不变。
+
 本目录是当前主原型，定位为 2.0 版本。它基于 1.0 归档原型 `archive/prototype-1.0/`，并按 2026-09-27 已确认业务流程完成一轮 Prototype 整改。整改依据与验证结果见 `docs/review/prototype-remediation/`。
 
 2026-10-11目录整理：本目录是唯一当前原型，推进任务从[根入口](../README.md)指定Excel读取，知识从[Project Hub](../project-hub/index.html)查看，底层规则保留在docs/knowledge/。[10/07审计](../docs/audit/PROTOTYPE-FINALIZATION-AUDIT.md)仍为NOT READY，历史7场景PASS不代表后续反馈已全对齐。本次只调整文档与路径，未改原型HTML/CSS/JS、代理或模拟数据。

@@ -1,0 +1,427 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				2437 button 🏠 首頁
+					2438 text 🏠
+					2439 text 首頁
+				2440 button 📋 CALL管理
+					2441 text 📋
+					2442 text CALL管理
+				2443 button 📤 分派中心
+					2444 text 📤
+					2445 text 分派中心
+				2446 button 📅 保養計劃
+					2447 text 📅
+					2448 text 保養計劃
+				2449 button 💰 報價管理
+					2450 text 💰
+					2451 text 報價管理
+				2452 button 🛒 備貨管理
+					2453 text 🛒
+					2454 text 備貨管理
+				2455 button 📁 報告管理
+					2456 text 📁
+					2457 text 報告管理
+				2458 button 📊 統計報表
+					2459 text 📊
+					2460 text 統計報表
+				2461 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					2462 text ⚙️
+					2463 text 基礎設置
+					2464 text ▶
+				2465 container
+					2466 button 📖 字典管理
+					2467 button 🏢 客戶管理
+					2468 button 👤 用戶管理
+					2469 button 🖥️ 服務器空間
+					2470 button 📊 Excel 導入
+					2471 button 🧩 組件庫
+				2472 button 📱 移動端
+					2473 text 📱
+					2474 text 移動端
+		52 container
+			53 heading CALL管理, Value: 1, ID: pageTitle
+				2475 text CALL管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			2432 button 陳 陳關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				2476 text 陳
+				2477 text 陳關係
+				2478 text 客戶關係部 · 客戶關係部
+				2436 text ⌄
+			2479 container
+				2480 tab group CALL視圖與客戶視圖
+					2481 tab (selected, settable, boolean) CALL視圖, Value: 1
+					2482 tab (selectable, settable, boolean) 客戶視圖, Value: 0
+				2483 button + 新增CALL
+				2484 text CALL狀態
+				2485 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2486 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2487 menu
+						2488 (selected) 全部
+						2489 待分派
+						2490 處理中
+						2491 待處理
+						2492 待確認
+						2493 已完成
+						2494 已取消
+				2495 text CALL類型
+				2496 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2497 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2498 menu
+						2499 (selected) 全部
+						2500 DLP 保養維修
+						2501 工程維修
+						2502 工程項目
+						2503 投訴
+						2504 糾正維修
+				2505 text 區域
+				2506 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2507 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2508 menu
+						2509 (selected) 全部
+						2510 1區
+						2511 2區
+						2512 3區
+						2513 4區
+						2514 5區
+						2515 6區
+						2516 7區
+						2517 7A區
+						2518 8區
+						2519 MTR
+						2520 EMSD
+						2521 ASD
+						2522 軟件組
+						2523 EV Charge
+						2524 Maintenance-HTCL
+						2525 Project 1(生)
+						2526 Project 1 MTR
+						2527 Project 1(Sam)
+						2528 Project 1(Johnny)
+						2529 Project 1(Roy)
+						2530 Project 1(Eric)
+						2531 Project 2(Joe)
+						2532 Project 1-1541
+						2533 Project 1-1962EM20T
+						2534 Project 1-1105
+						2535 Project 1-2489
+						2536 Project 1-2458
+						2537 Project/Maintenance
+				2538 text 負責人
+				2539 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2540 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2541 menu
+						2542 (selected) 全部
+						2543 趙組長
+						2544 李組長
+						2545 王組長
+				2546 text 關鍵詞搜索
+				2547 text field (settable)
+				2548 button 搜索
+				2549 button 重置
+				2550 table
+					2551 row
+						2552 cell
+							2553 text CALL編號
+						2554 cell
+							2555 text 創建時間
+						2556 cell
+							2557 text 客戶名稱
+						2558 cell
+							2559 text 類型
+						2560 cell
+							2561 text 區域
+						2562 cell
+							2563 text 狀態
+						2564 cell
+							2565 text 負責人
+						2566 cell
+							2567 text 操作
+					2568 row
+						2569 cell
+							2570 button WO-20261013-001
+						2571 cell
+							2572 text 2026-10-13 17:51
+						2573 cell
+							2574 text 港島商業中心
+						2575 cell
+							2576 text 工程維修
+						2577 cell
+							2578 text 1區
+						2579 cell
+							2580 text 待分派
+						2581 cell
+							2582 text 趙組長
+						2583 cell
+							2584 button 查看詳情
+					2585 row
+						2586 cell
+							2587 button WO-DEMO-CM
+						2588 cell
+							2589 text 2026-09-27 09:00
+						2590 cell
+							2591 text 九龍國際廣場
+						2592 cell
+							2593 text 糾正維修
+						2594 cell
+							2595 text 2區
+						2596 cell
+							2597 text 待分派
+						2598 cell
+							2599 text 李組長
+						2600 cell
+							2601 button 查看詳情
+					2602 row
+						2603 cell
+							2604 button WO-DEMO-INSTANT
+						2605 cell
+							2606 text 2026-09-27 09:00
+						2607 cell
+							2608 text 九龍國際廣場
+						2609 cell
+							2610 text 工程維修
+						2611 cell
+							2612 text 2區
+						2613 cell
+							2614 text 處理中
+						2615 cell
+							2616 text 李組長
+						2617 cell
+							2618 button 查看詳情
+					2619 row
+						2620 cell
+							2621 button WO-DEMO-MP-P
+						2622 cell
+							2623 text 2026-09-27 09:00
+						2624 cell
+							2625 text 九龍國際廣場
+						2626 cell
+							2627 text 工程維修
+						2628 cell
+							2629 text 2區
+						2630 cell
+							2631 text 待分派
+						2632 cell
+							2633 text 李組長
+						2634 cell
+							2635 button 查看詳情
+					2636 row
+						2637 cell
+							2638 button WO-DEMO-M-01
+						2639 cell
+							2640 text 2026-09-27 09:00
+						2641 cell
+							2642 text 九龍國際廣場
+						2643 cell
+							2644 text DLP 保養維修
+						2645 cell
+							2646 text 2區
+						2647 cell
+							2648 text 待處理
+						2649 cell
+							2650 text 李組長
+						2651 cell
+							2652 button 查看詳情
+					2653 row
+						2654 cell
+							2655 button WO-DEMO-P
+						2656 cell
+							2657 text 2026-09-27 09:00
+						2658 cell
+							2659 text 九龍國際廣場
+						2660 cell
+							2661 text 工程維修
+						2662 cell
+							2663 text 2區
+						2664 cell
+							2665 text 待分派
+						2666 cell
+							2667 text 李組長
+						2668 cell
+							2669 button 查看詳情
+					2670 row
+						2671 cell
+							2672 button WO-20260615-004
+						2673 cell
+							2674 text 2026-06-15 10:20
+						2675 cell
+							2676 text 新界住宅項目
+							2677 text 合約編號 0471667
+						2678 cell
+							2679 text 保養維修
+						2680 cell
+							2681 text 3區
+						2682 cell
+							2683 text 待處理
+						2684 cell
+							2685 text 李組長
+						2686 cell
+							2687 button 查看詳情
+					2688 row
+						2689 cell
+							2690 button WO-20260615-003
+						2691 cell
+							2692 text 2026-06-15 10:02
+						2693 cell
+							2694 text 安全監控管理有限公司
+						2695 cell
+							2696 text 工程維修
+						2697 cell
+							2698 text 3區
+						2699 cell
+							2700 text 待確認
+						2701 cell
+							2702 text 王組長
+						2703 cell
+							2704 button 查看詳情
+					2705 row
+						2706 cell
+							2707 button WO-20260615-002
+						2708 cell
+							2709 text 2026-06-15 09:28
+						2710 cell
+							2711 text 九龍屋苑管理處
+						2712 cell
+							2713 text 保養維修
+						2714 cell
+							2715 text 2區
+						2716 cell
+							2717 text 待分派
+						2718 cell
+							2719 text 李組長
+						2720 cell
+							2721 button 查看詳情
+					2722 row
+						2723 cell
+							2724 button WO-20260615-001
+						2725 cell
+							2726 text 2026-06-15 09:10
+						2727 cell
+							2728 text 港島商業中心
+						2729 cell
+							2730 text 保養維修
+						2731 cell
+							2732 text 1區
+						2733 cell
+							2734 text 待分派
+						2735 cell
+							2736 text 李組長
+						2737 cell
+							2738 button 查看詳情
+				2739 text 共 18 條記錄，每頁
+				2740 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					2741 menu
+						2742 (selected) 10
+						2743 20
+						2744 50
+				2745 text 條，第 1/2 頁
+				2746 button (disabled) ‹
+				2747 button 1
+				2748 button 2
+				2749 button ›
+	2392 text 已切換至 陳關係（客戶關係部）
+	2750 container
+		2751 heading 新增Call, Value: 3
+			2752 text 新增Call
+		2753 button 關閉
+		2754 container workOrderForm
+			2755 container
+				2756 text 基本資訊 Call編號
+				2757 text field (disabled) 自動生成
+				2758 text 創建人
+				2759 text field (disabled) 陳關係
+				2760 text 客戶類型 *
+				2761 pop up button (collapsed) 政府 (EMSD) ⌄, Secondary Actions: Expand
+				2762 pop up button (collapsed, settable) Value: 政府 (EMSD), ID: modalCustomerTypeSelect, Secondary Actions: Expand
+					2763 menu
+						2764 請選擇客戶類型
+						2765 (selected) 政府 (EMSD)
+						2766 私人
+				2767 text 客戶 *
+				2820 pop up button (collapsed) 香港政府大樓 (HK Government Building) · 合約編號 0471667 ⌄, Secondary Actions: Expand
+				2769 pop up button (collapsed, settable) Value: 香港政府大樓 (HK Government Building), ID: customerSelect, Secondary Actions: Expand
+					2770 menu
+						2821 請選擇客戶
+						2822 (selected) 香港政府大樓 (HK Government Building)
+						2823 將軍澳醫院 (Tseung Kwan O Hospital)
+						2824 西九龍文化中心 (West Kowloon Cultural Centre)
+				2772 text 區域 *
+				2773 text field Value: 1區, ID: modalAreaDisplay
+				2774 text 主管 *
+				2775 pop up button (collapsed) 請選擇主管 ⌄, Secondary Actions: Expand
+				2776 pop up button (collapsed, settable) Value: 請選擇主管, ID: modalTLSelect, Secondary Actions: Expand
+					2777 menu
+						2825 (selected) 請選擇主管
+						2826 趙組長（1區）
+				2827 container callCodeFieldWrap
+					2828 container
+						2829 text Call代碼 *
+					2830 container
+						2831 pop up button (collapsed) 請選擇Call代碼 ⌄, Secondary Actions: Expand
+						2832 pop up button (collapsed, settable) Value: 請選擇Call代碼, ID: callCodeSelect, Secondary Actions: Expand
+							2833 menu
+								2834 (selected) 請選擇Call代碼
+								2835 CALL-001 - 門禁系統維修
+								2836 CALL-002 - CCTV監控維修
+								2837 CALL-003 - 廣播系統維修
+								2838 CALL-004 - 停車場閘機維修
+								2839 CALL-005 - 警報/水浸檢查
+								2840 CALL-006 - 拍卡系統維修
+								2841 CALL-007 - 天線系統維修
+								2842 CALL-008 - 對講機維修
+					2843 button +, Help: 新增 Call代碼, ID: addCallCodeBtn
+				2844 container jNumberField
+					2845 text J No.
+					2846 text field (settable) J 12345
+				2779 text 聯繫人 *
+				2780 text field (settable) Value: 何先生, ID: contactInput
+				2781 text 聯繫電話
+				2782 text field (settable) <redacted>
+				2783 text 來源渠道
+				2784 pop up button (collapsed) 電話 ⌄, Secondary Actions: Expand
+				2785 pop up button (collapsed, settable) Value: 電話, Secondary Actions: Expand
+					2786 menu
+						2787 (selected) 電話
+						2788 WhatsApp
+						2789 現場溝通
+						2790 郵件
+				2791 text 地址
+				2792 text field (settable)
+				2793 text Call類型 *
+				2794 pop up button (collapsed) DLP 保養維修 ⌄, Secondary Actions: Expand
+				2795 pop up button (collapsed, settable) Value: DLP 保養維修, Secondary Actions: Expand
+					2796 menu
+						2797 (selected) DLP 保養維修
+						2798 工程維修
+						2799 工程項目
+						2800 投訴
+						2801 糾正維修
+				2802 text 優先級
+				2803 pop up button (collapsed) 普通 ⌄, Secondary Actions: Expand
+				2804 pop up button (collapsed, settable) Value: 普通, Secondary Actions: Expand
+					2805 menu
+						2806 (selected) 普通
+						2807 緊急
+						2808 非常緊急
+				2809 text Call描述與附件 問題描述及相關文件 工單描述 *
+				2810 text entry area (settable)
+				2811 text 附件上傳
+				2812 container fileUploadArea
+					2813 container fileUploadHint
+						2814 text 📁
+						2815 text 點擊上傳或將文件拖入此區域
+						2816 text 支持圖片、PDF 等格式
+			2817 container
+				2818 button 取消
+				2819 button 提交Call
+
+The focused UI element is 2483 button + 新增CALL

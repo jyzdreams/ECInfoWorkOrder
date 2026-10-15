@@ -1,0 +1,884 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				268 button 🏠 首頁
+					269 text 🏠
+					270 text 首頁
+				271 button 📋 CALL管理
+					272 text 📋
+					273 text CALL管理
+				274 button 📤 分派中心
+					275 text 📤
+					276 text 分派中心
+				277 button 📅 保養計劃
+					278 text 📅
+					279 text 保養計劃
+				280 button 💰 報價管理
+					281 text 💰
+					282 text 報價管理
+				283 button 📑 標書管理
+					284 text 📑
+					285 text 標書管理
+				286 button 🛒 備貨管理
+					287 text 🛒
+					288 text 備貨管理
+				289 button 💵 會計管理
+					290 text 💵
+					291 text 會計管理
+				292 button 📁 報告管理
+					293 text 📁
+					294 text 報告管理
+				295 button 📊 統計報表
+					296 text 📊
+					297 text 統計報表
+				298 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					299 text ⚙️
+					300 text 基礎設置
+					301 text ▶
+				302 container
+					303 button 📖 字典管理
+					304 button 🏢 客戶管理
+					305 button 👤 用戶管理
+					306 button 🖥️ 服務器空間
+					307 button 📊 Excel 導入
+					308 button 🧩 組件庫
+		52 container
+			53 heading 會計管理, Value: 1, ID: pageTitle
+				309 text 會計管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			60 button 系 系統管理員 管理員 · 管理部 ⌄, ID: userMenuBtn
+				310 text 系
+				311 text 系統管理員
+				312 text 管理員 · 管理部
+				64 text ⌄
+			267 container pcPages
+				313 button 開具發票
+				314 button 登記收款
+				315 container
+					316 heading 待開票, Value: 3
+						317 text 待開票
+					318 text 30 已中標未開票 ＋ 合約週期帳單
+				319 container
+					320 heading 待收款, Value: 3
+						321 text 待收款
+					322 text 1 HKD 49,500
+				323 container
+					324 heading 本月收款, Value: 3
+						325 text 本月收款
+					326 text 3,080 HKD
+				327 container
+					328 heading 發票總數, Value: 3
+						329 text 發票總數
+					330 text 2 已開具發票
+				331 button 待開票 (30)
+				332 button 發票管理 (2)
+				333 button 收款記錄 (1)
+				334 button 客戶檔案 (4)
+				335 button 保養合約 (3)
+				336 text field (settable) finFilterKeyword
+				337 date field (settable) finFilterDate
+					338 container
+						339 stepper
+						340 stepper
+						341 stepper
+					342 pop up button 显示日期选择器
+				343 container
+					344 pop up button (collapsed) 全部類型 ⌄, Secondary Actions: Expand
+					345 pop up button (collapsed, settable) Value: 全部類型, ID: finFilterType, Secondary Actions: Expand
+						346 menu
+							347 (selected) 全部類型
+							348 工程
+							349 M類保養
+				350 button 清除
+				351 checkbox (settable, integer) Description: 全選, Value: 0, ID: finSelectAll
+				352 text 已選 
+				353 text 0
+				354 text  筆
+				355 button (disabled) 批量開具發票
+				356 button (disabled) 列印選取
+				357 table
+					358 row
+						359 cell
+							360 text Job Code
+						361 cell
+							362 text 客戶
+						363 cell
+							364 text 描述
+						365 cell
+							366 text 金額
+						367 cell
+							368 text 類型
+						369 cell
+							370 text Billing Period
+						371 cell
+							372 text 服務起止日期
+						373 cell
+							374 text 付款週期
+						375 cell
+							376 text 附件
+						377 cell
+							378 text 狀態
+						379 cell
+							380 text 操作
+					381 row
+						382 cell
+							383 checkbox (disabled, settable, integer) 0
+						384 cell
+							385 text QT-DEMO-M
+						386 cell
+							387 text 九龍國際廣場
+						388 cell
+							389 text 2026-09-27 M 業務走查樣例
+						390 cell
+							391 text HKD 12,000
+						392 cell
+							393 text 工程
+						394 cell
+							395 text —
+						396 cell
+							397 text —
+						398 cell
+							399 text 一次性
+						400 cell
+							401 text 欠：完工紙、客戶確認PO
+						402 cell
+							403 text 欠文件
+						404 cell
+							405 button (disabled) 開票, Help: 缺少：完工紙、客戶確認PO
+					406 row
+						407 cell
+							408 checkbox (disabled, settable, integer) 0
+						409 cell
+							410 text QT-DEMO-MP
+						411 cell
+							412 text 九龍國際廣場
+						413 cell
+							414 text 2026-09-27 M+P 業務走查樣例
+						415 cell
+							416 text HKD 3,040
+						417 cell
+							418 text 工程
+						419 cell
+							420 text —
+						421 cell
+							422 text —
+						423 cell
+							424 text 一次性
+						425 cell
+							426 text 欠：完工紙、客戶確認PO
+						427 cell
+							428 text 欠文件
+						429 cell
+							430 button (disabled) 開票, Help: 缺少：完工紙、客戶確認PO
+					431 row
+						432 cell
+							433 checkbox (settable, integer) 0
+						434 cell
+							435 text 4M123456
+						436 cell
+							437 text 海栢花園管理處
+						438 cell
+							439 text 2026-06 保養合約結算
+						440 cell
+							441 text HKD 4,500
+						442 cell
+							443 text M類保養
+						444 cell
+							445 text 2026-06
+						446 cell
+							447 text 2026-06-01 ~ 2026-06-30
+						448 cell
+							449 text 每月
+						450 cell
+							451 text 合約
+						452 cell
+							453 text 待開票
+						454 cell
+							455 button 開票
+					456 row
+						457 cell
+							458 checkbox (settable, integer) 0
+						459 cell
+							460 text 4M123456
+						461 cell
+							462 text 海栢花園管理處
+						463 cell
+							464 text 2026-07 保養合約結算
+						465 cell
+							466 text HKD 4,500
+						467 cell
+							468 text M類保養
+						469 cell
+							470 text 2026-07
+						471 cell
+							472 text 2026-07-01 ~ 2026-07-31
+						473 cell
+							474 text 每月
+						475 cell
+							476 text 合約
+						477 cell
+							478 text 待開票
+						479 cell
+							480 button 開票
+					481 row
+						482 cell
+							483 checkbox (settable, integer) 0
+						484 cell
+							485 text 4M123456
+						486 cell
+							487 text 海栢花園管理處
+						488 cell
+							489 text 2026-08 保養合約結算
+						490 cell
+							491 text HKD 4,500
+						492 cell
+							493 text M類保養
+						494 cell
+							495 text 2026-08
+						496 cell
+							497 text 2026-08-01 ~ 2026-08-31
+						498 cell
+							499 text 每月
+						500 cell
+							501 text 合約
+						502 cell
+							503 text 待開票
+						504 cell
+							505 button 開票
+					506 row
+						507 cell
+							508 checkbox (settable, integer) 0
+						509 cell
+							510 text 4M123456
+						511 cell
+							512 text 海栢花園管理處
+						513 cell
+							514 text 2026-09 保養合約結算
+						515 cell
+							516 text HKD 4,500
+						517 cell
+							518 text M類保養
+						519 cell
+							520 text 2026-09
+						521 cell
+							522 text 2026-09-01 ~ 2026-09-30
+						523 cell
+							524 text 每月
+						525 cell
+							526 text 合約
+						527 cell
+							528 text 待開票
+						529 cell
+							530 button 開票
+					531 row
+						532 cell
+							533 checkbox (settable, integer) 0
+						534 cell
+							535 text 4M123456
+						536 cell
+							537 text 海栢花園管理處
+						538 cell
+							539 text 2026-10 保養合約結算
+						540 cell
+							541 text HKD 4,500
+						542 cell
+							543 text M類保養
+						544 cell
+							545 text 2026-10
+						546 cell
+							547 text 2026-10-01 ~ 2026-10-31
+						548 cell
+							549 text 每月
+						550 cell
+							551 text 合約
+						552 cell
+							553 text 待開票
+						554 cell
+							555 button 開票
+					556 row
+						557 cell
+							558 checkbox (settable, integer) 0
+						559 cell
+							560 text 4M123456
+						561 cell
+							562 text 海栢花園管理處
+						563 cell
+							564 text 2026-11 保養合約結算
+						565 cell
+							566 text HKD 4,500
+						567 cell
+							568 text M類保養
+						569 cell
+							570 text 2026-11
+						571 cell
+							572 text 2026-11-01 ~ 2026-11-30
+						573 cell
+							574 text 每月
+						575 cell
+							576 text 合約
+						577 cell
+							578 text 待開票
+						579 cell
+							580 button 開票
+					581 row
+						582 cell
+							583 checkbox (settable, integer) 0
+						584 cell
+							585 text 4M123456
+						586 cell
+							587 text 海栢花園管理處
+						588 cell
+							589 text 2026-12 保養合約結算
+						590 cell
+							591 text HKD 4,500
+						592 cell
+							593 text M類保養
+						594 cell
+							595 text 2026-12
+						596 cell
+							597 text 2026-12-01 ~ 2026-12-31
+						598 cell
+							599 text 每月
+						600 cell
+							601 text 合約
+						602 cell
+							603 text 待開票
+						604 cell
+							605 button 開票
+					606 row
+						607 cell
+							608 checkbox (settable, integer) 0
+						609 cell
+							610 text 4M123456
+						611 cell
+							612 text 海栢花園管理處
+						613 cell
+							614 text 2027-01 保養合約結算
+						615 cell
+							616 text HKD 4,500
+						617 cell
+							618 text M類保養
+						619 cell
+							620 text 2027-01
+						621 cell
+							622 text 2027-01-01 ~ 2027-01-31
+						623 cell
+							624 text 每月
+						625 cell
+							626 text 合約
+						627 cell
+							628 text 待開票
+						629 cell
+							630 button 開票
+					631 row
+						632 cell
+							633 checkbox (settable, integer) 0
+						634 cell
+							635 text 4M123456
+						636 cell
+							637 text 海栢花園管理處
+						638 cell
+							639 text 2027-02 保養合約結算
+						640 cell
+							641 text HKD 4,500
+						642 cell
+							643 text M類保養
+						644 cell
+							645 text 2027-02
+						646 cell
+							647 text 2027-02-01 ~ 2027-02-28
+						648 cell
+							649 text 每月
+						650 cell
+							651 text 合約
+						652 cell
+							653 text 待開票
+						654 cell
+							655 button 開票
+					656 row
+						657 cell
+							658 checkbox (settable, integer) 0
+						659 cell
+							660 text 4M123456
+						661 cell
+							662 text 海栢花園管理處
+						663 cell
+							664 text 2027-03 保養合約結算
+						665 cell
+							666 text HKD 4,500
+						667 cell
+							668 text M類保養
+						669 cell
+							670 text 2027-03
+						671 cell
+							672 text 2027-03-01 ~ 2027-03-31
+						673 cell
+							674 text 每月
+						675 cell
+							676 text 合約
+						677 cell
+							678 text 待開票
+						679 cell
+							680 button 開票
+					681 row
+						682 cell
+							683 checkbox (settable, integer) 0
+						684 cell
+							685 text 4M123456
+						686 cell
+							687 text 海栢花園管理處
+						688 cell
+							689 text 2027-04 保養合約結算
+						690 cell
+							691 text HKD 4,500
+						692 cell
+							693 text M類保養
+						694 cell
+							695 text 2027-04
+						696 cell
+							697 text 2027-04-01 ~ 2027-04-30
+						698 cell
+							699 text 每月
+						700 cell
+							701 text 合約
+						702 cell
+							703 text 待開票
+						704 cell
+							705 button 開票
+					706 row
+						707 cell
+							708 checkbox (settable, integer) 0
+						709 cell
+							710 text 4M123456
+						711 cell
+							712 text 海栢花園管理處
+						713 cell
+							714 text 2027-05 保養合約結算
+						715 cell
+							716 text HKD 4,500
+						717 cell
+							718 text M類保養
+						719 cell
+							720 text 2027-05
+						721 cell
+							722 text 2027-05-01 ~ 2027-05-31
+						723 cell
+							724 text 每月
+						725 cell
+							726 text 合約
+						727 cell
+							728 text 待開票
+						729 cell
+							730 button 開票
+					731 row
+						732 cell
+							733 checkbox (settable, integer) 0
+						734 cell
+							735 text 4M123457
+						736 cell
+							737 text 高衛物業管理
+						738 cell
+							739 text 2026-06 保養合約結算
+						740 cell
+							741 text HKD 5,800
+						742 cell
+							743 text M類保養
+						744 cell
+							745 text 2026-06
+						746 cell
+							747 text 2026-06-01 ~ 2026-06-30
+						748 cell
+							749 text 每月
+						750 cell
+							751 text 合約
+						752 cell
+							753 text 待開票
+						754 cell
+							755 button 開票
+					756 row
+						757 cell
+							758 checkbox (settable, integer) 0
+						759 cell
+							760 text 4M123457
+						761 cell
+							762 text 高衛物業管理
+						763 cell
+							764 text 2026-07 保養合約結算
+						765 cell
+							766 text HKD 5,800
+						767 cell
+							768 text M類保養
+						769 cell
+							770 text 2026-07
+						771 cell
+							772 text 2026-07-01 ~ 2026-07-31
+						773 cell
+							774 text 每月
+						775 cell
+							776 text 合約
+						777 cell
+							778 text 待開票
+						779 cell
+							780 button 開票
+					781 row
+						782 cell
+							783 checkbox (settable, integer) 0
+						784 cell
+							785 text 4M123457
+						786 cell
+							787 text 高衛物業管理
+						788 cell
+							789 text 2026-08 保養合約結算
+						790 cell
+							791 text HKD 5,800
+						792 cell
+							793 text M類保養
+						794 cell
+							795 text 2026-08
+						796 cell
+							797 text 2026-08-01 ~ 2026-08-31
+						798 cell
+							799 text 每月
+						800 cell
+							801 text 合約
+						802 cell
+							803 text 待開票
+						804 cell
+							805 button 開票
+					806 row
+						807 cell
+							808 checkbox (settable, integer) 0
+						809 cell
+							810 text 4M123457
+						811 cell
+							812 text 高衛物業管理
+						813 cell
+							814 text 2026-09 保養合約結算
+						815 cell
+							816 text HKD 5,800
+						817 cell
+							818 text M類保養
+						819 cell
+							820 text 2026-09
+						821 cell
+							822 text 2026-09-01 ~ 2026-09-30
+						823 cell
+							824 text 每月
+						825 cell
+							826 text 合約
+						827 cell
+							828 text 待開票
+						829 cell
+							830 button 開票
+					831 row
+						832 cell
+							833 checkbox (settable, integer) 0
+						834 cell
+							835 text 4M123457
+						836 cell
+							837 text 高衛物業管理
+						838 cell
+							839 text 2026-10 保養合約結算
+						840 cell
+							841 text HKD 5,800
+						842 cell
+							843 text M類保養
+						844 cell
+							845 text 2026-10
+						846 cell
+							847 text 2026-10-01 ~ 2026-10-31
+						848 cell
+							849 text 每月
+						850 cell
+							851 text 合約
+						852 cell
+							853 text 待開票
+						854 cell
+							855 button 開票
+					856 row
+						857 cell
+							858 checkbox (settable, integer) 0
+						859 cell
+							860 text 4M123457
+						861 cell
+							862 text 高衛物業管理
+						863 cell
+							864 text 2026-11 保養合約結算
+						865 cell
+							866 text HKD 5,800
+						867 cell
+							868 text M類保養
+						869 cell
+							870 text 2026-11
+						871 cell
+							872 text 2026-11-01 ~ 2026-11-30
+						873 cell
+							874 text 每月
+						875 cell
+							876 text 合約
+						877 cell
+							878 text 待開票
+						879 cell
+							880 button 開票
+					881 row
+						882 cell
+							883 checkbox (settable, integer) 0
+						884 cell
+							885 text 4M123457
+						886 cell
+							887 text 高衛物業管理
+						888 cell
+							889 text 2026-12 保養合約結算
+						890 cell
+							891 text HKD 5,800
+						892 cell
+							893 text M類保養
+						894 cell
+							895 text 2026-12
+						896 cell
+							897 text 2026-12-01 ~ 2026-12-31
+						898 cell
+							899 text 每月
+						900 cell
+							901 text 合約
+						902 cell
+							903 text 待開票
+						904 cell
+							905 button 開票
+					906 row
+						907 cell
+							908 checkbox (settable, integer) 0
+						909 cell
+							910 text 4M123457
+						911 cell
+							912 text 高衛物業管理
+						913 cell
+							914 text 2027-01 保養合約結算
+						915 cell
+							916 text HKD 5,800
+						917 cell
+							918 text M類保養
+						919 cell
+							920 text 2027-01
+						921 cell
+							922 text 2027-01-01 ~ 2027-01-31
+						923 cell
+							924 text 每月
+						925 cell
+							926 text 合約
+						927 cell
+							928 text 待開票
+						929 cell
+							930 button 開票
+					931 row
+						932 cell
+							933 checkbox (settable, integer) 0
+						934 cell
+							935 text 4M123457
+						936 cell
+							937 text 高衛物業管理
+						938 cell
+							939 text 2027-02 保養合約結算
+						940 cell
+							941 text HKD 5,800
+						942 cell
+							943 text M類保養
+						944 cell
+							945 text 2027-02
+						946 cell
+							947 text 2027-02-01 ~ 2027-02-28
+						948 cell
+							949 text 每月
+						950 cell
+							951 text 合約
+						952 cell
+							953 text 待開票
+						954 cell
+							955 button 開票
+					956 row
+						957 cell
+							958 checkbox (settable, integer) 0
+						959 cell
+							960 text 4M123457
+						961 cell
+							962 text 高衛物業管理
+						963 cell
+							964 text 2027-03 保養合約結算
+						965 cell
+							966 text HKD 5,800
+						967 cell
+							968 text M類保養
+						969 cell
+							970 text 2027-03
+						971 cell
+							972 text 2027-03-01 ~ 2027-03-31
+						973 cell
+							974 text 每月
+						975 cell
+							976 text 合約
+						977 cell
+							978 text 待開票
+						979 cell
+							980 button 開票
+					981 row
+						982 cell
+							983 checkbox (settable, integer) 0
+						984 cell
+							985 text 4M123457
+						986 cell
+							987 text 高衛物業管理
+						988 cell
+							989 text 2027-04 保養合約結算
+						990 cell
+							991 text HKD 5,800
+						992 cell
+							993 text M類保養
+						994 cell
+							995 text 2027-04
+						996 cell
+							997 text 2027-04-01 ~ 2027-04-30
+						998 cell
+							999 text 每月
+						1000 cell
+							1001 text 合約
+						1002 cell
+							1003 text 待開票
+						1004 cell
+							1005 button 開票
+					1006 row
+						1007 cell
+							1008 checkbox (settable, integer) 0
+						1009 cell
+							1010 text 4M123457
+						1011 cell
+							1012 text 高衛物業管理
+						1013 cell
+							1014 text 2027-05 保養合約結算
+						1015 cell
+							1016 text HKD 5,800
+						1017 cell
+							1018 text M類保養
+						1019 cell
+							1020 text 2027-05
+						1021 cell
+							1022 text 2027-05-01 ~ 2027-05-31
+						1023 cell
+							1024 text 每月
+						1025 cell
+							1026 text 合約
+						1027 cell
+							1028 text 待開票
+						1029 cell
+							1030 button 開票
+					1031 row
+						1032 cell
+							1033 checkbox (settable, integer) 0
+						1034 cell
+							1035 text 4M123458
+						1036 cell
+							1037 text 九龍國際廣場
+						1038 cell
+							1039 text 2026-01 保養合約結算
+						1040 cell
+							1041 text HKD 12,000
+						1042 cell
+							1043 text M類保養
+						1044 cell
+							1045 text 2026-01
+						1046 cell
+							1047 text 2026-01-01 ~ 2026-03-31
+						1048 cell
+							1049 text 每季
+						1050 cell
+							1051 text 合約
+						1052 cell
+							1053 text 待開票
+						1054 cell
+							1055 button 開票
+					1056 row
+						1057 cell
+							1058 checkbox (settable, integer) 0
+						1059 cell
+							1060 text 4M123458
+						1061 cell
+							1062 text 九龍國際廣場
+						1063 cell
+							1064 text 2026-04 保養合約結算
+						1065 cell
+							1066 text HKD 12,000
+						1067 cell
+							1068 text M類保養
+						1069 cell
+							1070 text 2026-04
+						1071 cell
+							1072 text 2026-04-01 ~ 2026-06-30
+						1073 cell
+							1074 text 每季
+						1075 cell
+							1076 text 合約
+						1077 cell
+							1078 text 待開票
+						1079 cell
+							1080 button 開票
+					1081 row
+						1082 cell
+							1083 checkbox (settable, integer) 0
+						1084 cell
+							1085 text 4M123458
+						1086 cell
+							1087 text 九龍國際廣場
+						1088 cell
+							1089 text 2026-07 保養合約結算
+						1090 cell
+							1091 text HKD 12,000
+						1092 cell
+							1093 text M類保養
+						1094 cell
+							1095 text 2026-07
+						1096 cell
+							1097 text 2026-07-01 ~ 2026-09-30
+						1098 cell
+							1099 text 每季
+						1100 cell
+							1101 text 合約
+						1102 cell
+							1103 text 待開票
+						1104 cell
+							1105 button 開票
+					1106 row
+						1107 cell
+							1108 checkbox (settable, integer) 0
+						1109 cell
+							1110 text 4M123458
+						1111 cell
+							1112 text 九龍國際廣場
+						1113 cell
+							1114 text 2026-10 保養合約結算
+						1115 cell
+							1116 text HKD 12,000
+						1117 cell
+							1118 text M類保養
+						1119 cell
+							1120 text 2026-10
+						1121 cell
+							1122 text 2026-10-01 ~ 2026-12-31
+						1123 cell
+							1124 text 每季
+						1125 cell
+							1126 text 合約
+						1127 cell
+							1128 text 待開票
+						1129 cell
+							1130 button 開票
+	221 text 歡迎回來，系統管理員！
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html

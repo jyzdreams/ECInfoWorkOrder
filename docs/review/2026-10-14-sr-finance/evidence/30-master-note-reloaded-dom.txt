@@ -1,0 +1,62 @@
+- main:
+  - heading "CALL" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔 1":
+    - text: 🔔
+    - generic: "1"
+  - button "陳 陳大文 師傅 · 外勤 · 九龍 ⌄":
+    - generic: 陳
+    - strong: 陳大文
+    - generic: 師傅 · 外勤 · 九龍
+    - generic: ⌄
+  - button "待確認"
+  - button "待處理"
+  - button "處理中"
+  - button "已完成"
+  - button "WO-DEMO-CM"
+  - generic: 無接單
+  - generic: 待確認
+  - strong: 糾正維修
+  - generic: 九龍國際廣場 · 2區
+  - generic: 九龍國際廣場
+  - strong: 聯繫人：
+  - text: 陳先生
+  - strong: 電話：
+  - text: +852 9000 0000
+  - generic: 電話
+  - button "收到"
+  - button "首頁":
+    - generic: 首頁
+  - button "CALL":
+    - generic: CALL
+  - dialog "CALL 詳情":
+    - heading "CALL 詳情" [level=2]
+    - paragraph: WO-DEMO-CM · 待確認
+    - button "關閉": ×
+    - heading "客戶資料" [level=3]
+    - generic: 客戶
+    - strong: 九龍國際廣場
+    - generic: 聯繫人
+    - strong: 陳先生
+    - generic: 聯繫電話
+    - strong: +852 9000 0000
+    - generic: 地址
+    - strong: 九龍國際廣場
+    - heading "CALL 資料" [level=3]
+    - generic: CALL 類型
+    - strong: 糾正維修
+    - generic: 區域
+    - strong: 2區
+    - generic: 狀態
+    - strong: 待確認
+    - generic: 目前師傅
+    - strong: 陳大文
+    - generic: 派工備註（時間與事項）
+    - strong: 僅本地派工備註測試：10月15日下午2點；到場前電話核對入口。非真實預約或客戶確認。
+    - generic: 內容
+    - strong: 整改走查 糾正維修
+    - heading "服務紀錄" [level=3]
+- generic: 歡迎回來，陳大文！

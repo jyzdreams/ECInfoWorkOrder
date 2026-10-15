@@ -1,0 +1,30 @@
+{
+  "name": "github-pages",
+  "can_admins_bypass": false,
+  "protection_rules": [
+    {
+      "id": 58897792,
+      "node_id": "GA_kwDOS_HUNM4DgrWA",
+      "type": "branch_policy"
+    },
+    {
+      "id": 68916544,
+      "node_id": "GA_kwDOS_HUNM4EG5VA",
+      "type": "required_reviewers",
+      "prevent_self_review": false,
+      "reviewers": [
+        {
+          "type": "User",
+          "reviewer": {
+            "id": 5178732,
+            "login": "jyzdreams"
+          }
+        }
+      ]
+    }
+  ],
+  "deployment_branch_policy": {
+    "protected_branches": false,
+    "custom_branch_policies": true
+  }
+}

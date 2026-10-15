@@ -1,0 +1,248 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				268 button 🏠 首頁
+					269 text 🏠
+					270 text 首頁
+				271 button 📋 CALL管理
+					272 text 📋
+					273 text CALL管理
+				274 button 📤 分派中心
+					275 text 📤
+					276 text 分派中心
+				277 button 📅 保養計劃
+					278 text 📅
+					279 text 保養計劃
+				280 button 💰 報價管理
+					281 text 💰
+					282 text 報價管理
+				283 button 🛒 備貨管理
+					284 text 🛒
+					285 text 備貨管理
+				286 button 📁 報告管理
+					287 text 📁
+					288 text 報告管理
+				289 button 📊 統計報表
+					290 text 📊
+					291 text 統計報表
+				292 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					293 text ⚙️
+					294 text 基礎設置
+					295 text ▶
+				296 container
+					297 button 📖 字典管理
+					298 button 🏢 客戶管理
+					299 button 👤 用戶管理
+					300 button 🖥️ 服務器空間
+					301 button 📊 Excel 導入
+					302 button 🧩 組件庫
+				303 button 📱 移動端
+					304 text 📱
+					305 text 移動端
+		53 container
+			54 heading 首頁, Value: 1, ID: pageTitle
+				306 text 首頁
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			61 button 陳 陳關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				307 text 陳
+				308 text 陳關係
+				309 text 客戶關係部 · 客戶關係部
+				65 text ⌄
+			310 container
+				311 container 報價需求轉交
+					312 heading 報價需求轉交, Value: 3
+						313 text 報價需求轉交
+					314 text 查看來源，將既有報價需求轉交報價組。
+					315 table
+						316 row
+							317 cell
+								318 text 來源
+							319 cell
+								320 text 客戶
+							321 cell
+								322 text 提出人
+							323 cell
+								324 text 狀態
+							325 cell
+								326 text 轉交記錄
+							327 cell
+								328 text 操作
+						329 row
+							330 cell
+								331 button WO-20261013-003
+							332 cell
+								333 text 港島商業中心
+							334 cell
+								335 text 陳小姐
+							336 cell
+								337 text 已轉交
+							338 cell
+								339 text 陳關係
+								340 text 13/10/2026 下午8:25:03
+							341 cell
+								342 text Q-1791894303350
+						343 row
+							344 cell
+								345 button WO-20261013-002
+							346 cell
+								347 text 港島商業中心
+							348 cell
+								349 text 陳小姐
+							350 cell
+								351 text 已轉交
+							352 cell
+								353 text 陳關係
+								354 text 13/10/2026 下午8:21:25
+							355 cell
+								356 text Q-1791894085369
+						357 row
+							358 cell
+								359 button WO-20261013-001
+							360 cell
+								361 text 港島商業中心
+							362 cell
+								363 text 陳小姐
+							364 cell
+								365 text 已轉交
+							366 cell
+								367 text 趙組長
+								368 text 13/10/2026 下午8:28:51
+							369 cell
+								370 text 1P2600013
+				371 button 查看全部 CALL
+					372 text CALL總數
+					373 text 8
+					374 text 點擊列表篩選查看
+				375 button 查看待分派 CALL
+					376 text 待分派
+					377 text 5
+					378 text 點擊列表篩選查看
+				379 button 查看待確認 CALL
+					380 text 待確認
+					381 text 0
+					382 text 點擊列表篩選查看
+				383 button 查看待處理 CALL
+					384 text 待處理
+					385 text 0
+					386 text 點擊列表篩選查看
+				387 button 查看處理中 CALL
+					388 text 處理中
+					389 text 2
+					390 text 點擊列表篩選查看
+				391 button 查看待審批 CALL
+					392 text 待審批
+					393 text 0
+					394 text 點擊列表篩選查看
+				395 button 查看待完工確認 CALL
+					396 text 待完工確認
+					397 text 0
+					398 text 點擊列表篩選查看
+				399 button 查看已完成 CALL
+					400 text 已完成
+					401 text 1
+					402 text 點擊列表篩選查看
+				403 button 查看已取消 CALL
+					404 text 已取消
+					405 text 0
+					406 text 點擊列表篩選查看
+				407 heading 今日待辦, Value: 2
+					408 text 今日待辦
+				409 button 查看列表
+				410 container
+					411 button WO-20261013-003
+					412 text 待分派
+				413 text 港島商業中心
+				414 text PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。
+				415 container
+					416 button WO-20261013-002
+					417 text 待分派
+				418 text 港島商業中心
+				419 text PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。
+				420 container
+					421 button WO-20261013-001
+					422 text 待分派
+				423 text 港島商業中心
+				424 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。
+				425 container
+					426 button WO-20260615-001
+					427 text 待分派
+				428 text 港島商業中心
+				429 text 客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。
+				430 container
+					431 button WO-20260612-012
+					432 text 待分派
+				433 text 港島商業中心
+				434 text 客戶提出臨時設備測試需求，需 CS 確認是否進入派工。
+				435 heading 異常CALL, Value: 2
+					436 text 異常CALL
+				437 button 查看列表
+				438 container
+					439 button WO-20260613-010
+					440 text 需關注
+				441 text 灣仔商業大廈
+				442 text 臨時協助現場設備移位，需補充位置照片後繼續處理。
+				443 heading 最近動態, Value: 2
+					444 text 最近動態
+				445 text 2026-06-15
+				446 container
+					447 text 10-13 20:24 · 
+					448 button 開啟 WO-20261013-003
+					449 text 創建工單
+				450 container
+					451 text 10-13 20:20 · 
+					452 button 開啟 WO-20261013-002
+					453 text 創建工單
+				454 container
+					455 text 10-13 17:51 · 
+					456 button 開啟 WO-20261013-001
+					457 text 創建工單
+				458 container
+					459 text 06-15 09:10 · 
+					460 button 開啟 WO-20260615-001
+					461 text 記錄客戶來電，待分派判斷。
+				462 container
+					463 text 06-15 11:35 · 
+					464 button 開啟 WO-20260615-005
+					465 text 正在調整音量。
+				466 heading 📞 最近來電, Value: 2
+					467 text 📞 最近來電
+				468 button 查看全部來電
+				469 text 需建單
+				470 button WO-20261013-003
+				471 text PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。 · 13/10/2026 20:24:38 需建單
+				472 button WO-20261013-002
+				473 text PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。 · 13/10/2026 20:20:13 需建單
+				474 button WO-20261013-001
+				475 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。 · 13/10/2026 17:51:26
+	267 text 歡迎回來，陳關係！
+	476 container CALL詳情
+		477 heading WO-20261013-003, Value: 3
+			478 text WO-20261013-003
+		479 text CALL詳情 · 工程維修 待分派
+		480 button 關閉
+		481 container
+			482 heading 客戶信息, Value: 4
+				483 text 客戶信息
+			484 text 客戶名稱 港島商業中心 聯繫人 陳先生 聯繫電話 +852 9123 4567 地址 中環德輔道中88號
+			485 heading CALL信息, Value: 4
+				486 text CALL信息
+			487 text CALL類型 工程維修 區域 1區 來源渠道 電話 優先級 普通 創建時間 2026-10-13 20:24 問題描述 PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。
+			488 heading 處理進度, Value: 4
+				489 text 處理進度
+			490 text 當前狀態 待分派 當前負責人 陳小姐 主管 趙組長 排程狀態 未排程 預排師傅 未預排 預計時間 未預排 正式施工時間 未確認 服務報告 未提交
+			491 heading 附件, Value: 4
+				492 text 附件
+			493 text 暫無附件
+		494 button 新建報價
+		495 button 編輯工單
+
+The focused UI element is 331 button WO-20261013-003

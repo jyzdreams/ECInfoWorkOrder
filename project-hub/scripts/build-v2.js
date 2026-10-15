@@ -30,10 +30,19 @@ const knowledgePaths = {
   flowData: 'docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md',
   requirementIndex: 'docs/knowledge/04-requirements/REQUIREMENT-INDEX.md',
   openQuestions: 'docs/knowledge/05-pending/OPEN-QUESTIONS.md',
+  latestRules: 'docs/knowledge/03-business/LATEST-REQUIREMENTS-20261012.md',
+  internalBaseline: 'docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md',
 };
+const internalReviewPath = 'docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md';
+const remediationPath = 'docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md';
+const materialCandidatePath = 'docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md';
+const quotationReviewPath = 'docs/review/2026-10-13-b01-b02-internal/QUOTATION-REMEDIATION-RESULT.md';
+const materialReviewPath = 'docs/review/2026-10-14-material-handoff/MATERIAL-HANDOFF-REVIEW.md';
+const srFinanceReviewPath = 'docs/review/2026-10-14-sr-finance/SR-FINANCE-WALKTHROUGH.md';
+const userReviewPath = 'docs/review/2026-10-14-user-review/INTERNAL-REVIEW-CHECKLIST.md';
 if (process.argv.includes('--check-paths')) {
-  const required = [...Object.values(knowledgePaths), decisionPath, regressionPath,
-    'docs/governance/FILE-WRITING-RULES.md', 'docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md'];
+  const required = [...Object.values(knowledgePaths), decisionPath, regressionPath, internalReviewPath, remediationPath, materialCandidatePath, quotationReviewPath, materialReviewPath, srFinanceReviewPath,
+    'docs/governance/FILE-WRITING-RULES.md', 'docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md', userReviewPath];
   const missing = required.filter(rel => !fs.existsSync(path.join(root, rel)));
   const ids = previousIndex.files.map(file => file.id);
   if (missing.length || new Set(ids).size !== ids.length) {
@@ -110,11 +119,12 @@ function classify(rel) {
   if (lower.startsWith('docs/knowledge/')) return ['Knowledge Governance', 'CurrentKnowledge', 'READY'];
   if (lower.startsWith('knowledge-base/')) return ['Legacy Knowledge Base', 'LegacyReference', 'PARTIAL'];
   if (lower.startsWith('backups/')) return ['Backup', 'HistoricalBackup', 'READY'];
+  if (lower.startsWith('docs/review/') && lower.endsWith('/uat-scenarios.md')) return ['Testing', 'TestArtifact', 'DRAFT'];
   if (lower.startsWith('docs/review/')) return ['Review/Audit', 'ReviewEvidence', 'PARTIAL'];
   if (lower.startsWith('archive/')) return ['Archive', 'HistoricalArtifact', 'DRAFT'];
   if (lower.startsWith('.specify/') || lower.startsWith('.github/') || ['agents.md', 'readme.md', 'file-writing-rules.md', 'project-structure.md', '.gitignore'].includes(path.basename(lower))) return ['Governance', 'ProjectRule', 'READY'];
   if (lower.includes('/99-检查记录/') || ext === '.ndjson') return ['Verification Record', 'InspectionOutput', 'PARTIAL'];
-  if (lower.includes('/tests/') || /(^|[-_])uat([-.\/]|$)|test.case|test_case/.test(lower)) return ['Testing', 'TestArtifact', 'DRAFT'];
+  if (lower.includes('/tests/') || /(^|[\/_-])uat([-.\/]|$)|test.case|test_case/.test(lower)) return ['Testing', 'TestArtifact', 'DRAFT'];
   if (lower.includes('prototype-screenshots') || (lower.includes('prototype') && ['.png', '.jpg'].includes(ext))) return ['Prototype Screenshot', 'VisualEvidence', 'PARTIAL'];
   if (lower === 'prototype/index.html') return ['Prototype', 'CurrentPrototype', 'PARTIAL'];
   if (lower.endsWith('/index.html') && (lower.includes('prototype') || lower.includes('/ui/'))) return ['Legacy Prototype', 'HistoricalPrototype', 'DRAFT'];
@@ -166,6 +176,16 @@ function parseSourceMappings(markdown) {
   });
 }
 const sourceMappings = parseSourceMappings(readText(knowledgePaths.sourceIndex));
+const latestRules = readText(knowledgePaths.latestRules).split('\n').filter(line => /^\|\s*UPD-\d{3}\s*\|/.test(line)).map(line => {
+  const [id,title,rule,evidenceStatus,sourceId,locator,module,flowText,reqText,batch,scopeProposal] = markdownCells(line);
+  const mapping = sourceMappings.find(item => item.sourceId === sourceId);
+  if (!mapping) throw new Error(`Latest requirement missing source: ${id}/${sourceId}`);
+  return {id,title,rule,evidenceStatus,sourceId,locator,module,batch,scopeProposal,
+    flowIds:idList(flowText,['FLOW']), legacyRequirementIds:idList(reqText,['REQ']),
+    requirementId:'REQ-'+id, factId:'FACT-'+id, sourceFileId:mapping.fileId,
+    approvalStatus:'待确认', sourceLevel:'L3：沟通工作副本，逐段核对；确认身份未附'};
+});
+if (!latestRules.length || new Set(latestRules.map(item => item.id)).size !== latestRules.length) throw new Error('Latest requirement IDs missing/duplicated');
 const seenSourceIds = new Set();
 for (const mapping of sourceMappings) {
   if (seenSourceIds.has(mapping.sourceId)) throw new Error(`Duplicate SOURCE ID: ${mapping.sourceId}`);
@@ -247,9 +267,14 @@ for (const rule of kb.rules) {
     status, legacyStatus: rule.status, sourceFileIds: fileIds, legacySourceIds: rule.sourceIds,
     sourcePriority: '历史事实审计', decisionIds: [], supersededByDecisionId: superseded ? 'CONFIRMED-010' : null,
     flowIds: [], legacyFlowIds: rule.flowIds,
-    evidenceNote: superseded ? '历史资料间的完工状态冲突已由较新的 CONFIRMED-010 给出当前结论；旧差异保留，不作为当前未解决冲突。' : '保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。',
+    evidenceNote: superseded ? '历史状态差异曾由 CONFIRMED-010 收口；2026-10-14 SOURCE-022新增维修CP/主管确认、财务独立说明，单据适用仍须按最新业务基线显示冲突，不能把旧统一SR当当前维修结论。原Decision保留版本身份。' : '保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。',
   });
 }
+for (const rule of latestRules) facts.push({id:rule.factId,title:rule.title,statement:rule.rule,
+  status:rule.evidenceStatus==='待客户决策'?'OPEN':'PARTIAL',sourceFileIds:[rule.sourceFileId],
+  sourceLocator:rule.sourceId+' '+rule.locator, sourceLevel:rule.sourceLevel, evidenceStatus:rule.evidenceStatus,
+  sourcePriority:'最新沟通工作副本',decisionIds:[],flowIds:rule.flowIds, approvalStatus:rule.approvalStatus,
+  evidenceNote:'原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。'});
 const factByDecision = new Map(facts.filter(f => f.decisionIds.length && !f.id.startsWith('FACT-LEGACY-')).map(f => [f.decisionIds[0], f]));
 
 const flowMeta = {
@@ -260,6 +285,8 @@ const flowMeta = {
   'FLOW-M': ['按合同周期组织每次保养并留存 Service Report。', '报价包含 M 且客户接受，中单后生成整期计划。'],
   'FLOW-CM': ['由 CR / 主管指定师傅完成 CM 服务。', '发生 CM 任务。'],
   'FLOW-TENDER': ['处理政府标书结果并进入相应业务类型。', '取得政府项目标书。'],
+  'FLOW-MR': ['核对材料申请、备货及就绪交接。', '报价成交来源、无报价申请或仓管自主申请。'],
+  'FLOW-FINANCE': ['核对完工资料、正常/例外开票与独立收款。', '服务或合同业务进入财务处理；适用资料清单待确认。'],
 };
 function parseFlowData(markdown) {
   const result = [];
@@ -269,7 +296,9 @@ function parseFlowData(markdown) {
     const value = label => section.match(new RegExp(`^- ${label}：(.+)$`, 'm'))?.[1]?.trim() || '';
     const nodes = section.split('\n').filter(line => /^\|\s*[A-Z]+-\d{2}\s*\|/.test(line)).map(line => {
       const [nodeId, label, actor, action, state, nextRole, status, decisionText, description] = markdownCells(line);
-      return { id: nodeId, label, actor, action, state, nextRole, status,
+      const latestFactIds=[...new Set((description||'').match(/UPD-\d{3}/g)||[])].map(id=>'FACT-'+id);
+      for (const factId of latestFactIds) if (!facts.some(f=>f.id===factId)) throw new Error(`Unknown latest fact ${factId} in ${nodeId}`);
+      return { id: nodeId, label, actor, action, state, nextRole, status,latestFactIds,
         decisionIds: idList(decisionText, ['CONFIRMED', 'PENDING', 'REJECTED']), description };
     });
     const status = value('状态');
@@ -281,7 +310,7 @@ function parseFlowData(markdown) {
   return result;
 }
 const baseFlows = parseFlowData(readText(knowledgePaths.flowData));
-if (baseFlows.length !== 7) throw new Error(`Flow count changed unexpectedly: ${baseFlows.length} (expected 7)`);
+if (baseFlows.length < 7 || new Set(baseFlows.map(flow => flow.id)).size !== baseFlows.length) throw new Error('Flow IDs missing/duplicated');
 const baselineFile = fileByPath.get(knowledgePaths.baseline);
 const flowDataFile = fileByPath.get(knowledgePaths.flowData);
 const flows = baseFlows.map(f => {
@@ -289,7 +318,8 @@ const flows = baseFlows.map(f => {
   const decisionIds = [...new Set(nodes.flatMap(n => n.decisionIds))];
   const confirmed = decisionIds.filter(id => decisionById.get(id)?.status === 'CONFIRMED');
   const open = decisionIds.filter(id => decisionById.get(id)?.status === 'PENDING');
-  const sourceFileIds = [...new Set(confirmed.flatMap(id => decisionById.get(id)?.sourceFileIds || []))];
+  const explicitSources = nodes.flatMap(n => (n.description || '').match(/SOURCE-\d{3}/g) || []);
+  const sourceFileIds = [...new Set([...confirmed.flatMap(id => decisionById.get(id)?.sourceFileIds || []), ...explicitSources.map(id => sourceMappings.find(s => s.sourceId === id)?.fileId).filter(Boolean)])];
   const [purpose, trigger] = flowMeta[f.id];
   return { ...f, nodes,
     factStatus: f.id === 'FLOW-MAIN' ? 'PARTIAL' : f.status === 'CONFIRMED' ? 'CONFIRMED' : f.status === 'PARTIAL' ? 'PARTIAL' : 'OPEN',
@@ -303,6 +333,13 @@ const flows = baseFlows.map(f => {
   };
 });
 const flowById = new Map(flows.map(f => [f.id, f]));
+for (const flow of flows) {
+  const related=latestRules.filter(rule=>rule.flowIds.includes(flow.id));
+  flow.factIds=[...new Set([...flow.factIds,...related.map(rule=>rule.factId)])];
+  flow.sourceFileIds=[...new Set([...flow.sourceFileIds,...related.map(rule=>rule.sourceFileId)])];
+  flow.moduleIds=flow.moduleIds||[...new Set(related.map(rule=>rule.module))];
+  flow.latestRequirementIds=related.map(rule=>rule.requirementId);
+}
 
 // Explicit, reviewed topic connections. These are trace links, not approval or proof of implementation.
 const requirementFlowMap = {
@@ -342,9 +379,21 @@ const requirements = kb.requirements.map(r => {
     note: '关联表示可追溯的主题对应，不代表需求已批准、原型已对齐或功能已实现。',
   };
 });
+for (const rule of latestRules) {
+  const parentRequirements=rule.legacyRequirementIds.map(id=>requirements.find(item=>item.id===id)).filter(Boolean);
+  const mappedPageIds=[...new Set(parentRequirements.flatMap(item=>item.pageIds))];
+  requirements.push({id:rule.requirementId,legacyId:rule.id,title:rule.title,module:parentRequirements[0]?.module||'原需求补充与上线约束',
+    status:'OPEN',approvalStatus:'待确认',scope:rule.scopeProposal,sourceFileIds:[rule.sourceFileId],legacySourceIds:[],
+    sourceLocator:rule.sourceId+' '+rule.locator,flowIds:rule.flowIds,legacyFlowIds:[],ruleIds:[],legacyFactIds:[],
+    latestFactIds:[rule.factId],pageIds:mappedPageIds,pages:mappedPageIds.map(id=>{
+      const page=pageById.get(id);return {id,name:page.name,key:page.key,status:'PARTIAL',fileId:currentPrototypeId,
+        basis:'对应旧REQ的页面主题映射，未认定字段/动作已覆盖。'};
+    }),prdFileIds:[],prototypeFileIds:mappedPageIds.length&&currentPrototypeId?[currentPrototypeId]:[],decisionIds:[],
+    note:rule.rule+'；证据状态：'+rule.evidenceStatus+'。来源 '+rule.sourceId+' '+rule.locator+'；'+rule.sourceLevel+'。范围/规则批准和原型全链验收未完成。'});
+}
 const requirementById = new Map(requirements.map(r => [r.id, r]));
 const pages = kb.pages.map(p => ({ id: p.id, key: p.key, name: p.name, status: 'PARTIAL',
-  fileId: currentPrototypeId, requirementIds: p.requirementIds.filter(id => requirementById.has(id)),
+  fileId: currentPrototypeId, requirementIds: requirements.filter(r=>r.pageIds.includes(p.id)).map(r=>r.id),
   flowIds: [...new Set(p.requirementIds.flatMap(id => requirementById.get(id)?.flowIds || []))],
   sourceFileIds: sourceFileIds(p.sourceIds),
   evidenceNote: '由历史知识库的原型页面映射得到；仅证明入口与需求关联，具体行为待与最新 Decision 对照。',
@@ -353,8 +402,8 @@ const pageIndex = new Map(pages.map(p => [p.id, p]));
 
 const traces = requirements.map(r => {
   const fsFor = r.flowIds.map(id => flowById.get(id));
-  const decisionIds = [...new Set(fsFor.flatMap(f => f.decisionIds))];
-  const factIds = [...new Set(decisionIds.map(id => factByDecision.get(id)?.id).filter(Boolean))];
+  const decisionIds = r.latestFactIds?.length ? [...r.decisionIds] : [...new Set(fsFor.flatMap(f => f.decisionIds))];
+  const factIds = [...new Set([...decisionIds.map(id => factByDecision.get(id)?.id).filter(Boolean),...(r.latestFactIds||[])])];
   const sourceFileIds = [...new Set([...r.sourceFileIds, ...factIds.flatMap(id => facts.find(f => f.id === id)?.sourceFileIds || [])])];
   const flags = [];
   if (!r.sourceFileIds.length) flags.push('MISSING SOURCE');
@@ -362,7 +411,7 @@ const traces = requirements.map(r => {
   if (!r.prdFileIds.length) flags.push('UNLINKED PRD');
   if (!r.prototypeFileIds.length) flags.push('UNLINKED PROTOTYPE');
   if (r.approvalStatus !== '已批准') flags.push('OPEN');
-  if ([51, 55, 56, 78].includes(Number(r.id.slice(-3)))) flags.push('CONFLICT');
+  if (!r.id.startsWith('REQ-UPD-') && [51, 55, 56, 78].includes(Number(r.id.slice(-3)))) flags.push('CONFLICT');
   return { id: 'TRACE-' + r.id, requirementId: r.id, sourceFileIds, directSourceFileIds: r.sourceFileIds,
     factIds, decisionIds, flowIds: r.flowIds, legacyFlowIds: r.legacyFlowIds,
     prdFileIds: r.prdFileIds, pageIds: r.pageIds, prototypeFileIds: r.prototypeFileIds,
@@ -376,6 +425,7 @@ function edge(from, to, kind, evidence, status = 'LINKED') { explicitEdges.push(
 for (const mapping of sourceMappings) edge(mapping.sourceId, mapping.fileId, 'SOURCE_ALIAS_TO_FILE', knowledgePaths.sourceIndex);
 for (const fact of facts) for (const sid of fact.sourceFileIds) edge(sid, fact.id, 'SOURCE_TO_FACT', fact.sourceLocator || '历史知识库 sourceIds');
 for (const fact of facts) for (const did of fact.decisionIds) edge(fact.id, did, 'FACT_TO_DECISION', fact.sourceLocator);
+for (const flow of flows) for (const node of flow.nodes) for (const factId of node.latestFactIds||[]) edge(factId,node.id,'FACT_TO_FLOW_NODE',knowledgePaths.latestRules,'PARTIAL');
 for (const d of decisions) for (const sid of d.sourceFileIds) edge(sid, d.id, 'SOURCE_TO_DECISION', 'Decision 原文');
 for (const d of decisions.filter(d => d.status === 'CONFIRMED')) for (const fid of d.flowIds) edge(d.id, fid, 'DECISION_TO_FLOW', '2026-09-27 Decision 与流程节点');
 const baselineText = readText(knowledgePaths.baseline);
@@ -393,10 +443,10 @@ function explicitKnowledgeRefs(file) {
   const text = readText(file.projectPath);
   const matches = regex => [...new Set(text.match(regex) || [])];
   return {
-    facts: matches(/FACT-(?:LEGACY-)?\d{3}/g).filter(id => facts.some(f => f.id === id)),
+    facts: matches(/FACT-(?:(?:LEGACY|UPD)-)?\d{3}/g).filter(id => facts.some(f => f.id === id)),
     decisions: matches(/(?:CONFIRMED|PENDING|REJECTED)-\d{3}/g).filter(id => decisionById.has(id)),
     flows: matches(/FLOW-[A-Z-]+/g).filter(id => flowById.has(id)),
-    requirements: matches(/REQ-\d{3}/g).filter(id => requirementById.has(id)),
+    requirements: matches(/REQ-(?:UPD-)?\d{3}/g).filter(id => requirementById.has(id)),
     pages: matches(/PAGE-\d{3}/g).filter(id => pageIndex.has(id)),
   };
 }
@@ -417,7 +467,16 @@ function parseOpenQuestions(markdown) {
     ['Q-20260927-001', 'PENDING-001'], ['Q-20260927-002', 'PENDING-002'],
   ]);
   const indexFile = fileByPath.get(knowledgePaths.openQuestions);
-  return markdown.split('\n').filter(line => /^\|\s*Q-(?:\d{3}|\d{8}-\d{3})\s*\|/.test(line)).map(line => {
+  const current = markdown.split('## 历史问题定位')[0];
+  if (/^\|\s*C-\d{2}\s*\|/m.test(current)) return current.split('\n').filter(line=>/^\|\s*C-\d{2}\s*\|/.test(line)).map(line=>{
+    const [id,priority,status,title,impact,reason,evidence,batch,options,blocking]=markdownCells(line);
+    const decisionId=id==='C-05'?'PENDING-002':id==='C-06'?'PENDING-001':null;
+    const sourceAliases=[...new Set([...(evidence.match(/\bSOURCE-\d{3}\b/g)||[]),...(evidence.includes('S05')?['SOURCE-014']:[]),...(evidence.includes('S06')?['SOURCE-015']:[]),...(decisionId?['SOURCE-001']:[]),'SOURCE-016'])];
+    return {id,priority,status,title,reason,flowIds:idList(impact,['FLOW']),batch,options,blocking,decisionId,
+      sourceFileIds:sourceAliases.map(sourceId=>sourceMappings.find(item=>item.sourceId===sourceId)?.fileId).filter(Boolean),
+      knowledgeFileIds:indexFile?[indexFile.id]:[],provenance:'沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。'};
+  });
+  return current.split('\n').filter(line => /^\|\s*Q-(?:\d{3}|\d{8}-\d{3})\s*\|/.test(line)).map(line => {
     const [id, priority, status, title, impact, handling] = markdownCells(line);
     const legacy = legacyById.get(id);
     const decisionId = pendingDecisionByQuestion.get(id) || null;
@@ -431,7 +490,7 @@ function parseOpenQuestions(markdown) {
   });
 }
 const questions = parseOpenQuestions(readText(knowledgePaths.openQuestions));
-if (questions.length !== 24) throw new Error(`Open Question count changed unexpectedly: ${questions.length} (expected 24)`);
+if (!questions.length || new Set(questions.map(q=>q.id)).size!==questions.length) throw new Error('Current question IDs missing/duplicated');
 const conflictRecords = [
   ...[['CONFLICT-001', 'RULE-004', 'PM/CM 与 CALL 分类映射未确认'],
     ['CONFLICT-002', 'RULE-007', 'CM 场景师傅拒单权限存在资料差异'],
@@ -472,6 +531,7 @@ const knowledgeRoleByKey = {
   root: 'KNOWLEDGE_GOVERNANCE', sourceIndex: 'SOURCE_INDEX', decisionIndex: 'DECISION_INDEX',
   baseline: 'CURRENT_BUSINESS_BASELINE', flowData: 'BUSINESS_FLOW_DATA',
   requirementIndex: 'REQUIREMENT_INDEX', openQuestions: 'OPEN_QUESTION_INDEX',
+  latestRules: 'LATEST_REQUIREMENT_RECORDS',
 };
 const currentKnowledge = Object.entries(knowledgePaths).map(([key, projectPath]) => ({
   role: knowledgeRoleByKey[key], projectPath, fileId: fileByPath.get(projectPath)?.id || null,
@@ -492,7 +552,7 @@ const audit = {
     ['事实条目来源', facts.length, facts.filter(f => !f.sourceFileIds.length).length],
     ['Open Question 误标 Confirmed', questions.length, questions.filter(q => q.status === 'CONFIRMED').length],
     ['旧资料路径', files.length, files.filter(f => !fs.existsSync(path.join(root, f.projectPath))).length],
-    ['原型整改自动回归', regression?.total || 0, regression ? regression.failed : 1],
+    ['历史自动回归（本轮未复测）', regression?.total || 0, 1],
     ['原型人工验收', 1, 1],
   ].map(([name, checked, issues]) => ({ name, checked, issues })),
   counts: { indexedFiles: files.length, sourceFiles: allSourceFiles.length, facts: facts.length,
@@ -519,9 +579,9 @@ const audit = {
   openQuestions: questions, conflicts: conflictRecords,
   limitations: [
     'PRD、SDD、TDD 的文件存在与内容覆盖是两回事；未验证的语义边一律显示 PARTIAL。',
-    '当前没有正式 Test/UAT 用例，严格九跳完整链路为 0%。',
+    '16个UAT场景已准备；10/13内部局部复测有证据，完整链与客户签收未通过，进度以Excel为准。',
     '旧知识库规则保留来源与旧状态，但本轮不自动提升为新确认 Decision。',
-    '原型整改记录与机器结果显示 7/7 场景自动回归通过；人工验收仍待完成，旧审计发现不计为当前已证实 Prototype Conflict。',
+    '7/7是历史回归记录，不代表当前版本。10/12复核有入口/字段/筛选证据，未复测问题保持未验证，不能直接关闭旧审计。',
     '原型与 PRD 的具体字段级冲突需要逐页评审，当前只记录已有证据支持的冲突。',
   ],
 };
@@ -543,11 +603,29 @@ const model = { generatedAt, ia, files, facts, decisions, flows, requirements, p
   moduleNames: [...new Set(requirements.map(r => r.module))],
   baseline: { ...originalStatus.baseline, business: knowledgePaths.baseline, businessFileId: baselineFile?.id || null },
   sourcePriority: ['客户原始资料', '明确讨论 Decision', '已确认 PRD', 'Prototype', '开发实现'],
+  latestRules,legacyQuestions:originalStatus.legacyQuestions||originalStatus.openQuestions||[],
+  internalReview:{date:readText(srFinanceReviewPath).match(/^复核日期：(.+)$/m)?.[1],
+    conclusion:readText(srFinanceReviewPath).match(/^当前结论：(.+)$/m)?.[1],
+    baselinePath:knowledgePaths.internalBaseline,reviewPath:internalReviewPath,
+    resultPath:remediationPath,candidatePath:materialCandidatePath,quotationReviewPath,materialReviewPath,srFinanceReviewPath,userReviewPath,
+    guidedQuestion:readText(srFinanceReviewPath).match(/^当前引导问题：(.+)$/m)?.[1],
+    guidedAudience:readText(srFinanceReviewPath).match(/^用户本次只确认：(.+)$/m)?.[1],
+    guidedKnown:readText(materialCandidatePath).match(/^上一步已获得用户说明：(.+?)。/m)?.[1],
+    guidedSequence:readText(srFinanceReviewPath).match(/^当前服务顺序：(.+)$/m)?.[1] || readText(materialCandidatePath).match(/^后续已获得用户说明：(.+?)。/m)?.[1],
+    guidedInternalNext:readText(srFinanceReviewPath).match(/^当前内部动作：(.+)$/m)?.[1],
+    note:'本页展示知识和版本验证结论；任务进度只维护README指定Excel。'},
+  preparation:{reviewedAt:'2026-10-12',version:'PREP-20261012-v1',latestRequests:latestRules.length,
+    oldRequirementCount:kb.requirements.length,clientQuestions:questions.length,draftUatCount:16,
+    mainPath:sourceMappings.find(item=>item.sourceId==='SOURCE-021')?.projectPath,
+    clientPath:sourceMappings.find(item=>item.sourceId==='SOURCE-020')?.projectPath,
+    reviewPath:'docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md',
+    progressSource:'仅README指定Excel维护任务进度；本页统计为知识主题关联。',
+    prototypeCurrentVerified:false,scopeApproval:'本期范围待客户确认'},
 };
 function json(name, value) { fs.writeFileSync(path.join(dataDir, name), JSON.stringify(value, null, 2) + '\n', 'utf8'); }
 json('file-index.json', { generatedAt, total: files.length, scanBoundary: originalStatus.scanBoundary, sourceMappings, currentKnowledge, files });
-json('facts.json', { generatedAt, total: facts.length, facts });
-json('requirements.json', { generatedAt, total: requirements.length, requirements, pages });
+json('facts.json', { generatedAt, total: facts.length, facts,latestRules });
+json('requirements.json', { generatedAt, total: requirements.length, requirements, pages,preparation:model.preparation });
 json('flows.json', { generatedAt, total: flows.length, flows });
 json('decisions.json', { generatedAt, total: decisions.length, decisions, changes });
 const priorTrace = JSON.parse(fs.readFileSync(path.join(dataDir, 'traceability.json'), 'utf8'));
@@ -569,13 +647,14 @@ json('architecture.json', { generatedAt, ia, sourcePriority: model.sourcePriorit
 json('project-status.json', { ...originalStatus, generatedAt,
   baseline: model.baseline,
   knowledgeUpstream: { builder: 'project-hub/scripts/build-v2.js', currentKnowledge, sourceMappings: sourceMappings.length },
+  preparation:model.preparation,internalReview:model.internalReview,legacyQuestions:model.legacyQuestions,
   knowledgeCompleteness: audit.counts,
   delivery: deliverables,
-  gate: '客户确认、原型人工验收与正式 Test/UAT 均未完成；自动回归 7/7 通过，当前处于评审阶段。',
-  nextActions: ['确认现场收款交接与对账', '确认 CM 与 PM 时间冲突', '人工验收原型整改结果', '冻结一期功能范围与 80 项需求状态', '建立正式 Test/UAT 用例'],
+  gate: model.internalReview.conclusion,
+  nextActions: ['师傅公司领单再现场已说明；CR/主管交付候选C-08待用户后续客户核实，不重复追问同项', '纸单准备/现场填写/回交三环节已对照，继续入口/权限与已有独立任务；本轮原型不改', 'C-04材料归口、C-08交付岗位、C-09七位+1细则待客户；发号/打印/OCR及维修003下游未通过', '内部方案可演示后集中客户评审，客户决定后补交互、验收并冻结'],
   conflicts: conflictRecords, openQuestions: questions,
 });
 
-const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EC Project Hub · Single Source of Truth</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/architecture.css"></head><body><aside class="sidebar"><div class="brand"><div class="brand-mark">EC</div><div><strong>Project Hub</strong><span>事实与交付中心</span></div></div><nav id="nav"></nav><div class="side-links"><a href="../knowledge-base/index.html">历史知识库 ↗</a><a href="../prototype/index.html">当前原型 ↗</a><a href="README.md">维护说明 ↗</a></div></aside><main><header class="topbar"><div><p class="eyebrow">EC 工单系统 · Single Source of Truth</p><h1 id="view-title">业务全景</h1></div><label class="global-search"><span>⌕</span><input id="global-search" type="search" placeholder="搜索 Fact、Decision、Flow、REQ、文件…"></label></header><div id="content"></div></main><aside id="drawer" class="drawer" aria-hidden="true"><button id="drawer-close" aria-label="关闭">×</button><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status"></div><script>window.HUB_DATA=${JSON.stringify(model).replace(/</g, '\\u003c')};</script><script src="assets/app-v2.js"></script></body></html>\n`;
+const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EC Project Hub · Single Source of Truth</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/architecture.css"></head><body><aside class="sidebar"><div class="brand"><div class="brand-mark">EC</div><div><strong>Project Hub</strong><span>事实与交付中心</span></div></div><nav id="nav"></nav><div class="side-links"><a href="../knowledge-base/index.html">历史知识库 ↗</a><a href="../prototype/index.html">当前原型 ↗</a><a href="README.md">维护说明 ↗</a></div></aside><main><header class="topbar"><div><p class="eyebrow">EC 工单系统 · Single Source of Truth</p><h1 id="view-title">业务全景</h1></div><label class="global-search"><span>⌕</span><input id="global-search" type="search" placeholder="搜索 Fact、Decision、Flow、REQ、文件…"></label></header><div id="content"></div></main><aside id="drawer" class="drawer" aria-hidden="true"><button id="drawer-close" aria-label="关闭">×</button><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status"></div><script>window.HUB_DATA=${JSON.stringify(model).replace(/</g, '\\u003c')};</script><script src="assets/app-v2.js?v=20261014-material-review"></script></body></html>\n`;
 fs.writeFileSync(path.join(hub, 'index.html'), html, 'utf8');
 console.log(JSON.stringify(audit.counts, null, 2));

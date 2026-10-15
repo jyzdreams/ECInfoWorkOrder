@@ -1,0 +1,12 @@
+{
+  "kind": "isolated simulated review, not a colleague submission or user business decision",
+  "base": "e00192b6c1856d6d44c1646ca5d3ad908baffa50",
+  "candidate": "f38fb3ef57a7f12b8093ded02c0d04c24a55d4ed",
+  "review_diff": "diff --git a/review-example.txt b/review-example.txt\nindex cdffa49..fd666c8 100644\n--- a/review-example.txt\n+++ b/review-example.txt\n@@ -1,2 +1,3 @@\n 依据：既有正式规则\n-状态：待客户\n+状态：已批准\n+说明：仅整理表达，保留原状态",
+  "selected": "b942e5cf72855b9be38572a50668455852e9c4be",
+  "formal_after": "b942e5cf72855b9be38572a50668455852e9c4be",
+  "accepted_example": "整理表达",
+  "withheld_example": "待客户改为已批准",
+  "withheld_not_adopted": true,
+  "real_project_business_untouched": true
+}

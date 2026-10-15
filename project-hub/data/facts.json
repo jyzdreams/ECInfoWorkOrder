@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
-  "total": 45,
+  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "total": 84,
   "facts": [
     {
       "id": "FACT-001",
@@ -628,7 +628,7 @@
       "legacyFlowIds": [
         "FLOW-005"
       ],
-      "evidenceNote": "历史资料间的完工状态冲突已由较新的 CONFIRMED-010 给出当前结论；旧差异保留，不作为当前未解决冲突。"
+      "evidenceNote": "历史状态差异曾由 CONFIRMED-010 收口；2026-10-14 SOURCE-022新增维修CP/主管确认、财务独立说明，单据适用仍须按最新业务基线显示冲突，不能把旧统一SR当当前维修结论。原Decision保留版本身份。"
     },
     {
       "id": "FACT-LEGACY-014",
@@ -962,6 +962,1680 @@
         "FLOW-012"
       ],
       "evidenceNote": "保留上一版知识库规则及来源。未取得本轮人工确认，不能覆盖当前 Decision。"
+    },
+    {
+      "id": "FACT-UPD-001",
+      "title": "合同编号维护",
+      "statement": "需要维护合同编号",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P1",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-002",
+      "title": "CALL的JNO独立",
+      "statement": "新建CALL输入JNO；JNO不绑定客户",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P14",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-003",
+      "title": "客户多合同与重复客户",
+      "statement": "客户可有多个合同；允许重复客户记录，去重口径仍待定",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P17",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-004",
+      "title": "新增客户职责",
+      "statement": "标书组、Sales、报价组、CS需要新增客户入口；实际授权映射待确认",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P16",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-TENDER"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-005",
+      "title": "人员双语姓名与搜索",
+      "statement": "姓名需中英文，并可按中英文搜索",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P37",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-006",
+      "title": "CR区域可见范围",
+      "statement": "客户关系部查看对应区域的数据",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P40",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-007",
+      "title": "指定夜班组长全区CALL",
+      "statement": "某几个夜班组长可看所有区域CALL；名单与动作授权未给出",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P41",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-008",
+      "title": "标书负责人非必填",
+      "statement": "新建标书EC负责人不用必填",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P4",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-009",
+      "title": "标书日期时间",
+      "statement": "需要具体时间，截止时间默认17:00；原文重命名表达需按字段核对",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P4",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-010",
+      "title": "标书六种状态",
+      "statement": "待投标、已投标、已中标、未中标、已取消、不投标；合法转换另确认",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P6/P7",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-011",
+      "title": "无报价的手工MR",
+      "statement": "中标但无报价时，采购部手工填写MR",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P10",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-MR"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-012",
+      "title": "邀请报价与标书关联",
+      "statement": "邀请报价需要关联标书；可标记中标并生成标书，标书也可中标；双对象同步规则待定",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P21/P24",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-013",
+      "title": "报价保固默认与有效期",
+      "statement": "原文保修默认1年；报价有效期60天、90天，不应混入保固选项",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P22",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-014",
+      "title": "取消邀请结果字段",
+      "statement": "邀请结果不需要",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P23",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-015",
+      "title": "报价金额名称",
+      "statement": "含税金额改为报价金额，不由此推断其他税务政策",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P26",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-016",
+      "title": "保养续保主动报价",
+      "statement": "保养合同续保时主动发起报价",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P27",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-017",
+      "title": "续保提醒对象与比例",
+      "statement": "私人合同提醒主管和CR；提到1/2、1/3时长比例，具体适用与政府规则未定",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P28",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-018",
+      "title": "参考报价带出物料",
+      "statement": "邀请报价选择参考报价单后带出物料",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P29",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-019",
+      "title": "报价折扣",
+      "statement": "需要discount；原文未明确百分比还是金额",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P2",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-020",
+      "title": "只填物料和总价",
+      "statement": "支持不填写明细价格，只填物料及总价",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P3",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-021",
+      "title": "货期范围与单位",
+      "statement": "默认30 days，可选日/周；数字和范围手填，例30–60 days、6–8 week",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P5/P6/P7/P8",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-022",
+      "title": "报价历史签名与公司章",
+      "statement": "保存历史签名；按负责人生成签名并加公司章；实际签署授权待确认",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P12",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-023",
+      "title": "保固术语",
+      "statement": "新增报价的保修期改为保固期",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P14",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-024",
+      "title": "Our Ref版本001",
+      "statement": "Our Ref输出版本001；完整编号前缀与修订格式仍需对照",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P15",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-025",
+      "title": "服务报告中文",
+      "statement": "服务报告需要中文；选项词汇应保留客户术语对应",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P21",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-026",
+      "title": "保固服务通知采购",
+      "statement": "SR增加保固期选项；选择后直接通知采购，判定和收费规则未给出",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P23",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-MR"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-027",
+      "title": "独立新增SR问题",
+      "statement": "原文为“能否自己新增SR”；这是待决入口，不是已批准功能",
+      "status": "OPEN",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P25",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "待客户决策",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-028",
+      "title": "MR业务状况",
+      "statement": "MR需完成状态及已完成、已取消、处理中三个状况",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P28/P29",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-029",
+      "title": "仓管自主新增MR",
+      "statement": "仓管需要自主新增MR；EC和仓库通写入边界仍待确认",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P31",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-030",
+      "title": "报告Objective筛选",
+      "statement": "报告管理需要Objective筛选",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-833C198165"
+      ],
+      "sourceLocator": "SOURCE-015 P34",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-031",
+      "title": "财务地点英文名称",
+      "statement": "地点需要英文名称",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P32",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-032",
+      "title": "待开票与欠文件",
+      "statement": "完工纸、照片、客户确认PO齐备才待开票，否则欠文件；不同服务适用清单待确认",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P33",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-033",
+      "title": "特殊开票原因",
+      "statement": "特殊开票需要原因；例如客户同意完工；授权人员与审批细则未给出",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P34",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-034",
+      "title": "发票无需税率字段",
+      "statement": "会计不需要税率字段",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P35",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-035",
+      "title": "发票两日期默认当天",
+      "statement": "开票日期和到期日期默认当前日期",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P36",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-036",
+      "title": "发票编号月重置",
+      "statement": "原文“年日+递增（每月清零）”；前缀精确格式未明，不能自行补为年月日",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P37",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-037",
+      "title": "发票描述",
+      "statement": "invoice描述应包含合同编号、PO、PM period",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P38",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-M"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-038",
+      "title": "低额开票原因",
+      "statement": "开票总价低于报价总金额时需要填写原因",
+      "status": "PARTIAL",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P39",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "记录明确诉求",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    },
+    {
+      "id": "FACT-UPD-039",
+      "title": "借用及升降机线索",
+      "statement": "仅一行“借用系统、升降机申请”，缺场景、责任和范围，先保留线索",
+      "status": "OPEN",
+      "sourceFileIds": [
+        "FILE-CAE118EF83"
+      ],
+      "sourceLocator": "SOURCE-014 P42",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附",
+      "evidenceStatus": "待客户决策",
+      "sourcePriority": "最新沟通工作副本",
+      "decisionIds": [],
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "approvalStatus": "待确认",
+      "evidenceNote": "原文表达已核对；明确诉求不重复问是否需要，一期范围和未定细则仍待客户确认。"
+    }
+  ],
+  "latestRules": [
+    {
+      "id": "UPD-001",
+      "title": "合同编号维护",
+      "rule": "需要维护合同编号",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P1",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyRequirementIds": [
+        "REQ-067",
+        "REQ-079"
+      ],
+      "requirementId": "REQ-UPD-001",
+      "factId": "FACT-UPD-001",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-002",
+      "title": "CALL的JNO独立",
+      "rule": "新建CALL输入JNO；JNO不绑定客户",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P14",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyRequirementIds": [
+        "REQ-007",
+        "REQ-009",
+        "REQ-079"
+      ],
+      "requirementId": "REQ-UPD-002",
+      "factId": "FACT-UPD-002",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-003",
+      "title": "客户多合同与重复客户",
+      "rule": "客户可有多个合同；允许重复客户记录，去重口径仍待定",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P17",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyRequirementIds": [
+        "REQ-008",
+        "REQ-067"
+      ],
+      "requirementId": "REQ-UPD-003",
+      "factId": "FACT-UPD-003",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-004",
+      "title": "新增客户职责",
+      "rule": "标书组、Sales、报价组、CS需要新增客户入口；实际授权映射待确认",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P16",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-TENDER"
+      ],
+      "legacyRequirementIds": [
+        "REQ-067",
+        "REQ-072"
+      ],
+      "requirementId": "REQ-UPD-004",
+      "factId": "FACT-UPD-004",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-005",
+      "title": "人员双语姓名与搜索",
+      "rule": "姓名需中英文，并可按中英文搜索",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P37",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyRequirementIds": [
+        "REQ-066"
+      ],
+      "requirementId": "REQ-UPD-005",
+      "factId": "FACT-UPD-005",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-006",
+      "title": "CR区域可见范围",
+      "rule": "客户关系部查看对应区域的数据",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P40",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "legacyRequirementIds": [
+        "REQ-020",
+        "REQ-072"
+      ],
+      "requirementId": "REQ-UPD-006",
+      "factId": "FACT-UPD-006",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-007",
+      "title": "指定夜班组长全区CALL",
+      "rule": "某几个夜班组长可看所有区域CALL；名单与动作授权未给出",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P41",
+      "module": "公共基础",
+      "batch": "B01",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "legacyRequirementIds": [
+        "REQ-020",
+        "REQ-072"
+      ],
+      "requirementId": "REQ-UPD-007",
+      "factId": "FACT-UPD-007",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-008",
+      "title": "标书负责人非必填",
+      "rule": "新建标书EC负责人不用必填",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P4",
+      "module": "标书",
+      "batch": "B04",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyRequirementIds": [
+        "REQ-046",
+        "REQ-047"
+      ],
+      "requirementId": "REQ-UPD-008",
+      "factId": "FACT-UPD-008",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-009",
+      "title": "标书日期时间",
+      "rule": "需要具体时间，截止时间默认17:00；原文重命名表达需按字段核对",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P4",
+      "module": "标书",
+      "batch": "B04",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyRequirementIds": [
+        "REQ-047"
+      ],
+      "requirementId": "REQ-UPD-009",
+      "factId": "FACT-UPD-009",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-010",
+      "title": "标书六种状态",
+      "rule": "待投标、已投标、已中标、未中标、已取消、不投标；合法转换另确认",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P6/P7",
+      "module": "标书",
+      "batch": "B04",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER"
+      ],
+      "legacyRequirementIds": [
+        "REQ-048",
+        "REQ-069"
+      ],
+      "requirementId": "REQ-UPD-010",
+      "factId": "FACT-UPD-010",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-011",
+      "title": "无报价的手工MR",
+      "rule": "中标但无报价时，采购部手工填写MR",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P10",
+      "module": "MR与备货",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-MR"
+      ],
+      "legacyRequirementIds": [
+        "REQ-051",
+        "REQ-054"
+      ],
+      "requirementId": "REQ-UPD-011",
+      "factId": "FACT-UPD-011",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-012",
+      "title": "邀请报价与标书关联",
+      "rule": "邀请报价需要关联标书；可标记中标并生成标书，标书也可中标；双对象同步规则待定",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P21/P24",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-040",
+        "REQ-044",
+        "REQ-046"
+      ],
+      "requirementId": "REQ-UPD-012",
+      "factId": "FACT-UPD-012",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-013",
+      "title": "报价保固默认与有效期",
+      "rule": "原文保修默认1年；报价有效期60天、90天，不应混入保固选项",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P22",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-013",
+      "factId": "FACT-UPD-013",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-014",
+      "title": "取消邀请结果字段",
+      "rule": "邀请结果不需要",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P23",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-040",
+        "REQ-044"
+      ],
+      "requirementId": "REQ-UPD-014",
+      "factId": "FACT-UPD-014",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-015",
+      "title": "报价金额名称",
+      "rule": "含税金额改为报价金额，不由此推断其他税务政策",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P26",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-015",
+      "factId": "FACT-UPD-015",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-016",
+      "title": "保养续保主动报价",
+      "rule": "保养合同续保时主动发起报价",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P27",
+      "module": "保养",
+      "batch": "B03",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-M",
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-040",
+        "REQ-061"
+      ],
+      "requirementId": "REQ-UPD-016",
+      "factId": "FACT-UPD-016",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-017",
+      "title": "续保提醒对象与比例",
+      "rule": "私人合同提醒主管和CR；提到1/2、1/3时长比例，具体适用与政府规则未定",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P28",
+      "module": "保养",
+      "batch": "B03",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-005",
+        "REQ-061",
+        "REQ-075"
+      ],
+      "requirementId": "REQ-UPD-017",
+      "factId": "FACT-UPD-017",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-018",
+      "title": "参考报价带出物料",
+      "rule": "邀请报价选择参考报价单后带出物料",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P29",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-040",
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-018",
+      "factId": "FACT-UPD-018",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-019",
+      "title": "报价折扣",
+      "rule": "需要discount；原文未明确百分比还是金额",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P2",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-019",
+      "factId": "FACT-UPD-019",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-020",
+      "title": "只填物料和总价",
+      "rule": "支持不填写明细价格，只填物料及总价",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P3",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-020",
+      "factId": "FACT-UPD-020",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-021",
+      "title": "货期范围与单位",
+      "rule": "默认30 days，可选日/周；数字和范围手填，例30–60 days、6–8 week",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P5/P6/P7/P8",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-021",
+      "factId": "FACT-UPD-021",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-022",
+      "title": "报价历史签名与公司章",
+      "rule": "保存历史签名；按负责人生成签名并加公司章；实际签署授权待确认",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P12",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-044",
+        "REQ-045"
+      ],
+      "requirementId": "REQ-UPD-022",
+      "factId": "FACT-UPD-022",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-023",
+      "title": "保固术语",
+      "rule": "新增报价的保修期改为保固期",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P14",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-041"
+      ],
+      "requirementId": "REQ-UPD-023",
+      "factId": "FACT-UPD-023",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-024",
+      "title": "Our Ref版本001",
+      "rule": "Our Ref输出版本001；完整编号前缀与修订格式仍需对照",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P15",
+      "module": "报价",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-044",
+        "REQ-079"
+      ],
+      "requirementId": "REQ-UPD-024",
+      "factId": "FACT-UPD-024",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-025",
+      "title": "服务报告中文",
+      "rule": "服务报告需要中文；选项词汇应保留客户术语对应",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P21",
+      "module": "服务报告",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-027"
+      ],
+      "requirementId": "REQ-UPD-025",
+      "factId": "FACT-UPD-025",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-026",
+      "title": "保固服务通知采购",
+      "rule": "SR增加保固期选项；选择后直接通知采购，判定和收费规则未给出",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P23",
+      "module": "服务报告",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE",
+        "FLOW-MR"
+      ],
+      "legacyRequirementIds": [
+        "REQ-005",
+        "REQ-027",
+        "REQ-030"
+      ],
+      "requirementId": "REQ-UPD-026",
+      "factId": "FACT-UPD-026",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-027",
+      "title": "独立新增SR问题",
+      "rule": "原文为“能否自己新增SR”；这是待决入口，不是已批准功能",
+      "evidenceStatus": "待客户决策",
+      "sourceId": "SOURCE-015",
+      "locator": "P25",
+      "module": "服务报告",
+      "batch": "B02",
+      "scopeProposal": "独立入口待决定",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-027",
+        "REQ-035",
+        "REQ-043"
+      ],
+      "requirementId": "REQ-UPD-027",
+      "factId": "FACT-UPD-027",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-028",
+      "title": "MR业务状况",
+      "rule": "MR需完成状态及已完成、已取消、处理中三个状况",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P28/P29",
+      "module": "MR与备货",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "legacyRequirementIds": [
+        "REQ-051",
+        "REQ-052"
+      ],
+      "requirementId": "REQ-UPD-028",
+      "factId": "FACT-UPD-028",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-029",
+      "title": "仓管自主新增MR",
+      "rule": "仓管需要自主新增MR；EC和仓库通写入边界仍待确认",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P31",
+      "module": "MR与备货",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-MR"
+      ],
+      "legacyRequirementIds": [
+        "REQ-051",
+        "REQ-072"
+      ],
+      "requirementId": "REQ-UPD-029",
+      "factId": "FACT-UPD-029",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-030",
+      "title": "报告Objective筛选",
+      "rule": "报告管理需要Objective筛选",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-015",
+      "locator": "P34",
+      "module": "服务报告",
+      "batch": "B02",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-036"
+      ],
+      "requirementId": "REQ-UPD-030",
+      "factId": "FACT-UPD-030",
+      "sourceFileId": "FILE-833C198165",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-031",
+      "title": "财务地点英文名称",
+      "rule": "地点需要英文名称",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P32",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-060",
+        "REQ-067"
+      ],
+      "requirementId": "REQ-UPD-031",
+      "factId": "FACT-UPD-031",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-032",
+      "title": "待开票与欠文件",
+      "rule": "完工纸、照片、客户确认PO齐备才待开票，否则欠文件；不同服务适用清单待确认",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P33",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-032",
+        "REQ-057"
+      ],
+      "requirementId": "REQ-UPD-032",
+      "factId": "FACT-UPD-032",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-033",
+      "title": "特殊开票原因",
+      "rule": "特殊开票需要原因；例如客户同意完工；授权人员与审批细则未给出",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P34",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-057",
+        "REQ-058"
+      ],
+      "requirementId": "REQ-UPD-033",
+      "factId": "FACT-UPD-033",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-034",
+      "title": "发票无需税率字段",
+      "rule": "会计不需要税率字段",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P35",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-058"
+      ],
+      "requirementId": "REQ-UPD-034",
+      "factId": "FACT-UPD-034",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-035",
+      "title": "发票两日期默认当天",
+      "rule": "开票日期和到期日期默认当前日期",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P36",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-058"
+      ],
+      "requirementId": "REQ-UPD-035",
+      "factId": "FACT-UPD-035",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-036",
+      "title": "发票编号月重置",
+      "rule": "原文“年日+递增（每月清零）”；前缀精确格式未明，不能自行补为年月日",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P37",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-058",
+        "REQ-079"
+      ],
+      "requirementId": "REQ-UPD-036",
+      "factId": "FACT-UPD-036",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-037",
+      "title": "发票描述",
+      "rule": "invoice描述应包含合同编号、PO、PM period",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P38",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE",
+        "FLOW-M"
+      ],
+      "legacyRequirementIds": [
+        "REQ-058",
+        "REQ-061"
+      ],
+      "requirementId": "REQ-UPD-037",
+      "factId": "FACT-UPD-037",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-038",
+      "title": "低额开票原因",
+      "rule": "开票总价低于报价总金额时需要填写原因",
+      "evidenceStatus": "记录明确诉求",
+      "sourceId": "SOURCE-014",
+      "locator": "P39",
+      "module": "财务",
+      "batch": "B05",
+      "scopeProposal": "建议本期分批纳入",
+      "flowIds": [
+        "FLOW-FINANCE"
+      ],
+      "legacyRequirementIds": [
+        "REQ-057",
+        "REQ-058"
+      ],
+      "requirementId": "REQ-UPD-038",
+      "factId": "FACT-UPD-038",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
+    },
+    {
+      "id": "UPD-039",
+      "title": "借用及升降机线索",
+      "rule": "仅一行“借用系统、升降机申请”，缺场景、责任和范围，先保留线索",
+      "evidenceStatus": "待客户决策",
+      "sourceId": "SOURCE-014",
+      "locator": "P42",
+      "module": "新增线索",
+      "batch": "B06",
+      "scopeProposal": "建议后续单独评审",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "legacyRequirementIds": [],
+      "requirementId": "REQ-UPD-039",
+      "factId": "FACT-UPD-039",
+      "sourceFileId": "FILE-CAE118EF83",
+      "approvalStatus": "待确认",
+      "sourceLevel": "L3：沟通工作副本，逐段核对；确认身份未附"
     }
   ]
 }

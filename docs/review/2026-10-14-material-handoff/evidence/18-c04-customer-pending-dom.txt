@@ -1,0 +1,154 @@
+- complementary:
+  - generic: EC
+  - strong: Project Hub
+  - generic: 事实与交付中心
+  - navigation:
+    - button "01 业务全景":
+      - generic: "01"
+      - text: 业务全景
+    - button "02 业务流程":
+      - generic: "02"
+      - text: 业务流程
+    - button "03 系统需求":
+      - generic: "03"
+      - text: 系统需求
+    - button "04 原型与设计":
+      - generic: "04"
+      - text: 原型与设计
+    - button "05 待确认问题":
+      - generic: "05"
+      - text: 待确认问题
+    - button "06 项目状态":
+      - generic: "06"
+      - text: 项目状态
+    - button "A 证据与追溯":
+      - generic: A
+      - text: 证据与追溯
+- main:
+  - paragraph: EC 工单系统 · Single Source of Truth
+  - heading "待确认问题" [level=1]
+  - generic: ⌕
+  - searchbox "⌕"
+  - heading "客户关键决策" [level=2]
+  - paragraph: C-01～16按批次确认范围、授权和未定细则；明确诉求不重问。旧Q编号保留在历史定位中，不计重复待决。
+  - button "P0 C-01 · 本期纳入哪些业务，哪些明确放后续？ 本计划只批准分批梳理，不能代替客户批准一期范围。 OPEN":
+    - generic: P0
+    - strong: C-01 · 本期纳入哪些业务，哪些明确放后续？
+    - generic: 本计划只批准分批梳理，不能代替客户批准一期范围。
+    - generic: OPEN
+  - button "P0 C-02 · 各业务对象的状态含义、入口和终态怎样对应？ 不再要求客户在旧7态/10态名称之间机械二选一，先提供对象状态候选。 OPEN":
+    - generic: P0
+    - strong: C-02 · 各业务对象的状态含义、入口和终态怎样对应？
+    - generic: 不再要求客户在旧7态/10态名称之间机械二选一，先提供对象状态候选。
+    - generic: OPEN
+  - button "P0 C-03 · 实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？ CR按区域和指定夜班例外已有明确记录，只确认名单及未定动作权限。 OPEN":
+    - generic: P0
+    - strong: C-03 · 实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？
+    - generic: CR按区域和指定夜班例外已有明确记录，只确认名单及未定动作权限。
+    - generic: OPEN
+  - button "P0 C-04 · 谁在何处确认本单材料已备齐，让EC可以安排施工？ 10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。 PENDING" [active]:
+    - generic: P0
+    - strong: C-04 · 谁在何处确认本单材料已备齐，让EC可以安排施工？
+    - generic: 10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。
+    - generic: PENDING
+  - button "P0 C-05 · CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？ 人员资源/客户约定是业务政策，现Decision明示待定 PENDING":
+    - generic: P0
+    - strong: C-05 · CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？
+    - generic: 人员资源/客户约定是业务政策，现Decision明示待定
+    - generic: PENDING
+  - button "P0 C-06 · 现场款如何登记、交款、对账，及现场报价授权？ 金额收取与交款责任不能靠工程完工自动推断 PENDING":
+    - generic: P0
+    - strong: C-06 · 现场款如何登记、交款、对账，及现场报价授权？
+    - generic: 金额收取与交款责任不能靠工程完工自动推断
+    - generic: PENDING
+  - button "P0 C-07 · 后续施工恢复原CALL还是建新CALL，关联/编号如何体现？ 一次现场与二次服务关系影响历史和计价，(2)后缀未获确认 OPEN":
+    - generic: P0
+    - strong: C-07 · 后续施工恢复原CALL还是建新CALL，关联/编号如何体现？
+    - generic: 一次现场与二次服务关系影响历史和计价，(2)后缀未获确认
+    - generic: OPEN
+  - button "P0 C-08 · 各服务类型需要SR还是CP？缺签/不可拍照如何补证，保固如何判定？ 不再问是否允许不可拍照或是否需保固通知采购，只确认适用清单与细则。 OPEN":
+    - generic: P0
+    - strong: C-08 · 各服务类型需要SR还是CP？缺签/不可拍照如何补证，保固如何判定？
+    - generic: 不再问是否允许不可拍照或是否需保固通知采购，只确认适用清单与细则。
+    - generic: OPEN
+  - button "P0 C-09 · 单据编号的完整格式、前缀和关联是什么？请给实际样张。 Our Ref版本001及真实SR前导零需保留；“年日+递增”不能内部猜前缀。 OPEN":
+    - generic: P0
+    - strong: C-09 · 单据编号的完整格式、前缀和关联是什么？请给实际样张。
+    - generic: Our Ref版本001及真实SR前导零需保留；“年日+递增”不能内部猜前缀。
+    - generic: OPEN
+  - button "P0 C-10 · 具体保养合同周期、首期/尾期/改期与私人续保提醒比例，政府怎么提醒？ 1/2、1/3没有明确哪个合同用哪个，政府仅说不同；月步长/起始首期也未确认 OPEN":
+    - generic: P0
+    - strong: C-10 · 具体保养合同周期、首期/尾期/改期与私人续保提醒比例，政府怎么提醒？
+    - generic: 1/2、1/3没有明确哪个合同用哪个，政府仅说不同；月步长/起始首期也未确认
+    - generic: OPEN
+  - button "P0 C-11 · 师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？ 独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。 OPEN":
+    - generic: P0
+    - strong: C-11 · 师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？
+    - generic: 独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。
+    - generic: OPEN
+  - button "P0 C-12 · 照片9/10张上限、原件/电子件保留期、归档调阅权限？ 客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择 OPEN":
+    - generic: P0
+    - strong: C-12 · 照片9/10张上限、原件/电子件保留期、归档调阅权限？
+    - generic: 客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择
+    - generic: OPEN
+  - button "P0 C-13 · 取消/退回/已完工重交/重开/成交变更对MR、合同计划与发票有什么授权和影响？ 会改变合同履约和账务，团队不能默认撤销或重开 OPEN":
+    - generic: P0
+    - strong: C-13 · 取消/退回/已完工重交/重开/成交变更对MR、合同计划与发票有什么授权和影响？
+    - generic: 会改变合同履约和账务，团队不能默认撤销或重开
+    - generic: OPEN
+  - button "P0 C-14 · 折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？ 不再问是否需要discount/总价/低额原因，这些诉求已明确。 OPEN":
+    - generic: P0
+    - strong: C-14 · 折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？
+    - generic: 不再问是否需要discount/总价/低额原因，这些诉求已明确。
+    - generic: OPEN
+  - button "P0 C-15 · 报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？ 显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。 OPEN":
+    - generic: P0
+    - strong: C-15 · 报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？
+    - generic: 显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。
+    - generic: OPEN
+  - button "P2 C-16 · 借用系统和升降机申请是否另立后续需求？ 只有一行线索，本期不默认扩展；不阻塞现有业务链准备。 OPEN":
+    - generic: P2
+    - strong: C-16 · 借用系统和升降机申请是否另立后续需求？
+    - generic: 只有一行线索，本期不默认扩展；不阻塞现有业务链准备。
+    - generic: OPEN
+  - heading "问题分类" [level=2]
+  - strong: "15"
+  - generic: P0 业务阻塞或前置规则
+  - strong: "0"
+  - generic: P1 业务边界
+  - strong: "1"
+  - generic: P2 后续确认
+- complementary:
+  - button "关闭": ×
+  - heading "C-04 · 谁在何处确认本单材料已备齐，让EC可以安排施工？" [level=2]
+  - generic: PENDING
+  - paragraph: 10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。
+  - heading "Decision" [level=3]
+  - generic: OPEN
+  - term: 对应批次
+  - definition: B02
+  - term: 可选方案
+  - definition: 出库环节由仓管确认；或客户说明实际确认岗位/单据。均未选择，不默认出库完成即备齐
+  - term: 是否阻塞
+  - definition: Y（材料备齐→施工定稿/验收）；不阻止独立内部准备
+  - heading "来源" [level=3]
+  - generic: READY
+  - link "B01-B02-INTERNAL-BASELINE-20261013.md ↗":
+    - /url: ../docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - generic: docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - generic: PARTIAL
+  - link "MR-DECISION-CANDIDATE.md ↗":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - generic: docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - generic: PARTIAL
+  - link "ec原型+倉庫+cr0930.docx ↗":
+    - /url: ../materials/%E6%BA%9D%E9%80%9A%E7%AD%86%E8%A8%98/ec%E5%8E%9F%E5%9E%8B+%E5%80%89%E5%BA%AB+cr0930.docx
+  - generic: materials/溝通筆記/ec原型+倉庫+cr0930.docx
+  - generic: DRAFT
+  - link "PROTOTYPE-FINALIZATION-AUDIT.md ↗":
+    - /url: ../docs/audit/PROTOTYPE-FINALIZATION-AUDIT.md
+  - generic: docs/audit/PROTOTYPE-FINALIZATION-AUDIT.md
+  - heading "影响流程" [level=3]
+  - button "FLOW-MR"
+  - button "FLOW-P"
+- status

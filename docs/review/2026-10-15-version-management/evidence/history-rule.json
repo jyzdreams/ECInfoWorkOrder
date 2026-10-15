@@ -1,0 +1,37 @@
+{
+  "id": 25166991,
+  "name": "EC main preserve history",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "jyzdreams/ECInfoWorkOrder",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5L8dQ0zgGABI8",
+  "created_at": "2026-10-15T22:26:35.368+08:00",
+  "updated_at": "2026-10-15T22:26:35.402+08:00",
+  "bypass_actors": [],
+  "current_user_can_bypass": "never",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/jyzdreams/ECInfoWorkOrder/rulesets/25166991"
+    },
+    "html": {
+      "href": "https://github.com/jyzdreams/ECInfoWorkOrder/rules/25166991"
+    }
+  }
+}

@@ -2,15 +2,13 @@
 
 更新日期：2026-10-15。当前阶段：首批内部核对与原型走查，尚未进入生产开发。用户已指定当前AI（Codex）作为项目经理推进；具体业务先逐项向用户核实，用户也无法回答的部分再整理给客户。
 
-2026-10-15本地Git正式合并：在codex/github-integration-20261014分支建立原型保存点后，将origin/main的f17aca3合入，保留前两轮已验证的选择性业务结果，17组局部回归通过。已创建本地提交，尚未推送、创建PR或发布；推进表、知识库及其他未提交资料保留。需求继续暂停，见[Git合并记录](docs/review/2026-10-15-git-merge/MERGE-RESULT.md)。下方“未提交”描述属于此前批次快照。
+## 正式版与同事工作副本（2026-10-15）
 
-2026-10-15 GitHub更新已获取至f17aca3，按已有保养规则接入报价新建/编辑/详情的保养排期展示与保存，保留原整期计划逻辑；未采用工单分类迁移、M+P专用派工或另一套自动建单。17组局部回归通过，未提交/推送/发布。需求定稿继续暂停，见[本次更新记录](docs/review/2026-10-15-github-update/UPDATE-RESULT.md)。
+**正式维护版为GitHub main，由你（jyzdreams）及你授权的AI维护。同事只在各自克隆的工作分支修改。** 三个入口路径不变，不在目录中复制第二套“正式/范本”文件。先由AI列明同事修改前后、依据和影响，你选择采用/暂缓/不采用，再同步正式版；Excel按原编号回填，Hub先核底层知识再生成。
 
-当前暂停需求定稿。2026-10-14已在独立分支完成GitHub改进与本地业务整改的选择性整合，11组浏览器局部回归和8组仓库适配离线检查通过；没有提交、推送或发布，也没有真实仓库写入。[本轮整合记录](docs/review/2026-10-14-github-integration/INTEGRATION-RESULT.md)列明采用/暂不采用内容和验证边界。维修整链未通过，客户确认及0批冻结状态保持；后文推进顺序仅在用户恢复需求推进后继续。
+所有同事及其AI先读[正式版与工作副本规范](docs/governance/FORMAL-VERSION-WORKFLOW.md)、[团队协作规范](docs/governance/TEAM-COLLABORATION.md)和[GitHub提交规范](docs/governance/GITHUB-SUBMISSION-RULES.md)。完整规则适用于任何AI工具。GitHub main更新仅允许你的账号，禁止删除/非快进改写；原型改为你手动发布并经你的环境审批，推送不自动上线。[本批实施与验证](docs/review/2026-10-15-version-management/IMPLEMENTATION-RESULT.md)记录实际设置和边界。
 
-同事接手先读[团队协作规范](docs/governance/TEAM-COLLABORATION.md)：约定负责批次和文件，推进Excel统一回填，同一共享文件一人主写。
-
-提交到GitHub前按[提交规范](docs/governance/GITHUB-SUBMISSION-RULES.md)区分正式成果与本地过程文件；.github/只维护PR模板和发布配置。
+当前已恢复内部需求/流程核对。原型已有17组局部回归通过，维修整链仍未通过、0批冻结；Hub和Excel尚未全量对齐原型最新修改。本轮版本治理不改变业务状态。此前选择性整合和本地Git合并分别见[10/14整合](docs/review/2026-10-14-github-integration/INTEGRATION-RESULT.md)、[10/15更新](docs/review/2026-10-15-github-update/UPDATE-RESULT.md)、[Git合并](docs/review/2026-10-15-git-merge/MERGE-RESULT.md)，其中未推送/暂停等描述只代表当时批次。
 
 ## 日常只看三个入口
 
@@ -60,7 +58,7 @@
 
 开始写文件前阅读[文件写入规则](docs/governance/FILE-WRITING-RULES.md)。正式开发另按批准范围和[项目宪法](.specify/memory/constitution.md)建立计划，不恢复失效的materials/raw/或旧specs/。
 
-新客户资料先放materials/inbox/；新检查中间产物放.codex/，正式交付仍在outputs/。Hub必要脚本及路径映射在project-hub/scripts/，可随项目版本管理；旧.codex入口仅兼容转发。当前工作区尚未提交，团队交接应同步完整目录调整和必要脚本。
+新客户资料先放materials/inbox/；新检查中间产物放.codex/，正式交付仍在outputs/。Hub必要脚本及路径映射在project-hub/scripts/，可随项目版本管理；旧.codex入口仅兼容转发。正式基线与交接范围以本批实施记录和Git提交为准；后续本地未提交内容须明确列出，不能直接宣称已进入正式版。
 
 ## 现在需要的下一步
 

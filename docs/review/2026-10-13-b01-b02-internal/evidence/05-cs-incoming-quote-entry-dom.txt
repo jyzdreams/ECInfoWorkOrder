@@ -1,0 +1,173 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				391 button 🏠 首頁
+					392 text 🏠
+					393 text 首頁
+				394 button 📋 CALL管理
+					395 text 📋
+					396 text CALL管理
+				397 button 📤 分派中心
+					398 text 📤
+					399 text 分派中心
+				400 button 📁 報告管理
+					401 text 📁
+					402 text 報告管理
+				403 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					404 text ⚙️
+					405 text 基礎設置
+					406 text ▶
+				407 container
+					408 button 📖 字典管理
+					409 button 🏢 客戶管理
+					410 button 👤 用戶管理
+					411 button 🖥️ 服務器空間
+					412 button 📊 Excel 導入
+					413 button 🧩 組件庫
+		52 container
+			53 heading 首頁, Value: 1, ID: pageTitle
+				414 text 首頁
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔 1, Help: 通知中心, ID: notiBell
+				90 text 🔔
+				415 text 1
+			60 button 陳 陳小姐 客戶服務部 · 客戶服務部 ⌄, ID: userMenuBtn
+				416 text 陳
+				417 text 陳小姐
+				418 text 客戶服務部 · 客戶服務部
+				64 text ⌄
+			419 container
+				420 button 查看全部 CALL
+					421 text CALL總數
+					422 text 18
+					423 text 點擊列表篩選查看
+				424 button 查看待分派 CALL
+					425 text 待分派
+					426 text 8
+					427 text 點擊列表篩選查看
+				428 button 查看待確認 CALL
+					429 text 待確認
+					430 text 2
+					431 text 點擊列表篩選查看
+				432 button 查看待處理 CALL
+					433 text 待處理
+					434 text 2
+					435 text 點擊列表篩選查看
+				436 button 查看處理中 CALL
+					437 text 處理中
+					438 text 3
+					439 text 點擊列表篩選查看
+				440 button 查看待審批 CALL
+					441 text 待審批
+					442 text 0
+					443 text 點擊列表篩選查看
+				444 button 查看待完工確認 CALL
+					445 text 待完工確認
+					446 text 0
+					447 text 點擊列表篩選查看
+				448 button 查看已完成 CALL
+					449 text 已完成
+					450 text 2
+					451 text 點擊列表篩選查看
+				452 button 查看已取消 CALL
+					453 text 已取消
+					454 text 1
+					455 text 點擊列表篩選查看
+				456 heading 今日待辦, Value: 2
+					457 text 今日待辦
+				458 button 查看列表
+				459 container
+					460 button WO-20261013-001
+					461 text 待分派
+				462 text 港島商業中心
+				463 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。
+				464 container
+					465 button WO-DEMO-CM
+					466 text 待分派
+				467 text 九龍國際廣場
+				468 text 整改走查 糾正維修
+				469 container
+					470 button WO-DEMO-MP-P
+					471 text 待分派
+				472 text 九龍國際廣場
+				473 text 整改走查 工程維修
+				474 container
+					475 button WO-DEMO-M-01
+					476 text 待處理
+				477 text 九龍國際廣場
+				478 text 整改走查 DLP 保養維修
+				479 container
+					480 button WO-DEMO-P
+					481 text 待分派
+				482 text 九龍國際廣場
+				483 text 整改走查 工程維修
+				484 heading 異常CALL, Value: 2
+					485 text 異常CALL
+				486 button 查看列表
+				487 container
+					488 button WO-20260615-002
+					489 text 緊急
+				490 text 九龍屋苑管理處
+				491 text 停車場出入口閘機保養，現場反饋開合速度變慢。
+				492 container
+					493 button WO-20260614-008
+					494 text 緊急
+				495 text 新界住宅項目
+				496 text 當前現場任務未完成，無法按時到場。
+				497 container
+					498 button WO-20260613-010
+					499 text 需關注
+				500 text 灣仔商業大廈
+				501 text 臨時協助現場設備移位，需補充位置照片後繼續處理。
+				502 heading 最近動態, Value: 2
+					503 text 最近動態
+				504 text 2026-06-15
+				505 container
+					506 text 10-13 17:51 · 
+					507 button 開啟 WO-20261013-001
+					508 text 創建工單
+				509 container
+					510 text 09-27 09:00 · 
+					511 button 開啟 WO-DEMO-CM
+					512 text 整改走查樣例
+				513 container
+					514 text 09-27 09:00 · 
+					515 button 開啟 WO-DEMO-INSTANT
+					516 text 整改走查樣例
+				517 container
+					518 text 09-27 09:00 · 
+					519 button 開啟 WO-DEMO-MP-P
+					520 text 整改走查樣例
+				521 container
+					522 text 09-27 09:00 · 
+					523 button 開啟 WO-DEMO-M-01
+					524 text 整改走查樣例
+				525 heading 📞 最近來電, Value: 2
+					526 text 📞 最近來電
+				527 button 查看全部來電
+				528 text 需建單
+				529 button WO-20261013-001
+				530 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。 · 13/10/2026 17:51:26
+				531 container 來電記錄
+					532 container
+						533 heading 來電記錄（1）, Value: 2
+							534 text 來電記錄（1）
+						535 text CS 來電單：僅答疑 / 需建單 / 投訴
+						536 button 關閉
+					537 text 需建單
+					538 container
+						539 text 港島商業中心  · 
+						540 button WO-20261013-001
+					541 text PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。 · 13/10/2026 17:51:26 · 陳小姐
+					542 button 請求報價
+	390 text 工單已創建
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

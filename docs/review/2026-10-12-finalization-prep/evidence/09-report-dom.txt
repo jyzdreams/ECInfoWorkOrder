@@ -1,0 +1,220 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				1132 button 🏠 首頁
+					1133 text 🏠
+					1134 text 首頁
+				1135 button 📋 CALL管理
+					1136 text 📋
+					1137 text CALL管理
+				1138 button 📤 分派中心
+					1139 text 📤
+					1140 text 分派中心
+				1141 button 📅 保養計劃
+					1142 text 📅
+					1143 text 保養計劃
+				1144 button 💰 報價管理
+					1145 text 💰
+					1146 text 報價管理
+				1147 button 📑 標書管理
+					1148 text 📑
+					1149 text 標書管理
+				1150 button 🛒 備貨管理
+					1151 text 🛒
+					1152 text 備貨管理
+				1153 button 💵 會計管理
+					1154 text 💵
+					1155 text 會計管理
+				1156 button 📁 報告管理
+					1157 text 📁
+					1158 text 報告管理
+				1159 button 📊 統計報表
+					1160 text 📊
+					1161 text 統計報表
+				1162 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					1163 text ⚙️
+					1164 text 基礎設置
+					1165 text ▶
+				1166 container
+					1167 button 📖 字典管理
+					1168 button 🏢 客戶管理
+					1169 button 👤 用戶管理
+					1170 button 🖥️ 服務器空間
+					1171 button 📊 Excel 導入
+					1172 button 🧩 組件庫
+		52 container
+			53 heading 報告管理, Value: 1, ID: pageTitle
+				1173 text 報告管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			60 button 系 系統管理員 管理員 · 管理部 ⌄, ID: userMenuBtn
+				1174 text 系
+				1175 text 系統管理員
+				1176 text 管理員 · 管理部
+				64 text ⌄
+			267 container pcPages
+				1177 button 報告總數 3 服務報告 + 完工單 查看明細 >
+					1178 heading 報告總數, Value: 3
+						1179 text 報告總數
+					1180 text 3
+					1181 text 服務報告 + 完工單
+					1182 text 查看明細 >
+				1183 button 待處理 0 等待師傅處理 查看明細 >
+					1184 heading 待處理, Value: 3
+						1185 text 待處理
+					1186 text 0
+					1187 text 等待師傅處理
+					1188 text 查看明細 >
+				1189 button 處理中 1 師傅處理中的工單 查看明細 >
+					1190 heading 處理中, Value: 3
+						1191 text 處理中
+					1192 text 1
+					1193 text 師傅處理中的工單
+					1194 text 查看明細 >
+				1195 button 已完成 2 已完工的報告 查看明細 >
+					1196 heading 已完成, Value: 3
+						1197 text 已完成
+					1198 text 2
+					1199 text 已完工的報告
+					1200 text 查看明細 >
+				1201 text 區域
+				1202 container
+					1203 pop up button (collapsed) 全部區域 ⌄, Secondary Actions: Expand
+					1204 pop up button (collapsed, settable) Value: 全部區域, Secondary Actions: Expand
+						1205 menu
+							1206 (selected) 全部區域
+							1207 1區
+							1208 2區
+				1209 text 狀態
+				1210 container
+					1211 pop up button (collapsed) 全部狀態 ⌄, Secondary Actions: Expand
+					1212 pop up button (collapsed, settable) Value: 全部狀態, Secondary Actions: Expand
+						1213 menu
+							1214 (selected) 全部狀態
+							1215 待確認
+							1216 待處理
+							1217 處理中
+							1218 待完工確認
+							1219 已完成
+							1220 已取消
+				1221 text Objective
+				1222 container
+					1223 pop up button (collapsed) 全部目的 ⌄, Secondary Actions: Expand
+					1224 pop up button (collapsed, settable) Value: 全部目的, Secondary Actions: Expand
+						1225 menu
+							1226 (selected) 全部目的
+							1227 Routine Check
+							1228 Fault Report
+							1229 Emergency Call
+							1230 Others
+				1231 text 關鍵詞搜索
+				1232 text field (settable)
+				1233 button 搜索
+				1234 button 重置
+				1235 table
+					1236 row
+						1237 cell
+							1238 text 類型
+						1239 cell
+							1240 text 報告編號
+						1241 cell
+							1242 text 工單編號
+						1243 cell
+							1244 text 客戶
+						1245 cell
+							1246 text 區域
+						1247 cell
+							1248 text 系統
+						1249 cell
+							1250 text Objective
+						1251 cell
+							1252 text 保養類型
+						1253 cell
+							1254 text 工單狀態
+						1255 cell
+							1256 text 建立時間
+						1257 cell
+							1258 text 操作
+					1259 row
+						1260 cell
+							1261 text 服務報告
+						1262 cell
+							1263 text SR-250412
+						1264 cell
+							1265 button WO-20260613-010
+						1266 cell
+							1267 text 灣仔商業大廈
+						1268 cell
+							1269 text 1區
+						1270 cell
+							1271 text IT、Doorphone
+						1272 cell
+							1273 text Others
+						1274 cell
+							1275 text 非保養
+						1276 cell
+							1277 text 處理中
+						1278 cell
+							1279 text 06-13 14:35
+						1280 cell
+							1281 button 查看工單
+							1282 button 查看報告
+					1283 row
+						1284 cell
+							1285 text 服務報告
+						1286 cell
+							1287 text SR-250315
+						1288 cell
+							1289 button WO-20260614-006
+						1290 cell
+							1291 text 港島商業中心
+						1292 cell
+							1293 text 1區
+						1294 cell
+							1295 text Access Control
+						1296 cell
+							1297 text Routine Check
+						1298 cell
+							1299 text 季檢
+						1300 cell
+							1301 text 已完成
+						1302 cell
+							1303 text 06-14 14:10
+						1304 cell
+							1305 button 查看工單
+							1306 button 查看報告
+					1307 row
+						1308 cell
+							1309 text 服務報告
+						1310 cell
+							1311 text SR-250298
+						1312 cell
+							1313 button WO-20260613-009
+						1314 cell
+							1315 text 安全監控管理有限公司
+						1316 cell
+							1317 text 2區
+						1318 cell
+							1319 text CCTV
+						1320 cell
+							1321 text Fault Report
+						1322 cell
+							1323 text 非保養
+						1324 cell
+							1325 text 已完成
+						1326 cell
+							1327 text 06-13 11:10
+						1328 cell
+							1329 button 查看工單
+							1330 button 查看報告
+	1131 text 文件不齊全（缺少：完工紙、客戶確認PO），暫不可開票
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html

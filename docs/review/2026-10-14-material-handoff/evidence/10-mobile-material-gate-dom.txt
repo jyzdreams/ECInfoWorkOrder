@@ -1,0 +1,116 @@
+- main:
+  - heading "分派中心" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "趙 趙組長 主管 · 九龍團隊 ⌄":
+    - generic: 趙
+    - strong: 趙組長
+    - generic: 主管 · 九龍團隊
+    - generic: ⌄
+  - generic: CALL 清單（3 張）
+  - tablist "CALL 分派狀態":
+    - button "待分派 3" [pressed]
+    - button "已分派 0"
+  - button "篩選 ⌄"
+  - button "WO-20261013-003 待分派 港島商業中心 · 1區 · 工程維修 10-13 20:24 PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。":
+    - strong: WO-20261013-003
+    - generic: 待分派
+    - generic: 港島商業中心
+    - generic: ·
+    - generic: 1區
+    - generic: ·
+    - generic: 工程維修
+    - generic: 10-13 20:24
+    - generic: PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。
+  - button "WO-20261013-002 待分派 港島商業中心 · 1區 · 工程維修 10-13 20:20 PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。":
+    - strong: WO-20261013-002
+    - generic: 待分派
+    - generic: 港島商業中心
+    - generic: ·
+    - generic: 1區
+    - generic: ·
+    - generic: 工程維修
+    - generic: 10-13 20:20
+    - generic: PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。
+  - button "WO-20261013-001 待分派 港島商業中心 · 1區 · 工程維修 10-13 17:51 PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。":
+    - strong: WO-20261013-001
+    - generic: 待分派
+    - generic: 港島商業中心
+    - generic: ·
+    - generic: 1區
+    - generic: ·
+    - generic: 工程維修
+    - generic: 10-13 17:51
+    - generic: PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。
+  - button "首頁":
+    - generic: 首頁
+  - button "分派":
+    - generic: 分派
+  - dialog "分派 CALL":
+    - heading "分派 CALL" [level=2]
+    - paragraph: WO-20261013-003 · 港島商業中心
+    - button "關閉": ×
+    - heading "CALL 資料" [level=3]
+    - paragraph: 工程維修 · 1區 · 陳先生
+    - paragraph: PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。
+    - heading "選擇師傅" [level=3]
+    - textbox "搜尋姓名或技能"
+    - button "全部狀態 ⌄":
+      - generic: 全部狀態
+      - generic: ⌄
+    - combobox:
+      - option "全部狀態" [selected]
+      - option "可接單"
+      - option "忙碌"
+    - generic: 吳
+    - strong: 吳師傅
+    - generic: 負載 1
+    - generic: CM、設備檢查
+    - generic: 可接單
+    - generic: ·
+    - generic: 負載 1
+    - generic: ·
+    - generic: 匹配 98%
+    - generic: ·
+    - generic: 2 km
+    - generic: 趙
+    - strong: 趙師傅
+    - generic: 可接單
+    - generic: CM、保養
+    - generic: 可接單
+    - generic: ·
+    - generic: 負載 0
+    - generic: ·
+    - generic: 匹配 94%
+    - generic: ·
+    - generic: 3 km
+    - generic: 楊
+    - strong: 楊師傅
+    - generic: 可接單
+    - generic: PM、CCTV
+    - generic: 可接單
+    - generic: ·
+    - generic: 負載 0
+    - generic: ·
+    - generic: 匹配 90%
+    - generic: ·
+    - generic: 4 km
+    - generic: 許
+    - strong: 許師傅
+    - generic: 可接單
+    - generic: CM、設備檢查
+    - generic: 可接單
+    - generic: ·
+    - generic: 負載 0
+    - generic: ·
+    - generic: 匹配 86%
+    - generic: ·
+    - generic: 5 km
+    - heading "派工備註" [level=3]
+    - textbox "填寫派工備註（選填）"
+    - paragraph: 材料尚未備齊，可先預排；MR 申請完成不代表可以施工。
+    - button "確認分派" [disabled]
+- generic: 已切換至 趙組長（主管）

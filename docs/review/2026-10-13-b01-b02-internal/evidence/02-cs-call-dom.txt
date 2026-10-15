@@ -1,0 +1,319 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				364 button 🏠 首頁
+					365 text 🏠
+					366 text 首頁
+				367 button 📋 CALL管理
+					368 text 📋
+					369 text CALL管理
+				370 button 📤 分派中心
+					371 text 📤
+					372 text 分派中心
+				373 button 📁 報告管理
+					374 text 📁
+					375 text 報告管理
+				376 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					377 text ⚙️
+					378 text 基礎設置
+					379 text ▶
+				380 container
+					381 button 📖 字典管理
+					382 button 🏢 客戶管理
+					383 button 👤 用戶管理
+					384 button 🖥️ 服務器空間
+					385 button 📊 Excel 導入
+					386 button 🧩 組件庫
+		52 container
+			53 heading CALL管理, Value: 1, ID: pageTitle
+				387 text CALL管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔 1, Help: 通知中心, ID: notiBell
+				90 text 🔔
+				388 text 1
+			60 button 陳 陳小姐 客戶服務部 · 客戶服務部 ⌄, ID: userMenuBtn
+				389 text 陳
+				390 text 陳小姐
+				391 text 客戶服務部 · 客戶服務部
+				64 text ⌄
+			392 container
+				393 tab group CALL視圖與客戶視圖
+					394 tab (selected, settable, boolean) CALL視圖, Value: 1
+					395 tab (selectable, settable, boolean) 客戶視圖, Value: 0
+				396 button + 新增CALL
+				397 text CALL狀態
+				398 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				399 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					400 menu
+						401 (selected) 全部
+						402 待分派
+						403 處理中
+						404 待處理
+						405 待確認
+						406 已完成
+						407 已取消
+				408 text CALL類型
+				409 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				410 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					411 menu
+						412 (selected) 全部
+						413 DLP 保養維修
+						414 工程維修
+						415 工程項目
+						416 投訴
+						417 糾正維修
+				418 text 區域
+				419 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				420 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					421 menu
+						422 (selected) 全部
+						423 1區
+						424 2區
+						425 3區
+						426 4區
+						427 5區
+						428 6區
+						429 7區
+						430 7A區
+						431 8區
+						432 MTR
+						433 EMSD
+						434 ASD
+						435 軟件組
+						436 EV Charge
+						437 Maintenance-HTCL
+						438 Project 1(生)
+						439 Project 1 MTR
+						440 Project 1(Sam)
+						441 Project 1(Johnny)
+						442 Project 1(Roy)
+						443 Project 1(Eric)
+						444 Project 2(Joe)
+						445 Project 1-1541
+						446 Project 1-1962EM20T
+						447 Project 1-1105
+						448 Project 1-2489
+						449 Project 1-2458
+						450 Project/Maintenance
+				451 text 負責人
+				452 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				453 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					454 menu
+						455 (selected) 全部
+						456 李組長
+						457 王組長
+				458 text 關鍵詞搜索
+				459 text field (settable)
+				460 button 搜索
+				461 button 重置
+				462 table
+					463 row
+						464 cell
+							465 text CALL編號
+						466 cell
+							467 text 創建時間
+						468 cell
+							469 text 客戶名稱
+						470 cell
+							471 text 類型
+						472 cell
+							473 text 區域
+						474 cell
+							475 text 狀態
+						476 cell
+							477 text 負責人
+						478 cell
+							479 text 操作
+					480 row
+						481 cell
+							482 button WO-DEMO-CM
+						483 cell
+							484 text 2026-09-27 09:00
+						485 cell
+							486 text 九龍國際廣場
+						487 cell
+							488 text 糾正維修
+						489 cell
+							490 text 2區
+						491 cell
+							492 text 待分派
+						493 cell
+							494 text 李組長
+						495 cell
+							496 button 查看詳情
+					497 row
+						498 cell
+							499 button WO-DEMO-INSTANT
+						500 cell
+							501 text 2026-09-27 09:00
+						502 cell
+							503 text 九龍國際廣場
+						504 cell
+							505 text 工程維修
+						506 cell
+							507 text 2區
+						508 cell
+							509 text 處理中
+						510 cell
+							511 text 李組長
+						512 cell
+							513 button 查看詳情
+					514 row
+						515 cell
+							516 button WO-DEMO-MP-P
+						517 cell
+							518 text 2026-09-27 09:00
+						519 cell
+							520 text 九龍國際廣場
+						521 cell
+							522 text 工程維修
+						523 cell
+							524 text 2區
+						525 cell
+							526 text 待分派
+						527 cell
+							528 text 李組長
+						529 cell
+							530 button 查看詳情
+					531 row
+						532 cell
+							533 button WO-DEMO-M-01
+						534 cell
+							535 text 2026-09-27 09:00
+						536 cell
+							537 text 九龍國際廣場
+						538 cell
+							539 text DLP 保養維修
+						540 cell
+							541 text 2區
+						542 cell
+							543 text 待處理
+						544 cell
+							545 text 李組長
+						546 cell
+							547 button 查看詳情
+					548 row
+						549 cell
+							550 button WO-DEMO-P
+						551 cell
+							552 text 2026-09-27 09:00
+						553 cell
+							554 text 九龍國際廣場
+						555 cell
+							556 text 工程維修
+						557 cell
+							558 text 2區
+						559 cell
+							560 text 待分派
+						561 cell
+							562 text 李組長
+						563 cell
+							564 button 查看詳情
+					565 row
+						566 cell
+							567 button WO-20260615-004
+						568 cell
+							569 text 2026-06-15 10:20
+						570 cell
+							571 text 新界住宅項目
+							572 text 合約編號 0471667
+						573 cell
+							574 text 保養維修
+						575 cell
+							576 text 3區
+						577 cell
+							578 text 待處理
+						579 cell
+							580 text 李組長
+						581 cell
+							582 button 查看詳情
+					583 row
+						584 cell
+							585 button WO-20260615-003
+						586 cell
+							587 text 2026-06-15 10:02
+						588 cell
+							589 text 安全監控管理有限公司
+						590 cell
+							591 text 工程維修
+						592 cell
+							593 text 3區
+						594 cell
+							595 text 待確認
+						596 cell
+							597 text 王組長
+						598 cell
+							599 button 查看詳情
+					600 row
+						601 cell
+							602 button WO-20260615-002
+						603 cell
+							604 text 2026-06-15 09:28
+						605 cell
+							606 text 九龍屋苑管理處
+						607 cell
+							608 text 保養維修
+						609 cell
+							610 text 2區
+						611 cell
+							612 text 待分派
+						613 cell
+							614 text 李組長
+						615 cell
+							616 button 查看詳情
+					617 row
+						618 cell
+							619 button WO-20260615-001
+						620 cell
+							621 text 2026-06-15 09:10
+						622 cell
+							623 text 港島商業中心
+						624 cell
+							625 text 保養維修
+						626 cell
+							627 text 1區
+						628 cell
+							629 text 待分派
+						630 cell
+							631 text 李組長
+						632 cell
+							633 button 查看詳情
+					634 row
+						635 cell
+							636 button WO-20260615-005
+						637 cell
+							638 text 2026-06-15 08:20
+						639 cell
+							640 text 灣仔商業大廈
+						641 cell
+							642 text 保養維修
+						643 cell
+							644 text 1區
+						645 cell
+							646 text 處理中
+						647 cell
+							648 text 李組長
+						649 cell
+							650 button 查看詳情
+				651 text 共 17 條記錄，每頁
+				652 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					653 menu
+						654 (selected) 10
+						655 20
+						656 50
+				657 text 條，第 1/2 頁
+				658 button (disabled) ‹
+				659 button 1
+				660 button 2
+				661 button ›
+	363 text 歡迎回來，陳小姐！
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

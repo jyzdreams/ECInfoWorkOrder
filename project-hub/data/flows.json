@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
-  "total": 7,
+  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "total": 9,
   "flows": [
     {
       "id": "FLOW-MAIN",
       "name": "00 真实业务总流程",
-      "status": "CONFIRMED",
+      "status": "PARTIAL",
       "summary": "客户需求经报价生命周期和中单判断进入 M、P 或 M+P；工单完工与收款完成分离。",
       "nodes": [
         {
@@ -16,6 +16,7 @@
           "state": "待受理",
           "nextRole": "CS / CR",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-001"
           ],
@@ -29,6 +30,7 @@
           "state": "待报价",
           "nextRole": "报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-009"
           ],
@@ -42,6 +44,7 @@
           "state": "报价沟通中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-008"
           ],
@@ -55,6 +58,7 @@
           "state": "待中单",
           "nextRole": "报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-007",
             "CONFIRMED-008"
@@ -69,6 +73,7 @@
           "state": "已中单",
           "nextRole": "系统 / 业务团队",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-007",
             "CONFIRMED-008",
@@ -84,6 +89,7 @@
           "state": "准备中",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-011",
             "CONFIRMED-013"
@@ -98,6 +104,7 @@
           "state": "处理中",
           "nextRole": "客户 / CR",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-004",
             "CONFIRMED-005",
@@ -107,30 +114,32 @@
         },
         {
           "id": "MAIN-08",
-          "label": "Service Report",
+          "label": "SR / 维修完工纸CP",
           "actor": "师傅 / 客户",
-          "action": "提交并签名确认",
+          "action": "保养或CALL上门交SR；报价中单维修交CP",
           "state": "待确认",
-          "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "nextRole": "按业务分支交接",
+          "status": "CONFLICT",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
-          "description": ""
+          "description": "SOURCE-022最新用户分流取代内部统一SR解释；SOURCE-001旧原文保留，不代表客户已批准新规则。"
         },
         {
           "id": "MAIN-09",
-          "label": "完工",
-          "actor": "CR / 主管",
-          "action": "简单确认",
+          "label": "完工状态共享",
+          "actor": "按分支确认岗位",
+          "action": "维修由主管核对CP并更新完工状态；按权限可查",
           "state": "已完工",
-          "nextRole": "报价 / 财务",
-          "status": "CONFIRMED",
+          "nextRole": "有权限的查看角色",
+          "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010",
             "CONFIRMED-017"
           ],
-          "description": "完工不等于收款完成。"
+          "description": "SOURCE-022最新用户说明；不创建财务任务、发票或收款，财务独立核资料。"
         },
         {
           "id": "MAIN-10",
@@ -140,6 +149,7 @@
           "state": "收款独立跟踪",
           "nextRole": "财务",
           "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-017",
             "PENDING-001"
@@ -159,7 +169,9 @@
         "CR / 主管、师傅",
         "客户 / CR",
         "师傅 / 客户",
-        "报价 / 财务",
+        "按业务分支交接",
+        "按分支确认岗位",
+        "有权限的查看角色",
         "财务 / 现场师傅",
         "财务"
       ],
@@ -192,7 +204,10 @@
         "PENDING-001"
       ],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-CE3522C7AE",
+        "FILE-CAE118EF83",
+        "FILE-833C198165"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -210,7 +225,15 @@
         "FACT-005",
         "FACT-012",
         "FACT-010",
-        "FACT-017"
+        "FACT-017",
+        "FACT-UPD-001",
+        "FACT-UPD-002",
+        "FACT-UPD-003",
+        "FACT-UPD-004",
+        "FACT-UPD-005",
+        "FACT-UPD-006",
+        "FACT-UPD-007",
+        "FACT-UPD-039"
       ],
       "moduleIds": [
         "客户服务",
@@ -218,12 +241,22 @@
         "工单",
         "Service Report",
         "财务"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-001",
+        "REQ-UPD-002",
+        "REQ-UPD-003",
+        "REQ-UPD-004",
+        "REQ-UPD-005",
+        "REQ-UPD-006",
+        "REQ-UPD-007",
+        "REQ-UPD-039"
       ]
     },
     {
       "id": "FLOW-P",
       "name": "01 普通报价维修",
-      "status": "CONFIRMED",
+      "status": "PARTIAL",
       "summary": "先报价、中单，再按最终报价材料生成 MR，备货完成后由 CR / 主管确认正式施工时间。",
       "nodes": [
         {
@@ -234,6 +267,7 @@
           "state": "待报价",
           "nextRole": "报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-009"
           ],
@@ -247,6 +281,7 @@
           "state": "沟通中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-008"
           ],
@@ -260,6 +295,7 @@
           "state": "已中单",
           "nextRole": "系统 / 仓管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-003",
             "CONFIRMED-007"
@@ -274,6 +310,7 @@
           "state": "待备货",
           "nextRole": "仓管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-006",
             "CONFIRMED-007"
@@ -288,6 +325,7 @@
           "state": "材料准备中",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-003"
           ],
@@ -295,17 +333,18 @@
         },
         {
           "id": "P-06",
-          "label": "确认正式时间",
-          "actor": "CR / 主管",
-          "action": "材料就绪后与客户确认",
-          "state": "待施工",
+          "label": "派工时间与事项交接",
+          "actor": "主管",
+          "action": "材料就绪后派工，在备注记录时间与事项，通常电话沟通",
+          "state": "待师傅接单",
           "nextRole": "师傅",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-004",
             "CONFIRMED-005"
           ],
-          "description": ""
+          "description": "SOURCE-022最新用户说明；业务顺序保留，不要求独立预约日期/审批或从备注抽取时间；客户签批未取得。"
         },
         {
           "id": "P-07",
@@ -315,6 +354,7 @@
           "state": "处理中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-001",
             "CONFIRMED-002"
@@ -323,33 +363,35 @@
         },
         {
           "id": "P-08",
-          "label": "Service Report",
+          "label": "维修完工纸CP",
           "actor": "师傅 / 客户",
-          "action": "提交 SR 并签名",
-          "state": "待确认",
-          "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "action": "交回维修清单与完工纸",
+          "state": "待主管收件/核对",
+          "nextRole": "主管",
+          "status": "CONFLICT",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
-          "description": ""
+          "description": "SOURCE-022最新用户说明；按成交维修阶段而非有无材料分流，旧统一SR原文保留。"
         },
         {
           "id": "P-09",
-          "label": "正式完工",
-          "actor": "CR / 主管",
-          "action": "简单确认",
+          "label": "主管确认维修完工",
+          "actor": "主管",
+          "action": "核对完工纸、更新维修已完工状态，其他角色按权限查看",
           "state": "已完工",
-          "nextRole": "归档 / 财务",
-          "status": "CONFIRMED",
+          "nextRole": "有权限的查看角色",
+          "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010",
             "CONFIRMED-017"
           ],
-          "description": ""
+          "description": "SOURCE-022后续用户明确主管确认；不自动财务接件/开票/收款，SOURCE-014 P33在独立财务流程核对。"
         }
       ],
-      "factStatus": "CONFIRMED",
+      "factStatus": "PARTIAL",
       "purpose": "完成先报价后维修的材料准备、排期、施工与报告闭环。",
       "trigger": "客户需要维修/工程，报价任务已发起。",
       "roles": [
@@ -360,9 +402,10 @@
         "系统",
         "仓管",
         "CR / 主管",
+        "主管",
         "师傅",
         "师傅 / 客户",
-        "归档 / 财务"
+        "有权限的查看角色"
       ],
       "keyStates": [
         "待报价",
@@ -370,9 +413,9 @@
         "已中单",
         "待备货",
         "材料准备中",
-        "待施工",
+        "待师傅接单",
         "处理中",
-        "待确认",
+        "待主管收件/核对",
         "已完工"
       ],
       "decisionIds": [
@@ -390,7 +433,10 @@
       ],
       "openDecisionIds": [],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-CE3522C7AE",
+        "FILE-CAE118EF83",
+        "FILE-833C198165"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -408,7 +454,24 @@
         "FACT-001",
         "FACT-002",
         "FACT-010",
-        "FACT-017"
+        "FACT-017",
+        "FACT-UPD-012",
+        "FACT-UPD-013",
+        "FACT-UPD-014",
+        "FACT-UPD-015",
+        "FACT-UPD-016",
+        "FACT-UPD-018",
+        "FACT-UPD-019",
+        "FACT-UPD-020",
+        "FACT-UPD-021",
+        "FACT-UPD-022",
+        "FACT-UPD-023",
+        "FACT-UPD-024",
+        "FACT-UPD-025",
+        "FACT-UPD-026",
+        "FACT-UPD-027",
+        "FACT-UPD-030",
+        "FACT-UPD-032"
       ],
       "moduleIds": [
         "报价",
@@ -416,12 +479,31 @@
         "MR / 材料",
         "排期派工",
         "Service Report"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-012",
+        "REQ-UPD-013",
+        "REQ-UPD-014",
+        "REQ-UPD-015",
+        "REQ-UPD-016",
+        "REQ-UPD-018",
+        "REQ-UPD-019",
+        "REQ-UPD-020",
+        "REQ-UPD-021",
+        "REQ-UPD-022",
+        "REQ-UPD-023",
+        "REQ-UPD-024",
+        "REQ-UPD-025",
+        "REQ-UPD-026",
+        "REQ-UPD-027",
+        "REQ-UPD-030",
+        "REQ-UPD-032"
       ]
     },
     {
       "id": "FLOW-MAINT-ISSUE",
       "name": "02 保养发现问题后二次维修",
-      "status": "CONFIRMED",
+      "status": "PARTIAL",
       "summary": "保养 SR 选择需要报价后自动创建报价任务，再进入报价、中单、MR、备货和二次上门链路。",
       "nodes": [
         {
@@ -432,6 +514,7 @@
           "state": "保养中",
           "nextRole": "师傅",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002",
             "CONFIRMED-012"
@@ -446,6 +529,7 @@
           "state": "待报价判断",
           "nextRole": "系统",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -459,6 +543,7 @@
           "state": "待报价",
           "nextRole": "报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-009"
           ],
@@ -472,6 +557,7 @@
           "state": "已中单",
           "nextRole": "系统",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-007",
             "CONFIRMED-008"
@@ -486,6 +572,7 @@
           "state": "材料准备中",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-006",
             "CONFIRMED-007"
@@ -500,6 +587,7 @@
           "state": "处理中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-005"
           ],
@@ -507,19 +595,20 @@
         },
         {
           "id": "MI-07",
-          "label": "SR 与完工",
-          "actor": "师傅 / CR",
-          "action": "签名、提交、简单确认",
-          "state": "已完工",
-          "nextRole": "归档",
-          "status": "CONFIRMED",
+          "label": "二次维修完工纸CP",
+          "actor": "师傅 / 主管",
+          "action": "维修清单/完工纸交主管核对并更新完工，保留前期检查SR来源",
+          "state": "已完工，状态按权限可查",
+          "nextRole": "有权限的查看角色",
+          "status": "CONFLICT",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
-          "description": ""
+          "description": "SOURCE-022最新说明；不改前期保养SR，财务流程独立；旧统一SR版本保留。"
         }
       ],
-      "factStatus": "CONFIRMED",
+      "factStatus": "PARTIAL",
       "purpose": "处理保养中发现而无法当场完成的维修问题。",
       "trigger": "师傅在保养 Service Report 中选择“需要报价”。",
       "roles": [
@@ -531,8 +620,8 @@
         "CR / 主管",
         "CR / 主管、师傅",
         "客户",
-        "师傅 / CR",
-        "归档"
+        "师傅 / 主管",
+        "有权限的查看角色"
       ],
       "keyStates": [
         "保养中",
@@ -541,7 +630,7 @@
         "已中单",
         "材料准备中",
         "处理中",
-        "已完工"
+        "已完工，状态按权限可查"
       ],
       "decisionIds": [
         "CONFIRMED-002",
@@ -555,7 +644,9 @@
       ],
       "openDecisionIds": [],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-CE3522C7AE",
+        "FILE-833C198165"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -570,7 +661,9 @@
         "FACT-008",
         "FACT-006",
         "FACT-005",
-        "FACT-010"
+        "FACT-010",
+        "FACT-UPD-026",
+        "FACT-UPD-027"
       ],
       "moduleIds": [
         "保养计划",
@@ -578,6 +671,10 @@
         "报价",
         "MR / 材料",
         "工单"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-026",
+        "REQ-UPD-027"
       ]
     },
     {
@@ -594,6 +691,7 @@
           "state": "现场判断",
           "nextRole": "报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -607,6 +705,7 @@
           "state": "待客户确认",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -620,6 +719,7 @@
           "state": "可维修",
           "nextRole": "师傅",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -633,6 +733,7 @@
           "state": "已处理",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -646,6 +747,7 @@
           "state": "已收现场款",
           "nextRole": "财务 / 报价组",
           "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-017",
             "PENDING-001"
@@ -660,6 +762,7 @@
           "state": "待确认",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
@@ -673,6 +776,7 @@
           "state": "待归档",
           "nextRole": "财务",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
@@ -728,7 +832,8 @@
         "报价",
         "工单",
         "财务"
-      ]
+      ],
+      "latestRequirementIds": []
     },
     {
       "id": "FLOW-M",
@@ -744,6 +849,7 @@
           "state": "报价中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-011",
             "CONFIRMED-012"
@@ -758,6 +864,7 @@
           "state": "已中单",
           "nextRole": "系统",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-008",
             "CONFIRMED-011"
@@ -772,6 +879,7 @@
           "state": "计划已生成",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-012"
           ],
@@ -785,6 +893,7 @@
           "state": "待保养",
           "nextRole": "师傅",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-012"
           ],
@@ -798,6 +907,7 @@
           "state": "保养中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-012"
           ],
@@ -811,6 +921,7 @@
           "state": "待确认",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
@@ -824,6 +935,7 @@
           "state": "本次保养完成",
           "nextRole": "下一周期 / 报价组",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010",
             "CONFIRMED-012"
@@ -860,7 +972,9 @@
       ],
       "openDecisionIds": [],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-CAE118EF83",
+        "FILE-833C198165"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -871,13 +985,39 @@
         "FACT-011",
         "FACT-012",
         "FACT-008",
-        "FACT-010"
+        "FACT-010",
+        "FACT-UPD-013",
+        "FACT-UPD-016",
+        "FACT-UPD-017",
+        "FACT-UPD-019",
+        "FACT-UPD-020",
+        "FACT-UPD-022",
+        "FACT-UPD-023",
+        "FACT-UPD-024",
+        "FACT-UPD-025",
+        "FACT-UPD-030",
+        "FACT-UPD-032",
+        "FACT-UPD-037"
       ],
       "moduleIds": [
         "报价",
         "保养计划",
         "排期派工",
         "Service Report"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-013",
+        "REQ-UPD-016",
+        "REQ-UPD-017",
+        "REQ-UPD-019",
+        "REQ-UPD-020",
+        "REQ-UPD-022",
+        "REQ-UPD-023",
+        "REQ-UPD-024",
+        "REQ-UPD-025",
+        "REQ-UPD-030",
+        "REQ-UPD-032",
+        "REQ-UPD-037"
       ]
     },
     {
@@ -894,6 +1034,7 @@
           "state": "待分派",
           "nextRole": "CR / 主管",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-014"
           ],
@@ -907,6 +1048,7 @@
           "state": "待服务",
           "nextRole": "师傅",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-015"
           ],
@@ -920,6 +1062,7 @@
           "state": "规则待定",
           "nextRole": "CR / 主管",
           "status": "PENDING",
+          "latestFactIds": [],
           "decisionIds": [
             "PENDING-002"
           ],
@@ -933,6 +1076,7 @@
           "state": "处理中",
           "nextRole": "客户",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-015"
           ],
@@ -946,6 +1090,7 @@
           "state": "已完工",
           "nextRole": "归档",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010",
             "CONFIRMED-015"
@@ -981,7 +1126,8 @@
         "PENDING-002"
       ],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-833C198165"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -991,13 +1137,19 @@
       "factIds": [
         "FACT-014",
         "FACT-015",
-        "FACT-010"
+        "FACT-010",
+        "FACT-UPD-006",
+        "FACT-UPD-007"
       ],
       "moduleIds": [
         "客户服务",
         "排期派工",
         "工单",
         "Service Report"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-006",
+        "REQ-UPD-007"
       ]
     },
     {
@@ -1014,6 +1166,7 @@
           "state": "待处理",
           "nextRole": "Tender 团队",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-016"
           ],
@@ -1027,6 +1180,7 @@
           "state": "处理中",
           "nextRole": "报价组",
           "status": "PARTIAL",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-016"
           ],
@@ -1040,6 +1194,7 @@
           "state": "等待结果",
           "nextRole": "客户 / 政府机构",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-009",
             "CONFIRMED-016"
@@ -1054,6 +1209,7 @@
           "state": "已中标 / 未中标",
           "nextRole": "业务团队",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-016"
           ],
@@ -1067,6 +1223,7 @@
           "state": "准备中",
           "nextRole": "对应业务角色",
           "status": "CONFIRMED",
+          "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-011",
             "CONFIRMED-016"
@@ -1100,7 +1257,8 @@
       ],
       "openDecisionIds": [],
       "sourceFileIds": [
-        "FILE-618C5F54C7"
+        "FILE-618C5F54C7",
+        "FILE-CAE118EF83"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -1110,12 +1268,268 @@
       "factIds": [
         "FACT-016",
         "FACT-009",
-        "FACT-011"
+        "FACT-011",
+        "FACT-UPD-004",
+        "FACT-UPD-008",
+        "FACT-UPD-009",
+        "FACT-UPD-010",
+        "FACT-UPD-011",
+        "FACT-UPD-012",
+        "FACT-UPD-014",
+        "FACT-UPD-018"
       ],
       "moduleIds": [
         "Tender",
         "报价",
         "工单"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-004",
+        "REQ-UPD-008",
+        "REQ-UPD-009",
+        "REQ-UPD-010",
+        "REQ-UPD-011",
+        "REQ-UPD-012",
+        "REQ-UPD-014",
+        "REQ-UPD-018"
+      ]
+    },
+    {
+      "id": "FLOW-MR",
+      "name": "07 MR申请与仓库交接",
+      "status": "PARTIAL",
+      "summary": "材料申请存在自动、无报价手工及仓管自主入口诉求；EC/仓库通写入权、就绪回传及取消联动待确认。",
+      "nodes": [
+        {
+          "id": "MR-01",
+          "label": "提出材料申请",
+          "actor": "报价/采购/仓管",
+          "action": "成交来源或无报价手工/仓管自主提出MR；系统分工待C-04",
+          "state": "处理中（进入条件待定）",
+          "nextRole": "采购/仓库通/仓管（授权待定）",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-011",
+            "FACT-UPD-029"
+          ],
+          "decisionIds": [
+            "CONFIRMED-003"
+          ],
+          "description": "UPD-011、UPD-029；不能强造报价来源"
+        },
+        {
+          "id": "MR-02",
+          "label": "备货与进度交接",
+          "actor": "采购/仓管",
+          "action": "按原申请备货并保留缺料情况；SP/PO字段与回传按C-04确认",
+          "state": "备货进度映射待定",
+          "nextRole": "原申请人/CR/主管",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-028"
+          ],
+          "decisionIds": [
+            "CONFIRMED-003"
+          ],
+          "description": "UPD-028；业务状况与库存进度不能混同"
+        },
+        {
+          "id": "MR-03",
+          "label": "完成或取消",
+          "actor": "授权岗位待定",
+          "action": "记录已完成/已取消；后续预约和取消关联须确认",
+          "state": "已完成/已取消",
+          "nextRole": "CR/主管或原申请人（待定）",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-028"
+          ],
+          "decisionIds": [
+            "CONFIRMED-004"
+          ],
+          "description": "UPD-028，C-04/C-07/C-13；不默认自动开工或取消合同"
+        }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "核对材料申请、备货及就绪交接。",
+      "trigger": "报价成交来源、无报价申请或仓管自主申请。",
+      "roles": [
+        "报价/采购/仓管",
+        "采购/仓库通/仓管（授权待定）",
+        "采购/仓管",
+        "原申请人/CR/主管",
+        "授权岗位待定",
+        "CR/主管或原申请人（待定）"
+      ],
+      "keyStates": [
+        "处理中（进入条件待定）",
+        "备货进度映射待定",
+        "已完成/已取消"
+      ],
+      "decisionIds": [
+        "CONFIRMED-003",
+        "CONFIRMED-004"
+      ],
+      "openDecisionIds": [],
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-CAE118EF83",
+        "FILE-833C198165"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-003",
+        "FACT-004",
+        "FACT-UPD-011",
+        "FACT-UPD-026",
+        "FACT-UPD-028",
+        "FACT-UPD-029"
+      ],
+      "moduleIds": [
+        "MR与备货",
+        "服务报告"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-011",
+        "REQ-UPD-026",
+        "REQ-UPD-028",
+        "REQ-UPD-029"
+      ]
+    },
+    {
+      "id": "FLOW-FINANCE",
+      "name": "08 完工资料、开票与收款",
+      "status": "PARTIAL",
+      "summary": "按完工资料核对正常/欠件出口；特殊原因、低额原因明确存在，授权、合同账期及核销政策仍待确认。",
+      "nodes": [
+        {
+          "id": "FIN-01",
+          "label": "核对完工资料",
+          "actor": "财务/资料提供岗位",
+          "action": "核对完工纸、照片、客户确认PO；各服务适用清单按C-08确认",
+          "state": "待开票/欠文件",
+          "nextRole": "财务/补件岗位",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-032"
+          ],
+          "decisionIds": [
+            "CONFIRMED-017"
+          ],
+          "description": "UPD-032，不用任意附件冒充照片或状态冒充原件"
+        },
+        {
+          "id": "FIN-02",
+          "label": "补件或说明例外",
+          "actor": "财务/批准岗位待定",
+          "action": "补件后按正常出口处理；特殊开票写原因，授权按C-03确认",
+          "state": "开票条件或例外授权待确认",
+          "nextRole": "财务",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-033"
+          ],
+          "decisionIds": [
+            "CONFIRMED-017"
+          ],
+          "description": "UPD-033，不默认赋予管理员审批权"
+        },
+        {
+          "id": "FIN-03",
+          "label": "开票与记录",
+          "actor": "财务",
+          "action": "两日期默认当天，不需要税率；描述合同/PO/PM period；低额写原因",
+          "state": "已开票（实际规则待逐项确认）",
+          "nextRole": "财务/客户",
+          "status": "PARTIAL",
+          "latestFactIds": [
+            "FACT-UPD-034",
+            "FACT-UPD-035",
+            "FACT-UPD-036",
+            "FACT-UPD-037",
+            "FACT-UPD-038"
+          ],
+          "decisionIds": [
+            "CONFIRMED-017"
+          ],
+          "description": "UPD-034、UPD-035、UPD-036、UPD-037、UPD-038；编号前缀及金额分配按C-09/C-14"
+        },
+        {
+          "id": "FIN-04",
+          "label": "收款与对账",
+          "actor": "财务/现场交款岗位待定",
+          "action": "分别记录开票、收款和服务完成；现场交款与异常核销须明确职责",
+          "state": "独立收款状态（口径待定）",
+          "nextRole": "财务/业务负责人",
+          "status": "PARTIAL",
+          "latestFactIds": [],
+          "decisionIds": [
+            "CONFIRMED-017",
+            "PENDING-001"
+          ],
+          "description": "C-06/C-14，不以工单完工代替收款完成"
+        }
+      ],
+      "factStatus": "PARTIAL",
+      "purpose": "核对完工资料、正常/例外开票与独立收款。",
+      "trigger": "服务或合同业务进入财务处理；适用资料清单待确认。",
+      "roles": [
+        "财务/资料提供岗位",
+        "财务/补件岗位",
+        "财务/批准岗位待定",
+        "财务",
+        "财务/客户",
+        "财务/现场交款岗位待定",
+        "财务/业务负责人"
+      ],
+      "keyStates": [
+        "待开票/欠文件",
+        "开票条件或例外授权待确认",
+        "已开票（实际规则待逐项确认）",
+        "独立收款状态（口径待定）"
+      ],
+      "decisionIds": [
+        "CONFIRMED-017"
+      ],
+      "openDecisionIds": [
+        "PENDING-001"
+      ],
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-CAE118EF83"
+      ],
+      "baselineFileId": "FILE-6366380F13",
+      "knowledgeFileIds": [
+        "FILE-6366380F13",
+        "FILE-6DF78BBE11"
+      ],
+      "factIds": [
+        "FACT-017",
+        "FACT-UPD-031",
+        "FACT-UPD-032",
+        "FACT-UPD-033",
+        "FACT-UPD-034",
+        "FACT-UPD-035",
+        "FACT-UPD-036",
+        "FACT-UPD-037",
+        "FACT-UPD-038"
+      ],
+      "moduleIds": [
+        "财务"
+      ],
+      "latestRequirementIds": [
+        "REQ-UPD-031",
+        "REQ-UPD-032",
+        "REQ-UPD-033",
+        "REQ-UPD-034",
+        "REQ-UPD-035",
+        "REQ-UPD-036",
+        "REQ-UPD-037",
+        "REQ-UPD-038"
       ]
     }
   ]

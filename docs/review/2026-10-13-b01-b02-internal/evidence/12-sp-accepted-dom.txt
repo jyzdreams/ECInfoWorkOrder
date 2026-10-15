@@ -1,0 +1,155 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				2097 button 🏠 首頁
+					2098 text 🏠
+					2099 text 首頁
+				2100 button 🛒 備貨管理
+					2101 text 🛒
+					2102 text 備貨管理
+				2103 button 📊 統計報表
+					2104 text 📊
+					2105 text 統計報表
+		52 container
+			53 heading 備貨管理, Value: 1, ID: pageTitle
+				2106 text 備貨管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			2078 button 張 張採購 採購部 · 採購部 ⌄, ID: userMenuBtn
+				2107 text 張
+				2108 text 張採購
+				2109 text 採購部 · 採購部
+				2082 text ⌄
+			2096 container pcPages
+				2110 container
+					2111 heading 待備貨, Value: 3
+						2112 text 待備貨
+					2113 text 1 尚未關聯任何採購單
+				2114 container
+					2115 heading 採購中, Value: 3
+						2116 text 採購中
+					2117 text 3 待下單 / 已下單 / 已發貨
+				2118 container
+					2119 heading 已到貨, Value: 3
+						2120 text 已到貨
+					2121 text 1 已到貨 / 已入庫 / 已驗收
+				2122 container
+					2123 heading 本月採購額, Value: 3
+						2124 text 本月採購額
+					2125 text 26,450 HKD
+				2126 table
+					2127 row
+						2128 cell
+							2129 text 備貨編號
+						2130 cell
+							2131 text 客戶名稱
+						2132 cell
+							2133 text 關聯報價
+						2134 cell
+							2135 text 狀態
+						2136 cell
+							2137 text 預計到貨時間
+						2138 cell
+							2139 text 操作
+					2140 row
+						2141 cell
+							2142 button SP-261013-0002
+						2143 cell
+							2144 text 港島商業中心
+						2145 cell
+							2146 button 1P2600013
+						2147 cell
+							2148 text 已驗收
+						2149 cell
+							2150 text -
+						2151 cell
+							2152 button 查看
+					2153 row
+						2154 cell
+							2155 button SP-261013-0001
+						2156 cell
+							2157 text 九龍國際廣場
+						2158 cell
+							2159 button QT-DEMO-MP
+						2160 cell
+							2161 text 待備貨
+						2162 cell
+							2163 text -
+						2164 cell
+							2165 button 查看
+					2166 row
+						2167 cell
+							2168 button SP-260620-0001
+						2169 cell
+							2170 text 香港政府大樓
+						2171 cell
+							2172 button QT-20260621-004
+						2173 cell
+							2174 text 已下單
+						2175 cell
+							2176 text 2026-06-30
+						2177 cell
+							2178 button 查看
+					2179 row
+						2180 cell
+							2181 button SP-260618-0002
+						2182 cell
+							2183 text 新界花園住宅
+						2184 cell
+							2185 button QT-20260621-006
+						2186 cell
+							2187 text 已發貨
+						2188 cell
+							2189 text 2026-06-28
+						2190 cell
+							2191 button 查看
+					2192 row
+						2193 cell
+							2194 button SP-260615-0003
+						2195 cell
+							2196 text 港島會議中心
+						2197 cell
+							2198 text -
+						2199 cell
+							2200 text 待下單
+						2201 cell
+							2202 text 2026-07-05
+						2203 cell
+							2204 button 查看
+	2205 text 備貨單 SP-261013-0002 狀態：待備貨 → 已驗收
+	2206 container 備貨單詳情
+		2207 heading SP-261013-0002, Value: 3
+			2208 text SP-261013-0002
+		2209 text 已驗收
+		2210 button ×
+		2211 container
+			2212 heading 備貨單資訊, Value: 4
+				2213 text 備貨單資訊
+			2214 text 備貨編號 SP-261013-0002 客戶名稱 港島商業中心 關聯報價
+			2215 button 1P2600013
+			2216 text 狀態
+			2217 pop up button (collapsed) 已驗收 ⌄, Secondary Actions: Expand
+			2218 pop up button (collapsed, settable) Description: 變更備貨單狀態, Value: 已驗收, Secondary Actions: Expand
+				2219 menu
+					2220 待備貨
+					2221 待下單
+					2222 已下單
+					2223 已發貨
+					2224 已到貨
+					2225 已入庫
+					2226 (selected) 已驗收
+					2227 已取消
+			2228 text 預計到貨時間 - 採購單數量 0 張 採購總金額 HKD 0 建立人 鄒組長 建立日期 2026-10-13 備註 由報價 1P2600013 自動建立
+			2229 heading 採購單（0）, Value: 4
+				2230 text 採購單（0）
+			2231 text 此備貨單尚無採購記錄。 採購單請於倉庫通建立。
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

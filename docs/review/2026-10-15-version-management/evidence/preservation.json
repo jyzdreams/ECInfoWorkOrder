@@ -1,0 +1,31 @@
+{
+  "snapshot_files": 835,
+  "unchanged": 823,
+  "changed_governance_or_readme": [
+    ".github/README.md",
+    ".github/pull_request_template.md",
+    ".github/workflows/pages.yml",
+    "AGENTS.md",
+    "README.md",
+    "docs/governance/FILE-WRITING-RULES.md",
+    "docs/governance/GITHUB-SUBMISSION-RULES.md",
+    "docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md",
+    "docs/governance/PROJECT-STRUCTURE.md",
+    "docs/governance/TEAM-COLLABORATION.md",
+    "project-hub/README.md",
+    "prototype/README.md"
+  ],
+  "unexpected_changes": [],
+  "workbooks": [
+    {
+      "path": "outputs/2026-10-12-finalization-prep-v1/EC工单系统客户范围与关键问题确认表-v1.xlsx",
+      "sha256": "d4483d7752db0b1db5377d6152e0c00c19172272c0ddf7fc74a1b2b21ca834c8",
+      "unchanged": true
+    },
+    {
+      "path": "outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx",
+      "sha256": "e5323e14a4b2d7197e231aa596f9fea04d2760ea72c5b953bcb1f6c01121e636",
+      "unchanged": true
+    }
+  ]
+}

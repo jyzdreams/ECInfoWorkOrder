@@ -1,0 +1,89 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 269-279, 283-611
+~			53 heading 備貨管理, Value: 1, ID: pageTitle
+~				263 text 備貨管理
+~			267 container pcPages
+~				268 container
++					269 heading 待備貨, Value: 3
++						270 text 待備貨
++					271 text 1 尚未關聯任何採購單
++				272 container
++					273 heading 採購中, Value: 3
++						274 text 採購中
++					275 text 3 待下單 / 已下單 / 已發貨
++				276 container
++					277 heading 已到貨, Value: 3
++						278 text 已到貨
++					279 text 0 已到貨 / 已入庫 / 已驗收
+~				280 container
+~					281 heading 本月採購額, Value: 3
+~						282 text 本月採購額
++					283 text 26,450 HKD
++				284 table
++					285 row
++						286 cell
++							287 text 備貨編號
++						288 cell
++							289 text 客戶名稱
++						290 cell
++							291 text 關聯報價
++						292 cell
++							293 text 狀態
++						294 cell
++							295 text 預計到貨時間
++						296 cell
++							297 text 操作
++					298 row
++						299 cell
++							300 button SP-261012-0001
++						301 cell
++							302 text 九龍國際廣場
++						303 cell
++							304 button QT-DEMO-MP
++						305 cell
++							306 text 待備貨
++						307 cell
++							308 text -
++						309 cell
++							310 button 查看
++					311 row
++						312 cell
++							313 button SP-260620-0001
++						314 cell
++							315 text 香港政府大樓
++						316 cell
++							317 button QT-20260621-004
++						318 cell
++							319 text 已下單
++						320 cell
++							321 text 2026-06-30
++						322 cell
++							323 button 查看
++					324 row
++						325 cell
++							326 button SP-260618-0002
++						327 cell
++							328 text 新界花園住宅
++						329 cell
++							330 button QT-20260621-006
++						331 cell
++							332 text 已發貨
++						333 cell
++							334 text 2026-06-28
++						335 cell
++							336 button 查看
++					337 row
++						338 cell
++							339 button SP-260615-0003
++						340 cell
++							341 text 港島會議中心
++						342 cell
++							343 text -
++						344 cell
++							345 text 待下單
++						346 cell
++							347 text 2026-07-05
++						348 cell
++							349 button 查看
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html

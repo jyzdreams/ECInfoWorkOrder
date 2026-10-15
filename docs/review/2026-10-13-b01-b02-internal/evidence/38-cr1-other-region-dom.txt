@@ -1,0 +1,164 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				1481 button 🏠 首頁
+					1482 text 🏠
+					1483 text 首頁
+				1484 button 📋 CALL管理
+					1485 text 📋
+					1486 text CALL管理
+				1487 button 📤 分派中心
+					1488 text 📤
+					1489 text 分派中心
+				1490 button 📅 保養計劃
+					1491 text 📅
+					1492 text 保養計劃
+				1493 button 💰 報價管理
+					1494 text 💰
+					1495 text 報價管理
+				1496 button 🛒 備貨管理
+					1497 text 🛒
+					1498 text 備貨管理
+				1499 button 📁 報告管理
+					1500 text 📁
+					1501 text 報告管理
+				1502 button 📊 統計報表
+					1503 text 📊
+					1504 text 統計報表
+				1505 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					1506 text ⚙️
+					1507 text 基礎設置
+					1508 text ▶
+				1509 container
+					1510 button 📖 字典管理
+					1511 button 🏢 客戶管理
+					1512 button 👤 用戶管理
+					1513 button 🖥️ 服務器空間
+					1514 button 📊 Excel 導入
+					1515 button 🧩 組件庫
+				1516 button 📱 移動端
+					1517 text 📱
+					1518 text 移動端
+		53 container
+			54 heading CALL管理, Value: 1, ID: pageTitle
+				1519 text CALL管理
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			1124 button 陳 陳關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				1520 text 陳
+				1521 text 陳關係
+				1522 text 客戶關係部 · 客戶關係部
+				1128 text ⌄
+			1523 container
+				1524 tab group CALL視圖與客戶視圖
+					1525 tab (selected, settable, boolean) CALL視圖, Value: 1
+					1526 tab (selectable, settable, boolean) 客戶視圖, Value: 0
+				1527 button + 新增CALL
+				1528 text CALL狀態
+				1529 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1530 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1531 menu
+						1532 (selected) 全部
+						1533 待分派
+						1534 處理中
+						1535 待處理
+						1536 待確認
+						1537 已完成
+						1538 已取消
+				1539 text CALL類型
+				1540 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1541 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1542 menu
+						1543 (selected) 全部
+						1544 DLP 保養維修
+						1545 工程維修
+						1546 工程項目
+						1547 投訴
+						1548 糾正維修
+				1549 text 區域
+				1550 pop up button (collapsed) 2區 ⌄, Secondary Actions: Expand
+				1551 pop up button (collapsed, settable) Value: 2區, Secondary Actions: Expand
+					1552 menu
+						1553 全部
+						1554 1區
+						1555 (selected) 2區
+						1556 3區
+						1557 4區
+						1558 5區
+						1559 6區
+						1560 7區
+						1561 7A區
+						1562 8區
+						1563 MTR
+						1564 EMSD
+						1565 ASD
+						1566 軟件組
+						1567 EV Charge
+						1568 Maintenance-HTCL
+						1569 Project 1(生)
+						1570 Project 1 MTR
+						1571 Project 1(Sam)
+						1572 Project 1(Johnny)
+						1573 Project 1(Roy)
+						1574 Project 1(Eric)
+						1575 Project 2(Joe)
+						1576 Project 1-1541
+						1577 Project 1-1962EM20T
+						1578 Project 1-1105
+						1579 Project 1-2489
+						1580 Project 1-2458
+						1581 Project/Maintenance
+				1582 text 負責人
+				1583 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1584 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1585 menu
+						1586 (selected) 全部
+						1587 趙組長
+						1588 李組長
+						1589 王組長
+				1590 text 關鍵詞搜索
+				1591 text field (settable)
+				1592 button 搜索
+				1593 button 重置
+				1594 table
+					1595 row
+						1596 cell
+							1597 text CALL編號
+						1598 cell
+							1599 text 創建時間
+						1600 cell
+							1601 text 客戶名稱
+						1602 cell
+							1603 text 類型
+						1604 cell
+							1605 text 區域
+						1606 cell
+							1607 text 狀態
+						1608 cell
+							1609 text 負責人
+						1610 cell
+							1611 text 操作
+					1612 row
+						1613 cell
+							1614 text 暫無匹配 CALL
+				1615 text 共 0 條記錄，每頁
+				1616 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					1617 menu
+						1618 (selected) 10
+						1619 20
+						1620 50
+				1621 text 條，第 1/1 頁
+				1622 button (disabled) ‹
+				1623 button 1
+				1624 button (disabled) ›
+	1480 text 已切換至 陳關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

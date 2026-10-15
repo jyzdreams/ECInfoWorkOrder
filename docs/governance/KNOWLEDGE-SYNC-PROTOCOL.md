@@ -27,7 +27,7 @@
 - Excel尚未更新时显式注明待接入本轮变更，治理说明不冒充主台账已更新。
 - 已核对知识需要Hub展示时才重建验证；未重建时明确快照，不声称实时同步。
 - 目录维护只修复路径；保留FILE/SOURCE/FACT/DEC/FLOW/REQ/PAGE编号、业务关系、批准状态和统计日期。更新路径不表示登记的新资料已被整合。
-- Hub生成负责人按批次执行project-hub/scripts/build-v2.js；先运行--check-paths只读检查。原型共享文件、主台账、Hub生成文件各按[团队协作规范](TEAM-COLLABORATION.md)约定主写人。
+- 正式main的知识、主表、原型与Hub仅由用户及其授权AI维护；同事在独立工作分支提交候选，先看差异并获用户采用，才接入底层知识。之后按需执行project-hub/scripts/build-v2.js，先运行--check-paths。详见[正式版规范](FORMAL-VERSION-WORKFLOW.md)。
 - 整理文档统一放docs六类目录；客户原件materials/和交付批次outputs/保留原位置。分类为history不直接废弃其中全部规则。
 
 ## 来源优先级

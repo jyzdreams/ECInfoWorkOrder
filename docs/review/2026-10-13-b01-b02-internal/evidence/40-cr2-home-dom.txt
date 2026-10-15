@@ -1,0 +1,183 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				2194 button 🏠 首頁
+					2195 text 🏠
+					2196 text 首頁
+				2197 button 📋 CALL管理
+					2198 text 📋
+					2199 text CALL管理
+				2200 button 📤 分派中心
+					2201 text 📤
+					2202 text 分派中心
+				2203 button 📅 保養計劃
+					2204 text 📅
+					2205 text 保養計劃
+				2206 button 💰 報價管理
+					2207 text 💰
+					2208 text 報價管理
+				2209 button 🛒 備貨管理
+					2210 text 🛒
+					2211 text 備貨管理
+				2212 button 📁 報告管理
+					2213 text 📁
+					2214 text 報告管理
+				2215 button 📊 統計報表
+					2216 text 📊
+					2217 text 統計報表
+				2218 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					2219 text ⚙️
+					2220 text 基礎設置
+					2221 text ▶
+				2222 container
+					2223 button 📖 字典管理
+					2224 button 🏢 客戶管理
+					2225 button 👤 用戶管理
+					2226 button 🖥️ 服務器空間
+					2227 button 📊 Excel 導入
+					2228 button 🧩 組件庫
+				2229 button 📱 移動端
+					2230 text 📱
+					2231 text 移動端
+		53 container
+			54 heading 首頁, Value: 1, ID: pageTitle
+				2232 text 首頁
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			1876 button 何 何關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				2233 text 何
+				2234 text 何關係
+				2235 text 客戶關係部 · 客戶關係部
+				1880 text ⌄
+			2236 container
+				2237 container 報價需求轉交
+					2238 heading 報價需求轉交, Value: 3
+						2239 text 報價需求轉交
+					2240 text 查看來源，將既有報價需求轉交報價組。
+					2241 table
+						2242 row
+							2243 cell
+								2244 text 來源
+							2245 cell
+								2246 text 客戶
+							2247 cell
+								2248 text 提出人
+							2249 cell
+								2250 text 狀態
+							2251 cell
+								2252 text 轉交記錄
+							2253 cell
+								2254 text 操作
+						2255 row
+							2256 cell
+								2257 text 暫無對應的報價需求
+				2258 button 查看全部 CALL
+					2259 text CALL總數
+					2260 text 9
+					2261 text 點擊列表篩選查看
+				2262 button 查看待分派 CALL
+					2263 text 待分派
+					2264 text 4
+					2265 text 點擊列表篩選查看
+				2266 button 查看待確認 CALL
+					2267 text 待確認
+					2268 text 1
+					2269 text 點擊列表篩選查看
+				2270 button 查看待處理 CALL
+					2271 text 待處理
+					2272 text 1
+					2273 text 點擊列表篩選查看
+				2274 button 查看處理中 CALL
+					2275 text 處理中
+					2276 text 1
+					2277 text 點擊列表篩選查看
+				2278 button 查看待審批 CALL
+					2279 text 待審批
+					2280 text 0
+					2281 text 點擊列表篩選查看
+				2282 button 查看待完工確認 CALL
+					2283 text 待完工確認
+					2284 text 0
+					2285 text 點擊列表篩選查看
+				2286 button 查看已完成 CALL
+					2287 text 已完成
+					2288 text 1
+					2289 text 點擊列表篩選查看
+				2290 button 查看已取消 CALL
+					2291 text 已取消
+					2292 text 1
+					2293 text 點擊列表篩選查看
+				2294 heading 今日待辦, Value: 2
+					2295 text 今日待辦
+				2296 button 查看列表
+				2297 container
+					2298 button WO-DEMO-CM
+					2299 text 待分派
+				2300 text 九龍國際廣場
+				2301 text 整改走查 糾正維修
+				2302 container
+					2303 button WO-DEMO-MP-P
+					2304 text 待分派
+				2305 text 九龍國際廣場
+				2306 text 整改走查 工程維修
+				2307 container
+					2308 button WO-DEMO-M-01
+					2309 text 待處理
+				2310 text 九龍國際廣場
+				2311 text 整改走查 DLP 保養維修
+				2312 container
+					2313 button WO-DEMO-P
+					2314 text 待分派
+				2315 text 九龍國際廣場
+				2316 text 整改走查 工程維修
+				2317 container
+					2318 button WO-20260615-002
+					2319 text 待分派
+				2320 text 九龍屋苑管理處
+				2321 text 停車場出入口閘機保養，現場反饋開合速度變慢。
+				2322 heading 異常CALL, Value: 2
+					2323 text 異常CALL
+				2324 button 查看列表
+				2325 container
+					2326 button WO-20260615-002
+					2327 text 緊急
+				2328 text 九龍屋苑管理處
+				2329 text 停車場出入口閘機保養，現場反饋開合速度變慢。
+				2330 heading 最近動態, Value: 2
+					2331 text 最近動態
+				2332 text 2026-06-15
+				2333 container
+					2334 text 09-27 09:00 · 
+					2335 button 開啟 WO-DEMO-CM
+					2336 text 整改走查樣例
+				2337 container
+					2338 text 09-27 09:00 · 
+					2339 button 開啟 WO-DEMO-INSTANT
+					2340 text 整改走查樣例
+				2341 container
+					2342 text 09-27 09:00 · 
+					2343 button 開啟 WO-DEMO-MP-P
+					2344 text 整改走查樣例
+				2345 container
+					2346 text 09-27 09:00 · 
+					2347 button 開啟 WO-DEMO-M-01
+					2348 text 整改走查樣例
+				2349 container
+					2350 text 09-27 09:00 · 
+					2351 button 開啟 WO-DEMO-P
+					2352 text 整改走查樣例
+				2353 heading 📞 最近來電, Value: 2
+					2354 text 📞 最近來電
+				2355 button 查看全部來電
+				2356 text 暫無來電記錄
+	2193 text 已切換至 何關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

@@ -1,0 +1,184 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	47 container app
+		48 container
+			49 text EC
+			50 text ECInfo Call系統
+			51 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			65 container navList
+				3148 button 🏠 首頁
+					3149 text 🏠
+					3150 text 首頁
+				3151 button 📋 CALL管理
+					3152 text 📋
+					3153 text CALL管理
+				3154 button 📤 分派中心
+					3155 text 📤
+					3156 text 分派中心
+				3157 button 📅 保養計劃
+					3158 text 📅
+					3159 text 保養計劃
+				3160 button 💰 報價管理
+					3161 text 💰
+					3162 text 報價管理
+				3163 button 📑 標書管理
+					3164 text 📑
+					3165 text 標書管理
+				3166 button 🛒 備貨管理
+					3167 text 🛒
+					3168 text 備貨管理
+				3169 button 💵 會計管理
+					3170 text 💵
+					3171 text 會計管理
+				3172 button 📁 報告管理
+					3173 text 📁
+					3174 text 報告管理
+				3175 button 📊 統計報表
+					3176 text 📊
+					3177 text 統計報表
+				3178 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					3179 text ⚙️
+					3180 text 基礎設置
+					3181 text ▶
+				3182 button 📖 字典管理
+				3183 button 🏢 客戶管理
+				3184 button 👤 用戶管理
+				3185 button 🖥️ 服務器空間
+				3186 button 📊 Excel 導入
+				3187 button 🧩 組件庫
+		52 container
+			53 heading 用戶管理, Value: 1, ID: pageTitle
+				3188 text 用戶管理
+			55 container 工作區控制項
+				56 container Description: 視圖切換, ID: viewSwitch
+					57 button PC 端
+					58 button 移動端
+			59 button 🔔, Help: 通知中心, ID: notiBell
+			2794 button 林 林主管 管理員 · 管理部 ⌄, ID: userMenuBtn
+				3189 text 林
+				3190 text 林主管
+				3191 text 管理員 · 管理部
+				2798 text ⌄
+			3192 container
+				3193 heading 用戶管理, Value: 2
+					3194 text 用戶管理
+				3195 text 管理系統用戶、角色和權限配置。
+				3196 button 新增用戶
+				3197 heading 上線計劃與工作交接, Value: 2
+					3198 text 上線計劃與工作交接
+				3199 text 專案層級安排，非日常操作。
+				3200 content list
+					3201 container
+						3202 AXListMarker • 
+						3203 text 正式生效日 ：2027-01-01；生效前安排至少 1 個月全員並行試運行（Parallel Run）。
+					3204 container
+						3205 AXListMarker • 
+						3206 text 數據策略 ：不進行舊系統全量歷史遷移，新業務自生效日起於新系統錄入；歷史單據由舊渠道查詢。
+					3207 container
+						3208 AXListMarker • 
+						3209 text 主數據前置 ：上線前須完成地點（大地點＋子位置）、客戶、物料等主數據清洗與導入。
+					3210 container
+						3211 AXListMarker • 
+						3212 text 工作交接 ：沿用 OA／釘釘「流程交接」，員工離職或放長假（一週以上）時指定代理人，待辦流程與審批權限臨時轉移，假期結束後回復。
+				3213 heading 角色分類, Value: 3
+					3214 text 角色分類
+				3215 button 全部用戶 43
+					3216 text 全部用戶
+					3217 text 43
+				3218 button 客戶服務部 7
+					3219 text 客戶服務部
+					3220 text 7
+				3221 button 客戶關係部 3
+					3222 text 客戶關係部
+					3223 text 3
+				3224 button 主管 4
+					3225 text 主管
+					3226 text 4
+				3227 button 師傅 16
+					3228 text 師傅
+					3229 text 16
+				3230 button 報價組 3
+					3231 text 報價組
+					3232 text 3
+				3233 button 標書組 1
+					3234 text 標書組
+					3235 text 1
+				3236 button 採購部 3
+					3237 text 採購部
+					3238 text 3
+				3239 button 會計部 3
+					3240 text 會計部
+					3241 text 3
+				3242 button 管理員 2
+					3243 text 管理員
+					3244 text 2
+				3245 button 管理層 1
+					3246 text 管理層
+					3247 text 1
+				3248 text field (settable) 审计测试
+				3249 pop up button (collapsed) 全部角色 ⌄, Secondary Actions: Expand
+				3250 pop up button (collapsed, settable) Value: 全部角色, Secondary Actions: Expand
+					3251 menu
+						3252 (selected) 全部角色
+						3253 客戶服務部
+						3254 客戶關係部
+						3255 主管
+						3256 師傅
+						3257 報價組
+						3258 標書組
+						3259 採購部
+						3260 會計部
+						3261 管理員
+						3262 管理層
+				3263 pop up button (collapsed) 全部狀態 ⌄, Secondary Actions: Expand
+				3264 pop up button (collapsed, settable) Value: 全部狀態, Secondary Actions: Expand
+					3265 menu
+						3266 (selected) 全部狀態
+						3267 啓用
+						3268 禁用
+						3269 離職
+				3270 table
+					3271 row
+						3272 cell
+							3273 text 用戶
+						3274 cell
+							3275 text 工號
+						3276 cell
+							3277 text 角色
+						3278 cell
+							3279 text 區域
+						3280 cell
+							3281 text 電話
+						3282 cell
+							3283 text 狀態
+						3284 cell
+							3285 text 最後登錄
+						3286 cell
+							3287 text 操作
+					3288 row
+						3289 cell
+							3290 text 审
+							3291 text 审计测试 Test Lee
+						3292 cell
+							3293 text PMTEST20261013
+						3294 cell
+							3295 text 客戶服務部
+						3296 cell
+							3297 text 1區
+						3298 cell
+							3299 text +85200000000
+						3300 cell
+							3301 text 啓用
+						3302 cell
+							3303 text 尚未登錄
+						3304 cell
+							3305 button 查看
+							3306 button 編輯
+				3307 text 共 1 條記錄，第 1/1 頁
+				3308 button (disabled) ‹
+				3309 button 1
+				3310 button (disabled) ›
+				3311 text 👤 點擊左側用戶查看詳情
+	3147 text 新用戶已創建
+
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

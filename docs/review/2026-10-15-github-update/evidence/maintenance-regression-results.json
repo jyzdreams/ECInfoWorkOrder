@@ -1,0 +1,32 @@
+[
+  {
+    "id": "M1-category-scoped-single-fields",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  },
+  {
+    "id": "M2-new-quote-periods-persist",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  },
+  {
+    "id": "M3-edit-cycle-and-detail",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  },
+  {
+    "id": "M4-clearing-cycle-blocks-won",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  },
+  {
+    "id": "M5-won-single-plan-no-auto-CALL",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  },
+  {
+    "id": "M6-existing-types-dictionaries-preserved",
+    "status": "PASS",
+    "realWarehouseWrites": 0
+  }
+]

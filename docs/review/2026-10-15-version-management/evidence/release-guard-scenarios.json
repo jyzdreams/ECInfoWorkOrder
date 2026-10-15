@@ -1,0 +1,35 @@
+{
+  "kind": "local expression check; no workflow dispatched",
+  "results": [
+    {
+      "case": "owner_main_manual",
+      "eligible": true,
+      "passed": true
+    },
+    {
+      "case": "colleague_main_manual",
+      "eligible": false,
+      "passed": true
+    },
+    {
+      "case": "owner_work_branch",
+      "eligible": false,
+      "passed": true
+    },
+    {
+      "case": "push_main",
+      "eligible": false,
+      "passed": true
+    },
+    {
+      "case": "colleague_rerun",
+      "eligible": false,
+      "passed": true
+    },
+    {
+      "case": "fork_manual",
+      "eligible": false,
+      "passed": true
+    }
+  ]
+}

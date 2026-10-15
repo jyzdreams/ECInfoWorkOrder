@@ -1,0 +1,194 @@
+- main:
+  - heading "分派中心" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "趙 趙組長 主管 · 九龍團隊 ⌄":
+    - generic: 趙
+    - strong: 趙組長
+    - generic: 主管 · 九龍團隊
+    - generic: ⌄
+  - tablist "派工狀態":
+    - tab "待分派 3" [selected]:
+      - generic: 待分派
+      - strong: "3"
+    - tab "已分派 0":
+      - generic: 已分派
+      - strong: "0"
+    - tab "已完成 0":
+      - generic: 已完成
+      - strong: "0"
+  - generic: 狀態
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "待分派"
+  - generic: 區域
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "1區"
+  - generic: 客戶
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "港島商業中心"
+  - generic: CALL類型
+  - button "全部 ⌄":
+    - generic: 全部
+    - generic: ⌄
+  - combobox:
+    - option "全部" [selected]
+    - option "工程維修"
+  - generic: 關鍵詞搜索
+  - textbox
+  - button "搜索"
+  - button "重置"
+  - button "模擬超時"
+  - table:
+    - rowgroup:
+      - row "任務編號 關聯工單 客戶 區域 CALL類型 內容摘要 目前師傅 狀態 分派時間 更新時間 操作":
+        - columnheader "任務編號"
+        - columnheader "關聯工單"
+        - columnheader "客戶"
+        - columnheader "區域"
+        - columnheader "CALL類型"
+        - columnheader "內容摘要"
+        - columnheader "目前師傅"
+        - columnheader "狀態"
+        - columnheader "分派時間"
+        - columnheader "更新時間"
+        - columnheader "操作"
+    - rowgroup:
+      - row "T-261013-009 WO-20261013-003 港島商業中心 1區 工程維修 PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。 - 待分派 - 10-13 20:24 分派 查看":
+        - cell "T-261013-009":
+          - button "T-261013-009"
+        - cell "WO-20261013-003":
+          - button "WO-20261013-003"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。":
+          - generic "PM-FINAL-RETEST-20261013：仅本地复测请求、转交、负责人和既有修订初始化，不是客户确认。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 20:24"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261013-010 WO-20261013-002 港島商業中心 1區 工程維修 PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。 - 待分派 - 10-13 20:20 分派 查看":
+        - cell "T-261013-010":
+          - button "T-261013-010"
+        - cell "WO-20261013-002":
+          - button "WO-20261013-002"
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。":
+          - generic "PM-RETEST-20261013：仅本地内部复测CS→CR→QUO正常交接，不是真实客户请求。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 20:20"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+      - row "T-261013-011 WO-20261013-001 港島商業中心 1區 工程維修 PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。 - 待分派 - 10-13 17:51 分派 查看":
+        - cell "T-261013-011":
+          - button "T-261013-011"
+        - cell "WO-20261013-001":
+          - button "WO-20261013-001" [active]
+        - cell "港島商業中心":
+          - strong: 港島商業中心
+        - cell "1區"
+        - cell "工程維修"
+        - cell "PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。":
+          - generic "PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。"
+        - cell "-"
+        - cell "待分派":
+          - generic: 待分派
+        - cell "-"
+        - cell "10-13 17:51"
+        - cell "分派 查看":
+          - button "分派"
+          - button "查看"
+  - text: 共 3 條，每頁
+  - combobox:
+    - option "10" [selected]
+    - option "20"
+    - option "50"
+  - text: 條，第 1/1 頁
+  - button "‹" [disabled]
+  - button "1"
+  - button "›" [disabled]
+- generic: 歡迎回來，趙組長！
+- dialog "CALL詳情":
+  - heading "WO-20261013-001" [level=3]
+  - generic: CALL詳情 · 工程維修
+  - generic: 待分派
+  - button "關閉": ×
+  - heading "客戶信息" [level=4]
+  - generic: 客戶名稱
+  - generic: 港島商業中心
+  - generic: 聯繫人
+  - generic: 陳先生
+  - generic: 聯繫電話
+  - generic: +852 9123 4567
+  - generic: 地址
+  - generic: 未設定
+  - heading "CALL信息" [level=4]
+  - generic: CALL類型
+  - generic: 工程維修
+  - generic: 區域
+  - generic: 1區
+  - generic: 來源渠道
+  - generic: 電話
+  - generic: 優先級
+  - generic: 普通
+  - generic: 創建時間
+  - generic: 2026-10-13 17:51
+  - generic: 問題描述
+  - generic: PM-INTERNAL-20261013：私人客户门禁故障，需报价后安排维修，仅用于本地内部走查。
+  - heading "處理進度" [level=4]
+  - generic: 當前狀態
+  - generic: 待分派
+  - generic: 當前負責人
+  - generic: 陳小姐
+  - generic: 主管
+  - generic: 趙組長
+  - generic: 排程狀態
+  - generic: 未排程
+  - generic: 預排師傅
+  - generic: 未預排
+  - generic: 預計時間
+  - generic: 未預排
+  - generic: 正式施工時間
+  - generic: 未確認
+  - generic: 服務報告
+  - generic: 未提交
+  - heading "附件" [level=4]
+  - generic: 暫無附件
+  - heading "履約狀態" [level=4]
+  - generic: 報價、備貨與完工確認
+  - generic: 材料狀態
+  - strong: MR-1P2600013 · 待備貨
+  - generic: 完工確認
+  - strong: 未完成
+  - text: 與客戶確認正式時間
+  - textbox "與客戶確認正式時間" [disabled]
+  - button "確認正式時間" [disabled]
+  - paragraph: 材料未就緒，可先預排，但不可確認正式施工時間。
+  - button "編輯工單"

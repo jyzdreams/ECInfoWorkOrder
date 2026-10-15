@@ -1,14 +1,6 @@
 name: Deploy static prototype to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - prototype/index.html
-      - prototype/ui-upgrade.css
-      - prototype/remediation.js
-      - prototype/logo_ecinfo.svg
   workflow_dispatch:
 
 permissions:
@@ -22,6 +14,12 @@ concurrency:
 
 jobs:
   deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.repository == 'jyzdreams/ECInfoWorkOrder' &&
+      github.ref == 'refs/heads/main' &&
+      github.actor == 'jyzdreams' &&
+      github.triggering_actor == 'jyzdreams'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

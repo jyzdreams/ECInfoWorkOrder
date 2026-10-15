@@ -1,0 +1,14 @@
+[
+  {
+    "path": "prototype/index.html",
+    "http_status": 200,
+    "matches_local_bytes": true,
+    "sha256": "91416f7dcd6ded7b3edf8f92a7b9b9a2f7e5fb40b2fb8775f62b03f8f52360f2"
+  },
+  {
+    "path": "project-hub/index.html",
+    "http_status": 200,
+    "matches_local_bytes": true,
+    "sha256": "183ced819a1284e3b7e85945950bead6b8c236a9b4021ade4a3c75f5c507fe67"
+  }
+]

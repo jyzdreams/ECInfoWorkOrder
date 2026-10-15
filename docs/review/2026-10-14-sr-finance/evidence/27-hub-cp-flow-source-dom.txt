@@ -1,0 +1,288 @@
+- complementary:
+  - generic: EC
+  - strong: Project Hub
+  - generic: 事实与交付中心
+  - navigation:
+    - button "01 业务全景":
+      - generic: "01"
+      - text: 业务全景
+    - button "02 业务流程":
+      - generic: "02"
+      - text: 业务流程
+    - button "00 真实业务总流程"
+    - button "01 普通报价维修"
+    - button "02 保养发现问题后二次维修"
+    - button "03 现场即时维修"
+    - button "04 周期保养"
+    - button "05 CM"
+    - button "06 Government Tender"
+    - button "07 MR申请与仓库交接"
+    - button "08 完工资料、开票与收款"
+    - button "03 系统需求":
+      - generic: "03"
+      - text: 系统需求
+    - button "04 原型与设计":
+      - generic: "04"
+      - text: 原型与设计
+    - button "05 待确认问题":
+      - generic: "05"
+      - text: 待确认问题
+    - button "06 项目状态":
+      - generic: "06"
+      - text: 项目状态
+    - button "A 证据与追溯":
+      - generic: A
+      - text: 证据与追溯
+- main:
+  - paragraph: EC 工单系统 · Single Source of Truth
+  - heading "业务流程 / 01 普通报价维修" [level=1]
+  - generic: ⌕
+  - searchbox "⌕"
+  - heading "完整业务流程 · 01 普通报价维修" [level=2]
+  - paragraph: 先报价、中单，再按最终报价材料生成 MR，备货完成后由 CR / 主管确认正式施工时间。
+  - strong: 业务目的
+  - paragraph: 完成先报价后维修的材料准备、排期、施工与报告闭环。
+  - strong: 触发条件
+  - paragraph: 客户需要维修/工程，报价任务已发起。
+  - strong: 事实状态
+  - paragraph:
+    - generic: PARTIAL
+  - paragraph: 按角色 → 动作 → 状态 → 下一角色阅读。点击任一节点，先看业务说明，再看 Decision、Fact、Source 和系统承接。
+  - button "01 · CS / CR 报价任务 待报价 → 报价组 →":
+    - generic: 01 · CS / CR
+    - strong: 报价任务
+    - text: 待报价
+    - generic: → 报价组
+    - text: →
+  - button "02 · 报价组 版本沟通 沟通中 → 客户 →":
+    - generic: 02 · 报价组
+    - strong: 版本沟通
+    - text: 沟通中
+    - generic: → 客户
+    - text: →
+  - button "03 · 报价组 中单 已中单 → 系统 / 仓管 →":
+    - generic: 03 · 报价组
+    - strong: 中单
+    - text: 已中单
+    - generic: → 系统 / 仓管
+    - text: →
+  - button "04 · 系统 自动生成 MR 待备货 → 仓管 →":
+    - generic: 04 · 系统
+    - strong: 自动生成 MR
+    - text: 待备货
+    - generic: → 仓管
+    - text: →
+  - button "05 · 仓管 备货 / 采购 材料准备中 → CR / 主管 →":
+    - generic: 05 · 仓管
+    - strong: 备货 / 采购
+    - text: 材料准备中
+    - generic: → CR / 主管
+    - text: →
+  - button "06 · CR / 主管 确认正式时间 待施工 → 师傅 →":
+    - generic: 06 · CR / 主管
+    - strong: 确认正式时间
+    - text: 待施工
+    - generic: → 师傅
+    - text: →
+  - button "07 · 师傅 现场施工 处理中 → 客户 →":
+    - generic: 07 · 师傅
+    - strong: 现场施工
+    - text: 处理中
+    - generic: → 客户
+    - text: →
+  - button "08 · 师傅 / 客户 维修完工纸CP 待主管收件/核对 → 主管 →":
+    - generic: 08 · 师傅 / 客户
+    - strong: 维修完工纸CP
+    - text: 待主管收件/核对
+    - generic: → 主管
+    - text: →
+  - button "09 · 主管 主管确认维修完工 已完工 → 有权限的查看角色":
+    - generic: 09 · 主管
+    - strong: 主管确认维修完工
+    - text: 已完工
+    - generic: → 有权限的查看角色
+  - heading "参与角色与关键状态" [level=2]
+  - heading "参与角色" [level=3]
+  - generic: CS / CR
+  - generic: 报价组
+  - generic: 客户
+  - generic: 系统 / 仓管
+  - generic: 系统
+  - generic: 仓管
+  - generic: CR / 主管
+  - generic: 师傅
+  - generic: 师傅 / 客户
+  - generic: 主管
+  - generic: 有权限的查看角色
+  - heading "关键状态" [level=3]
+  - generic: 待报价
+  - generic: 沟通中
+  - generic: 已中单
+  - generic: 待备货
+  - generic: 材料准备中
+  - generic: 待施工
+  - generic: 处理中
+  - generic: 待主管收件/核对
+  - generic: 已完工
+  - heading "关键业务规则与 Decision" [level=2]
+  - heading "Fact" [level=3]
+  - button "FACT-009"
+  - button "FACT-008"
+  - button "FACT-003"
+  - button "FACT-007"
+  - button "FACT-006"
+  - button "FACT-004"
+  - button "FACT-005"
+  - button "FACT-001"
+  - button "FACT-002"
+  - button "FACT-010"
+  - button "FACT-017"
+  - button "FACT-UPD-012"
+  - button "FACT-UPD-013"
+  - button "FACT-UPD-014"
+  - button "FACT-UPD-015"
+  - button "FACT-UPD-016"
+  - button "FACT-UPD-018"
+  - button "FACT-UPD-019"
+  - button "FACT-UPD-020"
+  - button "FACT-UPD-021"
+  - button "FACT-UPD-022"
+  - button "FACT-UPD-023"
+  - button "FACT-UPD-024"
+  - button "FACT-UPD-025"
+  - button "FACT-UPD-026"
+  - button "FACT-UPD-027"
+  - button "FACT-UPD-030"
+  - button "FACT-UPD-032"
+  - heading "Decision" [level=3]
+  - button "CONFIRMED-009"
+  - text: 四个报价入口
+  - button "CONFIRMED-008"
+  - text: 报价组生命周期
+  - button "CONFIRMED-003"
+  - text: 中单后的准备
+  - button "CONFIRMED-007"
+  - text: MR 生成触发点
+  - button "CONFIRMED-006"
+  - text: MR 自动生成
+  - button "CONFIRMED-004"
+  - text: 预排与正式时间
+  - button "CONFIRMED-005"
+  - text: 材料完成后确认时间
+  - button "CONFIRMED-001"
+  - text: 普通维修主干
+  - button "CONFIRMED-002"
+  - text: 三种维修情况
+  - button "CONFIRMED-010"
+  - text: SR 与完工确认
+  - button "CONFIRMED-017"
+  - text: 完工与收款分离
+  - heading "Open Question" [level=3]
+  - button "P0 C-04 · 谁在何处确认本单材料已备齐，让EC可以安排施工？ 10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。 PENDING":
+    - generic: P0
+    - strong: C-04 · 谁在何处确认本单材料已备齐，让EC可以安排施工？
+    - generic: 10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。
+    - generic: PENDING
+  - button "P0 C-07 · 后续施工恢复原CALL还是建新CALL，关联/编号如何体现？ 一次现场与二次服务关系影响历史和计价，(2)后缀未获确认 OPEN":
+    - generic: P0
+    - strong: C-07 · 后续施工恢复原CALL还是建新CALL，关联/编号如何体现？
+    - generic: 一次现场与二次服务关系影响历史和计价，(2)后缀未获确认
+    - generic: OPEN
+  - button "P0 C-08 · 出发前服务单准备/交付/打印岗位及缺签、不可拍、保固补证细则是什么？ 用户已说明成交维修需CP、保养/CALL上门用SR；维修CP先交主管，由主管确认完工更新状态，其他角色查看，财务独立。这三个子项不再问用户或客户。原出发前CR/主管交付候选、打印岗位及补证细则仍待客户。 PENDING":
+    - generic: P0
+    - strong: C-08 · 出发前服务单准备/交付/打印岗位及缺签、不可拍、保固补证细则是什么？
+    - generic: 用户已说明成交维修需CP、保养/CALL上门用SR；维修CP先交主管，由主管确认完工更新状态，其他角色查看，财务独立。这三个子项不再问用户或客户。原出发前CR/主管交付候选、打印岗位及补证细则仍待客户。
+    - generic: PENDING
+  - button "P0 C-11 · 师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？ 独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。 OPEN":
+    - generic: P0
+    - strong: C-11 · 师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？
+    - generic: 独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。
+    - generic: OPEN
+  - button "P0 C-12 · 照片9/10张上限、原件/电子件保留期、归档调阅权限？ 客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择 OPEN":
+    - generic: P0
+    - strong: C-12 · 照片9/10张上限、原件/电子件保留期、归档调阅权限？
+    - generic: 客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择
+    - generic: OPEN
+  - button "P0 C-14 · 折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？ 不再问是否需要discount/总价/低额原因，这些诉求已明确。 OPEN":
+    - generic: P0
+    - strong: C-14 · 折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？
+    - generic: 不再问是否需要discount/总价/低额原因，这些诉求已明确。
+    - generic: OPEN
+  - button "P0 C-15 · 报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？ 显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。 OPEN":
+    - generic: P0
+    - strong: C-15 · 报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？
+    - generic: 显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。
+    - generic: OPEN
+  - heading "关联事实来源" [level=2]
+  - generic: READY
+  - link "DEC-20260927-真实业务流程讨论.md ↗":
+    - /url: ../docs/knowledge/decisions/DEC-20260927-%E7%9C%9F%E5%AE%9E%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E8%AE%A8%E8%AE%BA.md
+  - generic: docs/knowledge/decisions/DEC-20260927-真实业务流程讨论.md
+  - generic: READY
+  - link "B01-B02-INTERNAL-BASELINE-20261013.md ↗":
+    - /url: ../docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - generic: docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - generic: PARTIAL
+  - link "ec+cs+報價組+會計0928.docx ↗":
+    - /url: ../materials/%E6%BA%9D%E9%80%9A%E7%AD%86%E8%A8%98/ec+cs+%E5%A0%B1%E5%83%B9%E7%B5%84+%E6%9C%83%E8%A8%880928.docx
+  - generic: materials/溝通筆記/ec+cs+報價組+會計0928.docx
+  - generic: PARTIAL
+  - link "ec原型+倉庫+cr0930.docx ↗":
+    - /url: ../materials/%E6%BA%9D%E9%80%9A%E7%AD%86%E8%A8%98/ec%E5%8E%9F%E5%9E%8B+%E5%80%89%E5%BA%AB+cr0930.docx
+  - generic: materials/溝通筆記/ec原型+倉庫+cr0930.docx
+  - heading "关联需求与设计" [level=2]
+  - heading "功能需求 29" [level=3]
+  - button "REQ-019"
+  - button "REQ-027"
+  - button "REQ-030"
+  - button "REQ-031"
+  - button "REQ-033"
+  - button "REQ-040"
+  - button "REQ-041"
+  - button "REQ-043"
+  - button "REQ-044"
+  - button "REQ-051"
+  - button "REQ-052"
+  - button "REQ-054"
+  - button "REQ-UPD-012"
+  - button "REQ-UPD-013"
+  - button "REQ-UPD-014"
+  - button "REQ-UPD-015"
+  - button "REQ-UPD-016"
+  - button "REQ-UPD-018"
+  - button "REQ-UPD-019"
+  - button "REQ-UPD-020"
+  - button "REQ-UPD-021"
+  - button "REQ-UPD-022"
+  - button "REQ-UPD-023"
+  - button "REQ-UPD-024"
+  - button "REQ-UPD-025"
+  - button "REQ-UPD-026"
+  - button "REQ-UPD-027"
+  - button "REQ-UPD-030"
+  - button "REQ-UPD-032"
+  - heading "PRD" [level=3]
+  - generic: DRAFT
+  - link "12-requirements-latest-20260919.md ↗":
+    - /url: ../materials/%E6%AD%B7%E5%8F%B2%E5%8E%9F%E5%9E%8B/ec-workorder/12-requirements-latest-20260919.md
+  - generic: materials/歷史原型/ec-workorder/12-requirements-latest-20260919.md
+  - heading "原型页面" [level=3]
+  - button "PAGE-003"
+  - button "PAGE-017"
+  - button "PAGE-011"
+  - button "PAGE-012"
+  - button "PAGE-014"
+  - button "PAGE-015"
+  - button "PAGE-004"
+  - button "PAGE-006"
+  - button "PAGE-005"
+  - button "PAGE-007"
+  - button "PAGE-002"
+  - button "PAGE-010"
+  - button "PAGE-001"
+  - button "PAGE-008"
+  - button "PAGE-016"
+  - paragraph: 关联只表示可追溯的主题对应；原型行为是否对齐当前决策仍待核验。
+- complementary:
+  - button: ×
+- status

@@ -1,0 +1,571 @@
+Browser tab: 4, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				67 button 🏠 首頁
+					68 text 🏠
+					69 text 首頁
+				70 button 📅 保養計劃
+					71 text 📅
+					72 text 保養計劃
+				73 button 💰 報價管理
+					74 text 💰
+					75 text 報價管理
+		53 container
+			54 heading 報價管理, Value: 1, ID: pageTitle
+				76 text 報價管理
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			61 button 鄒 鄒組長 報價組 · 報價組 ⌄, ID: userMenuBtn
+				77 text 鄒
+				78 text 鄒組長
+				79 text 報價組 · 報價組
+				65 text ⌄
+			80 container
+				81 text 報價狀態
+				82 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				83 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					84 menu
+						85 (selected) 全部
+						86 待報價
+						87 報價中
+						88 需修訂
+						89 已中單
+						90 丟單
+				91 text 類別
+				92 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				93 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					94 menu
+						95 (selected) 全部
+						96 M（保養）
+						97 P（工程）
+						98 M+P（保養＋工程）
+				99 text 區域
+				100 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				101 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					102 menu
+						103 (selected) 全部
+						104 1區
+						105 2區
+						106 3區
+						107 4區
+						108 5區
+						109 6區
+						110 7區
+						111 7A區
+						112 8區
+						113 MTR
+						114 EMSD
+						115 ASD
+						116 軟件組
+						117 EV Charge
+						118 Maintenance-HTCL
+						119 Project 1(生)
+						120 Project 1 MTR
+						121 Project 1(Sam)
+						122 Project 1(Johnny)
+						123 Project 1(Roy)
+						124 Project 1(Eric)
+						125 Project 2(Joe)
+						126 Project 1-1541
+						127 Project 1-1962EM20T
+						128 Project 1-1105
+						129 Project 1-2489
+						130 Project 1-2458
+						131 Project/Maintenance
+				132 text 客戶
+				133 pop up button (collapsed) 全部客戶 ⌄, Secondary Actions: Expand
+				134 pop up button (collapsed, settable) Value: 全部客戶, Secondary Actions: Expand
+					135 menu
+						136 (selected) 全部客戶
+						137 港島商業中心
+						138 九龍國際廣場
+						139 新界花園住宅
+						140 香港政府大樓
+						141 維多利亞酒店
+						142 九龍灣工業大廈
+						143 青衣邨住宅
+						144 將軍澳醫院
+						145 銅鑼灣購物中心
+						146 荃灣工廠大廈
+						147 觀塘住宅大廈
+						148 西九龍文化中心
+				149 text 關鍵詞搜索
+				150 text field (settable)
+				151 button 搜索
+				152 button 重置
+				153 button + 新增報價
+				154 table
+					155 row
+						156 cell
+							157 text 報價編號
+						158 cell
+							159 text 報價標題
+						160 cell
+							161 text 關聯工單
+						162 cell
+							163 text 客戶名稱
+						164 cell
+							165 text 類別
+						166 cell
+							167 text 報價狀態
+						168 cell
+							169 text 備貨狀態
+						170 cell
+							171 text 負責人
+						172 cell
+							173 text 報價日期
+						174 cell
+							175 text 報價金額
+						176 cell
+							177 text 操作
+					178 row
+						179 cell
+							180 button Q-1791894303350
+						181 cell
+							182 text 港島商業中心 - 工程維修
+						183 cell
+							184 button WO-20261013-003
+						185 cell
+							186 text 港島商業中心
+						187 cell
+							188 text P
+						189 cell
+							190 text 待報價
+						191 cell
+							192 text 未建立備貨單
+						193 cell
+							194 text 鄒組長
+						195 cell
+							196 text 2026-10-13
+						197 cell
+							198 text HKD 1,200
+						199 cell
+							200 button 報價
+							201 button 详情
+					202 row
+						203 cell
+							204 button Q-1791894085369
+						205 cell
+							206 text 港島商業中心 - 工程維修
+						207 cell
+							208 button WO-20261013-002
+						209 cell
+							210 text 港島商業中心
+						211 cell
+							212 text P
+						213 cell
+							214 text 待報價
+						215 cell
+							216 text 未建立備貨單
+						217 cell
+							218 text 鄒組長
+						219 cell
+							220 text 2026-10-13
+						221 cell
+							222 text HKD 1,200
+						223 cell
+							224 button 報價
+							225 button 详情
+					226 row
+						227 cell
+							228 button 1P2600013
+						229 cell
+							230 text PM-INTERNAL-20261013 门禁维修报价
+						231 cell
+							232 button WO-20261013-001
+						233 cell
+							234 text 港島商業中心
+						235 cell
+							236 text P
+						237 cell
+							238 text 已中單
+						239 cell
+							240 text 已驗收
+						241 cell
+							242 text 趙組長
+						243 cell
+							244 text 2026-10-13
+						245 cell
+							246 text HKD 1,200
+						247 cell
+							248 button 详情
+					249 row
+						250 cell
+							251 button QT-DEMO-P
+						252 cell
+							253 text 2026-09-27 P 業務走查樣例
+						254 cell
+							255 button WO-DEMO-P
+						256 cell
+							257 text 九龍國際廣場
+						258 cell
+							259 text P
+						260 cell
+							261 text 報價中
+						262 cell
+							263 text 未建立備貨單
+						264 cell
+							265 text 張報價
+						266 cell
+							267 text 2026-09-27
+						268 cell
+							269 text HKD 3,040
+						270 cell
+							271 button 報價
+							272 button 详情
+					273 row
+						274 cell
+							275 button QT-DEMO-M
+						276 cell
+							277 text 2026-09-27 M 業務走查樣例
+						278 cell
+							279 button WO-DEMO-M-01
+						280 cell
+							281 text 九龍國際廣場
+						282 cell
+							283 text M
+						284 cell
+							285 text 已中單
+						286 cell
+							287 text 未建立備貨單
+						288 cell
+							289 text 張報價
+						290 cell
+							291 text 2026-09-27
+						292 cell
+							293 text HKD 12,000
+						294 cell
+							295 button 详情
+					296 row
+						297 cell
+							298 button QT-DEMO-MP
+						299 cell
+							300 text 2026-09-27 M+P 業務走查樣例
+						301 cell
+							302 button WO-DEMO-MP-P
+						303 cell
+							304 text 九龍國際廣場
+						305 cell
+							306 text M+P
+						307 cell
+							308 text 已中單
+						309 cell
+							310 text 待備貨
+						311 cell
+							312 text 張報價
+						313 cell
+							314 text 2026-09-27
+						315 cell
+							316 text HKD 3,040
+						317 cell
+							318 button 详情
+					319 row
+						320 cell
+							321 button QT-20260621-002
+						322 cell
+							323 text 閘機保養服務報價
+						324 cell
+							325 button WO-20260615-002
+						326 cell
+							327 text 九龍國際廣場
+						328 cell
+							329 text -
+						330 cell
+							331 text 報價中
+						332 cell
+							333 text 未建立備貨單
+						334 cell
+							335 text 王組長
+						336 cell
+							337 text 2026-06-21
+						338 cell
+							339 text HKD 13,200
+						340 cell
+							341 button 報價
+							342 button 详情
+					343 row
+						344 cell
+							345 button QT-20260621-003
+						346 cell
+							347 text 監控設備安裝報價
+						348 cell
+							349 button WO-20260615-003
+						350 cell
+							351 text 新界花園住宅
+						352 cell
+							353 text -
+						354 cell
+							355 text 待報價
+						356 cell
+							357 text 未建立備貨單
+						358 cell
+							359 text 李組長
+						360 cell
+							361 text 2026-06-21
+						362 cell
+							363 text HKD 27,500
+						364 cell
+							365 button 報價
+							366 button 详情
+					367 row
+						368 cell
+							369 button QT-20260621-004
+						370 cell
+							371 text CCTV系統升級報價
+						372 cell
+							373 button WO-20260615-004
+						374 cell
+							375 text 香港政府大樓
+						376 cell
+							377 text -
+						378 cell
+							379 text 已中單
+						380 cell
+							381 text 已下單
+						382 cell
+							383 text 王組長
+						384 cell
+							385 text 2026-06-20
+						386 cell
+							387 text HKD 49,500
+						388 cell
+							389 button 详情
+					390 row
+						391 cell
+							392 button QT-20260621-005
+						393 cell
+							394 text 廣播系統維修報價
+						395 cell
+							396 button WO-20260615-005
+						397 cell
+							398 text 維多利亞酒店
+						399 cell
+							400 text -
+						401 cell
+							402 text 報價中
+						403 cell
+							404 text 未建立備貨單
+						405 cell
+							406 text 李組長
+						407 cell
+							408 text 2026-06-19
+						409 cell
+							410 text HKD 7,480
+						411 cell
+							412 button 報價
+							413 button 详情
+				414 text 共 15 條記錄，每頁
+				415 pop up button (collapsed, settable) Description: 每頁顯示筆數, Value: 10, Secondary Actions: Expand
+					416 menu
+						417 (selected) 10
+						418 20
+						419 50
+				420 text 條，第 1/2 頁
+				421 button (disabled) ‹
+				422 button 1
+				423 button 2
+				424 button ›
+	425 text 報價信息已更新（未變動價格，版本號不變）
+	426 container
+		427 heading 新增報價, Value: 3
+			428 text 新增報價
+		429 button 關閉
+		430 container createQuotationForm
+			431 container
+				432 text 基本資訊 報價標題 *
+				433 text field (settable) 報價標題 *, ID: qf-title
+				434 text 報價編號 （自動生成）
+				435 text field 選擇類別和區域後自動生成
+				436 text 類別 *
+				437 pop up button (collapsed) P（工程） ⌄, Secondary Actions: Expand
+				438 pop up button (collapsed, settable) 類別 *, Value: P（工程）, ID: qf-category, Secondary Actions: Expand
+					439 menu
+						440 M（保養）
+						441 (selected) P（工程）
+						442 M+P（保養＋工程）
+				443 text 報價負責人 *
+				444 pop up button (collapsed) 鄒組長 ⌄, Secondary Actions: Expand
+				445 pop up button (collapsed, settable) 報價負責人 *, Value: 鄒組長, ID: qf-owner, Secondary Actions: Expand
+					446 menu
+						447 請選擇負責人
+						448 李組長
+						449 王組長
+						450 林主管
+						451 張主管
+						452 趙組長
+						453 (selected) 鄒組長
+						454 報價李
+						455 報價王
+						456 系統管理員
+				457 text 報價日期 *
+				458 date field (settable) 報價日期 *, Value: 2026-10-13, ID: qf-createdAt
+					459 container
+						460 stepper
+						461 stepper
+						462 stepper
+					463 pop up button 显示日期选择器 显示日期选择器
+				464 text 回覆截止日期
+				465 date field (settable) 回覆截止日期, Value: 2026-10-27, ID: qf-deadline
+					466 container
+						467 stepper
+						468 stepper
+						469 stepper
+					470 pop up button 显示日期选择器 显示日期选择器
+				471 text 有效期至
+				472 date field (settable) 有效期至, ID: qf-validUntil
+					473 container
+						474 stepper
+						475 stepper
+						476 stepper
+					477 pop up button 显示日期选择器 显示日期选择器
+				478 text 60天／90天；截止日期按確認結果填寫。 貨期
+				479 stepper (settable, integer) 30
+				480 text –
+				481 stepper (settable)
+				482 pop up button (collapsed, settable) Value: days, Secondary Actions: Expand
+					483 menu
+						484 (selected) days
+						485 week
+				486 text ⌄ 30 days 付款方式
+				487 pop up button (collapsed) 完工後付（Post-payment） ⌄, Secondary Actions: Expand
+				488 pop up button (collapsed, settable) 付款方式, Value: 完工後付（Post-payment）, ID: qf-paymentMethod, Secondary Actions: Expand
+					489 menu
+						490 (selected) 完工後付（Post-payment）
+						491 先付全款（Pre-payment）
+						492 先付定金（Deposit）
+				493 text 保固期
+				494 pop up button (collapsed) 1年 ⌄, Secondary Actions: Expand
+				495 pop up button (collapsed, settable) 保固期, Value: 1年, ID: qf-warrantyPeriod, Secondary Actions: Expand
+					496 menu
+						497 無
+						498 3個月
+						499 60天
+						500 90天
+						501 (selected) 1年
+				502 text 關聯資訊 接受來源 *
+				503 pop up button (collapsed) 自主新增 ⌄, Secondary Actions: Expand
+				504 pop up button (collapsed, settable) 接受來源 *, Value: 自主新增, ID: qf-source, Secondary Actions: Expand
+					505 menu
+						506 請選擇接受來源
+						507 Service Report
+						508 CR
+						509 (selected) 自主新增
+				510 text 關聯客戶 *
+				511 pop up button (collapsed) 請選擇客戶 ⌄, Secondary Actions: Expand
+				512 pop up button (collapsed, settable) 關聯客戶 *, Value: 請選擇客戶, ID: qf-customerName, Secondary Actions: Expand
+					513 menu
+						514 (selected) 請選擇客戶
+						515 港島商業中心 (HK Commercial Center)
+						516 九龍國際廣場 (Kowloon International Plaza)
+						517 新界花園住宅 (NT Garden Residence)
+						518 香港政府大樓 (HK Government Building)
+						519 維多利亞酒店 (Victoria Hotel)
+						520 九龍灣工業大廈 (Kowloon Bay Industrial Building)
+						521 青衣邨住宅 (Tsing Yi Estate)
+						522 將軍澳醫院 (Tseung Kwan O Hospital)
+						523 銅鑼灣購物中心 (Causeway Bay Shopping Mall)
+						524 荃灣工廠大廈 (Tsuen Wan Factory Building)
+						525 觀塘住宅大廈 (Kwun Tong Residential Building)
+						526 西九龍文化中心 (West Kowloon Cultural Centre)
+				527 button ＋ 新增
+				528 text 區域 *
+				529 pop up button (collapsed) 請選擇區域 ⌄, Secondary Actions: Expand
+				530 pop up button (collapsed, settable) 區域 *, Value: 請選擇區域, ID: qf-area, Secondary Actions: Expand
+					531 menu
+						532 (selected) 請選擇區域
+						533 1區
+						534 2區
+						535 3區
+						536 4區
+						537 5區
+						538 6區
+						539 7區
+						540 7A區
+						541 8區
+						542 MTR
+						543 EMSD
+						544 ASD
+						545 軟件組
+						546 EV Charge
+						547 Maintenance-HTCL
+						548 Project 1(生)
+						549 Project 1 MTR
+						550 Project 1(Sam)
+						551 Project 1(Johnny)
+						552 Project 1(Roy)
+						553 Project 1(Eric)
+						554 Project 2(Joe)
+						555 Project 1-1541
+						556 Project 1-1962EM20T
+						557 Project 1-1105
+						558 Project 1-2489
+						559 Project 1-2458
+						560 Project/Maintenance
+				561 text 政府邀請報價 (Invite Tender)
+				562 checkbox (settable, integer) Description: 啟用邀請報價, Value: 0, ID: isInviteTenderChk
+				563 text 啟用邀請報價 適用政府客戶（EMSD 等）的正式邀請報價；啟用後自動產生 Project Job 編號，並可填寫客戶提供的邀請編號 物料明細
+				564 button + 新增物料, ID: qfAddItemBtn
+				565 table
+					566 row
+						567 cell
+							568 text 物料名稱
+						569 cell
+							570 text 規格/型號
+						571 cell
+							572 text 數量
+						573 cell
+							574 text 單位
+						575 cell 該物料／服務的具體施工位置（選填）
+							576 text Location
+						577 cell 該行的補充備註（選填）
+							578 text 備註
+					579 row
+						580 cell
+							581 text field (settable)
+						582 cell
+							583 text field (settable)
+						584 cell
+							585 stepper (settable, integer) 1
+						586 cell
+							587 container
+								588 pop up button (collapsed) 個 ⌄, Secondary Actions: Expand
+								589 pop up button (collapsed, settable) Value: 個, Secondary Actions: Expand
+									590 menu
+										591 (selected) 個
+										592 套
+										593 件
+										594 批
+										595 箱
+						596 cell
+							597 text field (settable)
+						598 cell
+							599 text field (settable)
+						600 cell
+							601 button ×, Help: 刪除
+				602 text 總價（HKD）
+				603 stepper (settable, integer) 總價（HKD）, Value: 0, ID: qf-amount
+				604 text 折扣（%）
+				605 stepper (settable, integer) 折扣（%）, Value: 0, ID: qf-discount
+				606 text 報價總金額 HKD
+				607 text 0.00
+				608 text 庫存判定 查閱庫存數量與價錢（三態）
+				609 pop up button (collapsed) 請選擇庫存判定 ⌄, Secondary Actions: Expand
+				610 pop up button (collapsed, settable) 庫存判定 查閱庫存數量與價錢（三態）, Value: 請選擇庫存判定, ID: qf-inventoryStatus, Secondary Actions: Expand
+					611 menu
+						612 (selected) 請選擇庫存判定
+						613 有存貨 有參考價錢
+						614 無存貨 有參考價錢
+						615 未知貨品 無參考價錢（需向採購部索取預估價）
+				616 text 備註
+				617 text entry area (settable) 備註, ID: qf-remark
+			618 button 新建報價
+
+The focused UI element is 153 button + 新增報價

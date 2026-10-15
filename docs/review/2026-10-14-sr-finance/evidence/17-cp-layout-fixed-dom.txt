@@ -1,0 +1,135 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "📁 報告管理":
+      - generic: 📁
+      - generic: 報告管理
+    - button "📱 移動端":
+      - generic: 📱
+      - generic: 移動端
+- main:
+  - heading "CALL" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "趙 趙師傅 師傅 · 外勤 · 九龍 ⌄":
+    - generic: 趙
+    - strong: 趙師傅
+    - generic: 師傅 · 外勤 · 九龍
+    - generic: ⌄
+  - button "待確認"
+  - button "待處理"
+  - button "處理中"
+  - button "已完成"
+  - button "WO-20261013-002"
+  - generic: 處理超時
+  - generic: 處理中
+  - strong: 工程維修
+  - generic: 港島商業中心 · 1區
+  - generic: 中環德輔道中88號
+  - strong: 聯繫人：
+  - text: 陳先生
+  - strong: 電話：
+  - text: +852 9123 4567
+  - generic: 電話
+  - button "繼續處理"
+  - button "首頁":
+    - generic: 首頁
+  - button "CALL":
+    - generic: CALL
+  - dialog "現場處理":
+    - heading "處理 CALL" [level=2]
+    - paragraph: WO-20261013-002 · 港島商業中心
+    - button "關閉": ×
+    - navigation "服務處理步驟":
+      - button "簽到"
+      - button "服務中"
+      - button "完工紙"
+    - button "← 返回"
+    - generic: 處理中
+    - heading "維修完工紙" [level=1]
+    - generic: WO-20261013-002
+    - generic: 完工日期：2026-10-14
+    - heading "成交維修清單" [level=2]
+    - paragraph: Q-1791894085369 · R0 · 提交完工紙後先交主管核對
+    - table:
+      - rowgroup:
+        - row "項目 規格 數量 單位":
+          - columnheader "項目"
+          - columnheader "規格"
+          - columnheader "數量"
+          - columnheader "單位"
+      - rowgroup:
+        - row "僅本地合成维修服务费（無物料） CP交主管验证 1 個":
+          - cell "僅本地合成维修服务费（無物料）"
+          - cell "CP交主管验证"
+          - cell "1"
+          - cell "個"
+    - generic: 完工紙類型
+    - button "電子完工紙"
+    - button "實體完工紙"
+    - generic: 電子完工紙：直接填寫並以客戶電子簽名確認（公司不再於 APP 內電子蓋章）。
+    - generic: 上傳完工單（實體單據存檔）
+    - generic: 完工單圖片*
+    - img "完工單"
+    - button "重新上傳完工單"
+    - button "加入示例完工單"
+    - generic: 完工單工作內容已在系統中預設，僅需拍照上傳含客戶簽名／蓋章的實體單據作為存檔，系統不做文字識別。
+    - generic: 實體單據已存檔 · 14-10-2026 15:00
+    - generic: 完工單編號 (CP)*
+    - textbox "6位數字，例如：123456": "123459"
+    - generic: 完工單編號，顯示為 CP-XXXXXX
+    - heading "客戶資訊" [level=2]: 客戶資訊
+    - generic: 客戶名稱
+    - strong: 港島商業中心
+    - generic: 地址
+    - generic: 中環德輔道中88號
+    - generic: 聯絡人
+    - strong: 陳先生
+    - generic: 聯絡電話
+    - strong: +852 9123 4567
+    - heading "工單資訊" [level=2]: 工單資訊
+    - generic: Internal Ref
+    - strong: WO-20261013-002
+    - generic: Customer ID
+    - strong: CUST-0001
+    - generic: Sales Rep
+    - strong: 趙組長
+    - generic: Payment Terms
+    - strong: 月結30天
+    - generic: Shipping Method
+    - strong: 專人配送
+    - generic: Ship Date
+    - strong: 2026-10-14
+    - generic: Due Date
+    - strong
+    - heading "施工照片" [level=2]: 施工照片
+    - generic: +
+    - generic: 上傳照片
+    - generic: 支持多張照片上傳，點擊照片可預覽
+    - heading "客戶確認" [level=2]: 客戶確認
+    - checkbox "需要客戶簽名" [checked]
+    - text: 需要客戶簽名
+    - generic: 取消勾選代表客戶無需簽名，將以實體單據照片為準。
+    - generic: 客戶電子簽名*
+    - generic "客戶電子簽名"
+    - generic: 請由客戶在框內手寫簽名
+    - button "清除" [disabled]
+    - generic: Completion Date
+    - generic: 2026-10-14
+    - generic: 車資（HKD）
+    - spinbutton
+    - generic: 備註
+    - textbox "請輸入備註（選填）": PM-CP-ROUTING 僅本地合成测试完工纸。无实际客户签名/施工/验收；提交先交主管，暂不关闭。
+    - button "暫存"
+    - button "提交完工紙給主管"
+    - generic: 提交完工紙後先交主管核對
+    - button "返回服務中"
+- generic: 歡迎回來，趙師傅！

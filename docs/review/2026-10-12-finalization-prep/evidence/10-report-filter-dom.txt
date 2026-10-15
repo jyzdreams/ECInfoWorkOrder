@@ -1,0 +1,16 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18771/prototype/index.html".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 1283-1330
+~					1223 pop up button (collapsed) Routine Check ⌄, Secondary Actions: Expand
+~					1224 pop up button (collapsed, settable) Value: Routine Check, Secondary Actions: Expand
+~							1226 全部目的
+~							1227 (selected) Routine Check
+~							1263 text SR-250315
+~							1265 button WO-20260614-006
+~							1267 text 港島商業中心
+~							1271 text Access Control
+~							1273 text Routine Check
+~							1275 text 季檢
+~							1277 text 已完成
+~							1279 text 06-14 14:10
+The focused UI element is 0 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18771/prototype/index.html

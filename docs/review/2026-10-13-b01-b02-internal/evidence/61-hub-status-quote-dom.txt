@@ -1,0 +1,98 @@
+- complementary:
+  - generic: EC
+  - strong: Project Hub
+  - generic: 事实与交付中心
+  - navigation:
+    - button "01 业务全景":
+      - generic: "01"
+      - text: 业务全景
+    - button "02 业务流程":
+      - generic: "02"
+      - text: 业务流程
+    - button "03 系统需求":
+      - generic: "03"
+      - text: 系统需求
+    - button "04 原型与设计":
+      - generic: "04"
+      - text: 原型与设计
+    - button "05 待确认问题":
+      - generic: "05"
+      - text: 待确认问题
+    - button "06 项目状态":
+      - generic: "06"
+      - text: 项目状态
+    - button "A 证据与追溯":
+      - generic: A
+      - text: 证据与追溯
+  - link "历史知识库 ↗":
+    - /url: ../knowledge-base/index.html
+  - link "当前原型 ↗":
+    - /url: ../prototype/index.html
+  - link "维护说明 ↗":
+    - /url: README.md
+  - link "知识同步协议 ↗":
+    - /url: ../docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md
+- main:
+  - paragraph: EC 工单系统 · Single Source of Truth
+  - heading "项目状态" [level=1]
+  - generic: ⌕
+  - searchbox "⌕"
+  - heading "现在只看一个材料问题" [level=2]
+  - paragraph:
+    - strong: 仓库收货以后，由哪个岗位确认“这一单材料已备齐，可以安排施工”？
+  - paragraph: 这句话是否清楚，是否适合拿去向客户核实；暂不选择岗位、系统或状态方案。
+  - link "查看例子和依据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - heading "首批内部核对与整改复测 · 2026-10-13" [level=2]
+  - paragraph: 交付分页面板重绘问题已修复；保固期与截止日期保存、清空、刷新及两个新增入口默认显示已局部复测。TASK-045继续进行中；材料断点、有效期细则和精确编号仍未解决，完整维修链未通过，暂不客户定稿。
+  - link "需求与流程对照":
+    - /url: ../docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md
+  - link "整改前走查":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md
+  - link "首轮整改证据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md
+  - link "报价局部整改证据":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/QUOTATION-REMEDIATION-RESULT.md
+  - link "材料断点候选":
+    - /url: ../docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md
+  - paragraph: 本页展示知识和版本验证结论；任务进度只维护README指定Excel。 已实现、内部子项通过、客户批准和业务验收分别记录。
+  - heading "当前阶段与范围" [level=2]
+  - paragraph: 完整业务分批定稿。Codex负责内部核对、整改、复测与三个入口维护，用户确认具体成果及成熟候选。材料断点和未决规则尚需处理，暂不客户定稿。局部检查不代表全链已走通。
+  - link "推进Excel：查看当前批次与责任":
+    - /url: ../outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE%E6%8E%A8%E8%BF%9B%E6%80%BB%E8%A1%A8-v2.xlsx
+  - link "客户确认表草案":
+    - /url: ../outputs/2026-10-12-finalization-prep-v1/EC%E5%B7%A5%E5%8D%95%E7%B3%BB%E7%BB%9F%E5%AE%A2%E6%88%B7%E8%8C%83%E5%9B%B4%E4%B8%8E%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4%E8%A1%A8-v1.xlsx
+  - paragraph: 仅README指定Excel维护任务进度；本页统计为知识主题关联。 正式评审人和日期按实际记录，不预填签批。
+  - heading "准备成果与下一步" [level=2]
+  - list:
+    - listitem: 39项沟通要求，逐条有原文位置和范围边界。
+    - listitem: 16个客户决策主题；先核对内部依据与原型断点，准备成熟后再评审范围和真正未决项。
+    - listitem: 16个UAT场景草案，尚未全链执行或客户签收。
+    - listitem: 7/7为历史自动回归记录，不代表当前版本。Objective筛选子项已复核，其他问题按复核记录区分已变化/待动态验证。
+  - heading "知识主题关联" [level=2]
+  - paragraph: 这是资料关联，不是需求批准率、原型完成率或项目进度。
+  - heading "首页与通知" [level=3]
+  - paragraph: 2/7条有业务主题关联
+  - heading "CALL受理与工单管理" [level=3]
+  - paragraph: 9/10条有业务主题关联
+  - heading "分派与调度" [level=3]
+  - paragraph: 4/12条有业务主题关联
+  - heading "移动端现场执行" [level=3]
+  - paragraph: 7/14条有业务主题关联
+  - heading "报告与文档" [level=3]
+  - paragraph: 1/6条有业务主题关联
+  - heading "报价管理" [level=3]
+  - paragraph: 16/18条有业务主题关联
+  - heading "标书管理" [level=3]
+  - paragraph: 8/8条有业务主题关联
+  - heading "备货与采购" [level=3]
+  - paragraph: 6/9条有业务主题关联
+  - heading "会计与外部接口" [level=3]
+  - paragraph: 11/13条有业务主题关联
+  - heading "统计、客户和基础设置" [level=3]
+  - paragraph: 3/13条有业务主题关联
+  - heading "原需求补充与上线约束" [level=3]
+  - paragraph: 2/9条有业务主题关联
+- complementary:
+  - button: ×
+- status

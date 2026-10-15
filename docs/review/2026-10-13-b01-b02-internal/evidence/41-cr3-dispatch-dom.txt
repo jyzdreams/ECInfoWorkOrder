@@ -1,0 +1,160 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				2587 button 🏠 首頁
+					2588 text 🏠
+					2589 text 首頁
+				2590 button 📋 CALL管理
+					2591 text 📋
+					2592 text CALL管理
+				2593 button 📤 分派中心
+					2594 text 📤
+					2595 text 分派中心
+				2596 button 📅 保養計劃
+					2597 text 📅
+					2598 text 保養計劃
+				2599 button 💰 報價管理
+					2600 text 💰
+					2601 text 報價管理
+				2602 button 🛒 備貨管理
+					2603 text 🛒
+					2604 text 備貨管理
+				2605 button 📁 報告管理
+					2606 text 📁
+					2607 text 報告管理
+				2608 button 📊 統計報表
+					2609 text 📊
+					2610 text 統計報表
+				2611 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					2612 text ⚙️
+					2613 text 基礎設置
+					2614 text ▶
+				2615 container
+					2616 button 📖 字典管理
+					2617 button 🏢 客戶管理
+					2618 button 👤 用戶管理
+					2619 button 🖥️ 服務器空間
+					2620 button 📊 Excel 導入
+					2621 button 🧩 組件庫
+				2622 button 📱 移動端
+					2623 text 📱
+					2624 text 移動端
+		53 container
+			54 heading 分派中心, Value: 1, ID: pageTitle
+				2625 text 分派中心
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			2447 button 李 李關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				2626 text 李
+				2627 text 李關係
+				2628 text 客戶關係部 · 客戶關係部
+				2451 text ⌄
+			2629 container
+				2630 tab group 派工狀態
+					2631 tab (selected, settable, boolean) 待分派 1, Value: 1
+待分派
+1
+					2632 tab (selectable, settable, boolean) 已分派 2, Value: 0
+已分派
+2
+					2633 tab (selectable, settable, boolean) 已完成 0, Value: 0
+已完成
+0
+				2634 text 狀態
+				2635 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2636 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2637 menu
+						2638 (selected) 全部
+						2639 待分派
+				2640 text 區域
+				2641 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2642 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2643 menu
+						2644 (selected) 全部
+						2645 3區
+				2646 text 客戶
+				2647 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2648 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2649 menu
+						2650 (selected) 全部
+						2651 新界住宅項目
+				2652 text CALL類型
+				2653 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				2654 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					2655 menu
+						2656 (selected) 全部
+						2657 保養維修
+				2658 text 關鍵詞搜索
+				2659 text field (settable)
+				2660 button 搜索
+				2661 button 重置
+				2662 button 模擬超時, Help: 演示：將活躍工單的分派/接單/處理時間回撥5分鐘並立即觸發超時通知
+				2663 table
+					2664 row
+						2665 cell
+							2666 text 任務編號
+						2667 cell
+							2668 text 關聯工單
+						2669 cell
+							2670 text 客戶
+						2671 cell
+							2672 text 區域
+						2673 cell
+							2674 text CALL類型
+						2675 cell
+							2676 text 內容摘要
+						2677 cell
+							2678 text 目前師傅
+						2679 cell
+							2680 text 狀態
+						2681 cell
+							2682 text 分派時間
+						2683 cell
+							2684 text 更新時間
+						2685 cell
+							2686 text 操作
+					2687 row
+						2688 cell
+							2689 button T-261013-017
+						2690 cell
+							2691 button WO-20260614-008
+						2692 cell
+							2693 text 新界住宅項目
+						2694 cell
+							2695 text 3區
+						2696 cell
+							2697 text 保養維修
+						2698 cell
+							2699 text 水浸報警設備檢查，前次分派被拒單，需要重新分派。
+						2700 cell
+							2701 text -
+						2702 cell
+							2703 text 待分派
+						2704 cell
+							2705 text -
+						2706 cell
+							2707 text 06-14 16:40
+						2708 cell
+							2709 button 分派
+							2710 button 查看
+				2711 text 共 1 條，每頁
+				2712 pop up button (collapsed, settable) Value: 10, Secondary Actions: Expand
+					2713 menu
+						2714 (selected) 10
+						2715 20
+						2716 50
+				2717 text 條，第 1/1 頁
+				2718 button (disabled) ‹
+				2719 button 1
+				2720 button (disabled) ›
+	2586 text 已切換至 李關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

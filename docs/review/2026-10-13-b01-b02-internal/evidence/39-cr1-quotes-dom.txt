@@ -1,0 +1,371 @@
+Browser tab: 1, Title: "ECInfo CALL 系統 UI 原型", URL: "http://127.0.0.1:18814/prototype/index.html".
+1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html
+	48 container app
+		49 container
+			50 text EC
+			51 text ECInfo Call系統
+			52 button ☰, Help: 收起 / 展開側邊欄, ID: hamburgerBtn
+			66 container navList
+				1481 button 🏠 首頁
+					1482 text 🏠
+					1483 text 首頁
+				1484 button 📋 CALL管理
+					1485 text 📋
+					1486 text CALL管理
+				1487 button 📤 分派中心
+					1488 text 📤
+					1489 text 分派中心
+				1490 button 📅 保養計劃
+					1491 text 📅
+					1492 text 保養計劃
+				1493 button 💰 報價管理
+					1494 text 💰
+					1495 text 報價管理
+				1496 button 🛒 備貨管理
+					1497 text 🛒
+					1498 text 備貨管理
+				1499 button 📁 報告管理
+					1500 text 📁
+					1501 text 報告管理
+				1502 button 📊 統計報表
+					1503 text 📊
+					1504 text 統計報表
+				1505 button ⚙️ 基礎設置 ▶, Help: 基礎設置
+					1506 text ⚙️
+					1507 text 基礎設置
+					1508 text ▶
+				1509 container
+					1510 button 📖 字典管理
+					1511 button 🏢 客戶管理
+					1512 button 👤 用戶管理
+					1513 button 🖥️ 服務器空間
+					1514 button 📊 Excel 導入
+					1515 button 🧩 組件庫
+				1516 button 📱 移動端
+					1517 text 📱
+					1518 text 移動端
+		53 container
+			54 heading 報價管理, Value: 1, ID: pageTitle
+				1519 text 報價管理
+			56 container 工作區控制項
+				57 container Description: 視圖切換, ID: viewSwitch
+					58 button PC 端
+					59 button 移動端
+			60 button 🔔, Help: 通知中心, ID: notiBell
+			1124 button 陳 陳關係 客戶關係部 · 客戶關係部 ⌄, ID: userMenuBtn
+				1520 text 陳
+				1521 text 陳關係
+				1522 text 客戶關係部 · 客戶關係部
+				1128 text ⌄
+			1523 container
+				1524 container 報價需求轉交
+					1525 heading 報價需求轉交, Value: 3
+						1526 text 報價需求轉交
+					1527 text 查看來源，將既有報價需求轉交報價組。
+					1528 table
+						1529 row
+							1530 cell
+								1531 text 來源
+							1532 cell
+								1533 text 客戶
+							1534 cell
+								1535 text 提出人
+							1536 cell
+								1537 text 狀態
+							1538 cell
+								1539 text 轉交記錄
+							1540 cell
+								1541 text 操作
+						1542 row
+							1543 cell
+								1544 text WO-20261013-003
+							1545 cell
+								1546 text 港島商業中心
+							1547 cell
+								1548 text 陳小姐
+							1549 cell
+								1550 text 已轉交
+							1551 cell
+								1552 text 陳關係
+								1553 text 13/10/2026 下午8:25:03
+							1554 cell
+								1555 text Q-1791894303350
+						1556 row
+							1557 cell
+								1558 text WO-20261013-002
+							1559 cell
+								1560 text 港島商業中心
+							1561 cell
+								1562 text 陳小姐
+							1563 cell
+								1564 text 已轉交
+							1565 cell
+								1566 text 陳關係
+								1567 text 13/10/2026 下午8:21:25
+							1568 cell
+								1569 text Q-1791894085369
+						1570 row
+							1571 cell
+								1572 text WO-20261013-001
+							1573 cell
+								1574 text 港島商業中心
+							1575 cell
+								1576 text 陳小姐
+							1577 cell
+								1578 text 待轉交
+							1579 cell
+								1580 text 待轉交
+							1581 cell
+								1582 button 轉交報價組
+				1583 text 報價狀態
+				1584 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1585 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1586 menu
+						1587 (selected) 全部
+						1588 待報價
+						1589 報價中
+						1590 需修訂
+						1591 已中單
+						1592 丟單
+				1593 text 類別
+				1594 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1595 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1596 menu
+						1597 (selected) 全部
+						1598 M（保養）
+						1599 P（工程）
+						1600 M+P（保養＋工程）
+				1601 text 區域
+				1602 pop up button (collapsed) 全部 ⌄, Secondary Actions: Expand
+				1603 pop up button (collapsed, settable) Value: 全部, Secondary Actions: Expand
+					1604 menu
+						1605 (selected) 全部
+						1606 1區
+						1607 2區
+						1608 3區
+						1609 4區
+						1610 5區
+						1611 6區
+						1612 7區
+						1613 7A區
+						1614 8區
+						1615 MTR
+						1616 EMSD
+						1617 ASD
+						1618 軟件組
+						1619 EV Charge
+						1620 Maintenance-HTCL
+						1621 Project 1(生)
+						1622 Project 1 MTR
+						1623 Project 1(Sam)
+						1624 Project 1(Johnny)
+						1625 Project 1(Roy)
+						1626 Project 1(Eric)
+						1627 Project 2(Joe)
+						1628 Project 1-1541
+						1629 Project 1-1962EM20T
+						1630 Project 1-1105
+						1631 Project 1-2489
+						1632 Project 1-2458
+						1633 Project/Maintenance
+				1634 text 客戶
+				1635 pop up button (collapsed) 全部客戶 ⌄, Secondary Actions: Expand
+				1636 pop up button (collapsed, settable) Value: 全部客戶, Secondary Actions: Expand
+					1637 menu
+						1638 (selected) 全部客戶
+						1639 港島商業中心
+						1640 九龍國際廣場
+						1641 新界花園住宅
+						1642 香港政府大樓
+						1643 維多利亞酒店
+						1644 九龍灣工業大廈
+						1645 青衣邨住宅
+						1646 將軍澳醫院
+						1647 銅鑼灣購物中心
+						1648 荃灣工廠大廈
+						1649 觀塘住宅大廈
+						1650 西九龍文化中心
+				1651 text 關鍵詞搜索
+				1652 text field (settable)
+				1653 button 搜索
+				1654 button 重置
+				1655 button + 新增報價
+				1656 table
+					1657 row
+						1658 cell
+							1659 text 報價編號
+						1660 cell
+							1661 text 報價標題
+						1662 cell
+							1663 text 關聯工單
+						1664 cell
+							1665 text 客戶名稱
+						1666 cell
+							1667 text 類別
+						1668 cell
+							1669 text 報價狀態
+						1670 cell
+							1671 text 備貨狀態
+						1672 cell
+							1673 text 負責人
+						1674 cell
+							1675 text 報價日期
+						1676 cell
+							1677 text 報價金額
+						1678 cell
+							1679 text 操作
+					1680 row
+						1681 cell
+							1682 button Q-1791894303350
+						1683 cell
+							1684 text 港島商業中心 - 工程維修
+						1685 cell
+							1686 button WO-20261013-003
+						1687 cell
+							1688 text 港島商業中心
+						1689 cell
+							1690 text P
+						1691 cell
+							1692 text 待報價
+						1693 cell
+							1694 text 未建立備貨單
+						1695 cell
+							1696 text 鄒組長
+						1697 cell
+							1698 text 2026-10-13
+						1699 cell
+							1700 text HKD 1,200
+						1701 cell
+							1702 button 報價
+							1703 button 详情
+					1704 row
+						1705 cell
+							1706 button Q-1791894085369
+						1707 cell
+							1708 text 港島商業中心 - 工程維修
+						1709 cell
+							1710 button WO-20261013-002
+						1711 cell
+							1712 text 港島商業中心
+						1713 cell
+							1714 text P
+						1715 cell
+							1716 text 待報價
+						1717 cell
+							1718 text 未建立備貨單
+						1719 cell
+							1720 text 鄒組長
+						1721 cell
+							1722 text 2026-10-13
+						1723 cell
+							1724 text HKD 1,200
+						1725 cell
+							1726 button 報價
+							1727 button 详情
+					1728 row
+						1729 cell
+							1730 button 1P2600013
+						1731 cell
+							1732 text PM-INTERNAL-20261013 门禁维修报价
+						1733 cell
+							1734 button WO-20261013-001
+						1735 cell
+							1736 text 港島商業中心
+						1737 cell
+							1738 text P
+						1739 cell
+							1740 text 已中單
+						1741 cell
+							1742 text 已驗收
+						1743 cell
+							1744 text 趙組長
+						1745 cell
+							1746 text 2026-10-13
+						1747 cell
+							1748 text HKD 1,200
+						1749 cell
+							1750 button 详情
+					1751 row
+						1752 cell
+							1753 button QT-20260621-005
+						1754 cell
+							1755 text 廣播系統維修報價
+						1756 cell
+							1757 button WO-20260615-005
+						1758 cell
+							1759 text 維多利亞酒店
+						1760 cell
+							1761 text -
+						1762 cell
+							1763 text 報價中
+						1764 cell
+							1765 text 未建立備貨單
+						1766 cell
+							1767 text 李組長
+						1768 cell
+							1769 text 2026-06-19
+						1770 cell
+							1771 text HKD 7,480
+						1772 cell
+							1773 button 報價
+							1774 button 详情
+					1775 row
+						1776 cell
+							1777 button QT-20260621-006
+						1778 cell
+							1779 text 門禁控制器保養報價
+						1780 cell
+							1781 button WO-20260614-006
+						1782 cell
+							1783 text 港島商業中心
+						1784 cell
+							1785 text -
+						1786 cell
+							1787 text 報價中
+						1788 cell
+							1789 text 已發貨
+						1790 cell
+							1791 text 王組長
+						1792 cell
+							1793 text 2026-06-14
+						1794 cell
+							1795 text HKD 3,850
+						1796 cell
+							1797 button 報價
+							1798 button 详情
+					1799 row
+						1800 cell
+							1801 button QT-20260621-009
+						1802 cell
+							1803 text 設備移位服務報價
+						1804 cell
+							1805 button WO-20260613-010
+						1806 cell
+							1807 text 維多利亞酒店
+						1808 cell
+							1809 text -
+						1810 cell
+							1811 text 丟單
+						1812 cell
+							1813 text 未建立備貨單
+						1814 cell
+							1815 text 李組長
+						1816 cell
+							1817 text 2026-06-13
+						1818 cell
+							1819 text HKD 4,950
+						1820 cell
+							1821 button 详情
+				1822 text 共 6 條記錄，每頁
+				1823 pop up button (collapsed, settable) Description: 每頁顯示筆數, Value: 10, Secondary Actions: Expand
+					1824 menu
+						1825 (selected) 10
+						1826 20
+						1827 50
+				1828 text 條，第 1/1 頁
+				1829 button (disabled) ‹
+				1830 button 1
+				1831 button (disabled) ›
+	1480 text 已切換至 陳關係（客戶關係部）
+
+The focused UI element is 1 AXWebArea ECInfo CALL 系統 UI 原型, URL: 127.0.0.1:18814/prototype/index.html

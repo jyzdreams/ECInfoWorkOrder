@@ -1,0 +1,181 @@
+- complementary:
+  - generic: EC
+  - strong: ECInfo Call系統
+  - button "☰"
+  - navigation:
+    - button "🏠 首頁":
+      - generic: 🏠
+      - generic: 首頁
+    - button "💵 會計管理":
+      - generic: 💵
+      - generic: 會計管理
+    - button "📊 統計報表":
+      - generic: 📊
+      - generic: 統計報表
+- main:
+  - heading "會計管理" [level=1]
+  - generic "工作區控制項":
+    - generic "視圖切換":
+      - button "PC 端"
+      - button "移動端"
+  - button "🔔"
+  - button "陳 陳會計 會計部 · 會計部 ⌄":
+    - generic: 陳
+    - strong: 陳會計
+    - generic: 會計部 · 會計部
+    - generic: ⌄
+  - button "開具發票"
+  - button "登記收款"
+  - heading "待開票" [level=3]
+  - generic: "31"
+  - generic: 普通維修完工接件／標書 ＋ 合約週期帳單
+  - heading "待收款" [level=3]
+  - generic: "1"
+  - generic: HKD 49,500
+  - heading "本月收款" [level=3]
+  - generic: 3,080
+  - generic: HKD
+  - heading "發票總數" [level=3]
+  - generic: "2"
+  - generic: 已開具發票
+  - button "待開票 (31)"
+  - button "發票管理 (2)"
+  - button "收款記錄 (1)"
+  - button "客戶檔案 (4)"
+  - button "保養合約 (3)"
+  - textbox "關鍵字（Job Code / 客戶 / 描述）": PM-SR-FINANCE
+  - textbox
+  - button "全部類型 ⌄":
+    - generic: 全部類型
+    - generic: ⌄
+  - combobox:
+    - option "全部類型" [selected]
+    - option "工程"
+    - option "M類保養"
+  - button "清除"
+  - checkbox "全選"
+  - text: 全選
+  - generic: 已選 0 筆
+  - button "批量開具發票" [disabled]
+  - button "列印選取" [disabled]
+  - table:
+    - rowgroup:
+      - row "Job Code 客戶 描述 金額 類型 Billing Period 服務起止日期 付款週期 附件 狀態 操作":
+        - columnheader
+        - columnheader "Job Code"
+        - columnheader "客戶"
+        - columnheader "描述"
+        - columnheader "金額"
+        - columnheader "類型"
+        - columnheader "Billing Period"
+        - columnheader "服務起止日期"
+        - columnheader "付款週期"
+        - columnheader "附件"
+        - columnheader "狀態"
+        - columnheader "操作"
+    - rowgroup:
+      - row "2P260016 港島商業中心 PM-SR-FINANCE-20261014 僅本地測試服務費 HKD 1,200 工程 — — 一次性 欠：完工紙 欠文件 查看工單 查看SR 開票":
+        - cell:
+          - checkbox [disabled]
+        - cell "2P260016":
+          - strong: 2P260016
+        - cell "港島商業中心"
+        - cell "PM-SR-FINANCE-20261014 僅本地測試服務費"
+        - cell "HKD 1,200"
+        - cell "工程":
+          - generic: 工程
+        - cell "—"
+        - cell "—"
+        - cell "一次性"
+        - cell "欠：完工紙"
+        - cell "欠文件":
+          - generic: 欠文件
+        - cell "查看工單 查看SR 開票":
+          - button "查看工單"
+          - button "查看SR"
+          - button "開票" [disabled]
+  - dialog "服務報告詳情":
+    - heading "服務報告詳情" [level=2]
+    - paragraph: SR-0765432 · WO-20261014-001
+    - button "關閉": ×
+    - generic: 客戶
+    - strong: 港島商業中心
+    - generic: CALL 狀態
+    - generic: 已完成
+    - generic: 師傅
+    - strong: 趙師傅
+    - heading "基本資料" [level=3]
+    - generic: 聯繫人
+    - strong: 陳先生
+    - generic: 聯繫電話
+    - strong: +852 9123 4567
+    - generic: 服務區域
+    - strong: 1區
+    - generic: 保養類型
+    - strong: 非保養
+    - generic: 地址
+    - strong: 中環德輔道中88號
+    - generic: 建立時間
+    - strong: 10-14 12:26
+    - heading "服務內容" [level=3]
+    - generic: 系統
+    - generic: 未填寫
+    - generic: 目的
+    - generic: 未填寫
+    - heading "服務紀錄" [level=3]
+    - generic: 簽到時間
+    - strong: 14-10-2026 12:30
+    - generic: 完成時間
+    - strong: 10-14 12:38
+    - generic: 客戶滿意度
+    - strong: 滿意
+    - generic: 需要報價
+    - strong: 否
+    - text: 完成工作
+    - paragraph: PM-SR-FINANCE 僅本地合成現場處理：檢查服務費測試，未進行真實施工。
+    - text: 跟進結果
+    - paragraph: PM-SR-FINANCE 僅本地合成測試：已補充退回說明，再次驗證交接；非真實現場結果。
+    - heading "Before Service 照片" [level=3]
+    - img "Before Service 照片"
+    - heading "After Service 照片" [level=3]
+    - img "After Service 照片"
+    - heading "已提交服務報告" [level=3]
+    - img "已提交服務報告"
+    - heading "客戶電子簽名" [level=3]
+    - img "客戶電子簽名"
+    - heading "流轉紀錄" [level=3]
+    - strong: 陳關係
+    - generic: 12:38
+    - paragraph: CR／主管確認服務報告，工單正式完成。
+    - strong: 趙師傅
+    - generic: 12:37
+    - paragraph: 師傅提交服務報告和現場記錄，待 CR／主管確認完工。
+    - strong: 趙師傅
+    - generic: 12:36
+    - paragraph: 師傅開始填寫服務報告。
+    - strong: 趙組長
+    - generic: 12:34
+    - paragraph: 確認不通過，退回師傅繼續處理。
+    - strong: 趙師傅
+    - generic: 12:33
+    - paragraph: 師傅提交服務報告和現場記錄，待 CR／主管確認完工。
+    - strong: 趙師傅
+    - generic: 12:32
+    - paragraph: 已上傳服務報告圖片；編號及現場內容保留人工錄入，未做文字識別。
+    - strong: 趙師傅
+    - generic: 12:30
+    - paragraph: 師傅開始填寫服務報告。
+    - strong: 趙師傅
+    - generic: 12:30
+    - paragraph: 師傅已完成現場打卡，狀態自動轉為「處理中」。
+    - strong: 趙師傅
+    - generic: 12:30
+    - paragraph: 師傅已收到 CALL，進入待處理。
+    - strong: 趙組長
+    - generic: 12:29
+    - paragraph: Team Leader 已分派給 趙師傅，領取服務報告。備註：PM-SR-FINANCE 僅本地測試：服務行無物料，驗證接單/SR/回交；不代表實際預約、紙單打印或客戶接受。
+    - strong: 陳小姐
+    - generic: 12:26
+    - paragraph: 創建工單
+    - button "查看 CALL"
+- generic: 歡迎回來，陳會計！

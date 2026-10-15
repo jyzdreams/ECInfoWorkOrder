@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "generatedAt": "2026-10-14T09:09:45.503Z",
   "checks": [
     {
       "name": "Current Knowledge 入口",
-      "checked": 7,
+      "checked": 9,
       "issues": 0
     },
     {
       "name": "SOURCE ID 映射",
-      "checked": 13,
+      "checked": 28,
       "issues": 0
     },
     {
       "name": "Legacy 保持历史层",
-      "checked": 8,
+      "checked": 4,
       "issues": 0
     },
     {
       "name": "原始资料入口",
-      "checked": 118,
+      "checked": 120,
       "issues": 0
     },
     {
@@ -28,7 +28,7 @@
     },
     {
       "name": "场景事实依据",
-      "checked": 7,
+      "checked": 9,
       "issues": 0
     },
     {
@@ -43,7 +43,7 @@
     },
     {
       "name": "需求关联当前业务场景",
-      "checked": 80,
+      "checked": 119,
       "issues": 50
     },
     {
@@ -53,23 +53,23 @@
     },
     {
       "name": "事实条目来源",
-      "checked": 45,
+      "checked": 84,
       "issues": 0
     },
     {
       "name": "Open Question 误标 Confirmed",
-      "checked": 24,
+      "checked": 16,
       "issues": 0
     },
     {
       "name": "旧资料路径",
-      "checked": 490,
+      "checked": 786,
       "issues": 0
     },
     {
-      "name": "原型整改自动回归",
+      "name": "历史自动回归（本轮未复测）",
       "checked": 7,
-      "issues": 0
+      "issues": 1
     },
     {
       "name": "原型人工验收",
@@ -78,23 +78,23 @@
     }
   ],
   "counts": {
-    "indexedFiles": 490,
-    "sourceFiles": 118,
-    "facts": 45,
-    "sourceAliasMappings": 13,
-    "currentKnowledgeFiles": 7,
+    "indexedFiles": 786,
+    "sourceFiles": 120,
+    "facts": 84,
+    "sourceAliasMappings": 28,
+    "currentKnowledgeFiles": 9,
     "decisions": 17,
-    "openQuestions": 21,
-    "pendingQuestions": 2,
-    "questionConflicts": 3,
+    "openQuestions": 16,
+    "pendingQuestions": 5,
+    "questionConflicts": 0,
     "conflicts": 6,
-    "flows": 7,
-    "requirements": 80,
+    "flows": 9,
+    "requirements": 119,
     "pages": 17,
-    "explicitTraceEdges": 517,
+    "explicitTraceEdges": 748,
     "unlinkedRequirements": 50,
     "missingDirectSourceRequirements": 0,
-    "indexedFilesWithTrace": 20,
+    "indexedFilesWithTrace": 25,
     "prdFilesLinkedToCurrentFlows": 1,
     "prototypePagesLinkedToPrd": 16,
     "prototypeRegressionPassed": 7,
@@ -102,7 +102,7 @@
     "fullNineHopChains": 0,
     "strictChainCompletenessPercent": 0,
     "sourceToPrototypeChains": 30,
-    "sourceToPrototypeCoveragePercent": 38,
+    "sourceToPrototypeCoveragePercent": 25,
     "sourceCoveragePercent": 100,
     "decisionSourceCoveragePercent": 100
   },
@@ -160,441 +160,396 @@
   ],
   "missingDirectSourceIds": [],
   "unclassifiedFiles": [
+    "mr-bridge/config.example.json",
+    "mr-bridge/package.json",
+    "mr-bridge/src/config.js",
+    "mr-bridge/src/fieldMap.js",
+    "mr-bridge/src/materialMatcher.js",
+    "mr-bridge/src/mrBuilder.js",
+    "mr-bridge/src/mrService.js",
+    "mr-bridge/src/server.js",
+    "mr-bridge/src/yidaClient.js",
+    "mr-bridge/start.ps1",
+    "mr-bridge/test/fixtures/mrList.json",
+    "mr-bridge/test/fixtures/productInfo.json",
+    "mr-bridge/test/fixtures/supplierPrice.json",
+    "mr-bridge/test/materialMatcher.test.js",
+    "mr-bridge/test/mrBuilder.test.js",
     "store/temp.docx"
   ],
   "openQuestions": [
     {
-      "id": "Q-20260927-001",
-      "priority": "P0",
-      "status": "PENDING",
-      "title": "现场即时维修的收款登记、交款与对账由谁负责、何时完成？",
-      "reason": "对应 PENDING-001，不补规则",
-      "decisionId": "PENDING-001",
-      "flowIds": [
-        "FLOW-INSTANT",
-        "FLOW-MAIN"
-      ],
-      "sourceFileIds": [
-        "FILE-618C5F54C7"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "当前人工确认讨论中的 Pending Decision。"
-    },
-    {
-      "id": "Q-20260927-002",
-      "priority": "P0",
-      "status": "PENDING",
-      "title": "CM 与 PM / 其他任务发生时间冲突时如何处理？",
-      "reason": "对应 PENDING-002，不补规则",
-      "decisionId": "PENDING-002",
-      "flowIds": [
-        "FLOW-CM"
-      ],
-      "sourceFileIds": [
-        "FILE-618C5F54C7"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "当前人工确认讨论中的 Pending Decision。"
-    },
-    {
-      "id": "Q-001",
+      "id": "C-01",
       "priority": "P0",
       "status": "OPEN",
-      "title": "旧 SOP 历史版本是否正式废弃？",
-      "reason": "以当前 Baseline 为有效呈现，正式废弃仍需项目确认",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-002",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "一期边界是否只包含 CALL 核心闭环，还是包含报价、标书、采购、会计？",
-      "reason": "保持范围问题，不从 REQ 数量推断",
-      "decisionId": null,
+      "title": "本期纳入哪些业务，哪些明确放后续？",
+      "reason": "本计划只批准分批梳理，不能代替客户批准一期范围。",
       "flowIds": [
         "FLOW-MAIN"
       ],
-      "sourceFileIds": [
-        "FILE-863211E410",
-        "FILE-C0B0934B83"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-003",
-      "priority": "P0",
-      "status": "CONFLICT",
-      "title": "工单采用六态、早期七态、当前原型七态，还是“主状态 + 业务卡点”模型？",
-      "reason": "资料存在差异，不能将任一模型写成最终规则",
+      "batch": "B00",
+      "options": "核心闭环先冻结；核心+选定商务；完整当前业务分批冻，逐项标后续",
+      "blocking": "Y",
       "decisionId": null,
-      "flowIds": [],
       "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-050F5EFB29",
-        "FILE-D50419124F"
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-004",
-      "priority": "P0",
-      "status": "CONFLICT",
-      "title": "师傅提交完整 SR / 完工单后直接完成，还是进入独立待完工确认？",
-      "reason": "资料存在差异，不能将任一方案写成最终规则",
-      "decisionId": null,
-      "flowIds": [
-        "FLOW-P",
-        "FLOW-M"
-      ],
-      "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-863211E410",
-        "FILE-D50419124F"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-005",
+      "id": "C-02",
       "priority": "P0",
       "status": "OPEN",
-      "title": "接单申请是否为独立对象或子状态？",
-      "reason": "等待业务对象和状态确认",
-      "decisionId": null,
-      "flowIds": [
-        "FLOW-MAIN"
-      ],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-006",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "Project 主管与仓务部是否为独立角色？",
-      "reason": "暂按现有角色证据引用，不新增权限边界",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-007",
-      "priority": "P0",
-      "status": "CONFLICT",
-      "title": "仓库通与本系统谁是采购 / 库存主数据源？",
-      "reason": "冲突待确认，不能由 Prototype 决定主数据源",
-      "decisionId": null,
-      "flowIds": [
-        "FLOW-P"
-      ],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C",
-        "FILE-D50419124F"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-008",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "CM 抢占 PM 时师傅是否始终可以拒绝？",
-      "reason": "等待 CM 冲突处理决策",
-      "decisionId": null,
-      "flowIds": [
-        "FLOW-CM"
-      ],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-009",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "不可拍照客户 / 地点清单、豁免人及替代证明是什么？",
-      "reason": "现场证据要求未闭合",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-72B9835125",
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-010",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "普通、政府、CALL、任务、项目、报价、J Number 的正式编号关系是什么？",
-      "reason": "等待编号规则确认",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-863211E410"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-011",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "SR / 完工纸自动判定表是什么？",
-      "reason": "继续沿用已确认的角色节点，不扩写自动判定表",
-      "decisionId": null,
-      "flowIds": [
-        "FLOW-P",
-        "FLOW-M",
-        "FLOW-INSTANT"
-      ],
-      "sourceFileIds": [
-        "FILE-863211E410",
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-012",
-      "priority": "P0",
-      "status": "OPEN",
-      "title": "分派权限如何在 CS、CR、TL、ADMIN 之间区分，谁可以首次分派、CM 重分派和跨区处理？",
-      "reason": "等待权限矩阵",
-      "decisionId": null,
+      "title": "各业务对象的状态含义、入口和终态怎样对应？",
+      "reason": "不再要求客户在旧7态/10态名称之间机械二选一，先提供对象状态候选。",
       "flowIds": [
         "FLOW-MAIN",
         "FLOW-CM"
       ],
+      "batch": "B01",
+      "options": "主状态+业务阶段；统一状态表配独立申请；保留客户术语并定义映射",
+      "blocking": "Y",
+      "decisionId": null,
       "sourceFileIds": [
-        "FILE-72B9835125",
-        "FILE-30B5BF1F0C"
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-013",
-      "priority": "P1",
+      "id": "C-03",
+      "priority": "P0",
       "status": "OPEN",
-      "title": "同区最低负载推荐是否为系统规则，计算口径是什么？",
-      "reason": "无明确规则前不写入 Baseline",
+      "title": "实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？",
+      "reason": "CR按区域和指定夜班例外已有明确记录，只确认名单及未定动作权限。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B01",
+      "options": "独立角色；既有角色附授权岗位；明确白名单范围例外",
+      "blocking": "Y",
       "decisionId": null,
-      "flowIds": [],
       "sourceFileIds": [
-        "FILE-863211E410",
-        "FILE-D50419124F"
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-014",
-      "priority": "P1",
-      "status": "OPEN",
-      "title": "现场照片最多 9 / 10 张，文件大小、归档和补传规则是什么？",
-      "reason": "Prototype / 资料存在差异，待确认",
+      "id": "C-04",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "谁在何处确认本单材料已备齐，让EC可以安排施工？",
+      "reason": "10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。",
+      "flowIds": [
+        "FLOW-MR",
+        "FLOW-P"
+      ],
+      "batch": "B02",
+      "options": "出库环节由仓管确认；或客户说明实际确认岗位/单据。均未选择，不默认出库完成即备齐",
+      "blocking": "Y（材料备齐→施工定稿/验收）；不阻止独立内部准备",
       "decisionId": null,
-      "flowIds": [],
       "sourceFileIds": [
-        "FILE-8B59C25CB1",
-        "FILE-E9823D6C4B",
-        "FILE-050F5EFB29"
+        "FILE-CE3522C7AE",
+        "FILE-CB03BF52BA",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-015",
-      "priority": "P1",
+      "id": "C-05",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？",
+      "reason": "人员资源/客户约定是业务政策，现Decision明示待定",
+      "flowIds": [
+        "FLOW-CM",
+        "FLOW-M"
+      ],
+      "batch": "B06",
+      "options": "人工协调重排；审批抢占；按指定条件可拒绝/保留原任务",
+      "blocking": "Y",
+      "decisionId": "PENDING-002",
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-06",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "现场款如何登记、交款、对账，及现场报价授权？",
+      "reason": "金额收取与交款责任不能靠工程完工自动推断",
+      "flowIds": [
+        "FLOW-INSTANT",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B06",
+      "options": "师傅登记后会计确认；CS/报价登记；指定负责人核对款证",
+      "blocking": "Y",
+      "decisionId": "PENDING-001",
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-07",
+      "priority": "P0",
       "status": "OPEN",
-      "title": "一工单可有多少个 SR，SR 是否可编辑、重开或归档？",
-      "reason": "业务边界未确认",
+      "title": "后续施工恢复原CALL还是建新CALL，关联/编号如何体现？",
+      "reason": "一次现场与二次服务关系影响历史和计价，(2)后缀未获确认",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "batch": "B02",
+      "options": "同CALL新增服务任务；子CALL带明确父对象；独立施工对象关联原来源",
+      "blocking": "Y",
       "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-08",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "出发前服务单准备/交付/打印岗位及缺签、不可拍、保固补证细则是什么？",
+      "reason": "用户已说明成交维修需CP、保养/CALL上门用SR；维修CP先交主管，由主管确认完工更新状态，其他角色查看，财务独立。这三个子项不再问用户或客户。原出发前CR/主管交付候选、打印岗位及补证细则仍待客户。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B02",
+      "options": "按已说明的阶段和职责准备两种资料链；客户仅核真正未决打印/交付及补证细则，不重复选择已回答的基本分流/确认职责",
+      "blocking": "Y（打印/领单及资料交接定稿）；不阻止独立内部核对",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CE3522C7AE",
+        "FILE-0D53775B2F",
+        "FILE-C9B9E78D77",
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-09",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "单据编号的完整格式、前缀和关联是什么？请给实际样张。",
+      "reason": "用户暂选SR七位数字/新单加1，并要求具体下次客户核实；候选非正式批准，不再向用户追问同项。起点/纸单号段、重印/失败/作废及公司号段需实际规则。其他单据格式仍待核。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B01",
+      "options": "暂拟七位新单加1；客户确认正式规则、起点/旧号段衔接与重印/作废。旧号/前导零保留，不默认从1或CALL号起",
+      "blocking": "Y（正式发号/打印定稿）；不阻止回录兼容及独立内部准备",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CE3522C7AE",
+        "FILE-C9B9E78D77",
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-10",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "具体保养合同周期、首期/尾期/改期与私人续保提醒比例，政府怎么提醒？",
+      "reason": "1/2、1/3没有明确哪个合同用哪个，政府仅说不同；月步长/起始首期也未确认",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "batch": "B03",
+      "options": "合同逐项周期；私人按指定比例/日期；政府按指定规则/人工续保",
+      "blocking": "Y（纳入该业务时）",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-11",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？",
+      "reason": "独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "batch": "B02",
+      "options": "只对已有任务新增报告；允许独立SR并人工关联；授权特定人员独立建",
+      "blocking": "Y（报告对象关系）；独立无CALL入口可后置",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-12",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "照片9/10张上限、原件/电子件保留期、归档调阅权限？",
+      "reason": "客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择",
       "flowIds": [
         "FLOW-P",
         "FLOW-M"
       ],
+      "batch": "B02",
+      "options": "客户纸样上限；按类型区分；确认业务保留/访问，技术方案另评估",
+      "blocking": "Y（必需资料和上限）；存储实现POC后置",
+      "decisionId": null,
       "sourceFileIds": [
-        "FILE-822D3601B7"
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-016",
-      "priority": "P1",
+      "id": "C-13",
+      "priority": "P0",
       "status": "OPEN",
-      "title": "报价责任人是谁，客户已确认后的报价能否修订及如何留痕？",
-      "reason": "已有报价规则不覆盖此权限细节",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-017",
-      "priority": "P1",
-      "status": "OPEN",
-      "title": "采购完成后回到原工单，还是生成新工单 / 新任务？",
-      "reason": "等待对象关系确认",
-      "decisionId": null,
+      "title": "取消/退回/已完工重交/重开/成交变更对MR、合同计划与发票有什么授权和影响？",
+      "reason": "会改变合同履约和账务，团队不能默认撤销或重开",
       "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-MR",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B06",
+      "options": "更正历史保留不改终态；重新审核明确版本；授权重开/撤回并定义关联处理",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-14",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？",
+      "reason": "不再问是否需要discount/总价/低额原因，这些诉求已明确。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B05",
+      "options": "总额折扣或行折扣；仅总价；客户指定分摊；按发票核销或指定款项分配",
+      "blocking": "Y（相关出口）",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-15",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？",
+      "reason": "显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。",
+      "flowIds": [
+        "FLOW-TENDER",
         "FLOW-P"
       ],
+      "batch": "B02",
+      "options": "本期只内部提醒且外部人工；授权Email/WhatsApp；明确应标方式与回执",
+      "blocking": "Y（关键交接责任）；真实接口可后置",
+      "decisionId": null,
       "sourceFileIds": [
-        "FILE-863211E410",
-        "FILE-30B5BF1F0C"
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     },
     {
-      "id": "Q-018",
-      "priority": "P1",
+      "id": "C-16",
+      "priority": "P2",
       "status": "OPEN",
-      "title": "标书导出、正式回标，以及中标后进入 M / P / M+P 是否纳入本期？",
-      "reason": "当前 Tender 仅 PARTIAL",
-      "decisionId": null,
+      "title": "借用系统和升降机申请是否另立后续需求？",
+      "reason": "只有一行线索，本期不默认扩展；不阻塞现有业务链准备。",
       "flowIds": [
-        "FLOW-TENDER"
+        "FLOW-MAIN"
       ],
-      "sourceFileIds": [
-        "FILE-30B5BF1F0C"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-019",
-      "priority": "P1",
-      "status": "OPEN",
-      "title": "通知渠道和通知节点是什么？",
-      "reason": "未形成确认决策",
+      "batch": "B06",
+      "options": "后续另立需求；明确不纳入本期；客户提供用途后再评审",
+      "blocking": "N，保持本期待确认范围外",
       "decisionId": null,
-      "flowIds": [],
       "sourceFileIds": [
-        "FILE-863211E410",
-        "FILE-C0B0934B83"
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-020",
-      "priority": "P1",
-      "status": "OPEN",
-      "title": "试点区域、真实账号、主数据和样例工单何时提供？",
-      "reason": "交付准备问题",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-C0B0934B83"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-021",
-      "priority": "P2",
-      "status": "OPEN",
-      "title": "Peachtree 与 OCS 的版本、同步方向和责任边界是什么？",
-      "reason": "仅保留为接口待确认",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-822D3601B7",
-        "FILE-863211E410"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
-    },
-    {
-      "id": "Q-022",
-      "priority": "P2",
-      "status": "OPEN",
-      "title": "OCR、语音、WhatsApp、AI 能力属于哪一期？",
-      "reason": "不因 Prototype 存在而默认纳入本期",
-      "decisionId": null,
-      "flowIds": [],
-      "sourceFileIds": [
-        "FILE-322654DCD7",
-        "FILE-72B9835125",
-        "FILE-822D3601B7"
-      ],
-      "knowledgeFileIds": [
-        "FILE-FF2EB9320E"
-      ],
-      "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
     }
   ],
   "conflicts": [
@@ -740,9 +695,9 @@
   ],
   "limitations": [
     "PRD、SDD、TDD 的文件存在与内容覆盖是两回事；未验证的语义边一律显示 PARTIAL。",
-    "当前没有正式 Test/UAT 用例，严格九跳完整链路为 0%。",
+    "16个UAT场景已准备；10/13内部局部复测有证据，完整链与客户签收未通过，进度以Excel为准。",
     "旧知识库规则保留来源与旧状态，但本轮不自动提升为新确认 Decision。",
-    "原型整改记录与机器结果显示 7/7 场景自动回归通过；人工验收仍待完成，旧审计发现不计为当前已证实 Prototype Conflict。",
+    "7/7是历史回归记录，不代表当前版本。10/12复核有入口/字段/筛选证据，未复测问题保持未验证，不能直接关闭旧审计。",
     "原型与 PRD 的具体字段级冲突需要逐页评审，当前只记录已有证据支持的冲突。"
   ]
 }

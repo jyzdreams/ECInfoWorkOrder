@@ -1,0 +1,26 @@
+[
+  {
+    "type": "creation",
+    "ruleset_source_type": "Repository",
+    "ruleset_source": "jyzdreams/ECInfoWorkOrder",
+    "ruleset_id": 25166977
+  },
+  {
+    "type": "update",
+    "ruleset_source_type": "Repository",
+    "ruleset_source": "jyzdreams/ECInfoWorkOrder",
+    "ruleset_id": 25166977
+  },
+  {
+    "type": "deletion",
+    "ruleset_source_type": "Repository",
+    "ruleset_source": "jyzdreams/ECInfoWorkOrder",
+    "ruleset_id": 25166991
+  },
+  {
+    "type": "non_fast_forward",
+    "ruleset_source_type": "Repository",
+    "ruleset_source": "jyzdreams/ECInfoWorkOrder",
+    "ruleset_id": 25166991
+  }
+]

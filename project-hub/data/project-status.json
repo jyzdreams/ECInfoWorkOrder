@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T10:35:41.780Z",
+  "generatedAt": "2026-10-14T09:09:45.503Z",
   "project": "EC 工单系统",
   "phase": "事实审计 / 真实流程澄清 / 原型与客户确认阶段",
   "baseline": {
@@ -207,6 +207,569 @@
     }
   ],
   "openQuestions": [
+    {
+      "id": "C-01",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "本期纳入哪些业务，哪些明确放后续？",
+      "reason": "本计划只批准分批梳理，不能代替客户批准一期范围。",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "batch": "B00",
+      "options": "核心闭环先冻结；核心+选定商务；完整当前业务分批冻，逐项标后续",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-02",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "各业务对象的状态含义、入口和终态怎样对应？",
+      "reason": "不再要求客户在旧7态/10态名称之间机械二选一，先提供对象状态候选。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-CM"
+      ],
+      "batch": "B01",
+      "options": "主状态+业务阶段；统一状态表配独立申请；保留客户术语并定义映射",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-03",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "实际岗位怎样授权？夜班全区CALL具体名单、跨区操作和特殊开票由谁负责？",
+      "reason": "CR按区域和指定夜班例外已有明确记录，只确认名单及未定动作权限。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B01",
+      "options": "独立角色；既有角色附授权岗位；明确白名单范围例外",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-04",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "谁在何处确认本单材料已备齐，让EC可以安排施工？",
+      "reason": "10/14用户倾向仓管仅出库、在出库环节确认备齐，并明确需客户核实；不是已定职责。MR申请完成与备齐已分清，技术字段/回写由团队核对。",
+      "flowIds": [
+        "FLOW-MR",
+        "FLOW-P"
+      ],
+      "batch": "B02",
+      "options": "出库环节由仓管确认；或客户说明实际确认岗位/单据。均未选择，不默认出库完成即备齐",
+      "blocking": "Y（材料备齐→施工定稿/验收）；不阻止独立内部准备",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CE3522C7AE",
+        "FILE-CB03BF52BA",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-05",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "CM与原PM/其他任务冲突时谁协调、是否可拒绝、如何改期？",
+      "reason": "人员资源/客户约定是业务政策，现Decision明示待定",
+      "flowIds": [
+        "FLOW-CM",
+        "FLOW-M"
+      ],
+      "batch": "B06",
+      "options": "人工协调重排；审批抢占；按指定条件可拒绝/保留原任务",
+      "blocking": "Y",
+      "decisionId": "PENDING-002",
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-06",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "现场款如何登记、交款、对账，及现场报价授权？",
+      "reason": "金额收取与交款责任不能靠工程完工自动推断",
+      "flowIds": [
+        "FLOW-INSTANT",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B06",
+      "options": "师傅登记后会计确认；CS/报价登记；指定负责人核对款证",
+      "blocking": "Y",
+      "decisionId": "PENDING-001",
+      "sourceFileIds": [
+        "FILE-618C5F54C7",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-07",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "后续施工恢复原CALL还是建新CALL，关联/编号如何体现？",
+      "reason": "一次现场与二次服务关系影响历史和计价，(2)后缀未获确认",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "batch": "B02",
+      "options": "同CALL新增服务任务；子CALL带明确父对象；独立施工对象关联原来源",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-08",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "出发前服务单准备/交付/打印岗位及缺签、不可拍、保固补证细则是什么？",
+      "reason": "用户已说明成交维修需CP、保养/CALL上门用SR；维修CP先交主管，由主管确认完工更新状态，其他角色查看，财务独立。这三个子项不再问用户或客户。原出发前CR/主管交付候选、打印岗位及补证细则仍待客户。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B02",
+      "options": "按已说明的阶段和职责准备两种资料链；客户仅核真正未决打印/交付及补证细则，不重复选择已回答的基本分流/确认职责",
+      "blocking": "Y（打印/领单及资料交接定稿）；不阻止独立内部核对",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CE3522C7AE",
+        "FILE-0D53775B2F",
+        "FILE-C9B9E78D77",
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-09",
+      "priority": "P0",
+      "status": "PENDING",
+      "title": "单据编号的完整格式、前缀和关联是什么？请给实际样张。",
+      "reason": "用户暂选SR七位数字/新单加1，并要求具体下次客户核实；候选非正式批准，不再向用户追问同项。起点/纸单号段、重印/失败/作废及公司号段需实际规则。其他单据格式仍待核。",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B01",
+      "options": "暂拟七位新单加1；客户确认正式规则、起点/旧号段衔接与重印/作废。旧号/前导零保留，不默认从1或CALL号起",
+      "blocking": "Y（正式发号/打印定稿）；不阻止回录兼容及独立内部准备",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CE3522C7AE",
+        "FILE-C9B9E78D77",
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-10",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "具体保养合同周期、首期/尾期/改期与私人续保提醒比例，政府怎么提醒？",
+      "reason": "1/2、1/3没有明确哪个合同用哪个，政府仅说不同；月步长/起始首期也未确认",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "batch": "B03",
+      "options": "合同逐项周期；私人按指定比例/日期；政府按指定规则/人工续保",
+      "blocking": "Y（纳入该业务时）",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-11",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "师傅是否允许无CALL独立新增SR？报告与任务的关联和已交修改规则是什么？",
+      "reason": "独立SR原文是问题；多报告作为商务来源不等于任意数据模型已批准。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-MAINT-ISSUE"
+      ],
+      "batch": "B02",
+      "options": "只对已有任务新增报告；允许独立SR并人工关联；授权特定人员独立建",
+      "blocking": "Y（报告对象关系）；独立无CALL入口可后置",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-12",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "照片9/10张上限、原件/电子件保留期、归档调阅权限？",
+      "reason": "客户资料容量/保密/长期凭证要求需要业务责任确认；压缩实现由团队选择",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-M"
+      ],
+      "batch": "B02",
+      "options": "客户纸样上限；按类型区分；确认业务保留/访问，技术方案另评估",
+      "blocking": "Y（必需资料和上限）；存储实现POC后置",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-13",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "取消/退回/已完工重交/重开/成交变更对MR、合同计划与发票有什么授权和影响？",
+      "reason": "会改变合同履约和账务，团队不能默认撤销或重开",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-MR",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B06",
+      "options": "更正历史保留不改终态；重新审核明确版本；授权重开/撤回并定义关联处理",
+      "blocking": "Y",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-14",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "折扣按金额还是百分比？M+P金额及部分收款、冲销怎样分配？",
+      "reason": "不再问是否需要discount/总价/低额原因，这些诉求已明确。",
+      "flowIds": [
+        "FLOW-P",
+        "FLOW-FINANCE"
+      ],
+      "batch": "B05",
+      "options": "总额折扣或行折扣；仅总价；客户指定分摊；按发票核销或指定款项分配",
+      "blocking": "Y（相关出口）",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-833C198165",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-15",
+      "priority": "P0",
+      "status": "OPEN",
+      "title": "报告、报价、回标怎样交付和留回执？标书日期/时间字段映射怎样确认？",
+      "reason": "显示期限默认17:00、取消邀请结果已明确；真实发送与投标责任、日期命名需核对。",
+      "flowIds": [
+        "FLOW-TENDER",
+        "FLOW-P"
+      ],
+      "batch": "B02",
+      "options": "本期只内部提醒且外部人工；授权Email/WhatsApp；明确应标方式与回执",
+      "blocking": "Y（关键交接责任）；真实接口可后置",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    },
+    {
+      "id": "C-16",
+      "priority": "P2",
+      "status": "OPEN",
+      "title": "借用系统和升降机申请是否另立后续需求？",
+      "reason": "只有一行线索，本期不默认扩展；不阻塞现有业务链准备。",
+      "flowIds": [
+        "FLOW-MAIN"
+      ],
+      "batch": "B06",
+      "options": "后续另立需求；明确不纳入本期；客户提供用途后再评审",
+      "blocking": "N，保持本期待确认范围外",
+      "decisionId": null,
+      "sourceFileIds": [
+        "FILE-CAE118EF83",
+        "FILE-93BDAE96A2"
+      ],
+      "knowledgeFileIds": [
+        "FILE-FF2EB9320E"
+      ],
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+    }
+  ],
+  "scanBoundary": {
+    "included": "项目根目录中的业务、交付、治理、原型、知识库和 Project Hub 文件。",
+    "excluded": [
+      ".git/ 内部对象",
+      ".tools/",
+      ".uv-cache/",
+      ".uv-tools/",
+      ".agents/",
+      ".codex/",
+      ".DS_Store"
+    ],
+    "reason": "排除版本库内部对象、依赖/运行缓存、Agent 技能与构建中间产物；这些不是项目事实或客户交付文件。"
+  },
+  "knowledgeCompleteness": {
+    "indexedFiles": 786,
+    "sourceFiles": 120,
+    "facts": 84,
+    "sourceAliasMappings": 28,
+    "currentKnowledgeFiles": 9,
+    "decisions": 17,
+    "openQuestions": 16,
+    "pendingQuestions": 5,
+    "questionConflicts": 0,
+    "conflicts": 6,
+    "flows": 9,
+    "requirements": 119,
+    "pages": 17,
+    "explicitTraceEdges": 748,
+    "unlinkedRequirements": 50,
+    "missingDirectSourceRequirements": 0,
+    "indexedFilesWithTrace": 25,
+    "prdFilesLinkedToCurrentFlows": 1,
+    "prototypePagesLinkedToPrd": 16,
+    "prototypeRegressionPassed": 7,
+    "prototypeRegressionTotal": 7,
+    "fullNineHopChains": 0,
+    "strictChainCompletenessPercent": 0,
+    "sourceToPrototypeChains": 30,
+    "sourceToPrototypeCoveragePercent": 25,
+    "sourceCoveragePercent": 100,
+    "decisionSourceCoveragePercent": 100
+  },
+  "delivery": [
+    {
+      "kind": "PRD",
+      "status": "DRAFT",
+      "fileIds": [
+        "FILE-63A5629A35",
+        "FILE-DA0F0DF5B6",
+        "FILE-863211E410",
+        "FILE-471038F751"
+      ],
+      "count": 4,
+      "completion": 20,
+      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+    },
+    {
+      "kind": "Prototype",
+      "status": "PARTIAL",
+      "fileIds": [
+        "FILE-D50419124F"
+      ],
+      "count": 1,
+      "completion": 35,
+      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+    },
+    {
+      "kind": "SDD",
+      "status": "DRAFT",
+      "fileIds": [
+        "FILE-AB9B857397",
+        "FILE-90C92DB2E5",
+        "FILE-BC39133650"
+      ],
+      "count": 3,
+      "completion": 20,
+      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+    },
+    {
+      "kind": "TDD",
+      "status": "DRAFT",
+      "fileIds": [
+        "FILE-FC5C709B00"
+      ],
+      "count": 1,
+      "completion": 20,
+      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+    },
+    {
+      "kind": "Testing",
+      "status": "DRAFT",
+      "fileIds": [
+        "FILE-2200950772"
+      ],
+      "count": 1,
+      "completion": 0,
+      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
+    }
+  ],
+  "gate": "7组已整改局部流程已整理供用户内部审查，意见尚未取得。继续修SF-06：无物料已成交报价列表/交付显示一致，002只读复测，003待备货保持。已继续核打印数据来源/现场空白区；材料回写/打印领单/整链仍未通过，0批冻结，暂不客户定稿。",
+  "nextActions": [
+    "师傅公司领单再现场已说明；CR/主管交付候选C-08待用户后续客户核实，不重复追问同项",
+    "纸单准备/现场填写/回交三环节已对照，继续入口/权限与已有独立任务；本轮原型不改",
+    "C-04材料归口、C-08交付岗位、C-09七位+1细则待客户；发号/打印/OCR及维修003下游未通过",
+    "内部方案可演示后集中客户评审，客户决定后补交互、验收并冻结"
+  ],
+  "knowledgeUpstream": {
+    "builder": "project-hub/scripts/build-v2.js",
+    "currentKnowledge": [
+      {
+        "role": "KNOWLEDGE_GOVERNANCE",
+        "projectPath": "docs/knowledge/README.md",
+        "fileId": "FILE-40D54A8C7F",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "SOURCE_INDEX",
+        "projectPath": "docs/knowledge/01-source/SOURCE-INDEX.md",
+        "fileId": "FILE-8A886D3BAD",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "DECISION_INDEX",
+        "projectPath": "docs/knowledge/02-decisions/DECISION-INDEX.md",
+        "fileId": "FILE-60ED96DE1C",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "CURRENT_BUSINESS_BASELINE",
+        "projectPath": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
+        "fileId": "FILE-6366380F13",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "BUSINESS_FLOW_DATA",
+        "projectPath": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
+        "fileId": "FILE-6DF78BBE11",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "REQUIREMENT_INDEX",
+        "projectPath": "docs/knowledge/04-requirements/REQUIREMENT-INDEX.md",
+        "fileId": "FILE-EAAC161667",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "OPEN_QUESTION_INDEX",
+        "projectPath": "docs/knowledge/05-pending/OPEN-QUESTIONS.md",
+        "fileId": "FILE-FF2EB9320E",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "role": "LATEST_REQUIREMENT_RECORDS",
+        "projectPath": "docs/knowledge/03-business/LATEST-REQUIREMENTS-20261012.md",
+        "fileId": "FILE-2C429173CC",
+        "tier": "CURRENT",
+        "status": "READY"
+      },
+      {
+        "projectPath": "docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md",
+        "fileId": "FILE-CE3522C7AE",
+        "tier": "CURRENT",
+        "status": "READY"
+      }
+    ],
+    "sourceMappings": 28
+  },
+  "preparation": {
+    "reviewedAt": "2026-10-12",
+    "version": "PREP-20261012-v1",
+    "latestRequests": 39,
+    "oldRequirementCount": 80,
+    "clientQuestions": 16,
+    "draftUatCount": 16,
+    "mainPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx",
+    "clientPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统客户范围与关键问题确认表-v1.xlsx",
+    "reviewPath": "docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md",
+    "progressSource": "仅README指定Excel维护任务进度；本页统计为知识主题关联。",
+    "prototypeCurrentVerified": false,
+    "scopeApproval": "本期范围待客户确认"
+  },
+  "legacyQuestions": [
     {
       "id": "Q-20260927-001",
       "priority": "P0",
@@ -641,164 +1204,21 @@
       "provenance": "历史知识库问题，由当前 Open Questions 索引保留状态。"
     }
   ],
-  "scanBoundary": {
-    "included": "项目根目录中的业务、交付、治理、原型、知识库和 Project Hub 文件。",
-    "excluded": [
-      ".git/ 内部对象",
-      ".tools/",
-      ".uv-cache/",
-      ".uv-tools/",
-      ".agents/",
-      ".codex/",
-      ".DS_Store"
-    ],
-    "reason": "排除版本库内部对象、依赖/运行缓存、Agent 技能与构建中间产物；这些不是项目事实或客户交付文件。"
-  },
-  "knowledgeCompleteness": {
-    "indexedFiles": 490,
-    "sourceFiles": 118,
-    "facts": 45,
-    "sourceAliasMappings": 13,
-    "currentKnowledgeFiles": 7,
-    "decisions": 17,
-    "openQuestions": 21,
-    "pendingQuestions": 2,
-    "questionConflicts": 3,
-    "conflicts": 6,
-    "flows": 7,
-    "requirements": 80,
-    "pages": 17,
-    "explicitTraceEdges": 517,
-    "unlinkedRequirements": 50,
-    "missingDirectSourceRequirements": 0,
-    "indexedFilesWithTrace": 20,
-    "prdFilesLinkedToCurrentFlows": 1,
-    "prototypePagesLinkedToPrd": 16,
-    "prototypeRegressionPassed": 7,
-    "prototypeRegressionTotal": 7,
-    "fullNineHopChains": 0,
-    "strictChainCompletenessPercent": 0,
-    "sourceToPrototypeChains": 30,
-    "sourceToPrototypeCoveragePercent": 38,
-    "sourceCoveragePercent": 100,
-    "decisionSourceCoveragePercent": 100
-  },
-  "delivery": [
-    {
-      "kind": "PRD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-63A5629A35",
-        "FILE-DA0F0DF5B6",
-        "FILE-863211E410",
-        "FILE-471038F751"
-      ],
-      "count": 4,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "Prototype",
-      "status": "PARTIAL",
-      "fileIds": [
-        "FILE-D50419124F"
-      ],
-      "count": 1,
-      "completion": 35,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "SDD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-AB9B857397",
-        "FILE-90C92DB2E5",
-        "FILE-BC39133650"
-      ],
-      "count": 3,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "TDD",
-      "status": "DRAFT",
-      "fileIds": [
-        "FILE-FC5C709B00"
-      ],
-      "count": 1,
-      "completion": 20,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    },
-    {
-      "kind": "Testing",
-      "status": "MISSING",
-      "fileIds": [],
-      "count": 0,
-      "completion": 0,
-      "note": "完成度为知识库核验程度，不是项目交付验收百分比。"
-    }
-  ],
-  "gate": "客户确认、原型人工验收与正式 Test/UAT 均未完成；自动回归 7/7 通过，当前处于评审阶段。",
-  "nextActions": [
-    "确认现场收款交接与对账",
-    "确认 CM 与 PM 时间冲突",
-    "人工验收原型整改结果",
-    "冻结一期功能范围与 80 项需求状态",
-    "建立正式 Test/UAT 用例"
-  ],
-  "knowledgeUpstream": {
-    "builder": "project-hub/scripts/build-v2.js",
-    "currentKnowledge": [
-      {
-        "role": "KNOWLEDGE_GOVERNANCE",
-        "projectPath": "docs/knowledge/README.md",
-        "fileId": "FILE-40D54A8C7F",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "SOURCE_INDEX",
-        "projectPath": "docs/knowledge/01-source/SOURCE-INDEX.md",
-        "fileId": "FILE-8A886D3BAD",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "DECISION_INDEX",
-        "projectPath": "docs/knowledge/02-decisions/DECISION-INDEX.md",
-        "fileId": "FILE-60ED96DE1C",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "CURRENT_BUSINESS_BASELINE",
-        "projectPath": "docs/knowledge/03-business/EC-REAL-BUSINESS-BASELINE.md",
-        "fileId": "FILE-6366380F13",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "BUSINESS_FLOW_DATA",
-        "projectPath": "docs/knowledge/03-business/PROJECT-HUB-FLOW-DATA.md",
-        "fileId": "FILE-6DF78BBE11",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "REQUIREMENT_INDEX",
-        "projectPath": "docs/knowledge/04-requirements/REQUIREMENT-INDEX.md",
-        "fileId": "FILE-EAAC161667",
-        "tier": "CURRENT",
-        "status": "READY"
-      },
-      {
-        "role": "OPEN_QUESTION_INDEX",
-        "projectPath": "docs/knowledge/05-pending/OPEN-QUESTIONS.md",
-        "fileId": "FILE-FF2EB9320E",
-        "tier": "CURRENT",
-        "status": "READY"
-      }
-    ],
-    "sourceMappings": 13
+  "internalReview": {
+    "date": "2026-10-14",
+    "conclusion": "7组已整改局部流程已整理供用户内部审查，意见尚未取得。继续修SF-06：无物料已成交报价列表/交付显示一致，002只读复测，003待备货保持。已继续核打印数据来源/现场空白区；材料回写/打印领单/整链仍未通过，0批冻结，暂不客户定稿。",
+    "baselinePath": "docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md",
+    "reviewPath": "docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md",
+    "resultPath": "docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md",
+    "candidatePath": "docs/review/2026-10-13-b01-b02-internal/MR-DECISION-CANDIDATE.md",
+    "quotationReviewPath": "docs/review/2026-10-13-b01-b02-internal/QUOTATION-REMEDIATION-RESULT.md",
+    "materialReviewPath": "docs/review/2026-10-14-material-handoff/MATERIAL-HANDOFF-REVIEW.md",
+    "srFinanceReviewPath": "docs/review/2026-10-14-sr-finance/SR-FINANCE-WALKTHROUGH.md",
+    "userReviewPath": "docs/review/2026-10-14-user-review/INTERNAL-REVIEW-CHECKLIST.md",
+    "guidedAudience": "当前请按7组清单内部审查，建议先A5派工备注、A6维修CP；回复对应编号认可/有问题/未看，尚未预填任何意见。原已说明业务不重复提问，内部审查不代签客户UAT。",
+    "guidedKnown": "MR在仓库通、主管在EC查看待安排施工；仓管是否仅负责出库及在出库单确认备齐，当前待客户核实",
+    "guidedSequence": "材料备齐后主管派工，在备注交接时间和事项，通常电话沟通；师傅领材料和对应单据再到现场。维修CP交主管确认更新状态，其他岗位按权限查看，财务独立；打印/交付岗位待客户。",
+    "guidedInternalNext": "本轮审查清单和SF-06只读整改完成；打印已核字段来源/空白区，下一步准备只读样张、校核账号/合同及CP模板；材料003和SF-05继续处理。C-04归口、C-08打印/交付补证、C-09编号细则待客户，不默认新权限或号段。",
+    "note": "本页展示知识和版本验证结论；任务进度只维护README指定Excel。"
   }
 }
