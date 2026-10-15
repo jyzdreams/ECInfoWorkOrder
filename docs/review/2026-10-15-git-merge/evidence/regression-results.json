@@ -1,0 +1,116 @@
+[
+  {
+    "id": "A1-CR-area",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "A2-quote-handoff",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "A3-quote-edit-save-tabs",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "A4-MR-readiness-retry",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      },
+      {
+        "method": "POST",
+        "path": "/api/warehouse-tong/material-requests"
+      }
+    ]
+  },
+  {
+    "id": "A5-mobile-note-search",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "A6-CP-supervisor-independent-finance",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "A7-SR-number-and-retained-fields",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "P1-products-code-and-custom",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "P2-offline-manual-fallback",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "P3-zero-total-and-M-preserved",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  },
+  {
+    "id": "P4-PC-search-preserves-note",
+    "status": "PASS",
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/warehouse-tong/products"
+      }
+    ]
+  }
+]

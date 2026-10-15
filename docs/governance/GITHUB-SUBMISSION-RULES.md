@@ -53,7 +53,7 @@
     └── pages.yml             当前原型静态发布
 ```
 
-Pages的main分支自动触发仅限prototype/index.html、ui-upgrade.css、remediation.js三个静态文件变动；保留手动触发。纯文档、表格或Hub变动不自动发布原型。
+Pages的main分支自动触发仅限prototype/index.html、ui-upgrade.css、remediation.js及报价打印资源logo_ecinfo.svg变动；保留手动触发。纯文档、表格或Hub变动不自动发布原型。2026-10-14本地整合补齐Logo打包路径，本轮未触发发布。
 发布包仍只包含原型静态文件，不把docs、materials、outputs、缓存或Hub整体复制到网站。本地规范检查不是远端Actions运行，也不代表客户定版或业务验收通过。
 
 ## 5. 同事提交前检查

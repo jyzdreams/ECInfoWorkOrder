@@ -8,6 +8,7 @@ on:
       - prototype/index.html
       - prototype/ui-upgrade.css
       - prototype/remediation.js
+      - prototype/logo_ecinfo.svg
   workflow_dispatch:
 
 permissions:
@@ -35,9 +36,11 @@ jobs:
           cp prototype/index.html _site/index.html
           cp prototype/ui-upgrade.css _site/ui-upgrade.css
           cp prototype/remediation.js _site/remediation.js
+          cp prototype/logo_ecinfo.svg _site/logo_ecinfo.svg
           cp prototype/index.html _site/prototype/index.html
           cp prototype/ui-upgrade.css _site/prototype/ui-upgrade.css
           cp prototype/remediation.js _site/prototype/remediation.js
+          cp prototype/logo_ecinfo.svg _site/prototype/logo_ecinfo.svg
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
