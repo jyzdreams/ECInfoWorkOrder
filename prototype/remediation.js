@@ -28,7 +28,12 @@
   const findPlan = id => maintenancePlans.find(p => p.id === id);
   const quoteMr = q => materialRequests.find(m => m.quotationId === q.id);
   const quotePlan = q => maintenancePlans.find(p => p.quotationId === q.id);
-  const quoteForTicket = t => quotations.find(q => q.id === t.quotationId) || quotations.find(q => q.ticketId === t.id && q.status === "已中單");
+  const quoteForTicket = t => {
+    if (!t) return null;
+    return quotations.find(q => q.id === t.quotationId || q.id === t.sourceQuotationId)
+      || quotations.find(q => (q.generatedTicketId === t.id || q.ticketId === t.id || q.sourceTicketId === t.id) && q.status === "已中單")
+      || null;
+  };
   const quoteVersion = q => `R${Number(q.revision || 0)}`;
   const isM = q => q.category === "M" || q.category === "M+P";
   const isP = q => q.category === "P" || q.category === "M+P";
@@ -148,8 +153,8 @@
   // SOURCE-022最新说明按服务阶段分流，不以物料数量或存在报价本身判定。
   resolvePaperTypeByMaterial = function (ticket) {
     return requiresCompletionPaper(ticket)
-      ? {type:"完工單",reason:"報價中單维修交完工紙CP，先交主管核對"}
-      : {type:"服務報告",reason:"保養或CALL上門服務交Service Report"};
+      ? {type:"完工單",reason:"關聯報價已中單，交完工紙CP，先交主管核對"}
+      : {type:"服務報告",reason:"無成交報價，交Service Report"};
   };
 
   function createMr(q, options = {}) {
@@ -208,6 +213,64 @@
     return plan;
   }
 
+  // 主管多期排程確認後，把排程結果寫入／更新整期保養計劃
+  function recordMaintenanceSchedule(ticket, rows, intervalMonths) {
+    const q = findQuote(ticket.quotationId) || (ticket.sourceQuotationId ? findQuote(ticket.sourceQuotationId) : null);
+    const baseId = q ? q.id : ticket.id;
+    const planId = `MP-${baseId}`;
+    let plan = maintenancePlans.find(p => p.id === planId) || (q ? quotePlan(q) : null);
+    const visits = rows.map((r, i) => ({
+      id: `${baseId}-M-${String(i + 1).padStart(2, "0")}`,
+      no: i + 1,
+      dueDate: String(r.dateTime || "").slice(0, 10),
+      dateTime: r.dateTime || "",
+      master: r.master || "",
+      status: i === 0 ? (ticket.status || "待確認") : "待排期",
+      ticketId: i === 0 ? ticket.id : ""
+    }));
+    if (plan) {
+      Object.assign(plan, {
+        quotationId: q ? q.id : plan.quotationId || "",
+        acceptedRevision: ticket.acceptedRevision ?? plan.acceptedRevision,
+        customerId: ticket.customerId || plan.customerId || "",
+        customerName: ticket.customer || plan.customerName || "",
+        area: ticket.area || plan.area || "",
+        serviceEveryMonths: intervalMonths,
+        contractStart: visits[0]?.dueDate || "",
+        contractEnd: visits[visits.length - 1]?.dueDate || "",
+        visits,
+        updatedAt: today()
+      });
+    } else {
+      plan = {
+        id: planId,
+        quotationId: q ? q.id : "",
+        acceptedRevision: ticket.acceptedRevision ?? 0,
+        customerId: ticket.customerId || "",
+        customerName: ticket.customer || "",
+        area: ticket.area || "",
+        serviceEveryMonths: intervalMonths,
+        contractStart: visits[0]?.dueDate || "",
+        contractEnd: visits[visits.length - 1]?.dueDate || "",
+        createdAt: today(),
+        visits,
+        source: "多期排程"
+      };
+      maintenancePlans.unshift(plan);
+    }
+    ticket.maintenancePlanId = plan.id;
+    ticket.maintenanceVisitId = visits[0]?.id || "";
+    if (q) q.maintenancePlanId = plan.id;
+    // 期次 id 回寫到 maintenanceVisits，方便到期建單時同步計劃狀態
+    if (Array.isArray(ticket.maintenanceVisits)) {
+      ticket.maintenanceVisits.forEach((visit, i) => {
+        if (visits[i + 1]) visit.planVisitId = visits[i + 1].id;
+      });
+    }
+    saveDataToLocalStorage();
+    return plan;
+  }
+
   function confirmWon(q, form) {
     if (state.role !== "QUO" && state.role !== "ADMIN") { toast("由報價組確認中單", "error"); return false; }
     if (q.status === "已中單" && q.customerAcceptedAt) { toast("此成交版本已確認，沒有重複生成", "error"); return false; }
@@ -237,10 +300,7 @@
     q.status = "已中單";
     if (materialLines(q).length) createMr(q);
     else q.materialReadiness = "無需物料";
-    if (isM(q)) {
-      const plan = createMaintenancePlan(q);
-      if (plan) q.maintenancePlanId = plan.id;
-    }
+    // 整期保養計劃不再於中單時自動生成；改由主管多期排程確認時記錄
     if (!q.history) q.history = [];
     q.history.push({ action: "客戶接受並中單", time: q.wonAt, actor: currentRole().name,
       changes: `${quoteVersion(q)} · ${q.category} · ${acceptanceNote}` });
@@ -274,6 +334,7 @@
             ${(q.items || []).map((item, i) => `<div class="rem-item"><div class="rem-item-copy"><strong>${safe(item.name || `明細 ${i+1}`)}</strong><span>數量：${safe(item.qty || 1)}${item.unit ? ` · ${safe(item.unit)}` : ""}</span></div><label class="rem-item-select"><span>類型</span><select data-final-item-type="${i}"><option value="">請選擇類型</option><option value="物料" ${item.itemType === "物料" ? "selected" : ""}>物料</option><option value="服務" ${item.itemType === "服務" ? "selected" : ""}>服務／工時</option></select></label></div>`).join("") || '<p class="muted rem-empty-items">此報價無明細，不生成 MR。</p>'}
           </div>
         </section>
+        <div class="rem-won-error" data-rem-won-error style="display:none;color:var(--danger);font-size:12px;margin:8px 0 0;"></div>
         <div class="rem-actions"><button type="submit" class="primary-btn">確認中單</button></div>
       </form></div>`;
     document.body.appendChild(modal);
@@ -281,7 +342,16 @@
     const wonForm = modal.querySelector("form");
     wonForm.addEventListener("submit", event => {
       event.preventDefault();
-      if (confirmWon(q, event.currentTarget)) modal.remove();
+      if (confirmWon(q, event.currentTarget)) {
+        modal.remove();
+        return;
+      }
+      const errorEl = wonForm.querySelector("[data-rem-won-error]");
+      if (errorEl) {
+        const message = document.querySelector("#toast")?.textContent || "未能確認中單，請檢查必填欄位";
+        errorEl.style.display = "block";
+        errorEl.textContent = message;
+      }
     });
     // 原生必填驗證未通過時不會觸發 submit 事件，補上明確提示與聚焦，
     // 否則按下「確認中單」會看似完全無反應（狀態不會有任何變化）
@@ -293,8 +363,17 @@
         const labelText = invalid
           ? (invalid.closest("label")?.querySelector("span")?.textContent || invalid.getAttribute("name") || "")
           : "";
-        toast(labelText ? `請先完成必填欄位：${labelText}` : "請先完成必填欄位", "error");
+        const message = labelText ? `請先完成必填欄位：${labelText}` : "請先完成必填欄位";
+        toast(message, "error");
+        const errorEl = wonForm.querySelector("[data-rem-won-error]");
+        if (errorEl) { errorEl.style.display = "block"; errorEl.textContent = message; }
         if (invalid && typeof invalid.focus === "function") invalid.focus();
+      });
+      // 補齊必填後即時清除行內錯誤
+      wonForm.addEventListener("input", () => {
+        if (!wonForm.checkValidity()) return;
+        const errorEl = wonForm.querySelector("[data-rem-won-error]");
+        if (errorEl) { errorEl.style.display = "none"; errorEl.textContent = ""; }
       });
     }
   };
@@ -353,13 +432,13 @@
 
   window.ecRemediation = { get materialRequests() { return materialRequests; }, get maintenancePlans() { return maintenancePlans; },
     get quoteRequests() { return quoteRequests; }, get warehouseSyncLogs() { return warehouseSyncLogs; },
-    createMr, createMaintenancePlan, findMr, findPlan, warehousePayload, syncMaterialRequestToWarehouseTong };
+    createMr, createMaintenancePlan, recordMaintenanceSchedule, findMr, findPlan, warehousePayload, syncMaterialRequestToWarehouseTong };
 
   /* 报价阶段维护服务周期；Billing Cycle 仍归财务模块，二者互不读取。 */
   const cycleFields = q => `<div class="wo-detail-section" data-maintenance-schedule-fields>
-    <div class="wo-detail-card"><h4>保養排期</h4><div class="wo-detail-grid">
+    <div class="wo-detail-card"><h4>保養合約期／頻次</h4><div class="wo-detail-grid">
       ${renderMaintenanceScheduleInputs(q, "width:100%;height:34px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);")}
-    </div><p class="muted">這是上門保養週期，不是會計帳單週期。</p></div></div>`;
+    </div><p class="muted">這是合約期與保養頻次，不是派工排程；實際師傅與日期由主管安排。</p></div></div>`;
   const originalQuoteEditForm = renderQuotationEditForm;
   renderQuotationEditForm = function (q) {
     const next = Number(q.revision || 0) + 1;
@@ -500,11 +579,11 @@
   }
   function renderMaintenancePage() {
     return `<section class="page active"><div class="pc-container"><div class="pc-header"><h1>整期保養計劃</h1></div>
-      <p class="muted">服務週期取自成交 M 報價，不取自會計 Billing Cycle。每期可獨立排期、提交 SR 並確認。</p>
+      <p class="muted">此頁記錄主管在分派時安排的多期保養排程；到期自動建立 CALL，不再於中單時自動生成。</p>
       ${maintenancePlans.map(plan => `<div class="rem-card"><h3>${safe(plan.id)} · ${safe(plan.customerName)}</h3>
         <p>成交報價 ${safe(plan.quotationId)} R${safe(plan.acceptedRevision)} · 每 ${safe(plan.serviceEveryMonths)} 個月 · ${safe(plan.contractStart)} 至 ${safe(plan.contractEnd)}</p>
-        <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>期次</th><th>計劃到訪</th><th>CALL</th><th>狀態</th><th>操作</th></tr></thead><tbody>
-        ${plan.visits.map(v => { const t = tickets.find(t => t.id === v.ticketId); return `<tr><td>${safe(v.id)}</td><td>${safe(v.dueDate)}</td><td>${safe(v.ticketId || "未建")}</td><td>${safe(t?.status || v.status)}</td><td>${v.ticketId ? `<button class="wo-view-btn" data-rem-call="${safe(v.ticketId)}">查看 CALL</button>` : ["CR", "TL"].includes(state.role) ? `<button class="primary-btn" data-rem-create-visit="${safe(plan.id)}" data-visit="${safe(v.id)}">建立本期 CALL</button>` : "待 CR／主管排期"}</td></tr>`; }).join("")}</tbody></table></div></div>`).join("") || '<div class="rem-card">尚無成交 M 報價的保養計劃。</div>'}
+        <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>期次</th><th>排程時間</th><th>師傅</th><th>CALL</th><th>狀態</th><th>操作</th></tr></thead><tbody>
+        ${plan.visits.map(v => { const t = tickets.find(t => t.id === v.ticketId); return `<tr><td>${safe(v.id)}</td><td>${safe(v.dateTime || v.dueDate || "未排程")}</td><td>${safe(v.master || "-")}</td><td>${safe(v.ticketId || "未建")}</td><td>${safe(t?.status || v.status)}</td><td>${v.ticketId ? `<button class="wo-view-btn" data-rem-call="${safe(v.ticketId)}">查看 CALL</button>` : '<span class="muted">待排程</span>'}</td></tr>`; }).join("")}</tbody></table></div></div>`).join("") || '<div class="rem-card">尚無保養排程記錄。</div>'}
       </div></section>`;
   }
 
@@ -518,6 +597,20 @@
       if (visit && patch.status) {
         visit.status = patch.status;
         if (patch.status === "已完成") { visit.confirmedAt = ticket.confirmedAt; visit.serviceReportNo = ticket.serviceReportNo; }
+        saveDataToLocalStorage();
+      }
+    }
+    // 工單狀態反寫回報價（含完工時間與確認人）
+    if (ticket) {
+      const relatedQuote = quotations.find(q => q.id === ticket.quotationId || q.id === ticket.sourceQuotationId)
+        || quotations.find(q => q.ticketId === ticket.id || q.generatedTicketId === ticket.id || q.sourceTicketId === ticket.id);
+      if (relatedQuote) {
+        relatedQuote.workOrderStatus = ticket.status;
+        if (!relatedQuote.generatedTicketId) relatedQuote.generatedTicketId = ticket.id;
+        if (ticket.status === "已完成") {
+          relatedQuote.workOrderCompletedAt = ticket.confirmedAt || ticket.updatedAt || "";
+          relatedQuote.workOrderCompletedBy = ticket.confirmedBy || "";
+        }
         saveDataToLocalStorage();
       }
     }
