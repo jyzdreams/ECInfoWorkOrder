@@ -441,9 +441,7 @@
     </div><p class="muted">這是合約期與保養頻次，不是派工排程；實際師傅與日期由主管安排。</p></div></div>`;
   const originalQuoteEditForm = renderQuotationEditForm;
   renderQuotationEditForm = function (q) {
-    const next = Number(q.revision || 0) + 1;
-    const hint = `<div class="rem-note">當前 R${Number(q.revision || 0)}；手動保存修訂版將生成 R${next}。一般編輯只有價格變動時自動升版，歷史版保留快照。</div>`;
-    return originalQuoteEditForm(q).replace('<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">', `<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">${hint}${cycleFields(q)}`);
+    return originalQuoteEditForm(q).replace('<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">', `<div class="qm-detail-tab-panel active" role="tabpanel" data-qm-detail-panel="quote">${cycleFields(q)}`);
   };
   function copyCycle(q, form) {
     if (!q || !form.has("serviceEveryMonths")) return;
@@ -454,9 +452,12 @@
   }
   const originalSaveQuote = saveQuotation;
   saveQuotation = function (form, isEdit = false, id = null) {
-    originalSaveQuote(form, isEdit, id);
+    const result = originalSaveQuote(form, isEdit, id);
+    // 原始保存回傳 false 代表未建立（例如報價編號重複），不可再改寫既有報價
+    if (result === false) return false;
     copyCycle(findQuote(id || form.get("id")), form);
     render();
+    return result;
   };
   const originalSaveQuoteEdit = saveQuotationEdit;
   saveQuotationEdit = function (form, id, isRevision) {
@@ -477,9 +478,32 @@
         <div class="wo-detail-item"><span class="wo-detail-label">材料狀態</span><span class="wo-detail-value">${safe(mr.status || "未記錄")}</span></div>
       </div><p class="muted">MR 申請完成與材料備齊分開記錄；材料備齊後再安排施工。</p>
     </div></div>` : "";
+    // 客戶信息：與列印報價上的 To／Site／Attn／Tel／Fax／E-mail／Contract 對齊
+    // 報價編號即客戶 Contract No：舊報價沒有 customerId 時，用報價編號回查客戶檔
+    const quoteNoKey = String(q.id || "").replace(/[\s　]/g, "").toUpperCase();
+    const cust = customers.find(c => c.id === q.customerId)
+      || (quoteNoKey ? customers.find(c => String(c.contractNo || "").replace(/[\s　]/g, "").toUpperCase() === quoteNoKey) : null)
+      || customers.find(c => c.nameZh === q.customerName) || null;
+    const custTicket = tickets.find(t => t.id === q.ticketId || t.id === q.sourceTicketId || t.id === q.generatedTicketId) || null;
+    const custContact = (cust && cust.contacts && cust.contacts[0]) || {};
+    const custAddress = (cust && cust.addresses && cust.addresses[0]) || null;
+    const custSite = (custAddress && custAddress.addressZh)
+      || (cust && cust.buildingAddress)
+      || (custTicket && custTicket.address)
+      || q.area || "";
+    const custItem = (label, value) => `<div class="wo-detail-item"><span class="wo-detail-label">${label}</span><span class="wo-detail-value">${value ? safe(value) : "-"}</span></div>`;
     const customerPanel = `<div class="wo-detail-section"><div class="wo-detail-card"><h4>客戶信息</h4><div class="wo-detail-grid">
-      <div class="wo-detail-item"><span class="wo-detail-label">客戶名稱</span><span class="wo-detail-value">${safe(q.customerName || "未設定")}</span></div>
-      <div class="wo-detail-item"><span class="wo-detail-label">客戶編號</span><span class="wo-detail-value" style="color:var(--primary);font-weight:600;">${safe(q.customerId || "未設定")}</span></div>
+      ${custItem("客戶名稱", (cust && cust.nameZh) || q.customerName || "")}
+      ${custItem("英文名稱", (cust && cust.nameEn) || "")}
+      ${custItem("客戶編號", (cust && cust.id) || q.customerId || "")}
+      ${custItem("Contract No", (cust && cust.contractNo) || "")}
+      ${custItem("合約編號", (cust && cust.contractNumber) || "")}
+      ${custItem("聯絡人", custContact.name || (custTicket && custTicket.contact) || "")}
+      ${custItem("電話", custContact.phone || (custTicket && custTicket.phone) || "")}
+      ${custItem("傳真", custContact.fax || "")}
+      ${custItem("Email", custContact.email || "")}
+      ${custItem("地址", custSite)}
+      ${custItem("區域", (custAddress && custAddress.area) || q.area || "")}
     </div></div></div>`;
     // 上次同步失敗時顯示具體原因，方便手動重試
     const warehouseError = mr && mr.warehouseSync?.errorMessage
