@@ -9096,10 +9096,12 @@
         }
 
         // CP 的適用規則仍待確認，不能阻斷已確認的 SR → CR/TL 確認主鏈。
+        // 無成交報價的服務報告：提交即完成；有成交報價的維修仍交主管核對完工紙
+        const srAutoComplete = !requiresCompletionPaper(t);
 
         // Build updates object with all new fields
         const updates = {
-          status: "待完工確認",
+          status: srAutoComplete ? "已完成" : "待完工確認",
           owner: t.tl,
           serviceReportNo: serviceReportNo,
           arrivalTime: arrivalTime,
@@ -9211,13 +9213,19 @@
           });
           toast(`📱 已離線保存處理記錄（SR: ${serviceReportNo}），待恢復網絡後自動上傳`, "success");
         } else {
-          updateTicket(id, updates, "師傅提交服務報告和現場記錄，待 CR／主管確認完工。");
+          updateTicket(id, updates, srAutoComplete ? "師傅提交服務報告；無成交報價，工單直接完成。" : "師傅提交服務報告和現場記錄，待 CR／主管確認完工。");
         }
 
-        // 提交報告只通知 CR／主管確認；正式完成通知在確認動作後發出。
-        const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === t.area);
-        const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && (u.name === t.tl || u.area === t.area));
-        [areaCr, areaTl].filter(Boolean).forEach(user => createNotification({ module: "ticket", level: "action", title: "服務報告待確認完工", content: id, subContent: `${t.customer} · SR ${serviceReportNo}`, targetPage: "workorder", targetId: id, receiverId: user.id, receiverRole: user.role === "TL" ? "TEAM_LEADER" : "CR" }));
+        if (srAutoComplete) {
+          // 提交即完成：任務頁切到「已完成」，讓師傅看到流轉結果
+          state.mobileTaskStatus = "已完成";
+          users.filter(u => u.role === "CS" && u.status === "啓用").forEach(cs => createNotification({ module: "ticket", level: "info", title: "工單已完成", content: id, subContent: t.customer, targetPage: "workorder", targetId: id, receiverId: cs.id, receiverRole: "CS" }));
+        } else {
+          // 需主管核對完工紙：只通知 CR／主管確認，正式完成通知在確認動作後發出。
+          const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === t.area);
+          const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && (u.name === t.tl || u.area === t.area));
+          [areaCr, areaTl].filter(Boolean).forEach(user => createNotification({ module: "ticket", level: "action", title: "服務報告待確認完工", content: id, subContent: `${t.customer} · SR ${serviceReportNo}`, targetPage: "workorder", targetId: id, receiverId: user.id, receiverRole: user.role === "TL" ? "TEAM_LEADER" : "CR" }));
+        }
 
         // 顯示提交成功頁面，5 秒後自動跳轉到任務版面
         state.srSubmitted = true;
