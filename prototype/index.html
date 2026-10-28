@@ -9096,10 +9096,12 @@
         }
 
         // CP 的適用規則仍待確認，不能阻斷已確認的 SR → CR/TL 確認主鏈。
+        // 無成交報價的服務報告：提交即完成；有成交報價的維修仍交主管核對完工紙
+        const srAutoComplete = !requiresCompletionPaper(t);
 
         // Build updates object with all new fields
         const updates = {
-          status: "待完工確認",
+          status: srAutoComplete ? "已完成" : "待完工確認",
           owner: t.tl,
           serviceReportNo: serviceReportNo,
           arrivalTime: arrivalTime,
@@ -9211,13 +9213,19 @@
           });
           toast(`📱 已離線保存處理記錄（SR: ${serviceReportNo}），待恢復網絡後自動上傳`, "success");
         } else {
-          updateTicket(id, updates, "師傅提交服務報告和現場記錄，待 CR／主管確認完工。");
+          updateTicket(id, updates, srAutoComplete ? "師傅提交服務報告；無成交報價，工單直接完成。" : "師傅提交服務報告和現場記錄，待 CR／主管確認完工。");
         }
 
-        // 提交報告只通知 CR／主管確認；正式完成通知在確認動作後發出。
-        const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === t.area);
-        const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && (u.name === t.tl || u.area === t.area));
-        [areaCr, areaTl].filter(Boolean).forEach(user => createNotification({ module: "ticket", level: "action", title: "服務報告待確認完工", content: id, subContent: `${t.customer} · SR ${serviceReportNo}`, targetPage: "workorder", targetId: id, receiverId: user.id, receiverRole: user.role === "TL" ? "TEAM_LEADER" : "CR" }));
+        if (srAutoComplete) {
+          // 提交即完成：任務頁切到「已完成」，讓師傅看到流轉結果
+          state.mobileTaskStatus = "已完成";
+          users.filter(u => u.role === "CS" && u.status === "啓用").forEach(cs => createNotification({ module: "ticket", level: "info", title: "工單已完成", content: id, subContent: t.customer, targetPage: "workorder", targetId: id, receiverId: cs.id, receiverRole: "CS" }));
+        } else {
+          // 需主管核對完工紙：只通知 CR／主管確認，正式完成通知在確認動作後發出。
+          const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === t.area);
+          const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && (u.name === t.tl || u.area === t.area));
+          [areaCr, areaTl].filter(Boolean).forEach(user => createNotification({ module: "ticket", level: "action", title: "服務報告待確認完工", content: id, subContent: `${t.customer} · SR ${serviceReportNo}`, targetPage: "workorder", targetId: id, receiverId: user.id, receiverRole: user.role === "TL" ? "TEAM_LEADER" : "CR" }));
+        }
 
         // 顯示提交成功頁面，5 秒後自動跳轉到任務版面
         state.srSubmitted = true;
@@ -9723,7 +9731,7 @@
     function renderList() {
       const ownerOptions = [...new Set(tickets.flatMap(t => [t.owner, t.master]).filter(Boolean))];
       const masterOptions = [...new Set(tickets.map(t => t.master).filter(Boolean))];
-      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: govCustomerSub(c) }));
+      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: customerSub(c) }));
 
       // 視圖模式快速篩選（#33 區域主管視圖）
       const unfinishedStatuses = ["待分派", "待處理", "處理中", "需跟進"];
@@ -10050,7 +10058,7 @@
           <tbody>${filtered.length ? paginated.map(t => {
             // 政府客戶名稱可重複，帶出對應客戶的合約編號作副標題以區分
             const cust = customers.find(c => c.id === t.customerId) || customers.find(c => c.nameZh === t.customer);
-            const custSub = govCustomerSub(cust);
+            const custSub = customerSub(cust);
             return `
             <tr>
               <td><button class="wo-id-link" data-wo-view="${escapeHtml(t.id)}">${escapeHtml(t.id)}</button></td>
@@ -10391,7 +10399,7 @@
               return `
               <tr>
                 <td><button class="wo-id-link" data-cust-view="${c.id}">${escapeHtml(c.id)}</button></td>
-                <td><div class="wo-customer-name">${escapeHtml(c.nameZh)}${c.nameEn ? ` <span style="color:var(--muted);font-size:12px;">${escapeHtml(c.nameEn)}</span>` : ''}</div>${govCustomerSub(c) ? `<div style="color:var(--muted);font-size:12px;margin-top:2px;">${escapeHtml(govCustomerSub(c))}</div>` : ''}</td>
+                <td><div class="wo-customer-name">${escapeHtml(c.nameZh)}${c.nameEn ? ` <span style="color:var(--muted);font-size:12px;">${escapeHtml(c.nameEn)}</span>` : ''}</div>${customerSub(c) ? `<div style="color:var(--muted);font-size:12px;margin-top:2px;">${escapeHtml(customerSub(c))}</div>` : ''}</td>
                 <td>${escapeHtml(c.type)}</td>
                 <td>${escapeHtml(customerArea)}</td>
                 <td>${escapeHtml(c.level)}</td>
@@ -10576,8 +10584,8 @@
                         <option value="">請先選擇客戶類型</option>
                         ${isEdit && ticket.customerId ? (() => {
                           const c = customers.find(c => c.id === ticket.customerId);
-                          return c ? `<option value="${c.id}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""} selected>${c.nameZh} (${c.nameEn})</option>` : '';
-                        })() : (!isEdit && presetCustomer ? `<option value="${presetCustomer.id}"${govCustomerSub(presetCustomer) ? ` data-sub="${escapeHtml(govCustomerSub(presetCustomer))}"` : ""} selected>${escapeHtml(presetCustomer.nameZh)} (${escapeHtml(presetCustomer.nameEn)})</option>` : '')}
+                          return c ? `<option value="${c.id}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""} selected>${c.nameZh} (${c.nameEn})</option>` : '';
+                        })() : (!isEdit && presetCustomer ? `<option value="${presetCustomer.id}"${customerSub(presetCustomer) ? ` data-sub="${escapeHtml(customerSub(presetCustomer))}"` : ""} selected>${escapeHtml(presetCustomer.nameZh)} (${escapeHtml(presetCustomer.nameEn)})</option>` : '')}
                       </select>
                     </div>
                     <div class="qf-field">
@@ -11151,7 +11159,7 @@
         return;
       }
       const filtered = customers.filter(c => c.type === type);
-      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${c.nameZh} (${c.nameEn})</option>`).join("");
+      select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => `<option value="${c.id}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""}>${c.nameZh} (${c.nameEn})</option>`).join("");
       refreshSearchableSelect(select);
     }
 
@@ -11167,7 +11175,7 @@
       const filtered = customers.filter(c => c.type === type);
       // 政府客戶在選項副標題顯示合約編號，方便區分同名客戶
       select.innerHTML = '<option value="">請選擇客戶</option>' + filtered.map(c => {
-        const sub = govCustomerSub(c);
+        const sub = customerSub(c);
         return `<option value="${c.id}"${sub ? ` data-sub="${escapeHtml(sub)}"` : ""} ${preselectedCustomerId === c.id ? 'selected' : ''}>${c.nameZh} (${c.nameEn})</option>`;
       }).join("");
       refreshSearchableSelect(select);
@@ -13925,6 +13933,7 @@
                   <th>客戶編號</th>
                   <th>客戶名稱</th>
                   <th>類型</th>
+                  <th>Contract No</th>
                   <th>合約編號</th>
                   <th>等級</th>
                   <th>狀態</th>
@@ -13942,6 +13951,7 @@
                       ${c.nameEn ? `<div class="cm-table-sub">${escapeHtml(c.nameEn)}</div>` : ""}
                     </td>
                     <td><span class="tag">${escapeHtml(c.type)}</span></td>
+                    <td>${c.contractNo ? escapeHtml(c.contractNo) : '<span class="cm-table-sub">—</span>'}</td>
                     <td>${c.type === "政府" && c.contractNumber ? escapeHtml(c.contractNumber) : '<span class="cm-table-sub">—</span>'}</td>
                     <td><span class="tag customer-level-${c.level}">${escapeHtml(c.level)}</span></td>
                     <td><span class="tag user-status-${c.status}">${escapeHtml(c.status)}</span></td>
@@ -13960,7 +13970,7 @@
                   </tr>
                 `).join("") : `
                   <tr>
-                    <td colspan="9" style="text-align:center;padding:40px;color:var(--muted);">暫無符合條件的客戶</td>
+                    <td colspan="10" style="text-align:center;padding:40px;color:var(--muted);">暫無符合條件的客戶</td>
                   </tr>
                 `}
               </tbody>
@@ -14029,6 +14039,7 @@
               ${infoRow("客戶編號", customer.id)}
               ${infoRow("Peachtree ID", customer.peachtreeId ? `<span class="chip" style="background:#dcfce7;color:#166534;">${customer.peachtreeId}</span>` : '<span class="tag warning">未對應</span>')}
               ${infoRow("客戶類型", customer.type)}
+              ${infoRow("Contract No", customer.contractNo || "-")}
               ${customer.type === "政府" ? infoRow("合約編號", customer.contractNumber || "-") : ""}
               ${customer.type === "政府" ? infoRow("J Number", customer.jNumber || "-") : ""}
               ${customer.type === "政府" ? infoRow("工單前綴", customer.governmentPrefix || "-") : ""}
@@ -14166,6 +14177,8 @@
             c.nameZh,
             c.nameEn,
             c.id,
+            c.contractNo,
+            c.contractNumber,
             c.contacts[0]?.name,
             c.contacts[0]?.phone,
             c.addresses[0]?.addressZh,
@@ -14197,7 +14210,8 @@
 
     // 開啟「新增客戶」彈窗；onCreated 為選填回調，客戶建立成功後回傳新客戶物件（供報價表單回填）
     // compact=true 為精簡模式：只保留報價場景必要欄位，並以小對話框疊在上層彈窗之上
-    function openCreateCustomer(onCreated = null, compact = false) {
+    // prefillName：報價時輸入的新客戶名稱，帶入表單讓使用者補齊 Contract No
+    function openCreateCustomer(onCreated = null, compact = false, prefillName = "") {
       // 企業級 SaaS 卡片式佈局：分區卡片 + 兩欄 Grid + Sticky Footer
       const modal = document.createElement("div");
       modal.className = compact ? "qf-overlay qf-overlay-stacked" : "qf-overlay";
@@ -14218,7 +14232,7 @@
                 <div class="qf-grid">
                   <div class="qf-field">
                     <label class="qf-label">客戶名稱（中文）<span class="req">*</span></label>
-                    <input class="qf-input" name="nameZh" required autocomplete="off" placeholder="請輸入中文名稱">
+                    <input class="qf-input" name="nameZh" required autocomplete="off" value="${escapeHtml(prefillName || "")}" placeholder="請輸入中文名稱">
                     <div id="custNameSuggest" class="hidden" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;"></div>
                     <div class="qf-hint">輸入關鍵詞時，下方會推薦既有客戶（點擊即填入）；若為新客戶，直接輸入名稱即可</div>
                   </div>
@@ -14233,6 +14247,18 @@
                       <option value="政府">政府</option>
                       <option value="私人">私人</option>
                     </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">區域</label>
+                    <select class="qf-select" name="area">
+                      <option value="">請選擇區域</option>
+                      ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">Contract No<span class="req">*</span></label>
+                    <input class="qf-input" name="contractNo" required autocomplete="off" placeholder="如：6M2511596">
+                    <div class="qf-hint">報價編號格式：區域＋類別＋年月＋3位序號（如 6M2511596）；不可與其他客戶相同（客戶名稱可重複）</div>
                   </div>
                   ${compact ? "" : `
                   <div class="qf-field">
@@ -14309,23 +14335,14 @@
               </div>
 
               <!-- 卡片 3：地址與其他 -->
+              ${compact ? "" : `
               <div class="qf-card">
-                <div class="qf-card-title">${compact ? "區域" : "地址與其他"}<span class="qf-card-sub">${compact ? "報價歸屬區域" : "地址及拍照設定"}</span></div>
+                <div class="qf-card-title">地址與其他<span class="qf-card-sub">地址及拍照設定</span></div>
                 <div class="qf-grid">
-                  ${compact ? "" : `
                   <div class="qf-field">
                     <label class="qf-label">樓宇地址 Building Address<span class="req">*</span></label>
                     <input class="qf-input" name="buildingAddress" required placeholder="用於單據追溯的樓宇地址">
                   </div>
-                  `}
-                  <div class="qf-field">
-                    <label class="qf-label">區域</label>
-                    <select class="qf-select" name="area">
-                      <option value="">請選擇區域</option>
-                      ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}">${r.name}</option>`).join("")}
-                    </select>
-                  </div>
-                  ${compact ? "" : `
                   <div class="qf-field">
                     <label class="qf-label">中文地址</label>
                     <input class="qf-input" name="addressZh" placeholder="請輸入中文地址">
@@ -14345,9 +14362,9 @@
                     <label class="qf-label">不可拍照原因</label>
                     <input class="qf-input" name="noPhotoReason" placeholder="如適用">
                   </div>
-                  `}
                 </div>
               </div>
+              `}
             </div>
             <div class="qf-footer">
               <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
@@ -14396,6 +14413,11 @@
                       <option value="政府" ${customer.type === "政府" ? "selected" : ""}>政府</option>
                       <option value="私人" ${customer.type === "私人" ? "selected" : ""}>私人</option>
                     </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">Contract No<span class="req">*</span></label>
+                    <input class="qf-input" name="contractNo" required autocomplete="off" value="${escapeHtml(customer.contractNo || "")}" placeholder="如：6M2511596">
+                    <div class="qf-hint">報價編號格式：區域＋類別＋年月＋3位序號（如 6M2511596）；不可與其他客戶相同（客戶名稱可重複）</div>
                   </div>
                   <div class="qf-field">
                     <label class="qf-label">Peachtree Customer ID</label>
@@ -14512,70 +14534,39 @@
       bindCustomerModalEvents(modal);
     }
 
-    // 政府客戶下拉副標題：顯示合約編號，用於區分同名的政府客戶
-    function govCustomerSub(customer) {
-      if (!customer || customer.type !== "政府") return "";
-      return customer.contractNumber ? `合約編號 ${customer.contractNumber}` : "未填合約編號";
+    // 客戶下拉副標題：顯示 Contract No，客戶名稱允許重複時用它區分
+    function customerSub(customer) {
+      if (!customer) return "";
+      const contractNo = String(customer.contractNo || "").trim();
+      if (contractNo) return `Contract No ${contractNo}`;
+      // 舊資料（政府客戶）只有合約編號，沿用舊副標題
+      return customer.type === "政府" && customer.contractNumber ? `合約編號 ${customer.contractNumber}` : "";
     }
 
-    // 客戶名稱正規化：去除空白與常見標點並轉小寫，用於比對「同一名稱的不同寫法」
-    function normalizeCustomerName(name) {
-      return String(name == null ? "" : name)
-        .replace(/[\s\u3000\-_()（）【】\[\]{}.,，。、/\\'"]/g, "")
-        .toLowerCase();
+
+    // Contract No 正規化：去除空白並轉大寫，用於唯一性比對（客戶名稱允許重複）
+    function normalizeContractNo(value) {
+      return String(value == null ? "" : value).replace(/[\s　]/g, "").toUpperCase();
     }
 
-    // 在既有「政府」客戶中尋找與輸入名稱高度相似者（正規化後相同或互相包含）
-    function findSimilarGovernmentCustomer(name) {
-      const norm = normalizeCustomerName(name);
-      if (!norm) return null;
-      return customers.find(c => {
-        if (c.type !== "政府") return false;
-        const other = normalizeCustomerName(c.nameZh);
-        if (!other) return false;
-        return other === norm || other.includes(norm) || norm.includes(other);
-      }) || null;
+    function findCustomerByContractNo(contractNo, excludeId = null) {
+      const key = normalizeContractNo(contractNo);
+      if (!key) return null;
+      return customers.find(c => c.id !== excludeId && normalizeContractNo(c.contractNo) === key) || null;
     }
 
-    // 新增政府客戶前的校驗（僅完整表單模式）：
-    // 1) 同名 + 同合約編號 → 阻止重複錄入（名稱＋合約編號為政府客戶唯一鍵）
-    // 2) 名稱與既有政府客戶高度相似 → 提示改用既有名稱，確保名稱完全一致
+    // 新增客戶校驗：Contract No 必填且不能與其他客戶相同；客戶名稱不做唯一性限制
     // 回傳已建立的客戶；校驗未通過回傳 null，表單保持開啟
-    async function createCustomerWithGuard(formData, modal) {
-      if (formData.get("type") === "政府" && modal.querySelector("#govContractField")) {
-        const nameZh = (formData.get("nameZh") || "").trim();
-        const contractNumber = (formData.get("contractNumber") || "").trim();
-
-        // 1) 同名 + 同合約編號：唯一鍵重複，直接阻止
-        const duplicate = customers.find(c => c.type === "政府"
-          && normalizeCustomerName(c.nameZh) === normalizeCustomerName(nameZh)
-          && (c.contractNumber || "").trim() === contractNumber);
-        if (duplicate) {
-          toast(`已存在相同名稱與合約編號的政府客戶（${duplicate.id}），請勿重複錄入`, "error");
-          return null;
-        }
-
-        // 2) 高度相似名稱：引導使用者改用既有名稱，避免同名不同寫法
-        const similar = findSimilarGovernmentCustomer(nameZh);
-        if (similar && similar.nameZh !== nameZh) {
-          const useExisting = await showConfirmDialog({
-            title: "客戶名稱可能不一致",
-            message: `偵測到相似名稱「${similar.nameZh}」，與你輸入的「${nameZh}」可能為同一政府客戶。是否改用既有名稱以保持一致？（合約編號仍按你輸入的內容保存）`,
-            confirmText: "用既有名稱",
-            cancelText: "保留輸入名稱"
-          });
-          if (useExisting) {
-            formData.set("nameZh", similar.nameZh);
-            formData.set("nameEn", similar.nameEn || formData.get("nameEn") || "");
-            if (similar.governmentPrefix) formData.set("governmentPrefix", similar.governmentPrefix);
-            if (similar.jNumber) formData.set("jNumber", similar.jNumber);
-            // 同步表單顯示，讓使用者看到最終採用的名稱
-            const nameInput = modal.querySelector('[name="nameZh"]');
-            if (nameInput) nameInput.value = similar.nameZh;
-            const nameEnInput = modal.querySelector('[name="nameEn"]');
-            if (nameEnInput) nameEnInput.value = formData.get("nameEn");
-          }
-        }
+    async function createCustomerWithGuard(formData) {
+      const contractNo = String(formData.get("contractNo") || "").trim();
+      if (!contractNo) {
+        toast("請填寫 Contract No", "error");
+        return null;
+      }
+      const duplicate = findCustomerByContractNo(contractNo);
+      if (duplicate) {
+        toast(`Contract No「${contractNo}」已被客戶「${duplicate.nameZh}」（${duplicate.id}）使用，不能重複`, "error");
+        return null;
       }
       return saveCustomer(formData, false);
     }
@@ -14596,6 +14587,8 @@
           customer.accountingContact = formData.get("accountingContact") || customer.accountingContact || "";
           customer.buildingAddress = formData.get("buildingAddress") || customer.buildingAddress || "";
 
+          // Contract No 適用所有客戶類型，作為唯一識別
+          if (formData.has("contractNo")) customer.contractNo = String(formData.get("contractNo") || "").trim();
           // 政府客戶專屬欄位（編輯時可調整合約編號 / J Number / 工單前綴）
           if (customer.type === "政府") {
             if (formData.has("governmentPrefix")) customer.governmentPrefix = formData.get("governmentPrefix") || customer.governmentPrefix || "";
@@ -14648,7 +14641,9 @@
             noPhoto: formData.get("noPhoto") === "true",
             noPhotoReason: formData.get("noPhotoReason") || ""
           }],
-          // 政府客戶專屬欄位：工單前綴 / 合約編號 / J Number（名稱＋合約編號為唯一鍵）
+          // Contract No 適用所有客戶類型；名稱可重複，Contract No 唯一
+          contractNo: String(formData.get("contractNo") || "").trim(),
+          // 政府客戶專屬欄位：工單前綴 / 合約編號 / J Number
           ...(formData.get("type") === "政府" ? {
             governmentPrefix: formData.get("governmentPrefix") || "",
             contractNumber: formData.get("contractNumber") || "",
@@ -14742,7 +14737,7 @@
           e.preventDefault();
           const formData = new FormData(createForm);
           // 政府客戶：先做名稱一致性與「同名 + 同合約編號」重複校驗；未通過則保留表單
-          const created = await createCustomerWithGuard(formData, modal);
+          const created = await createCustomerWithGuard(formData);
           if (!created) return;
           modal.remove();
           // 由其他表單（如報價新增）呼叫時，回傳新客戶以完成回填
@@ -14756,6 +14751,16 @@
           e.preventDefault();
           const formData = new FormData(editForm);
           const customerId = editForm.dataset.customerId;
+          const contractNo = String(formData.get("contractNo") || "").trim();
+          if (!contractNo) {
+            toast("請填寫 Contract No", "error");
+            return;
+          }
+          const duplicate = findCustomerByContractNo(contractNo, customerId);
+          if (duplicate) {
+            toast(`Contract No「${contractNo}」已被客戶「${duplicate.nameZh}」（${duplicate.id}）使用，不能重複`, "error");
+            return;
+          }
           saveCustomer(formData, true, customerId);
           modal.remove();
         });
@@ -14822,7 +14827,7 @@
     function renderQuotationFilters() {
       const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
       const areaOptions = (dictData["區域"] || []).filter(r => isEnabled(r.status));
-      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: govCustomerSub(c) }));
+      const customerOptions = customers.map(c => ({ id: c.id, name: c.nameZh, sub: customerSub(c) }));
 
       return `
         <div class="wo-filters">
@@ -14970,7 +14975,7 @@
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">Our Ref</span>
-                    <span class="wo-detail-value" style="color: var(--primary); font-weight: 600;">${quotation.ourRef || "N/A"}${quotation.revision > 0 ? `R${quotation.revision}` : ""}</span>
+                    <span class="wo-detail-value" style="color: var(--primary); font-weight: 600;">${generateOurRef(quotation.revision)}</span>
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">類別</span>
@@ -15142,6 +15147,10 @@
                     </table>
                   </div>
                   <div class="po-total-bar">
+                    <span>總價（HKD）</span>
+                    <strong style="font-size:15px;">${Number(quotation.amount || 0).toFixed(2)}</strong>
+                    <span>折扣（%）</span>
+                    <strong style="font-size:15px;">${Number(quotation.discount || 0)}</strong>
                     <span>報價總金額</span>
                     <strong><span class="po-currency">HKD</span><span>${(quotation.totalAmount || 0).toFixed(2)}</span></strong>
                   </div>
@@ -15534,7 +15543,7 @@
                     </div>
                     <div class="wo-detail-item">
                       <span class="wo-detail-label">有效期至</span>
-                      <input name="validUntil" type="date" value="${escapeHtml((quotation.validUntil || '').slice(0, 10))}" style="${inputStyle}"><span class="muted">60天／90天；截止日期按確認結果填寫。</span>
+                      <input name="validUntil" type="date" value="${escapeHtml((quotation.validUntil || '').slice(0, 10))}" style="${inputStyle}">
                     </div>
                     <div class="wo-detail-item">
                       <label for="qe-warrantyPeriod" class="wo-detail-label">保固期</label>
@@ -15863,6 +15872,7 @@
       // 升版（手動修訂版 或 價格變動）
       if (willBumpRevision) {
         quotation.revision += 1;
+        quotation.ourRef = generateOurRef(quotation.revision);
       }
 
       // 更新報價各字段（普通編輯與修訂版共用）
@@ -15910,7 +15920,7 @@
 
       saveDataToLocalStorage();
       // 顯示 toast 提示
-      toast(willBumpRevision ? `價格變動，已生成新版本 ${quotation.ourRef}R${quotation.revision}` : "報價信息已更新（未變動價格，版本號不變）");
+      toast(willBumpRevision ? `價格變動，已生成新版本 ${generateOurRef(quotation.revision)}` : "報價信息已更新（未變動價格，版本號不變）");
 
       // 退出編輯模式，關閉側邊欄
       quotationState.editMode = false;
@@ -16050,7 +16060,7 @@
     function quotationVersionSnapshot(quotation, overrides = {}) {
       return {
         id: quotation.id,
-        ourRef: quotation.ourRef || "",
+        ourRef: generateOurRef(quotation.revision),
         rev: Number(quotation.revision || 0),
         title: quotation.title || "",
         ticketId: quotation.ticketId || "",
@@ -16199,7 +16209,7 @@
               <h3>基本信息</h3>
               <div class="quotation-history-detail-grid">
                 <div><span>報價標題</span><strong>${escapeHtml(version.title || "-")}</strong></div>
-                <div><span>Our Ref</span><strong>${escapeHtml(version.ourRef || "-")} ${version.rev ? `R${version.rev}` : ""}</strong></div>
+                <div><span>Our Ref</span><strong>${escapeHtml(generateOurRef(version.rev))}</strong></div>
                 <div><span>報價狀態</span>${statusBadge(version.status || "-")}</div>
                 <div><span>類別</span><strong>${escapeHtml(version.category || "未設定")}</strong></div>
                 <div><span>客戶名稱</span><strong>${escapeHtml(version.customerName || "-")}</strong></div>
@@ -16348,6 +16358,9 @@
       const netTotal = hasStoredTotal
         ? storedNetTotal
         : (baseAmount > 0 ? (discountRate > 0 ? baseAmount * (1 - discountRate / 100) : baseAmount) : itemsSubtotal);
+      // 總價（折扣前）與折扣金額，供列印單據顯示
+      const grossTotal = baseAmount > 0 ? baseAmount : netTotal;
+      const discountAmount = Math.max(grossTotal - netTotal, 0);
       // 日期格式化：資料存 YYYY-MM-DD，紙樣統一顯示為 日/月/年
       const fmtDate = value => {
         const matched = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -16415,7 +16428,7 @@
           <div class="meta-col">
             <div class="meta-row"><span class="k">Date</span><span>: ${escapeHtml(fmtDate(quotation.createdAt))}</span></div>
             <div class="meta-row"><span class="k">EC Ref.</span><span>: ${escapeHtml(quotation.id || "")}</span></div>
-            <div class="meta-row"><span class="k">Our Ref.</span><span>: ${escapeHtml(quotation.ourRef || quotation.id || "")}${quotation.revision > 0 ? `R${quotation.revision}` : ""}</span></div>
+            <div class="meta-row"><span class="k">Our Ref.</span><span>: ${escapeHtml(generateOurRef(quotation.revision))}</span></div>
             <div class="meta-row"><span class="k">From</span><span>: ${escapeHtml(quotation.owner || "")}</span></div>
             <div class="meta-row"><span class="k">Tel.</span><span>: 2876 2990</span></div>
             <div class="meta-row"><span class="k">Fax</span><span>: 3101 0616</span></div>
@@ -16443,8 +16456,13 @@
             </tr>`).join("") : `<tr><td colspan="6" class="center" style="color:#666;">—</td></tr>`}
           </tbody>
           <tfoot>
-            ${discountRate > 0 ? `<tr class="total-row"><td colspan="5">Discount :</td><td class="num">-${discountRate}%</td></tr>` : ""}
-            <tr class="total-row"><td colspan="5">Total :</td><td class="num">HK$${fmtMoney(netTotal)}</td></tr>
+            <tr class="total-row"><td colspan="6">
+              <div style="display:flex;justify-content:flex-end;align-items:baseline;gap:26px;flex-wrap:wrap;">
+                <span>Subtotal : HK$${fmtMoney(grossTotal)}</span>
+                <span>Discount : ${discountRate > 0 ? `-${discountRate}%${discountAmount > 0 ? ` (HK$${fmtMoney(discountAmount)})` : ""}` : "0%"}</span>
+                <span>Total : HK$${fmtMoney(netTotal)}</span>
+              </div>
+            </td></tr>
           </tfoot>
         </table>
         <div class="terms-title">Terms &amp; Conditions</div>
@@ -16625,7 +16643,7 @@
           const keyword = quotationState.searchKeyword.toLowerCase();
           const searchFields = [
             q.id,
-            q.ourRef,
+            generateOurRef(q.revision),
             q.ticketId,
             q.srNo,
             q.emsdRefNo,
@@ -16664,7 +16682,7 @@
           <form id="createQuotationForm">
             <div class="um-form-grid">
               <div class="field"><label class="required">報價標題</label><input name="title" required placeholder="請輸入報價標題" value="${ticket.customer} - ${ticket.type}"></div>
-              <div class="field"><label>報價編號</label><input name="id" value="選擇類別和區域後自動生成" readonly></div>
+              <div class="field"><label>報價編號</label><input name="id" value="選擇客戶後自動帶入" readonly></div>
               <div class="field"><label class="required">關聯工單</label>
                 <select name="ticketId" required>
                   <option value="${ticket.id}" selected>${ticket.id} - ${ticket.customer}</option>
@@ -16692,7 +16710,7 @@
               </div>
               <div class="field"><label class="required">報價日期</label><input name="createdAt" type="date" value="${new Date().toISOString().slice(0,10)}" required></div>
               <div class="field"><label>回覆截止日期</label><input name="deadline" type="date" value="${new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0,10)}"></div>
-              <div class="field"><label>有效期至</label><input name="validUntil" type="date" value=""><span class="muted">60天／90天；截止日期按確認結果填寫。</span></div>
+              <div class="field"><label>有效期至</label><input name="validUntil" type="date" value=""></div>
               <div class="field"><label>保固期</label><select name="warrantyPeriod">${renderQuotationWarrantyOptions("1年")}</select></div>
               <div class="field"><label>接收來源</label>
                 <select name="source" onchange="if(this.value==='工單'){this.closest('form').querySelector('[name=sourceTicketId]').closest('.field').style.display='';}else{this.closest('form').querySelector('[name=sourceTicketId]').closest('.field').style.display='none';}">
@@ -16728,15 +16746,101 @@
         </div>
       `;
       document.body.appendChild(modal);
+      // 從工單帶出的客戶已有 Contract No 時，開啟即填好報價編號；類別跟隨工單的 Call 類型
+      generateQuotationNo(modal.querySelector("form"));
+      applyQuotationCategory(modal.querySelector("form"), categoryCodeFromCallType(ticket.type));
       bindQuotationModalEvents(modal);
     }
 
-    // 生成報價編號：區域編號 + 類別代碼 + 年份後2位 + 5位序號（從字典管理讀取區域編號）
+    // 生成報價編號：優先使用客戶 Contract No（即報價編號），舊客戶未設定時才按區域＋類別＋序號生成
+    // 從 Call 類型反查報價類別代碼（Call類型與報價類別共用同一套字典）
+    function categoryCodeFromCallType(type) {
+      const value = String(type || "").replace(/＋/g, "+").trim();
+      if (!value) return "";
+      const items = dictData["Call類型"] || dictData["報價類別"] || [];
+      const item = items.find(d => d.code === value || d.name === value);
+      if (item) return item.code;
+      if (/M\s*\+\s*P/i.test(value) || (value.includes("保養") && value.includes("工程"))) return "M+P";
+      if (value.includes("保養")) return "M";
+      if (value.includes("工程") || value.includes("維修")) return "P";
+      if (/^M/i.test(value)) return "M";
+      if (/^P/i.test(value)) return "P";
+      return "";
+    }
+
+    // 從客戶 Contract No 反查類別：格式為 區域＋類別＋年月＋3位序號（如 6M2511596）
+    function categoryCodeFromContractNo(contractNo) {
+      const value = String(contractNo || "").replace(/[\s　]/g, "").toUpperCase();
+      if (value.length < 8 || !/^\d{7}$/.test(value.slice(-7))) return "";
+      const head = value.slice(0, -7);
+      if (head.endsWith("MP")) return "M+P";
+      if (head.endsWith("M")) return "M";
+      if (head.endsWith("P")) return "P";
+      return "";
+    }
+
+    // 把類別寫回表單下拉（自訂下拉框需同步顯示文本）
+    function applyQuotationCategory(form, code) {
+      if (!form || !code) return;
+      const select = form.querySelector('[name="category"]');
+      if (!select) return;
+      select.value = code;
+      syncSearchableSelectDisplay(select);
+      // 程式設定 select.value 不會觸發 change；保養合約期／頻次卡片需手動同步顯示
+      syncMaintenanceScheduleFields(form);
+    }
+
+    // 報價表單「關聯工單」變更：帶出客戶、區域、S/R、類別與報價編號
+    function onQuotationTicketChange(select) {
+      const form = select.closest("form");
+      const ticket = tickets.find(t => t.id === select.value);
+      if (!form || !ticket) return;
+      const customer = customers.find(c => c.id === ticket.customerId) || null;
+      const customerSelect = form.querySelector('#qf-customerName, select[name="customerName"]');
+      if (customerSelect && customerSelect.options) {
+        // 客戶名稱可重複，必須按工單的客戶 ID 選中對應選項，避免帶錯 Contract No
+        const index = [...customerSelect.options].findIndex(o => o.dataset.id === ticket.customerId);
+        if (index >= 0) {
+          customerSelect.selectedIndex = index;
+          syncSearchableSelectDisplay(customerSelect);
+        } else {
+          customerSelect.value = ticket.customer || "";
+        }
+      } else {
+        const customerField = form.querySelector('[name="customerName"]');
+        if (customerField) customerField.value = ticket.customer || "";
+      }
+      const idField = form.querySelector('[name="customerId"]');
+      if (idField) idField.value = ticket.customerId || "";
+      const areaField = form.querySelector('[name="area"]');
+      if (areaField) {
+        areaField.value = ticket.area || "";
+        syncSearchableSelectDisplay(areaField);
+      }
+      const srField = form.querySelector('[name="srNo"]');
+      if (srField) srField.value = ticket.srNo || "";
+      // 類別優先跟隨被關聯的 Call 類型，其次由客戶 Contract No 推斷
+      applyQuotationCategory(form, categoryCodeFromCallType(ticket.type) || categoryCodeFromContractNo(customer && customer.contractNo));
+      generateQuotationNo(form);
+    }
+
     function generateQuotationNo(form) {
+      // Contract No 即客戶的報價編號：選定客戶後直接帶入，不再按區域／類別自動生成
+      const customerField = form.querySelector('[name="customerName"]');
+      const option = customerField && customerField.selectedOptions ? customerField.selectedOptions[0] : null;
+      const ticket = tickets.find(t => t.id === (form.querySelector('[name="ticketId"]')?.value || ""));
+      const customer = (option && option.dataset && option.dataset.id ? customers.find(c => c.id === option.dataset.id) : null)
+        || (customerField && customerField.value ? customers.find(c => c.nameZh === customerField.value) : null)
+        || (ticket ? customers.find(c => c.id === ticket.customerId) : null);
+      const contractNo = customer ? String(customer.contractNo || "").trim() : "";
+      if (contractNo) {
+        form.querySelector('[name=id]').value = contractNo;
+        return;
+      }
       const area = form.querySelector('[name=area]')?.value || "";
       const category = form.querySelector('[name=category]')?.value || "";
       if (!area || !category) {
-        form.querySelector('[name=id]').value = "選擇類別和區域後自動生成";
+        form.querySelector('[name=id]').value = "選擇客戶後自動帶入";
         return;
       }
       // 從字典管理中讀取區域編號
@@ -16753,6 +16857,13 @@
     function onQuotationCustomerChange(select) {
       const form = select.closest("form");
       if (!form) return;
+      const option = select.selectedOptions && select.selectedOptions[0];
+      const hidden = form.querySelector('[name="customerId"]');
+      if (hidden) hidden.value = (option && option.dataset.id) || "";
+      const customer = (option && option.dataset.id && customers.find(c => c.id === option.dataset.id))
+        || customers.find(c => c.nameZh === select.value);
+      // 類別由客戶 Contract No 帶出（如 6M2511596 → M）
+      if (customer) applyQuotationCategory(form, categoryCodeFromContractNo(customer.contractNo));
       applyCustomerAreaToQuotationForm(select, form);
       generateQuotationNo(form);
     }
@@ -16766,11 +16877,15 @@
         const option = document.createElement("option");
         option.value = newCustomer.nameZh;
         option.textContent = newCustomer.nameZh + (newCustomer.nameEn ? ` (${newCustomer.nameEn})` : "");
-        // 政府客戶補上合約編號副標題，與既有選項顯示一致
-        const sub = govCustomerSub(newCustomer);
+        option.dataset.id = newCustomer.id;
+        // 客戶名稱可重複，以 Contract No 副標題區分
+        const sub = customerSub(newCustomer);
         if (sub) option.dataset.sub = sub;
         select.appendChild(option);
-        select.value = newCustomer.nameZh;
+        // 同名時 select.value 會命中第一個同名選項，改用索引選中剛建立的客戶
+        select.selectedIndex = select.options.length - 1;
+        const customerIdInput = form.querySelector('[name="customerId"]');
+        if (customerIdInput) customerIdInput.value = newCustomer.id;
         syncSearchableSelectDisplay(select);
         applyCustomerAreaToQuotationForm(select, form);
         generateQuotationNo(form);
@@ -16779,7 +16894,10 @@
 
     // 依所選客戶帶出報價表單的區域（自訂下拉框需同步顯示文本）
     function applyCustomerAreaToQuotationForm(select, form) {
-      const customer = customers.find(c => c.nameZh === select.value);
+      const option = select.selectedOptions && select.selectedOptions[0];
+      // 客戶名稱可重複，優先以選項上的客戶 ID 反查，避免同名時帶錯區域
+      const customer = (option && option.dataset.id && customers.find(c => c.id === option.dataset.id))
+        || customers.find(c => c.nameZh === select.value);
       const areaSelect = form.querySelector("[name=area]");
       if (!customer || !areaSelect) return;
       const areaName = (customer.addresses && customer.addresses[0] && customer.addresses[0].area) || customer.area || "";
@@ -16930,67 +17048,7 @@
           </div>
           <form id="createQuotationForm">
             <div class="qf-body">
-              <!-- 卡片 1：基本資訊 -->
-              <div class="qf-card">
-                <div class="qf-card-title">基本資訊</div>
-                <div class="qf-grid">
-                  <div class="qf-field wide">
-                    <label class="qf-label" for="qf-title">報價標題<span class="req">*</span></label>
-                    <input class="qf-input" id="qf-title" name="title" required placeholder="請輸入報價標題">
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label">報價編號<span class="opt">（自動生成）</span></label>
-                    <input class="qf-input qf-readonly" name="id" value="選擇類別和區域後自動生成" readonly>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-category">類別<span class="req">*</span></label>
-                    <select class="qf-select" id="qf-category" name="category" required onchange="generateQuotationNo(this.closest('form'))">
-                      ${(dictData["報價類別"] || []).filter(c => isEnabled(c.status)).map(c => `<option value="${c.code}" ${c.code === "P" ? "selected" : ""}>${c.name}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-owner">報價負責人<span class="req">*</span></label>
-                    <select class="qf-select" id="qf-owner" name="owner" required>
-                      <option value="">請選擇負責人</option>
-                      ${ownerNames.map(n => `<option value="${escapeHtml(n)}" ${n === currentUserName ? "selected" : ""}>${escapeHtml(n)}</option>`).join("")}
-                    </select>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-createdAt">報價日期<span class="req">*</span></label>
-                    <input class="qf-input" id="qf-createdAt" name="createdAt" type="date" value="${todayStr}" required>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-deadline">回覆截止日期</label>
-                    <input class="qf-input" id="qf-deadline" name="deadline" type="date" value="${deadlineStr}">
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-validUntil">有效期至</label>
-                    <input class="qf-input" id="qf-validUntil" name="validUntil" type="date" value="${validUntilStr}">
-                    <span class="muted">60天／90天；截止日期按確認結果填寫。</span>
-                  </div>
-                  ${renderLeadTimeField()}
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-paymentMethod">付款方式</label>
-                    <select class="qf-select" id="qf-paymentMethod" name="paymentMethod">
-                      <option value="完工後付（Post-payment）">完工後付（Post-payment）</option>
-                      <option value="先付全款（Pre-payment）">先付全款（Pre-payment）</option>
-                      <option value="先付定金（Deposit）">先付定金（Deposit）</option>
-                    </select>
-                  </div>
-                  <div class="qf-field">
-                    <label class="qf-label" for="qf-warrantyPeriod">保固期</label>
-                    <select class="qf-select" id="qf-warrantyPeriod" name="warrantyPeriod">
-                      <option value="">無</option>
-                      <option value="3個月">3個月</option>
-                      <option value="60天">60天</option>
-                      <option value="90天">90天</option>
-                      <option value="1年" selected>1年</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 卡片 2：關聯資訊 -->
+              <!-- 卡片 1：關聯資訊 -->
               <div class="qf-card">
                 <div class="qf-card-title">關聯資訊</div>
                 <div class="qf-grid">
@@ -17006,7 +17064,7 @@
                   <!-- 關聯工單：僅「接受來源＝工單」時顯示，非必填 -->
                   <div class="qf-field ${presetCustomer ? "" : "qf-hidden"}">
                     <label class="qf-label" for="qf-ticketId">關聯工單<span class="opt">（選填）</span></label>
-                    <select class="qf-select" id="qf-ticketId" name="ticketId" onchange="const t=tickets.find(x=>x.id===this.value);if(t){const f=this.closest('form');f.querySelector('[name=customerName]').value=t.customer;f.querySelector('[name=area]').value=t.area;f.querySelector('[name=srNo]').value=t.srNo||'';generateQuotationNo(f);}">
+                    <select class="qf-select" id="qf-ticketId" name="ticketId" onchange="onQuotationTicketChange(this)">
                       <option value="">${presetCustomer ? "請選擇歷史CALL（可不選）" : "請選擇工單（可不選）"}</option>
                       ${ticketOptions.map(t => `<option value="${t.id}">${t.id} - ${escapeHtml(t.type)} · ${escapeHtml(t.createdAt || "")}</option>`).join("")}
                     </select>
@@ -17019,10 +17077,11 @@
                         <select class="qf-select" id="qf-customerName" name="customerName" required onchange="onQuotationCustomerChange(this)">
                           ${presetCustomer
                             // 由客戶檔案帶入時僅鎖定該客戶，不提供新增
-                            ? `<option value="${escapeHtml(presetCustomer.nameZh)}" selected${govCustomerSub(presetCustomer) ? ` data-sub="${escapeHtml(govCustomerSub(presetCustomer))}"` : ""}>${escapeHtml(presetCustomer.nameZh)}</option>`
-                            // 其他入口：列出既有客戶供選擇（政府客戶名稱可重複，副標題顯示合約編號以區分）
-                            : `<option value="">請選擇客戶</option>${customers.map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
+                            ? `<option value="${escapeHtml(presetCustomer.nameZh)}" data-id="${presetCustomer.id}" selected${customerSub(presetCustomer) ? ` data-sub="${escapeHtml(customerSub(presetCustomer))}"` : ""}>${escapeHtml(presetCustomer.nameZh)}</option>`
+                            // 其他入口：列出既有客戶供選擇（客戶名稱可重複，副標題顯示 Contract No 以區分）
+                            : `<option value="">請選擇客戶</option>${customers.map(c => `<option value="${escapeHtml(c.nameZh)}" data-id="${c.id}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
                         </select>
+                        <input type="hidden" name="customerId" value="${presetCustomer ? presetCustomer.id : ""}">
                       </div>
                       ${presetCustomer ? "" : `<button type="button" class="qf-btn qf-btn-cancel" data-qf-new-customer style="min-width:auto;height:40px;padding:0 14px;white-space:nowrap;">＋ 新增</button>`}
                     </div>
@@ -17062,6 +17121,65 @@
                       ${quotations.map(q => `<option value="${q.id}">${q.id} - ${escapeHtml(q.customerName || "")} (${escapeHtml(q.title || "")})</option>`).join("")}
                     </select>
                     <div class="qf-hint">選擇後會將該報價單的物料明細帶入下方「物料明細」</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 卡片 2：基本資訊 -->
+              <div class="qf-card">
+                <div class="qf-card-title">基本資訊</div>
+                <div class="qf-grid">
+                  <div class="qf-field wide">
+                    <label class="qf-label" for="qf-title">報價標題<span class="req">*</span></label>
+                    <input class="qf-input" id="qf-title" name="title" required placeholder="請輸入報價標題">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label">報價編號<span class="opt">（客戶 Contract No）</span></label>
+                    <input class="qf-input qf-readonly" name="id" value="選擇客戶後自動帶入" readonly>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-category">類別<span class="req">*</span></label>
+                    <select class="qf-select" id="qf-category" name="category" required onchange="generateQuotationNo(this.closest('form'))">
+                      ${(dictData["報價類別"] || []).filter(c => isEnabled(c.status)).map(c => `<option value="${c.code}" ${c.code === "P" ? "selected" : ""}>${c.name}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-owner">報價負責人<span class="req">*</span></label>
+                    <select class="qf-select" id="qf-owner" name="owner" required>
+                      <option value="">請選擇負責人</option>
+                      ${ownerNames.map(n => `<option value="${escapeHtml(n)}" ${n === currentUserName ? "selected" : ""}>${escapeHtml(n)}</option>`).join("")}
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-createdAt">報價日期<span class="req">*</span></label>
+                    <input class="qf-input" id="qf-createdAt" name="createdAt" type="date" value="${todayStr}" required>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-deadline">回覆截止日期</label>
+                    <input class="qf-input" id="qf-deadline" name="deadline" type="date" value="${deadlineStr}">
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-validUntil">有效期至</label>
+                    <input class="qf-input" id="qf-validUntil" name="validUntil" type="date" value="${validUntilStr}">
+                  </div>
+                  ${renderLeadTimeField()}
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-paymentMethod">付款方式</label>
+                    <select class="qf-select" id="qf-paymentMethod" name="paymentMethod">
+                      <option value="完工後付（Post-payment）">完工後付（Post-payment）</option>
+                      <option value="先付全款（Pre-payment）">先付全款（Pre-payment）</option>
+                      <option value="先付定金（Deposit）">先付定金（Deposit）</option>
+                    </select>
+                  </div>
+                  <div class="qf-field">
+                    <label class="qf-label" for="qf-warrantyPeriod">保固期</label>
+                    <select class="qf-select" id="qf-warrantyPeriod" name="warrantyPeriod">
+                      <option value="">無</option>
+                      <option value="3個月">3個月</option>
+                      <option value="60天">60天</option>
+                      <option value="90天">90天</option>
+                      <option value="1年" selected>1年</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -17127,6 +17245,9 @@
         </div>
       `;
       document.body.appendChild(modal);
+      // 由客戶檔案帶入時，報價編號即該客戶 Contract No，開啟即顯示；類別亦由 Contract No 帶出
+      generateQuotationNo(modal.querySelector("form"));
+      if (presetCustomer) applyQuotationCategory(modal.querySelector("form"), categoryCodeFromContractNo(presetCustomer.contractNo));
       bindQuotationModalEvents(modal);
       toggleCreateInviteTenderFields(modal.querySelector('[name="isInviteTender"]'));
     }
@@ -17271,11 +17392,9 @@
       bindQuotationModalEvents(modal);
     }
 
-    // 自動生成我方參考編號 ourRef：2P + 年份後2位 + 4位序號（如 2P260001）
-    function generateOurRef() {
-      const yy = String(new Date().getFullYear()).slice(-2);
-      const seq = String(quotations.length + 1).padStart(4, "0");
-      return `2P${yy}${seq}`;
+    // 我方參考編號 ourRef：該報價的版本號，三位流水號（首次 001，每次修訂 +1）
+    function generateOurRef(revision = 0) {
+      return String(Number(revision || 0) + 1).padStart(3, "0");
     }
 
     // 三態庫存判定：未知貨品無參考價錢 → 向採購部申請索取預估價（流程：查閱庫存 → 系統顯示三態）
@@ -17362,28 +17481,37 @@
       render();
     }
 
+    // 保存報價前確認客戶檔案：名稱未建檔時，先彈出精簡新增客戶（Contract No 必填），建立後才保存報價
+    function withResolvedQuotationCustomer(formData, onReady) {
+      const name = String(formData.get("customerName") || "").trim();
+      const customerId = String(formData.get("customerId") || "");
+      const selected = customers.find(c => c.id === customerId)
+        || (name ? customers.find(c => c.nameZh === name) : null);
+      if (selected || !name) {
+        if (selected) formData.set("customerId", selected.id);
+        onReady();
+        return;
+      }
+      openCreateCustomer((created) => {
+        if (!created) return;
+        formData.set("customerId", created.id);
+        formData.set("customerName", created.nameZh);
+        onReady();
+      }, true, name);
+    }
+
     function saveQuotation(formData, isEdit = false, quotationId = null) {
       const ticketId = formData.get("ticketId") || "";
       const ticket = tickets.find(t => t.id === ticketId);
-      const customer = customers.find(c => c.id === ticket?.customerId);
-      // 全新客戶支援（會議決策）：CR 可直接輸入新客戶名稱，若系統無此客戶則自動建立客戶檔案
       const inputCustomerName = (formData.get("customerName") || "").trim();
-      let resolvedCustomerId = ticket?.customerId || "";
+      // 客戶名稱可重複，優先以表單帶出的客戶 ID 定位；只有名稱時才按名稱比對
+      // 全新客戶已由 withResolvedQuotationCustomer 先建立檔案（Contract No 必填），此處不再自動建檔
+      const selectedCustomer = customers.find(c => c.id === (formData.get("customerId") || "")) || null;
+      const customer = selectedCustomer || customers.find(c => c.id === ticket?.customerId);
+      let resolvedCustomerId = ticket?.customerId || selectedCustomer?.id || "";
       if (!resolvedCustomerId && inputCustomerName) {
-        let matchedCustomer = customers.find(c => c.nameZh === inputCustomerName);
-        if (!matchedCustomer) {
-          matchedCustomer = {
-            id: `C-${Date.now()}`,
-            nameZh: inputCustomerName,
-            nameEn: "",
-            type: "私人",
-            addresses: [],
-            contacts: [],
-            createdAt: new Date().toISOString().slice(0, 10)
-          };
-          customers.push(matchedCustomer);
-        }
-        resolvedCustomerId = matchedCustomer.id;
+        const matchedCustomer = customers.find(c => c.nameZh === inputCustomerName);
+        if (matchedCustomer) resolvedCustomerId = matchedCustomer.id;
       }
       const amount = parseFloat(formData.get("amount")) || 0;
       // 折扣（減免百分比，填10=9折）：報價總金額＝明細合計×(1−折扣%)
@@ -17437,6 +17565,12 @@
           toast("報價信息已更新");
         }
       } else {
+        // 報價編號即客戶 Contract No，同一編號只能有一張報價
+        const newQuotationId = String(formData.get("id") || "").trim();
+        if (newQuotationId && quotations.some(q => q.id === newQuotationId)) {
+          toast(`報價編號 ${newQuotationId} 已有報價，請確認客戶的 Contract No`, "error");
+          return false;
+        }
         const newQuotation = {
           id: formData.get("id"),
           title: formData.get("title"),
@@ -17494,6 +17628,7 @@
         }
       }
       render();
+      return true;
     }
 
     // 報價類別三叉通知（流程：在所屬報價單更新狀態 → M/P/M+P 三叉 → 系統通知相屬主管+CR）
@@ -18115,7 +18250,7 @@
           module: "quotation",
           level: "action",
           title: "新發票待開具",
-          content: quotation.ourRef || quotation.id,
+          content: quotation.id,
           subContent: `${quotation.customerName || ""} · 已完工，請開具發票`,
           targetPage: "finance",
           targetId: quotation.id,
@@ -18298,8 +18433,11 @@
         };
         createForm.addEventListener("submit", (e) => {
           e.preventDefault();
-          saveQuotation(buildCreateFormData(), false);
-          modal.remove();
+          const formData = buildCreateFormData();
+          withResolvedQuotationCustomer(formData, () => {
+            if (saveQuotation(formData, false) === false) return;
+            modal.remove();
+          });
         });
         // 新建報價並生成標書：先建立報價，再依報價資訊建立標書並雙向關聯
         const withTenderBtn = modal.querySelector("[data-create-quotation-with-tender]");
@@ -18307,15 +18445,17 @@
           withTenderBtn.addEventListener("click", () => {
             const formData = buildCreateFormData();
             const quotationId = formData.get("id");
-            saveQuotation(formData, false);
-            const savedQuotation = quotations.find(q => q.id === quotationId);
-            if (!savedQuotation) {
-              toast("報價建立失敗，請確認報價編號後重試", "error");
-              return;
-            }
-            const tender = createTenderFromQuotation(savedQuotation);
-            modal.remove();
-            if (tender) toast(`已新增報價 ${savedQuotation.id} 並生成標書 ${tender.id}`, "success");
+            withResolvedQuotationCustomer(formData, () => {
+              if (saveQuotation(formData, false) === false) return;
+              const savedQuotation = quotations.find(q => q.id === quotationId);
+              if (!savedQuotation) {
+                toast("報價建立失敗，請確認報價編號後重試", "error");
+                return;
+              }
+              const tender = createTenderFromQuotation(savedQuotation);
+              modal.remove();
+              if (tender) toast(`已新增報價 ${savedQuotation.id} 並生成標書 ${tender.id}`, "success");
+            });
           });
         }
       }
@@ -20258,7 +20398,9 @@
       // 依關鍵字、日期、類型篩選
       const filtered = allPending.filter(item => {
         const kw = (finFilter.keyword || "").toLowerCase().trim();
-        const matchKeyword = !kw || (item.ourRef || '').toLowerCase().includes(kw) || (item.customerName || '').toLowerCase().includes(kw) || (item.title || '').toLowerCase().includes(kw);
+        // 報價項目以報價編號作 Job Code；保養合約帳單沿用合約 jobCode
+        const jobKey = quotations.some(x => x.id === item.id) ? item.id : (item.ourRef || item.id);
+        const matchKeyword = !kw || (jobKey || '').toLowerCase().includes(kw) || (item.customerName || '').toLowerCase().includes(kw) || (item.title || '').toLowerCase().includes(kw);
         const matchDate = !finFilter.date || (item.createdAt || '').startsWith(finFilter.date);
         const matchType = !finFilter.type || (item.isMaintenance ? 'M類保養' : '工程') === finFilter.type;
         return matchKeyword && matchDate && matchType;
@@ -20314,7 +20456,7 @@
                 return `
                 <tr>
                   <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check${blocked ? ' disabled' : ''}></td>
-                  <td><strong>${q.ourRef || q.id}</strong></td>
+                  <td><strong>${sourceQuotation ? sourceQuotation.id : (q.ourRef || q.id)}</strong></td>
                   <td>${q.customerName}</td>
                   <td>${q.title || '-'}</td>
                   <td>HKD ${(q.tenderAmount || q.amount || 0).toLocaleString()}</td>
@@ -20328,7 +20470,7 @@
                     ${sourceTicket?.cpNo || sourceTicket?.serviceReportNo ? `<button class="link-btn" data-sr-folder-open-sr="${escapeHtml(sourceTicket.id)}">${sourceTicket.cpNo ? "查看完工紙" : "查看SR"}</button>` : ""}
                     ${blocked
                     ? `<button class="link-btn" type="button" disabled title="缺少：${missingDocs.join("、")}" style="opacity:.5;cursor:not-allowed;">開票</button>`
-                    : `<button class="link-btn" data-create-invoice-for="${q.id}" data-job-code="${q.ourRef || ''}">開票</button>`}</td>
+                    : `<button class="link-btn" data-create-invoice-for="${q.id}" data-job-code="${escapeHtml(sourceQuotation ? sourceQuotation.id : (q.ourRef || ''))}">開票</button>`}</td>
                 </tr>
               `;}).join('') || '<tr><td colspan="12" style="text-align:center;color:var(--muted);">暫無待開票項目</td></tr>'}
             </tbody>
@@ -20339,10 +20481,10 @@
 
     // 渲染發票管理：第二欄位改為 Job ID；含客戶數期、金額變更原因、重印日期選項、列印功能
     function renderFinInvoices() {
-      // 查找對應報價的 ourRef 作為 Job ID 顯示（保養合約帳單以 jobCode 為 Job ID）
+      // Job ID 顯示：報價項目用報價編號，保養合約帳單沿用合約 jobCode
       const getJobId = (quotationId, fallbackJobCode) => {
         const q = quotations.find(item => item.id === quotationId);
-        return q ? q.ourRef : (fallbackJobCode || quotationId || '—');
+        return q ? q.id : (fallbackJobCode || quotationId || '—');
       };
       // 讀取會計客戶檔案以取得客戶數期
       const acctCustomers = JSON.parse(localStorage.getItem('ecinfo_acct_customers')) || DEFAULT_ACCT_CUSTOMERS;
@@ -20397,12 +20539,12 @@
 
     // 渲染收款記錄：加 Job ID；收據編號自動生成為 EC + invoice no；加列印收據功能
     function renderFinPayments() {
-      // 查找對應發票的 Job ID
+      // Job ID：報價項目用報價編號，保養合約帳單沿用合約 jobCode
       const getJobId = (invoiceId) => {
         const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
         if (!inv) return '—';
         const q = quotations.find(item => item.id === inv.quotationId);
-        return q ? q.ourRef : inv.quotationId;
+        return q ? q.id : (inv.quotationId || inv.jobCode || '—');
       };
       // 收據編號自動生成為 EC + invoice no 數字部分
       const formatReceiptNo = (pay) => {
@@ -20661,7 +20803,7 @@
             <p style="color:var(--muted);font-size:13px;margin:0 0 16px;">即將列印 ${targetInvoices.length} 張發票，發票內容及金額根據 CS/報價組輸入的資料滙出。</p>
             ${targetInvoices.map(inv => {
               const q = quotations.find(item => item.id === inv.quotationId);
-              const jobId = q ? q.ourRef : (inv.jobCode || inv.quotationId || '—');
+              const jobId = q ? q.id : (inv.jobCode || inv.quotationId || '—');
               // 會計部會議（0928）①：發票顯示客戶英文名稱，以及地點的中英文地址
               const cust = customers.find(c => c.nameZh === inv.customerName);
               const addr = cust && Array.isArray(cust.addresses) ? cust.addresses[0] : null;
@@ -20865,7 +21007,7 @@
       const pay = payments.find(p => p.id === payId);
       if (!pay) return;
       const inv = invoices.find(i => i.id === pay.invoiceId || i.invoiceNo === pay.invoiceId);
-      const jobId = inv ? (quotations.find(q => q.id === inv.quotationId)?.ourRef || inv.quotationId) : '—';
+      const jobId = inv ? (quotations.find(q => q.id === inv.quotationId)?.id || inv.quotationId || inv.jobCode || '—') : '—';
       // 收據編號自動生成為 EC + invoice no 數字部分
       const invNo = (pay.invoiceId || '').replace(/\D/g, '');
       const receiptNo = (pay.receiptNo && pay.receiptNo.startsWith('EC')) ? pay.receiptNo : 'EC' + invNo.slice(-8).padStart(8, '0');
@@ -22082,7 +22224,7 @@
                   <label class="qf-label">客戶 ${requiredStar}</label>
                   <select class="qf-input" name="client" id="tenderClientSelect" required data-search-select-enhanced="true">
                     <option value="">請選擇客戶</option>
-                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""} data-area="${escapeHtml(c.area || '')}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
+                    ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""} data-area="${escapeHtml(c.area || '')}" ${t.client === c.nameZh ? 'selected' : ''}>${escapeHtml(c.nameZh)}</option>`).join("")}
                   </select>
                 </div>
                 <!-- EC負責人（下拉單選，依客戶所在區域篩選） -->
@@ -22462,7 +22604,7 @@
                     <label class="qf-label">客戶</label>
                     <select class="qf-input" name="client">
                       <option value="">請選擇客戶</option>
-                      ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${govCustomerSub(c) ? ` data-sub="${escapeHtml(govCustomerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}</option>`).join("")}
+                      ${customers.filter(c => c.status === "啓用").map(c => `<option value="${escapeHtml(c.nameZh)}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}</option>`).join("")}
                     </select>
                   </div>
                   <div class="qf-field">
@@ -23694,7 +23836,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const contractItem = quotation ? null : contracts.flatMap(c => generateContractBillingItems(c)).find(item => item.id === pendingId);
       if (!quotation && !contractItem) return;
       const base = quotation
-        ? { customerName: quotation.customerName, amount: quotation.tenderAmount || quotation.amount || 0, taxRate: 0, title: quotation.title || "", jobCode: quotation.ourRef || quotation.id }
+        ? { customerName: quotation.customerName, amount: quotation.tenderAmount || quotation.amount || 0, taxRate: 0, title: quotation.title || "", jobCode: quotation.id }
         : { customerName: contractItem.customerName, amount: contractItem.tenderAmount || 0, taxRate: 0, title: contractItem.title || "", jobCode: contractItem.ourRef };
 
       // 會計部會議（0928）②：完工紙＋客戶確認PO＋照片 齊全才可開票，否則提示欠文件
@@ -25459,9 +25601,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             
             if (lastReminder !== todayStr) {
               // 發送提醒
-              const reminderMsg = daysLeft <= 0 
-                ? `完工紙已超期！報價單 ${q.ourRef} 的完工紙需要立即歸還。`
-                : `完工紙將在 ${daysLeft} 天后到期！報價單 ${q.ourRef} 的完工紙請儘快歸還。`;
+              const reminderMsg = daysLeft <= 0
+                ? `完工紙已超期！報價單 ${q.id} 的完工紙需要立即歸還。`
+                : `完工紙將在 ${daysLeft} 天后到期！報價單 ${q.id} 的完工紙請儘快歸還。`;
               
               // 創建通知
               createNotification({
