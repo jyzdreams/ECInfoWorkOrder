@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "generatedAt": "2026-10-24T03:22:36.476Z",
   "checks": [
     {
       "name": "Current Knowledge 入口",
-      "checked": 9,
+      "checked": 10,
       "issues": 0
     },
     {
       "name": "SOURCE ID 映射",
-      "checked": 28,
+      "checked": 32,
       "issues": 0
     },
     {
@@ -18,7 +18,7 @@
     },
     {
       "name": "原始资料入口",
-      "checked": 120,
+      "checked": 122,
       "issues": 0
     },
     {
@@ -63,7 +63,7 @@
     },
     {
       "name": "旧资料路径",
-      "checked": 786,
+      "checked": 866,
       "issues": 0
     },
     {
@@ -78,23 +78,23 @@
     }
   ],
   "counts": {
-    "indexedFiles": 786,
-    "sourceFiles": 120,
+    "indexedFiles": 866,
+    "sourceFiles": 122,
     "facts": 84,
-    "sourceAliasMappings": 28,
-    "currentKnowledgeFiles": 9,
+    "sourceAliasMappings": 32,
+    "currentKnowledgeFiles": 10,
     "decisions": 17,
     "openQuestions": 16,
-    "pendingQuestions": 5,
+    "pendingQuestions": 6,
     "questionConflicts": 0,
-    "conflicts": 6,
+    "conflicts": 8,
     "flows": 9,
     "requirements": 119,
     "pages": 17,
-    "explicitTraceEdges": 748,
+    "explicitTraceEdges": 752,
     "unlinkedRequirements": 50,
     "missingDirectSourceRequirements": 0,
-    "indexedFilesWithTrace": 25,
+    "indexedFilesWithTrace": 27,
     "prdFilesLinkedToCurrentFlows": 1,
     "prototypePagesLinkedToPrd": 16,
     "prototypeRegressionPassed": 7,
@@ -216,12 +216,25 @@
       "blocking": "Y",
       "decisionId": null,
       "sourceFileIds": [
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "“中标但没有报价”是否指已有中标/合同凭据，只是EC没有报价单？采购手填MR怎样关联？",
+          "evidence": "用户暂同意这个理解并要求问客户；SOURCE-014 P10有无报价采购手填MR的原文，不能据此推定入口/凭据或跳过审批。SOURCE-029第07项。",
+          "audience": "待客户核实；用户后续带问"
+        },
+        {
+          "title": "CM从哪里产生，谁派人、如何结束，和PM冲突怎样处理？",
+          "evidence": "用户理解为紧急/临时任务，明确不是普通CALL，并要求整条流程再问客户。原冲突问题保留。SOURCE-029第16项。",
+          "audience": "待客户核实；未认定整条CM正确"
+        }
+      ]
     },
     {
       "id": "C-03",
@@ -240,12 +253,20 @@
       "sourceFileIds": [
         "FILE-CAE118EF83",
         "FILE-833C198165",
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "跨部门标书组在中标后怎样负责跟进、怎样交给主管/CR履约？成员以什么岗位操作？",
+          "evidence": "用户说明成员兼任本职，暂按标书组负责并要求客户确定；没有指定某主管，也没有授予组内全区或任意派工权限。SOURCE-029第17项。",
+          "audience": "待客户核实"
+        }
+      ]
     },
     {
       "id": "C-04",
@@ -288,12 +309,20 @@
       "decisionId": "PENDING-002",
       "sourceFileIds": [
         "FILE-618C5F54C7",
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "CM从哪里产生，谁派人、如何结束，和PM冲突怎样处理？",
+          "evidence": "用户理解为紧急/临时任务，明确不是普通CALL，并要求整条流程再问客户。原冲突问题保留。SOURCE-029第16项。",
+          "audience": "待客户核实；未认定整条CM正确"
+        }
+      ]
     },
     {
       "id": "C-06",
@@ -311,12 +340,20 @@
       "decisionId": "PENDING-001",
       "sourceFileIds": [
         "FILE-618C5F54C7",
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "即时维修的补报价由谁负责？现场款交给谁、谁登记及对账？",
+          "evidence": "用户说明先修后补报价、当场收款；暂拟报价组协助补单并要求客户核实。接款/登记/核对责任未回答，不能归给报价组。SOURCE-029第08～10项。",
+          "audience": "待客户核实；不重问是否存在后补报价/现场收款"
+        }
+      ]
     },
     {
       "id": "C-07",
@@ -360,12 +397,20 @@
         "FILE-0D53775B2F",
         "FILE-C9B9E78D77",
         "FILE-CAE118EF83",
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "即时修好收款再补报价时，是否用SR且无需另交CP？",
+          "evidence": "用户回答SR、应该不用CP，同时要求客户核实。只针对本特例，不推翻先报价中单维修用CP。SOURCE-029第11项。",
+          "audience": "待客户核实"
+        }
+      ]
     },
     {
       "id": "C-09",
@@ -396,24 +441,33 @@
     {
       "id": "C-10",
       "priority": "P0",
-      "status": "OPEN",
+      "status": "PENDING",
       "title": "具体保养合同周期、首期/尾期/改期与私人续保提醒比例，政府怎么提醒？",
-      "reason": "1/2、1/3没有明确哪个合同用哪个，政府仅说不同；月步长/起始首期也未确认",
+      "reason": "Q9用户暂按合同起始月安排首期，并明确需后续客户核实；不再向用户重问首期。1/2、1/3续保比例、政府差异、Q10已说明逐次自定义排程、季度4次为本例，不再问固定顺延二选一；Q11到期未做暂按原合同可补做，并明确待客户核实；合同次数增减、其他首尾期等仍未定",
       "flowIds": [
         "FLOW-M"
       ],
       "batch": "B03",
-      "options": "合同逐项周期；私人按指定比例/日期；政府按指定规则/人工续保",
+      "options": "首期暂拟合同起始月，到期未完成暂按原合同可补做，均待客户核实；合同逐项周期；私人按指定比例/日期；政府按指定规则/人工续保",
       "blocking": "Y（纳入该业务时）",
       "decisionId": null,
       "sourceFileIds": [
+        "FILE-76884A8AC9",
         "FILE-CAE118EF83",
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "首期是否固定合同起始月；到期未完成能否原合同补做？",
+          "evidence": "SOURCE-032 Q9暂按合同起始月，Q11暂按原合同补做，两者均要求客户核实；不等于首日上门、合同自动延期或客户已确认。",
+          "audience": "待客户核实，未发送；不再重复问用户"
+        }
+      ]
     },
     {
       "id": "C-11",
@@ -522,12 +576,20 @@
       "blocking": "Y（关键交接责任）；真实接口可后置",
       "decisionId": null,
       "sourceFileIds": [
-        "FILE-93BDAE96A2"
+        "FILE-93BDAE96A2",
+        "FILE-AE8252532A"
       ],
       "knowledgeFileIds": [
         "FILE-FF2EB9320E"
       ],
-      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。"
+      "provenance": "沿用审计C编号并缩小为真正客户决策；已明确诉求不重问。",
+      "clarifications": [
+        {
+          "title": "跨部门标书组在中标后怎样负责跟进、怎样交给主管/CR履约？成员以什么岗位操作？",
+          "evidence": "用户说明成员兼任本职，暂按标书组负责并要求客户确定；没有指定某主管，也没有授予组内全区或任意派工权限。SOURCE-029第17项。",
+          "audience": "待客户核实"
+        }
+      ]
     },
     {
       "id": "C-16",
@@ -691,6 +753,52 @@
       "requirementIds": [],
       "decisionIds": [],
       "evidenceNote": "来自历史知识库 Q-003；当前 Decision 未确认统一状态字典。"
+    },
+    {
+      "id": "CONFLICT-007",
+      "kind": "Recorded Evidence Difference",
+      "title": "报价旧流程与后续用户说明存在差异",
+      "status": "CONFLICT",
+      "flowIds": [
+        "FLOW-MAIN",
+        "FLOW-P"
+      ],
+      "questionIds": [
+        "C-03"
+      ],
+      "sourceFileIds": [
+        "FILE-E4DD671C49",
+        "FILE-6DF78BBE11",
+        "FILE-AE8252532A",
+        "FILE-0BBA719CB3",
+        "FILE-FF2EB9320E"
+      ],
+      "requirementIds": [],
+      "decisionIds": [],
+      "recordedAt": "2026-10-24",
+      "evidenceNote": "证据A：Hub业务全景报价生命周期写报价组制作/确认中单，流程MAIN-03/05及P-01/03沿旧报价组交接。证据B：SOURCE-029第01～06项记录TL/CR可直接报价、自主报价不补CALL、谁报价谁确认、SR交报价组及标书组可报价。处理边界：仅记录分工表达和适用范围差异；用户说明不冒充客户签批，不据旧流程或后续说明自动判定最终规则。原C-03其他权限未决不关闭。"
+    },
+    {
+      "id": "CONFLICT-008",
+      "kind": "Recorded Evidence Difference",
+      "title": "保养业务全景与业务流程的状态标签不一致",
+      "status": "CONFLICT",
+      "flowIds": [
+        "FLOW-M"
+      ],
+      "questionIds": [
+        "C-10"
+      ],
+      "sourceFileIds": [
+        "FILE-E4DD671C49",
+        "FILE-6DF78BBE11",
+        "FILE-0BBA719CB3",
+        "FILE-FF2EB9320E"
+      ],
+      "requirementIds": [],
+      "decisionIds": [],
+      "recordedAt": "2026-10-24",
+      "evidenceNote": "证据A：Hub业务全景的周期保养场景卡固定显示CONFIRMED。证据B：当前FLOW-M记录status与factStatus均为PARTIAL；已有审计已指出该差异。处理边界：仅记录显示标签不一致；两种标签是否同义、各自确认范围及可用的批准依据仍待核实。本轮不把任一标签改为最终结论，也不关闭C-10首期/补做等未决。"
     }
   ],
   "limitations": [

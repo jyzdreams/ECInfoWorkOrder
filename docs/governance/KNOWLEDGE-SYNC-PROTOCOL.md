@@ -1,12 +1,14 @@
 # EC Project Knowledge Sync Protocol
 
+> **2026-10-19当前分工：** 用户已确认内部记录与客户Excel分开，Hub统一展示。[内部推进与客户表规范](WORK-AND-CLIENT-VIEWS.md)替换本文所有“任务只回填内部Excel”的旧约定。唯一内部推进源为 `docs/review/project-work/WORK-REGISTER.json`；客户表见根README，旧内部Excel保留历史并停止双写。其余正式版保护、原编号、事实和验收边界保持。
+
 状态：已纳入项目治理规则；2026-10-11按三个日常入口和docs六类文档收口。
 
 ## 目的
 
-日常知识从project-hub/index.html进入，底层业务资料维护在docs/knowledge/；推进使用根README指定内部Excel，交互使用prototype/。旧Knowledge Base仅追溯。长期信息同步到拥有其内容的详情，再按需生成Hub展示；不要求每次改全部文档或重建Hub。
+日常知识从project-hub/index.html进入，底层业务资料维护在docs/knowledge/；推进使用根README指定内部工作记录，交互使用prototype/。旧Knowledge Base仅追溯。长期信息同步到拥有其内容的详情，再按需生成Hub展示；不要求每次改全部文档或重建Hub。
 
-前台始终遵循 **Business Flow First，Evidence Behind**：新知识优先挂到业务场景、流程节点和业务规则，再反查 Decision、Fact、Source，以及 Requirement、PRD、Prototype、SDD、TDD、Test。
+首页先展示当前推进；业务知识页继续遵循 **Business Flow First，Evidence Behind**：新知识优先挂到业务场景、流程节点和业务规则，再反查 Decision、Fact、Source，以及 Requirement、PRD、Prototype、SDD、TDD、Test。
 
 ## 每次任务结束前的检查
 
@@ -21,7 +23,7 @@
 
 - 原始资料保留原件，来源索引登记路径/身份/整合状态，登记不等于批准。
 - 知识决定/基线维护规则与出处/冲突；总览定位，机器JSON不另写事实。
-- Excel主台账维护范围/需求/任务/责任/依赖/阻塞/客户决定/验收，不新建平行任务板或JSON进度。
+- WORK-REGISTER.json是唯一内部推进记录，维护任务/批次状态/责任/依赖/阻塞/客户答复/UAT；客户Excel仅为对外导出，旧内部Excel冻结，不双写。
 - 客户版按稳定编号/版本导出，反馈复核后回填并保存确认人/日期/依据，不独立双维护。
 - 原型、审计、回归保留对应版本；旧PASS/机器完整率/页面数不当当前项目进度。
 - Excel尚未更新时显式注明待接入本轮变更，治理说明不冒充主台账已更新。

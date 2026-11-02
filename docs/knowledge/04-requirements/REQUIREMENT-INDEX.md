@@ -1,5 +1,81 @@
 # Requirement Index｜需求索引
 
+## 当前批次｜04-12 编号、附件、通知与验收规则
+
+唯一源为[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`commonRules`；Hub仅投影，PARTIAL／评审中。本轮10项公共行为、8项待执行AC、12条原域AC引用、13项只读映射、25条旧REQ追溯。编号算法、附件标准和通知渠道未补答案。
+
+04-11人工评审PASS已记内部记录；04-03～11正文保持不变，其87项原AC全部仍待执行。C-09政府编号、C-15交付／回执日期、C-06现场款归口保持。业务事实、Prototype、客户Excel不改；不执行04整体Gate或进入05。
+
+## 04-11 PARTIAL范围轮记录｜2026-10-29
+
+唯一维护源为[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`partialScopes`，Hub仅投影。PARTIAL／评审中；CM归P、Tender为来源，已有事实、PARTIAL与OPEN分层，不补完整业务链或一期批准。
+
+本批12项边界行为、AC-PART-01～10全部待执行、10项Prototype只读检查、15项旧REQ追溯。保留CM派工岗位冲突、Tender日期／递交及交接未决、PO直单／walk-in与无CALL等适用边界。04-10人工评审PASS已记内部记录，其原正文PARTIAL和财务OPEN保持。未修改04-03～10、业务事实、Prototype或客户Excel；未开始04-12。
+
+## 04-10财务需求轮记录｜2026-10-29
+
+唯一维护源为[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`financeHandoff`，Hub仅投影。PARTIAL／评审中，业务结果、财务资料、开票、收款分别表达，资料与票款不自动确认或取消业务完成。
+
+本批12项行为、AC-FIN-01～12全部待执行、16项Prototype只读映射、17项旧REQ引用。即时维修后补前已收款，不再接受／中单／收款；费用与签署分开，Taxi收据仅限已确认范围。资料清单／交接、开票触发及基数、现场登记／交款／对账、部分与多次款、金额分配及整体结束仍OPEN。
+
+04-09人工评审PASS已记入WORK-REGISTER，原业务域PARTIAL、C-04 BLOCKED及材料变化OPEN保留。04-03～09正文、01／02／03、业务事实、Prototype、Decision和客户Excel未改；本轮不开始04-11。
+
+## 04-09材料需求轮记录｜2026-10-29
+
+唯一需求表达在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`materialSupply`，Hub仅投影。页面PARTIAL／评审中，C-04阶段施工接口BLOCKED，OPEN-10-26-01成交后材料变化无结论。
+
+本批12项行为、AC-MR-01～12全部待执行、14项Prototype只读映射、10项旧REQ追溯；普通成交报价一MR、一MR多采购PO、分批材料能力与真实阶段施工放行分开。不定义拆PO算法、完整WMS状态机或成交变更方案。
+
+04-08已获项目用户人工评审PASS，原业务域PARTIAL及整体结束／复杂金额OPEN保留。04-03～08正文、业务事实、Decision、FLOW、OPEN答案、Prototype和客户Excel未改；本轮不开始04-10。
+
+## 04-08组合需求轮记录｜2026-10-29
+
+当前表达在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`mpControl`，Hub只投影。本页**PARTIAL／评审中**，只定义M+P分类、M/P引用关联、独立进度和整体视图，不复制第三套履约链。
+
+本批12项行为、AC-MP-01～11（全部待执行）、18项Prototype只读映射及15项旧REQ引用。M引用04-07，P引用04-06；不固定先后，不用单一状态覆盖两部分。M整体结束及M+P整体完成、复杂金额、基数、编号与权限仍OPEN；P的对应阶段接口继续C-04 BLOCKED，不由组合绕过。
+
+04-07页面已获项目用户人工评审PASS，业务域PARTIAL、M整体结束OPEN保留。04 IA、04-03～07、01／02／03、其他需求域、Prototype及业务事实未改，未编写04-09；任务和批准记录仍以WORK-REGISTER为准。
+
+## 04-07 M需求轮记录｜2026-10-29
+
+当前表达在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`mService`，Hub只投影。本页**PARTIAL／评审中**：M、计划／期次、本次任务、实际上门及SR按逻辑分层，不决定数据库表或未知数量关系。
+
+本批12项行为、AC-M-01～11（全部待执行）、16项Prototype只读映射及22项旧REQ引用。CR按已有说明定师傅及时间；一次实际M上门一SR；主管确认本次工单，不自动结束M。SR维修需求交公共池，产生新P与原M独立，不自动变M+P。整体结束、首尾期、到期补做、续保及无CALL任务模型继续原OPEN。
+
+04-06已获项目用户人工评审PASS，但业务成熟度PARTIAL、C-04 BLOCKED保留。04 IA、04-03～06、01／02／03、其他需求域、Prototype及业务事实未改；不编写04-08。下方批次保留历史身份，任务／批准记录仍以WORK-REGISTER为准。
+
+## 04-06 P需求轮记录｜2026-10-29
+
+当前表达在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`pFulfillment`，Hub只投影。本页**PARTIAL／评审中**，材料供给→正式阶段施工之间明确**C-04 BLOCKED**；页面需求可评审不等于阶段放行规则已解决。
+
+本批12项行为、AC-P-01～11（全部待执行）、13项Prototype只读映射、27项旧REQ引用。普通P引用04-05成交输出，支持阶段施工，最终CP交主管确认P完成；即时P只后补记录、不重复接受／中单／收款。P／现场任务基数与建立、CP公共例外、票款及变更仍保留原OPEN。
+
+04-05已获项目用户人工评审PASS，记录在WORK-REGISTER；不是客户签批。04 IA、04-03／04／05、其他Hub页面、原型及业务事实不改，未编写04-07。下方各轮按历史批次身份保留。
+
+## 04-05 报价需求轮记录｜2026-10-29
+
+当前表达维护在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`quotation`，Hub只做投影。本批九项行为、AC-QUOTE-01～08、十项Prototype只读映射及15项旧REQ追溯；**READY for requirement definition／评审中**，验收全部待执行。
+
+普通报价按公共池→接手责任→版本→客户接受→负责报价员中单→最终成交版本／正常成交一MR表达；即时维修只后补报价记录，不重复接受／中单／收款。成交后材料变化仍OPEN-10-26-01／C-13，完整编号、权限、金额、接受凭据及补录操作保留原OPEN，不以当前需求代答。
+
+04-03、04-04人工评审通过的依据在WORK-REGISTER，原正文／页面不改；不是客户正式签批。04 IA及119条旧REQ不改，04-06以后未编写，Prototype未修改。下方旧批次段落保留原时间身份。
+
+## 04-04 CALL需求轮记录｜2026-10-29
+
+当前需求表达继续维护在[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)的`callIntake`中，Hub为生成投影。04整体IA、04-03正文、旧119条REQ及原始来源保持不变。
+
+本批整理CALL七项需求行为、AC-CALL-01～06、十项原型只读映射及CALL相关旧REQ引用；状态为**READY for requirement definition／评审中**，验收条件全部待执行。三方向不是状态机；报价只定义到公共待办，上门任务基数、建立方式及编号继续挂C-07／C-11／C-09，状态与授权挂C-02／C-03。
+
+04-03样板已获项目用户人工评审通过，记录在WORK-REGISTER；不是客户签批或产品验收。本轮不修改04-03页面，不编写04-05，不修改Prototype。下方“第一轮”段落为当时记录，不能覆盖本批进度。
+
+## 04 V1入口及第一轮记录｜2026-10-29
+
+[SYSTEM-REQUIREMENTS-V1.json](SYSTEM-REQUIREMENTS-V1.json)维护当前04 V1需求表达，Project Hub「04 系统需求」为展示投影。业务事实仍引用原Decision／Source／业务基线；任务与评审状态只维护WORK-REGISTER，不在本索引另建台账。
+
+本轮只建立00需求总览、01对象关系、02状态权限框架及03客户与合同识别样板；04-04及以后只建目录，未编写需求。样板为**评审中／待人工评审**，不是客户签批。READY仅指具备需求定义依据；AC-01～06均待执行。项目仍处业务流程确认阶段，维修整链未通过、0批业务定稿；C-04阶段材料交接仍阻塞对应出口。
+
+原119条（80条旧REQ＋39条UPD）编号、原状态及记录保留。本轮只为REQ-008／067／073／079、REQ-UPD-001／003／004关联当前04-03表达，不全量迁移或维护第二套答案。下方80条规模表保留历史统计身份，不代表当前V1需求批准数量。
+
 > **用途**：把 Project Hub 当前的需求机器索引收口到 `docs/knowledge/04-requirements/` 的人工可读入口。
 >
 > **原则**：本文件不替代原始 PRD、功能清单、Prototype、SDD、TDD 或 Test；不改变任何需求状态，也不把 Prototype 的实现反向提升为业务事实。

@@ -1,6 +1,8 @@
 # EC 工单系统底层业务资料
 
-位置与职责更新：2026-10-12。日常知识查看入口为[Project Hub](../../project-hub/index.html)；本目录保存它的底层业务资料和索引，不是第四个日常入口。任务/进度见[推进主台账](../../outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx)，操作验证见[当前原型](../../prototype/index.html)。业务内容整合状态仍按下表保留。
+位置与职责更新：2026-10-20。日常知识查看入口为[Project Hub](../../project-hub/index.html)；本目录保存它的底层业务资料和索引，不是第四个日常入口。内部任务维护在[工作记录](../review/project-work/WORK-REGISTER.json)，客户表从根README打开，旧内部Excel停止更新；操作验证见[当前原型](../../prototype/index.html)。
+
+**本轮正在做定稿前审查与逐轮确认。** [10/20审查结果](../audit/GRILLING-AUDIT-20261020.md)区分已回答但未同步、先问用户、已留待客户的问题。下表中的9/27业务骨架和历史Decision不能压过[SOURCE-029后续用户说明](03-business/BUSINESS-CLARIFICATIONS-20261016.md)，也不代表当前原型已按新规则修改。尚未达到可定稿状态。
 
 ## 当前知识状态
 

@@ -1081,3 +1081,41 @@ button:disabled { cursor: not-allowed; }
 @media print {
   :root { --primary: #1e6bff; --primary-strong: #0b55df; }
 }
+
+/* 派工中心沿用 CALL 管理的單一列表外框，篩選和表格保留各自分區。 */
+#pcPages .dispatch-list-section {
+  gap: 0;
+  padding: var(--data-page-padding);
+  border: 1px solid var(--line);
+  border-radius: var(--surface-radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+#pcPages .dispatch-list-section > .dispatch-tabs {
+  background: transparent;
+}
+#pcPages .dispatch-list-section > .pc-section {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+#pcPages .dispatch-table {
+  min-width: 1108px;
+  table-layout: fixed;
+}
+#pcPages .dispatch-table th:nth-child(1), #pcPages .dispatch-table td:nth-child(1) { width: 92px; }
+#pcPages .dispatch-table th:nth-child(2), #pcPages .dispatch-table td:nth-child(2) { width: 112px; }
+#pcPages .dispatch-table th:nth-child(3), #pcPages .dispatch-table td:nth-child(3) { width: 125px; }
+#pcPages .dispatch-table th:nth-child(4), #pcPages .dispatch-table td:nth-child(4) { width: 48px; }
+#pcPages .dispatch-table th:nth-child(5), #pcPages .dispatch-table td:nth-child(5) { width: 76px; }
+#pcPages .dispatch-table th:nth-child(6), #pcPages .dispatch-table td:nth-child(6) { width: 145px; }
+#pcPages .dispatch-table th:nth-child(7), #pcPages .dispatch-table td:nth-child(7) { width: 70px; }
+#pcPages .dispatch-table th:nth-child(8), #pcPages .dispatch-table td:nth-child(8) { width: 68px; }
+#pcPages .dispatch-table th:nth-child(9), #pcPages .dispatch-table td:nth-child(9) { width: 100px; }
+#pcPages .dispatch-table th:nth-child(10), #pcPages .dispatch-table td:nth-child(10) { width: 132px; white-space: nowrap; }
+#pcPages .dispatch-table th:nth-child(11), #pcPages .dispatch-table td:nth-child(11) { width: 140px; }
+@media (max-width: 760px) {
+  #pcPages .dispatch-list-section { padding: 12px; }
+}

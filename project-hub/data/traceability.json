@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "generatedAt": "2026-10-23T14:20:57.890Z",
   "chain": "Fact → Decision → Flow → Requirement → PRD → Prototype → SDD → TDD → Test",
   "total": 119,
   "sourceMappings": [
@@ -167,8 +167,8 @@
       "sourceId": "SOURCE-021",
       "fileId": "FILE-999F8D5DA0",
       "projectPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx",
-      "name": "当前项目推进总表v2",
-      "typeStatus": "当前内部唯一主台账 / 原6页升级",
+      "name": "原内部项目推进总表v2（10/19冻结）",
+      "typeStatus": "历史内部主表 / 10/19迁移至SOURCE-030，原件冻结",
       "associations": "保留旧功能/TASK/PEND/UAT编号；三状态和证据分开，不估算百分比"
     },
     {
@@ -226,6 +226,38 @@
       "name": "10/14 SR往返/正式完工/财务接件走查",
       "typeStatus": "内部整改 / 限定子项通过",
       "associations": "旧001仅SR重列通用技术证据，不计维修通过；新002 CP维修清单/提交、主管确认及CR/财务共享完成状态局部复测。票款独立，未开票/收款，不替代003/正式预约/打印或客户验收"
+    },
+    {
+      "sourceId": "SOURCE-029",
+      "fileId": "FILE-AE8252532A",
+      "projectPath": "docs/knowledge/03-business/BUSINESS-CLARIFICATIONS-20261016.md",
+      "name": "10/16业务流程核对用户回答",
+      "typeStatus": "用户对话 / L3内部说明及候选，非客户签批",
+      "associations": "17项原话定位；报价分工、自主报价、即时维修、保养、CM与标书组；待客户子问题回既有C编号，原型未改、整链未通过"
+    },
+    {
+      "sourceId": "SOURCE-030",
+      "fileId": "FILE-126736930C",
+      "projectPath": "docs/review/project-work/WORK-REGISTER.json",
+      "name": "当前内部工作记录",
+      "typeStatus": "2026-10-19用户批准的唯一内部推进维护源",
+      "associations": "原45个TASK、7个批次及16个UAT迁入，客户表与Hub投影；不证明业务批准或验收"
+    },
+    {
+      "sourceId": "SOURCE-031",
+      "fileId": "FILE-D7526C5CBD",
+      "projectPath": "outputs/2026-10-19-client-progress-v1/EC工单系统客户业务推进与确认表-v1.xlsx",
+      "name": "客户业务推进与确认表v1",
+      "typeStatus": "客户草案 / 尚未发出",
+      "associations": "7个业务批次、8个当前客户问题主题，反馈复核后回SOURCE-030及知识，不包含全部内部TASK"
+    },
+    {
+      "sourceId": "SOURCE-032",
+      "fileId": "FILE-76884A8AC9",
+      "projectPath": "docs/knowledge/03-business/BUSINESS-CLARIFICATIONS-20261020.md",
+      "name": "10/20定稿前逐轮业务说明",
+      "typeStatus": "用户对话 / L3内部说明，非客户签批",
+      "associations": "Q5明确M保养（本轮也称保固）、P维修、M+P维修加保养，三类均收费；纠正前几轮返修解释和MR候选。Q6已确认SR原“保固期”选项也指M保养，Q7明确保养发现换电源转P报价→中单MR到仓管→缺货采购→备齐派工，原M含料分流候选撤回；Q8明确采购知会备货状态不一定有办理节点，与缺料实际采购分开；采购含义已说明；Q9首期暂按合同起始月、待客户核实；Q10各次上门时间可自定义，季度4次为本例；Q11到期未完成暂按原合同补做，明确待客户核实，不授权任意增删次数或合同自动延期；不全局替换保固年限。TASK-051/052及原C/REQ/FLOW编号保留"
     }
   ],
   "currentBusinessBaselineFileId": "FILE-6366380F13",
@@ -6192,6 +6224,34 @@
     {
       "from": "SOURCE-028",
       "to": "FILE-0D53775B2F",
+      "kind": "SOURCE_ALIAS_TO_FILE",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
+      "status": "LINKED"
+    },
+    {
+      "from": "SOURCE-029",
+      "to": "FILE-AE8252532A",
+      "kind": "SOURCE_ALIAS_TO_FILE",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
+      "status": "LINKED"
+    },
+    {
+      "from": "SOURCE-030",
+      "to": "FILE-126736930C",
+      "kind": "SOURCE_ALIAS_TO_FILE",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
+      "status": "LINKED"
+    },
+    {
+      "from": "SOURCE-031",
+      "to": "FILE-D7526C5CBD",
+      "kind": "SOURCE_ALIAS_TO_FILE",
+      "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
+      "status": "LINKED"
+    },
+    {
+      "from": "SOURCE-032",
+      "to": "FILE-76884A8AC9",
       "kind": "SOURCE_ALIAS_TO_FILE",
       "evidence": "docs/knowledge/01-source/SOURCE-INDEX.md",
       "status": "LINKED"

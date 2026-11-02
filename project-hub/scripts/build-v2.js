@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const cp = require('child_process');
+const {registerPath, loadWorkRegister} = require('./work-register.js');
+const {requirementsV1Path, readRequirementsV1} = require('./requirements-v1.js');
 
 const root = path.resolve(__dirname, '../..');
+const workRegister = loadWorkRegister(root);
 const hub = path.join(root, 'project-hub');
 const dataDir = path.join(hub, 'data');
 const pathMigrations = JSON.parse(fs.readFileSync(path.join(__dirname, 'path-migrations.json'), 'utf8'));
@@ -32,6 +35,7 @@ const knowledgePaths = {
   openQuestions: 'docs/knowledge/05-pending/OPEN-QUESTIONS.md',
   latestRules: 'docs/knowledge/03-business/LATEST-REQUIREMENTS-20261012.md',
   internalBaseline: 'docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md',
+  userClarifications: 'docs/knowledge/03-business/BUSINESS-CLARIFICATIONS-20261016.md',
 };
 const internalReviewPath = 'docs/review/2026-10-13-b01-b02-internal/INTERNAL-REVIEW.md';
 const remediationPath = 'docs/review/2026-10-13-b01-b02-internal/REMEDIATION-RESULT.md';
@@ -40,15 +44,154 @@ const quotationReviewPath = 'docs/review/2026-10-13-b01-b02-internal/QUOTATION-R
 const materialReviewPath = 'docs/review/2026-10-14-material-handoff/MATERIAL-HANDOFF-REVIEW.md';
 const srFinanceReviewPath = 'docs/review/2026-10-14-sr-finance/SR-FINANCE-WALKTHROUGH.md';
 const userReviewPath = 'docs/review/2026-10-14-user-review/INTERNAL-REVIEW-CHECKLIST.md';
+// This source owns the model. 01/00 consume an embedded projection, never a second maintained JSON.
+const businessModelPath = 'docs/knowledge/decisions/DEC-20261025-业务模型确认.md';
+function readBusinessModel() {
+  const text = readText(businessModelPath);
+  const section = title => {
+    const start = text.indexOf(`## ${title}\n`);
+    if (start < 0) throw new Error(`Missing business-model section: ${title}`);
+    return text.slice(start + title.length + 4).split(/^## /m)[0];
+  };
+  const rows = title => {
+    const lines = section(title).split('\n').filter(line => line.startsWith('|'));
+    const headers = markdownCells(lines[0] || '');
+    return lines.slice(2).map(line => Object.fromEntries(markdownCells(line).map((value, i) => [headers[i], value])));
+  };
+  const confirmations = section('用户确认原文与适用边界').split(/^### /m).slice(1).map(block => {
+    const heading = block.match(/^(CONFIRM-\d{2})｜([^\n]+)/);
+    return { id: heading?.[1], title: heading?.[2], summary: block.match(/^当前结论：(.+)$/m)?.[1],
+      boundary: block.match(/^边界：(.+)$/m)?.[1] };
+  });
+  if (confirmations.length !== 8 || confirmations.some((c, i) => c.id !== `CONFIRM-${String(i + 1).padStart(2, '0')}` || !c.summary || !c.boundary)) {
+    throw new Error('Business-model confirmations must preserve CONFIRM-01 through CONFIRM-08 and their boundaries');
+  }
+  const items = rows('01推进事项投影').map(r => ({ group: r['分组'], key: r['事项键'], title: r['当前事项'],
+    flowId: r['原FLOW'] || null, confirmationIds: r['确认依据'].match(/CONFIRM-\d{2}/g) || [],
+    known: r['已明确'], pending: r['仍待确认'], next: r['下一步'] }));
+  if (items.length !== 12 || new Set(items.map(i => i.key)).size !== items.length || items.some(i => !i.group || !i.title || !i.known || !i.pending || !i.next)) {
+    throw new Error('Incomplete or duplicate business-model progress references');
+  }
+  const auxiliary = section('辅助关系与未决边界');
+  return { version: '2026-10-25', sourceId: 'SOURCE-033', sourcePath: businessModelPath,
+    authority: '项目用户明确确认；非客户签批', sourceHash: crypto.createHash('sha256').update(text).digest('hex'),
+    confirmations, items,
+    relations: rows('00关系投影').map(r => ({ key: r['关系键'], title: r['名称'], text: r['已知关系'], basis: r['依据'] })),
+    processes: auxiliary.match(/^公共业务过程：(.+)。$/m)[1].split('、'),
+    objects: auxiliary.match(/^业务对象／单据：(.+)。$/m)[1].split('、'),
+    unresolved: rows('辅助关系与未决边界').map(r => ({ questionIds: r['关联主题'].match(/C-\d{2}/g) || [], text: r['仍待确认的内容'] })),
+    history: rows('旧判断与最新确认').map(r => ({ before: r['旧判断／来源'], basis: r['最新确认'], boundary: r['替代范围与保留范围'] })),
+  };
+}
+// Knowledge-owned 10/26 supplement. Only a generated projection; never a second fact source.
+const businessUpdatePath = 'docs/knowledge/decisions/DEC-20261026-客户业务确认补充.md';
+function readBusinessUpdate() {
+  const text = readText(businessUpdatePath);
+  const body = text.slice(text.indexOf('## 三、Michael会后人工确认原文'), text.indexOf('<a id="legacy-scope">'));
+  const confirmations = [...body.matchAll(/^### (CONFIRM-10-26-\d{2})｜([^\n]+)\n\n([\s\S]*?)(?=\n<a id=|$)/gm)]
+    .map(m => ({id:m[1],title:m[2],body:m[3].trim()}));
+  if (confirmations.length !== 20 || confirmations.some((c,i) => c.id !== `CONFIRM-10-26-${String(i+1).padStart(2,'0')}` || !c.body)) throw new Error('Incomplete 10/26 confirmation source');
+  const questionText = readText(knowledgePaths.openQuestions);
+  const questionUpdates = questionText.split('\n').filter(l => /^\| C-\d{2} \| P[012] \|/.test(l)).map(l => {
+    const [id,priority,status,title,flow,reason,basis,batch,options,blocking] = markdownCells(l);
+    return {id,priority,status,title,flowIds:flow.match(/FLOW-[A-Z-]+/g)||[],reason,basis,batch,options,blocking};
+  });
+  if (questionUpdates.length !== 16) throw new Error('Expected original 16 C themes; refusing to drop questions');
+  const openSection = questionText.split('### OPEN-10-26-01｜中单后的材料变更')[1]?.split('\n---')[0];
+  const openItems = [...(openSection||'').matchAll(/^  \d\. (.+)[；。]$/gm)].map(m=>m[1]);
+  if (openItems.length !== 8 || !openSection.includes('本次没有形成结论')) throw new Error('Material-change OPEN must preserve eight unanswered questions');
+  const sources = [
+    {id:'SOURCE-034',name:'会议全文1',identity:'原始会议转写；按发言人区分客户表达与团队讨论',paths:['materials/听记纪要/會議錄製_ECInfo工单定版推进会议20261026.md']},
+    {id:'SOURCE-035',name:'会议全文2',identity:'原始会议转写；报价交接及车资存在现场讨论',paths:['materials/听记纪要/會議錄製_ECInfo工单定版推进会议2026102602.md']},
+    {id:'SOURCE-036',name:'会议全文3',identity:'原始会议转写；材料变更不同表述不能作为统一方案',paths:['materials/听记纪要/會議錄製_ECInfo工单定版推进会议2026102603.md']},
+    {id:'SOURCE-037',name:'三份AI纪要',identity:'AI辅助摘要，不能代替客户原话或会后人工确认',paths:['materials/听记纪要/纪要_會議錄製_ECInfo工单定版推进会议20261026.md','materials/听记纪要/纪要_會議錄製_ECInfo工单定版推进会议2026102602.md','materials/听记纪要/纪要_會議錄製_ECInfo工单定版推进会议2026102603.md']},
+    {id:'SOURCE-038',name:'Michael会后20项人工确认',identity:'项目负责人现场复盘；不是客户正式签字确认',paths:[businessUpdatePath]},
+  ];
+  const index = readText(knowledgePaths.sourceIndex);
+  for (const s of sources) if (!index.includes(s.id) || s.paths.some(p=>!fs.existsSync(path.join(root,p)))) throw new Error('Missing 10/26 source: '+s.id);
+  return {version:'2026-10-26',sourceId:'SOURCE-038',sourcePath:businessUpdatePath,
+    authority:'Michael会后人工确认，非客户签批',sourceHash:crypto.createHash('sha256').update(text).digest('hex'),
+    questionsPath:knowledgePaths.openQuestions,questionsHash:crypto.createHash('sha256').update(questionText).digest('hex'),
+    confirmations,sources,questionUpdates,
+    ...(text.includes('<a id="instant-followup-20261027">') ? {instantFollowup:readInstantFollowup()} : {}),
+    open:{id:'OPEN-10-26-01',parentId:'C-13',priority:'P0',status:'OPEN',title:'中单后的材料变更',items:openItems,flowIds:['FLOW-P','FLOW-MR','FLOW-FINANCE'],reason:'本次没有形成结论；报价、MR、已有PO如何变更及同步仍待业务确认。',options:'没有已选方案',blocking:'Y',batch:'B02／B06',sourceFileIds:[]},
+    direction:{authority:'本轮用户明确的下一阶段目标，不是已通过的业务或原型验收',status:'目标测试链，尚未通过',roles:['CS','主管','师傅','报价组','仓库／采购','主管'],
+      steps:['CS建CALL','选择合同编号＋客户名称','选择主管','主管派师傅','师傅上门','SR勾选需要报价','填写货品名称／型号／位置','进入报价公共池','报价员接手','报价V1／V2…','客户接受','该报价员确认中单','生成1张MR','多个采购PO／仓库供料','分阶段到货／施工','最终完工单CP','主管确认','P业务完成']},
+  };
+}
+function readInstantFollowup() {
+  const text=readText(businessUpdatePath), marker='<a id="instant-followup-20261027"></a>';
+  const body=text.slice(text.indexOf(marker));
+  if (!text.includes(marker) || !body.includes('CONFIRM-10-27-01') || !readText(knowledgePaths.sourceIndex).includes('SOURCE-039')) throw new Error('Missing latest instant-repair confirmation');
+  const bullets=heading=>body.split('### '+heading+'\n')[1]?.split('\n### ')[0].split('\n').filter(l=>l.startsWith('- ')).map(l=>l.slice(2))||[];
+  const rules=bullets('当前有效规则'), pending=bullets('仍待确认');
+  if (rules.length!==4 || pending.length!==3) throw new Error('Incomplete latest instant-repair rules or pending boundaries');
+  return {id:'CONFIRM-10-27-01',sourceId:'SOURCE-039',date:'2026-10-27',authority:'Michael最新人工确认，由用户提供，非客户正式签批',
+    sourcePath:businessUpdatePath,anchor:'instant-followup-20261027',sourceHash:crypto.createHash('sha256').update(body).digest('hex'),rules,pending};
+}
 if (process.argv.includes('--check-paths')) {
-  const required = [...Object.values(knowledgePaths), decisionPath, regressionPath, internalReviewPath, remediationPath, materialCandidatePath, quotationReviewPath, materialReviewPath, srFinanceReviewPath,
+  const required = [...Object.values(knowledgePaths), registerPath, decisionPath, regressionPath, internalReviewPath, remediationPath, materialCandidatePath, quotationReviewPath, materialReviewPath, srFinanceReviewPath,
     'docs/governance/FILE-WRITING-RULES.md', 'docs/governance/KNOWLEDGE-SYNC-PROTOCOL.md', userReviewPath];
+  if (fs.existsSync(path.join(root, businessModelPath))) { required.push(businessModelPath); readBusinessModel(); }
+  if (fs.existsSync(path.join(root, businessUpdatePath))) { required.push(businessUpdatePath); readBusinessUpdate(); }
+  if (fs.existsSync(path.join(root, requirementsV1Path))) { required.push(requirementsV1Path); readRequirementsV1(root, workRegister); }
   const missing = required.filter(rel => !fs.existsSync(path.join(root, rel)));
   const ids = previousIndex.files.map(file => file.id);
   if (missing.length || new Set(ids).size !== ids.length) {
     throw new Error('Path/ID check failed: ' + JSON.stringify({ missing, duplicateIds: ids.length - new Set(ids).size }));
   }
   console.log(JSON.stringify({ requiredPaths: required.length, missing: 0, uniqueFileIds: ids.length, writes: 0 }));
+  process.exit(0);
+}
+if (process.argv.includes('--requirements-v1-only')) {
+  const htmlPath = path.join(hub, 'index.html'), html = fs.readFileSync(htmlPath, 'utf8');
+  const match = html.match(/window\.HUB_DATA=(.*?);<\/script>/s);
+  if (!match) throw new Error('Missing embedded Hub data');
+  const existing = JSON.parse(match[1]);
+  // Keep all shared snapshots intact: only 04 consumes the current work-review projection.
+  const requirementsV1 = readRequirementsV1(root, workRegister);
+  existing.requirementsV1 = requirementsV1;
+  const output = (html.slice(0, match.index) + 'window.HUB_DATA=' + JSON.stringify(existing).replace(/</g, '\\u003c') + ';</script>' + html.slice(match.index + match[0].length))
+    .replace(/assets\/(architecture\.css|app-v2\.js)\?v=[^"<>]+/g, 'assets/$1?v=20261030-common-requirements-v1');
+  fs.writeFileSync(path.join(dataDir, 'requirements-v1.json'), JSON.stringify(requirementsV1, null, 2) + '\n');
+  fs.writeFileSync(htmlPath, output, 'utf8');
+  console.log(JSON.stringify({mode:'requirements-v1-only', source:requirementsV1Path,
+    writes:['project-hub/data/requirements-v1.json','project-hub/index.html'],
+    preserves:'119 old REQs, all other embedded fields, 01/02/03/05/06/07/A and page shell'}));
+  process.exit(0);
+}
+if (process.argv.includes('--instant-followup-only')) {
+  const htmlPath=path.join(hub,'index.html'),html=readText('project-hub/index.html'),match=html.match(/window\.HUB_DATA=(.*?);<\/script>/s);
+  if(!match)throw new Error('Missing embedded Hub data');
+  const existing=JSON.parse(match[1]);if(!existing.businessUpdate1026)throw new Error('Missing existing 10/26 projection');
+  existing.businessUpdate1026.instantFollowup=readInstantFollowup();
+  fs.writeFileSync(htmlPath,html.slice(0,match.index)+'window.HUB_DATA='+JSON.stringify(existing).replace(/</g,'\\u003c')+';</script>'+html.slice(match.index+match[0].length),'utf8');
+  console.log(JSON.stringify({mode:'instant-followup-only',changedField:'businessUpdate1026.instantFollowup',writes:['project-hub/index.html'],preserves:'all other embedded fields, FLOWs, REQs, project status and question-page snapshot'}));
+  process.exit(0);
+}
+if (process.argv.includes('--business-update-only')) {
+  const htmlPath = path.join(hub,'index.html'), html = readText('project-hub/index.html');
+  const match = html.match(/window\.HUB_DATA=(.*?);<\/script>/s);
+  if (!match) throw new Error('Missing embedded data; refusing to rebuild page');
+  const existing = JSON.parse(match[1]);
+  existing.businessUpdate1026 = readBusinessUpdate();
+  fs.writeFileSync(htmlPath, html.slice(0,match.index)+'window.HUB_DATA='+JSON.stringify(existing).replace(/</g,'\\u003c')+';</script>'+html.slice(match.index+match[0].length),'utf8');
+  console.log(JSON.stringify({mode:'business-update-only',confirmations:20,questions:16,open:'OPEN-10-26-01',writes:['project-hub/index.html'],preserves:'all original data, work register, FLOWs and REQs'}));
+  process.exit(0);
+}
+if (process.argv.includes('--business-model-only')) {
+  const htmlPath = path.join(hub, 'index.html'), html = fs.readFileSync(htmlPath, 'utf8');
+  const match = html.match(/window\.HUB_DATA=(.*?);<\/script>/s);
+  if (!match) throw new Error('Missing embedded Hub data; refusing to rewrite the page shell');
+  const existing = JSON.parse(match[1]), currentBusinessModel = readBusinessModel();
+  for (const item of currentBusinessModel.items) if (item.flowId && !existing.flows.some(f => f.id === item.flowId)) {
+    throw new Error(`Unknown existing FLOW reference: ${item.flowId}`);
+  }
+  existing.currentBusinessModel = currentBusinessModel;
+  const payload = JSON.stringify(existing).replace(/</g, '\\u003c');
+  fs.writeFileSync(htmlPath, html.slice(0, match.index) + 'window.HUB_DATA=' + payload + ';</script>' + html.slice(match.index + match[0].length), 'utf8');
+  console.log(JSON.stringify({ mode: 'business-model-only', source: businessModelPath, confirmations: currentBusinessModel.confirmations.length,
+    changedField: 'currentBusinessModel', writes: ['project-hub/index.html'], preserves: 'all existing Hub data and page shell' }));
   process.exit(0);
 }
 const generatedAt = new Date().toISOString();
@@ -467,7 +610,7 @@ function parseOpenQuestions(markdown) {
     ['Q-20260927-001', 'PENDING-001'], ['Q-20260927-002', 'PENDING-002'],
   ]);
   const indexFile = fileByPath.get(knowledgePaths.openQuestions);
-  const current = markdown.split('## 历史问题定位')[0];
+  const current = markdown.split('## 历史问题定位')[0].split('## 本轮业务核对补充')[0];
   if (/^\|\s*C-\d{2}\s*\|/m.test(current)) return current.split('\n').filter(line=>/^\|\s*C-\d{2}\s*\|/.test(line)).map(line=>{
     const [id,priority,status,title,impact,reason,evidence,batch,options,blocking]=markdownCells(line);
     const decisionId=id==='C-05'?'PENDING-002':id==='C-06'?'PENDING-001':null;
@@ -490,6 +633,19 @@ function parseOpenQuestions(markdown) {
   });
 }
 const questions = parseOpenQuestions(readText(knowledgePaths.openQuestions));
+// Keep C topics stable: details do not create duplicate questions or approvals.
+const clarificationText = readText(knowledgePaths.userClarifications);
+const clarificationFileId = fileByPath.get(knowledgePaths.userClarifications)?.id;
+const questionDetails = readText(knowledgePaths.openQuestions).split('## 本轮业务核对补充（2026-10-16）')[1]?.split('### 已由用户说明')[0] || '';
+for (const line of questionDetails.split('\n').filter(line => /^\|\s*C-\d{2}/.test(line))) {
+  const [topics, title, evidence, audience] = markdownCells(line);
+  for (const id of topics.match(/C-\d{2}/g) || []) {
+    const question = questions.find(item => item.id === id);
+    if (!question) throw new Error(`Unknown clarification question ${id}`);
+    (question.clarifications ||= []).push({title, evidence, audience});
+    question.sourceFileIds = [...new Set([...question.sourceFileIds, clarificationFileId].filter(Boolean))];
+  }
+}
 if (!questions.length || new Set(questions.map(q=>q.id)).size!==questions.length) throw new Error('Current question IDs missing/duplicated');
 const conflictRecords = [
   ...[['CONFLICT-001', 'RULE-004', 'PM/CM 与 CALL 分类映射未确认'],
@@ -506,6 +662,23 @@ const conflictRecords = [
     sourceFileIds: sourceFileIds(kb.questions.find(q => q.id === 'Q-003').sourceIds),
     requirementIds: [], decisionIds: [], evidenceNote: '来自历史知识库 Q-003；当前 Decision 未确认统一状态字典。' },
 ];
+// Additional evidence is maintained in the existing question index, not in page code.
+const recordedDifferences = readText(knowledgePaths.openQuestions).split('## 已识别差异记录（2026-10-24）')[1]?.split('## 历史问题定位')[0] || '';
+for (const line of recordedDifferences.split('\n').filter(line => /^\|\s*CONFLICT-\d{3}\s*\|/.test(line))) {
+  const [id, title, topics, impact, sideA, sideB, sourcePaths, status, boundary] = markdownCells(line);
+  if (status !== 'CONFLICT' || conflictRecords.some(c => c.id === id)) throw new Error(`Invalid/duplicate recorded conflict: ${id}`);
+  const flowIds = idList(impact, ['FLOW']);
+  const questionIds = topics.match(/C-\d{2}/g) || [];
+  if (!flowIds.length || flowIds.some(fid => !flowById.has(fid)) || !questionIds.length || questionIds.some(qid => !questions.some(q => q.id === qid))) throw new Error(`Unlinked recorded conflict: ${id}`);
+  const sourceFileIds = [...sourcePaths.split('、'), knowledgePaths.openQuestions].map(p => {
+    const file = fileByPath.get(p.trim());
+    if (!file) throw new Error(`Missing recorded-conflict source: ${p}`);
+    return file.id;
+  });
+  conflictRecords.push({id, kind: 'Recorded Evidence Difference', title, status, flowIds, questionIds,
+    sourceFileIds: [...new Set(sourceFileIds)], requirementIds: [], decisionIds: [],
+    recordedAt: '2026-10-24', evidenceNote: `证据A：${sideA}。证据B：${sideB}。处理边界：${boundary}`});
+}
 const changes = parsedDecisionIndex.changes.map(change => ({ ...change,
   sourceFileIds: [decisionFile?.id].filter(Boolean),
   knowledgeFileIds: [decisionIndexFile?.id].filter(Boolean), status: 'CONFIRMED',
@@ -586,6 +759,7 @@ const audit = {
   ],
 };
 const ia = [
+  { id: 'progress', number: '01', title: '当前推进', children: [] },
   { id: 'overview', number: '01', title: '业务全景', children: [] },
   { id: 'facts', number: '02', title: '业务事实库', children: ['原始资料', '事实条目', '待确认事项', '冲突与差异'] },
   { id: 'flows', number: '03', title: '业务流程', children: flows.map(f => f.name) },
@@ -595,7 +769,10 @@ const ia = [
   { id: 'status', number: '07', title: '项目状态', children: [] },
 ];
 
-const model = { generatedAt, ia, files, facts, decisions, flows, requirements, pages,
+const model = { generatedAt, ia, workRegister, files, facts, decisions, flows, requirements, pages,
+  ...(fs.existsSync(path.join(root, requirementsV1Path)) ? {requirementsV1:readRequirementsV1(root, workRegister)} : {}),
+  ...(fs.existsSync(path.join(root, businessModelPath)) ? { currentBusinessModel: readBusinessModel() } : {}),
+  ...(fs.existsSync(path.join(root, businessUpdatePath)) ? { businessUpdate1026: readBusinessUpdate() } : {}),
   traces, edges: explicitEdges, questions, conflicts: conflictRecords, changes,
   sourceMappings, currentKnowledge,
   deliverables, audit, prototypeRegression: regression, roles: kb.roles.map(r => ({ ...r, legacyStatus: r.status,
@@ -604,28 +781,32 @@ const model = { generatedAt, ia, files, facts, decisions, flows, requirements, p
   baseline: { ...originalStatus.baseline, business: knowledgePaths.baseline, businessFileId: baselineFile?.id || null },
   sourcePriority: ['客户原始资料', '明确讨论 Decision', '已确认 PRD', 'Prototype', '开发实现'],
   latestRules,legacyQuestions:originalStatus.legacyQuestions||originalStatus.openQuestions||[],
+  userClarifications:{sourceId:'SOURCE-029',sourceFileId:clarificationFileId,path:knowledgePaths.userClarifications,
+    note:'17项用户回答已归档（L3内部说明）；现有流程节点和原型仍待逐项对照，不能认定全部一致。',
+    questionsPath:knowledgePaths.openQuestions},
   internalReview:{date:readText(srFinanceReviewPath).match(/^复核日期：(.+)$/m)?.[1],
     conclusion:readText(srFinanceReviewPath).match(/^当前结论：(.+)$/m)?.[1],
     baselinePath:knowledgePaths.internalBaseline,reviewPath:internalReviewPath,
     resultPath:remediationPath,candidatePath:materialCandidatePath,quotationReviewPath,materialReviewPath,srFinanceReviewPath,userReviewPath,
-    guidedQuestion:readText(srFinanceReviewPath).match(/^当前引导问题：(.+)$/m)?.[1],
-    guidedAudience:readText(srFinanceReviewPath).match(/^用户本次只确认：(.+)$/m)?.[1],
+    guidedQuestion:clarificationText.match(/^当前引导问题：(.+)$/m)?.[1],
+    guidedAudience:clarificationText.match(/^用户本次只确认：(.+)$/m)?.[1],
     guidedKnown:readText(materialCandidatePath).match(/^上一步已获得用户说明：(.+?)。/m)?.[1],
     guidedSequence:readText(srFinanceReviewPath).match(/^当前服务顺序：(.+)$/m)?.[1] || readText(materialCandidatePath).match(/^后续已获得用户说明：(.+?)。/m)?.[1],
-    guidedInternalNext:readText(srFinanceReviewPath).match(/^当前内部动作：(.+)$/m)?.[1],
-    note:'本页展示知识和版本验证结论；任务进度只维护README指定Excel。'},
+    guidedInternalNext:clarificationText.match(/^当前内部动作：(.+)$/m)?.[1],
+    note:'任务进度维护在唯一内部工作记录；客户Excel是里程碑与确认导出，旧复测证据保留对应版本。'},
   preparation:{reviewedAt:'2026-10-12',version:'PREP-20261012-v1',latestRequests:latestRules.length,
     oldRequirementCount:kb.requirements.length,clientQuestions:questions.length,draftUatCount:16,
-    mainPath:sourceMappings.find(item=>item.sourceId==='SOURCE-021')?.projectPath,
-    clientPath:sourceMappings.find(item=>item.sourceId==='SOURCE-020')?.projectPath,
+    mainPath:workRegister.clientExport.path,
+    clientPath:workRegister.clientExport.path,
     reviewPath:'docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md',
-    progressSource:'仅README指定Excel维护任务进度；本页统计为知识主题关联。',
+    progressSource:'内部工作记录是推进维护源；客户Excel仅导出业务里程碑和待确认，知识主题关联不代表项目完成度。',
     prototypeCurrentVerified:false,scopeApproval:'本期范围待客户确认'},
 };
 function json(name, value) { fs.writeFileSync(path.join(dataDir, name), JSON.stringify(value, null, 2) + '\n', 'utf8'); }
 json('file-index.json', { generatedAt, total: files.length, scanBoundary: originalStatus.scanBoundary, sourceMappings, currentKnowledge, files });
 json('facts.json', { generatedAt, total: facts.length, facts,latestRules });
 json('requirements.json', { generatedAt, total: requirements.length, requirements, pages,preparation:model.preparation });
+if (model.requirementsV1) json('requirements-v1.json', model.requirementsV1);
 json('flows.json', { generatedAt, total: flows.length, flows });
 json('decisions.json', { generatedAt, total: decisions.length, decisions, changes });
 const priorTrace = JSON.parse(fs.readFileSync(path.join(dataDir, 'traceability.json'), 'utf8'));
@@ -647,14 +828,14 @@ json('architecture.json', { generatedAt, ia, sourcePriority: model.sourcePriorit
 json('project-status.json', { ...originalStatus, generatedAt,
   baseline: model.baseline,
   knowledgeUpstream: { builder: 'project-hub/scripts/build-v2.js', currentKnowledge, sourceMappings: sourceMappings.length },
-  preparation:model.preparation,internalReview:model.internalReview,legacyQuestions:model.legacyQuestions,
+  workRegister,preparation:model.preparation,internalReview:model.internalReview,userClarifications:model.userClarifications,legacyQuestions:model.legacyQuestions,
   knowledgeCompleteness: audit.counts,
   delivery: deliverables,
   gate: model.internalReview.conclusion,
-  nextActions: ['师傅公司领单再现场已说明；CR/主管交付候选C-08待用户后续客户核实，不重复追问同项', '纸单准备/现场填写/回交三环节已对照，继续入口/权限与已有独立任务；本轮原型不改', 'C-04材料归口、C-08交付岗位、C-09七位+1细则待客户；发号/打印/OCR及维修003下游未通过', '内部方案可演示后集中客户评审，客户决定后补交互、验收并冻结'],
+  nextActions: [model.internalReview.guidedInternalNext, '新增客户子问题回既有C编号；先问用户，明确需客户的才保留客户清单，尚未对外发送', 'C-04材料归口、C-08交付岗位、C-09七位+1细则继续待客户；维修003与打印领单整链未通过', '按SOURCE-029逐条对照旧流程和原型，不能把本次问题同步当业务全部对齐或验收通过'],
   conflicts: conflictRecords, openQuestions: questions,
 });
 
-const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EC Project Hub · Single Source of Truth</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/architecture.css"></head><body><aside class="sidebar"><div class="brand"><div class="brand-mark">EC</div><div><strong>Project Hub</strong><span>事实与交付中心</span></div></div><nav id="nav"></nav><div class="side-links"><a href="../knowledge-base/index.html">历史知识库 ↗</a><a href="../prototype/index.html">当前原型 ↗</a><a href="README.md">维护说明 ↗</a></div></aside><main><header class="topbar"><div><p class="eyebrow">EC 工单系统 · Single Source of Truth</p><h1 id="view-title">业务全景</h1></div><label class="global-search"><span>⌕</span><input id="global-search" type="search" placeholder="搜索 Fact、Decision、Flow、REQ、文件…"></label></header><div id="content"></div></main><aside id="drawer" class="drawer" aria-hidden="true"><button id="drawer-close" aria-label="关闭">×</button><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status"></div><script>window.HUB_DATA=${JSON.stringify(model).replace(/</g, '\\u003c')};</script><script src="assets/app-v2.js?v=20261014-material-review"></script></body></html>\n`;
+const html = `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EC 项目推进与业务资料</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="assets/architecture.css?v=20261030-common-requirements-v1"></head><body><aside class="sidebar"><div class="brand"><div class="brand-mark">EC</div><div><strong>Project Hub</strong><span>项目推进与业务知识</span></div></div><nav id="nav"></nav><div class="side-links"><a href="../knowledge-base/index.html">历史知识库 ↗</a><a href="../prototype/index.html">当前原型 ↗</a><a href="README.md">维护说明 ↗</a></div></aside><main><header class="topbar"><div><p class="eyebrow">EC 工单系统 · 项目推进与业务资料</p><h1 id="view-title">当前推进</h1></div><label class="global-search"><span>⌕</span><input id="global-search" type="search" placeholder="搜索业务、需求、问题、文件…"></label></header><div id="content"></div></main><aside id="drawer" class="drawer" aria-hidden="true"><button id="drawer-close" aria-label="关闭">×</button><div id="drawer-content"></div></aside><div id="toast" class="toast" role="status"></div><script>window.HUB_DATA=${JSON.stringify(model).replace(/</g, '\\u003c')};</script><script src="assets/app-v2.js?v=20261030-common-requirements-v1"></script></body></html>\n`;
 fs.writeFileSync(path.join(hub, 'index.html'), html, 'utf8');
 console.log(JSON.stringify(audit.counts, null, 2));

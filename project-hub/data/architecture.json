@@ -1,6 +1,12 @@
 {
-  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "generatedAt": "2026-10-23T14:20:57.890Z",
   "ia": [
+    {
+      "id": "progress",
+      "number": "01",
+      "title": "当前推进",
+      "children": []
+    },
     {
       "id": "overview",
       "number": "01",
@@ -148,6 +154,12 @@
     {
       "projectPath": "docs/knowledge/03-business/B01-B02-INTERNAL-BASELINE-20261013.md",
       "fileId": "FILE-CE3522C7AE",
+      "tier": "CURRENT",
+      "status": "READY"
+    },
+    {
+      "projectPath": "docs/knowledge/03-business/BUSINESS-CLARIFICATIONS-20261016.md",
+      "fileId": "FILE-AE8252532A",
       "tier": "CURRENT",
       "status": "READY"
     }

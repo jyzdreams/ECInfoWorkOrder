@@ -22,6 +22,10 @@ shell commands, and other important information, read the current plan
 
 main禁止删除及非快进推送；Pages仅用户账号在main手动触发并审批，未获具体发布指令不得发布。工作分支推送/PR不是正式更新。2026-10-15用户已授权本批完整基线保存、提交推送和远端保护配置；此授权不等于同事未来修改均已获准，亦不改变客户确认/UAT状态。
 
+## 内部记录与客户Excel（2026-10-19用户确认）
+
+先读 `docs/governance/WORK-AND-CLIENT-VIEWS.md`。日常先看Hub当前推进；内部TASK/批次/UAT唯一维护源为 `docs/review/project-work/WORK-REGISTER.json`。客户Excel按业务流程、里程碑和待确认事项导出，原内部v2保留历史、停止双写。此条替换本文件与治理文档中“所有任务只维护内部Excel、不许独立内部记录”的旧规定；这是维护源迁移，不新增并行台账。原编号和批准/验收状态保留。
+
 ## 当前项目文件规则
 
 本项目当前以 `docs/governance/FILE-WRITING-RULES.md` 作为文件写入和目录归类规则。开始创建、移动或生成文件前，必须先读取该文件；如果历史路径与当前目录结构冲突，以用户当前目录和该规则为准，不自动恢复已移动或删除的历史文件。
@@ -31,7 +35,7 @@ main禁止删除及非快进推送；Pages仅用户账号在main手动触发并�
 ### 三个日常工作入口与文档分类（2026-10-11用户确定）
 
 1. 先读README.md和docs/governance/FILE-WRITING-RULES.md，从指定入口选当前文件，不因名字“最新/最终”另选基线。
-2. 推进使用README指定的内部Excel主台账，不新建平行ai-delivery-board.md、第二套任务总表或手工JSON进度。客户版按编号/版本导出，意见复核后回填。
+2. 推进使用README指定内部工作记录，不新建并行工作板。客户Excel只按业务里程碑/待确认事项导出，意见复核回填内部记录及对应知识；旧Excel冻结，不双写。
 3. 当前原型只有prototype/，历史原型只对比；修改必须有需求/决定和验收场景，页面存在不反向批准需求。
 4. 日常知识入口为project-hub/index.html；底层业务资料在docs/knowledge/。整理文档按docs/knowledge、analysis、audit、review、governance、history六类维护，应用目录仅保留必要简短说明。客户原件materials/、交付文件outputs/和完整备份保留原位置。
 5. 分开客户确认、原型修改、业务验收，不以旧表估算或机器完整率替代项目进度。

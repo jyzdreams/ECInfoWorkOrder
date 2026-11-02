@@ -1,5 +1,7 @@
 # EC 项目 GitHub 提交规范
 
+> **2026-10-19当前分工：** 用户已确认内部记录与客户Excel分开，Hub统一展示。[内部推进与客户表规范](WORK-AND-CLIENT-VIEWS.md)替换本文所有“任务只回填内部Excel”的旧约定。唯一内部推进源为 `docs/review/project-work/WORK-REGISTER.json`；客户表见根README，旧内部Excel保留历史并停止双写。其余正式版保护、原编号、事实和验收边界保持。
+
 > 2026-10-15生效：[正式版与工作副本规范](FORMAL-VERSION-WORKFLOW.md)。用户jyzdreams及其授权AI维护main，同事提交工作分支/PR供审查，不自行合并；用户采用后才能进入正式版。本次用户已明确授权保存当前完整基线、提交推送、配置保护，未授权发布原型。
 
 更新日期：2026-10-12。GitHub仓库保存团队共享的项目文件，临时过程文件保留本地。日常三个入口和docs六类目录不变。

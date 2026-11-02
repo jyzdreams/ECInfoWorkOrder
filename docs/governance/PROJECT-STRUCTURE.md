@@ -1,5 +1,7 @@
 # EC 工单系统目录职责
 
+> **2026-10-19当前分工：** 用户已确认内部记录与客户Excel分开，Hub统一展示。[内部推进与客户表规范](WORK-AND-CLIENT-VIEWS.md)替换本文所有“任务只回填内部Excel”的旧约定。唯一内部推进源为 `docs/review/project-work/WORK-REGISTER.json`；客户表见根README，旧内部Excel保留历史并停止双写。其余正式版保护、原编号、事实和验收边界保持。
+
 > 正式目录与同事工作副本使用相同结构，以分支/各自克隆隔离，不添加正式/范本双文件。main归属、差异确认和同步见[正式版规范](FORMAL-VERSION-WORKFLOW.md)。
 
 更新日期：2026-10-12。日常只使用根README指定的推进Excel、prototype/和project-hub/三个入口。

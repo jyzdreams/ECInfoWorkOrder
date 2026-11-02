@@ -1,0 +1,26 @@
+{
+  "checkedOn": "2026-10-20",
+  "protectedFilesUnchanged": 259,
+  "milestonesUnchanged": 7,
+  "customerQuestionsUnchanged": 8,
+  "historicalUatValuesUnchanged": 16,
+  "original45TaskFieldsUnchanged": true,
+  "currentUatNotes": 3,
+  "taskCount": 52,
+  "prototypeModified": false,
+  "customerWorkbookModified": false,
+  "errors": [],
+  "hub": {
+    "recordMatches": true,
+    "revision": "WORK-20261020-02",
+    "sourceHash": "8387072371c387c41b92f69b40e78f50cdac5f7584909d6700506252a72208fc",
+    "reportLink": "../docs/audit/GRILLING-AUDIT-20261020.md",
+    "mobileWidth": 390,
+    "noOverflow": true,
+    "taskDrawer": true
+  },
+  "businessAcceptanceChanged": false,
+  "customerApprovalChanged": false,
+  "finalization": "NOT READY",
+  "commitPushPublish": "本轮未执行"
+}

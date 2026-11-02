@@ -1,0 +1,81 @@
+{
+  "milestones": [
+    {
+      "id": "B01",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B02",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B03",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B04",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B05",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B06",
+      "match": true,
+      "customerCommentBlank": true
+    },
+    {
+      "id": "B07",
+      "match": true,
+      "customerCommentBlank": true
+    }
+  ],
+  "questions": [
+    {
+      "id": "C-01",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-02",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-04",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-05",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-06",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-08",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-09",
+      "match": true,
+      "customerInputBlank": true
+    },
+    {
+      "id": "C-15",
+      "match": true,
+      "customerInputBlank": true
+    }
+  ]
+}

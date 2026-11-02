@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "generatedAt": "2026-10-23T14:20:57.890Z",
   "total": 9,
   "flows": [
     {
@@ -85,16 +85,16 @@
           "id": "MAIN-06",
           "label": "M / P / M+P",
           "actor": "系统 / 业务团队",
-          "action": "按报价阶段确定的业务类型分流",
+          "action": "按报价阶段确定的项目类型分流",
           "state": "准备中",
-          "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "nextRole": "按M或P责任岗位",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-011",
             "CONFIRMED-013"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q5：M保养（用户本轮也称保固）、P维修、M+P维修加保养，三类均收费。是内部用户说明，不是新增返修类型或客户签批；SOURCE-032 Q6说明SR原保固期选项也指M保养；Q7说明保养发现维修另走P，不沿M含料候选直接采购。"
         },
         {
           "id": "MAIN-07",
@@ -165,7 +165,7 @@
         "CS / CR",
         "报价组",
         "系统 / 业务团队",
-        "CR / 主管",
+        "按M或P责任岗位",
         "CR / 主管、师傅",
         "客户 / CR",
         "师傅 / 客户",
@@ -205,6 +205,7 @@
       ],
       "sourceFileIds": [
         "FILE-618C5F54C7",
+        "FILE-76884A8AC9",
         "FILE-CE3522C7AE",
         "FILE-CAE118EF83",
         "FILE-833C198165"
@@ -504,7 +505,7 @@
       "id": "FLOW-MAINT-ISSUE",
       "name": "02 保养发现问题后二次维修",
       "status": "PARTIAL",
-      "summary": "保养 SR 选择需要报价后自动创建报价任务，再进入报价、中单、MR、备货和二次上门链路。",
+      "summary": "SOURCE-032 Q7明确：保养发现换电源属于P维修，SR需报价交报价组；中单自动MR通知仓管，库存不足再交采购，备货完成通知后由主管安排上门。原M本期独立完成；SOURCE-032 Q8说明采购知会备货状态不一定有办理节点，齐料单据仍待C-04。",
       "nodes": [
         {
           "id": "MI-01",
@@ -523,75 +524,75 @@
         },
         {
           "id": "MI-02",
-          "label": "发现问题",
+          "label": "发现维修事项",
           "actor": "师傅",
-          "action": "识别无法当场完成的问题",
-          "state": "待报价判断",
-          "nextRole": "系统",
-          "status": "CONFIRMED",
+          "action": "识别需换电源等P维修事项",
+          "state": "待报价",
+          "nextRole": "报价组",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-002"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q7：来源为保养不等于维修仍归M；本例转P，不按原M含料候选直接采购。"
         },
         {
           "id": "MI-03",
           "label": "SR 需要报价",
           "actor": "师傅",
-          "action": "在 Service Report 选择需要报价",
+          "action": "在Service Report填写需要报价并交报价组",
           "state": "待报价",
           "nextRole": "报价组",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-009"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q7；SOURCE-029第05/15项。保留原保养SR，原M本期可先完成。"
         },
         {
           "id": "MI-04",
-          "label": "报价与中单",
+          "label": "P报价与中单",
           "actor": "报价组 / 客户",
-          "action": "版本沟通并确认中单",
+          "action": "沟通P维修报价，客户接受后由报价人确认中单",
           "state": "已中单",
           "nextRole": "系统",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-007",
             "CONFIRMED-008"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q7及SOURCE-029第03项；不把本例改为原M的免报价材料申请，不新增内部报价审批。"
         },
         {
           "id": "MI-05",
-          "label": "MR 与备货",
-          "actor": "系统 / 仓管",
-          "action": "自动生成 MR 并备货",
-          "state": "材料准备中",
-          "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "label": "MR、库存与备货",
+          "actor": "系统 / 仓管 / 采购",
+          "action": "中单自动MR通知仓管，库存不足通知采购，完成备货并通知",
+          "state": "材料准备中→备货完成",
+          "nextRole": "主管",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-006",
             "CONFIRMED-007"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q7；MR在仓库通，MR申请完成不等于备齐。SOURCE-032 Q8区分采购知会和实际办理，不由通知强加采购节点。C-04最终备齐确认岗位/单据仍待客户，不推定仓管全部审批权限。"
         },
         {
           "id": "MI-06",
-          "label": "二次上门",
-          "actor": "CR / 主管、师傅",
-          "action": "确认时间并施工",
+          "label": "二次上门维修",
+          "actor": "主管 / 师傅",
+          "action": "备货完成后安排上门P维修，派工备注记录时间事项",
           "state": "处理中",
           "nextRole": "客户",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-005"
           ],
-          "description": ""
+          "description": "SOURCE-032 Q7及SOURCE-022已说明材料备齐后主管安排；不另造强制独立预约审批。"
         },
         {
           "id": "MI-07",
@@ -613,22 +614,21 @@
       "trigger": "师傅在保养 Service Report 中选择“需要报价”。",
       "roles": [
         "师傅",
-        "系统",
         "报价组",
         "报价组 / 客户",
-        "系统 / 仓管",
-        "CR / 主管",
-        "CR / 主管、师傅",
+        "系统",
+        "系统 / 仓管 / 采购",
+        "主管",
+        "主管 / 师傅",
         "客户",
         "师傅 / 主管",
         "有权限的查看角色"
       ],
       "keyStates": [
         "保养中",
-        "待报价判断",
         "待报价",
         "已中单",
-        "材料准备中",
+        "材料准备中→备货完成",
         "处理中",
         "已完工，状态按权限可查"
       ],
@@ -645,6 +645,8 @@
       "openDecisionIds": [],
       "sourceFileIds": [
         "FILE-618C5F54C7",
+        "FILE-76884A8AC9",
+        "FILE-AE8252532A",
         "FILE-CE3522C7AE",
         "FILE-833C198165"
       ],
@@ -838,38 +840,38 @@
     {
       "id": "FLOW-M",
       "name": "04 周期保养",
-      "status": "CONFIRMED",
-      "summary": "报价阶段确定保养周期，中单后生成整期计划；到期时再安排具体师傅和日期。",
+      "status": "PARTIAL",
+      "summary": "M为收费保养（用户本轮也称保固）；中单后整期计划，CR直接定师傅和时间，正常每期不另建CALL，CR或主管确认本期完成。SOURCE-032 Q10说明各次上门时间可分别自定义，季度4次仅为本例；Q11到期未做暂按原合同补做、待客户核实；合同次数等未决仍保留。",
       "nodes": [
         {
           "id": "M-01",
           "label": "确定周期",
-          "actor": "报价组",
-          "action": "在报价中确定保养周期",
+          "actor": "实际报价人（按来源分工）",
+          "action": "在M或M+P报价中确定保养周期",
           "state": "报价中",
           "nextRole": "客户",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-011",
             "CONFIRMED-012"
           ],
-          "description": ""
+          "description": "SOURCE-029第01～06项按来源分报价职责；SOURCE-032 Q5明确M保养、M+P含保养且均收费。不是全部交报价组，具体周期细则待核。"
         },
         {
           "id": "M-02",
           "label": "中单",
-          "actor": "报价组",
-          "action": "确认 M 或 M+P 中的 M",
+          "actor": "实际报价人",
+          "action": "客户接受后确认M或M+P报价中单",
           "state": "已中单",
           "nextRole": "系统",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-008",
             "CONFIRMED-011"
           ],
-          "description": ""
+          "description": "SOURCE-029第03项谁报价谁确认；SOURCE-032 Q4/Q5按既有中单后流程，不另造返修审批或重复MR。材料申请按报价资料另核，不推定M必有或必无材料。"
         },
         {
           "id": "M-03",
@@ -877,27 +879,27 @@
           "actor": "系统",
           "action": "按周期和合同期生成计划",
           "state": "计划已生成",
-          "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "nextRole": "CR",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-012"
           ],
-          "description": ""
+          "description": "SOURCE-029第12项中单后CR负责保养排期；SOURCE-032 Q9暂按合同开始月份安排首期，明确待客户核实，不等于合同首日上门。SOURCE-032 Q10说明可按约定期次逐次排程，季度4次为用户本例，各次时间可不同；不锁死等间隔，不授权任意增删合同次数。SOURCE-032 Q11暂按到期未完成可留原合同补做，明确待客户核实，不自动延长合同/转新合同/标完成。仍PARTIAL，不以原型算法替代客户规则。"
         },
         {
           "id": "M-04",
           "label": "到期排期",
-          "actor": "CR / 主管",
-          "action": "安排具体师傅和日期",
+          "actor": "CR",
+          "action": "直接指定师傅和具体时间",
           "state": "待保养",
           "nextRole": "师傅",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-012"
           ],
-          "description": ""
+          "description": "SOURCE-029第12/13项：正常每期不另建CALL，CR排期即定人定时，不强加主管二次派人。SOURCE-032 Q10：排程可选定各次，分别自定义上门时间，不要求自动整体顺延或强制原月份；SOURCE-032 Q11到期未完成可在原合同补做为暂定，待客户核实，不改变合同截止日或次数；已完成更正/取消规则未定。"
         },
         {
           "id": "M-05",
@@ -917,42 +919,44 @@
           "id": "M-06",
           "label": "Service Report",
           "actor": "师傅 / 客户",
-          "action": "提交并签名",
+          "action": "记录并签署本期保养结果、提交SR",
           "state": "待确认",
           "nextRole": "CR / 主管",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010"
           ],
-          "description": ""
+          "description": "SOURCE-029第14/15项；本期完成及发现需报价分别记录。SOURCE-032 Q6明确SR原保固期选项也指M保养；Q7明确换电源走P报价→MR到仓管→缺货采购，不能从SR直接申请。SOURCE-032 Q8说明SOURCE-015 P23通知采购是知会备货状态，不一定有办理节点，不自动生成采购待办；缺签补证仍待核。"
         },
         {
           "id": "M-07",
           "label": "本次完成",
           "actor": "CR / 主管",
-          "action": "简单确认",
+          "action": "确认本期保养完成，需维修报价另行跟进",
           "state": "本次保养完成",
           "nextRole": "下一周期 / 报价组",
-          "status": "CONFIRMED",
+          "status": "PARTIAL",
           "latestFactIds": [],
           "decisionIds": [
             "CONFIRMED-010",
             "CONFIRMED-012"
           ],
-          "description": "若发现维修问题，由 SR 选择需要报价并进入报价链路。"
+          "description": "SOURCE-029第14/15项：CR或主管均可确认，保养发现问题不等维修结束；SR需报价交报价组（第05项）。SOURCE-032 Q5明确收费，账期/收款不由本次完成自动决定。"
         }
       ],
-      "factStatus": "CONFIRMED",
+      "factStatus": "PARTIAL",
       "purpose": "按合同周期组织每次保养并留存 Service Report。",
       "trigger": "报价包含 M 且客户接受，中单后生成整期计划。",
       "roles": [
-        "报价组",
+        "实际报价人（按来源分工）",
         "客户",
+        "实际报价人",
         "系统",
-        "CR / 主管",
+        "CR",
         "师傅",
         "师傅 / 客户",
+        "CR / 主管",
         "下一周期 / 报价组"
       ],
       "keyStates": [
@@ -973,8 +977,10 @@
       "openDecisionIds": [],
       "sourceFileIds": [
         "FILE-618C5F54C7",
-        "FILE-CAE118EF83",
-        "FILE-833C198165"
+        "FILE-AE8252532A",
+        "FILE-76884A8AC9",
+        "FILE-833C198165",
+        "FILE-CAE118EF83"
       ],
       "baselineFileId": "FILE-6366380F13",
       "knowledgeFileIds": [
@@ -1331,7 +1337,7 @@
           "decisionIds": [
             "CONFIRMED-003"
           ],
-          "description": "UPD-028；业务状况与库存进度不能混同"
+          "description": "UPD-028；SOURCE-032 Q7说明P报价中单MR到仓管、库存不足通知采购、备货完成再安排上门；备齐确认单据按C-04待核。SOURCE-032 Q8：采购可知悉备货进度，不一定有本次办理节点；知会不自动开采购单/待办。业务状况与库存进度不能混同"
         },
         {
           "id": "MR-03",
@@ -1373,6 +1379,7 @@
       "openDecisionIds": [],
       "sourceFileIds": [
         "FILE-618C5F54C7",
+        "FILE-76884A8AC9",
         "FILE-CAE118EF83",
         "FILE-833C198165"
       ],

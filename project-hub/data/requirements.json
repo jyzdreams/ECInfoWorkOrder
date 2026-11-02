@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T09:09:45.503Z",
+  "generatedAt": "2026-10-23T14:20:57.890Z",
   "total": 119,
   "requirements": [
     {
@@ -9061,10 +9061,10 @@
     "oldRequirementCount": 80,
     "clientQuestions": 16,
     "draftUatCount": 16,
-    "mainPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统项目推进总表-v2.xlsx",
-    "clientPath": "outputs/2026-10-12-finalization-prep-v1/EC工单系统客户范围与关键问题确认表-v1.xlsx",
+    "mainPath": "outputs/2026-10-19-client-progress-v1/EC工单系统客户业务推进与确认表-v1.xlsx",
+    "clientPath": "outputs/2026-10-19-client-progress-v1/EC工单系统客户业务推进与确认表-v1.xlsx",
     "reviewPath": "docs/review/2026-10-12-finalization-prep/PREPARATION-REVIEW.md",
-    "progressSource": "仅README指定Excel维护任务进度；本页统计为知识主题关联。",
+    "progressSource": "内部工作记录是推进维护源；客户Excel仅导出业务里程碑和待确认，知识主题关联不代表项目完成度。",
     "prototypeCurrentVerified": false,
     "scopeApproval": "本期范围待客户确认"
   }

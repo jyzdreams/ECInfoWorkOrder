@@ -1,0 +1,115 @@
+[
+  {
+    "role": "TL",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            📋CALL管理\n          ",
+      "\n            📤分派中心\n          ",
+      "\n            📅保養計劃\n          ",
+      "\n            📁報告管理\n          ",
+      "\n            📊統計報表\n          ",
+      "\n                ⚙️\n                基礎設置\n                ▶\n              "
+    ],
+    "errors": []
+  },
+  {
+    "role": "CR",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            📋CALL管理\n          ",
+      "\n            📤分派中心\n          ",
+      "\n            📅保養計劃\n          ",
+      "\n            💰報價管理\n          ",
+      "\n            🛒備貨管理\n          ",
+      "\n            📁報告管理\n          ",
+      "\n            📊統計報表\n          ",
+      "\n                ⚙️\n                基礎設置\n                ▶\n              "
+    ],
+    "errors": [],
+    "quoteButtons": 13,
+    "wonButton": 1,
+    "wonDialogVisible": 1,
+    "toast": "由報價組確認中單",
+    "statusAfter": "報價中",
+    "pmRequiresCall": 5,
+    "newVisit": {
+      "id": "WO-20261020-001",
+      "type": "DLP 保養維修",
+      "status": "待分派",
+      "master": "",
+      "tl": "",
+      "scheduleDate": "2026-10-01",
+      "planId": "MP-QT-DEMO-MP"
+    }
+  },
+  {
+    "role": "TENDER",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            💰報價管理\n          ",
+      "\n            📑標書管理\n          "
+    ],
+    "errors": [],
+    "quoteButtons": 21,
+    "wonButton": 1,
+    "wonDialogVisible": 1,
+    "toast": "由報價組確認中單",
+    "statusAfter": "報價中"
+  },
+  {
+    "role": "QUO",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            📅保養計劃\n          ",
+      "\n            💰報價管理\n          "
+    ],
+    "errors": []
+  },
+  {
+    "role": "PUR",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            🛒備貨管理\n          ",
+      "\n            📊統計報表\n          "
+    ],
+    "errors": [],
+    "readinessControls": 0,
+    "mrText": false
+  },
+  {
+    "role": "FIN",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            💵會計管理\n          ",
+      "\n            📊統計報表\n          "
+    ],
+    "errors": [],
+    "financeTabs": [
+      "待開票 (30)",
+      "發票管理 (2)",
+      "收款記錄 (1)",
+      "客戶檔案 (4)",
+      "保養合約 (3)"
+    ],
+    "invoiceNeedsRepairCp": [
+      {
+        "id": "QT-DEMO-M",
+        "category": "M",
+        "status": "已中單"
+      },
+      {
+        "id": "QT-DEMO-MP",
+        "category": "M+P",
+        "status": "已中單"
+      }
+    ]
+  },
+  {
+    "role": "MASTER",
+    "nav": [
+      "\n            🏠首頁\n          ",
+      "\n            📁報告管理\n          "
+    ],
+    "errors": []
+  }
+]

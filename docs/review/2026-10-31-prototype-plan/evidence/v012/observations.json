@@ -1,0 +1,2563 @@
+{
+  "scope": "V012 only; review observations, not modified-page acceptance; isolated ephemeral CS session",
+  "runtime": {
+    "scope": "V012 only; isolated ephemeral browser contexts; no prototype file edits, no user browser data, no external requests",
+    "checks": [
+      {
+        "name": "empty submit",
+        "value": {
+          "overlay": true,
+          "tickets": 17,
+          "invalid": [
+            "customerType",
+            "customerId",
+            "tl",
+            "contact",
+            "desc"
+          ]
+        }
+      },
+      {
+        "name": "cancel leaves business counts unchanged but attachment leaks into next new form",
+        "before": {
+          "tickets": 17,
+          "logs": 0
+        },
+        "after": {
+          "tickets": 17,
+          "logs": 0,
+          "attachment": "V012-cancel-evidence.txt",
+          "fileInputCount": 0,
+          "renderedFiles": "📎 V012-cancel-evidence.txt (0.0 KB)\n          移除"
+        }
+      }
+    ],
+    "errors": [],
+    "network": [],
+    "empty": {
+      "title": "新增Call",
+      "fields": [
+        {
+          "name": "",
+          "id": "",
+          "label": "Call編號",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "自動生成",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "創建人",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳小姐",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerType",
+          "id": "modalCustomerTypeSelect",
+          "label": "客戶類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": false,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶類型"
+            },
+            {
+              "value": "政府",
+              "text": "政府 (EMSD)"
+            },
+            {
+              "value": "私人",
+              "text": "私人"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerId",
+          "id": "customerSelect",
+          "label": "客戶*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": false,
+          "options": [
+            {
+              "value": "",
+              "text": "請先選擇客戶類型"
+            }
+          ]
+        },
+        {
+          "name": "area",
+          "id": "modalAreaDisplay",
+          "label": "區域*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "readOnly": true,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "主管*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "tl",
+          "id": "modalTLSelect",
+          "label": "主管*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": false,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇主管"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call代碼*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "callCode",
+          "id": "callCodeSelect",
+          "label": "Call代碼*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "visible": false,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇Call代碼"
+            },
+            {
+              "value": "CALL-001",
+              "text": "CALL-001 - 門禁系統維修"
+            },
+            {
+              "value": "CALL-002",
+              "text": "CALL-002 - CCTV監控維修"
+            },
+            {
+              "value": "CALL-003",
+              "text": "CALL-003 - 廣播系統維修"
+            },
+            {
+              "value": "CALL-004",
+              "text": "CALL-004 - 停車場閘機維修"
+            },
+            {
+              "value": "CALL-005",
+              "text": "CALL-005 - 警報/水浸檢查"
+            },
+            {
+              "value": "CALL-006",
+              "text": "CALL-006 - 拍卡系統維修"
+            },
+            {
+              "value": "CALL-007",
+              "text": "CALL-007 - 天線系統維修"
+            },
+            {
+              "value": "CALL-008",
+              "text": "CALL-008 - 對講機維修"
+            }
+          ]
+        },
+        {
+          "name": "jNumber",
+          "id": "",
+          "label": "J No.",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "contact",
+          "id": "contactInput",
+          "label": "聯繫人*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": false
+        },
+        {
+          "name": "phone",
+          "id": "phoneInput",
+          "label": "聯繫電話",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "channel",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "電話",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "電話",
+              "text": "電話"
+            },
+            {
+              "value": "WhatsApp",
+              "text": "WhatsApp"
+            },
+            {
+              "value": "現場溝通",
+              "text": "現場溝通"
+            },
+            {
+              "value": "郵件",
+              "text": "郵件"
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "id": "",
+          "label": "地址",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "type",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "M（保養）",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "M（保養）",
+              "text": "M（保養）"
+            },
+            {
+              "value": "P（工程）",
+              "text": "P（工程）"
+            },
+            {
+              "value": "M+P（保養＋工程）",
+              "text": "M+P（保養＋工程）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "優先級",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "priority",
+          "id": "",
+          "label": "優先級",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "普通",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "普通",
+              "text": "普通"
+            },
+            {
+              "value": "緊急",
+              "text": "緊急"
+            },
+            {
+              "value": "非常緊急",
+              "text": "非常緊急"
+            }
+          ]
+        },
+        {
+          "name": "desc",
+          "id": "",
+          "label": "工單描述*",
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": false
+        },
+        {
+          "name": "files",
+          "id": "fileInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "file",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "attachments",
+          "id": "attachmentsInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "hidden",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        }
+      ],
+      "counts": {
+        "tickets": 17,
+        "callLogs": 0,
+        "quotations": 12
+      },
+      "allActiveTLs": [
+        {
+          "name": "李組長",
+          "area": "2區"
+        },
+        {
+          "name": "王組長",
+          "area": "3區"
+        },
+        {
+          "name": "張主管",
+          "area": "2區"
+        },
+        {
+          "name": "趙組長",
+          "area": "1區"
+        }
+      ],
+      "valid": false
+    },
+    "private": {
+      "title": "新增Call",
+      "fields": [
+        {
+          "name": "",
+          "id": "",
+          "label": "Call編號",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "自動生成",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "創建人",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳小姐",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerType",
+          "id": "modalCustomerTypeSelect",
+          "label": "客戶類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "私人",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶類型"
+            },
+            {
+              "value": "政府",
+              "text": "政府 (EMSD)"
+            },
+            {
+              "value": "私人",
+              "text": "私人"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerId",
+          "id": "customerSelect",
+          "label": "客戶*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "CUST-0001",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶"
+            },
+            {
+              "value": "CUST-0001",
+              "text": "港島商業中心 (HK Commercial Center)"
+            },
+            {
+              "value": "CUST-0002",
+              "text": "九龍國際廣場 (Kowloon International Plaza)"
+            },
+            {
+              "value": "CUST-0003",
+              "text": "新界花園住宅 (NT Garden Residence)"
+            },
+            {
+              "value": "CUST-0005",
+              "text": "維多利亞酒店 (Victoria Hotel)"
+            },
+            {
+              "value": "CUST-0006",
+              "text": "九龍灣工業大廈 (Kowloon Bay Industrial Building)"
+            },
+            {
+              "value": "CUST-0007",
+              "text": "青衣邨住宅 (Tsing Yi Estate)"
+            },
+            {
+              "value": "CUST-0009",
+              "text": "銅鑼灣購物中心 (Causeway Bay Shopping Mall)"
+            },
+            {
+              "value": "CUST-0010",
+              "text": "荃灣工廠大廈 (Tsuen Wan Factory Building)"
+            },
+            {
+              "value": "CUST-0011",
+              "text": "觀塘住宅大廈 (Kwun Tong Residential Building)"
+            }
+          ]
+        },
+        {
+          "name": "area",
+          "id": "modalAreaDisplay",
+          "label": "區域*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "1區",
+          "required": true,
+          "disabled": false,
+          "readOnly": true,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "主管*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "tl",
+          "id": "modalTLSelect",
+          "label": "主管*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": false,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇主管"
+            },
+            {
+              "value": "趙組長",
+              "text": "趙組長（1區）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call代碼*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "callCode",
+          "id": "callCodeSelect",
+          "label": "Call代碼*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "visible": false,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇Call代碼"
+            },
+            {
+              "value": "CALL-001",
+              "text": "CALL-001 - 門禁系統維修"
+            },
+            {
+              "value": "CALL-002",
+              "text": "CALL-002 - CCTV監控維修"
+            },
+            {
+              "value": "CALL-003",
+              "text": "CALL-003 - 廣播系統維修"
+            },
+            {
+              "value": "CALL-004",
+              "text": "CALL-004 - 停車場閘機維修"
+            },
+            {
+              "value": "CALL-005",
+              "text": "CALL-005 - 警報/水浸檢查"
+            },
+            {
+              "value": "CALL-006",
+              "text": "CALL-006 - 拍卡系統維修"
+            },
+            {
+              "value": "CALL-007",
+              "text": "CALL-007 - 天線系統維修"
+            },
+            {
+              "value": "CALL-008",
+              "text": "CALL-008 - 對講機維修"
+            }
+          ]
+        },
+        {
+          "name": "jNumber",
+          "id": "",
+          "label": "J No.",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "contact",
+          "id": "contactInput",
+          "label": "聯繫人*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳先生",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "phone",
+          "id": "phoneInput",
+          "label": "聯繫電話",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "+852 9123 4567",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "channel",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "電話",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "電話",
+              "text": "電話"
+            },
+            {
+              "value": "WhatsApp",
+              "text": "WhatsApp"
+            },
+            {
+              "value": "現場溝通",
+              "text": "現場溝通"
+            },
+            {
+              "value": "郵件",
+              "text": "郵件"
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "id": "",
+          "label": "地址",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "中環德輔道中88號",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "type",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "M（保養）",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "M（保養）",
+              "text": "M（保養）"
+            },
+            {
+              "value": "P（工程）",
+              "text": "P（工程）"
+            },
+            {
+              "value": "M+P（保養＋工程）",
+              "text": "M+P（保養＋工程）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "優先級",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "priority",
+          "id": "",
+          "label": "優先級",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "普通",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "普通",
+              "text": "普通"
+            },
+            {
+              "value": "緊急",
+              "text": "緊急"
+            },
+            {
+              "value": "非常緊急",
+              "text": "非常緊急"
+            }
+          ]
+        },
+        {
+          "name": "desc",
+          "id": "",
+          "label": "工單描述*",
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": false
+        },
+        {
+          "name": "files",
+          "id": "fileInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "file",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "attachments",
+          "id": "attachmentsInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "hidden",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        }
+      ],
+      "counts": {
+        "tickets": 17,
+        "callLogs": 0,
+        "quotations": 12
+      },
+      "allActiveTLs": [
+        {
+          "name": "李組長",
+          "area": "2區"
+        },
+        {
+          "name": "王組長",
+          "area": "3區"
+        },
+        {
+          "name": "張主管",
+          "area": "2區"
+        },
+        {
+          "name": "趙組長",
+          "area": "1區"
+        }
+      ],
+      "valid": false
+    },
+    "customerSearch": {
+      "observed": {
+        "id": "CUST-0001",
+        "sub": "",
+        "text": "港島商業中心 (HK Commercial Center)"
+      },
+      "matchingText": "請選擇客戶\n港島商業中心 (HK Commercial Center)\n九龍國際廣場 (Kowloon International Plaza)\n新界花園住宅 (NT Garden Residence)\n維多利亞酒店 (Victoria Hotel)\n九龍灣工業大廈 (Kowloon Bay Industrial Building)\n青衣邨住宅 (Tsing Yi Estate)\n銅鑼灣購物中心 (Causeway Bay Shopping Mall)\n荃灣工廠大廈 (Tsuen Wan Factory Building)\n觀塘住宅大廈 (Kwun Tong Residential Building)"
+    },
+    "beforePrivateSubmit": {
+      "title": "新增Call",
+      "fields": [
+        {
+          "name": "",
+          "id": "",
+          "label": "Call編號",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "自動生成",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "創建人",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳小姐",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerType",
+          "id": "modalCustomerTypeSelect",
+          "label": "客戶類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "私人",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶類型"
+            },
+            {
+              "value": "政府",
+              "text": "政府 (EMSD)"
+            },
+            {
+              "value": "私人",
+              "text": "私人"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerId",
+          "id": "customerSelect",
+          "label": "客戶*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "CUST-0001",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶"
+            },
+            {
+              "value": "CUST-0001",
+              "text": "港島商業中心 (HK Commercial Center)"
+            },
+            {
+              "value": "CUST-0002",
+              "text": "九龍國際廣場 (Kowloon International Plaza)"
+            },
+            {
+              "value": "CUST-0003",
+              "text": "新界花園住宅 (NT Garden Residence)"
+            },
+            {
+              "value": "CUST-0005",
+              "text": "維多利亞酒店 (Victoria Hotel)"
+            },
+            {
+              "value": "CUST-0006",
+              "text": "九龍灣工業大廈 (Kowloon Bay Industrial Building)"
+            },
+            {
+              "value": "CUST-0007",
+              "text": "青衣邨住宅 (Tsing Yi Estate)"
+            },
+            {
+              "value": "CUST-0009",
+              "text": "銅鑼灣購物中心 (Causeway Bay Shopping Mall)"
+            },
+            {
+              "value": "CUST-0010",
+              "text": "荃灣工廠大廈 (Tsuen Wan Factory Building)"
+            },
+            {
+              "value": "CUST-0011",
+              "text": "觀塘住宅大廈 (Kwun Tong Residential Building)"
+            }
+          ]
+        },
+        {
+          "name": "area",
+          "id": "modalAreaDisplay",
+          "label": "區域*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "1區",
+          "required": true,
+          "disabled": false,
+          "readOnly": true,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "主管*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "tl",
+          "id": "modalTLSelect",
+          "label": "主管*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "趙組長",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇主管"
+            },
+            {
+              "value": "趙組長",
+              "text": "趙組長（1區）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call代碼*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "callCode",
+          "id": "callCodeSelect",
+          "label": "Call代碼*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "visible": false,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇Call代碼"
+            },
+            {
+              "value": "CALL-001",
+              "text": "CALL-001 - 門禁系統維修"
+            },
+            {
+              "value": "CALL-002",
+              "text": "CALL-002 - CCTV監控維修"
+            },
+            {
+              "value": "CALL-003",
+              "text": "CALL-003 - 廣播系統維修"
+            },
+            {
+              "value": "CALL-004",
+              "text": "CALL-004 - 停車場閘機維修"
+            },
+            {
+              "value": "CALL-005",
+              "text": "CALL-005 - 警報/水浸檢查"
+            },
+            {
+              "value": "CALL-006",
+              "text": "CALL-006 - 拍卡系統維修"
+            },
+            {
+              "value": "CALL-007",
+              "text": "CALL-007 - 天線系統維修"
+            },
+            {
+              "value": "CALL-008",
+              "text": "CALL-008 - 對講機維修"
+            }
+          ]
+        },
+        {
+          "name": "jNumber",
+          "id": "",
+          "label": "J No.",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "contact",
+          "id": "contactInput",
+          "label": "聯繫人*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳先生",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "phone",
+          "id": "phoneInput",
+          "label": "聯繫電話",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "channel",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "電話",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "電話",
+              "text": "電話"
+            },
+            {
+              "value": "WhatsApp",
+              "text": "WhatsApp"
+            },
+            {
+              "value": "現場溝通",
+              "text": "現場溝通"
+            },
+            {
+              "value": "郵件",
+              "text": "郵件"
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "id": "",
+          "label": "地址",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "type",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "M（保養）",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "M（保養）",
+              "text": "M（保養）"
+            },
+            {
+              "value": "P（工程）",
+              "text": "P（工程）"
+            },
+            {
+              "value": "M+P（保養＋工程）",
+              "text": "M+P（保養＋工程）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "優先級",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "priority",
+          "id": "",
+          "label": "優先級",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "普通",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "普通",
+              "text": "普通"
+            },
+            {
+              "value": "緊急",
+              "text": "緊急"
+            },
+            {
+              "value": "非常緊急",
+              "text": "非常緊急"
+            }
+          ]
+        },
+        {
+          "name": "desc",
+          "id": "",
+          "label": "工單描述*",
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "value": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "files",
+          "id": "fileInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "file",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "attachments",
+          "id": "attachmentsInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "hidden",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        }
+      ],
+      "counts": {
+        "tickets": 17,
+        "callLogs": 0,
+        "quotations": 12
+      },
+      "allActiveTLs": [
+        {
+          "name": "李組長",
+          "area": "2區"
+        },
+        {
+          "name": "王組長",
+          "area": "3區"
+        },
+        {
+          "name": "張主管",
+          "area": "2區"
+        },
+        {
+          "name": "趙組長",
+          "area": "1區"
+        }
+      ],
+      "valid": true
+    },
+    "privateSubmit": {
+      "overlay": false,
+      "ticket": {
+        "id": "WO-20261031-001",
+        "customerId": "CUST-0001",
+        "customer": "港島商業中心",
+        "customerType": "私人",
+        "contact": "陳先生",
+        "phone": "",
+        "channel": "電話",
+        "area": "1區",
+        "address": "",
+        "type": "M（保養）",
+        "desc": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+        "status": "待分派",
+        "owner": "陳小姐",
+        "tl": "趙組長",
+        "master": "",
+        "createdAt": "10-31 11:00",
+        "updatedAt": "10-31 11:00",
+        "records": [
+          {
+            "time": "11:00",
+            "actor": "陳小姐",
+            "text": "創建工單"
+          }
+        ],
+        "attachments": [],
+        "tags": [],
+        "urgent": false,
+        "priority": "普通",
+        "jNumber": ""
+      },
+      "callLog": {
+        "id": "CALL-20261031-001",
+        "time": "31/10/2026 11:00:04",
+        "customer": "港島商業中心",
+        "contact": "陳先生",
+        "phone": "",
+        "channel": "電話",
+        "content": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+        "decision": "需建單",
+        "workOrderId": "WO-20261031-001",
+        "recordedBy": "陳小姐"
+      },
+      "page": "workorder",
+      "view": "calls",
+      "counts": {
+        "tickets": 18,
+        "callLogs": 1,
+        "quotations": 12
+      },
+      "body": true
+    },
+    "governmentWithoutCode": {
+      "title": "新增Call",
+      "fields": [
+        {
+          "name": "",
+          "id": "",
+          "label": "Call編號",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "自動生成",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "創建人",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳小姐",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerType",
+          "id": "modalCustomerTypeSelect",
+          "label": "客戶類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "政府",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶類型"
+            },
+            {
+              "value": "政府",
+              "text": "政府 (EMSD)"
+            },
+            {
+              "value": "私人",
+              "text": "私人"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerId",
+          "id": "customerSelect",
+          "label": "客戶*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "CUST-0004",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶"
+            },
+            {
+              "value": "CUST-0004",
+              "text": "香港政府大樓 (HK Government Building)",
+              "sub": "合約編號 0471667"
+            },
+            {
+              "value": "CUST-0008",
+              "text": "將軍澳醫院 (Tseung Kwan O Hospital)",
+              "sub": "合約編號 0482334"
+            },
+            {
+              "value": "CUST-0012",
+              "text": "西九龍文化中心 (West Kowloon Cultural Centre)",
+              "sub": "合約編號 0495678"
+            }
+          ]
+        },
+        {
+          "name": "area",
+          "id": "modalAreaDisplay",
+          "label": "區域*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "1區",
+          "required": true,
+          "disabled": false,
+          "readOnly": true,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "主管*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "tl",
+          "id": "modalTLSelect",
+          "label": "主管*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "趙組長",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇主管"
+            },
+            {
+              "value": "趙組長",
+              "text": "趙組長（1區）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call代碼*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "callCode",
+          "id": "callCodeSelect",
+          "label": "Call代碼*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇Call代碼"
+            },
+            {
+              "value": "CALL-001",
+              "text": "CALL-001 - 門禁系統維修"
+            },
+            {
+              "value": "CALL-002",
+              "text": "CALL-002 - CCTV監控維修"
+            },
+            {
+              "value": "CALL-003",
+              "text": "CALL-003 - 廣播系統維修"
+            },
+            {
+              "value": "CALL-004",
+              "text": "CALL-004 - 停車場閘機維修"
+            },
+            {
+              "value": "CALL-005",
+              "text": "CALL-005 - 警報/水浸檢查"
+            },
+            {
+              "value": "CALL-006",
+              "text": "CALL-006 - 拍卡系統維修"
+            },
+            {
+              "value": "CALL-007",
+              "text": "CALL-007 - 天線系統維修"
+            },
+            {
+              "value": "CALL-008",
+              "text": "CALL-008 - 對講機維修"
+            }
+          ]
+        },
+        {
+          "name": "jNumber",
+          "id": "",
+          "label": "J No.",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "J 12345",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "contact",
+          "id": "contactInput",
+          "label": "聯繫人*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "何先生",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "phone",
+          "id": "phoneInput",
+          "label": "聯繫電話",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "+852 9456 7890",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "channel",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "電話",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "電話",
+              "text": "電話"
+            },
+            {
+              "value": "WhatsApp",
+              "text": "WhatsApp"
+            },
+            {
+              "value": "現場溝通",
+              "text": "現場溝通"
+            },
+            {
+              "value": "郵件",
+              "text": "郵件"
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "id": "",
+          "label": "地址",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "金鐘添馬艦政府總部",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "type",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "M（保養）",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "M（保養）",
+              "text": "M（保養）"
+            },
+            {
+              "value": "P（工程）",
+              "text": "P（工程）"
+            },
+            {
+              "value": "M+P（保養＋工程）",
+              "text": "M+P（保養＋工程）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "優先級",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "priority",
+          "id": "",
+          "label": "優先級",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "普通",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "普通",
+              "text": "普通"
+            },
+            {
+              "value": "緊急",
+              "text": "緊急"
+            },
+            {
+              "value": "非常緊急",
+              "text": "非常緊急"
+            }
+          ]
+        },
+        {
+          "name": "desc",
+          "id": "",
+          "label": "工單描述*",
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "value": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "files",
+          "id": "fileInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "file",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "attachments",
+          "id": "attachmentsInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "hidden",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        }
+      ],
+      "counts": {
+        "tickets": 17,
+        "callLogs": 0,
+        "quotations": 12
+      },
+      "allActiveTLs": [
+        {
+          "name": "李組長",
+          "area": "2區"
+        },
+        {
+          "name": "王組長",
+          "area": "3區"
+        },
+        {
+          "name": "張主管",
+          "area": "2區"
+        },
+        {
+          "name": "趙組長",
+          "area": "1區"
+        }
+      ],
+      "valid": true
+    },
+    "governmentSubmit": {
+      "selectedCode": "CALL-001",
+      "value": {
+        "ticket": {
+          "id": "ECA-20261031-001",
+          "customerId": "CUST-0004",
+          "customer": "香港政府大樓",
+          "customerType": "政府",
+          "contact": "何先生",
+          "phone": "+852 9456 7890",
+          "channel": "電話",
+          "area": "1區",
+          "address": "金鐘添馬艦政府總部",
+          "type": "M（保養）",
+          "desc": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+          "status": "待分派",
+          "owner": "陳小姐",
+          "tl": "趙組長",
+          "master": "",
+          "createdAt": "10-31 11:00",
+          "updatedAt": "10-31 11:00",
+          "records": [
+            {
+              "time": "11:00",
+              "actor": "陳小姐",
+              "text": "創建工單"
+            }
+          ],
+          "attachments": [],
+          "tags": [],
+          "urgent": false,
+          "priority": "普通",
+          "jNumber": "J 12345"
+        },
+        "callLog": {
+          "id": "CALL-20261031-001",
+          "time": "31/10/2026 11:00:05",
+          "customer": "香港政府大樓",
+          "contact": "何先生",
+          "phone": "+852 9456 7890",
+          "channel": "電話",
+          "content": "V012隔离审查样例：客户反映设备故障，需要主管判断处理方向。",
+          "decision": "需建單",
+          "workOrderId": "ECA-20261031-001",
+          "recordedBy": "陳小姐"
+        },
+        "overlay": false
+      }
+    },
+    "preset": {
+      "title": "新增Call",
+      "fields": [
+        {
+          "name": "",
+          "id": "",
+          "label": "Call編號",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "自動生成",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "創建人",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳小姐",
+          "required": false,
+          "disabled": true,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerType",
+          "id": "modalCustomerTypeSelect",
+          "label": "客戶類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "私人",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇客戶類型"
+            },
+            {
+              "value": "政府",
+              "text": "政府 (EMSD)"
+            },
+            {
+              "value": "私人",
+              "text": "私人"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "客戶*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "customerId",
+          "id": "customerSelect",
+          "label": "客戶*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "CUST-0001",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請先選擇客戶類型"
+            },
+            {
+              "value": "CUST-0001",
+              "text": "港島商業中心 (HK Commercial Center)"
+            }
+          ]
+        },
+        {
+          "name": "area",
+          "id": "modalAreaDisplay",
+          "label": "區域*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "1區",
+          "required": true,
+          "disabled": false,
+          "readOnly": true,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "主管*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "tl",
+          "id": "modalTLSelect",
+          "label": "主管*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": false,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇主管"
+            },
+            {
+              "value": "趙組長",
+              "text": "趙組長（1區）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call代碼*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "callCode",
+          "id": "callCodeSelect",
+          "label": "Call代碼*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "visible": false,
+          "valid": true,
+          "options": [
+            {
+              "value": "",
+              "text": "請選擇Call代碼"
+            },
+            {
+              "value": "CALL-001",
+              "text": "CALL-001 - 門禁系統維修"
+            },
+            {
+              "value": "CALL-002",
+              "text": "CALL-002 - CCTV監控維修"
+            },
+            {
+              "value": "CALL-003",
+              "text": "CALL-003 - 廣播系統維修"
+            },
+            {
+              "value": "CALL-004",
+              "text": "CALL-004 - 停車場閘機維修"
+            },
+            {
+              "value": "CALL-005",
+              "text": "CALL-005 - 警報/水浸檢查"
+            },
+            {
+              "value": "CALL-006",
+              "text": "CALL-006 - 拍卡系統維修"
+            },
+            {
+              "value": "CALL-007",
+              "text": "CALL-007 - 天線系統維修"
+            },
+            {
+              "value": "CALL-008",
+              "text": "CALL-008 - 對講機維修"
+            }
+          ]
+        },
+        {
+          "name": "jNumber",
+          "id": "",
+          "label": "J No.",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "contact",
+          "id": "contactInput",
+          "label": "聯繫人*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "陳先生",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "phone",
+          "id": "phoneInput",
+          "label": "聯繫電話",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "+852 9123 4567",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "channel",
+          "id": "",
+          "label": "來源渠道",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "電話",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "電話",
+              "text": "電話"
+            },
+            {
+              "value": "WhatsApp",
+              "text": "WhatsApp"
+            },
+            {
+              "value": "現場溝通",
+              "text": "現場溝通"
+            },
+            {
+              "value": "郵件",
+              "text": "郵件"
+            }
+          ]
+        },
+        {
+          "name": "address",
+          "id": "",
+          "label": "地址",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": true
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "type",
+          "id": "",
+          "label": "Call類型*",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "M（保養）",
+          "required": true,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "M（保養）",
+              "text": "M（保養）"
+            },
+            {
+              "value": "P（工程）",
+              "text": "P（工程）"
+            },
+            {
+              "value": "M+P（保養＋工程）",
+              "text": "M+P（保養＋工程）"
+            }
+          ]
+        },
+        {
+          "name": "",
+          "id": "",
+          "label": "優先級",
+          "tag": "INPUT",
+          "type": "text",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "priority",
+          "id": "",
+          "label": "優先級",
+          "tag": "SELECT",
+          "type": "select-one",
+          "value": "普通",
+          "required": false,
+          "disabled": false,
+          "visible": true,
+          "valid": true,
+          "options": [
+            {
+              "value": "普通",
+              "text": "普通"
+            },
+            {
+              "value": "緊急",
+              "text": "緊急"
+            },
+            {
+              "value": "非常緊急",
+              "text": "非常緊急"
+            }
+          ]
+        },
+        {
+          "name": "desc",
+          "id": "",
+          "label": "工單描述*",
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "value": "",
+          "required": true,
+          "disabled": false,
+          "readOnly": false,
+          "visible": true,
+          "valid": false
+        },
+        {
+          "name": "files",
+          "id": "fileInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "file",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        },
+        {
+          "name": "attachments",
+          "id": "attachmentsInput",
+          "label": "附件上傳",
+          "tag": "INPUT",
+          "type": "hidden",
+          "value": "",
+          "required": false,
+          "disabled": false,
+          "readOnly": false,
+          "visible": false,
+          "valid": true
+        }
+      ],
+      "counts": {
+        "tickets": 17,
+        "callLogs": 0,
+        "quotations": 12
+      },
+      "allActiveTLs": [
+        {
+          "name": "李組長",
+          "area": "2區"
+        },
+        {
+          "name": "王組長",
+          "area": "3區"
+        },
+        {
+          "name": "張主管",
+          "area": "2區"
+        },
+        {
+          "name": "趙組長",
+          "area": "1區"
+        }
+      ],
+      "valid": false
+    },
+    "whitespace": {
+      "whitespaceValid": true,
+      "ticket": {
+        "desc": "   ",
+        "contact": "   "
+      }
+    },
+    "smallViewport": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "modal": {
+        "x": 16,
+        "y": 24,
+        "width": 358,
+        "height": 753
+      },
+      "footer": {
+        "x": 17,
+        "y": 713,
+        "width": 356,
+        "height": 63
+      },
+      "body": {
+        "x": 17,
+        "y": 89,
+        "width": 356,
+        "height": 624
+      },
+      "scroll": {
+        "height": 1389,
+        "client": 624
+      },
+      "pageOverflow": false
+    }
+  },
+  "supplement": {
+    "contractMatches": "香港政府大樓 (HK Government Building)\n合約編號 0471667",
+    "crossRegionSearch": "沒有符合的選項",
+    "details": {
+      "selectedCustomer": {
+        "id": "CUST-0004",
+        "nameZh": "香港政府大樓",
+        "nameEn": "HK Government Building",
+        "type": "政府",
+        "level": "重要",
+        "status": "啓用",
+        "contractNumber": "0471667",
+        "jNumber": "J 12345",
+        "governmentPrefix": "ECA",
+        "contacts": [
+          {
+            "name": "何先生",
+            "title": "設施管理主任",
+            "phone": "+852 9456 7890",
+            "whatsapp": "+852 9456 7890",
+            "email": "ho@gov.hk"
+          }
+        ],
+        "addresses": [
+          {
+            "area": "1區",
+            "addressZh": "金鐘添馬艦政府總部",
+            "addressEn": "Central Government Offices, Admiralty",
+            "tl": "TL-001",
+            "noPhoto": true,
+            "noPhotoReason": "政府保密要求"
+          }
+        ],
+        "createdAt": "2026-01-20",
+        "createdBy": "CS-001"
+      },
+      "typeOptions": [
+        "M（保養）",
+        "P（工程）",
+        "M+P（保養＋工程）"
+      ],
+      "callCodeRequired": false,
+      "jNoRequired": true,
+      "supervisorPlaceholder": ""
+    },
+    "small": {
+      "opacity": "1",
+      "modalOpacity": "1",
+      "topElement": "<div class=\"qf-card\">\n                  <div class=\"qf-card-title\">基本資訊</div>\n                  <div class=\"qf-grid\">\n                    <div class=\"qf-field\">\n                      <label class=\"qf-label\">Call編號</label>\n                      <input class=\"qf-input qf-readonly\" type=\"text\" value=\"自"
+    }
+  }
+}
