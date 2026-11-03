@@ -1102,20 +1102,35 @@ button:disabled { cursor: not-allowed; }
   box-shadow: none;
 }
 #pcPages .dispatch-table {
-  min-width: 1108px;
+  min-width: 972px;
   table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
 }
-#pcPages .dispatch-table th:nth-child(1), #pcPages .dispatch-table td:nth-child(1) { width: 92px; }
-#pcPages .dispatch-table th:nth-child(2), #pcPages .dispatch-table td:nth-child(2) { width: 112px; }
-#pcPages .dispatch-table th:nth-child(3), #pcPages .dispatch-table td:nth-child(3) { width: 125px; }
-#pcPages .dispatch-table th:nth-child(4), #pcPages .dispatch-table td:nth-child(4) { width: 48px; }
-#pcPages .dispatch-table th:nth-child(5), #pcPages .dispatch-table td:nth-child(5) { width: 76px; }
-#pcPages .dispatch-table th:nth-child(6), #pcPages .dispatch-table td:nth-child(6) { width: 145px; }
-#pcPages .dispatch-table th:nth-child(7), #pcPages .dispatch-table td:nth-child(7) { width: 70px; }
-#pcPages .dispatch-table th:nth-child(8), #pcPages .dispatch-table td:nth-child(8) { width: 68px; }
-#pcPages .dispatch-table th:nth-child(9), #pcPages .dispatch-table td:nth-child(9) { width: 100px; }
-#pcPages .dispatch-table th:nth-child(10), #pcPages .dispatch-table td:nth-child(10) { width: 132px; white-space: nowrap; }
-#pcPages .dispatch-table th:nth-child(11), #pcPages .dispatch-table td:nth-child(11) { width: 140px; }
+#pcPages .dispatch-table th:nth-child(1), #pcPages .dispatch-table td:nth-child(1) { width: 130px; }
+#pcPages .dispatch-table th:nth-child(2), #pcPages .dispatch-table td:nth-child(2) { width: 140px; }
+#pcPages .dispatch-table th:nth-child(3), #pcPages .dispatch-table td:nth-child(3) { width: 220px; }
+#pcPages .dispatch-table th:nth-child(4), #pcPages .dispatch-table td:nth-child(4) { width: 90px; }
+#pcPages .dispatch-table th:nth-child(5), #pcPages .dispatch-table td:nth-child(5) { width: 142px; }
+#pcPages .dispatch-table th:nth-child(6), #pcPages .dispatch-table td:nth-child(6) { width: 250px; }
+#pcPages .dispatch-table th:last-child,
+#pcPages .dispatch-table td:last-child:not([colspan]) {
+  position: sticky;
+  right: 0;
+  border-left: 1px solid var(--line);
+  box-shadow: -5px 0 10px rgba(20, 47, 60, .08);
+}
+#pcPages .dispatch-table th:last-child {
+  z-index: 4;
+  background: var(--panel-soft);
+}
+#pcPages .dispatch-table td:last-child:not([colspan]) {
+  z-index: 3;
+  background: var(--panel);
+}
+#pcPages .dispatch-table tbody tr:hover td:last-child:not([colspan]) {
+  background: var(--panel-soft);
+}
 @media (max-width: 760px) {
   #pcPages .dispatch-list-section { padding: 12px; }
 }

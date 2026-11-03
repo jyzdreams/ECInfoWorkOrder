@@ -913,21 +913,22 @@
     .dispatch-toolbar .wo-actions-top { margin-left: auto; }
     #pcPages .dispatch-toolbar .wo-actions-top { margin-left: 0; }
     .dispatch-toolbar .wo-actions-top button { height: 34px; min-width: 78px; padding: 0 12px; font-size: 13px; }
-    .dispatch-table { min-width: 1050px; table-layout: fixed; }
+    .pc-table-wrapper > .dispatch-table { min-width: 972px; table-layout: fixed; }
     .dispatch-table th:nth-child(1) { width: 130px; }
-    .dispatch-table th:nth-child(2) { width: 155px; }
-    .dispatch-table th:nth-child(3) { width: 285px; }
-    .dispatch-table th:nth-child(4) { width: 100px; }
-    .dispatch-table th:nth-child(5) { width: 130px; }
-    .dispatch-table th:nth-child(6) { width: 90px; }
-    .dispatch-table th:nth-child(7) { width: 160px; }
+    .dispatch-table th:nth-child(2) { width: 140px; }
+    .dispatch-table th:nth-child(3) { width: 220px; }
+    .dispatch-table th:nth-child(4) { width: 90px; }
+    .dispatch-table th:nth-child(5) { width: 142px; }
+    .dispatch-table th:nth-child(6) { width: 250px; }
     .dispatch-table td { white-space: normal; }
-    .dispatch-table td:nth-child(1), .dispatch-table td:nth-child(4), .dispatch-table td:nth-child(5), .dispatch-table td:nth-child(6), .dispatch-table td:nth-child(7) { white-space: nowrap; }
+    .dispatch-table td:nth-child(1), .dispatch-table td:nth-child(4), .dispatch-table td:nth-child(5), .dispatch-table td:nth-child(6) { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: none; white-space: normal; overflow-wrap: anywhere; }
     .dispatch-table .dispatch-desc { display: block; max-width: none; overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; color: var(--muted); font-size: 12px; line-height: 1.5; }
     .dispatch-table .direct-dispatch-task-no { color: var(--primary-strong); font-weight: 700; }
     .dispatch-table .direct-dispatch-source { padding: 3px 7px; font-size: 11px; }
     .dispatch-actions { display: flex; flex-direction: row; justify-content: center; gap: 6px; white-space: nowrap; }
+    .dispatch-table td:last-child .dispatch-actions { width: 100%; box-sizing: border-box; align-items: center; justify-content: center; }
+    .dispatch-table .dispatch-actions button { width: 72px !important; }
     .dispatch-actions button { height: 36px; width: 64px; padding: 0; font-size: 12px; font-weight: 600; border-radius: 6px; flex-shrink: 0; }
     .dispatch-actions .dispatch-action-placeholder { width: 64px; height: 36px; flex-shrink: 0; }
     /* 備貨管理：操作按鈕統一寬度，單按鈕與雙按鈕整體寬度一致 */
@@ -1269,6 +1270,97 @@
     .dispatch-ticket-summary .wide { grid-column: 1 / -1; }
     .dispatch-ticket-summary span { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
     .dispatch-ticket-summary strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+    .dispatch-process-method { max-width: 360px; margin-bottom: 14px; }
+    .dispatch-process-method label { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; }
+    .dispatch-process-method select { width: 100%; height: 38px; }
+    [data-dispatch-standard-panel][hidden], [data-ms-panel][hidden], [data-ms-category-panel][hidden] { display: none !important; }
+    .dispatch-task-process-modal .required-mark { color: var(--danger); }
+    .dispatch-task-process-modal .dispatch-modal-head { padding: 18px 24px; }
+    .dispatch-task-process-modal { width: min(780px, calc(100vw - 32px)); }
+    .dispatch-task-process-modal .dispatch-modal-head h2 { font-size: 18px; font-weight: 700; letter-spacing: .01em; }
+    .dispatch-task-process-modal .dispatch-modal-head p { max-width: 620px; margin-top: 5px; line-height: 1.55; }
+    .dispatch-task-process-modal .dispatch-modal-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; min-width: 0; padding: 14px 20px 16px; background: var(--panel-soft); }
+    .dispatch-task-process-modal .dispatch-process-task-info { min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .dispatch-task-process-modal .dispatch-process-task-info h3 { margin: 0 0 8px; color: var(--text); font-size: 14px; font-weight: 700; }
+    .dispatch-task-process-modal .dispatch-process-workflow { display: flex; min-width: 0; flex-direction: column; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .dispatch-task-process-modal .dispatch-process-workflow > h3 { margin: 0; color: var(--text); font-size: 14px; font-weight: 700; }
+    .dispatch-task-process-modal .dispatch-process-choice-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; }
+    .dispatch-task-process-modal .dispatch-process-choice-row.is-auto-route > .dispatch-process-auto-route { grid-column: 1 / -1; }
+    .dispatch-task-process-modal [data-ms-task-type-field][hidden] { display: none !important; }
+    .dispatch-task-process-modal .dispatch-process-task-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr); gap: 5px 6px; }
+    .dispatch-task-process-modal .dispatch-process-task-item { display: flex; min-width: 0; align-items: baseline; gap: 7px; padding: 5px 7px; border-radius: 7px; background: var(--panel-soft); }
+    .dispatch-task-process-modal .dispatch-process-task-item.wide { grid-column: 1 / -1; }
+    .dispatch-task-process-modal .dispatch-process-task-item.double-wide { grid-column: span 2; }
+    .dispatch-task-process-modal .dispatch-process-task-item span { flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+    .dispatch-task-process-modal .dispatch-process-task-item strong { display: block; min-width: 0; overflow: hidden; color: var(--text); font-size: 13px; font-weight: 600; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+    .dispatch-task-process-modal .dispatch-process-task-item.double-wide strong,
+    .dispatch-task-process-modal .dispatch-process-task-item.wide strong { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; white-space: normal; overflow-wrap: anywhere; }
+    .dispatch-task-process-modal .dispatch-process-auto-route { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+    .dispatch-task-process-modal .dispatch-process-auto-route span { display: block; margin-bottom: 2px; color: var(--muted); font-size: 12px; }
+    .dispatch-task-process-modal .dispatch-process-auto-route strong { display: block; color: var(--text); font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-process-auto-route small { color: var(--muted); font-size: 12px; text-align: right; }
+    .dispatch-task-process-modal .dispatch-process-method { max-width: none; margin: 0; }
+    .dispatch-task-process-modal .dispatch-process-method label,
+    .dispatch-task-process-modal .dispatch-process-task-type label,
+    .dispatch-task-process-modal .dispatch-maintenance-fields .field > label { color: var(--text); font-size: 12px; font-weight: 600; }
+    .dispatch-task-process-modal .dispatch-process-method label { margin-bottom: 4px; }
+    .dispatch-task-process-modal .dispatch-process-method select { height: 38px; font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-process-task-type { max-width: none; margin: 0; }
+    .dispatch-task-process-modal .dispatch-process-task-type label { display: block; margin-bottom: 4px; }
+    .dispatch-task-process-modal .dispatch-process-task-type select { width: 100%; height: 38px; font-size: 13px; }
+    .dispatch-task-process-modal [data-ms-panel] { min-width: 0; }
+    .dispatch-task-process-modal .dispatch-maintenance-panel,
+    .dispatch-task-process-modal .dispatch-engineering-panel { display: flex; min-width: 0; flex-direction: column; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel-soft); }
+    .dispatch-task-process-modal .dispatch-process-subgroup-title { margin: 0; color: var(--text); font-size: 13px; font-weight: 700; line-height: 1.4; }
+    .dispatch-task-process-modal .dispatch-engineering-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .dispatch-task-process-modal .dispatch-engineering-fields .field { min-width: 0; margin: 0; }
+    .dispatch-task-process-modal .dispatch-engineering-fields .field > label,
+    .dispatch-task-process-modal .dispatch-engineering-panel > .field > label { display: block; margin-bottom: 4px; color: var(--text); font-size: 12px; font-weight: 600; }
+    .dispatch-task-process-modal .dispatch-engineering-panel select,
+    .dispatch-task-process-modal .dispatch-engineering-panel input,
+    .dispatch-task-process-modal .dispatch-engineering-panel textarea { width: 100%; min-width: 0; box-sizing: border-box; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); font: inherit; font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-engineering-panel select,
+    .dispatch-task-process-modal .dispatch-engineering-panel input { height: 38px; padding: 0 11px; }
+    .dispatch-task-process-modal .dispatch-engineering-panel textarea { min-height: 68px; padding: 8px 11px; resize: vertical; }
+    .dispatch-task-process-modal .dispatch-maintenance-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-soft); }
+    .dispatch-task-process-modal .dispatch-maintenance-summary-item { min-width: 0; }
+    .dispatch-task-process-modal .dispatch-maintenance-summary-item span { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+    .dispatch-task-process-modal .dispatch-maintenance-summary-item strong { display: block; overflow: hidden; color: var(--text); font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+    .dispatch-task-process-modal .dispatch-maintenance-schedule-cta { min-width: 154px; min-height: 42px; padding: 0 16px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; box-shadow: 0 3px 9px rgba(15, 118, 110, .18); }
+    .dispatch-maintenance-editor-overlay { z-index: 1010; background: rgba(15, 23, 42, .58); }
+    .dispatch-maintenance-editor { width: min(900px, calc(100vw - 32px)); }
+    .dispatch-maintenance-editor .dispatch-modal-head p { max-width: none; }
+    .dispatch-maintenance-editor .dispatch-modal-body { display: flex; flex-direction: column; gap: 12px; }
+    .dispatch-task-process-modal .dispatch-maintenance-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .dispatch-task-process-modal .dispatch-maintenance-fields .field { min-width: 0; margin: 0; }
+    .dispatch-task-process-modal .dispatch-maintenance-fields .field > label { display: block; margin-bottom: 4px; }
+    .dispatch-task-process-modal .dispatch-maintenance-fields input,
+    .dispatch-task-process-modal .dispatch-maintenance-fields select,
+    .dispatch-task-process-modal .dispatch-maintenance-table select,
+    .dispatch-task-process-modal .dispatch-maintenance-table input { width: 100%; min-width: 0; height: 38px; padding: 0 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); box-sizing: border-box; font: inherit; font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-maintenance-table-wrap { max-height: 300px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .dispatch-task-process-modal .dispatch-maintenance-table { width: 100%; min-width: 0; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-maintenance-table th { position: sticky; top: 0; z-index: 1; padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--panel-soft); color: var(--muted); font-size: 12px; font-weight: 600; text-align: left; }
+    .dispatch-task-process-modal .dispatch-maintenance-table td { padding: 7px 10px; border-bottom: 1px solid var(--line); color: var(--text); font-size: 13px; }
+    .dispatch-task-process-modal .dispatch-maintenance-table tbody tr:last-child td { border-bottom: 0; }
+    .dispatch-task-process-modal .dispatch-maintenance-table select,
+    .dispatch-task-process-modal .dispatch-maintenance-table input { height: 36px; }
+    .dispatch-task-process-modal .dispatch-modal-footer { padding: 14px 24px; }
+    .dispatch-task-process-modal .dispatch-modal-footer .primary-btn { min-width: 150px; min-height: 40px; }
+    @media (max-width: 640px) {
+      .dispatch-task-process-modal .dispatch-modal-head { padding: 16px; }
+      .dispatch-task-process-modal .dispatch-modal-body { padding: 16px; gap: 12px; }
+      .dispatch-task-process-modal .dispatch-process-task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dispatch-task-process-modal .dispatch-process-choice-row { grid-template-columns: 1fr; gap: 8px; }
+      .dispatch-task-process-modal .dispatch-process-auto-route { align-items: flex-start; flex-direction: column; }
+      .dispatch-task-process-modal .dispatch-process-auto-route small { text-align: left; }
+      .dispatch-task-process-modal .dispatch-maintenance-fields { grid-template-columns: 1fr; gap: 12px; }
+      .dispatch-task-process-modal .dispatch-engineering-fields { grid-template-columns: 1fr; gap: 8px; }
+      .dispatch-task-process-modal .dispatch-maintenance-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dispatch-task-process-modal .dispatch-maintenance-summary > button { grid-column: 1 / -1; }
+      .dispatch-task-process-modal .dispatch-maintenance-table { min-width: 540px; }
+      .dispatch-task-process-modal .dispatch-modal-footer { padding: 12px 16px; }
+    }
     .dispatch-master-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-height: 300px; overflow-y: auto; padding-right: 2px; }
     .dispatch-assign-modal .dispatch-master-options { display: block; border: 1px solid var(--line); border-radius: var(--surface-radius); background: var(--panel); }
     .dispatch-master-options::-webkit-scrollbar { width: 6px; }
@@ -10988,6 +11080,143 @@
         </aside>`;
     }
 
+    function dispatchTaskRecordAction(record) {
+      const text = [record?.text, record?.changes, record?.remark, record?.note, record?.detail, record?.action, record?.operation, record?.event].filter(Boolean).join(" ");
+      if (/直接完成|直接關閉|直接关闭/.test(text)) return "直接完成";
+      if (/轉.*報價|转.*报价|請求報價|请求报价|需要報價|需要报价|待報價處理|待报价处理|報價組|报价组/.test(text)) return "轉報價";
+      if (/分派給|分派到|分派師傅|派工給|指派給|指派给/.test(text)) return "分派師傅";
+      if (/處理方式|处理方式|主管處理|主管处理|分派主管|指派\s*TL|指派.*主管|提交新工單|提交新工单|確認需要派工|确认需要派工|退回待分派|確認通過|确认通过|確認不通過|确认不通过|CS 已受理|CS已受理/.test(text)) return "主管處理";
+      if (/創建|创建|建立|建單|建单|新增分派/.test(text)) return "任務建立";
+      return record?.statusChange || record?.action || record?.operation || record?.event || (record?.status ? `狀態更新：${record.status}` : "處理記錄");
+    }
+
+    function dispatchTaskRecordEntries(task) {
+      const sourceRecords = Array.isArray(task.records) ? task.records : [];
+      const entries = sourceRecords.map(record => ({ ...record }));
+      const hasCreation = sourceRecords.some(record => dispatchTaskRecordAction(record) === "任務建立");
+      const hasCombinedCreationAndHandling = sourceRecords.some(record =>
+        /創建|创建|建立|建單|建单/.test(String(record.text || "")) && /處理方式|处理方式|分派主管/.test(String(record.text || ""))
+      );
+      if (!hasCreation || hasCombinedCreationAndHandling) {
+        entries.unshift({
+          time: task.createdAt || task.updatedAt || "—",
+          actor: task.owner || task.createdByName || "—",
+          action: "任務建立",
+          text: task.isDirectDispatchTask ? "直接新增分派任務" : "由 CALL 建立分派任務"
+        });
+      }
+      const hasAssignment = sourceRecords.some(record => dispatchTaskRecordAction(record) === "分派師傅");
+      if (task.master && !hasAssignment) {
+        entries.push({
+          time: task.assignedAt || task.assignedAtTs || task.updatedAt || "—",
+          actor: task.assignedBy || task.tl || task.owner || "—",
+          action: "分派師傅",
+          text: `分派給 ${task.master}`
+        });
+      }
+
+      const quotation = !task.isDirectDispatchTask && quotations.find(item => item.sourceTicketId === task.id || item.ticketId === task.id);
+      const hasQuotationAction = sourceRecords.some(record => dispatchTaskRecordAction(record) === "轉報價");
+      if ((quotation || task.quotationRequested) && !hasQuotationAction) {
+        entries.push({
+          time: quotation?.requestedAt || quotation?.createdAt || task.updatedAt || "—",
+          actor: quotation?.requestedBy || task.owner || "—",
+          action: "轉報價",
+          text: quotation ? `已建立關聯報價 ${quotation.id}` : "已轉交報價處理"
+        });
+      }
+      return entries;
+    }
+
+    function renderDispatchTaskDrawer(task, activeTab = "basic") {
+      if (!task) return "";
+      const direct = task.isDirectDispatchTask === true || task.source === "直接新增";
+      const customer = customers.find(item => item.id === task.customerId) || callDetailCustomer(task);
+      const taskNo = task.taskNo || "—";
+      const customerName = task.customer || customer?.nameZh || "—";
+      const contractNo = task.contractNo || task.ecContractNo || customer?.contractNo || "—";
+      const address = task.address || customer?.addresses?.[0]?.addressZh || customer?.addresses?.[0]?.address || "—";
+      const priority = task.priority || (task.urgent ? "緊急" : "普通");
+      const status = dispatchListStatusLabel(task);
+      const planDate = task.plannedDate || task.scheduleDate || task.scheduledDate || (String(task.estimatedArrival || "").split(/\s+/)[0]) || "—";
+      const planTime = task.plannedTime || task.scheduleTime || task.scheduledTime || (String(task.estimatedArrival || "").match(/\d{1,2}:\d{2}/)?.[0]) || "—";
+      const sourceCall = direct ? null : callLogs.find(log => log.id === task.sourceCallId || log.id === task.callId || log.workOrderId === task.id);
+      const linkedCall = direct ? "" : (task.relatedCallNo || task.callNo || task.sourceCallNo || task.sourceCallId || task.callId || sourceCall?.id || "");
+      const recordEntries = dispatchTaskRecordEntries(task);
+      const recordRows = recordEntries.map(record => {
+        const note = [record.text || record.remark || record.note || record.detail, record.changes].filter(Boolean).join(" · ") || "—";
+        return `<article class="wo-call-record"><div class="wo-call-record-time">${escapeHtml(formatCallDateTime(record.time || record.createdAt || record.at || "—"))}</div><div class="wo-call-record-main"><div class="wo-call-record-meta"><strong>${escapeHtml(record.actor || record.operator || record.user || "—")}</strong><span class="tag">${escapeHtml(dispatchTaskRecordAction(record))}</span></div><div class="wo-timeline-text">${escapeHtml(note)}</div></div></article>`;
+      }).join("");
+      const detailGroups = [
+        ["任务信息", [
+          callDetailValue("任務編號", escapeHtml(taskNo)),
+          callDetailValue("來源", escapeHtml(direct ? "直接新增" : "CALL")),
+          ...(linkedCall ? [callDetailValue("關聯CALL", escapeHtml(linkedCall))] : [])
+        ]],
+        ["客戶信息", [
+          callDetailValue("客戶", escapeHtml(customerName)),
+          callDetailValue("EC Contract No", escapeHtml(contractNo)),
+          callDetailValue("地址", escapeHtml(address), "full-width")
+        ]],
+        ["工作內容與優先級", [
+          callDetailValue("任務類型", escapeHtml(task.type || task.taskType || "—")),
+          callDetailValue("優先級", escapeHtml(priority)),
+          callDetailValue("任務內容", escapeHtml(task.desc || "—"), "full-width wo-detail-description")
+        ]],
+        ["派工與計劃", [
+          callDetailValue("當前狀態", escapeHtml(status)),
+          callDetailValue("主管", escapeHtml(task.tl || "—")),
+          callDetailValue("當前師傅", escapeHtml(task.master || "—")),
+          callDetailValue("計劃日期", escapeHtml(planDate)),
+          callDetailValue("計劃時間", escapeHtml(planTime))
+        ]]
+      ];
+      const basicPanel = `<div class="wo-detail-section">${detailGroups.map(([heading, fields]) => `
+        <div class="wo-detail-card"><div class="wo-detail-card-heading"><h4>${heading}</h4></div><div class="wo-detail-grid">${fields.join("")}</div></div>
+      `).join("")}</div>`;
+      const panelContent = activeTab === "records"
+        ? `<div class="wo-detail-section"><div class="wo-detail-card"><div class="wo-detail-card-heading"><h4>處理記錄</h4></div>${recordRows ? `<div class="wo-call-record-list">${recordRows}</div>` : '<div class="wo-detail-empty">暫無處理記錄</div>'}</div></div>`
+        : basicPanel;
+      const tabs = [["basic", "基礎資料"], ["records", "處理記錄"]]
+        .map(([key, label]) => `<button type="button" class="wo-call-detail-tab ${activeTab === key ? "active" : ""}" role="tab" aria-selected="${activeTab === key}" data-dispatch-task-tab="${key}">${label}</button>`).join("");
+      return `
+        <div class="wo-drawer-backdrop" data-dispatch-task-close aria-hidden="true"></div>
+        <aside class="wo-drawer" role="dialog" aria-modal="true" aria-label="分派任務詳情">
+          <div class="wo-drawer-header">
+            <div class="wo-drawer-title"><div><h3>${escapeHtml(taskNo)}</h3><span class="wo-drawer-subtitle">${escapeHtml(customerName)} · EC Contract No ${escapeHtml(contractNo)}</span></div>${statusBadge(status)}</div>
+            <button class="wo-drawer-close" type="button" data-dispatch-task-close aria-label="關閉">×</button>
+          </div>
+          <div class="wo-call-detail-tabs" role="tablist" aria-label="分派任務詳情分頁">${tabs}</div>
+          <div class="wo-drawer-body wo-call-detail-body"><div class="wo-call-detail-panel" role="tabpanel">${panelContent}</div></div>
+        </aside>`;
+    }
+
+    function bindDispatchTaskDrawerEvents(container, task, activeTab = "basic") {
+      const close = () => {
+        container.remove();
+        if (!document.getElementById("woDrawerOverlay") && !document.getElementById("custDrawerOverlay")) {
+          document.body.classList.remove("drawer-open");
+        }
+      };
+      container.querySelectorAll("[data-dispatch-task-close]").forEach(button => button.addEventListener("click", close));
+      container.querySelectorAll("[data-dispatch-task-tab]").forEach(button => button.addEventListener("click", () => {
+        const nextTab = button.dataset.dispatchTaskTab;
+        container.innerHTML = renderDispatchTaskDrawer(task, nextTab);
+        bindDispatchTaskDrawerEvents(container, task, nextTab);
+      }));
+    }
+
+    function showDispatchTaskDrawer(task) {
+      if (!task) return;
+      document.getElementById("dispatchTaskDrawerOverlay")?.remove();
+      const container = document.createElement("div");
+      container.id = "dispatchTaskDrawerOverlay";
+      container.innerHTML = renderDispatchTaskDrawer(task);
+      document.body.appendChild(container);
+      document.body.classList.add("drawer-open");
+      bindDispatchTaskDrawerEvents(container, task);
+    }
+
     function splitCallPhone(value) {
       const raw = String(value || "").trim();
       const match = raw.match(/^(\+\d{1,4})\s*(.*)$/);
@@ -11602,7 +11831,7 @@
           closeSearchableSelects(menu);
           search.value = "";
           renderOptions();
-          if (select.closest(".um-modal, .qf-modal")) {
+          if (select.closest(".um-modal, .qf-modal, .dispatch-task-process-modal")) {
             menu.classList.add("is-fixed");
             if (menu.parentNode !== document.body) document.body.appendChild(menu);
           } else {
@@ -12419,7 +12648,7 @@
                   <div class="qf-grid direct-dispatch-form-grid">
                     <div class="qf-field">
                       <label class="qf-label">分派來源</label>
-                      <input class="qf-input qf-readonly" name="dispatchSource" value="自主新增" readonly aria-readonly="true">
+                      <input class="qf-input qf-readonly" name="dispatchSource" value="自主分派" readonly aria-readonly="true">
                     </div>
                     <div class="qf-field">
                       <label class="qf-label">優先級</label>
@@ -12542,14 +12771,29 @@
 
     function formatDispatchUpdatedAt(value, task = null) {
       const text = String(value || "").trim();
+      const assignedAtTs = Number(task?.assignedAtTs);
+      if (assignedAtTs > 0) {
+        const parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Asia/Hong_Kong",
+          year: "numeric", month: "2-digit", day: "2-digit",
+          hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+        }).formatToParts(new Date(assignedAtTs));
+        const part = type => parts.find(item => item.type === type)?.value || "";
+        return `${part("year")}-${part("month")}-${part("day")} ${part("hour")}:${part("minute")}`;
+      }
       if (!text || text === "-") return "-";
-      if (/^\d{4}[-/]\d{1,2}[-/]\d{1,2}/.test(text)) return text;
+      const fullDate = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(\s+.*)?$/.exec(text);
+      if (fullDate) return `${fullDate[1]}-${fullDate[2].padStart(2, "0")}-${fullDate[3].padStart(2, "0")}${fullDate[4] || ""}`;
       const shortDate = /^(\d{1,2})[-/](\d{1,2})(\s+.*)?$/.exec(text);
       if (!shortDate) return text;
       const taskDate = task?.isDirectDispatchTask ? /^T-(\d{2})(\d{2})(\d{2})-/.exec(task.taskNo || "") : null;
       if (taskDate) return `20${taskDate[1]}-${taskDate[2]}-${taskDate[3]}${shortDate[3] || ""}`;
+      const first = Number(shortDate[1]);
+      const second = Number(shortDate[2]);
+      const month = first > 12 ? second : second > 12 ? first : second;
+      const day = first > 12 ? first : second > 12 ? second : first;
       const year = new Date().getFullYear();
-      return `${year}-${shortDate[1].padStart(2, "0")}-${shortDate[2].padStart(2, "0")}${shortDate[3] || ""}`;
+      return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}${shortDate[3] || ""}`;
     }
 
     function dispatchListStatusLabel(ticket) {
@@ -12557,6 +12801,44 @@
       if (["待完工確認", "已確認"].includes(ticket.status)) return "已確認";
       if (["待確認", "已分派", "待處理", "處理中"].includes(ticket.status)) return "已分派";
       return "待處理";
+    }
+
+    function dispatchListSourceLabel(ticket) {
+      const dispatchSource = String(ticket.dispatchSource || "").trim();
+      if (["自主分派", "自主新增"].includes(dispatchSource) || ticket.isDirectDispatchTask) return "自主分派";
+      if (["中单分派", "中標分派", "中标分派"].includes(dispatchSource)) return dispatchSource === "中標分派" ? "中标分派" : dispatchSource;
+
+      const quotation = quotations.find(q => q.id === ticket.quotationId || q.id === ticket.sourceQuotationId)
+        || quotations.find(q => q.generatedTicketId === ticket.id || q.ticketId === ticket.id || q.sourceTicketId === ticket.id);
+      const relatedTender = quotation && tenders.find(t => t.relatedQuotationId === quotation.id
+        || t.id === ticket.sourceTenderId
+        || t.id === ticket.tenderNo
+        || t.id === quotation.sourceTenderId
+        || t.id === quotation.tenderNo);
+      const tenderDispatch = Boolean(ticket.sourceTenderId || quotation?.sourceTenderId || quotation?.source === "標書"
+        || (quotation?.isInviteTender && (relatedTender || quotation.tenderNo)));
+      if (tenderDispatch) return "中标分派";
+      if (quotation && (quotation.status === "已中單" || quotation.bidStatus === "已中標")) return "中单分派";
+
+      if (dispatchSource === "CS分派") return "CS分派";
+      const creator = String(ticket.records?.[0]?.actor || ticket.owner || "");
+      return /\bCS\b|客服/i.test(creator) ? "CS分派" : "自主分派";
+    }
+
+    function dispatchTaskProcessingContext(ticket) {
+      const source = dispatchListSourceLabel(ticket);
+      const quotation = quotations.find(q => q.id === ticket.quotationId || q.id === ticket.sourceQuotationId)
+        || quotations.find(q => q.generatedTicketId === ticket.id || q.ticketId === ticket.id || q.sourceTicketId === ticket.id);
+      const tenderId = ticket.sourceTenderId || ticket.tenderNo || quotation?.sourceTenderId || quotation?.tenderNo || "";
+      const tender = tenders.find(t => t.id === tenderId || (quotation && t.relatedQuotationId === quotation.id));
+      const category = String(quotation?.category || tender?.tenderCategory || "").trim().replace(/＋/g, "+").toUpperCase();
+      const categoryLabel = category === "M" ? "M（保養）" : category === "P" ? "P（工程）" : category === "M+P" ? "M+P（保養＋工程）" : "未設定";
+      return {
+        source,
+        category,
+        categoryLabel,
+        requiresMethodChoice: !["中单分派", "中标分派"].includes(source)
+      };
     }
 
     function renderDispatch() {
@@ -12623,18 +12905,17 @@
               </div>
               <div class="pc-table-wrapper">
                 <table class="pc-table dispatch-table">
-                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th><th>來源</th><th>分派時間</th><th>狀態</th><th style="text-align:center;">操作</th></tr></thead>
+                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th><th>來源</th><th>分派時間</th><th style="text-align:center;">操作</th></tr></thead>
                   <tbody>
                     ${paginatedRows.length ? paginatedRows.map(t => `
                       <tr>
                         <td>${escapeHtml(t.contractNo || t.ecContractNo || callDetailCustomer(t)?.contractNo || '—')}</td>
                         <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong></td>
                         <td><span class="dispatch-desc" title="${escapeHtml(t.desc)}">${escapeHtml(t.desc)}</span></td>
-                        <td>${escapeHtml(t.source || t.channel || '—')}</td>
-                        <td>${escapeHtml(t.assignedAt || '-')}</td>
-                        <td>${statusBadge(dispatchListStatusLabel(t))}</td>
-                        <td><div class="dispatch-actions">${t.isDirectDispatchTask ? '<span class="dispatch-action-placeholder" title="直接新增任務">—</span>' : `${["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">處理</button>` : ["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待審批" ? `<button class="primary-btn" data-dispatch-approve="${t.id}">通過</button><button class="danger-btn" data-dispatch-reject="${t.id}">不通過</button>` : ["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待完工確認" ? `<button class="primary-btn" data-dispatch-view="${t.id}">確認完工</button>` : '<span class="dispatch-action-placeholder"></span>'}<button class="wo-view-btn" data-dispatch-view="${t.id}">詳情</button>${["TL", "CR", "ADMIN"].includes(state.role) && ticketTimeoutState(t) ? `<button class="wo-view-btn" data-clear-timeout="${t.id}" title="取消工時超時提醒（Special：取消工時超時提醒）">取消超時</button>` : ""}`}</div></td>
-                      </tr>`).join("") : '<tr><td colspan="7" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>'}
+                        <td>${escapeHtml(dispatchListSourceLabel(t))}</td>
+                        <td>${escapeHtml(formatDispatchUpdatedAt(t.assignedAt, t))}</td>
+                        <td><div class="dispatch-actions">${t.isDirectDispatchTask ? "" : `${["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">處理</button>` : ["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待審批" ? `<button class="primary-btn" data-dispatch-approve="${t.id}">通過</button><button class="danger-btn" data-dispatch-reject="${t.id}">不通過</button>` : ""}`}<button class="wo-view-btn" data-dispatch-task-detail="${escapeHtml(t.isDirectDispatchTask ? t.taskNo : t.id)}" data-dispatch-task-kind="${t.isDirectDispatchTask ? "direct" : "call"}">詳情</button></div></td>
+                      </tr>`).join("") : '<tr><td colspan="6" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>'}
                   </tbody>
                 </table>
               </div>
@@ -12780,33 +13061,55 @@
       const view = getDispatchMasterView();
       if (!view) return "";
       const { ticket, isReassign, skillOptions, statusFilter, skillFilter } = view;
+      const processingContext = dispatchTaskProcessingContext(ticket);
+      const taskNo = ticket.taskNo || "—";
+      const showMethodChoice = processingContext.requiresMethodChoice;
+      const quoteSourceHint = showMethodChoice ? "" : `<span class="dispatch-process-source-hint">${escapeHtml(processingContext.source)} · 报价类型 ${escapeHtml(processingContext.categoryLabel)}</span> · `;
       const statusFilters = ["全部", "可接單", "忙碌", "請假"];
       const detailMaster = view.finalMasters.find(m => m.name === state.dispatchMasterDetail);
       return `
         <div class="dispatch-modal-overlay" data-dispatch-modal-close>
-          <section class="dispatch-modal dispatch-assign-modal" role="dialog" aria-modal="true" aria-label="分派 CALL">
+          <section class="dispatch-modal dispatch-assign-modal" role="dialog" aria-modal="true" aria-label="任務處理">
             <header class="dispatch-modal-head">
-              <div><h2>${isReassign ? "改派" : "分派"} CALL · ${ticket.id}</h2><p>${buildDispatchModalSubtitle(view)}</p></div>
+              <div><h2>任務處理 · ${escapeHtml(taskNo)}</h2><p>${quoteSourceHint}${buildDispatchModalSubtitle(view)}</p></div>
               <button type="button" class="modal-close-icon" data-dispatch-modal-close aria-label="關閉" title="關閉">×</button>
             </header>
             <div class="dispatch-modal-body">
-              <div class="dispatch-picker-toolbar">
-                <input class="dispatch-picker-search" type="text" placeholder="搜索師傅姓名 / 區域 / 技能" value="${escapeHtml(state.dispatchMasterKeyword || '')}" data-dispatch-master-keyword>
-                <div class="dispatch-filter-control">
-                  <label for="dispatchMasterStatusFilter">狀態</label>
-                  <select id="dispatchMasterStatusFilter" class="dispatch-filter-select" data-dispatch-master-status>${statusFilters.map(s => `<option value="${escapeHtml(s)}" ${state.dispatchMasterStatusFilter === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}</select>
+              ${showMethodChoice ? `<div class="field dispatch-process-method">
+                <label for="dispatchProcessMethod">處理方式</label>
+                <select id="dispatchProcessMethod" class="dispatch-filter-select" data-dispatch-standard-method>
+                  <option value="assign" selected>分派師傅</option>
+                  <option value="quotation">報價任務</option>
+                  <option value="resolve">解決問題</option>
+                </select>
+              </div>` : ""}
+              <div data-dispatch-standard-panel="assign">
+                <div class="dispatch-picker-toolbar">
+                  <input class="dispatch-picker-search" type="text" placeholder="搜索師傅姓名 / 區域 / 技能" value="${escapeHtml(state.dispatchMasterKeyword || '')}" data-dispatch-master-keyword>
+                  <div class="dispatch-filter-control">
+                    <label for="dispatchMasterStatusFilter">狀態</label>
+                    <select id="dispatchMasterStatusFilter" class="dispatch-filter-select" data-dispatch-master-status>${statusFilters.map(s => `<option value="${escapeHtml(s)}" ${state.dispatchMasterStatusFilter === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}</select>
+                  </div>
+                  <div class="dispatch-filter-control">
+                    <label for="dispatchMasterSkillFilter">技能</label>
+                    <select id="dispatchMasterSkillFilter" class="dispatch-filter-select" data-dispatch-master-skill>${skillOptions.map(s => `<option value="${escapeHtml(s)}" ${skillFilter === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}</select>
+                  </div>
                 </div>
-                <div class="dispatch-filter-control">
-                  <label for="dispatchMasterSkillFilter">技能</label>
-                  <select id="dispatchMasterSkillFilter" class="dispatch-filter-select" data-dispatch-master-skill>${skillOptions.map(s => `<option value="${escapeHtml(s)}" ${skillFilter === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}</select>
+                <div class="dispatch-master-options">
+                  ${buildDispatchMasterOptionsHtml(view)}
                 </div>
+                <div class="field" style="margin-top:18px;"><label>派工備註</label><textarea id="dispatchAssignNote" placeholder="填寫約定施工時間、具體事項或現場注意事項（可電話溝通）"></textarea></div>
               </div>
-              <div class="dispatch-master-options">
-                ${buildDispatchMasterOptionsHtml(view)}
+              ${showMethodChoice ? `<div data-dispatch-standard-panel="quotation" hidden>
+                <div class="dispatch-ticket-summary"><div><span>客戶</span><strong>${escapeHtml(ticket.customer || "—")}</strong></div><div><span>關聯任務</span><strong>${escapeHtml(taskNo)}</strong></div><div class="wide"><span>報價內容</span><strong>${escapeHtml(ticket.desc || "—")}</strong></div></div>
+                <div class="field"><label for="dispatchQuotationNote">報價補充說明</label><textarea id="dispatchQuotationNote" placeholder="補充需要報價的項目或現場情況（選填）"></textarea></div>
               </div>
-              <div class="field" style="margin-top:18px;"><label>派工備註</label><textarea id="dispatchAssignNote" placeholder="填寫約定施工時間、具體事項或現場注意事項（可電話溝通）"></textarea></div>
+              <div data-dispatch-standard-panel="resolve" hidden>
+                <div class="dispatch-ticket-summary"><div><span>客戶</span><strong>${escapeHtml(ticket.customer || "—")}</strong></div><div><span>任務編號</span><strong>${escapeHtml(taskNo)}</strong></div><div class="wide"><span>任務內容</span><strong>${escapeHtml(ticket.desc || "—")}</strong></div></div>
+                <div class="field"><label for="dispatchResolveNote">問題解決說明 <span class="required-mark">*</span></label><textarea id="dispatchResolveNote" placeholder="請填寫如何解決問題" required></textarea></div>
+              </div>` : ""}
             </div>
-            <footer class="dispatch-modal-footer">${canConfirmFirstDispatch(ticket) ? "" : '<p class="muted">材料尚未備齊，可先預排；MR 申請完成不代表可以施工。</p>'}<button class="primary-btn" data-dispatch-confirm ${canConfirmFirstDispatch(ticket) ? "" : "disabled"}>確認分派</button></footer>
+            <footer class="dispatch-modal-footer">${canConfirmFirstDispatch(ticket) ? "" : '<p class="muted" data-dispatch-material-warning>材料尚未備齊，可先預排；MR 申請完成不代表可以施工。</p>'}<button class="primary-btn" data-dispatch-process data-dispatch-confirm ${canConfirmFirstDispatch(ticket) ? "" : "disabled"}>確認分派</button></footer>
           </section>
           ${detailMaster ? `<aside class="dispatch-master-drawer wo-drawer" role="dialog" aria-modal="true" aria-label="${escapeHtml(detailMaster.name)} 的師傅詳情">
             <header class="wo-drawer-header">
@@ -18490,7 +18793,7 @@
       );
       if (existing) {
         toast(`已存在關聯報價 ${existing.id}，無需重複申請`, "error");
-        return;
+        return null;
       }
       const now = new Date().toLocaleString('zh-TW');
       const newId = `Q-${Date.now()}`;
@@ -18514,7 +18817,7 @@
         createdAt: new Date().toISOString().slice(0, 10),
         validUntil: "",
         deadline: "",
-        source: "CS請求",
+        source: source?.dispatchTask ? "分派任務轉入" : "CS請求",
         warrantyPeriod: "1年",
         sourceTicketId: ticket ? ticket.id : "",
         sourceCallId: (source.callLogId || ""),
@@ -18527,9 +18830,9 @@
         ourRef: generateOurRef(),
         inventoryStatus: "",
         attachments: [],
-        remark: (ticket && ticket.desc) || (log && log.content) || "",
+        remark: source?.remark || (ticket && ticket.desc) || (log && log.content) || "",
         items: [],
-        history: [{ action: "CS 請求報價", time: now, actor: currentRole().name, changes: `由 Call 記錄發起（${ticket ? `工單 ${ticket.id}` : `來電單 ${log ? log.id : ""}`}）` }]
+        history: [{ action: source?.dispatchTask ? "分派任務轉報價" : "CS 請求報價", time: now, actor: currentRole().name, changes: `${source?.dispatchTask ? "由分派任務轉入" : "由 Call 記錄發起"}（${ticket ? `工單 ${ticket.id}` : `來電單 ${log ? log.id : ""}`}）` }]
       });
       // 標記來源已申請報價，供列表顯示狀態
       if (ticket) ticket.quotationRequested = true;
@@ -18549,8 +18852,11 @@
           receiverRole: "QUO"
         });
       });
-      toast(`已向報價組申請報價（${newId}）`, "success");
-      render();
+      if (!source?.deferRender) {
+        toast(`已向報價組申請報價（${newId}）`, "success");
+        render();
+      }
+      return newId;
     }
 
     // 保存報價前確認客戶檔案：名稱未建檔時，先彈出精簡新增客戶（Contract No 必填），建立後才保存報價
@@ -20607,13 +20913,65 @@
       return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
     }
 
-    // M+P 分派與保養排程：設定次數與間隔，逐期安排師傅與時間
-    // 第 1 期即本次分派；其餘各期存為 maintenanceVisits，到期自動建立工單
-    function openMaintenanceScheduleModal(ticketId) {
+    // 分派中心統一任務處理：依分派來源與任務類型顯示分派、保養排程或工程安排
+    function openDispatchTaskProcessModal(ticketId) {
       const ticket = ticketById(ticketId);
       if (!ticket) return;
-      if (!isMultiVisitMaintenanceTicket(ticket)) { toast("只有 M+P 工單需要多期保養排程", "error"); return; }
-      const areaMasters = getMastersForDispatch().filter(m => m.area === ticket.area);
+      const processingContext = dispatchTaskProcessingContext(ticket);
+      const taskNo = ticket.taskNo || "—";
+      const showMethodChoice = processingContext.requiresMethodChoice;
+      const customer = customers.find(item => item.id === ticket.customerId) || callDetailCustomer(ticket);
+      const customerName = ticket.customer || customer?.nameZh || "—";
+      const contractNo = ticket.contractNo || ticket.ecContractNo || customer?.contractNo || "—";
+      const serviceAddress = ticket.address || customer?.addresses?.[0]?.addressZh || customer?.addresses?.[0]?.address || "—";
+      const taskType = ticket.type || ticket.taskType || processingContext.categoryLabel || "—";
+      const taskPriority = ticket.priority || (ticket.urgent ? "緊急" : "普通");
+      const normalizeTaskCategory = value => {
+        const normalized = String(value || "").trim().toUpperCase().replace(/＋/g, "+");
+        if (normalized.includes("M+P") || (normalized.includes("M") && normalized.includes("P"))) return "M+P";
+        if (normalized === "M" || /(^|[^A-Z])M([^A-Z]|$)/.test(normalized) || normalized.includes("保養")) return "M";
+        if (normalized === "P" || /(^|[^A-Z])P([^A-Z]|$)/.test(normalized) || normalized.includes("工程")) return "P";
+        return "M";
+      };
+      const selectedTaskCategory = normalizeTaskCategory(ticket.dispatchTaskType || processingContext.category || taskType);
+      const infoItem = (label, value, wide = false) => {
+        const widthClass = wide === "double" ? " double-wide" : wide ? " wide" : "";
+        const safeValue = escapeHtml(value || "—");
+        return `<div class="dispatch-process-task-item${widthClass}"><span>${label}</span><strong title="${safeValue}">${safeValue}</strong></div>`;
+      };
+      const taskInfoMarkup = `<section class="dispatch-process-task-info" aria-label="任务信息">
+        <h3>任务信息</h3>
+        <div class="dispatch-process-task-grid">
+          ${infoItem("任務編號", taskNo)}
+          ${infoItem("分派來源", processingContext.source)}
+          ${infoItem("客戶名稱", customerName)}
+          ${infoItem("EC Contract No", contractNo)}
+          ${infoItem("區域", ticket.area || "—")}
+          ${infoItem("優先級", taskPriority)}
+          ${infoItem("服務地址", serviceAddress, "double")}
+          ${infoItem("任務內容", ticket.desc || "—", true)}
+        </div>
+      </section>`;
+      const autoProcessOption = processingContext.category === "M+P"
+        ? "M+P 保養與工程排程"
+        : processingContext.category === "M" ? "M 保養排程" : "按報價類別處理";
+      const processOptionsMarkup = showMethodChoice ? `<div class="field dispatch-process-method">
+        <label for="maintenanceProcessMethod">處理方式</label>
+        <select id="maintenanceProcessMethod" class="dispatch-filter-select" data-ms-method>
+          <option value="assign" selected>分派師傅</option>
+          <option value="quotation">報價任務</option>
+          <option value="resolve">解決問題</option>
+        </select>
+      </div>` : `<div class="dispatch-process-auto-route"><div><span>根據分派來源與報價類別帶出的處理選項</span><strong>${escapeHtml(autoProcessOption)}</strong></div><small>${escapeHtml(processingContext.source)} · ${escapeHtml(processingContext.categoryLabel)}</small></div>`;
+      const taskTypeFieldMarkup = showMethodChoice ? `<div class="field dispatch-process-task-type" data-ms-task-type-field>
+        <label for="maintenanceTaskType">任務類型</label>
+        <select id="maintenanceTaskType" class="dispatch-filter-select" data-ms-task-type>
+          ${[["M", "M（保養）"], ["P", "P（工程）"], ["M+P", "M+P（保養＋工程）"]].map(([value, label]) => `<option value="${value}" ${selectedTaskCategory === value ? "selected" : ""}>${label}</option>`).join("")}
+        </select>
+      </div>` : "";
+      const dispatchMasters = getMastersForDispatch();
+      const areaMasters = dispatchMasters.filter(m => m.area === ticket.area);
+      const schedulableAreaMasters = areaMasters.filter(m => m.status === "可接單");
       const existingVisits = Array.isArray(ticket.maintenanceVisits) ? ticket.maintenanceVisits : [];
       const relatedQuote = quotations.find(x => x.id === ticket.quotationId || x.id === ticket.sourceQuotationId)
         || quotations.find(x => x.ticketId === ticket.id || x.sourceTicketId === ticket.id);
@@ -20621,96 +20979,327 @@
         ? window.ecRemediation.findPlan(ticket.maintenancePlanId) : null;
       const existingCount = Number(ticket.maintenanceCount || 0)
         || (relatedPlan ? relatedPlan.visits.length : (existingVisits.length + 1));
-      const defaultInterval = Number(ticket.maintenanceIntervalMonths || (relatedQuote && relatedQuote.serviceEveryMonths) || 1);
+      const requestedInterval = Number(ticket.maintenanceIntervalMonths || (relatedQuote && relatedQuote.serviceEveryMonths) || 1);
+      const defaultInterval = [1, 2, 3, 6, 12].includes(requestedInterval) ? requestedInterval : 1;
       const pad = n => String(n).padStart(2, "0");
       const now = new Date();
       const defaultFirst = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T09:00`;
-      const masterOptionsHtml = selected => areaMasters.map(m => `<option value="${escapeHtml(m.name)}" ${selected === m.name ? "selected" : ""} ${m.status !== "可接單" ? "disabled" : ""}>${escapeHtml(m.name)}（${escapeHtml(m.area)} · ${escapeHtml(m.status)}）</option>`).join("");
+      const initialFirstVisit = ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : defaultFirst;
+      const scheduleAlreadyConfigured = ticket.scheduleType === "已排程" && Boolean(ticket.scheduleDate && (ticket.scheduleMaster || ticket.master));
+      const maintenanceIntervalLabel = months => ({ 1: "每月", 2: "每兩月", 3: "每季（3 個月）", 6: "每半年（6 個月）", 12: "每年" })[months] || `每 ${months} 個月`;
+      const initialMaintenanceCount = Math.max(1, Math.min(Number(existingCount) || 1, 60));
+      const initialMaster = ticket.master || ticket.scheduleMaster || "";
+      const initialMaintenanceRows = Array.from({ length: initialMaintenanceCount }, (_, index) => {
+        const visit = index === 0 ? null : existingVisits.find(item => Number(item.no) === index + 1) || existingVisits[index - 1];
+        const visitDate = visit?.dateTime ? String(visit.dateTime).replace(" ", "T").slice(0, 16) : "";
+        return {
+          master: index === 0 ? initialMaster : (visit?.master || initialMaster),
+          dateTime: index === 0 ? initialFirstVisit : (visitDate || addMonthsToDateTime(initialFirstVisit, defaultInterval * index))
+        };
+      });
+      const engineeringAssignment = ticket.dispatchEngineering && typeof ticket.dispatchEngineering === "object" ? ticket.dispatchEngineering : {};
+      const engineeringMaster = engineeringAssignment.master || ticket.engineeringMaster || "";
+      const engineeringDateTime = engineeringAssignment.dateTime || ticket.engineeringDateTime || (ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : defaultFirst);
+      const engineeringNote = engineeringAssignment.note || ticket.engineeringNote || "";
+      const masterOptionsHtml = selected => {
+        const selectedMaster = dispatchMasters.find(m => m.name === selected);
+        const options = areaMasters.slice();
+        if (selectedMaster && !options.some(m => m.name === selectedMaster.name)) options.unshift(selectedMaster);
+        const placeholder = schedulableAreaMasters.length
+          ? `<option value="" ${selected ? "" : "selected"}>請選擇師傅</option>`
+          : `<option value="" ${selected ? "" : "selected"} disabled>該區暫無可接單師傅</option>`;
+        return placeholder + options.map(m => `<option value="${escapeHtml(m.name)}" ${selected === m.name ? "selected" : ""} ${m.status !== "可接單" ? "disabled" : ""}>${escapeHtml(m.name)}（${escapeHtml(m.area)} · ${escapeHtml(m.status)}）</option>`).join("");
+      };
+      const engineeringMasterOptionsHtml = `<option value="" ${engineeringMaster ? "" : "selected"}>請選擇師傅</option>${areaMasters.map(m => `<option value="${escapeHtml(m.name)}" ${engineeringMaster === m.name ? "selected" : ""} ${m.status !== "可接單" ? "disabled" : ""}>${escapeHtml(m.name)}（${escapeHtml(m.area)} · ${escapeHtml(m.status)}）</option>`).join("")}`;
 
       const modal = document.createElement("div");
       modal.className = "dispatch-modal-overlay";
       modal.innerHTML = `
-        <section class="dispatch-modal" role="dialog" aria-modal="true" aria-label="分派與保養排程" style="width:min(780px, calc(100vw - 32px));">
+        <section class="dispatch-modal dispatch-task-process-modal" role="dialog" aria-modal="true" aria-label="任務處理">
           <header class="dispatch-modal-head">
-            <div><h2>分派與保養排程 · ${escapeHtml(ticket.id)}</h2><p>保養類（M／M+P）：設定保養次數與間隔後逐期安排師傅與時間；第 1 期即本工單的分派，其餘各期到期自動建立工單。</p></div>
+            <div><h2>任務處理 · ${escapeHtml(taskNo)}</h2><p>依分派來源及任務類型，顯示對應的處理選項與安排內容。</p></div>
             <button type="button" class="modal-close-icon" data-ms-close aria-label="關閉">×</button>
           </header>
           <div class="dispatch-modal-body">
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
-              <div class="field"><label>保養次數</label><input type="number" min="1" max="60" step="1" value="${existingCount}" data-ms-count style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;"></div>
-              <div class="field"><label>保養間隔</label><select data-native-select data-ms-interval style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;">
-                ${[[1, "每月"], [2, "每兩月"], [3, "每季（3 個月）"], [6, "每半年（6 個月）"], [12, "每年"]].map(([v, label]) => `<option value="${v}" ${defaultInterval === v ? "selected" : ""}>${label}</option>`).join("")}
-              </select></div>
-              <div class="field"><label>首期時間</label><input type="datetime-local" data-ms-first value="${escapeHtml(ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : defaultFirst)}" style="width:100%;height:38px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);box-sizing:border-box;"></div>
+            ${taskInfoMarkup}
+            <section class="dispatch-process-workflow" aria-label="处理信息">
+            <h3>处理信息</h3>
+            <div class="dispatch-process-choice-row${showMethodChoice ? " has-method-choice" : " is-auto-route"}">
+            ${processOptionsMarkup}
+            ${taskTypeFieldMarkup}
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px;">
-              <strong style="font-size:14px;">保養期次</strong>
-              <button type="button" class="secondary-btn" data-ms-generate>依次數與間隔重新生成</button>
+            <div data-ms-panel="assign">
+            <div class="dispatch-maintenance-panel" data-ms-category-panel="M">
+            <h4 class="dispatch-process-subgroup-title">保養安排</h4>
+            <div class="dispatch-maintenance-summary" data-ms-summary>
+              <div class="dispatch-maintenance-summary-item"><span>保養次數</span><strong data-ms-summary-count>${initialMaintenanceCount} 期</strong></div>
+              <div class="dispatch-maintenance-summary-item"><span>保養間隔</span><strong data-ms-summary-interval>${escapeHtml(maintenanceIntervalLabel(defaultInterval))}</strong></div>
+              <div class="dispatch-maintenance-summary-item"><span>首期時間</span><strong data-ms-summary-first>${escapeHtml(initialFirstVisit.replace("T", " "))}</strong></div>
+              <button type="button" class="primary-btn dispatch-maintenance-schedule-cta" data-ms-open-schedule>${scheduleAlreadyConfigured ? "編輯保養排期" : "設定保養排期"}</button>
             </div>
-            <div style="max-height:320px;overflow:auto;border:1px solid var(--line);border-radius:8px;">
-              <table style="width:100%;border-collapse:collapse;font-size:13px;">
-                <thead><tr>
-                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);width:80px;">期次</th>
-                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);">師傅</th>
-                  <th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);width:230px;">時間</th>
-                </tr></thead>
-                <tbody data-ms-rows></tbody>
-              </table>
             </div>
-            <p class="muted" style="font-size:12px;margin-top:10px;">${areaMasters.length ? `僅列出區域「${escapeHtml(ticket.area)}」的師傅 ${areaMasters.length} 位。` : `區域「${escapeHtml(ticket.area)}」目前沒有可排程的師傅，請先於基礎設置確認人員歸屬區域。`}</p>
+            <div class="dispatch-engineering-panel" data-ms-category-panel="P" hidden>
+              <h4 class="dispatch-process-subgroup-title">工程安排</h4>
+              <div class="dispatch-engineering-fields">
+                <div class="field"><label for="maintenanceEngineeringMaster">工程師傅 <span class="required-mark">*</span></label><select id="maintenanceEngineeringMaster" data-native-select data-ms-p-master>${engineeringMasterOptionsHtml}</select></div>
+                <div class="field"><label for="maintenanceEngineeringTime">工程時間 <span class="required-mark">*</span></label><input id="maintenanceEngineeringTime" type="datetime-local" data-ms-p-datetime value="${escapeHtml(engineeringDateTime)}"></div>
+              </div>
+              <div class="field"><label for="maintenanceEngineeringNote">工程備註</label><textarea id="maintenanceEngineeringNote" data-ms-p-note placeholder="填寫工程安排或現場注意事項（選填）">${escapeHtml(engineeringNote)}</textarea></div>
+            </div>
+            </div>
+            ${showMethodChoice ? `<div data-ms-panel="quotation" hidden>
+              <div class="dispatch-ticket-summary"><div><span>客戶</span><strong>${escapeHtml(ticket.customer || "—")}</strong></div><div><span>關聯任務</span><strong>${escapeHtml(taskNo)}</strong></div><div class="wide"><span>報價內容</span><strong>${escapeHtml(ticket.desc || "—")}</strong></div></div>
+              <div class="field"><label for="msQuotationNote">報價補充說明</label><textarea id="msQuotationNote" placeholder="補充需要報價的項目或現場情況（選填）"></textarea></div>
+            </div>
+            <div data-ms-panel="resolve" hidden>
+              <div class="field"><label for="msResolveNote">問題解決說明 <span class="required-mark">*</span></label><textarea id="msResolveNote" placeholder="請填寫如何解決問題" required></textarea></div>
+            </div>` : ""}
+            </section>
           </div>
           <footer class="dispatch-modal-footer">
-            <button class="ghost-btn" data-ms-close>取消</button>
             <button class="primary-btn" data-ms-confirm="${escapeHtml(ticket.id)}">確認分派與排程</button>
           </footer>
         </section>`;
       document.body.appendChild(modal);
 
-      const rowsBody = modal.querySelector("[data-ms-rows]");
-      const countInput = modal.querySelector("[data-ms-count]");
-      const intervalSelect = modal.querySelector("[data-ms-interval]");
-      const firstInput = modal.querySelector("[data-ms-first]");
-
-      const buildRows = () => {
-        const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 60);
-        const interval = parseInt(intervalSelect.value, 10) || 1;
-        const first = firstInput.value || defaultFirst;
-        const prev = [];
-        rowsBody.querySelectorAll("[data-ms-master]").forEach((sel, i) => {
-          prev.push({ master: sel.value, dateTime: rowsBody.querySelector(`[data-ms-datetime="${i + 1}"]`)?.value || "" });
-        });
-        rowsBody.innerHTML = "";
-        for (let i = 1; i <= count; i++) {
-          const saved = prev[i - 1] || {};
-          const fallbackMaster = saved.master || (i === 1 ? (ticket.master || ticket.scheduleMaster || "") : (prev[0] && prev[0].master) || "");
-          const dateTime = saved.dateTime || (i === 1 ? (ticket.scheduleDate ? ticket.scheduleDate.replace(" ", "T").slice(0, 16) : first) : addMonthsToDateTime(first, interval * (i - 1)));
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td style="padding:8px 10px;border-bottom:1px solid var(--line);">第 ${i} 期</td>
-            <td style="padding:8px 10px;border-bottom:1px solid var(--line);"><select data-native-select data-ms-master="${i}" style="width:100%;height:34px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);">${masterOptionsHtml(fallbackMaster)}</select></td>
-            <td style="padding:8px 10px;border-bottom:1px solid var(--line);"><input type="datetime-local" data-ms-datetime="${i}" value="${escapeHtml(dateTime)}" style="width:100%;height:34px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);box-sizing:border-box;"></td>`;
-          rowsBody.appendChild(tr);
-        }
+      const methodSelect = modal.querySelector("[data-ms-method]");
+      const taskTypeField = modal.querySelector("[data-ms-task-type-field]");
+      const taskTypeSelect = modal.querySelector("[data-ms-task-type]");
+      const submitButton = modal.querySelector("[data-ms-confirm]");
+      let maintenanceScheduleDraft = {
+        count: initialMaintenanceCount,
+        interval: defaultInterval,
+        first: initialFirstVisit,
+        rows: initialMaintenanceRows,
+        configured: scheduleAlreadyConfigured
       };
-      buildRows();
+      const updateMaintenanceSummary = () => {
+        modal.querySelector("[data-ms-summary-count]").textContent = `${maintenanceScheduleDraft.count} 期`;
+        modal.querySelector("[data-ms-summary-interval]").textContent = maintenanceIntervalLabel(maintenanceScheduleDraft.interval);
+        modal.querySelector("[data-ms-summary-first]").textContent = String(maintenanceScheduleDraft.rows[0]?.dateTime || maintenanceScheduleDraft.first || "—").replace("T", " ");
+        modal.querySelector("[data-ms-open-schedule]").textContent = maintenanceScheduleDraft.configured ? "編輯保養排期" : "設定保養排期";
+      };
+      const updateSubmitLabel = () => {
+        const method = methodSelect?.value || "assign";
+        const category = taskTypeSelect?.value || selectedTaskCategory;
+        submitButton.textContent = method === "quotation" ? "提交報價任務"
+          : method === "resolve" ? "確認問題已解決"
+          : category === "P" ? "確認工程安排"
+          : category === "M+P" ? "確認 M+P 排程" : "確認保養排程";
+      };
+      const updateCategoryPanels = () => {
+        const category = taskTypeSelect?.value || selectedTaskCategory;
+        modal.querySelectorAll("[data-ms-category-panel]").forEach(panel => {
+          panel.hidden = category !== "M+P" && panel.dataset.msCategoryPanel !== category;
+        });
+        updateSubmitLabel();
+      };
+      taskTypeSelect?.addEventListener("change", updateCategoryPanels);
+      updateCategoryPanels();
+      methodSelect?.addEventListener("change", () => {
+        const method = methodSelect.value || "assign";
+        modal.querySelectorAll("[data-ms-panel]").forEach(panel => { panel.hidden = panel.dataset.msPanel !== method; });
+        if (taskTypeField) taskTypeField.hidden = method !== "assign";
+        updateSubmitLabel();
+      });
+      updateMaintenanceSummary();
 
-      modal.querySelector("[data-ms-generate]").addEventListener("click", buildRows);
-      modal.querySelectorAll("[data-ms-close]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
-      modal.addEventListener("click", event => { if (event.target === modal) modal.remove(); });
+      const openMaintenanceScheduleEditor = () => {
+        const editorOverlay = document.createElement("div");
+        editorOverlay.className = "dispatch-modal-overlay dispatch-maintenance-editor-overlay";
+        editorOverlay.dataset.msScheduleEditor = "";
+        editorOverlay.innerHTML = `
+          <section class="dispatch-modal dispatch-task-process-modal dispatch-maintenance-editor" role="dialog" aria-modal="true" aria-label="保養排期">
+            <header class="dispatch-modal-head">
+              <div><h2>保養排期 · ${escapeHtml(taskNo)}</h2><p>設定保養次數、間隔，以及每一期的師傅和上門時間。</p></div>
+              <button type="button" class="modal-close-icon" data-ms-editor-close aria-label="返回任務處理">×</button>
+            </header>
+            <div class="dispatch-modal-body">
+              <div class="dispatch-maintenance-fields">
+                <div class="field"><label for="maintenanceCount">保養次數</label><input id="maintenanceCount" type="number" min="1" max="60" step="1" data-ms-count></div>
+                <div class="field"><label for="maintenanceInterval">保養間隔</label><select id="maintenanceInterval" data-native-select data-ms-interval>
+                  ${[[1, "每月"], [2, "每兩月"], [3, "每季（3 個月）"], [6, "每半年（6 個月）"], [12, "每年"]].map(([v, label]) => `<option value="${v}">${label}</option>`).join("")}
+                </select></div>
+                <div class="field"><label for="maintenanceFirstVisit">首期時間</label><input id="maintenanceFirstVisit" type="datetime-local" data-ms-first></div>
+              </div>
+              <div class="dispatch-maintenance-table-wrap">
+                <table class="dispatch-maintenance-table">
+                  <thead><tr><th style="width:88px;">期次</th><th>師傅</th><th style="width:250px;">時間</th></tr></thead>
+                  <tbody data-ms-rows></tbody>
+                </table>
+              </div>
+            </div>
+            <footer class="dispatch-modal-footer"><button type="button" class="primary-btn" data-ms-editor-confirm>確認排期</button></footer>
+          </section>`;
+        document.body.appendChild(editorOverlay);
+
+        const rowsBody = editorOverlay.querySelector("[data-ms-rows]");
+        const countInput = editorOverlay.querySelector("[data-ms-count]");
+        const intervalSelect = editorOverlay.querySelector("[data-ms-interval]");
+        const firstInput = editorOverlay.querySelector("[data-ms-first]");
+        const rowCache = maintenanceScheduleDraft.rows.map(row => ({ ...row }));
+        countInput.value = maintenanceScheduleDraft.count;
+        intervalSelect.value = String(maintenanceScheduleDraft.interval);
+        firstInput.value = maintenanceScheduleDraft.first;
+
+        const syncRowCache = () => {
+          rowsBody.querySelectorAll("tr").forEach((tr, index) => {
+            rowCache[index] = {
+              master: tr.querySelector("[data-ms-master]")?.value || "",
+              dateTime: tr.querySelector("[data-ms-datetime]")?.value || ""
+            };
+          });
+        };
+        const buildRows = ({ recalculateTimes = false, allowEmptyCount = false } = {}) => {
+          const rawCount = parseInt(countInput.value, 10);
+          if (!Number.isFinite(rawCount) && allowEmptyCount) return;
+          syncRowCache();
+          const count = Math.max(1, Math.min(Number.isFinite(rawCount) ? rawCount : 1, 60));
+          countInput.value = String(count);
+          const interval = parseInt(intervalSelect.value, 10) || 1;
+          const first = firstInput.value || defaultFirst;
+          rowsBody.innerHTML = "";
+          for (let i = 1; i <= count; i++) {
+            const saved = rowCache[i - 1] || {};
+            const generatedDateTime = i === 1 ? first : addMonthsToDateTime(first, interval * (i - 1));
+            const dateTime = recalculateTimes ? generatedDateTime : (saved.dateTime || generatedDateTime);
+            const master = saved.master || initialMaster;
+            rowCache[i - 1] = { master, dateTime };
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>第 ${i} 期</td>
+              <td><select data-native-select data-ms-master="${i}" ${!schedulableAreaMasters.length && !master ? "disabled" : ""}>${masterOptionsHtml(master)}</select></td>
+              <td><input type="datetime-local" data-ms-datetime="${i}" value="${escapeHtml(dateTime)}"></td>`;
+            rowsBody.appendChild(tr);
+          }
+        };
+        buildRows();
+
+        const closeEditor = () => editorOverlay.remove();
+        countInput.addEventListener("input", () => buildRows({ allowEmptyCount: true }));
+        countInput.addEventListener("change", () => buildRows());
+        intervalSelect.addEventListener("change", () => buildRows({ recalculateTimes: true }));
+        firstInput.addEventListener("change", () => buildRows({ recalculateTimes: true }));
+        editorOverlay.querySelector("[data-ms-editor-close]").addEventListener("click", closeEditor);
+        editorOverlay.addEventListener("click", event => { if (event.target === editorOverlay) closeEditor(); });
+        editorOverlay.querySelector("[data-ms-editor-confirm]").addEventListener("click", () => {
+          syncRowCache();
+          const count = Math.max(1, Math.min(parseInt(countInput.value, 10) || 1, 60));
+          const rows = rowCache.slice(0, count).map((row, index) => ({ no: index + 1, master: row?.master || "", dateTime: row?.dateTime || "" }));
+          if (rows.some(row => !row.master)) {
+            toast(schedulableAreaMasters.length ? "請為每一期選擇師傅" : `「${ticket.area || "此區域"}」目前沒有可接單師傅，請先確認師傅所屬區域`, "error");
+            return;
+          }
+          if (rows.some(row => !row.dateTime)) { toast("請為每一期填寫時間", "error"); return; }
+          maintenanceScheduleDraft = { count, interval: parseInt(intervalSelect.value, 10) || 1, first: firstInput.value || defaultFirst, rows, configured: true };
+          updateMaintenanceSummary();
+          closeEditor();
+        });
+      };
+
+      const closeProcessModal = () => {
+        document.querySelector("[data-ms-schedule-editor]")?.remove();
+        modal.remove();
+      };
+      modal.querySelector("[data-ms-open-schedule]").addEventListener("click", openMaintenanceScheduleEditor);
+      modal.querySelectorAll("[data-ms-close]").forEach(btn => btn.addEventListener("click", closeProcessModal));
+      modal.addEventListener("click", event => { if (event.target === modal) closeProcessModal(); });
 
       modal.querySelector("[data-ms-confirm]").addEventListener("click", () => {
-        const rows = [...rowsBody.querySelectorAll("tr")].map((tr, index) => ({
-          no: index + 1,
-          master: tr.querySelector("[data-ms-master]")?.value || "",
-          dateTime: tr.querySelector("[data-ms-datetime]")?.value || ""
-        }));
-        if (!rows.length) { toast("請先生成保養期次", "error"); return; }
+        const method = methodSelect?.value || "assign";
+        if (method === "assign" && !canConfirmFirstDispatch(ticket)) {
+          toast("材料尚未備齊，不能確認正式分派", "error");
+          return;
+        }
+        if (method === "quotation") {
+          const relatedQuotation = quotations.find(q => q.ticketId === ticket.id || q.sourceTicketId === ticket.id);
+          if (relatedQuotation) { toast(`已存在關聯報價 ${relatedQuotation.id}，無需重複申請`, "error"); return; }
+          const quotationNote = modal.querySelector("#msQuotationNote")?.value.trim() || "";
+          const quotationId = requestQuotationFromCall({ ticketId: ticket.id, dispatchTask: true, remark: quotationNote, deferRender: true });
+          if (!quotationId) return;
+          updateTicket(ticket.id, { quotationRequested: true }, `轉報價任務：已建立關聯報價 ${quotationId}${quotationNote ? `；${quotationNote}` : ""}`);
+          modal.remove();
+          render();
+          toast(`已提交報價任務 ${quotationId}`, "success");
+          return;
+        }
+        if (method === "resolve") {
+          if (ticket.serviceCheckInAt || ticket.serviceReportNo || ticket.quotationId || quotations.some(q => q.ticketId === ticket.id || q.sourceTicketId === ticket.id)) {
+            toast("已進入現場服務或報價流程，請提交 SR 後由 CR／主管確認完工", "error");
+            return;
+          }
+          const resolution = modal.querySelector("#msResolveNote")?.value.trim() || "";
+          if (!resolution) { toast("請填寫問題解決說明", "error"); modal.querySelector("#msResolveNote")?.focus(); return; }
+          updateTicket(ticket.id, { status: "已完成", owner: currentRole().name, closeReason: resolution }, `直接完成：${resolution}`);
+          triggerNotification("ticket.completed", { ticketId: ticket.id });
+          modal.remove();
+          render();
+          toast("已記錄問題解決並完成任務", "success");
+          return;
+        }
+        const selectedCategory = taskTypeSelect?.value || selectedTaskCategory;
+        const engineeringMasterInput = modal.querySelector("[data-ms-p-master]");
+        const engineeringTimeInput = modal.querySelector("[data-ms-p-datetime]");
+        const engineeringNoteInput = modal.querySelector("[data-ms-p-note]");
+        const engineeringMasterValue = engineeringMasterInput?.value || "";
+        const engineeringDateTimeValue = engineeringTimeInput?.value || "";
+        const engineeringNoteValue = engineeringNoteInput?.value.trim() || "";
+        if (selectedCategory === "P") {
+          if (!engineeringMasterValue) { toast("請選擇工程師傅", "error"); engineeringMasterInput?.focus(); return; }
+          if (!engineeringDateTimeValue) { toast("請填寫工程時間", "error"); engineeringTimeInput?.focus(); return; }
+          const assignedAt = new Date().toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\//g, "-");
+          const paperType = typeof resolvePaperTypeByMaterial === "function" ? resolvePaperTypeByMaterial(ticket).type : "";
+          const engineering = { master: engineeringMasterValue, dateTime: engineeringDateTimeValue, note: engineeringNoteValue };
+          updateTicket(ticket.id, {
+            dispatchTaskType: "P",
+            dispatchEngineering: engineering,
+            status: "待確認",
+            owner: engineeringMasterValue,
+            master: engineeringMasterValue,
+            tl: isValidSupervisorName(ticket.tl) ? ticket.tl : (state.role === "TL" ? currentRole().name : ""),
+            assignedAt,
+            assignedAtTs: Date.now(),
+            assignedBy: currentRole().name,
+            dispatchPaperType: paperType,
+            scheduleType: "一次排程",
+            scheduleMaster: engineeringMasterValue,
+            scheduleDate: engineeringDateTimeValue.replace("T", " "),
+            maintenanceCount: 0,
+            maintenanceVisits: [],
+            assignNote: engineeringNoteValue,
+            assignmentHistory: [...(ticket.assignmentHistory || []), { time: assignedAt, assignedBy: currentRole().name, master: engineeringMasterValue, note: `P 工程單次安排（${engineeringDateTimeValue}）${engineeringNoteValue ? `；${engineeringNoteValue}` : ""}`, previousMaster: ticket.master || "" }]
+          }, `P 工程任務已安排給 ${engineeringMasterValue}（${engineeringDateTimeValue}）${engineeringNoteValue ? `；${engineeringNoteValue}` : ""}`);
+          triggerNotification("ticket.assigned", { ticketId: ticket.id });
+          modal.remove();
+          render();
+          toast(`P 工程任務已安排給 ${engineeringMasterValue}`, "success");
+          return;
+        }
+        if (selectedCategory === "M+P") {
+          if (!engineeringMasterValue) { toast("請選擇工程師傅", "error"); engineeringMasterInput?.focus(); return; }
+          if (!engineeringDateTimeValue) { toast("請填寫工程時間", "error"); engineeringTimeInput?.focus(); return; }
+        }
+        if (!maintenanceScheduleDraft.configured) {
+          toast("請先設定保養排期", "error");
+          openMaintenanceScheduleEditor();
+          return;
+        }
+        const rows = maintenanceScheduleDraft.rows.map((row, index) => ({ no: index + 1, ...row }));
+        if (!rows.length) { toast("請先設定保養排期", "error"); openMaintenanceScheduleEditor(); return; }
         if (rows.some(r => !r.master)) { toast("請為每一期選擇師傅", "error"); return; }
         if (rows.some(r => !r.dateTime)) { toast("請為每一期填寫時間", "error"); return; }
         const first = rows[0];
         const rest = rows.slice(1).map(r => ({ no: r.no, master: r.master, dateTime: r.dateTime, status: "待排期", ticketId: "" }));
         const assignedAt = new Date().toLocaleString("zh-HK", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\//g, "-");
         const paperType = typeof resolvePaperTypeByMaterial === "function" ? resolvePaperTypeByMaterial(ticket).type : "";
+        const engineering = selectedCategory === "M+P"
+          ? { master: engineeringMasterValue, dateTime: engineeringDateTimeValue, note: engineeringNoteValue }
+          : null;
+        const assignmentNote = selectedCategory === "M+P"
+          ? `M+P 保養第 1 期分派給 ${first.master}（${first.dateTime}）；P 工程安排給 ${engineeringMasterValue}（${engineeringDateTimeValue}）${engineeringNoteValue ? `；${engineeringNoteValue}` : ""}`
+          : `M 保養第 1 期分派給 ${first.master}（${first.dateTime}），其餘 ${rest.length} 期已排程`;
         updateTicket(ticket.id, {
+          dispatchTaskType: selectedCategory,
+          dispatchEngineering: engineering,
           status: "待確認",
           owner: first.master,
           master: first.master,
@@ -20723,17 +21312,24 @@
           scheduleMaster: first.master,
           scheduleDate: first.dateTime.replace("T", " "),
           maintenanceCount: rows.length,
-          maintenanceIntervalMonths: parseInt(intervalSelect.value, 10) || 1,
+          maintenanceIntervalMonths: maintenanceScheduleDraft.interval,
           maintenanceVisits: rest,
-          assignmentHistory: [...(ticket.assignmentHistory || []), { time: assignedAt, assignedBy: currentRole().name, master: first.master, note: `M+P 多期排程第 1 期（共 ${rows.length} 期）`, previousMaster: ticket.master || "" }]
-        }, `保養多期排程：共 ${rows.length} 期；第 1 期分派給 ${first.master}（${first.dateTime}），其餘 ${rest.length} 期已排程。`);
+          assignmentHistory: [...(ticket.assignmentHistory || []), { time: assignedAt, assignedBy: currentRole().name, master: first.master, note: assignmentNote, previousMaster: ticket.master || "" }]
+        }, assignmentNote);
         // 把主管排程結果寫入整期保養計劃（不再於中單時自動生成）
-        window.ecRemediation?.recordMaintenanceSchedule?.(ticket, rows, parseInt(intervalSelect.value, 10) || 1);
+        window.ecRemediation?.recordMaintenanceSchedule?.(ticket, rows, maintenanceScheduleDraft.interval);
         triggerNotification("ticket.assigned", { ticketId: ticket.id });
         modal.remove();
         render();
-        toast(`已排程 ${rows.length} 期；第 1 期分派給 ${first.master}，其餘各期到期自動建立工單`);
+        toast(selectedCategory === "M+P"
+          ? `M+P 已排程：保養共 ${rows.length} 期，工程安排給 ${engineeringMasterValue}`
+          : `M 保養已排程 ${rows.length} 期；第 1 期分派給 ${first.master}`);
       });
+    }
+
+    // 保留其他頁面原有排程入口，統一轉入任務處理彈窗。
+    function openMaintenanceScheduleModal(ticketId) {
+      openDispatchTaskProcessModal(ticketId);
     }
 
     // M+P 多期排程：各期到期（時間 <= 現在）時自動建立工單
@@ -25225,23 +25821,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
     }
 
-    // 取消工時超時提醒（Special 流程：取消工時超時提醒）
-    // 重置超時標記並將時間戳撥回當前，避免立即再次觸發
-    function clearTicketTimeout(id) {
-      const t = ticketById(id);
-      if (!t) return;
-      const now = Date.now();
-      if (t.timeoutNotified) t.timeoutNotified = false;
-      if (t.checkinTimeoutNotified) t.checkinTimeoutNotified = false;
-      if (t.progressTimeoutNotified) t.progressTimeoutNotified = false;
-      if (t.assignedAtTs) t.assignedAtTs = now;
-      if (t.acceptedAtTs) t.acceptedAtTs = now;
-      if (t.processStartedAtTs) t.processStartedAtTs = now;
-      saveDataToLocalStorage();
-      render();
-      toast("已取消工時超時提醒", "success");
-    }
-
     // ==================== E2：採購狀態停滯預警 ====================
     // 採購/物流狀態來源與同步責任仍待確認；此處只保留演示用停滯預警。
     const PROC_STATUS_STALL_DAYS = 3; // 原型演示閾值：3 天（真實業務可配置）
@@ -27377,7 +27956,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             phone: String(formData.get("phone") || "").trim(),
             area,
             address,
-            dispatchSource: "自主新增",
+            dispatchSource: "自主分派",
             type: "",
             desc: String(formData.get("desc") || "").trim(),
             priority: String(formData.get("priority") || "普通"),
@@ -27405,20 +27984,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         });
       }
       document.querySelectorAll("[data-dispatch-open]").forEach(btn => btn.addEventListener("click", () => {
-        const ticket = ticketById(btn.dataset.dispatchOpen);
-        // M+P：分派與多期保養排程在同一個彈窗完成
-        if (isMultiVisitMaintenanceTicket(ticket)) { openMaintenanceScheduleModal(btn.dataset.dispatchOpen); return; }
-        const recommendedMaster = getRecommendedDispatchMaster(ticket);
-        state.selectedDispatchId = btn.dataset.dispatchOpen;
-        state.selectedMaster = recommendedMaster?.name || "";
-        // 打開分派彈窗時重置搜索與篩選條件
-        state.dispatchMasterKeyword = "";
-        state.dispatchMasterStatusFilter = "全部";
-        state.dispatchMasterSkillFilter = "全部";
-        state.dispatchMasterDetail = "";
-        state.dispatchMetricModal = null;
-        state.dispatchModalOpen = true;
-        render();
+        openDispatchTaskProcessModal(btn.dataset.dispatchOpen);
       }));
       document.querySelectorAll("[data-dispatch-tab]").forEach(btn => btn.addEventListener("click", () => {
         state.dispatchTab = btn.dataset.dispatchTab || "pending";
@@ -27459,9 +28025,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-dispatch-simulate-timeout]").forEach(btn => btn.addEventListener("click", () => {
         simulateTimeout();
       }));
-      document.querySelectorAll("[data-clear-timeout]").forEach(btn => btn.addEventListener("click", () => {
-        clearTicketTimeout(btn.dataset.clearTimeout);
-      }));
       // 全部來電記錄（CS Call 流程）
       document.querySelectorAll("[data-call-log-all]").forEach(btn => btn.addEventListener("click", () => {
         state.callLogModal = true;
@@ -27490,6 +28053,15 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (event.target !== btn) return;
         state.dispatchMetricModal = null;
         render();
+      }));
+      document.querySelectorAll("[data-dispatch-task-detail]").forEach(btn => btn.addEventListener("click", () => {
+        const key = btn.dataset.dispatchTaskDetail;
+        const task = btn.dataset.dispatchTaskKind === "direct"
+          ? directDispatchTasks.find(item => item.taskNo === key)
+          : tickets.find(item => item.id === key);
+        if (!task) return;
+        state.dispatchMetricModal = null;
+        showDispatchTaskDrawer(task);
       }));
       document.querySelectorAll("[data-dispatch-view]").forEach(btn => btn.addEventListener("click", () => {
         const id = btn.dataset.dispatchView;
@@ -27529,10 +28101,60 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.dispatchMasterDetail = "";
         render();
       }));
-      document.querySelectorAll("[data-dispatch-confirm]").forEach(btn => btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-dispatch-standard-method]").forEach(select => select.addEventListener("change", () => {
+        const modal = select.closest(".dispatch-assign-modal");
+        const method = select.value || "assign";
+        modal?.querySelectorAll("[data-dispatch-standard-panel]").forEach(panel => {
+          panel.hidden = panel.dataset.dispatchStandardPanel !== method;
+        });
+        const submit = modal?.querySelector("[data-dispatch-process]");
+        const warning = modal?.querySelector("[data-dispatch-material-warning]");
+        const ticket = ticketById(state.selectedDispatchId);
+        const materialBlocked = method === "assign" && !canConfirmFirstDispatch(ticket);
+        if (submit) {
+          submit.textContent = method === "quotation" ? "提交報價任務" : method === "resolve" ? "確認問題已解決" : "確認分派";
+          submit.disabled = materialBlocked;
+        }
+        if (warning) warning.hidden = method !== "assign";
+      }));
+      document.querySelectorAll("[data-dispatch-process]").forEach(btn => btn.addEventListener("click", () => {
         const t = ticketById(state.selectedDispatchId);
+        const modal = btn.closest(".dispatch-assign-modal");
+        const method = modal?.querySelector("[data-dispatch-standard-method]")?.value || "assign";
+        if (!t || !["待分派", "待確認", "待處理", "處理中"].includes(t.status)) return;
+
+        if (method === "quotation") {
+          const relatedQuotation = quotations.find(q => q.ticketId === t.id || q.sourceTicketId === t.id);
+          if (relatedQuotation) { toast(`已存在關聯報價 ${relatedQuotation.id}，無需重複申請`, "error"); return; }
+          const quotationNote = modal.querySelector("#dispatchQuotationNote")?.value.trim() || "";
+          const quotationId = requestQuotationFromCall({ ticketId: t.id, dispatchTask: true, remark: quotationNote, deferRender: true });
+          if (!quotationId) return;
+          updateTicket(t.id, { quotationRequested: true }, `轉報價任務：已建立關聯報價 ${quotationId}${quotationNote ? `；${quotationNote}` : ""}`);
+          state.dispatchModalOpen = false;
+          state.dispatchMasterDetail = "";
+          render();
+          toast(`已提交報價任務 ${quotationId}`, "success");
+          return;
+        }
+
+        if (method === "resolve") {
+          if (t.serviceCheckInAt || t.serviceReportNo || t.quotationId || quotations.some(q => q.ticketId === t.id || q.sourceTicketId === t.id)) {
+            toast("已進入現場服務或報價流程，請提交 SR 後由 CR／主管確認完工", "error");
+            return;
+          }
+          const resolution = modal.querySelector("#dispatchResolveNote")?.value.trim() || "";
+          if (!resolution) { toast("請填寫問題解決說明", "error"); modal.querySelector("#dispatchResolveNote")?.focus(); return; }
+          updateTicket(t.id, { status: "已完成", owner: currentRole().name, closeReason: resolution }, `直接完成：${resolution}`);
+          triggerNotification("ticket.completed", { ticketId: t.id });
+          state.dispatchModalOpen = false;
+          state.dispatchMasterDetail = "";
+          render();
+          toast("已記錄問題解決並完成任務", "success");
+          return;
+        }
+
         // 首次分派或 Leader 改派（待分派/待確認/待處理/處理中）
-        if (!t || !["待分派", "待確認", "待處理", "處理中"].includes(t.status) || !state.selectedMaster) return;
+        if (!state.selectedMaster) return;
         if (!canConfirmFirstDispatch(t)) { toast("材料尚未備齊，不能確認正式分派", "error"); return; }
         // 領取單據類型一律由系統依任務來源判定（不再手動選擇），此處僅作兜底
         const assignNote = document.querySelector("#dispatchAssignNote")?.value.trim() || "";
