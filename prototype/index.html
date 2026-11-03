@@ -908,20 +908,25 @@
     .dispatch-toolbar .dispatch-filters { width: 100%; margin: 0; gap: 12px; justify-content: flex-start; }
     .dispatch-toolbar .wo-filter-group { min-width: 140px; gap: 4px; }
     .dispatch-toolbar .wo-filter-group select { height: 34px; font-size: 13px; }
-    .dispatch-toolbar .wo-filter-group input { min-width: 160px; }
-    .dispatch-toolbar .wo-search-btn { height: 34px; padding: 0 12px; font-size: 13px; }
     .dispatch-toolbar .wo-actions-top { margin-left: auto; }
     #pcPages .dispatch-toolbar .wo-actions-top { margin-left: 0; }
     .dispatch-toolbar .wo-actions-top button { height: 34px; min-width: 78px; padding: 0 12px; font-size: 13px; }
-    .pc-table-wrapper > .dispatch-table { min-width: 972px; table-layout: fixed; }
-    .dispatch-table th:nth-child(1) { width: 130px; }
-    .dispatch-table th:nth-child(2) { width: 140px; }
-    .dispatch-table th:nth-child(3) { width: 220px; }
-    .dispatch-table th:nth-child(4) { width: 90px; }
-    .dispatch-table th:nth-child(5) { width: 142px; }
-    .dispatch-table th:nth-child(6) { width: 250px; }
+    .pc-table-wrapper > .dispatch-table { min-width: 1040px; table-layout: fixed; }
+    .dispatch-table th:nth-child(1) { width: 125px; }
+    .dispatch-table th:nth-child(2) { width: 150px; }
+    .dispatch-table th:nth-child(3) { width: 260px; }
+    .dispatch-table th:nth-child(4) { width: 100px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns) th:nth-child(5) { width: 155px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns) th:nth-child(6) { width: 250px; }
+    .dispatch-table-assignment-columns { min-width: 1220px !important; }
+    .dispatch-table-assignment-columns th:nth-child(3) { width: 220px; }
+    .dispatch-table-assignment-columns th:nth-child(4) { width: 90px; }
+    .dispatch-table-assignment-columns th:nth-child(5) { width: 120px; }
+    .dispatch-table-assignment-columns th:nth-child(6) { width: 110px; }
+    .dispatch-table-assignment-columns th:nth-child(7) { width: 155px; }
+    .dispatch-table-assignment-columns th:nth-child(8) { width: 250px; }
     .dispatch-table td { white-space: normal; }
-    .dispatch-table td:nth-child(1), .dispatch-table td:nth-child(4), .dispatch-table td:nth-child(5), .dispatch-table td:nth-child(6) { white-space: nowrap; }
+    .dispatch-table td:nth-child(1), .dispatch-table td:nth-child(4), .dispatch-table td:nth-child(5), .dispatch-table td:nth-child(6), .dispatch-table td:nth-child(7), .dispatch-table td:nth-child(8) { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: none; white-space: normal; overflow-wrap: anywhere; }
     .dispatch-table .dispatch-desc { display: block; max-width: none; overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; color: var(--muted); font-size: 12px; line-height: 1.5; }
     .dispatch-table .direct-dispatch-task-no { color: var(--primary-strong); font-weight: 700; }
@@ -4785,10 +4790,26 @@
     .pc-table .tag.info { background: var(--primary-soft); color: var(--primary); }
 
     /* ===== 會計部專用樣式 ===== */
-    /* 篩選器欄：關鍵字、日期、類型篩選 */
-    .fin-filter-bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; padding:14px 16px; background:var(--panel); border:1px solid var(--border); border-radius:8px; }
-    .fin-filter-bar input, .fin-filter-bar select { border:1px solid var(--border); border-radius:6px; padding:8px 10px; min-width:160px; background:#fff; color:var(--text); font-size:13px; }
+    /* 篩選器欄：日期、客戶、類型、金額範圍 */
+    .fin-filter-bar { display:grid; grid-template-columns:minmax(280px,1.3fr) minmax(140px,.85fr) minmax(140px,.85fr) minmax(220px,1fr) auto; gap:10px; align-items:end; margin-bottom:14px; padding:12px 14px; background:var(--panel); border:1px solid var(--border); border-radius:8px; }
+    .fin-filter-field { display:flex; flex-direction:column; gap:6px; min-width:0; color:var(--muted); font-size:12px; }
+    .fin-filter-bar input, .fin-filter-bar select { width:100%; min-width:0; border:1px solid var(--border); border-radius:6px; padding:8px 10px; background:#fff; color:var(--text); font-size:13px; }
+    .fin-filter-date-range { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:5px; align-items:center; }
+    .fin-filter-date-range input { min-width:0; height:34px; box-sizing:border-box; padding:6px; font-size:12px; }
+    .fin-filter-date-range > span { color:var(--muted); font-size:12px; }
+    .fin-filter-amount-range { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:6px; }
+    .fin-filter-amount-range input { height:34px; box-sizing:border-box; padding:6px 8px; }
+    .fin-filter-bar [data-fin-filter-clear] { min-width:0; height:34px; padding:0 12px; justify-self:start; font-size:12px; white-space:nowrap; }
+    .fin-customer-toolbar { display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+    .fin-customer-toolbar > span { color:var(--muted); font-size:13px; white-space:nowrap; }
+    .fin-customer-search { flex:1; min-width:180px; }
+    .fin-customer-search input { width:100%; border:1px solid var(--border); border-radius:6px; padding:9px 11px; background:#fff; color:var(--text); font-size:13px; }
+    @media (max-width: 900px) { .fin-filter-bar { grid-template-columns:repeat(3,minmax(120px,1fr)); } }
+    @media (max-width: 560px) { .fin-filter-bar { grid-template-columns:repeat(2,minmax(0,1fr)); } .fin-filter-field.fin-filter-date-field { grid-column:1 / -1; } .fin-customer-toolbar { flex-wrap:wrap; } .fin-customer-search { order:3; flex-basis:100%; } }
     .fin-filter-bar input:focus, .fin-filter-bar select:focus { outline:none; border-color:var(--primary); }
+    .fin-type-chip.fin-type-m { background:#dbeafe; color:#1e40af; }
+    .fin-type-chip.fin-type-p { background:#dcfce7; color:#166534; }
+    .fin-type-chip.fin-type-mp { background:#f3e8ff; color:#7e22ce; }
     /* 批量操作工具欄：全選、已選數量、批量按鈕 */
     .fin-batch-toolbar { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:14px; padding:12px 16px; background:var(--panel); border:1px solid var(--border); border-radius:8px; }
     .fin-checkbox-label { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--text); cursor:pointer; }
@@ -6793,6 +6814,20 @@
         channel: "現場溝通", area: "1區", address: "中環德輔道中 88 號", status: "待分派", owner: "CS 陳小姐", tl: "王組長", master: "", createdAt: "06-12 09:00", updatedAt: "06-12 09:00",
         desc: "客戶提出臨時設備測試需求，需 CS 確認是否進入派工。", records: [{ time: "09:00", actor: "CS 陳小姐", text: "現場溝通記錄，待分派。" }],
         attachments: [], tags: ["待確認範圍"], urgent: false
+      },
+      {
+        id: "WO-DEMO-FIN-P-001", customerId: "CUST-0003", type: "P（工程）", customer: "新界花園住宅", contact: "張女士", phone: "+852 9345 6789",
+        channel: "報價轉入", area: "3區", address: "沙田第一城銀城街12號", status: "已完成", owner: "王組長", tl: "王組長", master: "周師傅", createdAt: "2026-10-18 09:00", updatedAt: "2026-10-20 16:20",
+        desc: "停車場閘機控制系統維修及測試。", records: [{ time: "09:00", actor: "王組長", text: "建立 P 類工程示例。" }, { time: "16:20", actor: "王組長", text: "確認工程完工並提交完工紙。" }],
+        attachments: ["停車場閘機完工照片.jpg"], tags: ["會計示例"], urgent: false, confirmedBy: "王組長", confirmedAt: "2026-10-20 16:20",
+        cpNo: "CP-DEMO-P-001", cpSourceImage: "demo-cp-p-001.jpg", cpSubmittedAt: "2026-10-20 16:10", invoiceDemoTypeSample: true
+      },
+      {
+        id: "WO-DEMO-FIN-MP-001", customerId: "CUST-0005", type: "M+P（保養＋工程）", customer: "維多利亞酒店", contact: "陳經理", phone: "+852 9567 8901",
+        channel: "報價轉入", area: "1區", address: "灣仔軒尼詩道200號", status: "已完成", owner: "李組長", tl: "李組長", master: "梁師傅", createdAt: "2026-10-19 09:00", updatedAt: "2026-10-21 17:10",
+        desc: "門禁設備保養及控制器更換工程。", records: [{ time: "09:00", actor: "李組長", text: "建立 M+P 類別示例。" }, { time: "17:10", actor: "李組長", text: "確認保養與工程完工並提交完工紙。" }],
+        attachments: ["門禁設備完工照片.jpg"], tags: ["會計示例"], urgent: false, confirmedBy: "李組長", confirmedAt: "2026-10-21 17:10",
+        cpNo: "CP-DEMO-MP-001", cpSourceImage: "demo-cp-mp-001.jpg", cpSubmittedAt: "2026-10-21 17:00", invoiceDemoTypeSample: true
       }
     ];
     }
@@ -7587,6 +7622,22 @@
         attachments: ["顯示屏維修報價.pdf"],
         remark: "停車場顯示屏更換",
         revisions: []
+      },
+      {
+        id: "QT-DEMO-FIN-P-001", ourRef: "DEMO-P-001", revision: 0, title: "停車場閘機控制系統維修及測試",
+        ticketId: "WO-DEMO-FIN-P-001", customerId: "CUST-0003", customerName: "新界花園住宅", category: "P", isMaintenance: false,
+        amount: 12800, taxRate: 0.1, totalAmount: 12800, tenderAmount: 12800, status: "已中單", bidStatus: "已中標",
+        customerOrder: "PO-DEMO-P-001", tenderNo: "", procurementStatus: "無需採購", completionPaperStatus: "已完工",
+        owner: "王組長", createdAt: "2026-10-18", validUntil: "2026-11-18", attachments: ["P類工程報價.pdf"],
+        remark: "會計管理 M/P/M+P 類型展示示例。", revisions: [], invoiceDemoTypeSample: true
+      },
+      {
+        id: "QT-DEMO-FIN-MP-001", ourRef: "DEMO-MP-001", revision: 0, title: "門禁設備保養及控制器更換工程",
+        ticketId: "WO-DEMO-FIN-MP-001", customerId: "CUST-0005", customerName: "維多利亞酒店", category: "M+P", isMaintenance: false,
+        amount: 26800, taxRate: 0.1, totalAmount: 26800, tenderAmount: 26800, status: "已中單", bidStatus: "已中標",
+        customerOrder: "PO-DEMO-MP-001", tenderNo: "", procurementStatus: "無需採購", completionPaperStatus: "已完工",
+        owner: "李組長", createdAt: "2026-10-19", validUntil: "2026-11-19", attachments: ["M+P類報價.pdf"],
+        remark: "會計管理 M/P/M+P 類型展示示例。", revisions: [], invoiceDemoTypeSample: true
       }
     ];
 
@@ -7745,6 +7796,22 @@
 
     // 從 localStorage 讀取 quotations 數據
     let quotations = JSON.parse(localStorage.getItem('ecinfo_quotations')) || DEFAULT_QUOTATIONS;
+    // v1 遷移：將 M/P/M+P 會計示例補入既有瀏覽器數據，保留原有報價及工單。
+    if (!localStorage.getItem('ecinfo_finance_demo_type_samples_v1')) {
+      const demoTickets = DEFAULT_TICKETS.filter(item => item.invoiceDemoTypeSample);
+      const demoQuotations = DEFAULT_QUOTATIONS.filter(item => item.invoiceDemoTypeSample);
+      let ticketsChanged = false;
+      let quotationsChanged = false;
+      demoTickets.forEach(item => {
+        if (!tickets.some(ticket => ticket.id === item.id)) { tickets.push(item); ticketsChanged = true; }
+      });
+      demoQuotations.forEach(item => {
+        if (!quotations.some(quotation => quotation.id === item.id)) { quotations.push(item); quotationsChanged = true; }
+      });
+      if (ticketsChanged) localStorage.setItem('ecinfo_tickets', JSON.stringify(tickets));
+      if (quotationsChanged) localStorage.setItem('ecinfo_quotations', JSON.stringify(quotations));
+      localStorage.setItem('ecinfo_finance_demo_type_samples_v1', 'true');
+    }
 
     // 發票數據
     let invoices = JSON.parse(localStorage.getItem('ecinfo_invoices')) || [
@@ -8286,8 +8353,7 @@
       directDispatchModalOpen: false,
       rejectTicketId: null, // 拒單彈窗：待拒單工單ID
       dispatchMetricModal: null,
-      dispatchFilters: { area: "全部", customer: "全部", type: "全部" },
-      dispatchSearch: "", // 分派中心：關鍵詞搜索
+      dispatchFilters: { area: "全部", customer: "全部" },
       dispatchTab: "pending", // 分派中心：全部／待分派／已分派／已確認／已完成
       dispatchPage: 1,
       dispatchPageSize: 10,
@@ -12752,6 +12818,15 @@
       if (phoneInput) phoneInput.value = manualSelected ? "" : (contact?.phone || contact?.whatsapp || "");
     }
 
+    function dispatchTaskContractNo(ticket) {
+      const customer = callDetailCustomer(ticket);
+      return String(ticket.contractNo || ticket.ecContractNo || customer?.contractNo || "—");
+    }
+
+    function dispatchCustomerFilterValue(ticket) {
+      return JSON.stringify([String(ticket.customer || "").trim(), dispatchTaskContractNo(ticket)]);
+    }
+
     function filterDispatchRows() {
       const buckets = getDispatchBuckets();
       const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned: buckets.assigned, pendingCompletion: buckets.pendingCompletion, completed: buckets.completed };
@@ -12759,13 +12834,7 @@
       const filter = state.dispatchFilters;
       return dispatchRows.filter(t =>
         (filter.area === "全部" || t.area === filter.area) &&
-        (filter.customer === "全部" || t.customer === filter.customer) &&
-        (filter.type === "全部" || t.type === filter.type) &&
-        (function() {
-          const kw = (state.dispatchSearch || "").toLowerCase().trim();
-          if (!kw) return true;
-          return `${t.taskNo || ''} ${t.id || ''} ${t.customer || ''} ${t.desc || ''} ${t.master || ''}`.toLowerCase().includes(kw);
-        })()
+        (filter.customer === "全部" || dispatchCustomerFilterValue(t) === filter.customer)
       );
     }
 
@@ -12849,22 +12918,21 @@
       if (state.dispatchTab !== activeTab) state.dispatchTab = activeTab;
       const dispatchRows = tabRows[activeTab];
       const filter = state.dispatchFilters;
+      const showAssignmentColumns = ["assigned", "pendingCompletion"].includes(activeTab);
       const uniqueValues = (key) => [...new Set(dispatchRows.map(t => t[key]).filter(Boolean))].sort();
+      const customerOptions = [...new Map(buckets.all.map(ticket => {
+        const name = String(ticket.customer || "").trim();
+        const contractNo = dispatchTaskContractNo(ticket);
+        const value = dispatchCustomerFilterValue(ticket);
+        return [value, { value, label: `${name || "—"} · ${contractNo}` }];
+      })).values()].sort((a, b) => a.label.localeCompare(b.label, "zh-Hant"));
       const filterOptions = {
         area: ["全部", ...uniqueValues("area")],
-        customer: ["全部", ...uniqueValues("customer")],
-        type: ["全部", ...uniqueValues("type")]
+        customer: [{ value: "全部", label: "全部" }, ...customerOptions]
       };
       const filteredRows = dispatchRows.filter(t =>
         (filter.area === "全部" || t.area === filter.area) &&
-        (filter.customer === "全部" || t.customer === filter.customer) &&
-        (filter.type === "全部" || t.type === filter.type) &&
-        (function() {
-          // 關鍵詞搜索：匹配任務編號、CALL編號、客戶、內容摘要、師傅
-          const kw = (state.dispatchSearch || "").toLowerCase().trim();
-          if (!kw) return true;
-          return `${t.taskNo || ''} ${t.id || ''} ${t.customer || ''} ${t.desc || ''} ${t.master || ''}`.toLowerCase().includes(kw);
-        })()
+        (filter.customer === "全部" || dispatchCustomerFilterValue(t) === filter.customer)
       );
       const dispatchTotalPages = Math.max(1, Math.ceil(filteredRows.length / (state.dispatchPageSize || 10)));
       if (state.dispatchPage > dispatchTotalPages) state.dispatchPage = dispatchTotalPages;
@@ -12888,34 +12956,34 @@
             <div class="pc-section">
               <div class="dispatch-toolbar">
                 <div class="wo-filters dispatch-filters">
-                  ${[
-                    ["area", "區域"],
-                    ["customer", "客戶"],
-                    ["type", "CALL類型"]
-                  ].map(([key, label]) => `<div class="wo-filter-group"><label>${label}</label><select class="qf-select" data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option)}" ${filter[key] === option ? "selected" : ""}>${escapeHtml(option)}</option>`).join("")}</select></div>`).join("")}
-                  <div class="wo-filter-group">
-                    <label>關鍵詞搜索</label>
-                    <div class="wo-search-wrap">
-                      <input type="text" value="${escapeHtml(state.dispatchSearch || '')}" data-dispatch-search>
-                      <button type="button" class="primary-btn wo-search-btn" data-dispatch-search-btn>搜索</button>
-                    </div>
-                  </div>
+                  ${[["area", "區域"], ["customer", "客戶名稱"]].map(([key, label]) => {
+                    const options = key === "customer"
+                      ? filterOptions.customer
+                      : filterOptions.area.map(value => ({ value, label: value }));
+                    return `<div class="wo-filter-group"><label>${label}</label><select class="qf-select" data-dispatch-filter="${key}">${options.map(option => `<option value="${escapeHtml(option.value)}" ${filter[key] === option.value ? "selected" : ""}>${escapeHtml(option.label)}</option>`).join("")}</select></div>`;
+                  }).join("")}
                   <div class="wo-actions-top"><button class="secondary-btn" data-dispatch-filter-reset>重置</button><button class="secondary-btn" data-dispatch-simulate-timeout title="演示：將活躍工單的分派/接單/處理時間回撥5分鐘並立即觸發超時通知">模擬超時</button></div>
                 </div>
               </div>
               <div class="pc-table-wrapper">
-                <table class="pc-table dispatch-table">
-                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th><th>來源</th><th>分派時間</th><th style="text-align:center;">操作</th></tr></thead>
+                <table class="pc-table dispatch-table ${showAssignmentColumns ? "dispatch-table-assignment-columns" : ""}">
+                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th><th>來源</th>${showAssignmentColumns ? "<th>分派人員</th><th>師傅</th>" : ""}<th>分派時間</th><th style="text-align:center;">操作</th></tr></thead>
                   <tbody>
-                    ${paginatedRows.length ? paginatedRows.map(t => `
+                    ${paginatedRows.length ? paginatedRows.map(t => {
+                      const lastAssignment = Array.isArray(t.assignmentHistory) ? t.assignmentHistory[t.assignmentHistory.length - 1] : null;
+                      const assignedBy = t.assignedBy || lastAssignment?.assignedBy || "—";
+                      const assignedMaster = t.master || t.assignedMaster || "—";
+                      return `
                       <tr>
-                        <td>${escapeHtml(t.contractNo || t.ecContractNo || callDetailCustomer(t)?.contractNo || '—')}</td>
+                        <td>${escapeHtml(dispatchTaskContractNo(t))}</td>
                         <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong></td>
                         <td><span class="dispatch-desc" title="${escapeHtml(t.desc)}">${escapeHtml(t.desc)}</span></td>
                         <td>${escapeHtml(dispatchListSourceLabel(t))}</td>
+                        ${showAssignmentColumns ? `<td>${escapeHtml(assignedBy)}</td><td>${escapeHtml(assignedMaster)}</td>` : ""}
                         <td>${escapeHtml(formatDispatchUpdatedAt(t.assignedAt, t))}</td>
                         <td><div class="dispatch-actions">${t.isDirectDispatchTask ? "" : `${["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">處理</button>` : ["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待審批" ? `<button class="primary-btn" data-dispatch-approve="${t.id}">通過</button><button class="danger-btn" data-dispatch-reject="${t.id}">不通過</button>` : ""}`}<button class="wo-view-btn" data-dispatch-task-detail="${escapeHtml(t.isDirectDispatchTask ? t.taskNo : t.id)}" data-dispatch-task-kind="${t.isDirectDispatchTask ? "direct" : "call"}">詳情</button></div></td>
-                      </tr>`).join("") : '<tr><td colspan="6" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>'}
+                      </tr>`;
+                    }).join("") : `<tr><td colspan="${showAssignmentColumns ? 8 : 6}" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>`}
                   </tbody>
                 </table>
               </div>
@@ -22006,6 +22074,7 @@
           tenderAmount: periodAmount,
           createdAt: fmtDate(periodStart),
           isMaintenance: true,
+          category: "M",
           billingPeriod,
           serviceStart: fmtDate(periodStart),
           serviceEnd: fmtDate(periodEnd),
@@ -22035,7 +22104,7 @@
       return missing;
     }
 
-    // 渲染待開票頁面：只需 Job Code（報價編號），支援篩選、全選、批量開票、自動生成發票號
+    // 渲染待開票頁面：保留 Job Code，並列 EC Contract No；支援明確條件篩選與欠件查閱
     function renderFinPending(pendingInvoices) {
       // F1：合併 M 類保養合約依條款自動生成的週期性待開票（已開票的期間不再列出）
       const maintenanceContracts = JSON.parse(localStorage.getItem('ecinfo_maintenance_contracts')) || DEFAULT_MAINTENANCE_CONTRACTS;
@@ -22059,28 +22128,65 @@
         .filter(item => !item.cancelled);
 
       const allPending = [...pendingInvoices, ...contractPending];
-      const finFilter = state.finFilter || { keyword: "", date: "", type: "" };
+      const finFilter = state.finFilter || {};
+      const customerOptions = [...new Set(allPending.map(item => item.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+      const amountValue = item => Number(item.tenderAmount ?? item.amount ?? 0);
+      const itemCategory = item => {
+        const category = String(item.category || item.tenderCategory || "").trim().toUpperCase().replace(/＋/g, "+");
+        if (/M\s*\+\s*P/.test(category) || category === "MP") return "M+P";
+        if (category.startsWith("M")) return "M";
+        if (category.startsWith("P")) return "P";
+        return item.isMaintenance ? "M" : "P";
+      };
+      const itemDateRange = item => {
+        const start = String(item.serviceStart || item.createdAt || item.billingPeriod || "").slice(0, 10);
+        const end = String(item.serviceEnd || start).slice(0, 10);
+        return { start, end };
+      };
 
-      // 依關鍵字、日期、類型篩選
+      // 按服務日期、客戶、類型和金額範圍篩選，不使用關鍵字匹配。
       const filtered = allPending.filter(item => {
-        const kw = (finFilter.keyword || "").toLowerCase().trim();
-        // 報價項目以報價編號作 Job Code；保養合約帳單沿用合約 jobCode
-        const jobKey = quotations.some(x => x.id === item.id) ? item.id : (item.ourRef || item.id);
-        const matchKeyword = !kw || (jobKey || '').toLowerCase().includes(kw) || (item.customerName || '').toLowerCase().includes(kw) || (item.title || '').toLowerCase().includes(kw);
-        const matchDate = !finFilter.date || (item.createdAt || '').startsWith(finFilter.date);
-        const matchType = !finFilter.type || (item.isMaintenance ? 'M類保養' : '工程') === finFilter.type;
-        return matchKeyword && matchDate && matchType;
+        const dateRange = itemDateRange(item);
+        const matchDateFrom = !finFilter.dateFrom || (dateRange.end && dateRange.end >= finFilter.dateFrom);
+        const matchDateTo = !finFilter.dateTo || (dateRange.start && dateRange.start <= finFilter.dateTo);
+        const matchCustomer = !finFilter.customer || item.customerName === finFilter.customer;
+        const matchType = !finFilter.type || itemCategory(item) === finFilter.type;
+        const amount = amountValue(item);
+        const matchAmountMin = finFilter.amountMin === "" || finFilter.amountMin == null || amount >= Number(finFilter.amountMin);
+        const matchAmountMax = finFilter.amountMax === "" || finFilter.amountMax == null || amount <= Number(finFilter.amountMax);
+        return matchDateFrom && matchDateTo && matchCustomer && matchType && matchAmountMin && matchAmountMax;
       });
 
       return `
         <div class="fin-filter-bar">
-          <input type="text" id="finFilterKeyword" placeholder="關鍵字（Job Code / 客戶 / 描述）" value="${finFilter.keyword || ''}" data-fin-filter="keyword">
-          <input type="date" id="finFilterDate" value="${finFilter.date || ''}" data-fin-filter="date">
-          <select class="qf-select" id="finFilterType" data-fin-filter="type">
+          <div class="fin-filter-field fin-filter-date-field">
+            <span>日期範圍</span>
+            <div class="fin-filter-date-range" role="group" aria-label="日期範圍">
+              <input type="date" id="finFilterDateFrom" aria-label="開始日期" value="${escapeHtml(finFilter.dateFrom || '')}" data-fin-filter="dateFrom">
+              <span>至</span>
+              <input type="date" id="finFilterDateTo" aria-label="結束日期" value="${escapeHtml(finFilter.dateTo || '')}" data-fin-filter="dateTo">
+            </div>
+          </div>
+          <label class="fin-filter-field">客戶
+            <select id="finFilterCustomer" data-fin-filter="customer">
+              <option value="">全部客戶</option>
+              ${customerOptions.map(name => `<option value="${escapeHtml(name)}" ${finFilter.customer === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}
+            </select>
+          </label>
+          <label class="fin-filter-field">類型
+            <select id="finFilterType" data-fin-filter="type">
             <option value="">全部類型</option>
-            <option value="工程" ${finFilter.type === '工程' ? 'selected' : ''}>工程</option>
-            <option value="M類保養" ${finFilter.type === 'M類保養' ? 'selected' : ''}>M類保養</option>
-          </select>
+            <option value="M" ${finFilter.type === 'M' ? 'selected' : ''}>M</option>
+            <option value="P" ${finFilter.type === 'P' ? 'selected' : ''}>P</option>
+            <option value="M+P" ${finFilter.type === 'M+P' ? 'selected' : ''}>M+P</option>
+            </select>
+          </label>
+          <label class="fin-filter-field">金額範圍（HKD）
+            <div class="fin-filter-amount-range">
+              <input type="number" min="0" step="1" aria-label="最低金額" placeholder="最低" value="${escapeHtml(finFilter.amountMin || '')}" data-fin-filter="amountMin">
+              <input type="number" min="0" step="1" aria-label="最高金額" placeholder="最高" value="${escapeHtml(finFilter.amountMax || '')}" data-fin-filter="amountMax">
+            </div>
+          </label>
           <button class="ghost-btn" data-fin-filter-clear>清除</button>
         </div>
 
@@ -22099,7 +22205,7 @@
             <thead>
               <tr>
                 <th style="width:36px;"></th>
-                <th>Job Code</th>
+                <th>EC Contract No</th>
                 <th>客戶</th>
                 <th>描述</th>
                 <th>金額</th>
@@ -22108,7 +22214,7 @@
                 <th>服務起止日期</th>
                 <th>付款週期</th>
                 <th>附件</th>
-                <th>狀態</th>
+                <th>欠缺文件</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -22116,22 +22222,32 @@
               ${filtered.map(q => {
                 const sourceQuotation = quotations.find(item => item.id === q.id);
                 const sourceTicket = sourceQuotation ? findQuotationWorkOrder(sourceQuotation) : null;
+                const maintenanceContract = maintenanceContracts.find(item => item.id === q.contractId);
+                const linkedCustomer = customers.find(customer =>
+                  (q.customerId && customer.id === q.customerId)
+                  || customer.nameZh === q.customerName
+                  || customer.nameEn === q.customerName
+                  || customer.nameZh === maintenanceContract?.customer
+                  || customer.nameEn === maintenanceContract?.customer
+                );
+                const ecContractNo = q.ecContractNo || q.contractNo || sourceQuotation?.ecContractNo || sourceQuotation?.contractNo
+                  || maintenanceContract?.ecContractNo || maintenanceContract?.contractNo || linkedCustomer?.contractNo || '—';
                 const missingDocs = sourceQuotation ? getQuotationMissingDocs(sourceQuotation) : [];
                 const blocked = missingDocs.length > 0;
-                const docLabel = sourceQuotation ? (blocked ? `欠：${missingDocs.join("、")}` : "完工紙CP/照片/客戶PO") : "合約";
+                const docLabel = sourceQuotation ? "開票文件" : "合約";
                 return `
                 <tr>
                   <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check${blocked ? ' disabled' : ''}></td>
-                  <td><strong>${sourceQuotation ? sourceQuotation.id : (q.ourRef || q.id)}</strong></td>
+                  <td>${escapeHtml(ecContractNo)}</td>
                   <td>${q.customerName}</td>
                   <td>${q.title || '-'}</td>
                   <td>HKD ${(q.tenderAmount || q.amount || 0).toLocaleString()}</td>
-                  <td>${q.isMaintenance ? '<span class="chip" style="background:#dbeafe;color:#1e40af;">M類保養</span>' : '<span class="chip" style="background:#dcfce7;color:#166534;">工程</span>'}</td>
+                  <td><span class="chip fin-type-chip fin-type-${itemCategory(q) === "M+P" ? "mp" : itemCategory(q).toLowerCase()}">${escapeHtml(itemCategory(q))}</span></td>
                   <td>${q.billingPeriod || '—'}</td>
                   <td>${q.serviceStart ? `${q.serviceStart} ~ ${q.serviceEnd}` : '—'}</td>
                   <td>${q.billingCycle || '一次性'}</td>
                   <td><span style="font-size:12px;color:${blocked ? 'var(--danger)' : 'var(--muted)'};">${docLabel}</span></td>
-                  <td>${blocked ? '<span class="tag danger">欠文件</span>' : sourceQuotation ? '<span class="tag success">工單已完成</span>' : '<span class="tag warning">待開票</span>'}</td>
+                  <td><span style="font-size:12px;color:${blocked ? 'var(--danger)' : 'var(--muted)'};">${blocked ? escapeHtml(missingDocs.join('、')) : '—'}</span></td>
                   <td>${sourceTicket ? `<button class="link-btn" data-sr-folder-open-ticket="${escapeHtml(sourceTicket.id)}">查看工單</button>` : ""}
                     ${sourceTicket?.cpNo || sourceTicket?.serviceReportNo ? `<button class="link-btn" data-sr-folder-open-sr="${escapeHtml(sourceTicket.id)}">${sourceTicket.cpNo ? "查看完工紙" : "查看SR"}</button>` : ""}
                     ${blocked
@@ -22259,9 +22375,29 @@
 
     // 渲染會計客戶檔案：獨立於 CS/報價組，含 billing address、收件人、數期；可變更功能
     function renderFinCustomers(acctCustomers) {
+      const search = String(state.finCustomerSearch || "").trim().toLowerCase();
+      const filteredCustomers = acctCustomers.filter(customer => {
+        const sourceCustomer = customers.find(item =>
+          (customer.customerId && item.id === customer.customerId)
+          || item.nameZh === customer.name
+          || item.nameEn === customer.name
+        );
+        const locationTerms = [customer.location, customer.locationZh, customer.locationEn, customer.address, customer.billingAddress];
+        if (Array.isArray(customer.locations)) locationTerms.push(...customer.locations.flatMap(location => typeof location === "string" ? [location] : [location?.area, location?.addressZh, location?.addressEn, location?.location]));
+        if (Array.isArray(sourceCustomer?.addresses)) locationTerms.push(...sourceCustomer.addresses.flatMap(address => [address.area, address.addressZh, address.addressEn]));
+        const searchable = [
+          customer.contractNo, customer.ecContractNo, customer.contractNumber,
+          customer.name, customer.nameZh, customer.nameEn, sourceCustomer?.contractNo,
+          sourceCustomer?.buildingAddress, ...locationTerms
+        ].filter(Boolean).join(" ").toLowerCase();
+        return !search || searchable.includes(search);
+      });
       return `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <span style="color:var(--muted);font-size:13px;">${acctCustomers.length} 個客戶</span>
+        <div class="fin-customer-toolbar">
+          <span>${filteredCustomers.length} 個客戶${search ? `（共 ${acctCustomers.length}）` : ""}</span>
+          <label class="fin-customer-search">
+            <input type="search" aria-label="按 EC Contract No、客戶名稱或 Location 搜尋" placeholder="搜索 EC Contract No / 客戶名稱 / Location" value="${escapeHtml(state.finCustomerSearch || "")}" data-fin-customer-search>
+          </label>
           <button class="primary-btn" data-add-acct-customer>新增客戶</button>
         </div>
         <div class="pc-table-wrapper">
@@ -22279,7 +22415,7 @@
               </tr>
             </thead>
             <tbody>
-              ${acctCustomers.map(c => `
+              ${filteredCustomers.map(c => `
                 <tr>
                   <td><strong>${c.name}</strong></td>
                   <td>${c.contact || '—'}</td>
@@ -22295,7 +22431,7 @@
                     </div>
                   </td>
                 </tr>
-              `).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);">暫無客戶檔案</td></tr>'}
+              `).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);">暫無符合條件的客戶</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -27975,8 +28111,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           directDispatchTasks.unshift(task);
           saveDirectDispatchTasks();
           state.directDispatchModalOpen = false;
-          state.dispatchFilters = { area: "全部", customer: "全部", type: "全部" };
-          state.dispatchSearch = "";
+          state.dispatchFilters = { area: "全部", customer: "全部" };
           state.dispatchTab = master ? "assigned" : "pending";
           state.dispatchPage = 1;
           render();
@@ -27996,16 +28131,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.dispatchPage = 1;
         render();
       }));
-      // 分派中心：搜索按鈕（點擊觸發搜索，不做實時搜索避免輸入中重渲染丟失焦點）
-      document.querySelectorAll("[data-dispatch-search-btn]").forEach(btn => btn.addEventListener("click", () => {
-        const input = document.querySelector("[data-dispatch-search]");
-        if (input) state.dispatchSearch = input.value;
-        state.dispatchPage = 1;
-        render();
-      }));
       document.querySelectorAll("[data-dispatch-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
-        state.dispatchFilters = { area: "全部", customer: "全部", type: "全部" };
-        state.dispatchSearch = "";
+        state.dispatchFilters = { area: "全部", customer: "全部" };
         state.dispatchPage = 1;
         render();
       }));
@@ -29073,22 +29200,37 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.finTab = btn.dataset.finTab;
         render();
       }));
-      // 待開票篩選器（關鍵字、日期、類型）
+      // 待開票篩選器（日期、客戶、類型、金額範圍）
       document.querySelectorAll("[data-fin-filter]").forEach(input => {
-        const event = input.tagName === 'SELECT' ? 'change' : 'input';
+        const event = input.tagName === 'SELECT' || input.type === 'date' || input.type === 'number' ? 'change' : 'input';
         input.addEventListener(event, (e) => {
-          if (!state.finFilter) state.finFilter = { keyword: "", date: "", type: "" };
+          if (!state.finFilter) state.finFilter = { dateFrom: "", dateTo: "", customer: "", type: "", amountMin: "", amountMax: "" };
           state.finFilter[input.dataset.finFilter] = e.target.value;
+          const cursorPosition = input.selectionStart;
           render();
-          // 重新渲染後保持輸入框焦點
+          // 輸入金額範圍時保持焦點與光標位置
           const newInput = document.querySelector(`[data-fin-filter="${input.dataset.finFilter}"]`);
-          if (newInput && event === 'input') newInput.focus();
+          if (newInput && event === 'input') {
+            newInput.focus();
+            if (cursorPosition != null && (newInput.type === 'text' || newInput.type === 'search')) newInput.setSelectionRange(cursorPosition, cursorPosition);
+          }
         });
       });
       // 清除篩選
       document.querySelectorAll("[data-fin-filter-clear]").forEach(btn => btn.addEventListener("click", () => {
-        state.finFilter = { keyword: "", date: "", type: "" };
+        state.finFilter = { dateFrom: "", dateTo: "", customer: "", type: "", amountMin: "", amountMax: "" };
         render();
+      }));
+      // 會計客戶檔案：按 Contract No、客戶名稱和 Location 模糊搜索
+      document.querySelectorAll("[data-fin-customer-search]").forEach(input => input.addEventListener("input", () => {
+        state.finCustomerSearch = input.value;
+        const cursorPosition = input.selectionStart;
+        render();
+        const newInput = document.querySelector("[data-fin-customer-search]");
+        if (newInput) {
+          newInput.focus();
+          if (cursorPosition != null) newInput.setSelectionRange(cursorPosition, cursorPosition);
+        }
       }));
       // 待開票全選 / 取消全選
       document.querySelectorAll("[data-fin-select-all]").forEach(cb => cb.addEventListener("change", (e) => {
