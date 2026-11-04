@@ -912,25 +912,48 @@
     #pcPages .dispatch-toolbar .wo-actions-top { margin-left: 0; }
     .dispatch-toolbar .wo-actions-top button { height: 34px; min-width: 78px; padding: 0 12px; font-size: 13px; }
     .pc-table-wrapper > .dispatch-table { min-width: 1040px; table-layout: fixed; }
-    .dispatch-table th:nth-child(1) { width: 125px; }
-    .dispatch-table th:nth-child(2) { width: 150px; }
-    .dispatch-table th:nth-child(3) { width: 260px; }
-    .dispatch-table th:nth-child(4) { width: 100px; }
-    .dispatch-table:not(.dispatch-table-assignment-columns) th:nth-child(5) { width: 155px; }
-    .dispatch-table:not(.dispatch-table-assignment-columns) th:nth-child(6) { width: 250px; }
-    .dispatch-table-assignment-columns { min-width: 1220px !important; }
-    .dispatch-table-assignment-columns th:nth-child(3) { width: 220px; }
-    .dispatch-table-assignment-columns th:nth-child(4) { width: 90px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(1) { width: 130px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(2) { width: 145px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(3) { width: 245px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(4) { width: 120px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(5) { width: 150px; }
+    .dispatch-table:not(.dispatch-table-assignment-columns):not(.dispatch-table-completed-columns) th:nth-child(6) { width: 180px; }
+    .dispatch-table-assignment-columns { min-width: 1140px !important; }
+    .dispatch-table-assignment-columns th:nth-child(1) { width: 130px; }
+    .dispatch-table-assignment-columns th:nth-child(2) { width: 145px; }
+    .dispatch-table-assignment-columns th:nth-child(3) { width: 210px; }
+    .dispatch-table-assignment-columns th:nth-child(4) { width: 95px; }
     .dispatch-table-assignment-columns th:nth-child(5) { width: 120px; }
     .dispatch-table-assignment-columns th:nth-child(6) { width: 110px; }
-    .dispatch-table-assignment-columns th:nth-child(7) { width: 155px; }
-    .dispatch-table-assignment-columns th:nth-child(8) { width: 250px; }
+    .dispatch-table-assignment-columns th:nth-child(7) { width: 145px; }
+    .dispatch-table-assignment-columns th:nth-child(8) { width: 185px; }
+    .dispatch-table-completed-columns { min-width: 1115px !important; }
+    .dispatch-table-completed-columns th:nth-child(1) { width: 130px; }
+    .dispatch-table-completed-columns th:nth-child(2) { width: 145px; }
+    .dispatch-table-completed-columns th:nth-child(3) { width: 210px; }
+    .dispatch-table-completed-columns th:nth-child(4) { width: 215px; }
+    .dispatch-table-completed-columns th:nth-child(5) { width: 95px; }
+    .dispatch-table-completed-columns th:nth-child(6) { width: 135px; }
+    .dispatch-table-completed-columns th:nth-child(7) { width: 185px; }
     .dispatch-table td { white-space: normal; }
-    .dispatch-table td:nth-child(1), .dispatch-table td:nth-child(4), .dispatch-table td:nth-child(5), .dispatch-table td:nth-child(6), .dispatch-table td:nth-child(7), .dispatch-table td:nth-child(8) { white-space: nowrap; }
+    .dispatch-table td:nth-child(1), .dispatch-table td:last-child { white-space: nowrap; }
+    .dispatch-table:not(.dispatch-table-completed-columns) td:nth-child(4),
+    .dispatch-table:not(.dispatch-table-completed-columns) td:nth-child(5),
+    .dispatch-table:not(.dispatch-table-completed-columns) td:nth-child(6),
+    .dispatch-table:not(.dispatch-table-completed-columns) td:nth-child(7),
+    .dispatch-table:not(.dispatch-table-completed-columns) td:nth-child(8),
+    .dispatch-table-completed-columns td:nth-child(5),
+    .dispatch-table-completed-columns td:nth-child(6) { white-space: nowrap; }
     .dispatch-table .dispatch-customer { display: block; max-width: none; white-space: normal; overflow-wrap: anywhere; }
     .dispatch-table .dispatch-desc { display: block; max-width: none; overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .dispatch-table .dispatch-completion-result { display: block; white-space: normal; overflow-wrap: anywhere; color: var(--text); font-size: 12px; line-height: 1.5; }
     .dispatch-table .direct-dispatch-task-no { color: var(--primary-strong); font-weight: 700; }
     .dispatch-table .direct-dispatch-source { padding: 3px 7px; font-size: 11px; }
+    .dispatch-table th:last-child,
+    .dispatch-table td:last-child:not([colspan]) { position: sticky; right: 0; z-index: 2; border-left: 1px solid var(--line); box-shadow: -8px 0 12px rgba(15, 23, 42, .06); }
+    .dispatch-table th:last-child { z-index: 3; background: var(--panel-soft); }
+    .dispatch-table td:last-child:not([colspan]) { background: var(--panel); }
+    .dispatch-table tbody tr:hover td:last-child:not([colspan]) { background: var(--panel-soft); }
     .dispatch-actions { display: flex; flex-direction: row; justify-content: center; gap: 6px; white-space: nowrap; }
     .dispatch-table td:last-child .dispatch-actions { width: 100%; box-sizing: border-box; align-items: center; justify-content: center; }
     .dispatch-table .dispatch-actions button { width: 72px !important; }
@@ -1224,10 +1247,14 @@
     .direct-dispatch-picker-table th,
     .direct-dispatch-picker-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
     .direct-dispatch-picker-table th { position: sticky; top: 0; z-index: 1; background: var(--panel-soft); color: var(--muted); font-weight: 600; }
+    .direct-dispatch-picker-table th:first-child,
+    .direct-dispatch-picker-table td:first-child { width: 42px; padding-left: 8px; padding-right: 8px; text-align: center; }
+    .direct-dispatch-picker-table input[type="radio"] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
     .direct-dispatch-picker-table tbody tr:hover { background: var(--panel-soft); }
+    .direct-dispatch-picker-table tbody tr.direct-dispatch-picker-row-selectable { cursor: pointer; }
     .direct-dispatch-picker-customer-name { font-weight: 700; color: var(--text); }
     .direct-dispatch-picker-customer-sub { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
-    .direct-dispatch-picker-actions { display: flex; gap: 6px; justify-content: flex-end; white-space: nowrap; }
+    .direct-dispatch-picker-actions { display: flex; gap: 6px; justify-content: center; white-space: nowrap; }
     .direct-dispatch-picker-actions button { padding: 6px 10px; font-size: 11px; }
     .direct-dispatch-picker-count { flex: 0 0 auto; padding: 0 22px 15px; color: var(--muted); font-size: 12px; }
     .direct-dispatch-picker-empty { padding: 34px 16px !important; color: var(--muted); text-align: center !important; }
@@ -1706,6 +1733,17 @@
     .lead-time-unit-wrap .lead-time-caret {
       position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
       pointer-events: none; color: var(--muted); font-size: 12px; line-height: 1;
+    }
+    /* 新增報價彈窗內貨期控件填滿欄寬，數字與單位欄保持一致比例。 */
+    .qf-field[data-lead-time-field] { min-width: 0; }
+    .qf-field[data-lead-time-field] .lead-time-control { width: 100%; min-width: 0; gap: 8px; }
+    .qf-field[data-lead-time-field] .lead-time-control .lead-time-num {
+      width: 0; min-width: 0; flex: 1 1 0; box-sizing: border-box; text-align: left;
+    }
+    .qf-field[data-lead-time-field] .lead-time-control .lead-time-sep { flex: 0 0 auto; }
+    .qf-field[data-lead-time-field] .lead-time-unit-wrap { width: 0; min-width: 0; flex: 1 1 0; }
+    .qf-field[data-lead-time-field] .lead-time-unit-wrap .lead-time-unit {
+      width: 100%; min-width: 0; box-sizing: border-box;
     }
     /* 結束值小於起始值時的錯誤態 */
     .lead-time-num.lead-time-error { border-color: var(--danger, #dc2626) !important; background: var(--danger-soft, #fef2f2) !important; }
@@ -3368,9 +3406,58 @@
       max-width: 100%;
       height: fit-content;
     }
-    .qm-list-section .qm-table {
-      table-layout: auto;
-      word-break: break-word;
+    .qm-table-scroll {
+      width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      border-radius: 10px;
+    }
+    .qm-table-scroll > .qm-table {
+      width: 100%;
+      min-width: 1318px;
+      table-layout: fixed;
+      word-break: normal;
+    }
+    .qm-table-scroll > .qm-table th,
+    .qm-table-scroll > .qm-table td { vertical-align: middle; padding-left: 12px; padding-right: 12px; }
+    .qm-table-scroll > .qm-table th:nth-child(1) { width: 125px; }
+    .qm-table-scroll > .qm-table th:nth-child(2) { width: 155px; }
+    .qm-table-scroll > .qm-table th:nth-child(3) { width: 120px; }
+    .qm-table-scroll > .qm-table th:nth-child(4) { width: 62px; }
+    .qm-table-scroll > .qm-table th:nth-child(5) { width: 145px; padding-right: 18px; }
+    .qm-table-scroll > .qm-table th:nth-child(6) { width: 90px; padding-left: 18px; }
+    .qm-table-scroll > .qm-table th:nth-child(7) { width: 82px; }
+    .qm-table-scroll > .qm-table th:nth-child(8) { width: 100px; }
+    .qm-table-scroll > .qm-table th:nth-child(9) { width: 105px; }
+    .qm-table-scroll > .qm-table th:nth-child(10) { width: 82px; }
+    .qm-table-scroll > .qm-table th:nth-child(11) { width: 92px; }
+    .qm-table-scroll > .qm-table th:nth-child(12) { width: 160px; text-align: center; }
+    .qm-table-scroll > .qm-table td:nth-child(1),
+    .qm-table-scroll > .qm-table td:nth-child(5),
+    .qm-table-scroll > .qm-table td:nth-child(7),
+    .qm-table-scroll > .qm-table td:nth-child(8),
+    .qm-table-scroll > .qm-table td:nth-child(9),
+    .qm-table-scroll > .qm-table td:nth-child(10),
+    .qm-table-scroll > .qm-table td:nth-child(11) { white-space: nowrap; }
+    .qm-table-scroll > .qm-table td:nth-child(2),
+    .qm-table-scroll > .qm-table td:nth-child(3) { overflow-wrap: anywhere; }
+    .qm-table-scroll > .qm-table td:nth-child(5) { padding-right: 18px; }
+    .qm-table-scroll > .qm-table td:nth-child(6) { padding-left: 18px; }
+    .qm-table-scroll > .qm-table td:nth-child(5) .wo-id-link {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+    .qm-table-scroll > .qm-table td:nth-child(12) { padding-left: 8px; padding-right: 8px; }
+    .qm-table-scroll > .qm-table td.wo-td-actions { width: 160px; min-width: 160px; max-width: 160px; }
+    .qm-table-scroll .wo-actions-group { gap: 6px; justify-content: center; }
+    .qm-table-scroll .wo-actions-group button,
+    .qm-table-scroll .wo-actions-group .dispatch-action-placeholder { width: 68px !important; }
+    @media (max-width: 760px) {
+      .qm-list-section { padding: 12px; }
     }
     @media (max-width: 1180px) {
       .qm-layout.with-drawer { grid-template-columns: 1fr; }
@@ -8315,8 +8402,6 @@
       statusFilter: "全部",
       categoryFilter: "全部",
       areaFilter: "全部",
-      searchKeyword: "",
-      filterTicketStatus: "全部",
       filterCustomer: "全部",
       selectedQuotationId: null,
       editMode: false,       // 側邊欄編輯模式（true 時渲染編輯表單）
@@ -8353,7 +8438,7 @@
       directDispatchModalOpen: false,
       rejectTicketId: null, // 拒單彈窗：待拒單工單ID
       dispatchMetricModal: null,
-      dispatchFilters: { area: "全部", customer: "全部" },
+      dispatchFilters: { area: "全部", customer: "全部", source: "全部", assignedBy: "全部", master: "全部" },
       dispatchTab: "pending", // 分派中心：全部／待分派／已分派／已確認／已完成
       dispatchPage: 1,
       dispatchPageSize: 10,
@@ -10415,10 +10500,14 @@
     function filterCallTickets() {
       const f = workOrderState.callFilters;
       const keyword = (f.keyword || "").trim().toLowerCase();
+      const normalizedStatusFilter = f.status === "全部" || CALL_MANAGEMENT_STATUS_LABELS.includes(f.status)
+        ? f.status
+        : callManagementStatusLabel({ status: f.status });
+      if (f.status !== normalizedStatusFilter) f.status = normalizedStatusFilter;
       const filtered = tickets.filter(t => {
         if (!canReadCurrentCRArea(t.area)) return false;
         const searchable = `${t.id} ${t.customer} ${t.contact} ${t.phone} ${t.type} ${t.desc}`.toLowerCase();
-        return (f.status === "全部" || t.status === f.status)
+        return (normalizedStatusFilter === "全部" || callManagementStatusLabel(t) === normalizedStatusFilter)
           && (f.type === "全部" || t.type === f.type)
           && (f.area === "全部" || t.area === f.area)
           && (f.owner === "全部" || (t.tl || "待分派") === f.owner)
@@ -10432,6 +10521,25 @@
         if (typeof left === "number" && typeof right === "number") return (left - right) * sign;
         return String(left ?? "").localeCompare(String(right ?? ""), "zh-Hant", { numeric: true, sensitivity: "base" }) * sign;
       });
+    }
+
+    const CALL_MANAGEMENT_STATUS_LABELS = ["待處理", "已安排", "已處理"];
+
+    function callManagementStatusLabel(ticket) {
+      const status = String(ticket?.status || "").trim();
+      if (["待完工確認", "待完工确认", "已完成", "已處理", "已取消"].includes(status)) return "已處理";
+      const quotationRequested = Boolean(ticket?.quotationRequested || ticket?.needsQuotation || ticket?.handlingMethod === "需要报价" || ticket?.handlingMethod === "需要報價" || ticket?.quotationId)
+        || quotations.some(quotation => quotation.ticketId === ticket?.id || quotation.sourceTicketId === ticket?.id);
+      if (quotationRequested) return "已安排";
+      if (["待確認", "待确认", "已分派", "待處理", "待处理", "處理中", "处理中", "已安排"].includes(status)) return "已安排";
+      if (["待分派", "待分配", "待審批", "待审批"].includes(status)) return "待處理";
+      return status || "—";
+    }
+
+    function callManagementStatusBadge(ticket) {
+      const label = callManagementStatusLabel(ticket);
+      const tone = { "待處理": "warning", "已安排": "info", "已處理": "success" }[label] || statusTone(label);
+      return `<span class="status-badge tone-${tone}">${escapeHtml(label)}</span>`;
     }
 
     function callTicketCategory(ticket) {
@@ -10449,7 +10557,7 @@
         case "customer": return String(ticket.customer || "");
         case "category": return callTicketCategory(ticket);
         case "area": return String(ticket.area || "");
-        case "status": return String(ticket.status || "");
+        case "status": return callManagementStatusLabel(ticket);
         case "owner": return String(ticket.tl || "待分派");
         default: return "";
       }
@@ -10481,7 +10589,9 @@
     }
 
     function renderCallFilters() {
-      const statuses = [...new Set(tickets.map(t => t.status).filter(Boolean))];
+      const availableStatuses = new Set(tickets.map(callManagementStatusLabel).filter(status => status && status !== "—"));
+      const statuses = CALL_MANAGEMENT_STATUS_LABELS.filter(status => availableStatuses.has(status))
+        .concat([...availableStatuses].filter(status => !CALL_MANAGEMENT_STATUS_LABELS.includes(status)));
       const owners = [...new Set(tickets.map(t => t.tl || "待分派").filter(Boolean))];
       return `<div class="wo-filters wo-call-filters">
         <div class="wo-filter-group"><label>CALL狀態</label><select class="qf-select" data-call-filter="status"><option value="全部">全部</option>${statuses.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.status === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
@@ -10529,7 +10639,7 @@
               <td><div class="wo-customer-name">${escapeHtml(t.customer)}</div>${custSub ? `<div style="color:var(--muted);font-size:12px;margin-top:2px;">${escapeHtml(custSub)}</div>` : ''}</td>
               <td>${escapeHtml(callCategory || "—")}</td>
               <td>${escapeHtml(t.area || "-")}</td>
-              <td>${statusBadge(t.status)}</td>
+              <td>${callManagementStatusBadge(t)}</td>
               <td>${escapeHtml(t.tl || "待分派")}</td>
               <td class="wo-td-actions"><button class="wo-view-btn" data-wo-view="${escapeHtml(t.id)}">詳情</button></td>
             </tr>`; }).join("") : '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">暫無匹配 CALL</td></tr>'}</tbody>
@@ -11109,7 +11219,7 @@
           ${callDetailValue("服務地址", escapeHtml(address), "full-width")}
         </div></div>
         <div class="wo-detail-card"><div class="wo-detail-card-heading"><h4>CALL資料</h4></div><div class="wo-detail-grid">
-          ${callDetailValue("CALL類型", escapeHtml(callType))}
+          ${callDetailValue("類型", escapeHtml(callType))}
           ${callDetailValue("來源渠道", escapeHtml(ticket.channel || "—"))}
           ${callDetailValue("優先級", escapeHtml(priority))}
           ${callDetailValue("創建時間", escapeHtml(formatCallDateTime(ticket.createdAt)))}
@@ -11224,7 +11334,7 @@
           callDetailValue("EC Contract No", escapeHtml(contractNo)),
           callDetailValue("地址", escapeHtml(address), "full-width")
         ]],
-        ["工作內容與優先級", [
+        ["工作内容", [
           callDetailValue("任務類型", escapeHtml(task.type || task.taskType || "—")),
           callDetailValue("優先級", escapeHtml(priority)),
           callDetailValue("任務內容", escapeHtml(task.desc || "—"), "full-width wo-detail-description")
@@ -12327,8 +12437,13 @@
           contact: ticketData.contact, phone: ticketData.phone,
           channel: ticketData.channel, content: ticketData.desc || ""
         });
+        const quotationId = handlingMethod === "需要报价"
+          ? requestQuotationFromCall({ ticketId, remark: ticketData.desc || "", deferRender: true })
+          : "";
         saveDataToLocalStorage();
-        toast(handlingMethod === "需要报价" ? 'CALL已提交，已標記需要报价' : '工單已創建');
+        toast(quotationId
+          ? `CALL已提交，報價管理已建立待報價記錄 ${quotationId}`
+          : handlingMethod === "需要报价" ? 'CALL已提交，已標記需要报价' : '工單已創建');
 
         // 投訴 Call：優先通知同區的客戶關係部；未設定同區人員時通知所有啟用中的客戶關係部人員。
         if (ticketData.type === "投訴") {
@@ -12469,7 +12584,10 @@
         ...directDispatchTasks.filter(t => t.status === "已分派" && t.master && tlScope(t))
       ].sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
       const pendingCompletion = tickets.filter(t => t.status === "待完工確認" && tlScope(t)).sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
-      const completed = tickets.filter(t => t.status === "已完成" && tlScope(t)).sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+      const completed = [
+        ...tickets.filter(t => t.status === "已完成" && tlScope(t)),
+        ...directDispatchTasks.filter(t => t.status === "已完成" && tlScope(t))
+      ].sort((a, b) => (b.updatedAt || b.completedAt || '').localeCompare(a.updatedAt || a.completedAt || ''));
       ensureDispatchTaskNos([...pending, ...pendingApproval, ...assigned, ...pendingCompletion, ...completed]);
       const pendingTab = [...pending, ...pendingApproval];
       const all = [...pendingTab, ...assigned, ...pendingCompletion, ...completed]
@@ -12583,7 +12701,7 @@
           </div>
           <div class="direct-dispatch-picker-table-wrap">
             <table class="direct-dispatch-picker-table" aria-label="客戶資料列表">
-              <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>客戶類型</th><th>區域</th><th>聯絡人</th><th>電話</th><th>狀態</th><th style="text-align:right;">操作</th></tr></thead>
+              <thead><tr><th aria-label="選擇客戶"></th><th>EC Contract No</th><th>客戶名稱</th><th>客戶類型</th><th>區域</th><th>聯絡人</th><th>電話</th><th>狀態</th><th style="text-align:center;">操作</th></tr></thead>
               <tbody data-direct-dispatch-picker-rows></tbody>
             </table>
           </div>
@@ -12607,13 +12725,15 @@
             ...contacts.flatMap(contact => [contact.name, contact.phone, contact.whatsapp])].filter(Boolean).join(" ").toLowerCase();
           return matchesArea && (!keyword || searchable.includes(keyword));
         });
+        const selectedCustomerId = form.querySelector("[data-direct-dispatch-customer]")?.value || "";
         rows.innerHTML = filtered.length ? filtered.map(customer => {
           const addresses = directDispatchAddresses(customer);
           const customerAreas = [...new Set(addresses.map(address => String(address.area || "").trim()).filter(Boolean))];
           const contact = directDispatchContacts(customer)[0] || {};
           const enabled = isEnabled(customer.status);
           const status = customer.status || (enabled ? "啟用" : "停用");
-          return `<tr>
+          return `<tr data-direct-dispatch-picker-row="${escapeHtml(customer.id)}" class="${enabled ? "direct-dispatch-picker-row-selectable" : ""}">
+            <td><input type="radio" name="directDispatchPickerSelection" aria-label="選擇 ${escapeHtml(customer.nameZh || "未命名客戶")}" data-direct-dispatch-picker-select="${escapeHtml(customer.id)}" ${customer.id === selectedCustomerId ? "checked" : ""} ${enabled ? "" : "disabled"}></td>
             <td>${escapeHtml(customer.contractNo || "—")}</td>
             <td><span class="direct-dispatch-picker-customer-name">${escapeHtml(customer.nameZh || "未命名客戶")}</span>${customer.nameEn ? `<span class="direct-dispatch-picker-customer-sub">${escapeHtml(customer.nameEn)}</span>` : ""}</td>
             <td>${escapeHtml(customer.type || "—")}</td>
@@ -12623,10 +12743,9 @@
             <td><span style="color:${enabled ? "var(--success)" : "var(--muted)"};">${escapeHtml(status)}</span></td>
             <td><div class="direct-dispatch-picker-actions">
               <button type="button" class="wo-view-btn" data-direct-dispatch-picker-detail="${escapeHtml(customer.id)}">詳情</button>
-              <button type="button" class="primary-btn" data-direct-dispatch-picker-select="${escapeHtml(customer.id)}" ${enabled ? "" : "disabled"}>選擇</button>
             </div></td>
           </tr>`;
-        }).join("") : '<tr><td class="direct-dispatch-picker-empty" colspan="8">沒有符合條件的客戶</td></tr>';
+        }).join("") : '<tr><td class="direct-dispatch-picker-empty" colspan="9">沒有符合條件的客戶</td></tr>';
         count.textContent = `共 ${filtered.length} 個客戶`;
       };
       renderRows();
@@ -12635,9 +12754,13 @@
         if (event.target === modal) { close(); return; }
         const detailButton = event.target.closest("[data-direct-dispatch-picker-detail]");
         if (detailButton) { openCustomerDetailModal(detailButton.dataset.directDispatchPickerDetail); return; }
-        const selectButton = event.target.closest("[data-direct-dispatch-picker-select]");
-        if (selectButton) {
-          const customer = customers.find(item => item.id === selectButton.dataset.directDispatchPickerSelect);
+        const customerChoice = event.target.closest("[data-direct-dispatch-picker-select]");
+        const customerRow = event.target.closest("[data-direct-dispatch-picker-row]");
+        const clickedRowSurface = customerRow && !event.target.closest("button, a, input, select, textarea");
+        const selectedCustomerId = customerChoice?.dataset.directDispatchPickerSelect
+          || (clickedRowSurface ? customerRow.dataset.directDispatchPickerRow : "");
+        if (selectedCustomerId) {
+          const customer = customers.find(item => item.id === selectedCustomerId);
           if (!customer || !isEnabled(customer.status)) return;
           selectDirectDispatchCustomer(form, customer.id);
           close();
@@ -12827,15 +12950,61 @@
       return JSON.stringify([String(ticket.customer || "").trim(), dispatchTaskContractNo(ticket)]);
     }
 
-    function filterDispatchRows() {
-      const buckets = getDispatchBuckets();
-      const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned: buckets.assigned, pendingCompletion: buckets.pendingCompletion, completed: buckets.completed };
-      const dispatchRows = tabRows[state.dispatchTab] || tabRows.pending;
-      const filter = state.dispatchFilters;
-      return dispatchRows.filter(t =>
-        (filter.area === "全部" || t.area === filter.area) &&
-        (filter.customer === "全部" || dispatchCustomerFilterValue(t) === filter.customer)
-      );
+    function dispatchAssignmentDetails(ticket) {
+      const history = Array.isArray(ticket?.assignmentHistory) ? ticket.assignmentHistory : [];
+      const lastAssignment = history[history.length - 1] || null;
+      return {
+        assignedBy: String(ticket?.assignedBy || lastAssignment?.assignedBy || ticket?.tl || ticket?.owner || "—").trim() || "—",
+        master: String(ticket?.master || ticket?.assignedMaster || lastAssignment?.master || "—").trim() || "—"
+      };
+    }
+
+    function dispatchCompletionResult(ticket) {
+      const explicitResult = [ticket?.completionResult, ticket?.completedResult, ticket?.closeReason, ticket?.resolution,
+        ticket?.resolutionNote, ticket?.completedWork, ticket?.finishSummary, ticket?.completionNote, ticket?.workResult]
+        .map(value => String(value || "").trim()).find(Boolean);
+      if (explicitResult) return explicitResult;
+
+      const records = Array.isArray(ticket?.records) ? [...ticket.records].reverse() : [];
+      const resultRecord = records.find(record => {
+        const content = [record?.text, record?.remark, record?.note, record?.detail, record?.changes].filter(Boolean).join(" ").trim();
+        return /完成|完工|恢復|恢复|處理結果|处理结果/.test(content)
+          && !/^(已完成|完成|完工|工單完成|工单完成|確認通過|确认通过)[。.!！]?$/.test(content);
+      });
+      const recordResult = resultRecord && [resultRecord.text, resultRecord.remark, resultRecord.note, resultRecord.detail, resultRecord.changes]
+        .filter(Boolean).join(" · ").trim();
+      return recordResult || "未記錄完成結果";
+    }
+
+    function dispatchCompletionTime(ticket) {
+      return ticket?.completedAt || ticket?.completionTime || ticket?.confirmedAt || ticket?.updatedAt || ticket?.closedAt || "";
+    }
+
+    function dispatchFilterValue(ticket, key) {
+      if (key === "area") return String(ticket?.area || "").trim() || "—";
+      if (key === "customer") return dispatchCustomerFilterValue(ticket);
+      if (key === "source") return dispatchListSourceLabel(ticket);
+      if (key === "assignedBy") return dispatchAssignmentDetails(ticket).assignedBy;
+      if (key === "master") return dispatchAssignmentDetails(ticket).master;
+      return "";
+    }
+
+    function filterDispatchRows(rows = null) {
+      let dispatchRows = rows;
+      if (!dispatchRows) {
+        const buckets = getDispatchBuckets();
+        const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned: buckets.assigned, pendingCompletion: buckets.pendingCompletion, completed: buckets.completed };
+        dispatchRows = tabRows[state.dispatchTab] || tabRows.pending;
+      }
+      const filter = state.dispatchFilters || {};
+      const filterKeys = {
+        all: ["area", "customer", "source"],
+        pending: ["area", "customer", "source"],
+        assigned: ["area", "customer", "source", "assignedBy", "master"],
+        pendingCompletion: ["area", "customer", "assignedBy", "master"],
+        completed: ["area", "customer", "source"]
+      }[state.dispatchTab] || ["area", "customer"];
+      return dispatchRows.filter(ticket => filterKeys.every(key => filter[key] === "全部" || dispatchFilterValue(ticket, key) === filter[key]));
     }
 
     function formatDispatchUpdatedAt(value, task = null) {
@@ -12917,23 +13086,30 @@
       const activeTab = tabRows[state.dispatchTab] ? state.dispatchTab : "pending";
       if (state.dispatchTab !== activeTab) state.dispatchTab = activeTab;
       const dispatchRows = tabRows[activeTab];
-      const filter = state.dispatchFilters;
+      const filter = state.dispatchFilters || (state.dispatchFilters = { area: "全部", customer: "全部", source: "全部", assignedBy: "全部", master: "全部" });
       const showAssignmentColumns = ["assigned", "pendingCompletion"].includes(activeTab);
-      const uniqueValues = (key) => [...new Set(dispatchRows.map(t => t[key]).filter(Boolean))].sort();
-      const customerOptions = [...new Map(buckets.all.map(ticket => {
-        const name = String(ticket.customer || "").trim();
-        const contractNo = dispatchTaskContractNo(ticket);
-        const value = dispatchCustomerFilterValue(ticket);
-        return [value, { value, label: `${name || "—"} · ${contractNo}` }];
-      })).values()].sort((a, b) => a.label.localeCompare(b.label, "zh-Hant"));
-      const filterOptions = {
-        area: ["全部", ...uniqueValues("area")],
-        customer: [{ value: "全部", label: "全部" }, ...customerOptions]
+      const showCompletedColumns = activeTab === "completed";
+      const filterDefinitionsByTab = {
+        all: [["area", "區域"], ["customer", "客戶名稱"], ["source", "分派來源"]],
+        pending: [["area", "區域"], ["customer", "客戶名稱"], ["source", "分派來源"]],
+        assigned: [["area", "區域"], ["customer", "客戶名稱"], ["source", "分派來源"], ["assignedBy", "分派人員"], ["master", "師傅"]],
+        pendingCompletion: [["area", "區域"], ["customer", "客戶名稱"], ["assignedBy", "分派人員"], ["master", "師傅"]],
+        completed: [["area", "區域"], ["customer", "客戶名稱"], ["source", "分派來源"]]
       };
-      const filteredRows = dispatchRows.filter(t =>
-        (filter.area === "全部" || t.area === filter.area) &&
-        (filter.customer === "全部" || dispatchCustomerFilterValue(t) === filter.customer)
-      );
+      const activeFilterDefinitions = filterDefinitionsByTab[activeTab] || filterDefinitionsByTab.pending;
+      const filterOptions = {};
+      activeFilterDefinitions.forEach(([key]) => {
+        const unique = [...new Set(dispatchRows.map(ticket => dispatchFilterValue(ticket, key)).filter(value => value && value !== "—"))]
+          .sort((a, b) => String(a).localeCompare(String(b), "zh-Hant"));
+        const values = unique.map(value => {
+          if (key !== "customer") return { value, label: value };
+          const [name, contractNo] = JSON.parse(value);
+          return { value, label: `${name || "—"} · ${contractNo}` };
+        });
+        filterOptions[key] = [{ value: "全部", label: "全部" }, ...values];
+        if (!filterOptions[key].some(option => option.value === filter[key])) filter[key] = "全部";
+      });
+      const filteredRows = filterDispatchRows(dispatchRows);
       const dispatchTotalPages = Math.max(1, Math.ceil(filteredRows.length / (state.dispatchPageSize || 10)));
       if (state.dispatchPage > dispatchTotalPages) state.dispatchPage = dispatchTotalPages;
       if (state.dispatchPage < 1) state.dispatchPage = 1;
@@ -12956,34 +13132,29 @@
             <div class="pc-section">
               <div class="dispatch-toolbar">
                 <div class="wo-filters dispatch-filters">
-                  ${[["area", "區域"], ["customer", "客戶名稱"]].map(([key, label]) => {
-                    const options = key === "customer"
-                      ? filterOptions.customer
-                      : filterOptions.area.map(value => ({ value, label: value }));
-                    return `<div class="wo-filter-group"><label>${label}</label><select class="qf-select" data-dispatch-filter="${key}">${options.map(option => `<option value="${escapeHtml(option.value)}" ${filter[key] === option.value ? "selected" : ""}>${escapeHtml(option.label)}</option>`).join("")}</select></div>`;
-                  }).join("")}
+                  ${activeFilterDefinitions.map(([key, label]) => `<div class="wo-filter-group"><label>${label}</label><select class="qf-select" data-dispatch-filter="${key}">${filterOptions[key].map(option => `<option value="${escapeHtml(option.value)}" ${filter[key] === option.value ? "selected" : ""}>${escapeHtml(option.label)}</option>`).join("")}</select></div>`).join("")}
                   <div class="wo-actions-top"><button class="secondary-btn" data-dispatch-filter-reset>重置</button><button class="secondary-btn" data-dispatch-simulate-timeout title="演示：將活躍工單的分派/接單/處理時間回撥5分鐘並立即觸發超時通知">模擬超時</button></div>
                 </div>
               </div>
               <div class="pc-table-wrapper">
-                <table class="pc-table dispatch-table ${showAssignmentColumns ? "dispatch-table-assignment-columns" : ""}">
-                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th><th>來源</th>${showAssignmentColumns ? "<th>分派人員</th><th>師傅</th>" : ""}<th>分派時間</th><th style="text-align:center;">操作</th></tr></thead>
+                <table class="pc-table dispatch-table ${showAssignmentColumns ? "dispatch-table-assignment-columns" : ""} ${showCompletedColumns ? "dispatch-table-completed-columns" : ""}">
+                  <thead><tr><th>EC Contract No</th><th>客戶名稱</th><th>內容摘要</th>${showCompletedColumns ? "<th>完成結果</th><th>來源</th><th>完成時間</th>" : `<th>來源</th>${showAssignmentColumns ? "<th>分派人員</th><th>師傅</th>" : ""}<th>分派時間</th>`}<th style="text-align:center;">操作</th></tr></thead>
                   <tbody>
                     ${paginatedRows.length ? paginatedRows.map(t => {
-                      const lastAssignment = Array.isArray(t.assignmentHistory) ? t.assignmentHistory[t.assignmentHistory.length - 1] : null;
-                      const assignedBy = t.assignedBy || lastAssignment?.assignedBy || "—";
-                      const assignedMaster = t.master || t.assignedMaster || "—";
+                      const { assignedBy, master: assignedMaster } = dispatchAssignmentDetails(t);
+                      const dispatchTime = showCompletedColumns
+                        ? formatDispatchUpdatedAt(dispatchCompletionTime(t))
+                        : formatDispatchUpdatedAt(t.assignedAt, t);
                       return `
                       <tr>
                         <td>${escapeHtml(dispatchTaskContractNo(t))}</td>
                         <td><strong class="dispatch-customer" title="${escapeHtml(t.customer)}">${escapeHtml(t.customer)}</strong></td>
                         <td><span class="dispatch-desc" title="${escapeHtml(t.desc)}">${escapeHtml(t.desc)}</span></td>
-                        <td>${escapeHtml(dispatchListSourceLabel(t))}</td>
-                        ${showAssignmentColumns ? `<td>${escapeHtml(assignedBy)}</td><td>${escapeHtml(assignedMaster)}</td>` : ""}
-                        <td>${escapeHtml(formatDispatchUpdatedAt(t.assignedAt, t))}</td>
+                        ${showCompletedColumns ? `<td><span class="dispatch-completion-result">${escapeHtml(dispatchCompletionResult(t))}</span></td><td>${escapeHtml(dispatchListSourceLabel(t))}</td>` : `<td>${escapeHtml(dispatchListSourceLabel(t))}</td>${showAssignmentColumns ? `<td>${escapeHtml(assignedBy)}</td><td>${escapeHtml(assignedMaster)}</td>` : ""}`}
+                        <td>${escapeHtml(dispatchTime)}</td>
                         <td><div class="dispatch-actions">${t.isDirectDispatchTask ? "" : `${["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待分派" ? `<button class="primary-btn" data-dispatch-open="${t.id}">處理</button>` : ["TL", "CR", "ADMIN"].includes(state.role) && t.status === "待審批" ? `<button class="primary-btn" data-dispatch-approve="${t.id}">通過</button><button class="danger-btn" data-dispatch-reject="${t.id}">不通過</button>` : ""}`}<button class="wo-view-btn" data-dispatch-task-detail="${escapeHtml(t.isDirectDispatchTask ? t.taskNo : t.id)}" data-dispatch-task-kind="${t.isDirectDispatchTask ? "direct" : "call"}">詳情</button></div></td>
                       </tr>`;
-                    }).join("") : `<tr><td colspan="${showAssignmentColumns ? 8 : 6}" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>`}
+                    }).join("") : `<tr><td colspan="${showCompletedColumns ? 7 : showAssignmentColumns ? 8 : 6}" class="muted" style="text-align:center;padding:40px;">沒有符合篩選條件的分派任務</td></tr>`}
                   </tbody>
                 </table>
               </div>
@@ -16281,6 +16452,13 @@
             </select>
           </div>
           <div class="wo-filter-group">
+            <label>客戶</label>
+            <select class="qf-select" data-qm-filter="filterCustomer">
+              <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
+              ${customerOptions.map(c => `<option value="${c.id}"${c.sub ? ` data-sub="${escapeHtml(c.sub)}"` : ""} ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
+            </select>
+          </div>
+          <div class="wo-filter-group">
             <label>類別</label>
             <select class="qf-select" data-qm-filter="categoryFilter">
               <option value="全部" ${quotationState.categoryFilter === "全部" ? "selected" : ""}>全部</option>
@@ -16294,26 +16472,32 @@
               ${areaOptions.map(r => `<option value="${r.name}" ${quotationState.areaFilter === r.name ? "selected" : ""}>${r.name}</option>`).join("")}
             </select>
           </div>
-          <div class="wo-filter-group">
-            <label>客戶</label>
-            <select class="qf-select" data-qm-filter="filterCustomer">
-              <option value="全部" ${quotationState.filterCustomer === "全部" ? "selected" : ""}>全部客戶</option>
-              ${customerOptions.map(c => `<option value="${c.id}"${c.sub ? ` data-sub="${escapeHtml(c.sub)}"` : ""} ${quotationState.filterCustomer === c.id ? "selected" : ""}>${c.name}</option>`).join("")}
-            </select>
-          </div>
-          <div class="wo-filter-group">
-            <label>關鍵詞搜索</label>
-            <div class="wo-search-wrap">
-              <input type="text" data-qm-filter="searchKeyword" value="${escapeHtml(quotationState.searchKeyword)}">
-              <button type="button" class="primary-btn wo-search-btn" data-qm-search>搜索</button>
-              <button type="button" class="secondary-btn wo-search-btn qm-reset-btn" data-qm-reset>重置</button>
-            </div>
-          </div>
           <div class="wo-actions-top">
+            <button type="button" class="secondary-btn qm-reset-btn" data-qm-reset>重置</button>
             <button class="primary-btn" data-create-quotation>新增報價</button>
           </div>
         </div>
       `;
+    }
+
+    function quotationCustomerRecord(quotation) {
+      if (!quotation) return null;
+      return customers.find(customer => customer.id && customer.id === quotation.customerId)
+        || customers.find(customer => String(customer.nameZh || "").trim() === String(quotation.customerName || "").trim())
+        || null;
+    }
+
+    function quotationSourceLabel(quotation) {
+      const source = String(quotation?.source || "").trim();
+      if (source === "SR" || /service report/i.test(source) || quotation?.sourceSrNo || quotation?.isSupplementary) return "SR";
+      if (["自主報價", "CS指派", "主管指派"].includes(source)) return source;
+      if (["自主新增", "報價組自主新增", "報價自主新增"].includes(source)) return "自主報價";
+      if (!source && !quotation?.sourceCallId && !quotation?.sourceTicketId && !quotation?.ticketId) return "自主報價";
+      if (["主管指派", "主管分派", "分派任務轉入"].includes(source)) return "主管指派";
+      if (["CS請求", "CALL轉入", "工單轉入", "CALL", "工單", "電話", "WhatsApp", "Email", "客戶主動", "其他"].includes(source)
+        || quotation?.sourceCallId || quotation?.sourceTicketId || quotation?.ticketId) return "CS指派";
+      // 舊版邀標／標書及未分類來源收斂到主管指派，避免列表再出現額外來源值。
+      return "主管指派";
     }
 
     // 報價列表表格（模仿工單管理的表格樣式）
@@ -16330,41 +16514,46 @@
           <table class="wo-table qm-table">
           <thead>
             <tr>
-              <th>報價編號</th>
+              <th>EC Contract No.</th>
               <th>報價標題</th>
-              <th>關聯工單</th>
               <th>客戶名稱</th>
               <th>類別</th>
+              <th>關聯CALL</th>
+              <th>來源</th>
               <th>報價狀態</th>
               <th>備貨狀態</th>
+              <th>報價金額</th>
               <th>負責人</th>
               <th>報價日期</th>
-              <th>報價金額</th>
               <th style="text-align:center;">操作</th>
             </tr>
           </thead>
           <tbody>
             ${filtered.length === 0 ? `
               <tr>
-                <td colspan="11" style="text-align: center; padding: 40px; color: var(--muted);">
+                <td colspan="12" style="text-align: center; padding: 40px; color: var(--muted);">
                   暫無匹配報價
                 </td>
               </tr>
             ` : paginated.map(q => {
+              const quotationCustomer = quotationCustomerRecord(q);
+              const contractNo = quotationCustomer?.contractNo || "";
+              const customerName = quotationCustomer?.nameZh || q.customerName || "—";
               return `
               <tr>
-                <td><button class="wo-id-link" data-view-quotation="${q.id}">${q.id}</button>${q.isSupplementary ? ' <span class="tag warning">後補</span>' : ''}</td>
+                <td><button class="wo-id-link" data-view-quotation="${q.id}" aria-label="查看報價 ${escapeHtml(contractNo || "無 EC Contract No")}" >${contractNo ? escapeHtml(contractNo) : '<span style="color: var(--muted);">—</span>'}</button>${q.isSupplementary ? ' <span class="tag warning">後補</span>' : ''}</td>
                 <td>${escapeHtml(q.title)}</td>
-                <td>${q.ticketId ? `<button class="wo-id-link" data-open="${q.ticketId}">${q.ticketId}</button>` : '<span style="color: var(--muted);">-</span>'}</td>
                 <td>
-                  <div class="wo-customer-name">${escapeHtml(q.customerName)}</div>
+                  <div class="wo-customer-name">${escapeHtml(customerName)}</div>
                 </td>
                 <td>${q.category ? `<span class="tag">${q.category}</span>` : '<span style="color: var(--muted);">-</span>'}</td>
+                <td>${q.ticketId ? `<button class="wo-id-link" data-open="${q.ticketId}">${q.ticketId}</button>` : '<span style="color: var(--muted);">-</span>'}</td>
+                <td>${escapeHtml(quotationSourceLabel(q))}</td>
                 <td>${statusBadge(q.status)}</td>
                 <td>${(() => { const ps = getQuotationProcStatus(q.id); return ps ? `<span class="tag ${poStatusClass(ps)}">${ps}</span>` : `<span style="color: var(--muted);">${getQuotationStockLabel(q)}</span>`; })()}</td>
+                <td><strong style="color: var(--primary);">HKD ${q.totalAmount.toLocaleString()}</strong></td>
                 <td>${escapeHtml(q.owner)}</td>
                 <td>${q.createdAt}</td>
-                <td><strong style="color: var(--primary);">HKD ${q.totalAmount.toLocaleString()}</strong></td>
                 <td class="wo-td-actions">
                   <div class="wo-actions-group">
                     ${["待報價", "報價中", "需修訂"].includes(q.status) ? `<button class="wo-view-btn" data-edit-quotation-drawer="${q.id}">報價</button>` : '<span class="dispatch-action-placeholder"></span>'}
@@ -16387,6 +16576,7 @@
         return renderQuotationEditForm(quotation);
       }
       const ticket = findQuotationWorkOrder(quotation);
+      const relatedTicketId = ticket?.id || quotation.ticketId || quotation.generatedTicketId || quotation.sourceTicketId || "";
 
       return `
         <aside class="wo-drawer">
@@ -16431,12 +16621,10 @@
                     <span class="wo-detail-label">負責人</span>
                     <span class="wo-detail-value"><button type="button" class="link-btn qm-owner-link" data-qm-owner-phone="${escapeHtml(quotation.ownerPhone || "無")}" title="點擊查看聯繫電話">${escapeHtml(quotation.owner || "無")}</button></span>
                   </div>
-                  ${quotation.source ? `
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">接收來源</span>
-                    <span class="wo-detail-value">${quotation.source}</span>
+                    <span class="wo-detail-value">${escapeHtml(quotationSourceLabel(quotation))}</span>
                   </div>
-                  ` : ""}
                   ${quotation.isInviteTender ? `
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">招標邀請</span>
@@ -16497,13 +16685,14 @@
               </div>
             </div>
 
+            ${relatedTicketId ? `
             <div class="wo-detail-section">
               <div class="wo-detail-card">
                 <h4>關聯信息</h4>
                 <div class="wo-detail-grid">
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">關聯工單</span>
-                    <span class="wo-detail-value">${quotation.ticketId ? `<button class="link-btn" data-open="${quotation.ticketId}">${quotation.ticketId}</button>` : "無"}</span>
+                    <span class="wo-detail-value"><button class="link-btn" data-open="${escapeHtml(relatedTicketId)}">${escapeHtml(relatedTicketId)}</button></span>
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">工單狀態</span>
@@ -16516,6 +16705,7 @@
                 </div>
               </div>
             </div>
+            ` : ""}
 
             ${quotation.isSupplementary ? `
             <div class="wo-detail-section">
@@ -16906,8 +17096,7 @@
       const categoryOptions = (dictData["報價類別"] || []).filter(c => isEnabled(c.status));
       // 保留本地已核對的報價組負責人及歷史候選
       const ownerOptions = users.filter(u => ["TL", "ADMIN", "QUO"].includes(u.role) && u.status === "啓用");
-      // 接收來源選項（含標書選項）
-      const sourceOptions = ["電話", "WhatsApp", "Email", "招標", "客戶主動", "其他", "標書", "Service Report"];
+      const sourceOptions = ["SR", "自主報價", "CS指派", "主管指派"];
 
       // 側邊欄編輯表單樣式（與「詳情」抽屜一致的卡片＋網格佈局，適配 420px 寬度）
       const inputStyle = 'width:100%;height:34px;padding:0 10px;border:1px solid var(--line);border-radius:6px;font-size:13px;background:var(--panel);color:var(--text);box-sizing:border-box;';
@@ -16971,8 +17160,7 @@
                     <div class="wo-detail-item">
                       <span class="wo-detail-label">接收來源</span>
                       <select name="source" style="${inputStyle}">
-                        <option value="">請選擇接收來源</option>
-                        ${sourceOptions.map(s => `<option value="${escapeHtml(s)}" ${quotation.source === s ? "selected" : ""}>${escapeHtml(s)}</option>`).join("")}
+                        ${sourceOptions.map(s => `<option value="${escapeHtml(s)}" ${quotationSourceLabel(quotation) === s ? "selected" : ""}>${escapeHtml(s)}</option>`).join("")}
                       </select>
                     </div>
                     <div class="wo-detail-item">
@@ -18067,35 +18255,11 @@
 
         // 區域篩選（按關聯工單的區域匹配）
         if (quotationState.areaFilter !== "全部") {
-          const ticket = tickets.find(t => t.id === q.ticketId);
-          if (!ticket || ticket.area !== quotationState.areaFilter) return false;
-        }
-
-        // 工單狀態篩選
-        if (quotationState.filterTicketStatus !== "全部") {
-          const ticket = tickets.find(t => t.id === q.ticketId);
-          if (!ticket || ticket.status !== quotationState.filterTicketStatus) return false;
+          if (quotationRecordArea(q) !== quotationState.areaFilter) return false;
         }
 
         // 客戶篩選
-        if (quotationState.filterCustomer !== "全部" && q.customerId !== quotationState.filterCustomer) return false;
-
-        // 關鍵詞搜索（會議決策：支援報價編號、SR Number、J Number／EMSD 編號、工單編號、客戶名稱、標題）
-        if (quotationState.searchKeyword) {
-          const keyword = quotationState.searchKeyword.toLowerCase();
-          const searchFields = [
-            q.id,
-            generateOurRef(q.revision),
-            q.ticketId,
-            q.srNo,
-            q.emsdRefNo,
-            q.projectJobNo,
-            q.customerName,
-            q.title
-          ].map(f => (f || "").toLowerCase());
-
-          if (!searchFields.some(f => f.includes(keyword))) return false;
-        }
+        if (quotationState.filterCustomer !== "全部" && quotationCustomerRecord(q)?.id !== quotationState.filterCustomer) return false;
 
         return true;
       });
@@ -18155,15 +18319,11 @@
               <div class="field"><label>有效期至</label><input name="validUntil" type="date" value=""></div>
               <div class="field"><label>保固期</label><select name="warrantyPeriod">${renderQuotationWarrantyOptions("1年")}</select></div>
               <div class="field"><label>接收來源</label>
-                <select name="source" onchange="if(this.value==='工單'){this.closest('form').querySelector('[name=sourceTicketId]').closest('.field').style.display='';}else{this.closest('form').querySelector('[name=sourceTicketId]').closest('.field').style.display='none';}">
-                  <option value="">請選擇接收來源</option>
-                  <option value="電話">電話</option>
-                  <option value="WhatsApp">WhatsApp</option>
-                  <option value="Email">Email</option>
-                  <option value="招標">招標</option>
-                  <option value="客戶主動">客戶主動</option>
-                  <option value="工單">工單</option>
-                  <option value="其他">其他</option>
+                <select name="source">
+                  <option value="SR">SR</option>
+                  <option value="自主報價">自主報價</option>
+                  <option value="CS指派" selected>CS指派</option>
+                  <option value="主管指派">主管指派</option>
                 </select>
               </div>
               <div class="field" style="display:none;"><label>來源工單號</label>
@@ -18254,11 +18414,7 @@
       }
       const idField = form.querySelector('[name="customerId"]');
       if (idField) idField.value = ticket.customerId || "";
-      const areaField = form.querySelector('[name="area"]');
-      if (areaField) {
-        areaField.value = ticket.area || "";
-        syncSearchableSelectDisplay(areaField);
-      }
+      applyCustomerAreaToQuotationForm(customerSelect || form.querySelector('[name="customerName"]'), form);
       const srField = form.querySelector('[name="srNo"]');
       if (srField) srField.value = ticket.srNo || "";
       // 類別優先跟隨被關聯的 Call 類型，其次使用客戶已保存類別；舊客戶才由 Contract No 推斷
@@ -18335,19 +18491,17 @@
       }, true);
     }
 
-    // 依所選客戶帶出報價表單的區域（自訂下拉框需同步顯示文本）
+    // 區域由客戶資料帶出；新增報價表單中顯示為唯讀文字，不由工單覆蓋。
     function applyCustomerAreaToQuotationForm(select, form) {
-      const option = select.selectedOptions && select.selectedOptions[0];
+      const option = select && select.selectedOptions && select.selectedOptions[0];
       // 客戶名稱可重複，優先以選項上的客戶 ID 反查，避免同名時帶錯區域
       const customer = (option && option.dataset.id && customers.find(c => c.id === option.dataset.id))
-        || customers.find(c => c.nameZh === select.value);
-      const areaSelect = form.querySelector("[name=area]");
-      if (!customer || !areaSelect) return;
-      const areaName = (customer.addresses && customer.addresses[0] && customer.addresses[0].area) || customer.area || "";
-      if (areaName && Array.from(areaSelect.options).some(o => o.value === areaName)) {
-        areaSelect.value = areaName;
-        syncSearchableSelectDisplay(areaSelect);
-      }
+        || (select && select.value ? customers.find(c => c.nameZh === select.value) : null);
+      const areaField = form && form.querySelector("[name=area]");
+      if (!areaField) return;
+      areaField.value = customer
+        ? ((customer.addresses && customer.addresses[0] && customer.addresses[0].area) || customer.area || "")
+        : "";
     }
 
     function toggleCreateInviteTenderFields(input) {
@@ -18497,14 +18651,9 @@
                 <div class="qf-grid">
                   <div class="qf-field">
                     <label class="qf-label" for="qf-source">接受來源<span class="req">*</span></label>
-                    <select class="qf-select" id="qf-source" name="source" required onchange="const f=this.closest('form');const tkt=f.querySelector('[name=ticketId]').closest('.qf-field');if(this.value==='Service Report'){tkt.classList.remove('qf-hidden');}else{tkt.classList.add('qf-hidden');}">
-                      <option value="">請選擇接受來源</option>
-                      <option value="Service Report">Service Report</option>
-                      <option value="CR">CR</option>
-                      <option value="自主新增" selected>自主新增</option>
-                    </select>
+                    <input class="qf-input qf-readonly" id="qf-source" name="source" value="自主報價" readonly required>
                   </div>
-                  <!-- 關聯工單：僅「接受來源＝工單」時顯示，非必填 -->
+                  <!-- 從客戶入口新增時，可選擇關聯該客戶的歷史 CALL -->
                   <div class="qf-field ${presetCustomer ? "" : "qf-hidden"}">
                     <label class="qf-label" for="qf-ticketId">關聯工單<span class="opt">（選填）</span></label>
                     <select class="qf-select" id="qf-ticketId" name="ticketId" onchange="onQuotationTicketChange(this)">
@@ -18531,10 +18680,7 @@
                   </div>
                   <div class="qf-field">
                     <label class="qf-label" for="qf-area">區域<span class="req">*</span></label>
-                    <select class="qf-select" id="qf-area" name="area" required onchange="generateQuotationNo(this.closest('form'))">
-                      <option value="">請選擇區域</option>
-                      ${(dictData["區域"] || []).filter(r => isEnabled(r.status)).map(r => `<option value="${r.name}" ${r.name === presetArea ? "selected" : ""}>${r.name}</option>`).join("")}
-                    </select>
+                    <input class="qf-input qf-readonly" id="qf-area" name="area" type="text" value="${escapeHtml(presetArea)}" placeholder="選擇客戶後自動帶出" readonly aria-readonly="true" required>
                   </div>
                   <div class="qf-field qf-hidden">
                     <label class="qf-label" for="qf-srNo">S/R 編號</label>
@@ -18741,14 +18887,7 @@
               </div>
               <div class="field"><label>接收來源</label>
                 <select name="source">
-                  <option value="" ${!quotation.source ? "selected" : ""}>請選擇接收來源</option>
-                  <option value="電話" ${quotation.source === "電話" ? "selected" : ""}>電話</option>
-                  <option value="WhatsApp" ${quotation.source === "WhatsApp" ? "selected" : ""}>WhatsApp</option>
-                  <option value="Email" ${quotation.source === "Email" ? "selected" : ""}>Email</option>
-                  <option value="招標" ${quotation.source === "招標" ? "selected" : ""}>招標</option>
-                  <option value="客戶主動" ${quotation.source === "客戶主動" ? "selected" : ""}>客戶主動</option>
-                  <option value="Service Report" ${quotation.source === "Service Report" ? "selected" : ""}>Service Report（後補報價）</option>
-                  <option value="其他" ${quotation.source === "其他" ? "selected" : ""}>其他</option>
+                  ${["SR", "自主報價", "CS指派", "主管指派"].map(s => `<option value="${escapeHtml(s)}" ${quotationSourceLabel(quotation) === s ? "selected" : ""}>${escapeHtml(s)}</option>`).join("")}
                 </select>
               </div>
               <div class="field" style="display:flex;align-items:center;gap:10px;flex-direction:row;">
@@ -18854,6 +18993,8 @@
       const ticket = source && source.ticketId ? ticketById(source.ticketId) : null;
       const log = source && source.callLogId ? callLogs.find(l => l.id === source.callLogId) : null;
       const customerName = (ticket && ticket.customer) || (log && log.customer) || "";
+      const sourceLabel = source?.dispatchTask || ["TL", "ADMIN", "BOSS"].includes(state.role) ? "主管指派" : "CS指派";
+      const historyAction = sourceLabel === "主管指派" ? "主管指派報價" : "CS指派報價";
       // 去重：同一工單／來電單已有關聯報價時不再重複建立
       const existing = quotations.find(q =>
         (source.ticketId && (q.ticketId === source.ticketId || q.sourceTicketId === source.ticketId)) ||
@@ -18881,11 +19022,11 @@
         ownerPhone: "",
         ownerTeam: "",
         srNo: (ticket && ticket.srNo) || "",
-        category: "",
+        category: ticket ? categoryCodeFromCallType(ticket.type) : "",
         createdAt: new Date().toISOString().slice(0, 10),
         validUntil: "",
         deadline: "",
-        source: source?.dispatchTask ? "分派任務轉入" : "CS請求",
+        source: sourceLabel,
         warrantyPeriod: "1年",
         sourceTicketId: ticket ? ticket.id : "",
         sourceCallId: (source.callLogId || ""),
@@ -18900,10 +19041,13 @@
         attachments: [],
         remark: source?.remark || (ticket && ticket.desc) || (log && log.content) || "",
         items: [],
-        history: [{ action: source?.dispatchTask ? "分派任務轉報價" : "CS 請求報價", time: now, actor: currentRole().name, changes: `${source?.dispatchTask ? "由分派任務轉入" : "由 Call 記錄發起"}（${ticket ? `工單 ${ticket.id}` : `來電單 ${log ? log.id : ""}`}）` }]
+        history: [{ action: historyAction, time: now, actor: currentRole().name, changes: `${sourceLabel}（${ticket ? `工單 ${ticket.id}` : log ? `來電單 ${log.id}` : ""}）` }]
       });
       // 標記來源已申請報價，供列表顯示狀態
-      if (ticket) ticket.quotationRequested = true;
+      if (ticket) {
+        ticket.quotationRequested = true;
+        ticket.quotationId = newId;
+      }
       if (log) log.quotationRequested = true;
       saveDataToLocalStorage();
       // 通知報價組（收到任務 → 待報價）
@@ -18926,6 +19070,29 @@
       }
       return newId;
     }
+
+    // 將舊版「新建 CALL 時選擇需要報價」的記錄補成報價管理草稿，確保請求在兩個模塊都有記錄。
+    (function migrateCallQuotationRequests() {
+      const migrationKey = "ecinfo_call_quotation_requests_v1";
+      if (localStorage.getItem(migrationKey)) return;
+      let changed = false;
+      tickets.filter(ticket => ticket.needsQuotation === true || ["需要报价", "需要報價"].includes(ticket.handlingMethod)).forEach(ticket => {
+        const existing = quotations.find(quotation => quotation.ticketId === ticket.id || quotation.sourceTicketId === ticket.id);
+        if (existing) {
+          if (!ticket.quotationRequested) { ticket.quotationRequested = true; changed = true; }
+          if (!ticket.quotationId) { ticket.quotationId = existing.id; changed = true; }
+          if (!existing.category) {
+            existing.category = categoryCodeFromCallType(ticket.type);
+            changed = true;
+          }
+          return;
+        }
+        requestQuotationFromCall({ ticketId: ticket.id, remark: ticket.quotationNote || ticket.desc || "", deferRender: true });
+        changed = true;
+      });
+      if (changed) saveDataToLocalStorage();
+      localStorage.setItem(migrationKey, "true");
+    })();
 
     // 保存報價前確認客戶檔案：名稱未建檔時，先彈出精簡新增客戶（Contract No 必填），建立後才保存報價
     function withResolvedQuotationCustomer(formData, onReady) {
@@ -19755,19 +19922,22 @@
       // Auto-fill customer, area, SR No and quotation ID when ticket is selected
       const ticketSelect = modal.querySelector("[name='ticketId']");
       const customerInput = modal.querySelector("[name='customerName']");
-      const areaSelect = modal.querySelector("[name='area']");
       const srNoInput = modal.querySelector("[name='srNo']");
       if (ticketSelect) {
         ticketSelect.addEventListener("change", () => {
           const ticket = tickets.find(t => t.id === ticketSelect.value);
           const customer = customers.find(c => c.id === ticket?.customerId);
-          if (customerInput) {
+          if (customerInput && customerInput.tagName === "SELECT" && ticket?.customerId) {
+            const customerOptionIndex = [...customerInput.options].findIndex(option => option.dataset.id === ticket.customerId);
+            if (customerOptionIndex >= 0) customerInput.selectedIndex = customerOptionIndex;
+            else customerInput.value = customer?.nameZh || ticket?.customer || "";
+            syncSearchableSelectDisplay(customerInput);
+          } else if (customerInput) {
             customerInput.value = customer?.nameZh || ticket?.customer || "";
           }
-          // 設置區域下拉框的值
-          if (areaSelect && ticket?.area) {
-            areaSelect.value = ticket.area;
-          }
+          const customerIdInput = modal.querySelector("[name='customerId']");
+          if (customerIdInput) customerIdInput.value = ticket?.customerId || "";
+          applyCustomerAreaToQuotationForm(customerInput, modal.querySelector("form"));
           if (srNoInput) srNoInput.value = ticket?.serviceReportNo || "";
           // 區域和類別都選中後動態生成報價編號
           generateQuotationNo(modal.querySelector('form'));
@@ -28111,7 +28281,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           directDispatchTasks.unshift(task);
           saveDirectDispatchTasks();
           state.directDispatchModalOpen = false;
-          state.dispatchFilters = { area: "全部", customer: "全部" };
+          state.dispatchFilters = { area: "全部", customer: "全部", source: "全部", assignedBy: "全部", master: "全部" };
           state.dispatchTab = master ? "assigned" : "pending";
           state.dispatchPage = 1;
           render();
@@ -28123,6 +28293,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
       document.querySelectorAll("[data-dispatch-tab]").forEach(btn => btn.addEventListener("click", () => {
         state.dispatchTab = btn.dataset.dispatchTab || "pending";
+        state.dispatchFilters = { area: "全部", customer: "全部", source: "全部", assignedBy: "全部", master: "全部" };
         state.dispatchPage = 1;
         render();
       }));
@@ -28132,7 +28303,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-dispatch-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
-        state.dispatchFilters = { area: "全部", customer: "全部" };
+        state.dispatchFilters = { area: "全部", customer: "全部", source: "全部", assignedBy: "全部", master: "全部" };
         state.dispatchPage = 1;
         render();
       }));
@@ -29022,10 +29193,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       // Quotation management events
       document.querySelectorAll("[data-create-quotation]").forEach(btn => btn.addEventListener("click", openCreateQuotation));
-      // 篩選事件（下拉框 change，搜索框不加 input 事件，改由搜索按鈕觸發避免輸入中重渲染丟失焦點）
+      // 篩選事件：狀態、客戶、類別與區域變更後立即套用
       document.querySelectorAll("[data-qm-filter]").forEach(el => {
         const filterKey = el.dataset.qmFilter;
-        if (filterKey === "searchKeyword") return; // 搜索框由按鈕觸發，不綁定 input 事件
         el.addEventListener("change", () => {
           quotationState[filterKey] = el.value;
           // 篩選變化時重置到第一頁
@@ -29038,16 +29208,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         quotationState.statusFilter = "全部";
         quotationState.categoryFilter = "全部";
         quotationState.areaFilter = "全部";
-        quotationState.filterTicketStatus = "全部";
         quotationState.filterCustomer = "全部";
-        quotationState.searchKeyword = "";
-        quotationState.currentPage = 1;
-        render();
-      }));
-      // 報價管理：搜索按鈕（點擊觸發搜索）
-      document.querySelectorAll("[data-qm-search]").forEach(btn => btn.addEventListener("click", () => {
-        const input = document.querySelector("[data-qm-filter=\"searchKeyword\"]");
-        if (input) quotationState.searchKeyword = input.value;
         quotationState.currentPage = 1;
         render();
       }));
