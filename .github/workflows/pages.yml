@@ -30,15 +30,20 @@ jobs:
 
       - name: Prepare static artifact
         run: |
-          mkdir -p _site/prototype
-          cp prototype/index.html _site/index.html
-          cp prototype/ui-upgrade.css _site/ui-upgrade.css
-          cp prototype/remediation.js _site/remediation.js
-          cp prototype/logo_ecinfo.svg _site/logo_ecinfo.svg
-          cp prototype/index.html _site/prototype/index.html
-          cp prototype/ui-upgrade.css _site/prototype/ui-upgrade.css
-          cp prototype/remediation.js _site/prototype/remediation.js
-          cp prototype/logo_ecinfo.svg _site/prototype/logo_ecinfo.svg
+          mkdir -p _site/assets _site/mobile/components _site/mobile/pages
+          mkdir -p _site/prototype/assets _site/prototype/mobile/components _site/prototype/mobile/pages
+
+          cp prototype/index.html prototype/ui-upgrade.css prototype/ec-brand.css prototype/workbench.css prototype/remediation.js prototype/workbench.js prototype/logo_ecinfo.svg _site/
+          cp prototype/index.html prototype/ui-upgrade.css prototype/ec-brand.css prototype/workbench.css prototype/remediation.js prototype/workbench.js prototype/logo_ecinfo.svg _site/prototype/
+          cp prototype/assets/ecinfo-official.svg _site/assets/
+          cp prototype/assets/ecinfo-official.svg _site/prototype/assets/
+
+          cp prototype/mobile/index.html prototype/mobile/styles.css prototype/mobile/app.js prototype/mobile/store.js prototype/mobile/fixtures.json _site/mobile/
+          cp -R prototype/mobile/components/. _site/mobile/components/
+          cp -R prototype/mobile/pages/. _site/mobile/pages/
+          cp prototype/mobile/index.html prototype/mobile/styles.css prototype/mobile/app.js prototype/mobile/store.js prototype/mobile/fixtures.json _site/prototype/mobile/
+          cp -R prototype/mobile/components/. _site/prototype/mobile/components/
+          cp -R prototype/mobile/pages/. _site/prototype/mobile/pages/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
