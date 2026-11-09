@@ -1,0 +1,598 @@
+{
+  "tickets": [
+    {
+      "id": "WO-20260612-011",
+      "customerId": "CUST-0002",
+      "type": "保養維修",
+      "customer": "九龍屋苑管理處",
+      "contact": "何小姐",
+      "phone": "+852 6123 9800",
+      "channel": "郵件",
+      "area": "2區",
+      "address": "九龍灣宏照道 16 號",
+      "status": "待確認",
+      "owner": "周師傅",
+      "tl": "李組長",
+      "master": "周師傅",
+      "createdAt": "06-12 10:05",
+      "updatedAt": "06-12 10:30",
+      "desc": "巡檢發現停車場顯示屏閃爍，安排師傅處理。",
+      "records": [
+        {
+          "time": "10:05",
+          "actor": "CS 陳小姐",
+          "text": "郵件建單。"
+        },
+        {
+          "time": "10:30",
+          "actor": "李組長",
+          "text": "分派給周師傅。"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "待確認"
+      ],
+      "urgent": false,
+      "contractNo": "2P2600002",
+      "category": "P",
+      "scenario": "P 最終施工演示；沿用 PC 客戶與工單字段，假設本階段供料前提已具備；非真實放行",
+      "schedule": "2026-11-07T10:00",
+      "reportKind": "CP",
+      "submitted": false,
+      "invoiceStatus": "未核對",
+      "paymentStatus": "未核對",
+      "phaseReady": true
+    },
+    {
+      "id": "WO-20260615-004",
+      "customerId": "CUST-0004",
+      "type": "保養維修",
+      "customer": "新界住宅項目",
+      "contact": "黃先生",
+      "phone": "+852 6999 1200",
+      "channel": "電話",
+      "area": "3區",
+      "address": "荃灣青山公路 200 號",
+      "status": "待處理",
+      "owner": "周師傅",
+      "tl": "李組長",
+      "master": "周師傅",
+      "createdAt": "06-15 10:20",
+      "updatedAt": "06-15 11:15",
+      "desc": "CCTV 局部畫面不穩定，需現場檢查線路和設備。",
+      "records": [
+        {
+          "time": "10:20",
+          "actor": "CS 陳小姐",
+          "text": "電話建單。"
+        },
+        {
+          "time": "10:35",
+          "actor": "李組長",
+          "text": "分派給周師傅。"
+        },
+        {
+          "time": "10:42",
+          "actor": "周師傅",
+          "text": "已接單，等待出發。"
+        },
+        {
+          "time": "11:15",
+          "actor": "周師傅",
+          "text": "準備前往現場。"
+        }
+      ],
+      "attachments": [
+        "線路照片",
+        "設備照片"
+      ],
+      "tags": [
+        "圖片附件"
+      ],
+      "urgent": false,
+      "contractNo": "1P2600004",
+      "category": "M",
+      "scenario": "M 本次上門演示；完成本次不等於整份保養合同完成；分類為 M 演示覆層，原 PC 合約編號保留（PC 預設客戶分類均為 P，待核資料一致性）",
+      "schedule": "2026-11-07T10:00",
+      "reportKind": "SR",
+      "submitted": false,
+      "invoiceStatus": "未核對",
+      "paymentStatus": "未核對"
+    },
+    {
+      "id": "WO-20260615-002",
+      "customerId": "CUST-0002",
+      "type": "保養維修",
+      "customer": "九龍屋苑管理處",
+      "contact": "何小姐",
+      "phone": "+852 6123 9800",
+      "channel": "WhatsApp",
+      "area": "2區",
+      "address": "九龍灣宏照道 16 號停車場中控室",
+      "status": "待分派",
+      "owner": "李組長",
+      "tl": "李組長",
+      "master": "",
+      "createdAt": "06-15 09:28",
+      "updatedAt": "06-15 09:40",
+      "desc": "停車場出入口閘機保養，現場反饋開合速度變慢。",
+      "records": [
+        {
+          "time": "09:28",
+          "actor": "CS 陳小姐",
+          "text": "WhatsApp 收到服務請求並建單。"
+        },
+        {
+          "time": "09:40",
+          "actor": "CS 陳小姐",
+          "text": "確認需要派工，進入待分派。"
+        }
+      ],
+      "attachments": [
+        "現場入口照片"
+      ],
+      "tags": [
+        "保養"
+      ],
+      "urgent": true,
+      "contractNo": "2P2600002",
+      "category": "P",
+      "scenario": "派工演示 fixture：假設階段供料前提已具備；C-04 實際確認人／憑據仍待確認",
+      "schedule": "2026-11-07T10:00",
+      "reportKind": "CP",
+      "submitted": false,
+      "invoiceStatus": "未核對",
+      "paymentStatus": "未核對",
+      "phaseReady": true
+    },
+    {
+      "id": "WO-20260615-001",
+      "customerId": "CUST-0001",
+      "type": "保養維修",
+      "customer": "港島商業中心",
+      "contact": "陳先生",
+      "phone": "+852 9123 4567",
+      "channel": "電話",
+      "area": "1區",
+      "address": "中環德輔道中 88 號",
+      "status": "待分派",
+      "owner": "CS 陳小姐",
+      "tl": "李組長",
+      "master": "",
+      "createdAt": "06-15 09:10",
+      "updatedAt": "06-15 09:10",
+      "desc": "客戶來電反饋門禁讀卡失敗，需要先確認是否可遠程處理。",
+      "records": [
+        {
+          "time": "09:10",
+          "actor": "CS 陳小姐",
+          "text": "記錄客戶來電，待分派判斷。"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "電話記錄"
+      ],
+      "urgent": false,
+      "contractNo": "1P2600001",
+      "category": "P",
+      "scenario": "CALL 跟進演示；未成交、未具備施工放行前提",
+      "schedule": "2026-11-07T10:00",
+      "reportKind": "SR",
+      "submitted": false,
+      "invoiceStatus": "未核對",
+      "paymentStatus": "未核對",
+      "phaseReady": false
+    },
+    {
+      "id": "WO-DEMO-FIN-MP-001",
+      "customerId": "CUST-0005",
+      "type": "M+P（保養＋工程）",
+      "customer": "維多利亞酒店",
+      "contact": "陳經理",
+      "phone": "+852 9567 8901",
+      "channel": "報價轉入",
+      "area": "1區",
+      "address": "灣仔軒尼詩道200號",
+      "status": "已完成",
+      "owner": "李組長",
+      "tl": "李組長",
+      "master": "梁師傅",
+      "createdAt": "2026-10-19 09:00",
+      "updatedAt": "2026-10-21 17:10",
+      "desc": "門禁設備保養及控制器更換工程。",
+      "records": [
+        {
+          "time": "09:00",
+          "actor": "李組長",
+          "text": "建立 M+P 類別示例。"
+        },
+        {
+          "time": "17:10",
+          "actor": "李組長",
+          "text": "確認保養與工程完工並提交完工紙。"
+        }
+      ],
+      "attachments": [
+        "門禁設備完工照片.jpg"
+      ],
+      "tags": [
+        "會計示例"
+      ],
+      "urgent": false,
+      "confirmedBy": "李組長",
+      "confirmedAt": "2026-10-21 17:10",
+      "cpNo": "CP-DEMO-MP-001",
+      "cpSourceImage": "demo-cp-mp-001.jpg",
+      "cpSubmittedAt": "2026-10-21 17:00",
+      "invoiceDemoTypeSample": true,
+      "contractNo": "1P2600005",
+      "category": "M+P",
+      "scenario": "PC 已完成案例；M+P 整體完成條件仍待確認；M+P 為原 PC 工單類型，合約編號保留，非重新發號",
+      "schedule": "2026-11-07T10:00",
+      "reportKind": "CP",
+      "submitted": false,
+      "invoiceStatus": "未核對",
+      "paymentStatus": "未核對"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "QT-20260621-002",
+      "ourRef": "2P2601285",
+      "revision": 0,
+      "title": "閘機保養服務報價",
+      "ticketId": "WO-20260615-002",
+      "customerId": "CUST-0002",
+      "customerName": "九龍國際廣場",
+      "amount": 12000,
+      "taxRate": 0.1,
+      "totalAmount": 13200,
+      "items": [
+        {
+          "name": "閘機保養服務",
+          "spec": "年度保養及現場檢查",
+          "qty": 1,
+          "unit": "項",
+          "unitPrice": 9000,
+          "amount": 9000,
+          "location": "九龍國際廣場",
+          "remark": "包含季度檢查"
+        },
+        {
+          "name": "服務報告及測試記錄",
+          "spec": "完工文件",
+          "qty": 1,
+          "unit": "項",
+          "unitPrice": 3000,
+          "amount": 3000,
+          "location": "九龍國際廣場",
+          "remark": "隨服務完成提交"
+        }
+      ],
+      "paymentMethod": "完工後付（Post-payment）",
+      "deliveryTime": "30天",
+      "warrantyPeriod": "1年",
+      "status": "報價中",
+      "bidStatus": "待確認",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "王組長",
+      "ownerPhone": "+852 9345 6789",
+      "ownerTeam": "香港團隊",
+      "srNo": "SR-20260615-002",
+      "createdAt": "2026-06-21",
+      "validUntil": "2026-07-21",
+      "attachments": [
+        "閘機保養報價.pdf"
+      ],
+      "remark": "年度保養服務，包含季度檢查",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-003",
+      "ourRef": "2P2601286",
+      "revision": 0,
+      "title": "監控設備安裝報價",
+      "ticketId": "WO-20260615-003",
+      "customerId": "CUST-0003",
+      "customerName": "新界花園住宅",
+      "amount": 25000,
+      "taxRate": 0.1,
+      "totalAmount": 27500,
+      "status": "待報價",
+      "bidStatus": "未中標",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "李組長",
+      "ownerPhone": "+852 9234 5678",
+      "ownerTeam": "九龍團隊",
+      "srNo": "",
+      "createdAt": "2026-06-21",
+      "validUntil": "2026-07-21",
+      "attachments": [],
+      "remark": "需要現場勘察後確定最終方案",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-004",
+      "ourRef": "2P2601287",
+      "revision": 0,
+      "title": "CCTV系統升級報價",
+      "ticketId": "WO-20260615-004",
+      "customerId": "CUST-0004",
+      "customerName": "香港政府大樓",
+      "amount": 45000,
+      "taxRate": 0.1,
+      "totalAmount": 49500,
+      "status": "已中單",
+      "bidStatus": "已中標",
+      "customerOrder": "PO-2026-001",
+      "tenderNo": "T-2026-001",
+      "tenderAmount": 49500,
+      "procurementStatus": "採購中",
+      "completionPaperStatus": "待制作",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "2026-07-20",
+      "owner": "王組長",
+      "ownerPhone": "+852 9345 6789",
+      "ownerTeam": "香港團隊",
+      "srNo": "SR-20260615-004",
+      "createdAt": "2026-06-20",
+      "validUntil": "2026-07-20",
+      "attachments": [
+        "CCTV升級方案.pdf",
+        "設備清單.xlsx"
+      ],
+      "remark": "已獲客戶確認，準備採購設備",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-005",
+      "ourRef": "2P2601288",
+      "revision": 1,
+      "title": "廣播系統維修報價",
+      "ticketId": "WO-20260615-005",
+      "customerId": "CUST-0005",
+      "customerName": "維多利亞酒店",
+      "amount": 6800,
+      "taxRate": 0.1,
+      "totalAmount": 7480,
+      "status": "報價中",
+      "bidStatus": "待確認",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "李組長",
+      "ownerPhone": "+852 9234 5678",
+      "ownerTeam": "九龍團隊",
+      "srNo": "SR-20260615-005",
+      "createdAt": "2026-06-19",
+      "validUntil": "2026-07-19",
+      "attachments": [
+        "廣播系統報價.pdf"
+      ],
+      "remark": "客戶要求增加備用功放設備",
+      "revisions": [
+        {
+          "rev": 0,
+          "amount": 6500,
+          "date": "2026-06-18",
+          "remark": "初版"
+        },
+        {
+          "rev": 1,
+          "amount": 6800,
+          "date": "2026-06-19",
+          "remark": "增加備用功放設備"
+        }
+      ]
+    },
+    {
+      "id": "QT-20260621-006",
+      "ourRef": "2P2601289",
+      "revision": 0,
+      "title": "門禁控制器保養報價",
+      "ticketId": "WO-20260614-006",
+      "customerId": "CUST-0001",
+      "customerName": "港島商業中心",
+      "amount": 3500,
+      "taxRate": 0.1,
+      "totalAmount": 3850,
+      "status": "報價中",
+      "bidStatus": "待確認",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "王組長",
+      "ownerPhone": "+852 9345 6789",
+      "ownerTeam": "香港團隊",
+      "srNo": "SR-20260614-006",
+      "createdAt": "2026-06-14",
+      "validUntil": "2026-07-14",
+      "attachments": [
+        "門禁保養報價.pdf"
+      ],
+      "remark": "季度保養服務",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-007",
+      "ourRef": "2P2601290",
+      "revision": 0,
+      "title": "水浸報警系統檢查報價",
+      "ticketId": "WO-20260614-008",
+      "customerId": "CUST-0006",
+      "customerName": "九龍灣工業大廈",
+      "amount": 5200,
+      "taxRate": 0.1,
+      "totalAmount": 5720,
+      "status": "待報價",
+      "bidStatus": "未中標",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "李組長",
+      "ownerPhone": "+852 9234 5678",
+      "ownerTeam": "九龍團隊",
+      "srNo": "",
+      "createdAt": "2026-06-14",
+      "validUntil": "2026-07-14",
+      "attachments": [],
+      "remark": "需要檢查所有傳感器和報警裝置",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-008",
+      "ourRef": "2P2601291",
+      "revision": 0,
+      "title": "攝像頭離線故障維修報價",
+      "ticketId": "WO-20260613-009",
+      "customerId": "CUST-0003",
+      "customerName": "新界花園住宅",
+      "amount": 2800,
+      "taxRate": 0.1,
+      "totalAmount": 3080,
+      "status": "已中單",
+      "bidStatus": "已中標",
+      "customerOrder": "PO-2026-002",
+      "tenderNo": "T-2026-002",
+      "tenderAmount": 3080,
+      "procurementStatus": "已到貨",
+      "completionPaperStatus": "已完工",
+      "completionPaperHolder": "張師傅",
+      "completionPaperDueDate": "2026-07-13",
+      "owner": "王組長",
+      "ownerPhone": "+852 9345 6789",
+      "ownerTeam": "香港團隊",
+      "srNo": "SR-20260613-009",
+      "createdAt": "2026-06-13",
+      "validUntil": "2026-07-13",
+      "attachments": [
+        "攝像頭維修報價.pdf"
+      ],
+      "remark": "電源模塊更換",
+      "revisions": []
+    },
+    {
+      "id": "QT-20260621-009",
+      "ourRef": "2P2601292",
+      "revision": 0,
+      "title": "設備移位服務報價",
+      "ticketId": "WO-20260613-010",
+      "customerId": "CUST-0005",
+      "customerName": "維多利亞酒店",
+      "amount": 4500,
+      "taxRate": 0.1,
+      "totalAmount": 4950,
+      "status": "丟單",
+      "bidStatus": "未中標",
+      "customerOrder": "",
+      "tenderNo": "",
+      "tenderAmount": 0,
+      "procurementStatus": "無需採購",
+      "completionPaperStatus": "無需完工紙",
+      "completionPaperHolder": "",
+      "completionPaperDueDate": "",
+      "owner": "李組長",
+      "ownerPhone": "+852 9234 5678",
+      "ownerTeam": "九龍團隊",
+      "srNo": "",
+      "createdAt": "2026-06-13",
+      "validUntil": "2026-07-13",
+      "attachments": [],
+      "remark": "客戶取消服務需求",
+      "revisions": []
+    }
+  ],
+  "roles": [
+    {
+      "key": "CS",
+      "label": "客戶服務部",
+      "name": "陳小姐",
+      "dept": "客戶服務部",
+      "avatar": "CS"
+    },
+    {
+      "key": "CR",
+      "label": "客戶關係部",
+      "name": "何關係",
+      "dept": "客戶關係部",
+      "avatar": "CR",
+      "area": "2區"
+    },
+    {
+      "key": "TL",
+      "label": "主管",
+      "name": "李組長",
+      "dept": "九龍團隊",
+      "avatar": "TL"
+    },
+    {
+      "key": "MASTER",
+      "label": "師傅",
+      "name": "周師傅",
+      "dept": "外勤 · 九龍",
+      "avatar": "周"
+    },
+    {
+      "key": "QUO",
+      "label": "報價組",
+      "name": "鄒組長",
+      "dept": "報價組",
+      "avatar": "報"
+    },
+    {
+      "key": "TENDER",
+      "label": "標書組",
+      "name": "郭標書",
+      "dept": "標書組",
+      "avatar": "標"
+    },
+    {
+      "key": "PUR",
+      "label": "採購部",
+      "name": "張採購",
+      "dept": "採購部",
+      "avatar": "採"
+    },
+    {
+      "key": "FIN",
+      "label": "會計部",
+      "name": "陳會計",
+      "dept": "會計部",
+      "avatar": "會"
+    },
+    {
+      "key": "ADMIN",
+      "label": "管理員",
+      "name": "林主管",
+      "dept": "管理部",
+      "avatar": "管"
+    }
+  ],
+  "source": "prototype/index.html PC 本機預設資料，2026-11-07；狀態與日期是隔離演示覆層"
+}

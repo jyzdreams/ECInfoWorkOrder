@@ -1,0 +1,15 @@
+{
+  "HEAD": "2ef0f0bbc33cbb266899c15123b64325230b4751",
+  "indexUnchanged": true,
+  "baselineFiles": 663,
+  "unchangedExistingFiles": 662,
+  "changedExistingFiles": [
+    "prototype/index.html"
+  ],
+  "newPrototypeFiles": [
+    "prototype/workbench.js",
+    "prototype/workbench.css"
+  ],
+  "sourceChanges": "Only homepage loading/routing and new scoped homepage files.",
+  "allScreenshots": 30
+}

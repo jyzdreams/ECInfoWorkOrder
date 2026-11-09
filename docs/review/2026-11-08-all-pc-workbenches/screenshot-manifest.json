@@ -1,0 +1,212 @@
+[
+  {
+    "role": "CS",
+    "width": 1440,
+    "height": 1506,
+    "file": "CS-1440.png",
+    "sha256": "296f6a3a1e127e68311f874c911a81b2b56873b3920fdda4975ed11ab872798c"
+  },
+  {
+    "role": "CS",
+    "width": 1280,
+    "height": 1506,
+    "file": "CS-1280.png",
+    "sha256": "a5114bca2e2cf6b18aefcd10f2178390c5ef15eca1b84917ce7f029cfd0c0e07"
+  },
+  {
+    "role": "CS",
+    "width": 1024,
+    "height": 1484,
+    "file": "CS-1024.png",
+    "sha256": "5b6eafcdc0df3a35b0d169f6029af637b7a95190373a47d99b14fccd762b5a82"
+  },
+  {
+    "role": "TL",
+    "width": 1440,
+    "height": 1548,
+    "file": "TL-1440.png",
+    "sha256": "bd27f06126743b51617f02fd672077a3dae43d4bce7287feb60bd50aa0c581c3"
+  },
+  {
+    "role": "TL",
+    "width": 1280,
+    "height": 1548,
+    "file": "TL-1280.png",
+    "sha256": "aaf26fcd4fcf11a2a81065aba8cceafaf3766bb93254234c146d03595f0e2407"
+  },
+  {
+    "role": "TL",
+    "width": 1024,
+    "height": 1526,
+    "file": "TL-1024.png",
+    "sha256": "5190ee92b23df1fe6b54c6789930472f1ce7a3c79b372f90db9b82b010dc9008"
+  },
+  {
+    "role": "QUO",
+    "width": 1440,
+    "height": 1727,
+    "file": "QUO-1440.png",
+    "sha256": "e572bcea71a21a270bba21272216c1ccbb4229eee415b0a97100ab6cfd311cbc"
+  },
+  {
+    "role": "QUO",
+    "width": 1280,
+    "height": 1727,
+    "file": "QUO-1280.png",
+    "sha256": "ab5b0ee673a6e73efbede0fe225fc27c4907544d79d226dd6440df8375c0d045"
+  },
+  {
+    "role": "QUO",
+    "width": 1024,
+    "height": 1653,
+    "file": "QUO-1024.png",
+    "sha256": "1c59a8af021c721b11725630cde47e249b1d01af75dfaaa64fd43a832a13aeb0"
+  },
+  {
+    "role": "TENDER",
+    "width": 1440,
+    "height": 1302,
+    "file": "TENDER-1440.png",
+    "sha256": "93faa9cde1e58c56de9ce488326792e37e17be1826ac15efa3893186c58c66fd"
+  },
+  {
+    "role": "TENDER",
+    "width": 1280,
+    "height": 1302,
+    "file": "TENDER-1280.png",
+    "sha256": "5169ea458aa96b8ac545cd061b770151aea256c8d0e9e5f4f886a13462c21015"
+  },
+  {
+    "role": "TENDER",
+    "width": 1024,
+    "height": 1266,
+    "file": "TENDER-1024.png",
+    "sha256": "fb44aa861c0b2bf8e5bf81e09f65ebb53c0da02b537d484f26c9aec5c0667e16"
+  },
+  {
+    "role": "MASTER",
+    "width": 1440,
+    "height": 1489,
+    "file": "MASTER-1440.png",
+    "sha256": "4b97de30b5387173e919919957e53728de07ae906573b260a79761776239f648"
+  },
+  {
+    "role": "MASTER",
+    "width": 1280,
+    "height": 1489,
+    "file": "MASTER-1280.png",
+    "sha256": "553009afb881a7b25df6af9e194bf46fc41303dc96af70a05f743538e1d695b8"
+  },
+  {
+    "role": "MASTER",
+    "width": 1024,
+    "height": 1467,
+    "file": "MASTER-1024.png",
+    "sha256": "6e6c00a8b9de24b118b98f08fcf6bf570de4bd89a2407229905d5d668b2253db"
+  },
+  {
+    "role": "PUR",
+    "width": 1440,
+    "height": 1527,
+    "file": "PUR-1440.png",
+    "sha256": "df17ffd86442140649ecac4c35e9a737620ca86d888327df44856da81d48a46b"
+  },
+  {
+    "role": "PUR",
+    "width": 1280,
+    "height": 1527,
+    "file": "PUR-1280.png",
+    "sha256": "a0a9e538d8fa49ff77e149aec4b8006e63017f683ab0112b74477020d34c00cd"
+  },
+  {
+    "role": "PUR",
+    "width": 1024,
+    "height": 1604,
+    "file": "PUR-1024.png",
+    "sha256": "d5a3529ac7cfc0d8c666b82ab39fca5953f330f242830190ba437a94c8fbd290"
+  },
+  {
+    "role": "FIN",
+    "width": 1440,
+    "height": 2211,
+    "file": "FIN-1440.png",
+    "sha256": "c12940ffbdb3db52f7c6720708c482dfc202336601ff685ef0fadb3d395e9018"
+  },
+  {
+    "role": "FIN",
+    "width": 1280,
+    "height": 2211,
+    "file": "FIN-1280.png",
+    "sha256": "352c12ef01a7e2efe8f704acca8079d993bc105a4d702e9de9be5bf3e40c4a90"
+  },
+  {
+    "role": "FIN",
+    "width": 1024,
+    "height": 2121,
+    "file": "FIN-1024.png",
+    "sha256": "a7b4ac4b86aafbb0bc2900239e8bd57239ff81043f6744fff6f8cb88112abb59"
+  },
+  {
+    "role": "CR",
+    "width": 1440,
+    "height": 1544,
+    "file": "CR-1440.png",
+    "sha256": "8ac13c4d8a21115e4408ce87e01c5bec9f0b7e24fa9c6a1e9a9b052831321a23"
+  },
+  {
+    "role": "CR",
+    "width": 1280,
+    "height": 1544,
+    "file": "CR-1280.png",
+    "sha256": "73e88cf18b25cf765294e758895dec9f8ca54844e9e4cf4d358d7f998b260fa1"
+  },
+  {
+    "role": "CR",
+    "width": 1024,
+    "height": 1522,
+    "file": "CR-1024.png",
+    "sha256": "cc118dfa79f5fb319f9b1e46418a472a4642918b366252c757188a9bfe1fe49f"
+  },
+  {
+    "role": "ADMIN",
+    "width": 1440,
+    "height": 1543,
+    "file": "ADMIN-1440.png",
+    "sha256": "e19946177696bebc9c5ba5afa848498bc5b6bcfa5475457ffd50eb7e1fde60c6"
+  },
+  {
+    "role": "ADMIN",
+    "width": 1280,
+    "height": 1543,
+    "file": "ADMIN-1280.png",
+    "sha256": "3b4af2c2414ddede50ad45a8e1f81f2b963754e080763eae7ff75940b75d3120"
+  },
+  {
+    "role": "ADMIN",
+    "width": 1024,
+    "height": 1521,
+    "file": "ADMIN-1024.png",
+    "sha256": "6cecd7dddafdcaf84d55a7c17975dd1d8e1fba49333d3045dbd11f19ee49529d"
+  },
+  {
+    "role": "BOSS",
+    "width": 1440,
+    "height": 1757,
+    "file": "BOSS-1440.png",
+    "sha256": "c4c3412a17a4b73fc226eb1e820006419cf2b35e4cb2a694b65900f7b0bc9f12"
+  },
+  {
+    "role": "BOSS",
+    "width": 1280,
+    "height": 1757,
+    "file": "BOSS-1280.png",
+    "sha256": "9ba12a23e590ed5483fa1630b7d0207244a327c6f7d455100f2b4aafea159c64"
+  },
+  {
+    "role": "BOSS",
+    "width": 1024,
+    "height": 1735,
+    "file": "BOSS-1024.png",
+    "sha256": "12fde65b454be9cc430637077663c5177399f57137af35666e332ca39e0ac6e9"
+  }
+]

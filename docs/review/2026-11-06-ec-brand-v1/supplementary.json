@@ -1,0 +1,169 @@
+{
+  "tabs": [
+    "dispatch:all",
+    "dispatch:pending",
+    "dispatch:assigned",
+    "dispatch:pendingCompletion",
+    "dispatch:completed",
+    "tender:all",
+    "tender:待投標",
+    "tender:已投標",
+    "tender:已中標",
+    "tender:未中標",
+    "tender:已取消",
+    "tender:不投標",
+    "finance:pending",
+    "finance:invoices",
+    "finance:payments",
+    "finance:customers",
+    "finance:contracts",
+    "CALL detail:basic",
+    "CALL detail:records",
+    "CALL detail:quotations"
+  ],
+  "layouts": [
+    {
+      "key": "dashboard",
+      "width": 360,
+      "scrollWidth": 360,
+      "pass": true
+    },
+    {
+      "key": "workorder",
+      "width": 360,
+      "scrollWidth": 360,
+      "pass": true
+    },
+    {
+      "key": "quotations",
+      "width": 360,
+      "scrollWidth": 360,
+      "pass": true
+    },
+    {
+      "key": "procurement",
+      "width": 360,
+      "scrollWidth": 360,
+      "pass": true
+    },
+    {
+      "key": "maintenance",
+      "width": 360,
+      "scrollWidth": 360,
+      "pass": true
+    },
+    {
+      "key": "dashboard",
+      "width": 768,
+      "scrollWidth": 768,
+      "pass": true
+    },
+    {
+      "key": "workorder",
+      "width": 768,
+      "scrollWidth": 768,
+      "pass": true
+    },
+    {
+      "key": "quotations",
+      "width": 768,
+      "scrollWidth": 768,
+      "pass": true
+    },
+    {
+      "key": "procurement",
+      "width": 768,
+      "scrollWidth": 768,
+      "pass": true
+    },
+    {
+      "key": "maintenance",
+      "width": 768,
+      "scrollWidth": 768,
+      "pass": true
+    },
+    {
+      "key": "dashboard",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "pass": true
+    },
+    {
+      "key": "workorder",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "pass": true
+    },
+    {
+      "key": "quotations",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "pass": true
+    },
+    {
+      "key": "procurement",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "pass": true
+    },
+    {
+      "key": "maintenance",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "pass": true
+    },
+    {
+      "key": "masterHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "pass": true
+    },
+    {
+      "key": "tasks",
+      "width": 390,
+      "scrollWidth": 390,
+      "pass": true
+    },
+    {
+      "key": "tlHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "pass": true
+    },
+    {
+      "key": "crHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "mock": {
+    "product": {
+      "success": true,
+      "products": [],
+      "mock": true
+    },
+    "receipts": [
+      {
+        "success": true,
+        "mock": true,
+        "formInstId": "MOCK-3ede2382fb9a",
+        "mrId": "MR-MOCK-3ede2382fb9a",
+        "status": "申請已完成（演示）",
+        "verifiedMaterialCount": 1,
+        "workbenchUrl": "#isolated-mock"
+      },
+      {
+        "success": true,
+        "mock": true,
+        "formInstId": "MOCK-3ede2382fb9a",
+        "mrId": "MR-MOCK-3ede2382fb9a",
+        "status": "申請已完成（演示）",
+        "verifiedMaterialCount": 1,
+        "workbenchUrl": "#isolated-mock"
+      }
+    ],
+    "idempotent": true
+  }
+}

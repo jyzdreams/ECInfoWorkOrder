@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-07",
+  "errors": [],
+  "results": [
+    {
+      "test": "SR submit returns to reports detail then original reports list, no editor history loop",
+      "result": "PASS"
+    },
+    {
+      "test": "message primary action fixed in shared footer and read mutation preserved",
+      "result": "PASS"
+    },
+    {
+      "test": "mobile emulated real touch events drag down closes sheet",
+      "result": "PASS"
+    }
+  ]
+}

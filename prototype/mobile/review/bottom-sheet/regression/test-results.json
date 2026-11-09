@@ -1,0 +1,147 @@
+{
+  "date": "2026-11-07",
+  "base": "http://127.0.0.1:18867/mobile/",
+  "errors": [],
+  "results": [
+    {
+      "test": "role MASTER",
+      "result": "PASS",
+      "modules": [
+        "#/tasks",
+        "#/reports",
+        "#/materials"
+      ]
+    },
+    {
+      "test": "role CS",
+      "result": "PASS",
+      "modules": [
+        "#/calls",
+        "#/tasks",
+        "#/dispatch",
+        "#/reports"
+      ]
+    },
+    {
+      "test": "role CR",
+      "result": "PASS",
+      "modules": [
+        "#/calls",
+        "#/tasks",
+        "#/dispatch",
+        "#/reports",
+        "#/quotes",
+        "#/materials"
+      ]
+    },
+    {
+      "test": "role TL",
+      "result": "PASS",
+      "modules": [
+        "#/calls",
+        "#/tasks",
+        "#/dispatch",
+        "#/reports",
+        "#/approvals"
+      ]
+    },
+    {
+      "test": "role QUO",
+      "result": "PASS",
+      "modules": [
+        "#/quotes"
+      ]
+    },
+    {
+      "test": "role TENDER",
+      "result": "PASS",
+      "modules": [
+        "#/quotes",
+        "#/tender"
+      ]
+    },
+    {
+      "test": "role WAREHOUSE",
+      "result": "PASS",
+      "modules": [
+        "#/warehouse"
+      ]
+    },
+    {
+      "test": "role PUR",
+      "result": "PASS",
+      "modules": [
+        "#/materials"
+      ]
+    },
+    {
+      "test": "role FIN",
+      "result": "PASS",
+      "modules": [
+        "#/finance"
+      ]
+    },
+    {
+      "test": "role ADMIN",
+      "result": "PASS",
+      "modules": [
+        "#/calls",
+        "#/tasks",
+        "#/dispatch",
+        "#/reports",
+        "#/quotes",
+        "#/materials",
+        "#/finance",
+        "#/tender"
+      ]
+    },
+    {
+      "test": "other master record denied",
+      "result": "PASS"
+    },
+    {
+      "test": "search empty and category filter",
+      "result": "PASS"
+    },
+    {
+      "test": "CP accept arrival validation photo signature taxi draft refresh submit",
+      "result": "PASS"
+    },
+    {
+      "test": "TL confirmation visible FIN payment unchanged",
+      "result": "PASS"
+    },
+    {
+      "test": "M SR multiline quote public pool and no whole M completion",
+      "result": "PASS"
+    },
+    {
+      "test": "CALL follow-up quote pool and quote detail",
+      "result": "PASS"
+    },
+    {
+      "test": "phase guard and schedule assign fixture",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 320 5 pages",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 375 5 pages",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 390 5 pages",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 430 5 pages",
+      "result": "PASS"
+    },
+    {
+      "test": "fixture load failure retry UI",
+      "result": "PASS"
+    }
+  ]
+}

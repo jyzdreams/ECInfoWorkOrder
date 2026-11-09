@@ -1,0 +1,287 @@
+{
+  "date": "2026-11-08",
+  "base": "http://127.0.0.1:18871/",
+  "scope": "主管PC首页局部功能验证；非业务UAT",
+  "results": [
+    {
+      "test": "主管通过现有登录界面进入工作台",
+      "result": "PASS"
+    },
+    {
+      "test": "三张统计卡与既有分派中心计数一致：2 / 4 / 2",
+      "result": "PASS"
+    },
+    {
+      "test": "统计卡切换并精确匹配任务 assigned",
+      "result": "PASS"
+    },
+    {
+      "test": "统计卡切换并精确匹配任务 exceptions",
+      "result": "PASS"
+    },
+    {
+      "test": "统计卡切换并精确匹配任务 todo",
+      "result": "PASS"
+    },
+    {
+      "test": "逐条打开并关闭现有任务详情 .tl-task",
+      "result": "PASS",
+      "links": 2
+    },
+    {
+      "test": "逐条打开并关闭现有任务详情 .tl-activity",
+      "result": "PASS",
+      "links": 5
+    },
+    {
+      "test": "首页统计切换及详情查看不改变业务对象与本机业务存储",
+      "result": "PASS"
+    },
+    {
+      "test": "快捷跳转现有分派中心 pending",
+      "result": "PASS"
+    },
+    {
+      "test": "快捷跳转现有分派中心 pendingCompletion",
+      "result": "PASS"
+    },
+    {
+      "test": "快捷跳转现有分派中心 assigned",
+      "result": "PASS"
+    },
+    {
+      "test": "快捷跳转现有分派中心 all",
+      "result": "PASS"
+    },
+    {
+      "test": "服务单快捷入口",
+      "result": "PASS"
+    },
+    {
+      "test": "主管个人及区域待认领范围 李組長",
+      "result": "PASS",
+      "tasks": 8
+    },
+    {
+      "test": "主管个人及区域待认领范围 王組長",
+      "result": "PASS",
+      "tasks": 5
+    },
+    {
+      "test": "主管个人及区域待认领范围 張主管",
+      "result": "PASS",
+      "tasks": 0
+    },
+    {
+      "test": "主管个人及区域待认领范围 趙組長",
+      "result": "PASS",
+      "tasks": 0
+    },
+    {
+      "test": "待办、进行中、异常、动态空状态",
+      "result": "PASS"
+    },
+    {
+      "test": "待完工确认优先、待审批、直接分派纳入计数及超过6项提示",
+      "result": "PASS"
+    },
+    {
+      "test": "直接分派任务详情入口",
+      "result": "PASS"
+    },
+    {
+      "test": "其他页面与修改前比较 CS",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "workorder",
+        "dispatch",
+        "srFolder",
+        "settings"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 CR",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "workorder",
+        "dispatch",
+        "maintenance",
+        "quotations",
+        "procurement",
+        "srFolder",
+        "report",
+        "settings"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 TL",
+      "result": "PASS",
+      "pages": [
+        "workorder",
+        "dispatch",
+        "maintenance",
+        "srFolder",
+        "report",
+        "settings"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 MASTER",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "srFolder"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 QUO",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "maintenance",
+        "quotations"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 TENDER",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "quotations",
+        "tender"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 PUR",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "procurement",
+        "report"
+      ],
+      "baselineIssues": []
+    },
+    {
+      "test": "其他页面与修改前比较 FIN",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "finance",
+        "report"
+      ],
+      "baselineIssues": [
+        {
+          "role": "FIN",
+          "page": "finance",
+          "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+          "status": "既有错误，修改前后相同，未修复"
+        }
+      ]
+    },
+    {
+      "test": "其他页面与修改前比较 ADMIN",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "workorder",
+        "dispatch",
+        "maintenance",
+        "quotations",
+        "tender",
+        "procurement",
+        "finance",
+        "srFolder",
+        "report",
+        "settings"
+      ],
+      "baselineIssues": [
+        {
+          "role": "ADMIN",
+          "page": "finance",
+          "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+          "status": "既有错误，修改前后相同，未修复"
+        }
+      ]
+    },
+    {
+      "test": "其他页面与修改前比较 BOSS",
+      "result": "PASS",
+      "pages": [
+        "dashboard",
+        "workorder",
+        "dispatch",
+        "maintenance",
+        "quotations",
+        "tender",
+        "procurement",
+        "finance",
+        "srFolder",
+        "report",
+        "settings"
+      ],
+      "baselineIssues": [
+        {
+          "role": "BOSS",
+          "page": "finance",
+          "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+          "status": "既有错误，修改前后相同，未修复"
+        }
+      ]
+    },
+    {
+      "test": "全部可访问PC页面隔离比较",
+      "result": "PASS",
+      "pages": 53
+    },
+    {
+      "test": "完整截图及无横向溢出 1440",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及无横向溢出 1280",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及无横向溢出 1024",
+      "result": "PASS"
+    },
+    {
+      "test": "浏览器无未捕获脚本错误",
+      "result": "PASS"
+    },
+    {
+      "test": "Hub、移动端、底层知识及全部outputs文件哈希未变",
+      "result": "PASS",
+      "files": 652
+    }
+  ],
+  "baselineIssues": [
+    {
+      "role": "FIN",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "既有错误，修改前后相同，未修复"
+    },
+    {
+      "role": "ADMIN",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "既有错误，修改前后相同，未修复"
+    },
+    {
+      "role": "BOSS",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "既有错误，修改前后相同，未修复"
+    }
+  ],
+  "errors": []
+}

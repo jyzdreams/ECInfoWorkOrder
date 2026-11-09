@@ -1,0 +1,322 @@
+{
+  "date": "2026-11-08",
+  "base": "http://127.0.0.1:18873/",
+  "checks": 70,
+  "routeCount": 113,
+  "nonHomeComparisons": 44,
+  "known": [
+    {
+      "role": "FIN",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "修改前后相同；本轮未修复"
+    },
+    {
+      "role": "ADMIN",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "修改前后相同；本轮未修复"
+    },
+    {
+      "role": "BOSS",
+      "page": "finance",
+      "error": "page.evaluate: ReferenceError: sourceTicket is not defined",
+      "status": "修改前后相同；本轮未修复"
+    }
+  ],
+  "errors": [],
+  "results": [
+    {
+      "test": "现有登录界面默认进入我的工作台",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 CS",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 CS",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 CR",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 CR",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 TL",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 TL",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 MASTER",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 MASTER",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 QUO",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 QUO",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 TENDER",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 TENDER",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 PUR",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 PUR",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 FIN",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 FIN",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 ADMIN",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 ADMIN",
+      "result": "PASS"
+    },
+    {
+      "test": "现有角色及人员切换 BOSS",
+      "result": "PASS"
+    },
+    {
+      "test": "完整截图及PC尺寸无横向溢出 BOSS",
+      "result": "PASS"
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 CS",
+      "result": "PASS",
+      "targets": 7
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 CR",
+      "result": "PASS",
+      "targets": 11
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 TL",
+      "result": "PASS",
+      "targets": 11
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 MASTER",
+      "result": "PASS",
+      "targets": 4
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 QUO",
+      "result": "PASS",
+      "targets": 8
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 TENDER",
+      "result": "PASS",
+      "targets": 5
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 PUR",
+      "result": "PASS",
+      "targets": 5
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 FIN",
+      "result": "PASS",
+      "targets": 13
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 ADMIN",
+      "result": "PASS",
+      "targets": 15
+    },
+    {
+      "test": "逐个点击首页全部路由及表单入口 BOSS",
+      "result": "PASS",
+      "targets": 12
+    },
+    {
+      "test": "财务展开后的全部剩余开票入口",
+      "result": "PASS",
+      "targets": 22
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 CS",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 CR",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 TL",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 MASTER",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 QUO",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 TENDER",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 PUR",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 FIN",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 ADMIN",
+      "result": "PASS"
+    },
+    {
+      "test": "旧首页9组CALL查询及全部来电入口保留 BOSS",
+      "result": "PASS"
+    },
+    {
+      "test": "CS合同/客户搜索、实际客户详情、空结果及跨身份清理",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 CS",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 CR",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 TL",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 MASTER",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 QUO",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 TENDER",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 PUR",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 FIN",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 ADMIN",
+      "result": "PASS"
+    },
+    {
+      "test": "首页只读渲染不改变业务对象或存储 BOSS",
+      "result": "PASS"
+    },
+    {
+      "test": "主管复用原确认动作后真实退出待办（仅测试浏览器内数据）",
+      "result": "PASS"
+    },
+    {
+      "test": "CS个人待办不混入已交接主管任务",
+      "result": "PASS"
+    },
+    {
+      "test": "报价公共与个人隔离、修订合并、排除自主与后补、不虚构接手按钮",
+      "result": "PASS"
+    },
+    {
+      "test": "同一主管角色切换另一人员后按本人重算",
+      "result": "PASS"
+    },
+    {
+      "test": "全部10角色真实零条空状态与零统计",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 CS",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 CR",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 TL",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 MASTER",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 QUO",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 TENDER",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 PUR",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 FIN",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 ADMIN",
+      "result": "PASS"
+    },
+    {
+      "test": "非首页模块DOM与原工作树一致 BOSS",
+      "result": "PASS"
+    },
+    {
+      "test": "移动端、Hub、推进表、业务脚本/样式及其他既有文件哈希未变",
+      "result": "PASS",
+      "files": 662
+    },
+    {
+      "test": "所有新工作台及已测入口无未捕获浏览器异常",
+      "result": "PASS"
+    }
+  ]
+}

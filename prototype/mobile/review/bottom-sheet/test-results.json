@@ -1,0 +1,890 @@
+{
+  "date": "2026-11-07",
+  "base": "http://127.0.0.1:18867/mobile/",
+  "errors": [],
+  "results": [
+    {
+      "test": "all roles, all 13 roots and every existing detail card",
+      "result": "PASS",
+      "entries": 138
+    },
+    {
+      "test": "search filter scroll context, expand/collapse, browser back/forward and Esc",
+      "result": "PASS"
+    },
+    {
+      "test": "pointer drag expand/down close and mask close",
+      "result": "PASS"
+    },
+    {
+      "test": "short form picker, date, unsaved cancel and browser-back discard",
+      "result": "PASS"
+    },
+    {
+      "test": "CALL save, footer and Esc dirty guard",
+      "result": "PASS"
+    },
+    {
+      "test": "all SR selectors, fullscreen enter, unsaved stay/save/discard and source return",
+      "result": "PASS"
+    },
+    {
+      "test": "message detail and mark read",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 320x740, focus, footer and overflow",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 375x812, focus, footer and overflow",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 390x844, focus, footer and overflow",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 430x932, focus, footer and overflow",
+      "result": "PASS"
+    },
+    {
+      "test": "viewport 844x390, focus, footer and overflow",
+      "result": "PASS"
+    },
+    {
+      "test": "unauthorized deep links remain denied inside sheet",
+      "result": "PASS"
+    }
+  ],
+  "coverage": [
+    {
+      "role": "MASTER",
+      "module": "home",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "home",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "reports",
+      "entry": "#/reports/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "reports",
+      "entry": "#/reports/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "materials",
+      "entry": "#/materials/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "MASTER",
+      "module": "materials",
+      "entry": "#/materials/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "home",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "home",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "calls",
+      "entry": "#/calls/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "tasks",
+      "entry": "#/tasks/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "reports",
+      "entry": "#/reports/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CS",
+      "module": "reports",
+      "entry": "#/reports/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "home",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "home",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "calls",
+      "entry": "#/calls/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "tasks",
+      "entry": "#/tasks/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "reports",
+      "entry": "#/reports/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "reports",
+      "entry": "#/reports/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/request-0",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-002",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-003",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-004",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-005",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-006",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-007",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-008",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-009",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "materials",
+      "entry": "#/materials/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "CR",
+      "module": "materials",
+      "entry": "#/materials/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "home",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "home",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "calls",
+      "entry": "#/calls/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "tasks",
+      "entry": "#/tasks/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "reports",
+      "entry": "#/reports/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "reports",
+      "entry": "#/reports/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TL",
+      "module": "approvals",
+      "entry": "#/approvals/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/request-0",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-002",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-003",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-004",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-005",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-006",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-007",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-008",
+      "result": "PASS"
+    },
+    {
+      "role": "QUO",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-009",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/request-0",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-002",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-003",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-004",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-005",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-006",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-007",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-008",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-009",
+      "result": "PASS"
+    },
+    {
+      "role": "TENDER",
+      "module": "tender",
+      "entry": "#/tender/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "WAREHOUSE",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "WAREHOUSE",
+      "module": "warehouse",
+      "entry": "#/warehouse/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "PUR",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "PUR",
+      "module": "materials",
+      "entry": "#/materials/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "PUR",
+      "module": "materials",
+      "entry": "#/materials/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "FIN",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "FIN",
+      "module": "finance",
+      "entry": "#/finance/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "home",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "home",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "messages",
+      "entry": "message",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "calls",
+      "entry": "#/calls/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "calls",
+      "entry": "#/calls/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tasks",
+      "entry": "#/tasks/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tasks",
+      "entry": "#/tasks/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-002",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-20260615-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "dispatch",
+      "entry": "#/dispatch/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "reports",
+      "entry": "#/reports/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "reports",
+      "entry": "#/reports/WO-20260615-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/request-0",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-002",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-003",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-004",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-005",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-006",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-007",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-008",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "quotes",
+      "entry": "#/quotes/QT-20260621-009",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "materials",
+      "entry": "#/materials/scope",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "materials",
+      "entry": "#/materials/WO-20260612-011",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "finance",
+      "entry": "#/finance/WO-DEMO-FIN-MP-001",
+      "result": "PASS"
+    },
+    {
+      "role": "ADMIN",
+      "module": "tender",
+      "entry": "#/tender/scope",
+      "result": "PASS"
+    }
+  ]
+}

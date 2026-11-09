@@ -1,0 +1,13 @@
+{
+  "prototype/server.py": "c821cd3d2494df677ec85859beaf6e31cc48c9bed2c82f993e46d85cfba49ca9",
+  "prototype/index.html": "f4b9730b07f623a4770c428fd4662260613e8be33eed16557d30552d04a21bbc",
+  "prototype/ui-upgrade.css": "e24c23fe22c18e806e68fd57bbebd2ae34f263e70290b89b7f842adaff31c1e4",
+  "prototype/logo_ecinfo.svg": "be263d13c0dc088d3483f868f9b0dffdf3b71e5e6db0d868649234ceee0ad235",
+  "prototype/README.md": "00f9343f1132d35fa1205d3a2e37fddce9a589b520075bf5c459d5742915c442",
+  "prototype/remediation.js": "68d5d78d9d62e3fb2733d498e6909e57b55c209d4b51342020381b568440681c",
+  "prototype/serve-mock.py": "541d54d35bef3e05f0bb2f4e8ed25b46dce396b97f97c5006415f57c56406a0f",
+  "prototype/ec-brand.css": "eb5f41c5f01d12ed01bb792c17436d82ba069b0897c2270599a454bdf5985980",
+  "prototype/assets/ecinfo-official.svg": "be263d13c0dc088d3483f868f9b0dffdf3b71e5e6db0d868649234ceee0ad235",
+  "prototype/mobile/fixtures.json": "c1a641512f750f9fd93922312d5541952700b0280ddebd99548be2b4f803d98a",
+  "prototype/mobile/store.js": "2d8796dd93033330f521733a8e6514eb6c07ba74aae3d26a5dd1909d37ae491d"
+}

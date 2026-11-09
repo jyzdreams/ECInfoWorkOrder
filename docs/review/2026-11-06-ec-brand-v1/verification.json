@@ -1,0 +1,496 @@
+{
+  "baselineCommit": "2ef0f0bbc33cbb266899c15123b64325230b4751",
+  "includesUncommittedBaseline": true,
+  "checks": [
+    "Login fields and roles",
+    "Quick login ADMIN",
+    "CS:dashboard",
+    "CS:workorder",
+    "CS:dispatch",
+    "CS:srFolder",
+    "CS:settings",
+    "CR:dashboard",
+    "CR:workorder",
+    "CR:dispatch",
+    "CR:maintenance",
+    "CR:quotations",
+    "CR:procurement",
+    "CR:srFolder",
+    "CR:report",
+    "CR:settings",
+    "TL:dashboard",
+    "TL:workorder",
+    "TL:dispatch",
+    "TL:maintenance",
+    "TL:srFolder",
+    "TL:report",
+    "TL:settings",
+    "MASTER:dashboard",
+    "MASTER:srFolder",
+    "QUO:dashboard",
+    "QUO:maintenance",
+    "QUO:quotations",
+    "TENDER:dashboard",
+    "TENDER:quotations",
+    "TENDER:tender",
+    "PUR:dashboard",
+    "PUR:procurement",
+    "PUR:report",
+    "FIN:dashboard",
+    "FIN:finance",
+    "FIN:report",
+    "ADMIN:dashboard",
+    "ADMIN:workorder",
+    "ADMIN:dispatch",
+    "ADMIN:maintenance",
+    "ADMIN:quotations",
+    "ADMIN:tender",
+    "ADMIN:procurement",
+    "ADMIN:finance",
+    "ADMIN:srFolder",
+    "ADMIN:report",
+    "ADMIN:settings",
+    "BOSS:dashboard",
+    "BOSS:workorder",
+    "BOSS:dispatch",
+    "BOSS:maintenance",
+    "BOSS:quotations",
+    "BOSS:tender",
+    "BOSS:procurement",
+    "BOSS:finance",
+    "BOSS:srFolder",
+    "BOSS:report",
+    "BOSS:settings",
+    "settings:dictionary",
+    "settings:customer",
+    "settings:user",
+    "settings:server",
+    "settings:excelImport",
+    "settings:components",
+    "renderer:create",
+    "renderer:list",
+    "renderer:detail",
+    "renderer:users",
+    "renderer:customers",
+    "Dashboard status filter via click",
+    "CALL detail drawer",
+    "Quotation detail",
+    "Quotation form controls",
+    "Customer create form",
+    "Required-field validation",
+    "User menu",
+    "Role switch ADMIN to CR via UI",
+    "Notification panel",
+    "CALL keyword search",
+    "CALL reset",
+    "CALL page size",
+    "CALL next page",
+    "Quotation status select",
+    "Valid customer save into isolated localStorage",
+    "mobile:MASTER:masterHome",
+    "mobile-tabs:MASTER:masterHome",
+    "mobile:MASTER:tasks",
+    "mobile-tabs:MASTER:tasks",
+    "mobile:MASTER:mobileDetail",
+    "mobile-tabs:MASTER:mobileDetail",
+    "mobile:MASTER:workRecord",
+    "mobile-tabs:MASTER:workRecord",
+    "mobile:TL:tlHome",
+    "mobile-tabs:TL:tlHome",
+    "mobile:TL:dispatch",
+    "mobile-tabs:TL:dispatch",
+    "mobile:CR:crHome",
+    "mobile-tabs:CR:crHome",
+    "mobile:CR:crCalls",
+    "mobile-tabs:CR:crCalls",
+    "mobile:CR:crDispatch",
+    "mobile-tabs:CR:crDispatch",
+    "mobile:CR:cr",
+    "mobile-tabs:CR:cr",
+    "narrow:dashboard",
+    "narrow:workorder",
+    "narrow:quotations",
+    "All baseline HTML, JS, CSS, logo, backend bytes retained; only one stylesheet link added"
+  ],
+  "differences": [],
+  "errors": [],
+  "network": [],
+  "layouts": [
+    {
+      "name": "dashboard",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "workorder",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "dispatch",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "maintenance",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "quotations",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "tender",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "procurement",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "finance",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "srFolder",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "report",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "settings",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "name": "mobile-masterHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-tasks",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-mobileDetail",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-workRecord",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-tlHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-dispatch",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-crHome",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-crCalls",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-crDispatch",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "mobile-cr",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "narrow-dashboard",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "narrow-workorder",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "name": "narrow-quotations",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false
+    }
+  ],
+  "inventory": {
+    "pc": [
+      {
+        "key": "dashboard",
+        "label": "首頁",
+        "icon": "🏠",
+        "sub": "查看狀態、待辦、異常和最近動態"
+      },
+      {
+        "key": "workorder",
+        "label": "CALL管理",
+        "icon": "📋",
+        "sub": "管理、新建與查看工單"
+      },
+      {
+        "key": "dispatch",
+        "label": "分派中心",
+        "icon": "📤",
+        "sub": "Team Leader 分派，師傅接單"
+      },
+      {
+        "key": "maintenance",
+        "label": "保養計劃",
+        "icon": "📅",
+        "sub": "成交 M 報價的整期上門計劃"
+      },
+      {
+        "key": "quotations",
+        "label": "報價管理",
+        "icon": "💰",
+        "sub": "管理報價記錄、狀態和關聯工單"
+      },
+      {
+        "key": "tender",
+        "label": "標書管理",
+        "icon": "📑",
+        "sub": "管理招標項目、投標狀態和中標記錄"
+      },
+      {
+        "key": "procurement",
+        "label": "備貨管理",
+        "icon": "🛒",
+        "sub": "管理採購單、供應商和物流到貨"
+      },
+      {
+        "key": "finance",
+        "label": "會計管理",
+        "icon": "💵",
+        "sub": "發票開具、收款登記和財務報表"
+      },
+      {
+        "key": "srFolder",
+        "label": "報告管理",
+        "icon": "📁",
+        "sub": "服務報告與完工單 檔案查詢與管理"
+      },
+      {
+        "key": "report",
+        "label": "統計報表",
+        "icon": "📊",
+        "sub": "MVP 基礎統計，不含複雜 BI"
+      },
+      {
+        "key": "settings",
+        "label": "基礎設置",
+        "icon": "⚙️",
+        "sub": "字典管理、客戶管理、用戶管理"
+      }
+    ],
+    "roles": [
+      {
+        "key": "CS",
+        "pages": [
+          "dashboard",
+          "workorder",
+          "dispatch",
+          "srFolder",
+          "settings"
+        ]
+      },
+      {
+        "key": "CR",
+        "pages": [
+          "dashboard",
+          "workorder",
+          "dispatch",
+          "maintenance",
+          "quotations",
+          "procurement",
+          "srFolder",
+          "report",
+          "settings"
+        ]
+      },
+      {
+        "key": "TL",
+        "pages": [
+          "dashboard",
+          "workorder",
+          "dispatch",
+          "maintenance",
+          "srFolder",
+          "report",
+          "settings"
+        ]
+      },
+      {
+        "key": "MASTER",
+        "pages": [
+          "dashboard",
+          "srFolder"
+        ]
+      },
+      {
+        "key": "QUO",
+        "pages": [
+          "dashboard",
+          "maintenance",
+          "quotations"
+        ]
+      },
+      {
+        "key": "TENDER",
+        "pages": [
+          "dashboard",
+          "quotations",
+          "tender"
+        ]
+      },
+      {
+        "key": "PUR",
+        "pages": [
+          "dashboard",
+          "procurement",
+          "report"
+        ]
+      },
+      {
+        "key": "FIN",
+        "pages": [
+          "dashboard",
+          "finance",
+          "report"
+        ]
+      },
+      {
+        "key": "ADMIN",
+        "pages": [
+          "dashboard",
+          "workorder",
+          "dispatch",
+          "maintenance",
+          "quotations",
+          "tender",
+          "procurement",
+          "finance",
+          "srFolder",
+          "report",
+          "settings"
+        ]
+      },
+      {
+        "key": "BOSS",
+        "pages": [
+          "dashboard",
+          "workorder",
+          "dispatch",
+          "maintenance",
+          "quotations",
+          "tender",
+          "procurement",
+          "finance",
+          "srFolder",
+          "report",
+          "settings"
+        ]
+      }
+    ],
+    "mobile": [
+      {
+        "key": "masterHome",
+        "label": "首頁",
+        "title": "師傅首頁"
+      },
+      {
+        "key": "tasks",
+        "label": "CALL",
+        "title": "CALL"
+      },
+      {
+        "key": "tlHome",
+        "label": "首頁",
+        "title": "主管首頁"
+      },
+      {
+        "key": "crHome",
+        "label": "首頁",
+        "title": "CR首頁"
+      },
+      {
+        "key": "crCalls",
+        "label": "CALL",
+        "title": "區域CALL"
+      },
+      {
+        "key": "crDispatch",
+        "label": "分派",
+        "title": "分派中心"
+      },
+      {
+        "key": "mobileDetail",
+        "label": "工單",
+        "title": "工單詳情"
+      },
+      {
+        "key": "workRecord",
+        "label": "處理",
+        "title": "處理記錄"
+      },
+      {
+        "key": "cr",
+        "label": "報告",
+        "title": "客戶報告"
+      },
+      {
+        "key": "dispatch",
+        "label": "分派",
+        "title": "分派中心"
+      }
+    ]
+  },
+  "protectedChanges": []
+}

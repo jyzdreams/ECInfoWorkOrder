@@ -1134,3 +1134,20 @@ button:disabled { cursor: not-allowed; }
 @media (max-width: 760px) {
   #pcPages .dispatch-list-section { padding: 12px; }
 }
+
+.sr-print-preview-modal { width: min(960px, 96vw); max-width: 960px; max-height: 92vh; display: flex; flex-direction: column; }
+.sr-print-preview-modal > .dispatch-modal-body { display: grid; gap: 18px; overflow: auto; padding: 20px; background: #e9eef3; }
+.sr-print-page { position: relative; width: min(100%, 740px); min-height: 820px; margin: 0 auto; padding: 38px 42px 54px; box-sizing: border-box; color: #1f2937; background: #fff; box-shadow: 0 4px 18px rgba(15, 35, 45, .14); }
+.sr-print-page-head { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid #1d5e86; color: #1d5e86; }
+.sr-print-page h3 { margin: 24px 0 16px; font-size: 20px; }
+.sr-print-page .sr-report-detail { grid-template-columns: 1fr 1fr; }
+.sr-print-section { margin-top: 24px; padding-top: 14px; border-top: 1px solid #dbe3ea; }
+.sr-print-section h4, .sr-print-signature h4 { margin: 0 0 9px; font-size: 14px; }
+.sr-print-section p { margin: 5px 0; white-space: pre-wrap; line-height: 1.6; }
+.sr-print-photo { margin: 18px 0; }
+.sr-print-photo figcaption { margin-bottom: 6px; font-size: 12px; color: #64748b; }
+.sr-print-photo img { display: block; max-width: 100%; max-height: 260px; object-fit: contain; border: 1px solid #dbe3ea; }
+.sr-print-signature { margin-top: 36px; padding-top: 14px; border-top: 1px solid #dbe3ea; }
+.sr-print-signature img { display: block; max-width: 320px; max-height: 150px; object-fit: contain; border-bottom: 1px solid #64748b; }
+.sr-print-page > footer { position: absolute; right: 42px; bottom: 22px; left: 42px; padding-top: 10px; border-top: 1px solid #dbe3ea; color: #64748b; font-size: 11px; text-align: center; }
+@media (max-width: 760px) { .sr-print-preview-modal > .dispatch-modal-body { padding: 10px; } .sr-print-page { min-height: 760px; padding: 24px 20px 48px; } .sr-print-page .sr-report-detail { grid-template-columns: 1fr; } .sr-print-page > footer { right: 20px; left: 20px; } }

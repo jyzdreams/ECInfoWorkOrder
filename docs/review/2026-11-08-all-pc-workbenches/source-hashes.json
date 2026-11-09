@@ -1,0 +1,23 @@
+[
+  {
+    "file": "prototype/index.html",
+    "baseline": "1d5722cda8ba809e49659b4f67f1ad9d217ecdb90db69b9bf6f57f2713f07fb3",
+    "after": "eba6c76df66ebbf61016970b8d942cb50c6eacaa8b6f939b1a169d82ca713879",
+    "added": 6,
+    "removed": 2
+  },
+  {
+    "file": "prototype/workbench.js",
+    "baseline": null,
+    "after": "7bb8d62d19f695922866781d098f68439e8b4322b2ded3cdce33990a667f26e5",
+    "added": 244,
+    "removed": 0
+  },
+  {
+    "file": "prototype/workbench.css",
+    "baseline": null,
+    "after": "854a32fa73bcc6b6eff0a9ab0e88b35484eef22dd74c05ae86a18befb186f4bb",
+    "added": 156,
+    "removed": 0
+  }
+]

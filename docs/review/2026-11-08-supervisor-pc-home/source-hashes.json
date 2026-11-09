@@ -1,0 +1,22 @@
+[
+  {
+    "path": "prototype/index.html",
+    "before": "1f5878d30e2aff9b3a6fadc00b5de94ec6561cab73d93264c815318caaac7281",
+    "after": "1d5722cda8ba809e49659b4f67f1ad9d217ecdb90db69b9bf6f57f2713f07fb3"
+  },
+  {
+    "path": "prototype/ec-brand.css",
+    "before": "eb5f41c5f01d12ed01bb792c17436d82ba069b0897c2270599a454bdf5985980",
+    "after": "92b6e815f695c9ae0fe88fbd6e8435b50b52120be9252d50659fa8e943b3b50c"
+  },
+  {
+    "path": "prototype/remediation.js",
+    "before": "68d5d78d9d62e3fb2733d498e6909e57b55c209d4b51342020381b568440681c",
+    "after": "68d5d78d9d62e3fb2733d498e6909e57b55c209d4b51342020381b568440681c"
+  },
+  {
+    "path": "prototype/ui-upgrade.css",
+    "before": "e24c23fe22c18e806e68fd57bbebd2ae34f263e70290b89b7f842adaff31c1e4",
+    "after": "e24c23fe22c18e806e68fd57bbebd2ae34f263e70290b89b7f842adaff31c1e4"
+  }
+]

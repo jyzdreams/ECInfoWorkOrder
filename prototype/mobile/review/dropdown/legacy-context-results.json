@@ -1,0 +1,6 @@
+{
+  "test": "legacy single filter M migrates to category M and status 全部 without losing result",
+  "category": "M",
+  "status": "全部",
+  "rows": 1
+}

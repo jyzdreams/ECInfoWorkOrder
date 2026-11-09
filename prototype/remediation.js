@@ -494,7 +494,7 @@
     else { button.disabled = false; button.textContent = label; }
   });
 
-  if (!PAGES.some(p => p.key === "maintenance")) PAGES.splice(3, 0, { key: "maintenance", label: "保養計劃", icon: "📅", sub: "成交 M 報價的整期上門計劃" });
+  if (!PAGES.some(p => p.key === "maintenance")) PAGES.splice(3, 0, { key: "maintenance", label: "保養計劃", icon: "calendar", sub: "成交 M 報價的整期上門計劃" });
   ["CR", "TL", "QUO"].forEach(role => { if (Array.isArray(ROLE_PAGES[role]) && !ROLE_PAGES[role].includes("maintenance")) ROLE_PAGES[role].push("maintenance"); });
   const originalPc = renderPc;
   renderPc = function () {

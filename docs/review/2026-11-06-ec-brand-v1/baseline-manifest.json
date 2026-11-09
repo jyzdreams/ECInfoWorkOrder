@@ -1,0 +1,26 @@
+{
+  "commit": "2ef0f0bbc33cbb266899c15123b64325230b4751",
+  "basis": "Current working tree including pre-existing uncommitted prototype changes",
+  "originalPrototype": {
+    "prototype/server.py": "c821cd3d2494df677ec85859beaf6e31cc48c9bed2c82f993e46d85cfba49ca9",
+    "prototype/index.html": "5d43022157b934ac3356c7e4f6d23e24b20f23b35acd909387b1a5bcb3e5ab5b",
+    "prototype/.DS_Store": "5e9096fb476938805d51f88db93621c3fe90516bfd945b060126b71d6a23169f",
+    "prototype/ui-upgrade.css": "e24c23fe22c18e806e68fd57bbebd2ae34f263e70290b89b7f842adaff31c1e4",
+    "prototype/logo_ecinfo.svg": "be263d13c0dc088d3483f868f9b0dffdf3b71e5e6db0d868649234ceee0ad235",
+    "prototype/README.md": "5eed116c75ed21d0e70853ca79d306e27615db4a1969b09e03794933188a4b06",
+    "prototype/remediation.js": "7336f7f042980fc09225a6db9796fe456a5ad1b1ecf9ba23f8abf56ae513a78d"
+  },
+  "newFiles": {
+    "prototype-ec-brand-v1/server.py": "c821cd3d2494df677ec85859beaf6e31cc48c9bed2c82f993e46d85cfba49ca9",
+    "prototype-ec-brand-v1/index.html": "6d6e9c7a607556a9d195547d3f50a95f16924d3f77f708c057b1138d544bc959",
+    "prototype-ec-brand-v1/ui-upgrade.css": "e24c23fe22c18e806e68fd57bbebd2ae34f263e70290b89b7f842adaff31c1e4",
+    "prototype-ec-brand-v1/logo_ecinfo.svg": "be263d13c0dc088d3483f868f9b0dffdf3b71e5e6db0d868649234ceee0ad235",
+    "prototype-ec-brand-v1/README.md": "cbdbf4020774f0cec2f81e05485f4a73e64742cd3b8d26b6896dd89668b71954",
+    "prototype-ec-brand-v1/remediation.js": "7336f7f042980fc09225a6db9796fe456a5ad1b1ecf9ba23f8abf56ae513a78d",
+    "prototype-ec-brand-v1/serve-mock.py": "541d54d35bef3e05f0bb2f4e8ed25b46dce396b97f97c5006415f57c56406a0f",
+    "prototype-ec-brand-v1/ec-brand.css": "ca498725546ad40804d82e8148bb53b11ddad0cbb5cfc6880ca74fd1d0f30111",
+    "prototype-ec-brand-v1/assets/ecinfo-official.svg": "be263d13c0dc088d3483f868f9b0dffdf3b71e5e6db0d868649234ceee0ad235"
+  },
+  "protectedBaselineFileCount": 760,
+  "protectedChanges": []
+}
