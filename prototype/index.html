@@ -5245,6 +5245,7 @@
       background: var(--panel-soft);
     }
     .component-call-view-block .wo-view-tabs { margin-bottom: 12px; }
+    .component-call-view-block[hidden] { display: none; }
     .component-call-view-label {
       display: flex;
       align-items: center;
@@ -10766,10 +10767,32 @@
       </div>`;
     }
 
+    // CALL類型篩選：只使用字典管理「Call類型」的啟用項目
+    function callTypeFilterOptions() {
+      const dictItems = (dictData["Call類型"] || []).filter(d => isEnabled(d.status));
+      const options = [];
+      const seen = new Set();
+      dictItems.forEach(d => {
+        const name = String(d.name || d.code || "").trim();
+        if (!name || seen.has(name)) return;
+        seen.add(name);
+        options.push({ value: name, label: name });
+      });
+      if (!options.length) {
+        TYPES.forEach(name => options.push({ value: name, label: name }));
+      }
+      return options;
+    }
+
     function filterCallTickets() {
       const f = workOrderState.callFilters;
       const keyword = String(f.keyword || "").trim().toLocaleLowerCase();
-      const selectedCategory = f.type === "全部" ? "" : categoryCodeFromCallType(f.type);
+      const selectedType = f.type || "全部";
+      const matchesType = ticket => {
+        if (selectedType === "全部") return true;
+        const code = categoryCodeFromCallType(selectedType) || selectedType;
+        return callTicketCategory(ticket) === code;
+      };
       const normalizedStatusFilter = f.status === "全部" || CALL_MANAGEMENT_STATUS_LABELS.includes(f.status)
         ? f.status
         : callManagementStatusLabel({ status: f.status });
@@ -10779,7 +10802,7 @@
         if (f.quick === "todo" && !["待分派", "待確認", "待處理"].includes(t.status)) return false;
         if (f.quick === "focus" && !(t.urgent || t.rejectReason || (t.tags || []).includes("無法完成示例"))) return false;
         return (normalizedStatusFilter === "全部" || callManagementStatusLabel(t) === normalizedStatusFilter)
-          && (f.type === "全部" || (selectedCategory ? callTicketCategory(t) === selectedCategory : t.type === f.type))
+          && matchesType(t)
           && (f.area === "全部" || t.area === f.area)
           && (f.owner === "全部" || (t.tl || "待分派") === f.owner)
           && (!keyword || [t.id, t.customer].some(value => String(value || "").toLocaleLowerCase().includes(keyword)));
@@ -10905,7 +10928,7 @@
       const owners = [...new Set(tickets.map(t => t.tl || "待分派").filter(Boolean))];
       return `<div class="wo-filters wo-call-filters">
         <div class="wo-filter-group"><label>CALL狀態</label><select class="qf-select" data-call-filter="status"><option value="全部">全部</option>${statuses.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.status === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
-        <div class="wo-filter-group"><label>CALL類型</label><select class="qf-select" data-call-filter="type"><option value="全部">全部</option>${TYPES.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.type === v ? "selected" : ""}>${escapeHtml(categoryCodeFromCallType(v) || v)}</option>`).join("")}</select></div>
+        <div class="wo-filter-group"><label>CALL類型</label><select class="qf-select" data-call-filter="type"><option value="全部">全部</option>${callTypeFilterOptions().map(o => `<option value="${escapeHtml(o.value)}" ${workOrderState.callFilters.type === o.value ? "selected" : ""}>${escapeHtml(o.label)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>區域</label><select class="qf-select" data-call-filter="area"><option value="全部">全部</option>${REGIONS.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.area === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>負責人</label><select class="qf-select" data-call-filter="owner"><option value="全部">全部</option>${owners.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.owner === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label for="callKeywordFilter">關鍵詞搜尋</label><input id="callKeywordFilter" type="search" data-call-filter="keyword" value="${escapeHtml(workOrderState.callFilters.keyword || "")}" placeholder="CALL編號或客戶名稱" aria-label="按 CALL 編號或客戶名稱搜尋"></div>
@@ -14098,10 +14121,175 @@
       return renderDictionary(); // 默認顯示字典管理
     }
 
+    // ===== 組件庫互動示例 =====
+    const componentDemoState = {
+      view: "customers",
+      page: 1,
+      pageSize: 10,
+      filters: {
+        customers: { type: "全部", area: "全部", level: "全部", keyword: "" },
+        calls: { status: "全部", type: "全部", area: "全部", owner: "全部", keyword: "" }
+      },
+      customers: [
+        { id: "CUST-0001", name: "港島商業中心", nameEn: "HK Commercial Center", type: "私人", area: "1區", level: "VIP", contact: "陳先生", phone: "+852 9123 4567" },
+        { id: "CUST-0002", name: "九龍國際廣場", nameEn: "Kowloon International Plaza", type: "私人", area: "2區", level: "重要", contact: "李小姐", phone: "+852 9234 5678" },
+        { id: "CUST-0003", name: "新界花園住宅", nameEn: "NT Garden Residence", type: "私人", area: "3區", level: "普通", contact: "張女士", phone: "+852 9345 6789" },
+        { id: "CUST-0004", name: "香港政府大樓", nameEn: "HK Government Building", type: "政府", area: "1區", level: "VIP", contact: "何先生", phone: "+852 9456 7890" },
+        { id: "CUST-0005", name: "維多利亞酒店", nameEn: "Victoria Hotel", type: "私人", area: "2區", level: "VIP", contact: "黃小姐", phone: "+852 9567 8901" },
+        { id: "CUST-0006", name: "九龍灣工業大廈", nameEn: "Kowloon Bay Industrial", type: "私人", area: "2區", level: "普通", contact: "林先生", phone: "+852 9678 9012" },
+        { id: "CUST-0007", name: "沙田科技園", nameEn: "Shatin Tech Park", type: "私人", area: "3區", level: "重要", contact: "吳小姐", phone: "+852 9789 0123" },
+        { id: "CUST-0008", name: "中環廣場", nameEn: "Central Plaza", type: "私人", area: "1區", level: "重要", contact: "周先生", phone: "+852 9890 1234" },
+        { id: "CUST-0009", name: "機場貨運中心", nameEn: "Airport Cargo Centre", type: "政府", area: "3區", level: "VIP", contact: "鄭小姐", phone: "+852 9901 2345" },
+        { id: "CUST-0010", name: "銅鑼灣購物城", nameEn: "Causeway Bay Mall", type: "私人", area: "1區", level: "普通", contact: "馮先生", phone: "+852 9012 3456" },
+        { id: "CUST-0011", name: "荃灣住宅群", nameEn: "Tsuen Wan Residences", type: "私人", area: "3區", level: "普通", contact: "曾小姐", phone: "+852 9123 4560" },
+        { id: "CUST-0012", name: "數碼港", nameEn: "Cyberport", type: "私人", area: "1區", level: "重要", contact: "蘇先生", phone: "+852 9234 5670" }
+      ],
+      calls: [
+        { id: "WO-20260615-001", customer: "港島商業中心", contact: "陳先生", area: "1區", status: "待分派", type: "M（保養）", owner: "待安排", time: "06-15 09:10" },
+        { id: "WO-20260615-002", customer: "九龍屋苑管理處", contact: "何小姐", area: "2區", status: "處理中", type: "M（保養）", owner: "李組長", time: "06-15 09:40" },
+        { id: "WO-20260615-003", customer: "新界花園住宅", contact: "張女士", area: "3區", status: "待確認", type: "P（工程）", owner: "王組長", time: "06-15 10:05" },
+        { id: "WO-20260615-004", customer: "新界住宅項目", contact: "黃先生", area: "3區", status: "待處理", type: "M（保養）", owner: "周師傅", time: "06-15 10:20" },
+        { id: "WO-20260615-005", customer: "銅鑼灣購物城", contact: "馮先生", area: "1區", status: "已完成", type: "M+P（保養＋工程）", owner: "李組長", time: "06-15 11:35" },
+        { id: "WO-20260616-001", customer: "維多利亞酒店", contact: "黃小姐", area: "2區", status: "待分派", type: "M+P（保養＋工程）", owner: "待安排", time: "06-16 09:00" },
+        { id: "WO-20260616-002", customer: "沙田科技園", contact: "吳小姐", area: "3區", status: "處理中", type: "P（工程）", owner: "王組長", time: "06-16 09:30" },
+        { id: "WO-20260616-003", customer: "中環廣場", contact: "周先生", area: "1區", status: "待審批", type: "M（保養）", owner: "李組長", time: "06-16 10:10" },
+        { id: "WO-20260616-004", customer: "機場貨運中心", contact: "鄭小姐", area: "3區", status: "待完工確認", type: "P（工程）", owner: "王組長", time: "06-16 11:00" },
+        { id: "WO-20260616-005", customer: "九龍灣工業大廈", contact: "林先生", area: "2區", status: "已完成", type: "M（保養）", owner: "周師傅", time: "06-16 11:45" },
+        { id: "WO-20260617-001", customer: "荃灣住宅群", contact: "曾小姐", area: "3區", status: "待分派", type: "M（保養）", owner: "待安排", time: "06-17 09:15" },
+        { id: "WO-20260617-002", customer: "數碼港", contact: "蘇先生", area: "1區", status: "處理中", type: "M+P（保養＋工程）", owner: "李組長", time: "06-17 10:00" }
+      ]
+    };
+
+    function componentDemoRows() {
+      const state = componentDemoState;
+      const f = state.filters[state.view];
+      const keyword = String(f.keyword || "").toLowerCase();
+      if (state.view === "customers") {
+        return state.customers.filter(c =>
+          (f.type === "全部" || c.type === f.type)
+          && (f.area === "全部" || c.area === f.area)
+          && (f.level === "全部" || c.level === f.level)
+          && (!keyword || `${c.id} ${c.name} ${c.nameEn} ${c.contact} ${c.phone}`.toLowerCase().includes(keyword))
+        );
+      }
+      return state.calls.filter(c =>
+        (f.status === "全部" || c.status === f.status)
+        && (f.type === "全部" || c.type === f.type)
+        && (f.area === "全部" || c.area === f.area)
+        && (f.owner === "全部" || c.owner === f.owner)
+        && (!keyword || `${c.id} ${c.customer} ${c.contact}`.toLowerCase().includes(keyword))
+      );
+    }
+
+    function renderComponentDemo() {
+      const body = document.querySelector("[data-cdp-body]");
+      if (!body) return;
+      const state = componentDemoState;
+      const rows = componentDemoRows();
+      const pages = Math.max(1, Math.ceil(rows.length / state.pageSize));
+      if (state.page > pages) state.page = pages;
+      const start = (state.page - 1) * state.pageSize;
+      const pageRows = rows.slice(start, start + state.pageSize);
+      const f = state.filters[state.view];
+      const select = (label, key, options) => `<div class="wo-filter-group"><label>${label}</label><select data-cdp-filter="${key}">${options.map(v => `<option value="${escapeHtml(v)}" ${f[key] === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>`;
+      const keywordField = `<div class="wo-filter-group"><label>關鍵詞搜索</label><div class="wo-search-wrap"><input data-cdp-keyword value="${escapeHtml(f.keyword || "")}" placeholder="${state.view === "customers" ? "客戶編號／名稱／聯絡人／電話" : "CALL編號／客戶／聯繫人"}"><button class="primary-btn wo-search-btn" type="button" data-cdp-search>搜索</button><button class="secondary-btn wo-search-btn" type="button" data-cdp-reset>重置</button></div></div>`;
+      const filterPanel = state.view === "customers"
+        ? `<div class="component-call-filter-panel customer-filter-panel"><div class="component-filter-grid">${select("客戶類型", "type", ["全部", "政府", "私人"])}${select("區域", "area", ["全部", "1區", "2區", "3區"])}${select("客戶級別", "level", ["全部", "VIP", "重要", "普通"])}${keywordField}</div></div>`
+        : `<div class="component-call-filter-panel"><div class="component-filter-grid">${select("CALL狀態", "status", ["全部", "待分派", "待確認", "待審批", "待處理", "處理中", "待完工確認", "已完成"])}${select("CALL類型", "type", ["全部", "M（保養）", "P（工程）", "M+P（保養＋工程）"])}${select("區域", "area", ["全部", "1區", "2區", "3區"])}${select("負責人", "owner", ["全部", "李組長", "王組長", "周師傅", "待安排"])}${keywordField}</div></div>`;
+      const table = state.view === "customers"
+        ? `<div class="data-table-wrap"><table class="wo-table"><thead><tr><th>客戶編號</th><th>客戶名稱</th><th>客戶類型</th><th>區域</th><th>級別</th><th>聯絡人</th><th>電話</th><th style="text-align:center;">操作</th></tr></thead><tbody>${pageRows.map(c => `<tr><td><button class="wo-id-link" type="button" data-cdp-kind="customers" data-cdp-detail="${c.id}">${escapeHtml(c.id)}</button></td><td><strong>${escapeHtml(c.name)}</strong><span class="um-detail-sub">${escapeHtml(c.nameEn)}</span></td><td>${escapeHtml(c.type)}</td><td>${escapeHtml(c.area)}</td><td>${escapeHtml(c.level)}</td><td>${escapeHtml(c.contact)}</td><td>${escapeHtml(c.phone)}</td><td style="text-align:center;"><button class="secondary-btn" type="button" data-cdp-kind="customers" data-cdp-detail="${c.id}">查看詳情</button></td></tr>`).join("") || `<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted);">暫無符合條件的記錄</td></tr>`}</tbody></table></div>`
+        : `<div class="data-table-wrap"><table class="wo-table"><thead><tr><th>CALL編號</th><th>客戶</th><th>聯繫人</th><th>區域</th><th>CALL類型</th><th>CALL狀態</th><th>負責人</th><th style="text-align:center;">操作</th></tr></thead><tbody>${pageRows.map(c => `<tr><td><button class="wo-id-link" type="button" data-cdp-kind="calls" data-cdp-detail="${c.id}">${escapeHtml(c.id)}</button></td><td><strong>${escapeHtml(c.customer)}</strong></td><td>${escapeHtml(c.contact)}</td><td>${escapeHtml(c.area)}</td><td>${escapeHtml(c.type)}</td><td>${statusBadge(c.status)}</td><td>${escapeHtml(c.owner)}</td><td style="text-align:center;"><button class="secondary-btn" type="button" data-cdp-kind="calls" data-cdp-detail="${c.id}">查看詳情</button></td></tr>`).join("") || `<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted);">暫無符合條件的記錄</td></tr>`}</tbody></table></div>`;
+      const pageButtons = Array.from({ length: pages }, (_, i) => i + 1).map(p => `<button type="button" data-cdp-page="${p}" class="${p === state.page ? "active" : ""}" ${p === state.page ? 'aria-current="page"' : ""}>${p}</button>`).join("");
+      const pagination = `<div class="um-pagination component-pagination-preview"><span class="component-pagination-summary">共 ${rows.length} 條記錄，每頁 ${state.pageSize} 條，第 <strong>${state.page}/${pages}</strong> 頁</span><div class="um-pg-btns"><button type="button" data-cdp-page="${state.page - 1}" ${state.page <= 1 ? "disabled" : ""} aria-label="上一頁">‹</button>${pageButtons}<button type="button" data-cdp-page="${state.page + 1}" ${state.page >= pages ? "disabled" : ""} aria-label="下一頁">›</button></div></div>`;
+      body.innerHTML = `${filterPanel}${table}${pagination}`;
+    }
+
+    function openComponentDemoDetail(kind, id) {
+      const state = componentDemoState;
+      const row = (kind === "calls" ? state.calls : state.customers).find(item => item.id === id);
+      if (!row) return;
+      const fields = kind === "calls"
+        ? [["CALL 編號", row.id], ["客戶", row.customer], ["聯絡人", row.contact], ["區域", row.area], ["CALL 類型", row.type], ["狀態", row.status], ["負責人", row.owner], ["更新時間", row.time]]
+        : [["客戶編號", row.id], ["客戶名稱", row.name], ["英文名稱", row.nameEn], ["客戶類型", row.type], ["區域", row.area], ["級別", row.level], ["聯絡人", row.contact], ["電話", row.phone]];
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `<div class="um-modal" style="max-width:520px;"><div class="um-modal-head"><h2>${kind === "calls" ? "CALL 詳情示例" : "客戶詳情示例"}</h2><button class="um-modal-close" type="button" data-close-demo>×</button></div><div style="padding:20px 24px;"><div class="info-list">${fields.map(([label, value]) => infoRow(label, value)).join("")}</div></div><div style="display:flex;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--line);"><button class="ghost-btn" type="button" data-close-demo>關閉</button></div></div>`;
+      document.body.appendChild(modal);
+      modal.querySelectorAll("[data-close-demo]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
+      modal.addEventListener("click", event => { if (event.target === modal) modal.remove(); });
+    }
+
+    function bindComponentLibrary() {
+      const lib = document.querySelector("[data-component-library]");
+      if (!lib || lib.dataset.demoBound) return;
+      lib.dataset.demoBound = "1";
+      lib.addEventListener("click", event => {
+        const cvfView = event.target.closest("[data-cvf-view]");
+        if (cvfView) {
+          const view = cvfView.dataset.cvfView;
+          lib.querySelectorAll("[data-cvf-view]").forEach(btn => {
+            const active = btn.dataset.cvfView === view;
+            btn.classList.toggle("active", active);
+            btn.setAttribute("aria-selected", active ? "true" : "false");
+          });
+          lib.querySelectorAll("[data-cvf-panel]").forEach(panel => { panel.hidden = panel.dataset.cvfPanel !== view; });
+          return;
+        }
+        const cdpView = event.target.closest("[data-cdp-view]");
+        if (cdpView) {
+          componentDemoState.view = cdpView.dataset.cdpView;
+          componentDemoState.page = 1;
+          lib.querySelectorAll("[data-cdp-view]").forEach(btn => {
+            const active = btn.dataset.cdpView === componentDemoState.view;
+            btn.classList.toggle("active", active);
+            btn.setAttribute("aria-selected", active ? "true" : "false");
+          });
+          renderComponentDemo();
+          return;
+        }
+        if (event.target.closest("[data-cdp-search]")) {
+          const input = lib.querySelector("[data-cdp-keyword]");
+          componentDemoState.filters[componentDemoState.view].keyword = input ? input.value.trim() : "";
+          componentDemoState.page = 1;
+          renderComponentDemo();
+          return;
+        }
+        if (event.target.closest("[data-cdp-reset]")) {
+          const filters = componentDemoState.filters[componentDemoState.view];
+          Object.keys(filters).forEach(key => { filters[key] = key === "keyword" ? "" : "全部"; });
+          componentDemoState.page = 1;
+          renderComponentDemo();
+          return;
+        }
+        const pageBtn = event.target.closest("[data-cdp-page]");
+        if (pageBtn) {
+          componentDemoState.page = Number(pageBtn.dataset.cdpPage) || 1;
+          renderComponentDemo();
+          return;
+        }
+        const detailBtn = event.target.closest("[data-cdp-detail]");
+        if (detailBtn) {
+          openComponentDemoDetail(detailBtn.dataset.cdpKind, detailBtn.dataset.cdpDetail);
+          return;
+        }
+        if (event.target.closest("[data-cdp-create]")) {
+          toast("組件示例：新增按鈕（不寫入資料）");
+        }
+      });
+      lib.addEventListener("change", event => {
+        const filter = event.target.closest("[data-cdp-filter]");
+        if (!filter) return;
+        componentDemoState.filters[componentDemoState.view][filter.dataset.cdpFilter] = filter.value;
+        componentDemoState.page = 1;
+        renderComponentDemo();
+      });
+      renderComponentDemo();
+    }
+
     function renderComponentLibrary() {
       return `
         <section class="page active">
-          <div class="card component-library">
+          <div class="card component-library" data-component-library>
             <div class="card-head">
               <div>
                 <h2>組件庫</h2>
@@ -14168,12 +14356,12 @@
             <section class="component-section">
               <h3>CALL 管理視圖與篩選</h3>
               <p>CALL 管理固定提供「CALL視圖」與「客戶視圖」；兩個視圖沿用同一套欄位標籤、搜索、重置及新增操作規格。</p>
-              <div class="component-call-preview">
-                <div class="component-call-view-block">
-                  <div class="wo-view-tabs" role="tablist" aria-label="CALL管理視圖">
-                    <button class="wo-view-tab active" type="button" role="tab" aria-selected="true">CALL視圖</button>
-                    <button class="wo-view-tab" type="button" role="tab" aria-selected="false">客戶視圖</button>
-                  </div>
+              <div class="component-call-preview" data-component-call-views>
+                <div class="wo-view-tabs" role="tablist" aria-label="CALL管理視圖">
+                  <button class="wo-view-tab active" type="button" role="tab" aria-selected="true" data-cvf-view="calls">CALL視圖</button>
+                  <button class="wo-view-tab" type="button" role="tab" aria-selected="false" data-cvf-view="customers">客戶視圖</button>
+                </div>
+                <div class="component-call-view-block" data-cvf-panel="calls">
                   <div class="component-call-filter-panel">
                     <div class="component-call-view-label"><span>CALL視圖篩選</span><span class="chip">工作隊列</span></div>
                     <div class="component-filter-grid">
@@ -14188,7 +14376,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="component-call-view-block">
+                <div class="component-call-view-block" data-cvf-panel="customers" hidden>
                   <div class="component-call-view-label"><span>客戶視圖篩選</span><span class="chip">客戶主檔</span></div>
                   <div class="component-call-filter-panel customer-filter-panel">
                     <div class="component-filter-grid">
@@ -14217,48 +14405,17 @@
             <section class="component-section">
               <h3>CALL 管理完整資料頁</h3>
               <p>資料頁不重複顯示頁面標題；視圖 Tab 與右側操作同列，下面依序放置篩選、資料表與分頁。</p>
-              <div class="component-data-page-preview" aria-label="CALL管理完整資料頁組件預覽">
+              <div class="component-data-page-preview" data-component-data-page aria-label="CALL管理完整資料頁組件預覽">
                 <div class="component-data-page-toolbar">
                   <div class="wo-view-tabs" role="tablist" aria-label="CALL資料頁視圖">
-                    <button class="wo-view-tab" type="button" role="tab" aria-selected="false">CALL視圖</button>
-                    <button class="wo-view-tab active" type="button" role="tab" aria-selected="true">客戶視圖</button>
+                    <button class="wo-view-tab active" type="button" role="tab" aria-selected="true" data-cdp-view="customers">客戶視圖</button>
+                    <button class="wo-view-tab" type="button" role="tab" aria-selected="false" data-cdp-view="calls">CALL視圖</button>
                   </div>
                   <div class="component-data-page-actions">
-                    <button class="primary-btn" type="button">+ 新增客戶</button>
+                    <button class="primary-btn" type="button" data-cdp-create>+ 新增客戶</button>
                   </div>
                 </div>
-                <div class="component-data-page-body">
-                  <div class="component-call-filter-panel customer-filter-panel">
-                    <div class="component-filter-grid">
-                      <div class="wo-filter-group"><label>客戶類型</label><select><option>全部</option><option>政府</option><option>私人</option></select></div>
-                      <div class="wo-filter-group"><label>區域</label><select><option>全部</option><option>1區</option><option>2區</option><option>3區</option></select></div>
-                      <div class="wo-filter-group"><label>客戶級別</label><select><option>全部</option><option>VIP</option><option>重要</option><option>普通</option></select></div>
-                      <div class="wo-filter-group"><label>關鍵詞搜索</label><div class="wo-search-wrap"><input placeholder="客戶編號／名稱／聯絡人／電話"><button class="primary-btn wo-search-btn" type="button">搜索</button><button class="secondary-btn wo-search-btn" type="button">重置</button></div></div>
-                    </div>
-                  </div>
-                  <div class="data-table-wrap">
-                    <table class="wo-table">
-                      <thead><tr><th>客戶編號</th><th>客戶名稱</th><th>客戶類型</th><th>區域</th><th>級別</th><th>聯絡人</th><th>電話</th><th style="text-align:center;">操作</th></tr></thead>
-                      <tbody>
-                        <tr><td><button class="wo-id-link" type="button">CUST–0001</button></td><td><strong>港島商業中心</strong><span class="um-detail-sub">HK Commercial Center</span></td><td>私人</td><td>1區</td><td>VIP</td><td>陳先生</td><td>+852 9123 4567</td><td style="text-align:center;"><button class="secondary-btn" type="button">查看詳情</button></td></tr>
-                        <tr><td><button class="wo-id-link" type="button">CUST–0002</button></td><td><strong>九龍國際廣場</strong><span class="um-detail-sub">Kowloon International Plaza</span></td><td>私人</td><td>2區</td><td>重要</td><td>李小姐</td><td>+852 9234 5678</td><td style="text-align:center;"><button class="secondary-btn" type="button">查看詳情</button></td></tr>
-                        <tr><td><button class="wo-id-link" type="button">CUST–0003</button></td><td><strong>新界花園住宅</strong><span class="um-detail-sub">NT Garden Residence</span></td><td>私人</td><td>3區</td><td>普通</td><td>張女士</td><td>+852 9345 6789</td><td style="text-align:center;"><button class="secondary-btn" type="button">查看詳情</button></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="um-pagination component-pagination-preview" aria-label="CALL資料頁分頁預覽">
-                    <span class="component-pagination-summary">共 12 條記錄，每頁
-                      <select aria-label="每頁筆數"><option>10</option><option>20</option><option>50</option></select>
-                      條，第 <strong>1/2</strong> 頁
-                    </span>
-                    <div class="um-pg-btns">
-                      <button type="button" disabled aria-label="上一頁">‹</button>
-                      <button type="button" class="active" aria-current="page">1</button>
-                      <button type="button">2</button>
-                      <button type="button" aria-label="下一頁">›</button>
-                    </div>
-                  </div>
-                </div>
+                <div class="component-data-page-body" data-cdp-body></div>
               </div>
             </section>
 
@@ -27425,13 +27582,21 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       const filters = state.crCallFilters || { status: "全部", type: "全部" };
       const statusOptions = ["待分派", "待確認", "待審批", "待處理", "處理中", "待完工確認", "已完成"];
       const areaTickets = tickets.filter(t => t.status !== "已取消" && (!area || t.area === area));
-      const types = [...new Set(areaTickets.map(t => t.type).filter(Boolean))].sort();
+      // CALL 類型選項只跟隨字典管理；工單上的舊類型字樣不作為篩選項
+      const typeOptions = (dictData["Call類型"] || []).filter(d => isEnabled(d.status)).map(d => String(d.name || d.code || "").trim()).filter(Boolean);
+      if (!typeOptions.length) typeOptions.push(...TYPES);
       if (!statusOptions.includes(filters.status) && filters.status !== "全部") filters.status = "全部";
-      if (!types.includes(filters.type) && filters.type !== "全部") filters.type = "全部";
+      if (!typeOptions.includes(filters.type) && filters.type !== "全部") filters.type = "全部";
+      const typeCode = name => categoryCodeFromCallType(name) || name;
+      const displayCallType = ticket => {
+        const code = callTicketCategory(ticket);
+        if (!code || code === "—") return ticket.type || "—";
+        return callTypeNameFromCategory(code) || ticket.type || "—";
+      };
       const search = (state.crCallSearch || "").trim().toLowerCase();
       const filtered = areaTickets
         .filter(t => filters.status === "全部" || t.status === filters.status)
-        .filter(t => filters.type === "全部" || t.type === filters.type)
+        .filter(t => filters.type === "全部" || callTicketCategory(t) === typeCode(filters.type))
         .filter(t => !search || [t.id, t.customer, t.contact, t.phone, t.desc, t.type].join(" ").toLowerCase().includes(search))
         .sort((a, b) => (b.updatedAt || b.createdAt || "").localeCompare(a.updatedAt || a.createdAt || ""));
       const selectOptions = (values, selected) => values.map(value => `<option value="${escapeHtml(value)}" ${selected === value ? "selected" : ""}>${escapeHtml(value)}</option>`).join("");
@@ -27445,11 +27610,11 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
             <input type="search" placeholder="搜尋 CALL 編號／客戶／聯絡人" value="${escapeHtml(state.crCallSearch || "")}" data-cr-call-search>
             <div class="cr-call-filter-row">
               <select data-cr-call-filter="status" aria-label="狀態"><option value="全部">全部狀態</option>${selectOptions(statusOptions, filters.status)}</select>
-              <select data-cr-call-filter="type" aria-label="CALL 類型"><option value="全部">全部類型</option>${selectOptions(types, filters.type)}</select>
+              <select data-cr-call-filter="type" aria-label="CALL 類型"><option value="全部">全部類型</option>${selectOptions(typeOptions, filters.type)}</select>
             </div>
           </section>
           <div class="cr-call-card-list">
-            ${filtered.length ? filtered.map(t => `<article class="cr-call-card"><div class="cr-call-card-head"><strong>${escapeHtml(t.id)}</strong><span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span></div><div class="cr-call-card-customer">${escapeHtml(t.customer)}</div><div class="cr-call-card-meta"><span>${escapeHtml(t.type)}</span><span>${escapeHtml(t.area)}</span><span>${escapeHtml(t.master || t.owner || "尚未安排")}</span><span>${escapeHtml(t.updatedAt || t.createdAt || "-")}</span></div><div class="cr-call-card-desc">${escapeHtml(t.desc || "暫無內容摘要")}</div><div class="mobile-actions"><button type="button" class="secondary-btn" data-mobile-open="${t.id}">查看工單</button></div></article>`).join("") : '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的區域 CALL</div>'}
+            ${filtered.length ? filtered.map(t => `<article class="cr-call-card"><div class="cr-call-card-head"><strong>${escapeHtml(t.id)}</strong><span class="${statusClass(t.status)}">${escapeHtml(t.status)}</span></div><div class="cr-call-card-customer">${escapeHtml(t.customer)}</div><div class="cr-call-card-meta"><span>${escapeHtml(displayCallType(t))}</span><span>${escapeHtml(t.area)}</span><span>${escapeHtml(t.master || t.owner || "尚未安排")}</span><span>${escapeHtml(t.updatedAt || t.createdAt || "-")}</span></div><div class="cr-call-card-desc">${escapeHtml(t.desc || "暫無內容摘要")}</div><div class="mobile-actions"><button type="button" class="secondary-btn" data-mobile-open="${t.id}">查看工單</button></div></article>`).join("") : '<div class="mobile-card" style="text-align:center;color:var(--muted);">暫無符合條件的區域 CALL</div>'}
           </div>
         </div>`;
     }
@@ -29055,6 +29220,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     }
 
     function bindEvents() {
+      if (document.querySelector("[data-component-library]")) bindComponentLibrary();
       document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => {
         if (btn.dataset.view === "mobile") {
           // 登入後角色固定，主管、師傅和 CR 可進入各自的移動端工作台

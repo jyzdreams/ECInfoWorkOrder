@@ -69,7 +69,8 @@ class SelectOverlay {
     const below=top+height-a.bottom-12,above=a.top-top-12;
     const up=below<180&&above>below;
     const space=Math.max(70,up?above:below);
-    const rows=Math.min(260,Math.max(40,space-search-actions-10));
+    const maxRows=this.config.maxRows;
+    const rows=maxRows?Math.min(maxRows*40+8,Math.max(40,space-search-actions-10)):Math.min(260,Math.max(40,space-search-actions-10));
     this.popup.querySelector('.select-options').style.maxHeight=rows+'px';
     const w=Math.min(Math.max(a.width,220),width-24);
     this.popup.style.width=w+'px';
@@ -99,10 +100,11 @@ export class SearchableSelect extends SingleSelect {
 export class MultiSelect extends SingleSelect {
   constructor(config){super(config);this.config.multiple=true;}
 }
+function callTypeOptions(){let list=[];try{const d=JSON.parse(localStorage.getItem('ecinfo_dict_data')||'{}');const items=d['Call類型']||d['報價類別']||[];list=items.filter(x=>!x.status||/啟用|啓用/.test(x.status)).map(x=>({value:String(x.code||x.name||'').trim(),label:String(x.name||x.code||'').trim()}));}catch{}list=list.filter(o=>o.value&&o.label);if(!list.length)list=[{value:'P',label:'P（工程）'},{value:'M',label:'M（保養）'},{value:'M+P',label:'M+P（保養＋工程）'}];const seen=new Set();return [{value:'全部',label:'全部'},...list.filter(o=>!seen.has(o.value)&&seen.add(o.value))];}
 export class FilterDropdown extends SingleSelect {
-  static fields(value){const f=normalizeFilter(value);return `<div class="filter-fields"><label>業務分類<select data-filter-field="category">${['全部','P','M','M+P'].map(v=>`<option ${f.category===v?'selected':''}>${v}</option>`).join('')}</select></label><label>工單狀態<select data-filter-field="status">${['全部','待確認','處理中','已完成'].map(v=>`<option ${f.status===v?'selected':''}>${v}</option>`).join('')}</select></label></div><button type="button" class="filter-clear" data-ui="clear-filters">清除篩選</button>`;}
+  static fields(value){const f=normalizeFilter(value);return `<div class="filter-fields"><label>業務分類<select data-filter-field="category">${callTypeOptions().map(o=>`<option value="${o.value}" ${f.category===o.value?'selected':''}>${o.label}</option>`).join('')}</select></label><label>工單狀態<select data-filter-field="status">${['全部','待確認','處理中','已完成'].map(v=>`<option ${f.status===v?'selected':''}>${v}</option>`).join('')}</select></label></div><button type="button" class="filter-clear" data-ui="clear-filters">清除篩選</button>`;}
 }
-export function normalizeFilter(value){return typeof value==='object'&&value?{category:value.category||'全部',status:value.status||'全部'}:{category:['P','M','M+P'].includes(value)?value:'全部',status:['待確認','處理中','已完成'].includes(value)?value:'全部'};}
+export function normalizeFilter(value){if(typeof value==='object'&&value)return{category:value.category||'全部',status:value.status||'全部'};const v=String(value||'');const statuses=['待確認','處理中','已完成'];return{category:v&&v!=='全部'&&!statuses.includes(v)?v:'全部',status:statuses.includes(v)?v:'全部'};}
 export class DateRangePicker {
   constructor({element,value={},onChange=()=>{}}){this.element=element;this.onChange=onChange;element.innerHTML=`<div class="date-range"><label>開始日期<input type="date" data-range="start" value="${esc(value.start||'')}"></label><label>結束日期<input type="date" data-range="end" value="${esc(value.end||'')}"></label></div><p class="error" role="alert"></p>`;element.addEventListener('change',()=>this.update());}
   update(){const start=this.element.querySelector('[data-range=start]').value,end=this.element.querySelector('[data-range=end]').value;const error=start&&end&&start>end?'結束日期不可早於開始日期':'';this.element.querySelector('[role=alert]').textContent=error;if(!error)this.onChange({start,end});}
