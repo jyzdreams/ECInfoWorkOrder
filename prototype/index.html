@@ -2858,6 +2858,18 @@
       .user-card { min-width: 160px; }
       .phone { height: calc(100vh - 120px); border-width: 6px; border-radius: 26px; }
     }
+    @media (max-width: 640px) {
+      .excel-import-grid { grid-template-columns: 1fr !important; }
+      .excel-import-grid > div:first-child { display: flex; flex-wrap: wrap; gap: 6px; }
+      .excel-import-grid h4 { width: 100%; }
+      .excel-import-grid .primary-btn { width: 100%; white-space: normal; }
+      .component-spec-grid, .component-card-grid, .component-filter-grid, .component-status-grid { grid-template-columns: 1fr !important; }
+      .component-library { overflow-x: hidden; }
+      .component-library * { min-width: 0; }
+    }
+    @media (max-width: 480px) {
+      .dashboard-stat-card .stat-label, .dashboard-stat-card .stat-note { word-break: keep-all; overflow-wrap: normal; }
+    }
 
     /* ===== User Management Module ===== */
     .um-layout {
@@ -4950,6 +4962,81 @@
     /* 批量按鈕 disabled 狀態 */
     .fin-batch-toolbar button:disabled { opacity:0.5; cursor:not-allowed; }
 
+    /* ===== 會計發票列印模版（依紙質發票樣式：A4 直向、左上角 logo）===== */
+    .ec-inv-page {
+      width: 210mm; height: 297mm; min-height: 297mm;
+      padding: 11mm 13mm 8mm;
+      box-sizing: border-box;
+      background: #fff; color: #000;
+      font-family: Arial, Helvetica, "Microsoft JhengHei", sans-serif;
+      display: flex; flex-direction: column;
+    }
+    .ec-inv-header { display:flex; justify-content:space-between; align-items:flex-start; }
+    .ec-inv-logo { width:62mm; }
+    .ec-inv-logo img { width:100%; display:block; }
+    .ec-inv-title { width:72mm; padding-top:1mm; }
+    .ec-inv-title .arc { display:block; width:46mm; margin-left:-1mm; }
+    .ec-inv-title h1 { margin:0; font-size:27pt; line-height:1; letter-spacing:2.4pt; font-weight:700; }
+    .ec-inv-meta { margin-top:3mm; font-size:9.5pt; line-height:1.55; }
+    .ec-inv-meta .row { display:flex; }
+    .ec-inv-meta .k { width:30mm; }
+    .ec-inv-meta .v { flex:1; }
+    .ec-inv-reprint { color:#b91c1c; font-weight:700; margin-left:2mm; }
+    .ec-inv-billto { margin-top:7mm; width:96mm; border:1px solid #000; }
+    .ec-inv-billto .label { padding:1.4mm 2mm; background:#d5d5d5; font-size:9.5pt; font-weight:700; }
+    .ec-inv-billto .body { min-height:20mm; padding:1.8mm 2mm; font-size:9.5pt; line-height:1.5; }
+    .ec-inv-info { margin-top:8mm; width:100%; border-collapse:collapse; table-layout:fixed; font-size:9.5pt; }
+    .ec-inv-info th, .ec-inv-info td { border:1px solid #000; padding:1.3mm 2mm; text-align:center; font-weight:400; }
+    .ec-inv-info th { background:#d5d5d5; font-weight:700; white-space:nowrap; }
+    .ec-inv-info td { height:8mm; }
+    .ec-inv-items { margin-top:6mm; width:100%; border-collapse:collapse; table-layout:fixed; font-size:9.5pt; }
+    .ec-inv-items th, .ec-inv-items td { border:1px solid #000; padding:1.4mm 2mm; }
+    .ec-inv-items thead th { background:#d5d5d5; font-weight:700; text-align:center; }
+    .ec-inv-items .c-item { width:12mm; }
+    .ec-inv-items .c-price { width:26mm; }
+    .ec-inv-items .c-qty { width:22mm; }
+    .ec-inv-items .c-amount { width:28mm; }
+    .ec-inv-items td.num { text-align:right; white-space:nowrap; }
+    .ec-inv-items td.desc { vertical-align:top; white-space:pre-line; line-height:1.5; }
+    .ec-inv-items tbody tr { height:12mm; }
+    .ec-inv-totals { width:100%; border-collapse:collapse; table-layout:fixed; font-size:9.5pt; margin-top:-1px; }
+    .ec-inv-totals th, .ec-inv-totals td { border:1px solid #000; padding:1.3mm 2mm; }
+    .ec-inv-totals th { background:#d5d5d5; font-weight:700; text-align:left; line-height:1.65; }
+    .ec-inv-totals td { text-align:right; vertical-align:top; white-space:nowrap; line-height:1.65; }
+    .ec-inv-totals .blank { border:none; }
+    .ec-inv-sign { margin:6mm 0 0 auto; width:78mm; text-align:center; font-size:9.5pt; }
+    .ec-inv-sign .l1 { font-style:italic; }
+    .ec-inv-sign .l2 { font-style:italic; font-weight:700; margin-top:1mm; }
+    .ec-inv-sign .seal {
+      width:20mm; height:20mm; margin:3mm auto 0;
+      border:1px dashed #9a9a9a; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      color:#9a9a9a; font-size:7.5pt; font-style:normal;
+    }
+    .ec-inv-footer { margin-top:auto; padding-top:6mm; font-size:9pt; line-height:1.5; }
+    .ec-inv-footer .cheque { margin-bottom:4mm; }
+    .ec-inv-footer .cheque p { margin:0; }
+    .ec-inv-footer .addr { margin-bottom:3mm; }
+    .ec-inv-footer .contact { display:flex; flex-wrap:wrap; }
+    .ec-inv-footer .contact .cell { width:50%; display:flex; margin-top:1mm; }
+    .ec-inv-footer .contact .k { width:20mm; }
+    /* 列印預覽：等比縮小 A4 頁面，避免模態框橫向滾動 */
+    .ec-inv-preview-wrap { display:flex; flex-direction:column; gap:14px; align-items:center; background:#e9edf2; padding:14px; border-radius:10px; }
+    .ec-inv-scaler { width:calc(210mm * 0.66); height:calc(297mm * 0.66); overflow:hidden; }
+    .ec-inv-scaler .ec-inv-page { transform:scale(0.66); transform-origin:top left; box-shadow:0 2px 10px rgba(0,0,0,.18); }
+    /* 列印用根節點：屏幕隱藏，列印時只輸出這裡的發票頁 */
+    #ec-inv-print-root { display:none; }
+    @page { size:A4 portrait; margin:0; }
+    @media print {
+      body.ec-inv-printing { background:#fff !important; }
+      body.ec-inv-printing > *:not(#ec-inv-print-root) { display:none !important; }
+      #ec-inv-print-root { display:block !important; }
+      #ec-inv-print-root .ec-inv-page { box-shadow:none !important; page-break-after:always; break-after:page; }
+      #ec-inv-print-root .ec-inv-page:last-child { page-break-after:auto; break-after:auto; }
+      #ec-inv-print-root .ec-inv-items thead { display:table-header-group; }
+      #ec-inv-print-root .ec-inv-items tr { page-break-inside:avoid; }
+    }
+
     /* 統一清單表格：所有業務表格沿用 CALL 管理的資料密度與操作節奏 */
     .data-table-wrap,
     .pc-table-wrapper {
@@ -6323,7 +6410,8 @@
         subtitle: "維護系統可使用的 Call 類型（與報價類別一致）。",
         fields: [
           { key: "name", label: "名稱", required: true },
-          { key: "code", label: "編碼" }
+          { key: "code", label: "編碼" },
+          { key: "status", label: "狀態", type: "switch" }
         ],
         tableColumns: [
           { key: "id", label: "編號", width: "80px" },
@@ -8672,7 +8760,8 @@
         type: "全部",
         area: "全部",
         owner: "全部",
-        keyword: ""
+        keyword: "",
+        quick: ""
       },
       modalOpen: false,
       modalMode: "create", // "create" or "edit"
@@ -10135,6 +10224,8 @@
             { key: "dictionary", label: "字典管理" },
             { key: "customer", label: "客戶管理" },
             { key: "user", label: "用戶管理" },
+            { key: "server", label: "服務器空間" },
+            { key: "excelImport", label: "Excel 導入" },
             { key: "components", label: "組件庫" }
           ];
           const activeTab = settingsTabs.find(t => t.key === state.settingsTab);
@@ -10317,11 +10408,11 @@
           </div>
           <div class="grid cols-3" style="margin-top:14px;">
             <div class="card">
-              <div class="card-head"><h2>今日待辦</h2><button class="secondary-btn" data-page-target="list">查看列表</button></div>
+              <div class="card-head"><h2>今日待辦</h2><button class="secondary-btn" data-dashboard-quick="todo">查看列表</button></div>
               ${todo.map(t => `<div class="ticket-mini" data-call-detail="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button" data-call-detail="${t.id}">${t.id}</button> <span class="${statusClass(t.status)}">${t.status}</span></div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
-              <div class="card-head"><h2>異常CALL</h2><button class="secondary-btn" data-page-target="list">查看列表</button></div>
+              <div class="card-head"><h2>異常CALL</h2><button class="secondary-btn" data-dashboard-quick="focus">查看列表</button></div>
               ${focus.map(t => `<div class="ticket-mini" data-call-detail="${t.id}" style="cursor:pointer;"><div><button class="link-btn" type="button" data-call-detail="${t.id}">${t.id}</button> ${t.urgent ? '<span class="tag urgent">緊急</span>' : '<span class="tag">需關注</span>'}</div><strong>${escapeHtml(t.customer)}</strong><p>${escapeHtml(t.rejectReason || t.desc)}</p></div>`).join("")}
             </div>
             <div class="card">
@@ -10685,6 +10776,8 @@
       if (f.status !== normalizedStatusFilter) f.status = normalizedStatusFilter;
       const filtered = tickets.filter(t => {
         if (!canReadCurrentCRArea(t.area)) return false;
+        if (f.quick === "todo" && !["待分派", "待確認", "待處理"].includes(t.status)) return false;
+        if (f.quick === "focus" && !(t.urgent || t.rejectReason || (t.tags || []).includes("無法完成示例"))) return false;
         return (normalizedStatusFilter === "全部" || callManagementStatusLabel(t) === normalizedStatusFilter)
           && (f.type === "全部" || (selectedCategory ? callTicketCategory(t) === selectedCategory : t.type === f.type))
           && (f.area === "全部" || t.area === f.area)
@@ -10841,7 +10934,9 @@
       if (workOrderState.callPage > totalPages) workOrderState.callPage = totalPages;
       const start = (workOrderState.callPage - 1) * workOrderState.callPageSize;
       const paginated = filtered.slice(start, start + workOrderState.callPageSize);
+      const quickLabel = workOrderState.callFilters.quick === "todo" ? "今日待辦" : workOrderState.callFilters.quick === "focus" ? "異常 CALL" : "";
       return `${renderCallFilters()}
+        ${quickLabel ? `<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;margin-bottom:10px;background:var(--primary-soft);border-radius:8px;font-size:13px;">快速篩選：<strong>${quickLabel}</strong><button class="link-btn" type="button" data-clear-quick-filter>清除</button></div>` : ""}
         <div class="data-table-wrap">
         <table class="wo-table">
           <thead><tr>${renderCallSortHeader("id", "CALL編號")}${renderCallSortHeader("createdAt", "創建時間")}${renderCallSortHeader("customer", "客戶名稱")}${renderCallSortHeader("category", "類型")}${renderCallSortHeader("area", "區域")}${renderCallSortHeader("status", "狀態")}${renderCallSortHeader("owner", "負責人")}<th style="text-align:center;">操作</th></tr></thead>
@@ -14468,6 +14563,31 @@
       `;
     }
 
+    // 切換服務商時同步區域／Endpoint／Bucket 及摘要卡
+    const SERVER_PROVIDER_PRESETS = {
+      "阿里雲 OSS": { region: "oss-cn-hongkong", endpoint: "oss-cn-hongkong.aliyuncs.com", bucket: "ecinfo-prod" },
+      "騰訊雲 COS": { region: "ap-hongkong", endpoint: "cos.ap-hongkong.myqcloud.com", bucket: "ecinfo-prod-1250000000" },
+      "AWS S3": { region: "ap-east-1", endpoint: "s3.ap-east-1.amazonaws.com", bucket: "ecinfo-prod" },
+      "Azure Blob": { region: "eastasia", endpoint: "https://ecinfo.blob.core.windows.net", bucket: "ecinfo-prod" },
+      "本地服務器": { region: "local", endpoint: "http://127.0.0.1:9000", bucket: "ecinfo-local" }
+    };
+    function applyServerProviderPreset() {
+      const provider = document.getElementById("serverProvider")?.value || "";
+      const preset = SERVER_PROVIDER_PRESETS[provider];
+      if (!preset) return;
+      const setValue = (id, value) => { const el = document.getElementById(id); if (el) el.value = value; };
+      setValue("serverRegion", preset.region);
+      setValue("serverEndpoint", preset.endpoint);
+      setValue("serverBucket", preset.bucket);
+      document.querySelectorAll(".pc-card").forEach(card => {
+        if (card.querySelector("h3")?.textContent.trim() !== "服務商") return;
+        const metric = card.querySelector(".pc-metric");
+        const label = card.querySelector(".pc-label");
+        if (metric) metric.textContent = provider;
+        if (label) label.textContent = `區域：${preset.region}`;
+      });
+    }
+
     // 保存服務器配置
     function saveServerConfig() {
       const config = {
@@ -14527,7 +14647,7 @@
             ${appIcon("info", 16)} 模擬說明：此為原型演示，模擬 Excel 文件上傳、數據解析和導入流程。實際部署時將使用 SheetJS（xlsx 庫）解析 Excel 文件。
           </div>
 
-          <div style="display:grid;grid-template-columns:200px 1fr;gap:16px;">
+          <div class="excel-import-grid" style="display:grid;grid-template-columns:200px 1fr;gap:16px;">
             <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;">
               <h4 style="margin:0 0 8px;">導入類型</h4>
               ${importTypes.map(t => `
@@ -15330,6 +15450,7 @@
               <div class="um-detail-sub">${escapeHtml(user.employeeNo)} · ${USER_ROLES.find(r => r.code === user.role)?.name || user.role}</div>
             </div>
             <div style="display:flex;gap:6px;">
+              <button class="ghost-btn" data-close-user-detail>關閉</button>
               <button class="ghost-btn" data-edit-user="${user.id}">編輯</button>
               <button class="danger-btn" data-delete-user="${user.id}">刪除</button>
             </div>
@@ -15834,6 +15955,8 @@
 
       const contacts = Array.isArray(customer.contacts) ? customer.contacts : [];
       const addresses = Array.isArray(customer.addresses) ? customer.addresses : [];
+      const relatedTickets = tickets.filter(t => t.customerId === customer.id || (!t.customerId && t.customer === customer.nameZh));
+      const relatedQuotations = quotations.filter(q => q.customerId === customer.id || (!q.customerId && q.customerName === customer.nameZh));
       const typeClass = customer.type === "政府" ? "government" : "commercial";
       const detailItem = (label, value) => `
         <div class="wo-detail-item">
@@ -15870,6 +15993,25 @@
               ${customer.type === "政府" ? detailItem("政府工單前綴", customer.governmentPrefix) : ""}
               ${customer.type === "政府" ? detailItem("政府合約編號", customer.contractNumber) : ""}
               ${customer.type === "政府" ? detailItem("J Number", customer.jNumber) : ""}
+            </div>
+          </div>
+
+          <div class="wo-detail-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <h4 style="margin:0;">關聯 CALL／報價</h4>
+              <button class="primary-btn" data-customer-quote="${customer.id}" style="min-width:auto;padding:6px 12px;font-size:12px;">＋ 新建報價</button>
+            </div>
+            <div class="wo-detail-grid call-customer-info-grid">
+              ${relatedTickets.length ? relatedTickets.slice(0, 6).map(t => `
+                <div class="wo-detail-item">
+                  <span class="wo-detail-label">${escapeHtml(t.id)}</span>
+                  <span class="wo-detail-value">${escapeHtml(t.status || "")} <button class="link-btn" data-customer-ticket="${escapeHtml(t.id)}">查看</button></span>
+                </div>`).join("") : detailItem("關聯 CALL", "暫無")}
+              ${relatedQuotations.length ? relatedQuotations.slice(0, 6).map(q => `
+                <div class="wo-detail-item">
+                  <span class="wo-detail-label">${escapeHtml(q.id)}</span>
+                  <span class="wo-detail-value">${escapeHtml(q.status || "")} <button class="link-btn" data-view-quotation="${escapeHtml(q.id)}">查看</button></span>
+                </div>`).join("") : detailItem("關聯報價", "暫無")}
             </div>
           </div>
 
@@ -16747,6 +16889,19 @@
           e.preventDefault();
           const formData = new FormData(editForm);
           const customerId = editForm.dataset.customerId;
+          const requiredFields = [
+            ["nameZh", "客戶名稱（中文）"],
+            ["nameEn", "客戶名稱（英文）"],
+            ["contactName", "主聯繫人"],
+            ["contactPhone", "聯繫電話"],
+            ["accountingContact", "會計部聯絡人"],
+            ["buildingAddress", "樓宇地址"]
+          ];
+          const missingFields = requiredFields.filter(([name]) => !String(formData.get(name) || "").trim());
+          if (missingFields.length) {
+            toast(`請填寫：${missingFields.map(([, label]) => label).join("、")}`, "error");
+            return;
+          }
           const contractNo = String(formData.get("contractNo") || "").trim();
           if (!contractNo) {
             toast("請填寫 Contract No", "error");
@@ -18084,6 +18239,17 @@
           // 收集物料明細數據並附加到 formData
           const qeItemsBody = drawer.querySelector("#qeItemsBody");
           if (qeItemsBody) {
+            const invalidRow = [...qeItemsBody.querySelectorAll("tr")].some(tr => {
+              if (tr.querySelector("[data-qe-name]")?.value.trim()) return false;
+              const hasOtherContent = ["[data-qe-spec]", "[data-qe-location]", "[data-qe-remark]"]
+                .some(selector => (tr.querySelector(selector)?.value || "").trim());
+              const qty = parseInt(tr.querySelector("[data-qe-qty]")?.value || "1", 10) || 1;
+              return hasOtherContent || qty > 1;
+            });
+            if (invalidRow) {
+              toast("料項名稱不可留空，請填寫或刪除該行", "error");
+              return;
+            }
             const items = [];
             qeItemsBody.querySelectorAll("tr").forEach(tr => {
               const name = tr.querySelector("[data-qe-name]")?.value.trim();
@@ -23343,50 +23509,243 @@
     }
 
     // 列印發票模態框（支援單一 / 批次，含相片、完工紙、SR 及客戶確認）
+    /* 把 ISO 日期（2026-06-25）轉成發票日期格式（25 Jun 2026） */
+    function formatInvoiceDate(value) {
+      const date = new Date(`${value || ""}T12:00:00`);
+      if (isNaN(date.getTime())) return value || "";
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    /* 把 ISO 日期轉成短日期格式（25/6/26），用於 Ship Date / Due Date */
+    function formatShortInvoiceDate(value) {
+      const date = new Date(`${value || ""}T12:00:00`);
+      if (isNaN(date.getTime())) return value || "";
+      return `${date.getDate()}/${date.getMonth() + 1}/${String(date.getFullYear()).slice(-2)}`;
+    }
+
+    /* 金額顯示：千分位 + 兩位小數，空值留白 */
+    function formatInvoiceMoney(value) {
+      if (value === null || value === undefined || value === "") return "";
+      const number = Number(value);
+      if (!isFinite(number)) return "";
+      return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    /* 數量顯示：保留兩位小數 */
+    function formatInvoiceQty(value) {
+      if (value === null || value === undefined || value === "") return "";
+      const number = Number(value);
+      if (!isFinite(number)) return "";
+      return number.toFixed(2);
+    }
+
+    /* 由發票記錄組裝列印模版資料：串接報價明細、客戶檔案與會計客戶數期 */
+    function buildInvoicePrintData(inv) {
+      const quotation = quotations.find(item => item.id === inv.quotationId);
+      const customer = customers.find(c => c.nameZh === inv.customerName) || {};
+      const acctCustomers = JSON.parse(localStorage.getItem('ecinfo_acct_customers')) || DEFAULT_ACCT_CUSTOMERS;
+      const acct = acctCustomers.find(c => c.name === inv.customerName);
+      const address = (Array.isArray(customer.addresses) && customer.addresses[0]) || {};
+      // 明細優先取報價已確認項目；沒有明細時退回單行標題，確保發票可列印
+      const quoteItems = (quotation && (quotation.acceptedItems || quotation.items)) || [];
+      const items = quoteItems.length
+        ? quoteItems.map((item, index) => ({
+            item: String(index + 1),
+            description: [item.name, item.spec].filter(Boolean).join(" ")
+              + (item.location ? `\n地點：${item.location}` : ""),
+            unitPrice: item.unitPrice,
+            quantity: item.qty,
+            amount: item.amount != null ? item.amount : Number(item.qty || 0) * Number(item.unitPrice || 0)
+          }))
+        : [{
+            item: "1",
+            description: (quotation && quotation.title) || inv.remark || "",
+            unitPrice: inv.amount,
+            quantity: 1,
+            amount: inv.amount
+          }];
+      return {
+        invoiceNo: inv.invoiceNo || "",
+        invoiceDate: formatInvoiceDate(inv.invoiceDate),
+        reprint: Boolean(inv.reprintCount),
+        billTo: {
+          name: customer.nameEn || inv.customerName || "",
+          address: [address.addressZh, address.addressEn].filter(Boolean)
+        },
+        customerId: customer.contractNo || customer.id || "",
+        internalRef: quotation ? quotation.id : (inv.jobCode || inv.quotationId || ""),
+        paymentTerms: acct ? acct.paymentTerms : "30 天",
+        salesRepId: (quotation && quotation.owner) || "Office",
+        shippingMethod: "Hand Deliver",
+        shipDate: formatShortInvoiceDate(inv.invoiceDate),
+        dueDate: formatShortInvoiceDate(inv.dueDate),
+        items,
+        total: inv.amount,
+        creditNoteApplied: inv.creditNoteApplied,
+        amountNetDue: inv.amount
+      };
+    }
+
+    /* 渲染單張 A4 發票列印頁，欄位順序與紙質發票一致 */
+    function renderInvoicePrintPage(data) {
+      const rows = (data.items || []).map(row => `
+        <tr>
+          <td class="num" style="text-align:center;">${escapeHtml(row.item)}</td>
+          <td class="desc">${escapeHtml(row.description)}</td>
+          <td class="num">${formatInvoiceMoney(row.unitPrice)}</td>
+          <td class="num">${formatInvoiceQty(row.quantity)}</td>
+          <td class="num">${formatInvoiceMoney(row.amount)}</td>
+        </tr>
+      `).join("");
+      const addressLines = (data.billTo.address || []).map(line => `<div>${escapeHtml(line)}</div>`).join("");
+      return `
+        <div class="ec-inv-page">
+          <div class="ec-inv-header">
+            <div class="ec-inv-logo"><img src="logo_ecinfo.svg" alt="EC InfoTech Limited"></div>
+            <div class="ec-inv-title">
+              <svg class="arc" viewBox="0 0 200 26" aria-hidden="true"><path d="M2 25 C 55 3, 150 3, 198 22 L 198 25 Z" fill="#F2E014"/></svg>
+              <h1>INVOICE</h1>
+              <div class="ec-inv-meta">
+                <div class="row"><span class="k">Invoice Number:</span><span class="v">${escapeHtml(data.invoiceNo)}${data.reprint ? '<span class="ec-inv-reprint">（重印 REPRINT）</span>' : ""}</span></div>
+                <div class="row"><span class="k">Invoice Date:</span><span class="v">${escapeHtml(data.invoiceDate)}</span></div>
+                <div class="row"><span class="k">Page:</span><span class="v">1</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ec-inv-billto">
+            <div class="label">Bill To:</div>
+            <div class="body"><div>${escapeHtml(data.billTo.name)}</div>${addressLines}</div>
+          </div>
+
+          <table class="ec-inv-info">
+            <colgroup><col span="12"></colgroup>
+            <thead>
+              <tr>
+                <th colspan="4">Our Customer ID</th>
+                <th colspan="4">Our Internal Ref.</th>
+                <th colspan="4">Payment Terms</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">${escapeHtml(data.customerId)}</td>
+                <td colspan="4">${escapeHtml(data.internalRef)}</td>
+                <td colspan="4">${escapeHtml(data.paymentTerms)}</td>
+              </tr>
+              <tr>
+                <th colspan="3">Sales Rep ID</th>
+                <th colspan="3">Shipping Method</th>
+                <th colspan="3">Ship Date</th>
+                <th colspan="3">Due Date</th>
+              </tr>
+              <tr>
+                <td colspan="3">${escapeHtml(data.salesRepId)}</td>
+                <td colspan="3">${escapeHtml(data.shippingMethod)}</td>
+                <td colspan="3">${escapeHtml(data.shipDate)}</td>
+                <td colspan="3">${escapeHtml(data.dueDate)}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="ec-inv-items">
+            <colgroup>
+              <col class="c-item"><col><col class="c-price"><col class="c-qty"><col class="c-amount">
+            </colgroup>
+            <thead>
+              <tr><th>Item</th><th>Description</th><th>Unit Price</th><th>Quantity</th><th>Amount</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+
+          <table class="ec-inv-totals">
+            <colgroup>
+              <col class="c-item"><col><col class="c-price"><col class="c-qty"><col class="c-amount">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td class="blank" colspan="2"></td>
+                <th colspan="2">Total<br>Credit note applied<br>Amount net due</th>
+                <td>${formatInvoiceMoney(data.total)}<br>${formatInvoiceMoney(data.creditNoteApplied)}<br>${formatInvoiceMoney(data.amountNetDue)}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="ec-inv-sign">
+            <div class="l1">For and on behalf of</div>
+            <div class="l2">EC INFOTECH LIMITED</div>
+            <div class="seal">公司印章</div>
+          </div>
+
+          <div class="ec-inv-footer">
+            <div class="cheque">
+              <p>All cheque should be crossed and made payable to</p>
+              <p>"EC InfoTech Limited" *Attn: Account Dept</p>
+            </div>
+            <div class="addr">
+              <div>Unit D, 3/F, Blk 2 Camel Paint</div>
+              <div>Blg, 62 Hoi Yuen Rd, KwunTong</div>
+              <div>Kowloon Hong Kong</div>
+            </div>
+            <div class="contact">
+              <div class="cell"><span class="k">Tel:</span><span>2876 2990</span></div>
+              <div class="cell"><span class="k">Fax:</span><span>3101 0616</span></div>
+              <div class="cell"><span class="k">Web site:</span><span>www.ecinfohk.com</span></div>
+              <div class="cell"><span class="k">Email:</span><span>cs@ecinfohk.com</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 列印發票：以紙質發票模版自動填充發票信息，僅輸出 A4 發票頁
     function openPrintInvoiceModal(invoiceIds) {
       const targetInvoices = invoices.filter(inv => invoiceIds.includes(inv.id) || invoiceIds.includes(inv.invoiceNo));
       if (targetInvoices.length === 0) { toast("找不到對應發票", "error"); return; }
+      // 每張發票一頁，先統一渲染，供列印與預覽共用
+      const pageHtmlList = targetInvoices.map(inv => renderInvoicePrintPage(buildInvoicePrintData(inv)));
+      // 列印用根節點：屏幕隱藏，列印時只輸出此區域，避免把整個系統介面印出來
+      let printRoot = document.getElementById("ec-inv-print-root");
+      if (!printRoot) {
+        printRoot = document.createElement("div");
+        printRoot.id = "ec-inv-print-root";
+        document.body.appendChild(printRoot);
+      }
+      printRoot.innerHTML = pageHtmlList.join("");
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
-        <div class="um-modal" style="max-width:720px;">
+        <div class="um-modal" style="max-width:760px;">
           <div class="um-modal-head"><h2>列印發票</h2><button class="um-modal-close" data-close-modal>×</button></div>
-          <div style="padding:20px 24px;max-height:60vh;overflow:auto;">
-            <p style="color:var(--muted);font-size:13px;margin:0 0 16px;">即將列印 ${targetInvoices.length} 張發票，發票內容及金額根據 CS/報價組輸入的資料滙出。</p>
-            ${targetInvoices.map(inv => {
-              const q = quotations.find(item => item.id === inv.quotationId);
-              const jobId = q ? q.id : (inv.jobCode || inv.quotationId || '—');
-              // 會計部會議（0928）①：發票顯示客戶英文名稱，以及地點的中英文地址
-              const cust = customers.find(c => c.nameZh === inv.customerName);
-              const addr = cust && Array.isArray(cust.addresses) ? cust.addresses[0] : null;
-              const nameEn = cust ? (cust.nameEn || '') : '';
-              return `
-                <div class="fin-receipt-preview">
-                  <div class="fin-receipt-header">
-                    <strong>EC InfoTech Limited</strong>
-                    <span>Unit D, 3/Fl., Block 2, Camel Paint Building, 62 Hoi Yuen Road, Kwun Tong, Kowloon, Hong Kong</span>
-                    <span>Tel: 2876 2990 · Fax: 3101 0616</span>
-                  </div>
-                  <div class="fin-receipt-body">
-                    <div class="fin-receipt-row"><span><strong>發票號:</strong> ${inv.invoiceNo}${inv.reprintCount ? '<span style="color:#b91c1c;font-weight:700;margin-left:6px;">（重印 REPRINT）</span>' : ''}</span><span><strong>日期:</strong> ${inv.invoiceDate}</span></div>
-                    <div class="fin-receipt-row"><span><strong>To:</strong> ${escapeHtml(inv.customerName)}${nameEn ? ` / ${escapeHtml(nameEn)}` : ''}</span><span><strong>Job ID:</strong> ${jobId}</span></div>
-                    ${addr ? `<div class="fin-receipt-row"><span><strong>地點:</strong> ${escapeHtml(addr.addressZh || '')}</span><span>${escapeHtml(addr.addressEn || '')}</span></div>` : ''}
-                    <div class="fin-receipt-row"><strong>金額: HK$${inv.amount.toLocaleString()}</strong></div>
-                    ${inv.lowAmountReason ? `<p style="font-size:12px;color:#b45309;margin:8px 0 0;">※ 開票金額低於報價總金額（HKD ${Number(inv.referenceTotal || 0).toLocaleString()}），原因：${escapeHtml(inv.lowAmountReason)}</p>` : ''}
-                    <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">附件：相片、完工紙、SR ${q ? q.srNo : ''} 及客戶確認 work order/confirmation</p>
-                  </div>
-                </div>
-              `;
-            }).join('')}
+          <div style="padding:18px 24px;max-height:62vh;overflow:auto;">
+            <p style="color:var(--muted);font-size:13px;margin:0 0 14px;">已按發票記錄自動填充 ${targetInvoices.length} 張發票（客戶、報價明細、金額、日期及客戶數期）。預覽為縮小顯示，實際列印為 A4 原尺寸。</p>
+            <div class="ec-inv-preview-wrap">
+              ${pageHtmlList.map(html => `<div class="ec-inv-scaler">${html}</div>`).join("")}
+            </div>
           </div>
           <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
-            <button type="button" class="primary-btn" onclick="window.print()">列印全部</button>
+            <button type="button" class="ghost-btn" data-close-modal>取消</button>
+            <button type="button" class="primary-btn" id="ecInvPrintBtn">列印</button>
           </div>
         </div>
       `;
       document.body.appendChild(modal);
-      modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", () => modal.remove()));
-      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+      // 關閉時清除列印內容並還原列印狀態
+      const closeModal = () => {
+        document.body.classList.remove("ec-inv-printing");
+        printRoot.innerHTML = "";
+        modal.remove();
+      };
+      modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", closeModal));
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+      modal.querySelector("#ecInvPrintBtn").addEventListener("click", () => {
+        const restore = () => document.body.classList.remove("ec-inv-printing");
+        window.addEventListener("afterprint", restore, { once: true });
+        document.body.classList.add("ec-inv-printing");
+        window.print();
+        restore();
+      });
     }
 
     // 變更客戶數期模態框
@@ -28731,6 +29090,16 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         setPage("dispatch");
       }));
       document.querySelectorAll("[data-page-target]").forEach(btn => btn.addEventListener("click", () => setPage(btn.dataset.pageTarget)));
+      document.querySelectorAll("[data-dashboard-quick]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.callFilters.quick = btn.dataset.dashboardQuick;
+        workOrderState.callFilters.status = "全部";
+        workOrderState.callFilters.keyword = "";
+        setPage("list");
+      }));
+      document.querySelectorAll("[data-clear-quick-filter]").forEach(btn => btn.addEventListener("click", () => {
+        workOrderState.callFilters.quick = "";
+        render();
+      }));
       document.querySelectorAll("[data-call-detail]").forEach(el => el.addEventListener("click", (e) => {
         e.stopPropagation();
         openCallDetail(el.dataset.callDetail);
@@ -29227,6 +29596,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       // 服務器空間配置事件
       document.querySelectorAll("[data-server-save]").forEach(btn => btn.addEventListener("click", saveServerConfig));
       document.querySelectorAll("[data-server-test]").forEach(btn => btn.addEventListener("click", testServerConnection));
+      const serverProviderEl = document.getElementById("serverProvider");
+      if (serverProviderEl) serverProviderEl.addEventListener("change", applyServerProviderPreset);
       // Excel 導入事件
       document.querySelectorAll("[data-excel-import-type]").forEach(btn => btn.addEventListener("click", () => {
         if (!state.excelImport) state.excelImport = {};
@@ -29234,9 +29605,27 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         render();
       }));
       document.querySelectorAll("[data-excel-download-template]").forEach(btn => btn.addEventListener("click", () => {
+        const type = btn.dataset.excelDownloadTemplate;
         const typeLabels = { customer: '客戶資料', workorder: '工單記錄', quotation: '報價記錄', invoice: '發票記錄', payment: '收款記錄' };
-        toast(`正在下載${typeLabels[btn.dataset.excelDownloadTemplate] || ''}模板...`, "info");
-        setTimeout(() => toast("✓ 模板已下載（模擬）"), 800);
+        const headersByType = {
+          customer: ['客戶編號', '客戶名稱（中文）', '客戶名稱（英文）', '客戶類型', 'Contract No', '客戶等級', '主聯繫人', '聯繫電話', '樓宇地址', '區域'],
+          workorder: ['工單編號', '客戶編號', '工單類型', '區域', '地址', '負責人', '創建日期', '預約日期', '描述', '狀態'],
+          quotation: ['報價單號', '客戶編號', '客戶名稱', '報價金額', '類別(M/P/M+P)', '創建日期', '截止日期', '來源', '負責人', '狀態'],
+          invoice: ['發票編號', '報價單號', '客戶名稱', '金額', '開票日期', '到期日', '狀態'],
+          payment: ['收據編號', '發票編號', '客戶名稱', '金額', '收款日期', '收款方式', '備註']
+        };
+        const headers = headersByType[type] || headersByType.customer;
+        const csv = '﻿' + headers.join(',') + '\n';
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${typeLabels[type] || type}_導入模板.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        toast(`✓ ${typeLabels[type] || ''}模板已下載`, "success");
       }));
       document.querySelectorAll("[data-excel-upload-zone]").forEach(zone => {
         const fileInput = zone.querySelector("[data-excel-file-input]");
@@ -29838,6 +30227,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
       document.querySelectorAll("[data-edit-user]").forEach(btn => btn.addEventListener("click", () => openEditUser(btn.dataset.editUser)));
       document.querySelectorAll("[data-delete-user]").forEach(btn => btn.addEventListener("click", () => deleteUser(btn.dataset.deleteUser)));
+      document.querySelectorAll("[data-close-user-detail]").forEach(btn => btn.addEventListener("click", () => { userState.selectedUserId = null; render(); }));
       document.querySelectorAll("[data-user-page]").forEach(btn => btn.addEventListener("click", () => {
         const page = btn.dataset.userPage;
         const totalPages = Math.ceil(filterUsers().length / userState.pageSize);
@@ -29949,6 +30339,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         quotationState.revisionMode = false;
         openQuotationDrawer(btn.dataset.viewQuotation);
       }));
+      document.querySelectorAll("[data-customer-ticket]").forEach(btn => btn.addEventListener("click", () => openWorkOrderDrawer(btn.dataset.customerTicket)));
+      document.querySelectorAll("[data-customer-quote]").forEach(btn => btn.addEventListener("click", () => openCreateQuotation(btn.dataset.customerQuote)));
       document.querySelectorAll("[data-edit-quotation]").forEach(btn => btn.addEventListener("click", () => openEditQuotation(btn.dataset.editQuotation)));
       // 側邊欄編輯報價：以編輯模式打開抽屜
       document.querySelectorAll("[data-edit-quotation-drawer]").forEach(btn => btn.addEventListener("click", () => openQuotationEditDrawer(btn.dataset.editQuotationDrawer)));
@@ -30501,6 +30893,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         }
         el.addEventListener("change", () => {
           workOrderState.callFilters[el.dataset.callFilter] = el.value;
+          workOrderState.callFilters.quick = "";
           workOrderState.callPage = 1;
           render();
         });

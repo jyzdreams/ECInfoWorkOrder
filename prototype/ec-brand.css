@@ -964,3 +964,4 @@ body .rem-note { border-radius: 5px; }
 .tl-workbench .tl-metric:hover { border-color:var(--primary); }
 @media (max-width:1150px) { .tl-workbench .tl-work-grid { grid-template-columns:minmax(0,1fr) 265px; gap:16px; } .tl-workbench .tl-metric { padding:16px; } }
 @media (max-width:900px) { .tl-workbench .tl-work-grid { grid-template-columns:1fr; } .tl-workbench .tl-shortcut-list { display:grid; grid-template-columns:1fr 1fr; gap:0 20px; } .tl-workbench .tl-metrics { gap:10px; } .tl-workbench .tl-welcome { gap:12px; } }
+@media (min-width:769px) and (max-width:860px) { .app, .app.sidebar-collapsed { grid-template-columns:minmax(0,1fr); } .sidebar { display:none; } .main { grid-column:auto; min-width:0; } }
