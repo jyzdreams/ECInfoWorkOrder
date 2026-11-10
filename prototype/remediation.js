@@ -276,6 +276,8 @@
     const acceptedAt = form.elements.customerAcceptedAt.value;
     const acceptanceNote = form.elements.acceptanceNote.value.trim();
     if (!acceptedAt || !acceptanceNote) { toast("請記錄客戶接受日期及依據", "error"); return false; }
+    const confirmationFile = form.elements.customerConfirmationFile?.files?.[0] || null;
+    if (!confirmationFile && !q.customerConfirmationFile?.name) { toast("請上傳客戶確認文件", "error"); return false; }
     if (isM(q) && (!Number.isInteger(Number(q.serviceEveryMonths)) || Number(q.serviceEveryMonths) < 1 || !q.contractStart || !q.contractEnd || q.contractEnd < q.contractStart)) {
       toast("M 報價須先設定服務週期及合約期間", "error"); return false;
     }
@@ -294,6 +296,14 @@
     q.acceptedByQuotationTeam = currentRole().name;
     q.wonAt = new Date().toLocaleString("zh-HK");
     q.customerOrder = form.elements.customerOrder.value.trim();
+    if (confirmationFile) {
+      q.customerConfirmationFile = {
+        name: confirmationFile.name,
+        size: confirmationFile.size,
+        type: confirmationFile.type || "",
+        uploadedAt: new Date().toLocaleString("zh-HK")
+      };
+    }
     if (q.sourceTenderId || q.tenderNo) q.bidStatus = "已中標";
     q.status = "已中單";
     if (materialLines(q).length) createMr(q);
@@ -325,6 +335,7 @@
           <label class="rem-won-field"><span>客戶接受日期</span><input type="date" name="customerAcceptedAt" value="${today()}" required></label>
           <label class="rem-won-field"><span>客戶訂單號（如有）</span><input name="customerOrder" value="${safe(q.customerOrder || "")}" placeholder="可選填"></label>
         </div>
+        <label class="rem-won-field rem-won-field-full"><span>客戶確認文件 <span style="color:var(--danger);">*</span></span><input type="file" name="customerConfirmationFile" accept="image/*,.pdf"><small class="muted">${q.customerConfirmationFile?.name ? `已上傳：${safe(q.customerConfirmationFile.name)}（可重新選擇替換）` : "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名"}</small></label>
         <label class="rem-won-field rem-won-field-full"><span>客戶接受依據／回覆紀錄</span><textarea name="acceptanceNote" required placeholder="記錄郵件、訂單或確認方式；原型不代替真實憑證"></textarea></label>
         <section class="rem-final-section">
           <div class="rem-final-head"><div><h3>最終成交版明細</h3><p>請逐項標記材料或服務；只有材料行會生成 MR。</p></div><span class="rem-final-badge">${(q.items || []).length} 項</span></div>
