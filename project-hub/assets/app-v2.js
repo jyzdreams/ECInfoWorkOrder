@@ -19,6 +19,7 @@
     { id: 'design', number: '05', title: '原型与设计', children: ['PRD', 'Prototype', 'SDD', 'TDD', 'Testing'] },
     { id: 'questions', number: '06', title: '待确认问题', children: [] },
     { id: 'status', number: '07', title: '项目状态', children: [] },
+    { id: 'qa', number: '08', title: 'QA 测试管理', children: [] },
     { id: 'evidence', number: 'A', title: '证据与追溯', children: ['Source', 'Fact', 'Decision', 'Change', 'Traceability'] },
   ];
   const sections = Object.fromEntries(primaryIa.map(x => [x.id, x]));
@@ -342,7 +343,7 @@
     ];
     return `<div class="view progress-view progress-summary-view" data-ia-version="frozen-v1">
       <p class="progress-current-stage">当前阶段：业务流程确认</p>
-      ${U ? `<div class="sync-progress-note"><p>最新进展：2026-10-26完成新一轮客户业务沟通及会后事实整理，业务流程确认继续推进。</p><p>维修整链未通过 · 0批业务正式定稿</p></div>` : ''}
+      ${focus ? `<section class="sync-progress-note" aria-label="当前执行任务"><p><strong>正在执行：</strong><button class="inline-link" data-kind="work-task" data-id="${esc(focus.id)}">${esc(focus.id)} · ${esc(focus.displayTitle || focus.title)}</button> · ${esc(focus.viewStatus || focus.status)}</p><p><strong>已做到：</strong>${esc(focus.progressNote || focus.result || '尚未记录成果')}</p><p><strong>接下来：</strong>${esc(focus.next)}</p><p><strong>负责人：</strong>${esc(focus.executionOwner || focus.owner)} · 更新：${esc(w.updatedAt)}</p>${focus.deliverables?.length ? `<p>${focus.deliverables.map(d => `<a class="file-link" href="${encodeURI('../' + d.path)}" target="_blank" rel="noopener">${esc(d.label)} ↗</a>`).join('　')}</p>` : ''}<p>${esc(w.project.wholeChain)} · ${esc(w.project.frozenBatches)}批业务正式定稿</p></section>` : U ? `<div class="sync-progress-note"><p>最新进展：2026-10-26完成新一轮客户业务沟通及会后事实整理，业务流程确认继续推进。</p><p>维修整链未通过 · 0批业务正式定稿</p></div>` : ''}
       <ol class="progress-stage-list" aria-label="项目推进阶段">${stages.map((stage, index) => {
         const tag = stage.target ? 'button' : 'div';
         return `<li><${tag} class="progress-stage-row${stage.current ? ' is-current' : ''}" data-stage="${index + 1}" ${stage.target || ''}${stage.current ? ' aria-current="step"' : ''}><span class="progress-stage-number">${String(index + 1).padStart(2, '0')}</span><span class="progress-stage-name">${esc(stage.title)}</span><span class="progress-stage-status" data-status="${esc(stage.status)}">${esc(stage.status)}</span><span class="progress-stage-arrow" aria-hidden="true">${stage.target ? '→' : ''}</span></${tag}></li>`;
@@ -1366,6 +1367,7 @@
   function render() { nav(); $('#content').innerHTML = state.search ? searchView(state.search) : renderers[state.view](); }
   function closeDrawer() { $('#drawer').classList.remove('open'); $('#drawer').setAttribute('aria-hidden','true'); }
   function navigate(view, sub = '', flow = '', module = '') {
+    if (view === 'qa') { window.location.href = 'qa.html'; return; }
     if (view === 'flows') {
       // No directory landing page: group references select their existing first entry.
       const entry = sub.startsWith('group:') ? flowGroups().find(g => g.key === sub.slice(6))?.entries[0] : null;

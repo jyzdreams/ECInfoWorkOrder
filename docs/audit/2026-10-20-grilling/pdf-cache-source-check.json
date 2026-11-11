@@ -1,0 +1,44 @@
+[
+  {
+    "source": "materials/听记纪要/纪要_20260504 EC方案报价沟通.pdf",
+    "sha256": "9be462aff7eb5bb29272025b6665b96387e17bf1165b1befd6b25e1d27d4eb2d",
+    "existingExtraction": "docs/audit/extracted/9be462aff7eb5bb2.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECInfo-dingtalk報價方案和POC反饋溝通20260326.pdf",
+    "sha256": "27b8f850ad97cc0020c3759a6560ee863764dec1ff0943cdcefcf8787a06fb5f",
+    "existingExtraction": "docs/audit/extracted/27b8f850ad97cc00.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECInfo-dingtalk報價方案和POC反饋溝通20260326（2）.pdf",
+    "sha256": "4faba2e70a1e437e1d880dc2dfd71898edba31bb519e5d393256d6bee4fc00d5",
+    "existingExtraction": "docs/audit/extracted/4faba2e70a1e437e.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECInfo-dingtalk項目溝通和demo演示20260130.pdf",
+    "sha256": "b72a66aee5969a0c8fb8b6fd2bca6c6bf4c04608f1ca240e77b9f7dfe00f460d",
+    "existingExtraction": "docs/audit/extracted/b72a66aee5969a0c.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECInfoTech-Dingtalk溝通.pdf",
+    "sha256": "4a79196fb37fbd714db950fbcb3b85b12ddc61e0b573c87ce14d7dce1922f618",
+    "existingExtraction": "docs/audit/extracted/4a79196fb37fbd71.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECInfotech2.pdf",
+    "sha256": "e7998550e9e55cb901cfc58127161712a16d3ee192a8283ae74e5e4feb81e821",
+    "existingExtraction": "docs/audit/extracted/e7998550e9e55cb9.txt",
+    "matchedAuditSourceHash": true
+  },
+  {
+    "source": "materials/听记纪要/纪要_ECinfo-dingtalk整體方案講解20251204.pdf",
+    "sha256": "ef8acce899a2e79f8049411bd8b736e7f002082b3baf82dde61df2d39ac4a0c3",
+    "existingExtraction": "docs/audit/extracted/ef8acce899a2e79f.txt",
+    "matchedAuditSourceHash": true
+  }
+]

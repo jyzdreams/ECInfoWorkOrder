@@ -1,0 +1,354 @@
+[
+  {
+    "source": "materials/溝通筆記/ec原型+倉庫+cr0930.docx",
+    "sha256": "d140942ce6fefdc3abcc97b56ddd75c1b3509ad1ef836b644d29f45e953d0988",
+    "paragraphs": [
+      {
+        "paragraph": 1,
+        "text": "報價："
+      },
+      {
+        "paragraph": 2,
+        "text": "1.需要加一個discount"
+      },
+      {
+        "paragraph": 3,
+        "text": "2.需要只填物料 不用填明細價格，填總價"
+      },
+      {
+        "paragraph": 4,
+        "text": ""
+      },
+      {
+        "paragraph": 5,
+        "text": "貨期delivery，默認30days（選項），货期時間可挑選日及週"
+      },
+      {
+        "paragraph": 6,
+        "text": "30-60 days"
+      },
+      {
+        "paragraph": 7,
+        "text": "6 -8 week"
+      },
+      {
+        "paragraph": 8,
+        "text": "請留空空格給我地自己填寫 數字"
+      },
+      {
+        "paragraph": 9,
+        "text": ""
+      },
+      {
+        "paragraph": 10,
+        "text": ""
+      },
+      {
+        "paragraph": 11,
+        "text": ""
+      },
+      {
+        "paragraph": 12,
+        "text": "quot簽名，保存歷史簽名，簽名按負責人名自己生成及加回公司蓋章"
+      },
+      {
+        "paragraph": 13,
+        "text": ""
+      },
+      {
+        "paragraph": 14,
+        "text": "5.新增報價，保修期改成保固期"
+      },
+      {
+        "paragraph": 15,
+        "text": "6.our ref是要輸出版本001"
+      },
+      {
+        "paragraph": 16,
+        "text": ""
+      },
+      {
+        "paragraph": 17,
+        "text": ""
+      },
+      {
+        "paragraph": 18,
+        "text": "師傅："
+      },
+      {
+        "paragraph": 19,
+        "text": "服務報告："
+      },
+      {
+        "paragraph": 20,
+        "text": ""
+      },
+      {
+        "paragraph": 21,
+        "text": "1.需要中文"
+      },
+      {
+        "paragraph": 22,
+        "text": "2."
+      },
+      {
+        "paragraph": 23,
+        "text": "加一個選項保固期，如果是保固期，直接通知採購。"
+      },
+      {
+        "paragraph": 24,
+        "text": ""
+      },
+      {
+        "paragraph": 25,
+        "text": "3.能否自己新增SR，服務報告裡，新增報告的按鈕"
+      },
+      {
+        "paragraph": 26,
+        "text": ""
+      },
+      {
+        "paragraph": 27,
+        "text": "倉庫："
+      },
+      {
+        "paragraph": 28,
+        "text": "MR需要有一個完成狀態"
+      },
+      {
+        "paragraph": 29,
+        "text": "新增 MR狀況選項 ： 已完成 / 已取消 / 處理中"
+      },
+      {
+        "paragraph": 30,
+        "text": ""
+      },
+      {
+        "paragraph": 31,
+        "text": "MR倉管需要能自己能增加"
+      },
+      {
+        "paragraph": 32,
+        "text": ""
+      },
+      {
+        "paragraph": 33,
+        "text": "報告管理："
+      },
+      {
+        "paragraph": 34,
+        "text": "需要有一個objective篩選項"
+      },
+      {
+        "paragraph": 35,
+        "text": ""
+      },
+      {
+        "paragraph": 36,
+        "text": ""
+      },
+      {
+        "paragraph": 37,
+        "text": "姓名需要中英文，並且中英文可搜索"
+      },
+      {
+        "paragraph": 38,
+        "text": ""
+      },
+      {
+        "paragraph": 39,
+        "text": ""
+      },
+      {
+        "paragraph": 40,
+        "text": "客戶關係部是可以查看對應區域的數據"
+      },
+      {
+        "paragraph": 41,
+        "text": "某幾個夜班組長是可以看到所有區call的。"
+      }
+    ]
+  },
+  {
+    "source": "materials/溝通筆記/ec+cs+報價組+會計0928.docx",
+    "sha256": "afbed89e9c20f5b6b7c8c75a893271ee368bf8b857f8f81bb54491eb1f058a57",
+    "paragraphs": [
+      {
+        "paragraph": 1,
+        "text": "合約編號 是要維護的"
+      },
+      {
+        "paragraph": 2,
+        "text": ""
+      },
+      {
+        "paragraph": 3,
+        "text": "標書："
+      },
+      {
+        "paragraph": 4,
+        "text": "新建標書：ec負責人不用必填，揭曉時間帶具體時間，截止時間改成截止日期，揭曉日期改成截止時間，截止時間默認17:00"
+      },
+      {
+        "paragraph": 5,
+        "text": ""
+      },
+      {
+        "paragraph": 6,
+        "text": "更新標書狀態：已投標缺少"
+      },
+      {
+        "paragraph": 7,
+        "text": "投標狀態：待投標、已投標，已中標、未中標、已取消、不投標"
+      },
+      {
+        "paragraph": 8,
+        "text": ""
+      },
+      {
+        "paragraph": 9,
+        "text": "中標："
+      },
+      {
+        "paragraph": 10,
+        "text": "沒報價，MR就要手動填,採購部"
+      },
+      {
+        "paragraph": 11,
+        "text": ""
+      },
+      {
+        "paragraph": 12,
+        "text": ""
+      },
+      {
+        "paragraph": 13,
+        "text": "CALL管理"
+      },
+      {
+        "paragraph": 14,
+        "text": "合約編號，新增CALL，輸入JNO，JNO跟客戶沒關係"
+      },
+      {
+        "paragraph": 15,
+        "text": ""
+      },
+      {
+        "paragraph": 16,
+        "text": "新建客戶（標書組，sales，報價組，cs）"
+      },
+      {
+        "paragraph": 17,
+        "text": "客戶是有多個合約的，客戶可以重複"
+      },
+      {
+        "paragraph": 18,
+        "text": ""
+      },
+      {
+        "paragraph": 19,
+        "text": ""
+      },
+      {
+        "paragraph": 20,
+        "text": "報價組"
+      },
+      {
+        "paragraph": 21,
+        "text": "溝通需要邀請報價，就需要標書"
+      },
+      {
+        "paragraph": 22,
+        "text": "新增報價，保修期 默認1年，有效期是60天 90天，"
+      },
+      {
+        "paragraph": 23,
+        "text": "邀請結果是不用。"
+      },
+      {
+        "paragraph": 24,
+        "text": "報價單如果是邀請報價，是可以有按鈕標記中標。主動生成一個標書，標書也可以點擊中標"
+      },
+      {
+        "paragraph": 25,
+        "text": "報價單還是"
+      },
+      {
+        "paragraph": 26,
+        "text": "含税金額改成報價金額"
+      },
+      {
+        "paragraph": 27,
+        "text": "保養合約續保，主動發起報價"
+      },
+      {
+        "paragraph": 28,
+        "text": "續保提醒主管和CR，主管\\CR  提醒按照保養時長百分比來提醒，1/2 1/3，私人。政府不是這個規則"
+      },
+      {
+        "paragraph": 29,
+        "text": "邀请报价，选择参考报价单，选择后，带出物料"
+      },
+      {
+        "paragraph": 30,
+        "text": ""
+      },
+      {
+        "paragraph": 31,
+        "text": "会计部"
+      },
+      {
+        "paragraph": 32,
+        "text": "1.地点，英文名称"
+      },
+      {
+        "paragraph": 33,
+        "text": "2.完工纸、照片、客户的确认PO才会生成待发票，如果文件不全，欠文件"
+      },
+      {
+        "paragraph": 34,
+        "text": "3.特殊開票，需要寫原因。比如客戶同意完工了。"
+      },
+      {
+        "paragraph": 35,
+        "text": "4.不需要稅率"
+      },
+      {
+        "paragraph": 36,
+        "text": "5.開票日期和到期日期默認當前日期"
+      },
+      {
+        "paragraph": 37,
+        "text": "6.發票號 年日+遞增（每月清零）"
+      },
+      {
+        "paragraph": 38,
+        "text": "7.invoice描述合同編號，PO，PM period"
+      },
+      {
+        "paragraph": 39,
+        "text": "8.開票的時候，如果總價低於報價總金額，要寫原因"
+      },
+      {
+        "paragraph": 40,
+        "text": ""
+      },
+      {
+        "paragraph": 41,
+        "text": ""
+      },
+      {
+        "paragraph": 42,
+        "text": "借用系統，升降機申請"
+      },
+      {
+        "paragraph": 43,
+        "text": ""
+      },
+      {
+        "paragraph": 44,
+        "text": ""
+      }
+    ]
+  }
+]

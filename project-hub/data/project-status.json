@@ -1345,8 +1345,8 @@
   },
   "workRegister": {
     "schemaVersion": 1,
-    "revision": "WORK-20261023-02",
-    "updatedAt": "2026-10-23",
+    "revision": "WORK-20261109-CLIENT-REQUIREMENTS-01",
+    "updatedAt": "2026-11-09",
     "maintainer": "Codex（用户授权AI）",
     "authority": "用户确认内部记录与客户Excel分开，Hub统一展示；替代旧内部Excel的持续任务维护，不并行双写",
     "legacyBaseline": {
@@ -1357,38 +1357,35 @@
     },
     "scope": {
       "current": [
-        "落实用户确认的五主目标和子任务",
-        "校正当前执行状态、依赖及明细展示",
-        "检查当前推进页面后转逐项执行"
+        "TASK-060客户需求清单推进：现有框架接回原任务及Hub当前执行入口",
+        "报价样板原有九项行为、十七字段及八组问题保留",
+        "04-03客户／合同六项及04-04 CALL七项、字段、AC及原编号已转入v1.2草案；记录准确完成点，不等同全量需求完成"
       ],
       "later": [
-        "按本轮taskStructureReview应用任务树与精简明细表",
-        "按明确业务规则分批修改并走通原型",
-        "准备客户范围确认、业务验收和本阶段交付"
+        "先核对v1.2本批内容与原型差异，再按框架逐段扩展其他需求",
+        "04-12人工评审及04整体一致性审查仍未完成，保留原等待位置"
       ],
       "pending": [
-        "本期正式范围和客户业务未决",
-        "本轮需要用户说明的实际做法"
+        "一期范围、交付日期及实际客户确认人",
+        "C-04阶段供料至施工放行、C-13成交后材料变更",
+        "各需求域既有权限、编号、表单及关联未决项"
       ],
       "excluded": [
-        "本轮修改原型交互",
-        "正式开发",
-        "替用户或客户决定未确认业务",
-        "自动提交、推送或发布",
-        "本轮生成或覆盖客户Excel",
-        "本轮只优化内部任务记录、Hub当前推进与必要维护说明；不改业务原型、业务规则或客户Excel"
+        "新增并行内部台账、覆盖历史客户文件或代填客户批准／UAT",
+        "本轮修改原型、业务事实、Decision、FLOW或OPEN答案",
+        "Git提交推送及正式发布"
       ]
     },
     "project": {
-      "stage": "定稿前审查与逐组业务确认",
-      "currentBatch": "当前推进优化完成，接续报价四来源核对",
-      "batchState": "五主目标与33项明细、状态依赖及四列表格已内部检查；业务定稿状态保持",
+      "stage": "业务流程确认阶段（逐组业务确认）",
+      "currentBatch": "TASK-060/01：客户需求清单／客户合同与CALL",
+      "batchState": "v1.2接续补入客户／合同6项及CALL 7项，新增24条字段记录和5组关联待核问题；原报价9项、17字段和8组问题保留。清单整理不等于客户批准或业务验收。04-12待评审；C-04 BLOCKED、客户签批与UAT均未升级。",
       "wholeChain": "维修从头到尾还没全部检查通过",
       "frozenBatches": 0,
       "scopeApproval": "一期范围未批准",
       "historicalLocalChecks": 17,
       "localResult": "派工备注、完工纸提交和主管确认等部分功能已检查",
-      "next": "由Codex完成TASK-052/01报价四来源规则与差异对照，已有职责不重问，真正未明部分再问用户。"
+      "next": "项目AI先与用户核对v1.2的13项内容、原型差异及关联C问题；尚未决定的事项先查既有依据，不将本批整理误作客户确认或任务完成。"
     },
     "clientExport": {
       "path": "outputs/2026-10-19-client-progress-v1/EC工单系统客户业务推进与确认表-v1.xlsx",
@@ -1397,12 +1394,18 @@
       "asOf": "2026-10-19",
       "reviewDate": null,
       "nextDelivery": "完成内部核对后再准备客户批次；下次导出补入C-10首期及到期补做问题，现有v1仍为10/19的8主题快照。",
-      "feedbackRule": "客户答复按原编号复核，回填本记录及对应知识问题后导出新批次；保留已回收文件，不覆盖客户填写内容"
+      "feedbackRule": "客户答复按原编号复核，回填本记录及对应知识问题后导出新批次；保留已回收文件，不覆盖客户填写内容",
+      "workingDraft": {
+        "path": "outputs/2026-11-09-client-requirements-v1.2/EC工單系統需求確認與進度表-v1.2_客戶合約及CALL.xlsx",
+        "asOf": "2026-11-09",
+        "status": "客户／合同及CALL草案v1.2，待使用者查看；未发出、未替代既有客户快照，未正式批准",
+        "taskId": "TASK-060/01"
+      }
     },
     "focusTaskIds": [
-      "TASK-051",
-      "TASK-052",
-      "TASK-040"
+      "TASK-060",
+      "TASK-061",
+      "TASK-056"
     ],
     "tasks": [
       {
@@ -2881,10 +2884,10 @@
         "title": "核对全部业务流程与规则",
         "owner": "Codex",
         "status": "进行中",
-        "result": "10/22只读复核确认：Hub进度快照与10/21内部记录一致，但问题详情不易发现、报价职责残留旧说法、保养卡错误显示已确认；原型仍有报价权限、保养强制CALL与材料备齐入口断点。",
+        "result": "04-03～11人工评审通过，04-12待评审；04未整体冻结，03总Gate及C-04不变，维修整链未通过、0批正式定稿。",
         "doneWhen": "报价四来源、保养排人、材料申请/齐料、CP主管确认在知识/需求/当前验收中一致；未定项不写成确认，历史原值保留。",
-        "blocker": "当前业务知识和原型仍有旧职责、状态及入口差异，尚未按最新说明全部落实。",
-        "next": "先整理报价四种来源的规则、职责、状态、权限、异常、原型差异与检查要求，再逐组核对保养、材料及单据等业务。",
+        "blocker": "C-04仍为阶段材料交接Business Blocker；其他OPEN保留，不阻塞已明确需求整理。",
+        "next": "人工评审04-12后仅建议整体Gate／横向审查；本轮停止。",
         "home": {
           "title": "先把业务与原型的差异说清楚",
           "owner": "我（项目AI）",
@@ -2896,17 +2899,17 @@
             "id": "TASK-052/08",
             "title": "客户、合同与权限",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备客户合同及权限核对表",
+            "status": "待确认",
+            "result": "04-03客户合同需求样板已获用户人工评审通过，正文保持原样；本子项剩余完整权限、编号等仍OPEN，未客户签批或产品验收。",
+            "blocker": "C-03维护及跨区权限、C-09编号及政府完整分类等待确认；不阻塞已明确对象关系与CS检索的需求整理。",
+            "next": "保留本域未决，当前推进04-04人工评审。",
             "doneWhen": "客户/联系人/地点、合同与JNO、账号、区域/夜班/兼岗授权、各类编号的含义与关系。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.2及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "displayTitle": "客户、合同与权限",
-            "nextDeliverable": "客户合同及权限核对表",
+            "nextDeliverable": "待人工评审的04-03客户与合同识别需求样板",
             "workPackageCode": "1.2",
             "referenceTaskIds": [
               "TASK-052",
@@ -2922,23 +2925,49 @@
               "C-03",
               "C-09"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "按已采用的03总Gate及04启动任务更新当前记录",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备客户合同及权限核对表",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.2及其来源",
+                  "nextDeliverable": "客户合同及权限核对表"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "按用户批准由04-03转入04-04",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-03六项需求行为、六项验收条件、来源及7条旧REQ映射已整理；权限、编号和政府枚举保留OPEN，待人工评审，不是业务定稿。",
+                  "next": "人工评审04-03需求样板；通过后另行推进04-04 CALL。",
+                  "nextDeliverable": "待人工评审的04-03客户与合同识别需求样板",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+                  "blocker": "C-03维护及跨区权限、C-09编号及政府完整分类等待确认；不阻塞已明确对象关系与CS检索的需求整理。"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/09",
             "title": "CALL受理与上门",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备CALL受理与结束路径",
+            "status": "待确认",
+            "result": "04-04需求页已获项目用户人工评审PASS，原页面及六项AC待执行状态不变；业务关闭、授权与任务关系未决。",
+            "blocker": "C-02关闭与状态、C-03授权、C-07/C-11任务关系及C-09编号未决；本页只定义已明确主干与交接接口。",
+            "next": "按原OPEN继续后续业务确认；本轮进入04-05，不修改04-04。",
             "doneWhen": "来电/WhatsApp记录、仅答疑、无需报价上门、CALL报价、责任人及正常结束；不能假定每张CALL都报价。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.3及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "displayTitle": "CALL受理与上门",
-            "nextDeliverable": "CALL受理与结束路径",
+            "nextDeliverable": "04-04 CALL受理与分流需求评审稿",
             "workPackageCode": "1.3",
             "referenceTaskIds": [
               "TASK-052",
@@ -2954,24 +2983,50 @@
               "C-02",
               "C-07"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "按用户批准由04-03转入04-04",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "next": "准备CALL受理与结束路径",
+                  "nextDeliverable": "CALL受理与结束路径",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.3及其来源",
+                  "blocker": ""
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "用户确认04-04并启动04-05",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-04七项CALL需求行为、六项验收条件及原型差异／旧REQ映射已整理，待人工评审；未整改Prototype。",
+                  "blocker": "C-02关闭与状态、C-03授权、C-07/C-11任务关系及C-09编号未决；本页只定义已明确主干与交接接口。",
+                  "next": "人工评审04-04，通过后再进入04-05。",
+                  "nextDeliverable": "04-04 CALL受理与分流需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/01",
             "title": "报价与中单",
             "owner": "项目AI",
-            "status": "进行中",
-            "result": "四来源的主要岗位与谁报价谁中单已有用户说明；完整规则及原型差异尚待汇总。",
-            "blocker": "",
-            "next": "准备四来源报价规则与差异对照",
+            "status": "待确认",
+            "result": "04-05需求页人工评审PASS；原内容、八项AC待执行及未决边界不变，非客户签批／原型验收。",
+            "blocker": "C-03／06／09／13／14／15等完整规则未决；OPEN-10-26-01不补同步答案。",
+            "next": "按相关OPEN继续确认；本轮转入04-06，不修改04-05。",
             "doneWhen": "四种报价来源、制作及本人中单、修订与条款/金额/签章、M/P/M+P分流和下游关联。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.4及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "progressNote": "主要分工已有回答，待整组核对",
             "displayTitle": "报价与中单",
-            "nextDeliverable": "四来源报价规则与差异对照",
+            "nextDeliverable": "04-05 报价、版本与中单需求评审稿",
             "workPackageCode": "1.4",
             "referenceTaskIds": [
               "TASK-052",
@@ -2995,24 +3050,50 @@
               "SR转报价",
               "标书报价",
               "修订、条款与中单关联"
+            ],
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "用户确认04-04并启动04-05",
+                "previous": {
+                  "status": "进行中",
+                  "result": "四来源的主要岗位与谁报价谁中单已有用户说明；完整规则及原型差异尚待汇总。",
+                  "blocker": "",
+                  "next": "准备四来源报价规则与差异对照",
+                  "nextDeliverable": "四来源报价规则与差异对照",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.4及其来源"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "用户确认04-05并启动04-06",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-05九项行为、八项待执行AC、十项原型只读映射及15项旧REQ引用已整理，待人工评审。",
+                  "blocker": "C-03／06／09／13／14／15等完整规则未决；OPEN-10-26-01不补同步答案。",
+                  "next": "人工评审04-05，通过后进入04-06。",
+                  "nextDeliverable": "04-05 报价、版本与中单需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
             ]
           },
           {
             "id": "TASK-052/03",
             "title": "材料、派工与维修",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备材料到施工的交接清单",
+            "status": "待确认",
+            "result": "04-06及04-09需求页人工评审通过；C-04 BLOCKED与成交后材料变化OPEN保留，业务域PARTIAL、AC待执行。",
+            "blocker": "C-04阶段材料到正式施工接口BLOCKED；OPEN-10-26-01成交后材料变化OPEN，权限及系统分工未补答案。",
+            "next": "保留材料未决；当前批次转04-10。",
             "doneWhen": "成交报价到仓库通MR、申请/审批与齐料区分、缺货采购知会、施工派工备注、接单与后续维修关联。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.5及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "progressNote": "MR与备齐已区分，归口待客户",
             "displayTitle": "材料、派工与维修",
-            "nextDeliverable": "材料到施工的交接清单",
+            "nextDeliverable": "04-09 MR、采购PO与材料衔接需求评审稿",
             "workPackageCode": "1.5",
             "referenceTaskIds": [
               "TASK-052",
@@ -3028,24 +3109,74 @@
               "C-04",
               "C-07"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "用户确认04-05并启动04-06",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备材料到施工的交接清单",
+                  "nextDeliverable": "材料到施工的交接清单",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.5及其来源"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-06人工评审通过，转入04-07",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-06已整理12项行为、11项待执行AC、13项原型只读映射及27项旧REQ引用，待人工评审；业务域PARTIAL。",
+                  "blocker": "C-04阶段材料可施工确认及交接BLOCKED；C-07／C-11任务建立和基数及其他OPEN未定，不补放行答案。",
+                  "next": "人工评审04-06，通过后再进入04-07。",
+                  "nextDeliverable": "04-06 P维修履约需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-08人工评审PASS后进入04-09",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-06需求页获人工评审PASS，业务域PARTIAL及C-04 BLOCKED不变；原页面、AC与阶段放行边界未修改。",
+                  "blocker": "C-04阶段材料可施工确认及交接BLOCKED；C-07／C-11任务建立和基数及其他OPEN未定，不补放行答案。",
+                  "next": "C-04及其余P业务未决继续保留；本轮转入04-07。",
+                  "nextDeliverable": "04-06 P维修履约需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-09人工评审PASS后进入04-10",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-06页面人工评审PASS、C-04 BLOCKED保留；04-09完成12项材料接口需求、12项待执行AC、14项原型只读映射和10项旧REQ追溯，待人工评审。",
+                  "blocker": "C-04阶段材料到正式施工接口BLOCKED；OPEN-10-26-01成交后材料变化OPEN，权限及系统分工未补答案。",
+                  "next": "人工评审04-09，本轮停止。",
+                  "nextDeliverable": "04-09 MR、采购PO与材料衔接需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/02",
             "title": "保养与M+P",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备保养与M+P规则对照",
+            "status": "待确认",
+            "result": "04-07及04-08需求页人工评审通过；M整体结束、组合完成与金额等仍OPEN，业务域PARTIAL，AC待执行。",
+            "blocker": "M及M+P整体结束、C-14复杂金额、数量／编号与权限未决；相关P接口C-04 BLOCKED，不补组合完成算法。",
+            "next": "保留整体结束及组合未决，当前批次转04-09。",
             "doneWhen": "合同/周期、CR逐期定人定时、完成与转P维修、M+P双线、续保；首期与到期补做暂定保持待客户。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.6及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "progressNote": "排期与转维修已有说明，待流程核对",
             "displayTitle": "保养与M+P",
-            "nextDeliverable": "保养与M+P规则对照",
+            "nextDeliverable": "04-08 M+P组合控制需求评审稿",
             "workPackageCode": "1.6",
             "referenceTaskIds": [
               "TASK-052",
@@ -3061,24 +3192,62 @@
               "C-10",
               "C-14"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "04-06人工评审通过，转入04-07",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备保养与M+P规则对照",
+                  "nextDeliverable": "保养与M+P规则对照",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.6及其来源"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-07人工评审通过并转04-08",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-07已整理12项行为、11项待执行AC、16项原型只读映射及22项旧REQ，待人工评审；M业务域PARTIAL。M+P需求未开始。",
+                  "blocker": "C-02／C-10 M整体结束、周期到期续保及C-11任务来源等未决；不补自动完成或固定基数规则。",
+                  "next": "人工评审04-07，通过后再进入04-08 M+P。",
+                  "nextDeliverable": "04-07 M计划与本次服务需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-08人工评审PASS后进入04-09",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-07需求页人工评审PASS但M整体结束OPEN；04-08已整理12项组合行为、11项待执行AC、18项原型只读映射及15项旧REQ，待人工评审。",
+                  "blocker": "M及M+P整体结束、C-14复杂金额、数量／编号与权限未决；相关P接口C-04 BLOCKED，不补组合完成算法。",
+                  "next": "人工评审04-08，通过后进入04-09。",
+                  "nextDeliverable": "04-08 M+P组合控制需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/05",
             "title": "标书与中标履约",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备标书到履约的流程说明",
+            "status": "待确认",
+            "result": "04-11人工评审PASS／PARTIAL；CM／Tender及其他入口未决保留，AC待执行。",
+            "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+            "next": "保留相关OPEN，当前批次转04-12。",
             "doneWhen": "标书登记、邀请报价关联、回标/日期、六状态与结果、跨部门标书组、中标后M/P/M+P及无EC报价MR。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.7及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "progressNote": "部分职责已有回答，待完整核对",
             "displayTitle": "标书与中标履约",
-            "nextDeliverable": "标书到履约的流程说明",
+            "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
             "workPackageCode": "1.7",
             "referenceTaskIds": [
               "TASK-052",
@@ -3095,7 +3264,33 @@
               "C-03",
               "C-15"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "04-10人工评审后转04-11",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备标书到履约的流程说明",
+                  "nextDeliverable": "标书到履约的流程说明",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.7及其来源"
+                }
+              },
+              {
+                "date": "2026-10-30",
+                "reason": "04-11评审通过后转公共规则",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-11整理CM／Tender最小边界、10项待执行AC、10项原型只读检查和15项旧REQ，待人工评审。",
+                  "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+                  "next": "人工评审04-11；本轮停止。",
+                  "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/04",
@@ -3137,18 +3332,18 @@
             "id": "TASK-052/06",
             "title": "开票、收款与对账",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备开票收款与对账规则",
+            "status": "待确认",
+            "result": "04-10人工评审PASS；业务域PARTIAL，财务未决及AC待执行保持。",
+            "blocker": "资料交接／完整清单、开票条件与基数、现场登记交款对账、权限、部分／多次款和复杂金额仍OPEN。",
+            "next": "保留财务OPEN，当前批次转04-11。",
             "doneWhen": "资料齐备与欠件补件、特殊/低额开票、发票/收据、周期账单、现场及部分款项、对账；独立于业务完工。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.9及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "progressNote": "尚待完整核对",
             "displayTitle": "开票、收款与对账",
-            "nextDeliverable": "开票收款与对账规则",
+            "nextDeliverable": "04-10 财务资料与票款状态需求评审稿",
             "workPackageCode": "1.9",
             "referenceTaskIds": [
               "TASK-052",
@@ -3165,23 +3360,49 @@
               "C-08",
               "C-14"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "04-09人工评审PASS后进入04-10",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备开票收款与对账规则",
+                  "nextDeliverable": "开票收款与对账规则",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.9及其来源"
+                }
+              },
+              {
+                "date": "2026-10-29",
+                "reason": "04-10人工评审后转04-11",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-10完成12项财务接口行为、12项待执行AC、16项原型只读映射及17项旧REQ追溯，待人工评审；业务、票款及资料分别表达。",
+                  "blocker": "资料交接／完整清单、开票条件与基数、现场登记交款对账、权限、部分／多次款和复杂金额仍OPEN。",
+                  "next": "人工评审04-10，本轮停止。",
+                  "nextDeliverable": "04-10 财务资料与票款状态需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/10",
             "title": "CM、取消与更正",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备CM与更正的待决及处理清单",
+            "status": "待确认",
+            "result": "04-11人工评审PASS／PARTIAL；CM／Tender及其他入口未决保留，AC待执行。",
+            "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+            "next": "保留相关OPEN，当前批次转04-12。",
             "doneWhen": "CM临时紧急入口及PM冲突、更正/取消/退回/重开、成交变更对MR/计划/单据/票款的影响；不凭旧流程补规则。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.10及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "displayTitle": "CM、取消与更正",
-            "nextDeliverable": "CM与更正的待决及处理清单",
+            "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
             "workPackageCode": "1.10",
             "referenceTaskIds": [
               "TASK-052",
@@ -3199,7 +3420,33 @@
               "C-07",
               "C-13"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-29",
+                "reason": "04-10人工评审后转04-11",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备CM与更正的待决及处理清单",
+                  "nextDeliverable": "CM与更正的待决及处理清单",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.10及其来源"
+                }
+              },
+              {
+                "date": "2026-10-30",
+                "reason": "04-11评审通过后转公共规则",
+                "previous": {
+                  "status": "待确认",
+                  "result": "04-11整理CM／Tender最小边界、10项待执行AC、10项原型只读检查和15项旧REQ，待人工评审。",
+                  "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+                  "next": "人工评审04-11；本轮停止。",
+                  "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
+                  "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/11",
@@ -3237,17 +3484,17 @@
             "id": "TASK-052/12",
             "title": "导入、归档与接口边界",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
-            "blocker": "",
-            "next": "准备导入归档及接口范围清单",
+            "status": "待确认",
+            "result": "04-12已整理10项公共行为、8项待执行AC、12项原AC引用、13项原型映射及25项旧REQ，待人工评审。",
+            "blocker": "编号、资料／附件、权限及通知等细则OPEN；不补算法或渠道。",
+            "next": "人工评审04-12后仅建议整体Gate，不自动执行。",
             "doneWhen": "历史Excel导入、附件容量/保留/归档、离线和报销旧条目、仓库通及Peachtree各自边界；先定是否本期及演示范围，不做生产集成。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中1.12及其来源",
+            "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
             "displayTitle": "导入、归档与接口边界",
-            "nextDeliverable": "导入归档及接口范围清单",
+            "nextDeliverable": "04-12公共规则需求评审稿",
             "workPackageCode": "1.12",
             "referenceTaskIds": [
               "TASK-052",
@@ -3263,7 +3510,21 @@
               "C-01",
               "C-12"
             ],
-            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。"
+            "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+            "history": [
+              {
+                "date": "2026-10-30",
+                "reason": "04-12公共规则归现有公共接口执行子项，不调整工作树",
+                "previous": {
+                  "status": "待处理",
+                  "result": "",
+                  "blocker": "",
+                  "next": "准备导入归档及接口范围清单",
+                  "nextDeliverable": "导入归档及接口范围清单",
+                  "evidence": "2026-10-23用户批准优化；taskStructureReview中1.12及其来源"
+                }
+              }
+            ]
           },
           {
             "id": "TASK-052/07",
@@ -3276,6 +3537,20 @@
               "TASK-052/08",
               "TASK-052/10"
             ]
+          }
+        ],
+        "history": [
+          {
+            "date": "2026-10-29",
+            "reason": "按已采用的03总Gate及04启动任务更新当前记录",
+            "previous": {
+              "status": "进行中",
+              "result": "10/22只读复核确认：Hub进度快照与10/21内部记录一致，但问题详情不易发现、报价职责残留旧说法、保养卡错误显示已确认；原型仍有报价权限、保养强制CALL与材料备齐入口断点。",
+              "blocker": "当前业务知识和原型仍有旧职责、状态及入口差异，尚未按最新说明全部落实。",
+              "next": "先整理报价四种来源的规则、职责、状态、权限、异常、原型差异与检查要求，再逐组核对保养、材料及单据等业务。",
+              "evidence": "docs/audit/GRILLING-AUDIT-20261020.md；同报告2026-10-22梳理顺序与差异清单",
+              "nextDeliverable": null
+            }
           }
         ]
       },
@@ -3511,33 +3786,67 @@
         "type": "定稿推进",
         "priority": "P1",
         "owner": "项目AI",
-        "status": "待推进",
-        "result": "",
+        "status": "进行中",
+        "result": "11/09 v1.2补入04-03客户／合同6项、04-04 CALL 7项，新增24条字段记录及5组待内部核对问题；保留报价样板9项、17字段、8组问题。完整清单、客户确认及验收尚未完成。",
         "doneWhen": "客户表按业务里程碑组织，问题编号、答复和版本日期准确。",
         "blocker": "",
-        "next": "内部业务核对后准备新批次，保留10/19客户表原件。",
+        "next": "先核对v1.2本批13项与原型差异、C子项和客户需决事项；其他业务按既有任务后续推进。",
         "dependencies": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。",
         "customerConfirmation": "不适用",
         "prototypeChange": "不适用",
         "businessAcceptance": "不适用",
-        "evidence": "2026-10-22用户批准定稿任务树；既有审查与任务记录",
+        "evidence": "原10/22任务树；docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
         "maintainer": "Codex",
         "subtasks": [
           {
             "id": "TASK-060/01",
-            "title": "客户业务里程碑",
+            "title": "客户需求清单与业务里程碑",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
+            "status": "进行中",
+            "result": "11/09 v1.2在报价样板基础上增加04-03-A～F、04-04-A～G，共13项；新增24条字段记录、5组原C编号问题。原报价9项需求、17字段及8组问题逐格保留；当前原型只读代码核对，未执行AC或修改原型。",
             "blocker": "",
-            "next": "准备客户版业务里程碑",
-            "doneWhen": "按客户可理解的业务列需求确认、原型准备及业务验收，分别记录。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中3.2及其来源",
+            "next": "请用户查看v1.2，逐项核对13项内容、待核C问题和原型差异；之后按既定任务继续未覆盖需求。",
+            "doneWhen": "完整项目适用业务按同一结构逐条列明需求、表单、原型引用、验收条件及范围；三项进度分别呈现；原编号、版本和反馈一致并经使用者审阅。首个样板完成不等于本任务完成。",
+            "evidence": "原10/23任务拆分；docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
-            "displayTitle": "客户业务里程碑",
-            "nextDeliverable": "客户版业务里程碑",
+            "displayTitle": "客户需求清单制作",
+            "nextDeliverable": "核对v1.2客户／合同与CALL内容、原型差异及待决问题",
+            "progressNote": "11/09在v1.1上补齐13项和24条字段记录；5组问题先待内部核对。报价资料保留；13项均待确认、AC待执行。整体需求清单仍进行中。",
+            "presentationReview": {
+              "date": "2026-11-06",
+              "feedback": "這個進度表做的真醜 還沒之前那份好看",
+              "before": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
+              "after": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx",
+              "change": "总览改为指标、当前安排、业务进度三段；明细分组表头、深蓝与浅色分区、按内容调整行高；九项需求、17字段、8组问题逐格一致。",
+              "status": "版面已重排及检查，待使用者查看；不代表样式已获认可或业务需求定稿"
+            },
+            "deliverables": [
+              {
+                "label": "查看客户合同及CALL草案v1.2",
+                "path": "outputs/2026-11-09-client-requirements-v1.2/EC工單系統需求確認與進度表-v1.2_客戶合約及CALL.xlsx"
+              },
+              {
+                "label": "查看需求清单报价样板",
+                "path": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx"
+              },
+              {
+                "label": "首版样板（历史对比）",
+                "path": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx"
+              },
+              {
+                "label": "查看六步推进框架",
+                "path": "docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md"
+              }
+            ],
+            "steps": [
+              "已完成：框架、表结构及报价九项原需求的客户可读表达",
+              "已完成：报价17字段和8组问题的原编号关联；Excel结构与公式自检",
+              "已完成：04-03客户／合同6项及04-04 CALL 7项草案、字段、AC和原编号映射；只读核对当前原型",
+              "待执行：其他业务逐段补齐、原型当次核对及具体规则核实",
+              "待执行：使用者样板审阅、客户业务确认及对应版本验收；不得提前关闭主任务"
+            ],
             "workPackageCode": "3.2",
             "referenceTaskIds": [
               "TASK-060"
@@ -3551,12 +3860,12 @@
             "id": "TASK-060/02",
             "title": "客户待确认表",
             "owner": "项目AI",
-            "status": "待处理",
-            "result": "",
+            "status": "进行中",
+            "result": "已从04-05既有opens整理8组待核主题及关联需求；保留已知与未决，尚未逐116个旧问题核对或发给客户。",
             "blocker": "",
-            "next": "准备客户版待确认问题表",
+            "next": "先核报价C-03／09／13／14／01／06／07／11／15的已有答复及子项；项目使用者无法回答的再列客户待确认，不重复问基本结论。",
             "doneWhen": "只导出真正需客户决定的子问题，保留C编号和客户答复。",
-            "evidence": "2026-10-23用户批准优化；taskStructureReview中3.3及其来源",
+            "evidence": "原10/23拆分；04-05 opens及OPEN维护源；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx中待确认及决策页",
             "customerConfirmation": "未因拆分新增确认",
             "prototypeChange": "本轮未修改",
             "businessAcceptance": "未因拆分新增验收",
@@ -3580,11 +3889,11 @@
         "type": "定稿推进",
         "priority": "P1",
         "owner": "项目AI",
-        "status": "待推进",
-        "result": "",
+        "status": "进行中",
+        "result": "11/06已区分旧客户快照、会议草案与本轮样板身份；样板九项编号及AC回读、确认前置公式检查通过。Hub桌面任务／详情／成果链接及390px手机显示已检查；定向同步只改变workRegister，UAT、客户答案、119项需求及其他Hub模型保持。全量Hub／客户表一致性仍未完成。",
         "doneWhen": "同一版本同一事项状态一致；快照日期明确，客户答复不被覆盖。",
         "blocker": "",
-        "next": "新客户表准备好后逐项检查里程碑、问题和链接。",
+        "next": "随TASK-060逐批核对来源、编号、状态、当前成果链接及反馈；保留客户旧批次，不把样板设为正式发出版。",
         "dependencies": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。",
         "customerConfirmation": "不适用",
         "prototypeChange": "不适用",
@@ -4434,13 +4743,12 @@
       }
     ],
     "userAction": {
-      "sectionTitle": "当前我来整理",
-      "title": "先看清业务和差异，再决定页面怎么改",
-      "owner": "我（项目AI）",
-      "status": "Q12范围已说明，本轮暂不需要新增回答",
-      "action": "我先整理报价四来源的对照方案；你下一轮只需审查这一组。C-10首期与到期补做继续保留待客户，不重复问。",
-      "noteLabel": "本轮边界",
-      "doneWhen": "各业务能看到已知规则、缺少什么、原型差异和检查方法；页面整改须在梳理后另行明确。"
+      "sectionTitle": "可查看本批成果",
+      "title": "查看报价需求样板是否适合逐条与客户确认",
+      "owner": "项目用户",
+      "status": "待确认",
+      "action": "可审阅报价九项需求、字段及问题的表达；这不阻塞项目AI继续整理客户／合同与CALL。既有04-12人工评审仍待处理，不重新要求已评审的04-04。",
+      "doneWhen": "使用者反馈可读性与需调整处；客户业务签批及产品验收另按真实证据记录。"
     },
     "blockers": [
       {
@@ -4662,8 +4970,8 @@
     "changes": [
       {
         "area": "推进表",
-        "summary": "33项工作映射原TASK及稳定子项，旧依赖留档；TASK-059内部任务整理完成，客户Excel未改。",
-        "state": "任务安排已检查"
+        "summary": "本轮按用户对首版外观的反馈重排报价样板v1.1；总览和三张明细样式已检查，需求／字段／问题及确认状态不变。TASK-060/01继续进行中，后续接续客户／合同及CALL。",
+        "state": "版面已重排，待使用者查看；全量清单仍进行中"
       },
       {
         "area": "原型",
@@ -4672,8 +4980,8 @@
       },
       {
         "area": "知识库／Hub",
-        "summary": "当前推进改为四列表格和任务详情，父目标由全组子项判断状态；业务知识保持。",
-        "state": "优化已检查"
+        "summary": "仅将工作记录中的当前样板链接更新至v1.1并保留首版历史入口；Hub定向同步任务投影，业务知识及需求正文不变。",
+        "state": "成果入口已同步；业务知识无变化"
       }
     ],
     "evidencePath": "docs/audit/GRILLING-AUDIT-20261020.md",
@@ -4970,8 +5278,8 @@
       "title": "EC 工单系统需求与原型定稿",
       "doneWhen": "本期范围与规则获得确认，知识、客户表和原型版本对应；全链检查与客户验收完成，遗留事项有明确边界。",
       "focus": {
-        "taskId": "TASK-052/01",
-        "label": "报价四种来源与中单核对"
+        "taskId": "TASK-060/01",
+        "label": "客户需求清单进行中：报价样板已整理，接续客户／合同与CALL"
       },
       "groups": [
         {
@@ -5085,6 +5393,24 @@
       ]
     },
     "planningHistory": [
+      {
+        "revision": "WORK-20261106-CLIENT-REQUIREMENTS-01",
+        "date": "2026-11-06",
+        "reason": "使用者要求需求清单必须实际推进，并能看见当前做到哪里、下次从哪里继续。沿用TASK-060/01、060/02、061，不新增并行台账。",
+        "previousFocus": {
+          "taskId": "TASK-052/12",
+          "label": "04-12公共规则：待人工评审，未执行04整体Gate"
+        },
+        "previousProjectNext": "人工评审04-12后仅建议04整体Gate／横向一致性审查，不自动执行，不进入05。",
+        "previousUserAction": "旧入口仍要求评审04-04 CALL；该提示已落后于04-03～11人工评审记录，本轮仅修正工作提示，不改原评审证据。",
+        "previousClientExport": "10/19 v1快照仍保留原路径、日期及草案身份；本轮另登记报价workingDraft，不宣称已正式替换。",
+        "previousChanges": [
+          "33项工作映射原TASK及稳定子项，旧依赖留档；TASK-059内部任务整理完成，客户Excel未改。",
+          "原型无变化；未修改业务交互或验收结论。",
+          "当前推进四列表格和详情、父目标全组状态为原历史基线。"
+        ],
+        "scopeBoundary": "只有客户清单制作与工作可见性；旧REQ、119项索引、业务事实、客户问题答案、AC待执行、UAT未通过及0批定稿均保持。"
+      },
       {
         "revision": "WORK-20261022-04",
         "date": "2026-10-22",
@@ -5445,6 +5771,645 @@
             "after": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。"
           }
         ]
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "用户批准04 V1第一轮落地；保留此前推进快照，业务验收及客户批准状态不变。",
+        "revision": "WORK-20261023-02",
+        "project": {
+          "stage": "定稿前审查与逐组业务确认",
+          "currentBatch": "当前推进优化完成，接续报价四来源核对",
+          "batchState": "五主目标与33项明细、状态依赖及四列表格已内部检查；业务定稿状态保持",
+          "wholeChain": "维修从头到尾还没全部检查通过",
+          "frozenBatches": 0,
+          "scopeApproval": "一期范围未批准",
+          "historicalLocalChecks": 17,
+          "localResult": "派工备注、完工纸提交和主管确认等部分功能已检查",
+          "next": "由Codex完成TASK-052/01报价四来源规则与差异对照，已有职责不重问，真正未明部分再问用户。"
+        },
+        "scope": {
+          "current": [
+            "落实用户确认的五主目标和子任务",
+            "校正当前执行状态、依赖及明细展示",
+            "检查当前推进页面后转逐项执行"
+          ],
+          "later": [
+            "按本轮taskStructureReview应用任务树与精简明细表",
+            "按明确业务规则分批修改并走通原型",
+            "准备客户范围确认、业务验收和本阶段交付"
+          ],
+          "pending": [
+            "本期正式范围和客户业务未决",
+            "本轮需要用户说明的实际做法"
+          ],
+          "excluded": [
+            "本轮修改原型交互",
+            "正式开发",
+            "替用户或客户决定未确认业务",
+            "自动提交、推送或发布",
+            "本轮生成或覆盖客户Excel",
+            "本轮只优化内部任务记录、Hub当前推进与必要维护说明；不改业务原型、业务规则或客户Excel"
+          ]
+        },
+        "userAction": {
+          "sectionTitle": "当前我来整理",
+          "title": "先看清业务和差异，再决定页面怎么改",
+          "owner": "我（项目AI）",
+          "status": "Q12范围已说明，本轮暂不需要新增回答",
+          "action": "我先整理报价四来源的对照方案；你下一轮只需审查这一组。C-10首期与到期补做继续保留待客户，不重复问。",
+          "noteLabel": "本轮边界",
+          "doneWhen": "各业务能看到已知规则、缺少什么、原型差异和检查方法；页面整改须在梳理后另行明确。"
+        },
+        "taskFocus": {
+          "taskId": "TASK-052/01",
+          "label": "报价四种来源与中单核对"
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "04-03样板人工评审通过，本轮推进04-04；保留前批当前任务及状态。",
+        "revision": "WORK-20261029-04V1-01",
+        "project": {
+          "stage": "业务流程确认阶段（逐组业务确认）",
+          "currentBatch": "04 V1第一轮：客户与合同识别需求样板",
+          "batchState": "04 V1已启动；04-03需求样板评审中／待人工评审，不是已定稿",
+          "wholeChain": "维修从头到尾还没全部检查通过",
+          "frozenBatches": 0,
+          "scopeApproval": "一期范围未批准",
+          "historicalLocalChecks": 17,
+          "localResult": "派工备注、完工纸提交和主管确认等部分功能已检查",
+          "next": "人工评审04 V1结构及04-03需求样板；通过后另行推进04-04 CALL，不直接开始Prototype整改。"
+        },
+        "requirementsV1": {
+          "version": "V1",
+          "startedAt": "2026-10-29",
+          "status": "待确认",
+          "reviewLabel": "待人工评审",
+          "currentDomain": "04-03 客户与合同识别",
+          "owner": "Codex（用户授权AI）",
+          "reviewer": "项目用户（人工评审待进行）",
+          "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+          "scope": "00/01/02框架及04-03需求样板；其他域只建目录。",
+          "next": "人工评审04 V1结构及04-03样板，通过后再推进04-04 CALL。",
+          "customerApproval": "未客户正式签批",
+          "prototypeChange": "本轮无变化",
+          "acceptance": "AC-01～06仅完成定义，待执行；未产品验收。"
+        },
+        "scope": {
+          "current": [
+            "建立04 V1信息架构及00/01/02框架",
+            "整理04-03客户与合同识别需求、验收条件及旧REQ映射",
+            "同步03总Gate及04启动状态，提交人工评审"
+          ],
+          "later": [
+            "样板通过后逐域编写04-04及以后需求",
+            "另行获准的Prototype整改及实际业务验收"
+          ],
+          "pending": [
+            "一期范围未批准",
+            "C-04阶段材料放行及交接",
+            "客户／合同维护权限、政府分类及编号细则"
+          ],
+          "excluded": [
+            "修改01/02/03业务内容、05及其他Hub页面",
+            "本轮编写CALL、报价、P/M需求",
+            "批量迁移或重编号119条旧REQ",
+            "修改Prototype、客户Excel或已确认Decision",
+            "关闭OPEN或提升业务定稿／客户签批状态"
+          ]
+        },
+        "userAction": {
+          "sectionTitle": "待人工评审",
+          "title": "评审04 V1结构及04-03需求样板",
+          "owner": "项目用户",
+          "status": "待确认",
+          "action": "查看04需求总览、对象关系、状态权限框架及客户合同样板；本轮不开始Prototype整改。",
+          "doneWhen": "用户明确样板表达是否可复用于后续业务域；不代替客户签批或业务验收。"
+        },
+        "taskFocus": {
+          "taskId": "TASK-052/08",
+          "label": "04-03客户与合同识别需求样板：待人工评审"
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "用户确认04-04人工评审PASS并授权04-05需求落地",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-04 CALL受理与分流需求",
+            "batchState": "04结构及04-03样板人工评审通过；04-04评审中／待人工评审，不是客户签批或产品验收。",
+            "next": "人工评审04-04，通过后再进入04-05报价、版本与中单；本轮不继续04-05或Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-05 报价、版本与中单",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "本轮只编写04-05；04 IA、04-03／04-04及其他业务域保持原样。",
+            "next": "人工评审04-05，通过后进入04-06 P维修履约。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-QUOTE-01～08已定义、待执行；后补具体操作及成交后变更完整实施验收仍受OPEN限制。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "项目用户确认04-05人工评审PASS，授权04-06",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-05 报价、版本与中单需求",
+            "batchState": "04结构、04-03及04-04已获项目用户人工评审通过；04-05评审中，非客户签批或产品验收。",
+            "next": "人工评审04-05，通过后再进入04-06 P维修履约；本轮不继续04-06或Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-05 报价、版本与中单",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "本轮只编写04-05；04 IA、04-03／04-04及其他业务域保持原样。",
+            "next": "人工评审04-05，通过后进入04-06 P维修履约。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-QUOTE-01～08已定义、待执行；后补具体操作及成交后变更完整实施验收仍受OPEN限制。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "项目用户确认04-06页面PASS并授权04-07；C-04仍BLOCKED",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-06 P维修履约需求",
+            "batchState": "04 IA、04-03／04／05人工评审通过；04-06需求待人工评审，业务域PARTIAL且C-04阶段接口BLOCKED。",
+            "next": "人工评审04-06，通过后进入04-07 M计划与本次服务；本轮不继续或修改Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-06 P维修履约",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅编写04-06 P需求；原04 IA及04-03／04／05、其他业务域不改。",
+            "next": "人工评审04-06，通过后进入04-07 M计划与本次服务。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-P-01～11定义、待执行；C-04正式阶段放行实施验收BLOCKED，C-07／C-11任务建立等仍OPEN。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "项目用户确认04-07页面PASS并授权04-08；整体M结束仍OPEN",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-07 M计划与本次服务需求",
+            "batchState": "04-03～06人工评审通过；04-07需求待人工评审、业务域PARTIAL；04-06 C-04阶段接口BLOCKED不变。",
+            "next": "人工评审04-07，通过后进入04-08 M+P组合控制；本轮不继续或修改Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-07 M计划与本次服务",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅04-07；04 IA、04-03～06及其他业务域不改。",
+            "next": "人工评审04-07，通过后进入04-08 M+P组合控制。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-M-01～11已定义待执行；M整体结束、任务关联、到期续保仍OPEN；04-06 C-04继续BLOCKED。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              },
+              {
+                "domain": "04-06 P维修履约",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+                "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "项目用户确认04-08需求页人工评审PASS并授权04-09",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-08 M+P组合控制需求",
+            "batchState": "04-03～07人工评审通过；04-08待人工评审、业务域PARTIAL；M整体结束及组合完成／金额OPEN，P对应C-04接口BLOCKED保留。",
+            "next": "人工评审04-08，通过后进入04-09 MR、采购PO与材料衔接；本轮不继续或修改Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-08 M+P组合控制",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅04-08；04 IA、04-03～07及其他业务域不改。",
+            "next": "人工评审04-08，通过后进入04-09 MR、采购PO与材料衔接。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-MP-01～11已定义待执行；组合整体完成、复杂金额及权限数量未决，P对应C-04继续BLOCKED。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              },
+              {
+                "domain": "04-06 P维修履约",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+                "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+              },
+              {
+                "domain": "04-07 M计划与本次服务",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮任务明确04-07 PASS、业务域PARTIAL、M整体结束规则OPEN。",
+                "boundary": "仅需求页人工评审；业务成熟度和OPEN不升级，AC仍待执行，非客户签批。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "用户人工评审04-09 PASS并授权04-10",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-09 MR、采购PO与材料衔接需求",
+            "batchState": "04-03～08人工评审通过；04-09需求待人工评审，业务域PARTIAL；C-04阶段材料放行BLOCKED、成交后材料变化OPEN。",
+            "next": "人工评审04-09，后续再进入04-10；本轮停止，不改Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-09 MR、采购PO与材料衔接",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅04-09；04 IA及04-03～08正文、其他页面不改。",
+            "next": "人工评审04-09；本轮不开始04-10。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-MR-01～12已定义待执行；C-04施工接口BLOCKED，OPEN-10-26-01未答，不代表材料交接或维修整链验收通过。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              },
+              {
+                "domain": "04-06 P维修履约",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+                "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+              },
+              {
+                "domain": "04-07 M计划与本次服务",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮任务明确04-07 PASS、业务域PARTIAL、M整体结束规则OPEN。",
+                "boundary": "仅需求页人工评审；业务成熟度和OPEN不升级，AC仍待执行，非客户签批。"
+              },
+              {
+                "domain": "04-08 M+P组合控制",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确上一批04-08已人工评审PASS并要求更新内部记录。",
+                "boundary": "仅需求页人工评审；业务域PARTIAL、整体结束及复杂金额OPEN、AC待执行保留，非客户签批。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-29",
+        "reason": "04-10人工评审PASS后授权04-11",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-10 财务资料与票款状态需求",
+            "batchState": "04-03～09人工评审通过；04-10需求待人工评审、业务域PARTIAL。交接及票款规则仍OPEN，C-04 BLOCKED与材料变化OPEN保留。",
+            "next": "人工评审04-10；本轮停止，不开始04-11、不改Prototype。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-10 财务资料与票款状态",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅04-10；04 IA及04-03～09正文、其他页面不改。",
+            "next": "人工评审04-10，本轮不开始04-11。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-FIN-01～12已定义待执行；资料交接、票款及现场款细则OPEN，M／M+P整体结束不补答案，不代表财务或维修整链验收通过。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              },
+              {
+                "domain": "04-06 P维修履约",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+                "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+              },
+              {
+                "domain": "04-07 M计划与本次服务",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮任务明确04-07 PASS、业务域PARTIAL、M整体结束规则OPEN。",
+                "boundary": "仅需求页人工评审；业务成熟度和OPEN不升级，AC仍待执行，非客户签批。"
+              },
+              {
+                "domain": "04-08 M+P组合控制",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确上一批04-08已人工评审PASS并要求更新内部记录。",
+                "boundary": "仅需求页人工评审；业务域PARTIAL、整体结束及复杂金额OPEN、AC待执行保留，非客户签批。"
+              },
+              {
+                "domain": "04-09 MR、采购PO与材料衔接",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确上一批04-09已人工评审PASS并要求更新内部记录。",
+                "boundary": "仅需求页人工评审；原业务域PARTIAL、C-04 BLOCKED、成交后材料变化OPEN、AC待执行保持，非客户签批。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "date": "2026-10-30",
+        "reason": "04-11人工评审PASS后转04-12",
+        "previous": {
+          "project": {
+            "currentBatch": "04 V1：04-11 CM、Tender及其他PARTIAL范围",
+            "batchState": "04-03～10人工评审通过；04-11待人工评审、业务域PARTIAL；CM／Tender规则及一期范围OPEN。",
+            "next": "人工评审04-11，通过后仅建议04-12；本轮停止。"
+          },
+          "requirementsV1": {
+            "version": "V1",
+            "startedAt": "2026-10-29",
+            "status": "待确认",
+            "reviewLabel": "待人工评审",
+            "currentDomain": "04-11 CM、Tender及其他PARTIAL范围",
+            "owner": "Codex（用户授权AI）",
+            "reviewer": "项目用户（人工评审待进行）",
+            "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+            "scope": "仅04-11；04-03～10正文和其他页面不改。",
+            "next": "人工评审04-11，通过后仅建议04-12。",
+            "customerApproval": "未客户正式签批",
+            "prototypeChange": "本轮无变化",
+            "acceptance": "AC-PART-01～10待执行，只验已知边界／引用／未决保护，非完整CM／Tender业务验收。",
+            "reviewHistory": [
+              {
+                "domain": "04-03 客户与合同识别",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+                "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+              },
+              {
+                "domain": "04-04 CALL受理与分流",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+                "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+              },
+              {
+                "domain": "04-05 报价、版本与中单",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+                "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+              },
+              {
+                "domain": "04-06 P维修履约",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+                "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+              },
+              {
+                "domain": "04-07 M计划与本次服务",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮任务明确04-07 PASS、业务域PARTIAL、M整体结束规则OPEN。",
+                "boundary": "仅需求页人工评审；业务成熟度和OPEN不升级，AC仍待执行，非客户签批。"
+              },
+              {
+                "domain": "04-08 M+P组合控制",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确上一批04-08已人工评审PASS并要求更新内部记录。",
+                "boundary": "仅需求页人工评审；业务域PARTIAL、整体结束及复杂金额OPEN、AC待执行保留，非客户签批。"
+              },
+              {
+                "domain": "04-09 MR、采购PO与材料衔接",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确上一批04-09已人工评审PASS并要求更新内部记录。",
+                "boundary": "仅需求页人工评审；原业务域PARTIAL、C-04 BLOCKED、成交后材料变化OPEN、AC待执行保持，非客户签批。"
+              },
+              {
+                "domain": "04-10 财务资料与票款状态",
+                "result": "人工评审通过",
+                "recordedAt": "2026-10-29",
+                "confirmedBy": "项目用户",
+                "evidence": "本轮用户明确04-10人工评审PASS。",
+                "boundary": "仅需求页评审，原业务域PARTIAL、财务OPEN和AC待执行保持，非客户签批。"
+              }
+            ]
+          }
+        }
       }
     ],
     "taskStructureReview": {
@@ -6871,6 +7836,110 @@
         "scope": "仅当前推进模块及内部任务组织；不是业务确认、原型业务验收或客户签收。"
       }
     },
+    "gateReviews": {
+      "business03": {
+        "conclusion": "CONDITIONAL PASS",
+        "recordedAt": "2026-10-29",
+        "basis": "上一轮03业务流程总Gate审查；用户本轮明确采用该结论。",
+        "blockers": [
+          "C-04：阶段材料可供施工的确认责任、凭据及交接方式"
+        ],
+        "scope": "核心业务模型可用于已明确部分的系统需求整理；材料→正式安排阶段施工受C-04限制，不阻塞本轮客户合同样板。",
+        "wholeChainPassed": false,
+        "frozenBusinessBatches": 0,
+        "customerApproval": "未客户正式签批",
+        "note": "记录已有总Gate，不改03流程内容、原Gate或客户验收。"
+      }
+    },
+    "requirementsV1": {
+      "version": "V1",
+      "startedAt": "2026-10-29",
+      "status": "待确认",
+      "reviewLabel": "待人工评审",
+      "currentDomain": "04-12 编号、附件、通知与验收规则",
+      "owner": "Codex（用户授权AI）",
+      "reviewer": "项目用户（人工评审待进行）",
+      "sourcePath": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+      "scope": "仅04-12；04-03～11正文及AC状态、其他页面不改。",
+      "next": "人工评审04-12后仅建议04整体Gate／横向一致性审查。",
+      "customerApproval": "未客户正式签批",
+      "prototypeChange": "本轮无变化",
+      "acceptance": "AC-COM-01～08待执行；12条公共原则引用原AC，不复制或批量提升状态，不代表04整体Gate通过。",
+      "reviewHistory": [
+        {
+          "domain": "04-03 客户与合同识别",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确说明04-03人工评审通过并作为标准样板。",
+          "boundary": "只代表需求样板人工评审，不代表客户正式签批、AC执行或权限问题关闭；04-03正文未修改。"
+        },
+        {
+          "domain": "04-04 CALL受理与分流",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户任务明确04-04 CALL受理与分流PASS，允许进入04-05。",
+          "boundary": "只代表需求页人工评审；客户未签批，AC未执行，原04-04正文和OPEN未改。"
+        },
+        {
+          "domain": "04-05 报价、版本与中单",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户任务明确04-05 PASS并授权进入04-06。",
+          "boundary": "仅需求页人工评审；客户未签批，AC未执行，原04-05正文与OPEN未修改。"
+        },
+        {
+          "domain": "04-06 P维修履约",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确04-06 PASS、业务成熟度PARTIAL、C-04继续BLOCKED。",
+          "boundary": "只代表需求页面人工评审，业务成熟度及阻塞未提升，AC待执行，非客户签批。"
+        },
+        {
+          "domain": "04-07 M计划与本次服务",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮任务明确04-07 PASS、业务域PARTIAL、M整体结束规则OPEN。",
+          "boundary": "仅需求页人工评审；业务成熟度和OPEN不升级，AC仍待执行，非客户签批。"
+        },
+        {
+          "domain": "04-08 M+P组合控制",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确上一批04-08已人工评审PASS并要求更新内部记录。",
+          "boundary": "仅需求页人工评审；业务域PARTIAL、整体结束及复杂金额OPEN、AC待执行保留，非客户签批。"
+        },
+        {
+          "domain": "04-09 MR、采购PO与材料衔接",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确上一批04-09已人工评审PASS并要求更新内部记录。",
+          "boundary": "仅需求页人工评审；原业务域PARTIAL、C-04 BLOCKED、成交后材料变化OPEN、AC待执行保持，非客户签批。"
+        },
+        {
+          "domain": "04-10 财务资料与票款状态",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-29",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确04-10人工评审PASS。",
+          "boundary": "仅需求页评审，原业务域PARTIAL、财务OPEN和AC待执行保持，非客户签批。"
+        },
+        {
+          "domain": "04-11 CM、Tender及其他PARTIAL范围",
+          "result": "人工评审通过",
+          "recordedAt": "2026-10-30",
+          "confirmedBy": "项目用户",
+          "evidence": "本轮用户明确04-11人工评审PASS／PARTIAL。",
+          "boundary": "仅页面评审，业务成熟度、OPEN及AC待执行保持，非客户签批。"
+        }
+      ]
+    },
     "workView": {
       "items": [
         {
@@ -6908,17 +7977,17 @@
           "id": "TASK-052/08",
           "title": "客户、合同与权限",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备客户合同及权限核对表",
+          "status": "待确认",
+          "result": "04-03客户合同需求样板已获用户人工评审通过，正文保持原样；本子项剩余完整权限、编号等仍OPEN，未客户签批或产品验收。",
+          "blocker": "C-03维护及跨区权限、C-09编号及政府完整分类等待确认；不阻塞已明确对象关系与CS检索的需求整理。",
+          "next": "保留本域未决，当前推进04-04人工评审。",
           "doneWhen": "客户/联系人/地点、合同与JNO、账号、区域/夜班/兼岗授权、各类编号的含义与关系。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.2及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "displayTitle": "客户、合同与权限",
-          "nextDeliverable": "客户合同及权限核对表",
+          "nextDeliverable": "待人工评审的04-03客户与合同识别需求样板",
           "workPackageCode": "1.2",
           "referenceTaskIds": [
             "TASK-052",
@@ -6935,24 +8004,50 @@
             "C-09"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "按已采用的03总Gate及04启动任务更新当前记录",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备客户合同及权限核对表",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.2及其来源",
+                "nextDeliverable": "客户合同及权限核对表"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "按用户批准由04-03转入04-04",
+              "previous": {
+                "status": "待确认",
+                "result": "04-03六项需求行为、六项验收条件、来源及7条旧REQ映射已整理；权限、编号和政府枚举保留OPEN，待人工评审，不是业务定稿。",
+                "next": "人工评审04-03需求样板；通过后另行推进04-04 CALL。",
+                "nextDeliverable": "待人工评审的04-03客户与合同识别需求样板",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
+                "blocker": "C-03维护及跨区权限、C-09编号及政府完整分类等待确认；不阻塞已明确对象关系与CS检索的需求整理。"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/09",
           "title": "CALL受理与上门",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备CALL受理与结束路径",
+          "status": "待确认",
+          "result": "04-04需求页已获项目用户人工评审PASS，原页面及六项AC待执行状态不变；业务关闭、授权与任务关系未决。",
+          "blocker": "C-02关闭与状态、C-03授权、C-07/C-11任务关系及C-09编号未决；本页只定义已明确主干与交接接口。",
+          "next": "按原OPEN继续后续业务确认；本轮进入04-05，不修改04-04。",
           "doneWhen": "来电/WhatsApp记录、仅答疑、无需报价上门、CALL报价、责任人及正常结束；不能假定每张CALL都报价。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.3及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "displayTitle": "CALL受理与上门",
-          "nextDeliverable": "CALL受理与结束路径",
+          "nextDeliverable": "04-04 CALL受理与分流需求评审稿",
           "workPackageCode": "1.3",
           "referenceTaskIds": [
             "TASK-052",
@@ -6969,25 +8064,51 @@
             "C-07"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "按用户批准由04-03转入04-04",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "next": "准备CALL受理与结束路径",
+                "nextDeliverable": "CALL受理与结束路径",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.3及其来源",
+                "blocker": ""
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "用户确认04-04并启动04-05",
+              "previous": {
+                "status": "待确认",
+                "result": "04-04七项CALL需求行为、六项验收条件及原型差异／旧REQ映射已整理，待人工评审；未整改Prototype。",
+                "blocker": "C-02关闭与状态、C-03授权、C-07/C-11任务关系及C-09编号未决；本页只定义已明确主干与交接接口。",
+                "next": "人工评审04-04，通过后再进入04-05。",
+                "nextDeliverable": "04-04 CALL受理与分流需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/01",
           "title": "报价与中单",
           "owner": "项目AI",
-          "status": "进行中",
-          "result": "四来源的主要岗位与谁报价谁中单已有用户说明；完整规则及原型差异尚待汇总。",
-          "blocker": "",
-          "next": "准备四来源报价规则与差异对照",
+          "status": "待确认",
+          "result": "04-05需求页人工评审PASS；原内容、八项AC待执行及未决边界不变，非客户签批／原型验收。",
+          "blocker": "C-03／06／09／13／14／15等完整规则未决；OPEN-10-26-01不补同步答案。",
+          "next": "按相关OPEN继续确认；本轮转入04-06，不修改04-05。",
           "doneWhen": "四种报价来源、制作及本人中单、修订与条款/金额/签章、M/P/M+P分流和下游关联。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.4及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "progressNote": "主要分工已有回答，待整组核对",
           "displayTitle": "报价与中单",
-          "nextDeliverable": "四来源报价规则与差异对照",
+          "nextDeliverable": "04-05 报价、版本与中单需求评审稿",
           "workPackageCode": "1.4",
           "referenceTaskIds": [
             "TASK-052",
@@ -7012,25 +8133,51 @@
             "标书报价",
             "修订、条款与中单关联"
           ],
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "用户确认04-04并启动04-05",
+              "previous": {
+                "status": "进行中",
+                "result": "四来源的主要岗位与谁报价谁中单已有用户说明；完整规则及原型差异尚待汇总。",
+                "blocker": "",
+                "next": "准备四来源报价规则与差异对照",
+                "nextDeliverable": "四来源报价规则与差异对照",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.4及其来源"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "用户确认04-05并启动04-06",
+              "previous": {
+                "status": "待确认",
+                "result": "04-05九项行为、八项待执行AC、十项原型只读映射及15项旧REQ引用已整理，待人工评审。",
+                "blocker": "C-03／06／09／13／14／15等完整规则未决；OPEN-10-26-01不补同步答案。",
+                "next": "人工评审04-05，通过后进入04-06。",
+                "nextDeliverable": "04-05 报价、版本与中单需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "进行中"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/03",
           "title": "材料、派工与维修",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备材料到施工的交接清单",
+          "status": "待确认",
+          "result": "04-06及04-09需求页人工评审通过；C-04 BLOCKED与成交后材料变化OPEN保留，业务域PARTIAL、AC待执行。",
+          "blocker": "C-04阶段材料到正式施工接口BLOCKED；OPEN-10-26-01成交后材料变化OPEN，权限及系统分工未补答案。",
+          "next": "保留材料未决；当前批次转04-10。",
           "doneWhen": "成交报价到仓库通MR、申请/审批与齐料区分、缺货采购知会、施工派工备注、接单与后续维修关联。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.5及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "progressNote": "MR与备齐已区分，归口待客户",
           "displayTitle": "材料、派工与维修",
-          "nextDeliverable": "材料到施工的交接清单",
+          "nextDeliverable": "04-09 MR、采购PO与材料衔接需求评审稿",
           "workPackageCode": "1.5",
           "referenceTaskIds": [
             "TASK-052",
@@ -7047,25 +8194,75 @@
             "C-07"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "用户确认04-05并启动04-06",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备材料到施工的交接清单",
+                "nextDeliverable": "材料到施工的交接清单",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.5及其来源"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-06人工评审通过，转入04-07",
+              "previous": {
+                "status": "待确认",
+                "result": "04-06已整理12项行为、11项待执行AC、13项原型只读映射及27项旧REQ引用，待人工评审；业务域PARTIAL。",
+                "blocker": "C-04阶段材料可施工确认及交接BLOCKED；C-07／C-11任务建立和基数及其他OPEN未定，不补放行答案。",
+                "next": "人工评审04-06，通过后再进入04-07。",
+                "nextDeliverable": "04-06 P维修履约需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-08人工评审PASS后进入04-09",
+              "previous": {
+                "status": "待确认",
+                "result": "04-06需求页获人工评审PASS，业务域PARTIAL及C-04 BLOCKED不变；原页面、AC与阶段放行边界未修改。",
+                "blocker": "C-04阶段材料可施工确认及交接BLOCKED；C-07／C-11任务建立和基数及其他OPEN未定，不补放行答案。",
+                "next": "C-04及其余P业务未决继续保留；本轮转入04-07。",
+                "nextDeliverable": "04-06 P维修履约需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-09人工评审PASS后进入04-10",
+              "previous": {
+                "status": "待确认",
+                "result": "04-06页面人工评审PASS、C-04 BLOCKED保留；04-09完成12项材料接口需求、12项待执行AC、14项原型只读映射和10项旧REQ追溯，待人工评审。",
+                "blocker": "C-04阶段材料到正式施工接口BLOCKED；OPEN-10-26-01成交后材料变化OPEN，权限及系统分工未补答案。",
+                "next": "人工评审04-09，本轮停止。",
+                "nextDeliverable": "04-09 MR、采购PO与材料衔接需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/02",
           "title": "保养与M+P",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备保养与M+P规则对照",
+          "status": "待确认",
+          "result": "04-07及04-08需求页人工评审通过；M整体结束、组合完成与金额等仍OPEN，业务域PARTIAL，AC待执行。",
+          "blocker": "M及M+P整体结束、C-14复杂金额、数量／编号与权限未决；相关P接口C-04 BLOCKED，不补组合完成算法。",
+          "next": "保留整体结束及组合未决，当前批次转04-09。",
           "doneWhen": "合同/周期、CR逐期定人定时、完成与转P维修、M+P双线、续保；首期与到期补做暂定保持待客户。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.6及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "progressNote": "排期与转维修已有说明，待流程核对",
           "displayTitle": "保养与M+P",
-          "nextDeliverable": "保养与M+P规则对照",
+          "nextDeliverable": "04-08 M+P组合控制需求评审稿",
           "workPackageCode": "1.6",
           "referenceTaskIds": [
             "TASK-052",
@@ -7082,25 +8279,63 @@
             "C-14"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "04-06人工评审通过，转入04-07",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备保养与M+P规则对照",
+                "nextDeliverable": "保养与M+P规则对照",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.6及其来源"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-07人工评审通过并转04-08",
+              "previous": {
+                "status": "待确认",
+                "result": "04-07已整理12项行为、11项待执行AC、16项原型只读映射及22项旧REQ，待人工评审；M业务域PARTIAL。M+P需求未开始。",
+                "blocker": "C-02／C-10 M整体结束、周期到期续保及C-11任务来源等未决；不补自动完成或固定基数规则。",
+                "next": "人工评审04-07，通过后再进入04-08 M+P。",
+                "nextDeliverable": "04-07 M计划与本次服务需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-08人工评审PASS后进入04-09",
+              "previous": {
+                "status": "待确认",
+                "result": "04-07需求页人工评审PASS但M整体结束OPEN；04-08已整理12项组合行为、11项待执行AC、18项原型只读映射及15项旧REQ，待人工评审。",
+                "blocker": "M及M+P整体结束、C-14复杂金额、数量／编号与权限未决；相关P接口C-04 BLOCKED，不补组合完成算法。",
+                "next": "人工评审04-08，通过后进入04-09。",
+                "nextDeliverable": "04-08 M+P组合控制需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/05",
           "title": "标书与中标履约",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备标书到履约的流程说明",
+          "status": "待确认",
+          "result": "04-11人工评审PASS／PARTIAL；CM／Tender及其他入口未决保留，AC待执行。",
+          "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+          "next": "保留相关OPEN，当前批次转04-12。",
           "doneWhen": "标书登记、邀请报价关联、回标/日期、六状态与结果、跨部门标书组、中标后M/P/M+P及无EC报价MR。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.7及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "progressNote": "部分职责已有回答，待完整核对",
           "displayTitle": "标书与中标履约",
-          "nextDeliverable": "标书到履约的流程说明",
+          "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
           "workPackageCode": "1.7",
           "referenceTaskIds": [
             "TASK-052",
@@ -7118,8 +8353,34 @@
             "C-15"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "04-10人工评审后转04-11",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备标书到履约的流程说明",
+                "nextDeliverable": "标书到履约的流程说明",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.7及其来源"
+              }
+            },
+            {
+              "date": "2026-10-30",
+              "reason": "04-11评审通过后转公共规则",
+              "previous": {
+                "status": "待确认",
+                "result": "04-11整理CM／Tender最小边界、10项待执行AC、10项原型只读检查和15项旧REQ，待人工评审。",
+                "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+                "next": "人工评审04-11；本轮停止。",
+                "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/04",
@@ -7163,18 +8424,18 @@
           "id": "TASK-052/06",
           "title": "开票、收款与对账",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备开票收款与对账规则",
+          "status": "待确认",
+          "result": "04-10人工评审PASS；业务域PARTIAL，财务未决及AC待执行保持。",
+          "blocker": "资料交接／完整清单、开票条件与基数、现场登记交款对账、权限、部分／多次款和复杂金额仍OPEN。",
+          "next": "保留财务OPEN，当前批次转04-11。",
           "doneWhen": "资料齐备与欠件补件、特殊/低额开票、发票/收据、周期账单、现场及部分款项、对账；独立于业务完工。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.9及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "progressNote": "尚待完整核对",
           "displayTitle": "开票、收款与对账",
-          "nextDeliverable": "开票收款与对账规则",
+          "nextDeliverable": "04-10 财务资料与票款状态需求评审稿",
           "workPackageCode": "1.9",
           "referenceTaskIds": [
             "TASK-052",
@@ -7192,24 +8453,50 @@
             "C-14"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "04-09人工评审PASS后进入04-10",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备开票收款与对账规则",
+                "nextDeliverable": "开票收款与对账规则",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.9及其来源"
+              }
+            },
+            {
+              "date": "2026-10-29",
+              "reason": "04-10人工评审后转04-11",
+              "previous": {
+                "status": "待确认",
+                "result": "04-10完成12项财务接口行为、12项待执行AC、16项原型只读映射及17项旧REQ追溯，待人工评审；业务、票款及资料分别表达。",
+                "blocker": "资料交接／完整清单、开票条件与基数、现场登记交款对账、权限、部分／多次款和复杂金额仍OPEN。",
+                "next": "人工评审04-10，本轮停止。",
+                "nextDeliverable": "04-10 财务资料与票款状态需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/10",
           "title": "CM、取消与更正",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备CM与更正的待决及处理清单",
+          "status": "待确认",
+          "result": "04-11人工评审PASS／PARTIAL；CM／Tender及其他入口未决保留，AC待执行。",
+          "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+          "next": "保留相关OPEN，当前批次转04-12。",
           "doneWhen": "CM临时紧急入口及PM冲突、更正/取消/退回/重开、成交变更对MR/计划/单据/票款的影响；不凭旧流程补规则。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.10及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "displayTitle": "CM、取消与更正",
-          "nextDeliverable": "CM与更正的待决及处理清单",
+          "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
           "workPackageCode": "1.10",
           "referenceTaskIds": [
             "TASK-052",
@@ -7228,8 +8515,34 @@
             "C-13"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-29",
+              "reason": "04-10人工评审后转04-11",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备CM与更正的待决及处理清单",
+                "nextDeliverable": "CM与更正的待决及处理清单",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.10及其来源"
+              }
+            },
+            {
+              "date": "2026-10-30",
+              "reason": "04-11评审通过后转公共规则",
+              "previous": {
+                "status": "待确认",
+                "result": "04-11整理CM／Tender最小边界、10项待执行AC、10项原型只读检查和15项旧REQ，待人工评审。",
+                "blocker": "CM完整规则及派工差异、Tender交接／日期与范围待确认，不采用候选答案。",
+                "next": "人工评审04-11；本轮停止。",
+                "nextDeliverable": "04-11 PARTIAL范围需求评审稿",
+                "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-052/11",
@@ -7269,17 +8582,17 @@
           "id": "TASK-052/12",
           "title": "导入、归档与接口边界",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
-          "blocker": "",
-          "next": "准备导入归档及接口范围清单",
+          "status": "待确认",
+          "result": "04-12已整理10项公共行为、8项待执行AC、12项原AC引用、13项原型映射及25项旧REQ，待人工评审。",
+          "blocker": "编号、资料／附件、权限及通知等细则OPEN；不补算法或渠道。",
+          "next": "人工评审04-12后仅建议整体Gate，不自动执行。",
           "doneWhen": "历史Excel导入、附件容量/保留/归档、离线和报销旧条目、仓库通及Peachtree各自边界；先定是否本期及演示范围，不做生产集成。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中1.12及其来源",
+          "evidence": "docs/knowledge/04-requirements/SYSTEM-REQUIREMENTS-V1.json",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
           "displayTitle": "导入、归档与接口边界",
-          "nextDeliverable": "导入归档及接口范围清单",
+          "nextDeliverable": "04-12公共规则需求评审稿",
           "workPackageCode": "1.12",
           "referenceTaskIds": [
             "TASK-052",
@@ -7296,8 +8609,22 @@
             "C-12"
           ],
           "dependencyNote": "可先核已有依据与内部方案；只将影响本业务出口的未决留待确认。",
+          "history": [
+            {
+              "date": "2026-10-30",
+              "reason": "04-12公共规则归现有公共接口执行子项，不调整工作树",
+              "previous": {
+                "status": "待处理",
+                "result": "",
+                "blocker": "",
+                "next": "准备导入归档及接口范围清单",
+                "nextDeliverable": "导入归档及接口范围清单",
+                "evidence": "2026-10-23用户批准优化；taskStructureReview中1.12及其来源"
+              }
+            }
+          ],
           "parentTaskId": "TASK-052",
-          "viewStatus": "待处理"
+          "viewStatus": "待确认"
         },
         {
           "id": "TASK-054",
@@ -7478,19 +8805,53 @@
         },
         {
           "id": "TASK-060/01",
-          "title": "客户业务里程碑",
+          "title": "客户需求清单与业务里程碑",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
+          "status": "进行中",
+          "result": "11/09 v1.2在报价样板基础上增加04-03-A～F、04-04-A～G，共13项；新增24条字段记录、5组原C编号问题。原报价9项需求、17字段及8组问题逐格保留；当前原型只读代码核对，未执行AC或修改原型。",
           "blocker": "",
-          "next": "准备客户版业务里程碑",
-          "doneWhen": "按客户可理解的业务列需求确认、原型准备及业务验收，分别记录。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中3.2及其来源",
+          "next": "请用户查看v1.2，逐项核对13项内容、待核C问题和原型差异；之后按既定任务继续未覆盖需求。",
+          "doneWhen": "完整项目适用业务按同一结构逐条列明需求、表单、原型引用、验收条件及范围；三项进度分别呈现；原编号、版本和反馈一致并经使用者审阅。首个样板完成不等于本任务完成。",
+          "evidence": "原10/23任务拆分；docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
-          "displayTitle": "客户业务里程碑",
-          "nextDeliverable": "客户版业务里程碑",
+          "displayTitle": "客户需求清单制作",
+          "nextDeliverable": "核对v1.2客户／合同与CALL内容、原型差异及待决问题",
+          "progressNote": "11/09在v1.1上补齐13项和24条字段记录；5组问题先待内部核对。报价资料保留；13项均待确认、AC待执行。整体需求清单仍进行中。",
+          "presentationReview": {
+            "date": "2026-11-06",
+            "feedback": "這個進度表做的真醜 還沒之前那份好看",
+            "before": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
+            "after": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx",
+            "change": "总览改为指标、当前安排、业务进度三段；明细分组表头、深蓝与浅色分区、按内容调整行高；九项需求、17字段、8组问题逐格一致。",
+            "status": "版面已重排及检查，待使用者查看；不代表样式已获认可或业务需求定稿"
+          },
+          "deliverables": [
+            {
+              "label": "查看客户合同及CALL草案v1.2",
+              "path": "outputs/2026-11-09-client-requirements-v1.2/EC工單系統需求確認與進度表-v1.2_客戶合約及CALL.xlsx"
+            },
+            {
+              "label": "查看需求清单报价样板",
+              "path": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx"
+            },
+            {
+              "label": "首版样板（历史对比）",
+              "path": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx"
+            },
+            {
+              "label": "查看六步推进框架",
+              "path": "docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md"
+            }
+          ],
+          "steps": [
+            "已完成：框架、表结构及报价九项原需求的客户可读表达",
+            "已完成：报价17字段和8组问题的原编号关联；Excel结构与公式自检",
+            "已完成：04-03客户／合同6项及04-04 CALL 7项草案、字段、AC和原编号映射；只读核对当前原型",
+            "待执行：其他业务逐段补齐、原型当次核对及具体规则核实",
+            "待执行：使用者样板审阅、客户业务确认及对应版本验收；不得提前关闭主任务"
+          ],
           "workPackageCode": "3.2",
           "referenceTaskIds": [
             "TASK-060"
@@ -7500,18 +8861,18 @@
           "prerequisites": [],
           "dependencyNote": "先准备内部草案；实际对外版本依本批范围与问题复核，旧客户表不覆盖。",
           "parentTaskId": "TASK-060",
-          "viewStatus": "待处理"
+          "viewStatus": "进行中"
         },
         {
           "id": "TASK-060/02",
           "title": "客户待确认表",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
+          "status": "进行中",
+          "result": "已从04-05既有opens整理8组待核主题及关联需求；保留已知与未决，尚未逐116个旧问题核对或发给客户。",
           "blocker": "",
-          "next": "准备客户版待确认问题表",
+          "next": "先核报价C-03／09／13／14／01／06／07／11／15的已有答复及子项；项目使用者无法回答的再列客户待确认，不重复问基本结论。",
           "doneWhen": "只导出真正需客户决定的子问题，保留C编号和客户答复。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中3.3及其来源",
+          "evidence": "原10/23拆分；04-05 opens及OPEN维护源；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx中待确认及决策页",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
@@ -7526,7 +8887,7 @@
           "prerequisites": [],
           "dependencyNote": "先准备内部草案；实际对外版本依本批范围与问题复核，旧客户表不覆盖。",
           "parentTaskId": "TASK-060",
-          "viewStatus": "待处理"
+          "viewStatus": "进行中"
         },
         {
           "id": "TASK-061",
@@ -7535,11 +8896,11 @@
           "type": "定稿推进",
           "priority": "P1",
           "owner": "项目AI",
-          "status": "待推进",
-          "result": "",
+          "status": "进行中",
+          "result": "11/06已区分旧客户快照、会议草案与本轮样板身份；样板九项编号及AC回读、确认前置公式检查通过。Hub桌面任务／详情／成果链接及390px手机显示已检查；定向同步只改变workRegister，UAT、客户答案、119项需求及其他Hub模型保持。全量Hub／客户表一致性仍未完成。",
           "doneWhen": "同一版本同一事项状态一致；快照日期明确，客户答复不被覆盖。",
           "blocker": "",
-          "next": "新客户表准备好后逐项检查里程碑、问题和链接。",
+          "next": "随TASK-060逐批核对来源、编号、状态、当前成果链接及反馈；保留客户旧批次，不把样板设为正式发出版。",
           "dependencies": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。",
           "customerConfirmation": "不适用",
           "prototypeChange": "不适用",
@@ -7559,7 +8920,7 @@
           "prerequisites": [],
           "dependencyNote": "先准备内部草案；实际对外版本依本批范围与问题复核，旧客户表不覆盖。",
           "parentTaskId": null,
-          "viewStatus": "待处理"
+          "viewStatus": "进行中"
         },
         {
           "id": "TASK-062/01",
@@ -8115,7 +9476,7 @@
             "evidence": [],
             "criteria": "本期范围、各业务规则和检查条件已说明，关键未决有真实结论或明确排除，正式确认记录对应同一需求版本。"
           },
-          "status": "进行中"
+          "status": "待处理"
         },
         {
           "id": "knowledge",
@@ -8205,6 +9566,6 @@
       ]
     },
     "sourcePath": "docs/review/project-work/WORK-REGISTER.json",
-    "sourceHash": "69d3caf9dc092a3d885391a67258b618732422147588dfe3796d3063f6280835"
+    "sourceHash": "aeaf8ed94292266ae3c83294098475876b3489623a6a1e079bd3d95718333051"
   }
 }

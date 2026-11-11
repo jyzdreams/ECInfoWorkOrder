@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "revision": "WORK-20261030-04V1-COMMON-01",
-  "updatedAt": "2026-10-30",
+  "revision": "WORK-20261109-CLIENT-REQUIREMENTS-01",
+  "updatedAt": "2026-11-09",
   "maintainer": "Codex（用户授权AI）",
   "authority": "用户确认内部记录与客户Excel分开，Hub统一展示；替代旧内部Excel的持续任务维护，不并行双写",
   "legacyBaseline": {
@@ -12,36 +12,35 @@
   },
   "scope": {
     "current": [
-      "04-04 CALL七项需求行为、对象接口、权限边界",
-      "AC-CALL-01～06验收定义",
-      "CALL原型只读差异及旧REQ映射",
-      "内部工作记录同步并提交人工评审"
+      "TASK-060客户需求清单推进：现有框架接回原任务及Hub当前执行入口",
+      "报价样板原有九项行为、十七字段及八组问题保留",
+      "04-03客户／合同六项及04-04 CALL七项、字段、AC及原编号已转入v1.2草案；记录准确完成点，不等同全量需求完成"
     ],
     "later": [
-      "04-04人工评审通过后进入04-05报价、版本与中单"
+      "先核对v1.2本批内容与原型差异，再按框架逐段扩展其他需求",
+      "04-12人工评审及04整体一致性审查仍未完成，保留原等待位置"
     ],
     "pending": [
-      "CALL完整状态及结束规则",
-      "跨区数据权限",
-      "任务建立和关联、无CALL来源",
-      "CALL正式编号规则"
+      "一期范围、交付日期及实际客户确认人",
+      "C-04阶段供料至施工放行、C-13成交后材料变更",
+      "各需求域既有权限、编号、表单及关联未决项"
     ],
     "excluded": [
-      "修改04整体IA或04-03",
-      "编写04-05及后续业务域",
-      "修改01/02/03、Prototype、Decision、FLOW、OPEN答案或Excel"
+      "新增并行内部台账、覆盖历史客户文件或代填客户批准／UAT",
+      "本轮修改原型、业务事实、Decision、FLOW或OPEN答案",
+      "Git提交推送及正式发布"
     ]
   },
   "project": {
     "stage": "业务流程确认阶段（逐组业务确认）",
-    "currentBatch": "04 V1：04-12 编号、附件、通知与验收规则",
-    "batchState": "04-03～11人工评审通过；04-12待评审、业务域PARTIAL。公共未决保留；04未整体冻结，C-04 BLOCKED不变。",
+    "currentBatch": "TASK-060/01：客户需求清单／客户合同与CALL",
+    "batchState": "v1.2接续补入客户／合同6项及CALL 7项，新增24条字段记录和5组关联待核问题；原报价9项、17字段和8组问题保留。清单整理不等于客户批准或业务验收。04-12待评审；C-04 BLOCKED、客户签批与UAT均未升级。",
     "wholeChain": "维修从头到尾还没全部检查通过",
     "frozenBatches": 0,
     "scopeApproval": "一期范围未批准",
     "historicalLocalChecks": 17,
     "localResult": "派工备注、完工纸提交和主管确认等部分功能已检查",
-    "next": "人工评审04-12后仅建议04整体Gate／横向一致性审查，不自动执行，不进入05。"
+    "next": "项目AI先与用户核对v1.2的13项内容、原型差异及关联C问题；尚未决定的事项先查既有依据，不将本批整理误作客户确认或任务完成。"
   },
   "clientExport": {
     "path": "outputs/2026-10-19-client-progress-v1/EC工单系统客户业务推进与确认表-v1.xlsx",
@@ -50,12 +49,18 @@
     "asOf": "2026-10-19",
     "reviewDate": null,
     "nextDelivery": "完成内部核对后再准备客户批次；下次导出补入C-10首期及到期补做问题，现有v1仍为10/19的8主题快照。",
-    "feedbackRule": "客户答复按原编号复核，回填本记录及对应知识问题后导出新批次；保留已回收文件，不覆盖客户填写内容"
+    "feedbackRule": "客户答复按原编号复核，回填本记录及对应知识问题后导出新批次；保留已回收文件，不覆盖客户填写内容",
+    "workingDraft": {
+      "path": "outputs/2026-11-09-client-requirements-v1.2/EC工單系統需求確認與進度表-v1.2_客戶合約及CALL.xlsx",
+      "asOf": "2026-11-09",
+      "status": "客户／合同及CALL草案v1.2，待使用者查看；未发出、未替代既有客户快照，未正式批准",
+      "taskId": "TASK-060/01"
+    }
   },
   "focusTaskIds": [
-    "TASK-052",
-    "TASK-051",
-    "TASK-040"
+    "TASK-060",
+    "TASK-061",
+    "TASK-056"
   ],
   "tasks": [
     {
@@ -2436,33 +2441,55 @@
       "type": "定稿推进",
       "priority": "P1",
       "owner": "项目AI",
-      "status": "待推进",
-      "result": "",
+      "status": "进行中",
+      "result": "11/09 v1.2补入04-03客户／合同6项、04-04 CALL 7项，新增24条字段记录及5组待内部核对问题；保留报价样板9项、17字段、8组问题。完整清单、客户确认及验收尚未完成。",
       "doneWhen": "客户表按业务里程碑组织，问题编号、答复和版本日期准确。",
       "blocker": "",
-      "next": "内部业务核对后准备新批次，保留10/19客户表原件。",
+      "next": "先核对v1.2本批13项与原型差异、C子项和客户需决事项；其他业务按既有任务后续推进。",
       "dependencies": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。",
       "customerConfirmation": "不适用",
       "prototypeChange": "不适用",
       "businessAcceptance": "不适用",
-      "evidence": "2026-10-22用户批准定稿任务树；既有审查与任务记录",
+      "evidence": "原10/22任务树；docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
       "maintainer": "Codex",
       "subtasks": [
         {
           "id": "TASK-060/01",
-          "title": "客户业务里程碑",
+          "title": "客户需求清单与业务里程碑",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
+          "status": "进行中",
+          "result": "11/09 v1.2在报价样板基础上增加04-03-A～F、04-04-A～G，共13项；新增24条字段记录、5组原C编号问题。原报价9项需求、17字段及8组问题逐格保留；当前原型只读代码核对，未执行AC或修改原型。",
           "blocker": "",
-          "next": "准备客户版业务里程碑",
-          "doneWhen": "按客户可理解的业务列需求确认、原型准备及业务验收，分别记录。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中3.2及其来源",
+          "next": "请用户查看v1.2，逐项核对13项内容、待核C问题和原型差异；之后按既定任务继续未覆盖需求。",
+          "doneWhen": "完整项目适用业务按同一结构逐条列明需求、表单、原型引用、验收条件及范围；三项进度分别呈现；原编号、版本和反馈一致并经使用者审阅。首个样板完成不等于本任务完成。",
+          "evidence": "原10/23任务拆分；docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
-          "displayTitle": "客户业务里程碑",
-          "nextDeliverable": "客户版业务里程碑",
+          "displayTitle": "客户需求清单制作",
+          "nextDeliverable": "核对v1.2客户／合同与CALL内容、原型差异及待决问题",
+          "progressNote": "11/09在v1.1上补齐13项和24条字段记录；5组问题先待内部核对。报价资料保留；13项均待确认、AC待执行。整体需求清单仍进行中。",
+          "presentationReview": {
+            "date": "2026-11-06",
+            "feedback": "這個進度表做的真醜 還沒之前那份好看",
+            "before": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx",
+            "after": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx",
+            "change": "总览改为指标、当前安排、业务进度三段；明细分组表头、深蓝与浅色分区、按内容调整行高；九项需求、17字段、8组问题逐格一致。",
+            "status": "版面已重排及检查，待使用者查看；不代表样式已获认可或业务需求定稿"
+          },
+          "deliverables": [
+            {"label": "查看客户合同及CALL草案v1.2", "path": "outputs/2026-11-09-client-requirements-v1.2/EC工單系統需求確認與進度表-v1.2_客戶合約及CALL.xlsx"},
+            {"label": "查看需求清单报价样板", "path": "outputs/2026-11-06-client-requirements-pilot-v1.1/EC工單系統需求確認與進度表-v1.1_版面優化.xlsx"},
+            {"label": "首版样板（历史对比）", "path": "outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx"},
+            {"label": "查看六步推进框架", "path": "docs/review/2026-11-06-client-requirements-framework/FRAMEWORK.md"}
+          ],
+          "steps": [
+            "已完成：框架、表结构及报价九项原需求的客户可读表达",
+            "已完成：报价17字段和8组问题的原编号关联；Excel结构与公式自检",
+            "已完成：04-03客户／合同6项及04-04 CALL 7项草案、字段、AC和原编号映射；只读核对当前原型",
+            "待执行：其他业务逐段补齐、原型当次核对及具体规则核实",
+            "待执行：使用者样板审阅、客户业务确认及对应版本验收；不得提前关闭主任务"
+          ],
           "workPackageCode": "3.2",
           "referenceTaskIds": [
             "TASK-060"
@@ -2476,12 +2503,12 @@
           "id": "TASK-060/02",
           "title": "客户待确认表",
           "owner": "项目AI",
-          "status": "待处理",
-          "result": "",
+          "status": "进行中",
+          "result": "已从04-05既有opens整理8组待核主题及关联需求；保留已知与未决，尚未逐116个旧问题核对或发给客户。",
           "blocker": "",
-          "next": "准备客户版待确认问题表",
+          "next": "先核报价C-03／09／13／14／01／06／07／11／15的已有答复及子项；项目使用者无法回答的再列客户待确认，不重复问基本结论。",
           "doneWhen": "只导出真正需客户决定的子问题，保留C编号和客户答复。",
-          "evidence": "2026-10-23用户批准优化；taskStructureReview中3.3及其来源",
+          "evidence": "原10/23拆分；04-05 opens及OPEN维护源；outputs/2026-11-06-client-requirements-pilot-v1/EC工單系統需求確認與進度表-v1_報價樣板.xlsx中待确认及决策页",
           "customerConfirmation": "未因拆分新增确认",
           "prototypeChange": "本轮未修改",
           "businessAcceptance": "未因拆分新增验收",
@@ -2505,11 +2532,11 @@
       "type": "定稿推进",
       "priority": "P1",
       "owner": "项目AI",
-      "status": "待推进",
-      "result": "",
+      "status": "进行中",
+      "result": "11/06已区分旧客户快照、会议草案与本轮样板身份；样板九项编号及AC回读、确认前置公式检查通过。Hub桌面任务／详情／成果链接及390px手机显示已检查；定向同步只改变workRegister，UAT、客户答案、119项需求及其他Hub模型保持。全量Hub／客户表一致性仍未完成。",
       "doneWhen": "同一版本同一事项状态一致；快照日期明确，客户答复不被覆盖。",
       "blocker": "",
-      "next": "新客户表准备好后逐项检查里程碑、问题和链接。",
+      "next": "随TASK-060逐批核对来源、编号、状态、当前成果链接及反馈；保留客户旧批次，不把样板设为正式发出版。",
       "dependencies": "内部准备按本业务已明确规则进行；正式确认/验收依本批范围、关键决定和检查结果，不强制等待其他独立业务全部定稿。",
       "customerConfirmation": "不适用",
       "prototypeChange": "不适用",
@@ -3359,12 +3386,12 @@
     }
   ],
   "userAction": {
-    "sectionTitle": "待人工评审",
-    "title": "评审04-04 CALL受理与分流",
+    "sectionTitle": "可查看本批成果",
+    "title": "查看报价需求样板是否适合逐条与客户确认",
     "owner": "项目用户",
     "status": "待确认",
-    "action": "审查CALL受理、主管三方向、报价／上门接口及OPEN边界；不开始04-05或Prototype整改。",
-    "doneWhen": "用户确认CALL需求表达及可验收边界；不代替客户签批或产品验收。"
+    "action": "可审阅报价九项需求、字段及问题的表达；这不阻塞项目AI继续整理客户／合同与CALL。既有04-12人工评审仍待处理，不重新要求已评审的04-04。",
+    "doneWhen": "使用者反馈可读性与需调整处；客户业务签批及产品验收另按真实证据记录。"
   },
   "blockers": [
     {
@@ -3586,8 +3613,8 @@
   "changes": [
     {
       "area": "推进表",
-      "summary": "33项工作映射原TASK及稳定子项，旧依赖留档；TASK-059内部任务整理完成，客户Excel未改。",
-      "state": "任务安排已检查"
+      "summary": "本轮按用户对首版外观的反馈重排报价样板v1.1；总览和三张明细样式已检查，需求／字段／问题及确认状态不变。TASK-060/01继续进行中，后续接续客户／合同及CALL。",
+      "state": "版面已重排，待使用者查看；全量清单仍进行中"
     },
     {
       "area": "原型",
@@ -3596,8 +3623,8 @@
     },
     {
       "area": "知识库／Hub",
-      "summary": "当前推进改为四列表格和任务详情，父目标由全组子项判断状态；业务知识保持。",
-      "state": "优化已检查"
+      "summary": "仅将工作记录中的当前样板链接更新至v1.1并保留首版历史入口；Hub定向同步任务投影，业务知识及需求正文不变。",
+      "state": "成果入口已同步；业务知识无变化"
     }
   ],
   "evidencePath": "docs/audit/GRILLING-AUDIT-20261020.md",
@@ -3894,8 +3921,8 @@
     "title": "EC 工单系统需求与原型定稿",
     "doneWhen": "本期范围与规则获得确认，知识、客户表和原型版本对应；全链检查与客户验收完成，遗留事项有明确边界。",
     "focus": {
-      "taskId": "TASK-052/12",
-      "label": "04-12公共规则：待人工评审，未执行04整体Gate"
+      "taskId": "TASK-060/01",
+      "label": "客户需求清单进行中：报价样板已整理，接续客户／合同与CALL"
     },
     "groups": [
       {
@@ -4009,6 +4036,21 @@
     ]
   },
   "planningHistory": [
+    {
+      "revision": "WORK-20261106-CLIENT-REQUIREMENTS-01",
+      "date": "2026-11-06",
+      "reason": "使用者要求需求清单必须实际推进，并能看见当前做到哪里、下次从哪里继续。沿用TASK-060/01、060/02、061，不新增并行台账。",
+      "previousFocus": {"taskId": "TASK-052/12", "label": "04-12公共规则：待人工评审，未执行04整体Gate"},
+      "previousProjectNext": "人工评审04-12后仅建议04整体Gate／横向一致性审查，不自动执行，不进入05。",
+      "previousUserAction": "旧入口仍要求评审04-04 CALL；该提示已落后于04-03～11人工评审记录，本轮仅修正工作提示，不改原评审证据。",
+      "previousClientExport": "10/19 v1快照仍保留原路径、日期及草案身份；本轮另登记报价workingDraft，不宣称已正式替换。",
+      "previousChanges": [
+        "33项工作映射原TASK及稳定子项，旧依赖留档；TASK-059内部任务整理完成，客户Excel未改。",
+        "原型无变化；未修改业务交互或验收结论。",
+        "当前推进四列表格和详情、父目标全组状态为原历史基线。"
+      ],
+      "scopeBoundary": "只有客户清单制作与工作可见性；旧REQ、119项索引、业务事实、客户问题答案、AC待执行、UAT未通过及0批定稿均保持。"
+    },
     {
       "revision": "WORK-20261022-04",
       "date": "2026-10-22",

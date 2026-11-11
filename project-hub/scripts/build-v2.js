@@ -143,6 +143,23 @@ if (process.argv.includes('--check-paths')) {
   console.log(JSON.stringify({ requiredPaths: required.length, missing: 0, uniqueFileIds: ids.length, writes: 0 }));
   process.exit(0);
 }
+if (process.argv.includes('--work-register-only')) {
+  const htmlPath = path.join(hub, 'index.html');
+  const html = fs.readFileSync(htmlPath, 'utf8');
+  const match = html.match(/window\.HUB_DATA=(.*?);<\/script>/s);
+  if (!match) throw new Error('Missing embedded Hub data; refusing to rebuild page');
+  const existing = JSON.parse(match[1]);
+  existing.workRegister = workRegister;
+  const statusPath = path.join(dataDir, 'project-status.json');
+  const status = JSON.parse(fs.readFileSync(statusPath, 'utf8'));
+  status.workRegister = workRegister;
+  fs.writeFileSync(statusPath, JSON.stringify(status, null, 2) + '\n', 'utf8');
+  fs.writeFileSync(htmlPath, html.slice(0, match.index) + 'window.HUB_DATA=' + JSON.stringify(existing).replace(/</g, '\\u003c') + ';</script>' + html.slice(match.index + match[0].length), 'utf8');
+  console.log(JSON.stringify({mode:'work-register-only', focus:workRegister.taskTree.focus.taskId,
+    writes:['project-hub/data/project-status.json','project-hub/index.html'],
+    preserves:'all other embedded fields, business facts, requirement wording, FLOWs, page shell and historical snapshots'}));
+  process.exit(0);
+}
 if (process.argv.includes('--requirements-v1-only')) {
   const htmlPath = path.join(hub, 'index.html'), html = fs.readFileSync(htmlPath, 'utf8');
   const match = html.match(/window\.HUB_DATA=(.*?);<\/script>/s);

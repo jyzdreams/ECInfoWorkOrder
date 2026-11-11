@@ -24,3 +24,11 @@
 后续已核对知识需要展示时使用scripts/build-v2.js；从项目根目录执行node project-hub/scripts/build-v2.js --check-paths可只读检查路径和编号。脚本仅依赖Node.js内置模块和Git，脚本与路径映射都可随项目版本管理。
 10/11目录批次只适配工具地址；10/19已按核对记录生成推进视图，旧.codex入口仅兼容转发，旧build.js已禁用。
 data/*.json和index.html内嵌模型是生成的查看数据，机器完整率不代替Excel进度，也不反向批准业务规则。
+
+## QA 測試管理（2026-11-07）
+
+從主導航「08 QA 测试管理」或 [QA 管理頁](qa.html) 打開，提供測試總覽、逐 Sheet 頁面用例、問題清單，以及原始 PNG 縮圖／放大檢視。保留 Excel 頁面、用例、BUG 編號及原文。Excel 是測試紀錄來源，Hub 不回寫結果；執行覆蓋率為 `(PASS + FAIL) / 全部用例`，不代表客戶批准或整鏈驗收。34 個 Excel 分組不等於已核實有34個可達獨立頁面。
+
+本次來源為 `outputs/2026-11-06-new-ui-qa/` 的新版基線 v1.1、20261106 完整截圖版執行報告及其 screenshots/。資料由 `scripts/import-qa.py` 唯讀提取，生成 `data/qa-tests.json` 和供本機直接打開使用的 `data/qa-tests.js`；截圖直接引用原 PNG，不另複製一份。來源路徑、SHA-256 和原始備註保留在資料及頁面中。原有業務模型構建不覆蓋此 QA 快照。
+
+Excel 更新保存後，用包含 openpyxl、Pillow 的 Python 執行 `python3 project-hub/scripts/import-qa.py` 重新匯入。也可用 `--report`、`--baseline` 指定同一版本的來源；更換原型測試批次時，同時核對匯入腳本內的版本、測試日期與識別依據，不能只替換檔名。匯入會檢查分組／用例ID、結果值、原圖對應及未執行用例不可帶圖。資料是可重建的展示快照，請勿手工維護第二套結果。
