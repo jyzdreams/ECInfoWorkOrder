@@ -3674,6 +3674,17 @@
     .wo-filter-group input {
       min-width: 200px;
     }
+    /* 會計管理：沿用 CALL 管理的欄位篩選樣式（日期／金額用組合輸入） */
+    .fin-wo-filters { margin-bottom: 14px; }
+    .fin-wo-filters .wo-filter-group { min-width: 150px; }
+    .fin-wo-filters .wo-filter-group input { min-width: 0; }
+    .fin-wo-range, .fin-wo-amount { display: flex; align-items: center; gap: 6px; }
+    .fin-wo-range input { width: 132px; }
+    .fin-wo-amount input { width: 96px; }
+    .fin-wo-range em { font-style: normal; color: var(--muted); font-size: 12px; }
+    .fin-wo-actions { display: flex; align-items: flex-end; gap: 8px; margin-left: auto; }
+    .fin-wo-actions .primary-btn, .fin-wo-actions .secondary-btn { height: 34px; padding: 0 16px; font-size: 13px; }
+    .fin-wo-count { align-self: flex-end; padding-bottom: 8px; color: var(--muted); font-size: 12px; white-space: nowrap; }
     /* 統一搜索框包裹：輸入框 + 搜索按鈕並排 */
     .wo-search-wrap {
       display: flex;
@@ -4943,6 +4954,18 @@
     .pc-table .tag.warning { background: var(--warning-soft); color: var(--warning); }
     .pc-table .tag.danger { background: var(--danger-soft); color: var(--danger); }
     .pc-table .tag.info { background: var(--primary-soft); color: var(--primary); }
+    /* 待開票表格：待開票編號置於首欄並凍結（連同勾選欄），水平捲動時保持可見 */
+    .fin-pending-table th:nth-child(1), .fin-pending-table td:nth-child(1) { position: sticky; left: 0; width: 44px; min-width: 44px; max-width: 44px; padding-left: 8px; padding-right: 4px; }
+    .fin-pending-table th:nth-child(2), .fin-pending-table td:nth-child(2) { position: sticky; left: 44px; border-right: 1px solid var(--border); box-shadow: 2px 0 6px rgba(15,23,42,.08); }
+    .fin-pending-table td:nth-child(1), .fin-pending-table td:nth-child(2) { z-index: 2; background: var(--panel); }
+    .fin-pending-table thead th:nth-child(1), .fin-pending-table thead th:nth-child(2) { z-index: 3; background: var(--panel-soft); }
+    .fin-pending-table tbody tr:hover td:nth-child(1), .fin-pending-table tbody tr:hover td:nth-child(2) { background: var(--panel-soft); }
+    /* 發票列表「更多」下拉按鈕（固定定位，避免被表格容器裁切） */
+    .fin-more-trigger { height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer; white-space: nowrap; }
+    .fin-more-trigger:hover, .fin-more-trigger[aria-expanded="true"] { border-color: var(--primary); color: var(--primary); }
+    .fin-more-menu { position: fixed; z-index: 60; min-width: 132px; padding: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 20px rgba(15,23,42,.14); display: flex; flex-direction: column; }
+    .fin-more-menu button { border: 0; background: none; text-align: left; padding: 7px 10px; border-radius: 5px; font-size: 12px; color: var(--text); cursor: pointer; white-space: nowrap; }
+    .fin-more-menu button:hover { background: var(--primary-soft); color: var(--primary); }
 
     /* ===== 會計部專用樣式 ===== */
     /* 篩選器欄：日期、客戶、類型、金額範圍 */
@@ -22535,11 +22558,11 @@
       return ["CR", "TL"].includes(state.role) && Boolean(ticket.serviceReportNo);
     }
     function getFinancePendingQuotations() {
-      // 所有類別（M／P／M+P）統一：已中單＋關聯工單已完成；文件是否齊全由欠缺文件欄顯示
+      // 2026-11-11 用戶確定：已中單且未開票即進入待開票，不要求關聯工單存在或已完成
+      // 文件是否齊全由欠缺文件欄顯示，缺件仍可開票但需填理由
       return quotations.filter(q => {
         if (invoices.some(i => i.quoteId === q.id || i.quotationId === q.id)) return false;
-        const ticket = findQuotationWorkOrder(q);
-        return q.status === "已中單" && ticket?.status === "已完成";
+        return q.status === "已中單";
       });
     }
 
@@ -23027,7 +23050,6 @@
                   </select>
                 </div>
               </div>
-              <div class="qf-hint" style="margin-top:10px;font-size:12px;color:var(--muted);">調整僅影響此期帳單，不改變合約本身的條款。</div>
             </div>
             <div class="qf-footer">
               <button type="button" class="qf-btn qf-btn-cancel" data-close-modal>取消</button>
@@ -23113,6 +23135,60 @@
       return missing;
     }
 
+    // 待開票編號：每個待開票項目首次出現時配號並持久化，重載後保持不變
+    function pendingInvoiceNumber(itemId) {
+      const key = String(itemId || "");
+      if (!key) return "—";
+      let map = {};
+      try { map = JSON.parse(localStorage.getItem("ecinfo_fin_pending_numbers") || "{}") || {}; } catch (e) { map = {}; }
+      if (!map[key]) {
+        const seqs = Object.values(map).map(v => Number((String(v).match(/(\d+)$/) || [])[1] || 0));
+        const next = Math.max(0, ...seqs) + 1;
+        map[key] = `PI-${new Date().getFullYear()}-${String(next).padStart(4, "0")}`;
+        localStorage.setItem("ecinfo_fin_pending_numbers", JSON.stringify(map));
+      }
+      return map[key];
+    }
+
+    // 會計模組統一詳情彈窗：列表只保留「詳情」，其餘操作集中到彈窗底部
+    function openFinDetailModal({ title, body, actions = [] }) {
+      const overlay = document.createElement("div");
+      overlay.className = "um-modal-overlay";
+      overlay.innerHTML = `
+        <section class="um-modal" role="dialog" aria-modal="true" aria-label="${escapeHtml(title)}">
+          <div class="um-modal-head"><h2>${escapeHtml(title)}</h2><button class="um-modal-close" type="button" data-close-modal aria-label="關閉">×</button></div>
+          <div style="padding:18px 24px;max-height:62vh;overflow:auto;">${body}</div>
+          <div class="um-modal-actions">${actions.map((action, index) => `<button type="button" class="${action.primary ? "primary-btn" : "secondary-btn"}" data-fin-action="${index}">${escapeHtml(action.label)}</button>`).join("")}<button type="button" class="secondary-btn" data-close-modal>關閉</button></div>
+        </section>`;
+      const close = () => overlay.remove();
+      document.body.appendChild(overlay);
+      overlay.querySelectorAll("[data-close-modal]").forEach(button => button.addEventListener("click", close));
+      overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
+      overlay.querySelectorAll("[data-fin-action]").forEach(button => button.addEventListener("click", () => {
+        const action = actions[Number(button.dataset.finAction)];
+        close();
+        action?.run?.();
+      }));
+      overlay.querySelector("[data-close-modal]")?.focus();
+      return overlay;
+    }
+
+    // 從待開票移除：複製項目直接刪除，原始項目只記錄隱藏，不動底層報價／合約
+    function removePendingItem(itemId) {
+      const id = String(itemId);
+      if (id.startsWith("COPY-")) {
+        const copies = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]").filter(item => String(item.id) !== id);
+        localStorage.setItem("ecinfo_fin_pending_copies", JSON.stringify(copies));
+      } else {
+        const hidden = JSON.parse(localStorage.getItem("ecinfo_fin_pending_hidden") || "[]").map(String);
+        if (!hidden.includes(id)) hidden.push(id);
+        localStorage.setItem("ecinfo_fin_pending_hidden", JSON.stringify(hidden));
+      }
+      state.finSelectedIds = (state.finSelectedIds || []).filter(selectedId => String(selectedId) !== id);
+      render();
+      toast("已從待開票移除");
+    }
+
     // 渲染待開票頁面：保留 Job Code，並列 EC Contract No；支援明確條件篩選與欠件查閱
     function renderFinPending(pendingInvoices) {
       // F1：合併 M 類保養合約依條款自動生成的週期性待開票（已開票的期間不再列出）
@@ -23140,7 +23216,6 @@
       const pendingCopies = JSON.parse(localStorage.getItem('ecinfo_fin_pending_copies') || '[]');
       const allPending = [...pendingInvoices, ...contractPending, ...pendingCopies]
         .filter(item => !hiddenPending.includes(String(item.id)));
-      state.finPendingItemMap = Object.fromEntries(allPending.map(item => [String(item.id), item]));
       const finFilter = state.finFilter || {};
       const customerOptions = [...new Set(allPending.map(item => item.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       const amountValue = item => Number(item.tenderAmount ?? item.amount ?? 0);
@@ -23194,22 +23269,21 @@
       const pagination = `<div class="um-pagination wo-call-pagination" data-fin-pagination data-fin-total="${filtered.length}"><span>共 ${filtered.length} 條記錄，每頁 <select data-native-select data-fin-page-size style="min-width:56px;height:28px;padding:2px 6px;font-size:12px;">${[10, 20, 50].map(n => `<option value="${n}" ${pageSize === n ? "selected" : ""}>${n}</option>`).join("")}</select> 條，第 ${currentPage}/${totalPages} 頁</span><div class="um-pg-btns"><button data-fin-page="prev" ${currentPage <= 1 ? "disabled" : ""}>‹</button>${pageButtons.map(p => p === "..." ? `<span style="padding:0 4px;color:var(--muted);">…</span>` : `<button class="${currentPage === p ? "active" : ""}" data-fin-page="${p}">${p}</button>`).join("")}<button data-fin-page="next" ${currentPage >= totalPages ? "disabled" : ""}>›</button></div></div>`;
 
       return `
-        <div class="fin-filter-bar">
-          <div class="fin-filter-field fin-filter-date-field">
-            <span>日期範圍</span>
-            <div class="fin-filter-date-range" role="group" aria-label="日期範圍">
+        <div class="wo-filters fin-wo-filters">
+          <label class="wo-filter-group"><span>日期範圍</span>
+            <div class="fin-wo-range" role="group" aria-label="日期範圍">
               <input type="date" id="finFilterDateFrom" aria-label="開始日期" value="${escapeHtml(finFilter.dateFrom || '')}" data-fin-filter="dateFrom">
-              <span>至</span>
+              <em>至</em>
               <input type="date" id="finFilterDateTo" aria-label="結束日期" value="${escapeHtml(finFilter.dateTo || '')}" data-fin-filter="dateTo">
             </div>
-          </div>
-          <label class="fin-filter-field">客戶
+          </label>
+          <label class="wo-filter-group"><span>客戶</span>
             <select id="finFilterCustomer" data-fin-filter="customer">
               <option value="">全部客戶</option>
               ${customerOptions.map(name => `<option value="${escapeHtml(name)}" ${finFilter.customer === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}
             </select>
           </label>
-          <label class="fin-filter-field">類型
+          <label class="wo-filter-group"><span>類型</span>
             <select id="finFilterType" data-fin-filter="type">
             <option value="">全部類型</option>
             <option value="M" ${finFilter.type === 'M' ? 'selected' : ''}>M</option>
@@ -23217,13 +23291,13 @@
             <option value="M+P" ${finFilter.type === 'M+P' ? 'selected' : ''}>M+P</option>
             </select>
           </label>
-          <label class="fin-filter-field">金額範圍（HKD）
-            <div class="fin-filter-amount-range">
+          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+            <div class="fin-wo-amount">
               <input type="number" min="0" step="1" aria-label="最低金額" placeholder="最低" value="${escapeHtml(finFilter.amountMin || '')}" data-fin-filter="amountMin">
               <input type="number" min="0" step="1" aria-label="最高金額" placeholder="最高" value="${escapeHtml(finFilter.amountMax || '')}" data-fin-filter="amountMax">
             </div>
           </label>
-          <div class="fin-filter-actions">
+          <div class="fin-wo-actions">
             <button class="primary-btn" data-fin-filter-search>搜索</button>
             <button class="secondary-btn" data-fin-filter-clear>重置</button>
           </div>
@@ -23240,10 +23314,11 @@
         </div>
 
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table fin-pending-table">
             <thead>
               <tr>
-                <th style="width:36px;"></th>
+                <th style="width:44px;"></th>
+                <th>待開票編號</th>
                 <th>EC Contract No</th>
                 <th>Customer ID</th>
                 <th>金額(HKD)</th>
@@ -23277,6 +23352,7 @@
                 return `
                 <tr>
                   <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check${selectedIds.has(String(q.id)) ? ' checked' : ''}></td>
+                  <td>${escapeHtml(pendingInvoiceNumber(q.id))}</td>
                   <td>${escapeHtml(ecContractNo)}</td>
                   <td>${escapeHtml(customerId)}</td>
                   <td>${(q.tenderAmount || q.amount || 0).toLocaleString()}</td>
@@ -23286,15 +23362,9 @@
                   <td>${q.billingCycle || '一次性'}</td>
                   <td><span style="font-size:12px;color:${blocked ? 'var(--danger)' : 'var(--muted)'};">${docLabel}</span></td>
                   <td><span style="font-size:12px;color:${blocked ? 'var(--danger)' : 'var(--muted)'};">${blocked ? escapeHtml(missingDocs.join('、')) : '—'}</span></td>
-                  <td><div class="fin-row-actions">
-                    <button class="fin-pending-detail-btn" type="button" data-fin-pending-detail="${escapeHtml(q.id)}">詳情</button>
-                    <button class="fin-pending-detail-btn" type="button" data-fin-pending-copy="${escapeHtml(q.id)}">複製</button>
-                    <button class="fin-pending-detail-btn" type="button" data-fin-pending-delete="${escapeHtml(q.id)}">刪除</button>
-                    ${sourceTicket?.serviceReportNo && !sourceTicket?.cpNo ? `<button class="link-btn" data-sr-folder-open-sr="${escapeHtml(sourceTicket.id)}">查看SR</button>` : ""}
-                    <button class="fin-pending-detail-btn" type="button" data-create-invoice-for="${q.id}" data-job-code="${escapeHtml(sourceQuotation ? sourceQuotation.id : (q.ourRef || ''))}" ${blocked ? `title="缺少：${escapeHtml(missingDocs.join("、"))}；開票需填寫理由"` : ""}>開票</button>
-                  </div></td>
+                  <td><button class="fin-pending-detail-btn" type="button" data-fin-pending-detail="${escapeHtml(q.id)}">詳情</button></td>
                 </tr>
-              `;}).join('') || '<tr><td colspan="11" style="text-align:center;color:var(--muted);">暫無待開票項目</td></tr>'}
+              `;}).join('') || '<tr><td colspan="12" style="text-align:center;color:var(--muted);">暫無待開票項目</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -23340,14 +23410,20 @@
       const missingDocs = sourceQuotation ? getQuotationMissingDocs(sourceQuotation) : [];
       const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
       const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
-      const overlay = document.createElement("div");
-      overlay.className = "um-modal-overlay";
-      overlay.innerHTML = `
-        <section class="um-modal fin-pending-detail-modal" role="dialog" aria-modal="true" aria-labelledby="finPendingDetailTitle">
-          <div class="um-modal-head"><h2 id="finPendingDetailTitle">待開票詳情</h2><button class="um-modal-close" type="button" data-close-modal aria-label="關閉">×</button></div>
+      const actions = [
+        { label: "開票", primary: true, run: () => createInvoice(itemId, {}) },
+        { label: "刪除", run: () => removePendingItem(itemId) }
+      ];
+      if (ticket?.serviceReportNo && !ticket?.cpNo) {
+        actions.push({ label: "查看 SR", run: () => { state.srFolderMetricModal = null; state.srFolderReportTicketId = ticket.id; render(); } });
+      }
+      openFinDetailModal({
+        title: "待開票詳情",
+        body: `
           <section class="fin-pending-detail-section">
             <h3>項目資料</h3>
             <div class="fin-pending-detail-grid">
+              ${field("待開票編號", pendingInvoiceNumber(itemId))}
               ${field("EC Contract No", ecContractNo)}
               ${field("客戶", item.customerName)}
               ${field("描述", item.title || item.name, true)}
@@ -23371,18 +23447,67 @@
               ${maintenanceContract ? field("合約期間", `${maintenanceContract.startDate || "—"} ~ ${maintenanceContract.endDate || "—"}`) : ""}
               ${maintenanceContract ? field("合約開單頻率", maintenanceContract.frequency) : ""}
             </div>
-          </section>` : ""}
-          <div class="um-modal-actions"><button class="secondary-btn" type="button" data-close-modal>關閉</button></div>
-        </section>
-      `;
-      document.body.appendChild(overlay);
-      const close = () => overlay.remove();
-      overlay.querySelectorAll("[data-close-modal]").forEach(button => button.addEventListener("click", close));
-      overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
-      overlay.querySelector("[data-close-modal]")?.focus();
+          </section>` : ""}`,
+        actions
+      });
     }
 
     // 渲染發票管理：第二欄位改為 Job ID；含客戶數期、金額變更原因、重印日期選項、列印功能
+    // 發票操作清單：列表「更多」下拉與其他入口共用，按狀態決定可用項
+    function invoiceActionList(inv) {
+      const list = [
+        { act: "edit", label: "編輯", run: () => openInvoiceEditModal(inv.id) },
+        { act: "copy", label: "複製", run: () => copyInvoice(inv.id) },
+        { act: "amount", label: "變更金額", run: () => openChangeAmountModal(inv.id) },
+        { act: "date", label: "變更日期", run: () => openChangeDateModal(inv.id) },
+        { act: "terms", label: "變更數期", run: () => openChangeTermsModal(inv.id) },
+        { act: "reprint", label: "重印", run: () => openReprintModal(inv.id) },
+        { act: "print", label: "列印", run: () => openPrintInvoiceModal([inv.id]) }
+      ];
+      if (inv.status === "已開具") {
+        list.push({ act: "paid", label: "標記收款", run: () => markAsPaid(inv.id) });
+        list.push({ act: "void", label: "作廢", run: () => voidInvoice(inv.id) });
+      }
+      list.push({ act: "delete", label: "刪除", run: () => deleteInvoice(inv.id) });
+      return list;
+    }
+
+    // 列表「更多」下拉：以固定定位呈現，避免被表格容器裁切
+    function openInvoiceMoreMenu(trigger, invoiceId) {
+      document.querySelectorAll(".fin-more-menu").forEach(menu => menu.remove());
+      const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
+      if (!inv) return;
+      const menu = document.createElement("div");
+      menu.className = "fin-more-menu";
+      menu.setAttribute("role", "menu");
+      invoiceActionList(inv).forEach(action => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.setAttribute("role", "menuitem");
+        button.textContent = action.label;
+        button.addEventListener("click", () => { menu.remove(); action.run(); });
+        menu.appendChild(button);
+      });
+      document.body.appendChild(menu);
+      const rect = trigger.getBoundingClientRect();
+      menu.style.minWidth = Math.max(132, Math.round(rect.width)) + "px";
+      menu.style.visibility = "hidden";
+      const mw = menu.offsetWidth, mh = menu.offsetHeight;
+      const left = Math.max(8, Math.min(rect.right - mw, innerWidth - mw - 8));
+      const top = (rect.bottom + 4 + mh > innerHeight - 8) ? Math.max(8, rect.top - mh - 4) : rect.bottom + 4;
+      Object.assign(menu.style, { position: "fixed", left: left + "px", top: top + "px", visibility: "visible" });
+      trigger.setAttribute("aria-expanded", "true");
+      const close = () => {
+        menu.remove();
+        trigger.setAttribute("aria-expanded", "false");
+        document.removeEventListener("click", onDocClick, true);
+        window.removeEventListener("scroll", close, true);
+      };
+      const onDocClick = event => { if (!menu.contains(event.target) && event.target !== trigger) close(); };
+      setTimeout(() => document.addEventListener("click", onDocClick, true), 0);
+      window.addEventListener("scroll", close, true);
+    }
+
     function renderFinInvoices() {
       // Job ID 顯示：報價項目用報價編號，保養合約帳單沿用合約 jobCode
       const getJobId = (quotationId, fallbackJobCode) => {
@@ -23395,7 +23520,51 @@
         const c = acctCustomers.find(item => item.name === customerName);
         return c ? c.paymentTerms : '30 天';
       };
+      const invFilter = state.finInvoiceFilter || {};
+      const invList = invoices.filter(inv => {
+        if (invFilter.status && inv.status !== invFilter.status) return false;
+        if (invFilter.customer && inv.customerName !== invFilter.customer) return false;
+        if (invFilter.dateFrom && String(inv.invoiceDate || "") < invFilter.dateFrom) return false;
+        if (invFilter.dateTo && String(inv.invoiceDate || "") > invFilter.dateTo) return false;
+        const amount = Number(inv.amount || 0);
+        if (invFilter.amountMin !== "" && invFilter.amountMin != null && amount < Number(invFilter.amountMin)) return false;
+        if (invFilter.amountMax !== "" && invFilter.amountMax != null && amount > Number(invFilter.amountMax)) return false;
+        return true;
+      });
+      const invCustomerOptions = [...new Set(invoices.map(inv => inv.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+      const invStatusOptions = ["已開具", "已收款", "已作廢"];
       return `
+        <div class="wo-filters fin-wo-filters">
+          <label class="wo-filter-group"><span>發票狀態</span>
+            <select data-fin-inv-filter="status">
+              <option value="">全部狀態</option>
+              ${invStatusOptions.map(s => `<option value="${s}" ${invFilter.status === s ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>客戶</span>
+            <select data-fin-inv-filter="customer">
+              <option value="">全部客戶</option>
+              ${invCustomerOptions.map(name => `<option value="${escapeHtml(name)}" ${invFilter.customer === name ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>開票日期</span>
+            <div class="fin-wo-range">
+              <input type="date" aria-label="開始日期" value="${escapeHtml(invFilter.dateFrom || "")}" data-fin-inv-filter="dateFrom">
+              <em>至</em>
+              <input type="date" aria-label="結束日期" value="${escapeHtml(invFilter.dateTo || "")}" data-fin-inv-filter="dateTo">
+            </div>
+          </label>
+          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+            <div class="fin-wo-amount">
+              <input type="number" min="0" step="1" placeholder="最低" value="${escapeHtml(invFilter.amountMin || "")}" data-fin-inv-filter="amountMin">
+              <input type="number" min="0" step="1" placeholder="最高" value="${escapeHtml(invFilter.amountMax || "")}" data-fin-inv-filter="amountMax">
+            </div>
+          </label>
+          <div class="fin-wo-actions">
+            <button class="primary-btn" data-fin-filter-apply>搜索</button>
+            <button class="secondary-btn" data-fin-filter-reset="invoices">重置</button>
+          </div>
+        </div>
         <div class="pc-table-wrapper">
           <table class="pc-table">
             <thead>
@@ -23412,7 +23581,7 @@
               </tr>
             </thead>
             <tbody>
-              ${invoices.map(inv => `
+              ${invList.map(inv => `
                 <tr>
                   <td><strong>${inv.invoiceNo}</strong>${inv.reprintCount ? `<span class="tag warning" style="margin-left:4px;font-size:10px;">重印×${inv.reprintCount}</span>` : ""}</td>
                   <td>${getJobId(inv.quotationId, inv.jobCode)}</td>
@@ -23421,27 +23590,62 @@
                     ${(inv.paymentTiming || inv.warranty) ? `<div class="muted" style="font-size:11px;">${inv.paymentTiming ? escapeHtml(inv.paymentTiming) : ""}${inv.warranty ? ` · 保修 ${escapeHtml(inv.warranty)}` : ""}</div>` : ""}</td>
                   <td>${inv.invoiceDate}</td>
                   <td>${inv.dueDate}</td>
-                  <td>${getPaymentTerms(inv.customerName)} <button class="link-btn" data-change-terms="${inv.id}" style="font-size:11px;padding:0 4px;">變更</button></td>
+                  <td>${getPaymentTerms(inv.customerName)}</td>
                   <td><span class="tag ${inv.status === '已收款' ? 'success' : inv.status === '已作廢' ? 'danger' : 'warning'}">${inv.status}</span>${inv.voidDate ? `<div class="muted" style="font-size:11px;">作廢日期：${inv.voidDate}</div>` : ''}</td>
-                  <td>
-                    <div class="fin-row-actions">
-                      <button class="link-btn" data-edit-invoice="${inv.id}">編輯</button>
-                      <button class="link-btn" data-copy-invoice="${inv.id}">複製</button>
-                      ${inv.status === '已開具' ? `<button class="link-btn" data-void-invoice="${inv.id}">作廢</button>` : ''}
-                      <button class="link-btn" data-delete-invoice="${inv.id}">刪除</button>
-                      <button class="link-btn" data-change-amount="${inv.id}">變更金額</button>
-                      <button class="link-btn" data-change-date="${inv.id}">變更日期</button>
-                      <button class="link-btn" data-reprint-invoice="${inv.id}">重印</button>
-                      <button class="link-btn" data-print-invoice="${inv.id}">列印</button>
-                      ${inv.status === '已開具' ? `<button class="link-btn" data-mark-paid="${inv.id}">標記收款</button>` : ''}
-                    </div>
-                  </td>
+                  <td><div class="fin-row-actions">
+                    <button class="fin-pending-detail-btn" type="button" data-fin-invoice-detail="${inv.id}">詳情</button>
+                    <button class="fin-more-trigger" type="button" data-fin-more-trigger="${inv.id}" aria-haspopup="menu" aria-expanded="false">更多 ▾</button>
+                  </div></td>
                 </tr>
               `).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);">暫無發票</td></tr>'}
             </tbody>
           </table>
         </div>
       `;
+    }
+
+    // 發票詳情：列表只保留詳情，編輯／複製／變更／重印／列印／收款／作廢／刪除集中在此
+    function openInvoiceDetailModal(invoiceId) {
+      const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
+      if (!inv) { toast("找不到發票", "error"); return; }
+      const acctCustomers = JSON.parse(localStorage.getItem("ecinfo_acct_customers")) || DEFAULT_ACCT_CUSTOMERS;
+      const terms = inv.paymentTerms || acctCustomers.find(item => item.name === inv.customerName)?.paymentTerms || "30 天";
+      const jobId = quotations.find(item => item.id === inv.quotationId)?.id || inv.jobCode || inv.quotationId || "—";
+      const linkedPayments = payments.filter(p => p.invoiceId === inv.id || p.invoiceNo === inv.invoiceNo);
+      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
+      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      openFinDetailModal({
+        title: "發票詳情",
+        body: `
+          <section class="fin-pending-detail-section">
+            <h3>發票資料</h3>
+            <div class="fin-pending-detail-grid">
+              ${field("發票號", inv.invoiceNo)}
+              ${field("Job ID", jobId)}
+              ${field("客戶", inv.customerName)}
+              ${field("金額", `HKD ${Number(inv.amount || 0).toLocaleString()}`)}
+              ${field("開票日期", inv.invoiceDate)}
+              ${field("到期日", inv.dueDate)}
+              ${field("客戶數期", terms)}
+              ${inv.salesRepId ? field("銷售代表編號", inv.salesRepId) : ""}
+              ${field("付款方式", inv.paymentTiming)}
+              ${field("保固期", inv.warranty)}
+              ${field("狀態", inv.status)}
+              ${inv.voidDate ? field("作廢日期", inv.voidDate) : ""}
+              ${inv.reprintCount ? field("重印次數", `×${inv.reprintCount}`) : ""}
+              ${inv.copiedFrom ? field("複製自", inv.copiedFrom) : ""}
+              ${inv.amountChanged ? field("金額曾變更", inv.amountChangeReason || "是") : ""}
+              ${inv.dateChanged ? field("日期曾變更", inv.dateChangeReason || "是") : ""}
+              ${inv.lowAmountReason ? field("低於報價金額原因", inv.lowAmountReason, true) : ""}
+              ${inv.missingDocsReason ? field("缺文件開票理由", inv.missingDocsReason, true) : ""}
+              ${field("備註", inv.remark, true)}
+            </div>
+          </section>
+          <section class="fin-pending-detail-section">
+            <h3>收款記錄（${linkedPayments.length}）</h3>
+            ${linkedPayments.length ? `<div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>收據編號</th><th>金額</th><th>收款日期</th><th>收款方式</th></tr></thead><tbody>${linkedPayments.map(p => `<tr><td>${value(p.receiptNo)}</td><td>HKD ${Number(p.amount || 0).toLocaleString()}</td><td>${value(p.paymentDate)}</td><td>${value(p.paymentMethod)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">尚未登記收款。</p>`}
+          </section>`
+      });
     }
 
     // 發票完整編輯：所有欄位可修改更新
@@ -23463,6 +23667,8 @@
                 <div class="field"><label>到期日</label><input name="dueDate" type="date" value="${escapeHtml(inv.dueDate || "")}"></div>
                 <div class="field"><label>付款方式</label><input name="paymentTiming" value="${escapeHtml(inv.paymentTiming || "")}"></div>
                 <div class="field"><label>保固期</label><input name="warranty" value="${escapeHtml(inv.warranty || "")}"></div>
+                <div class="field"><label>付款條款（Payment Terms）</label><input name="paymentTerms" value="${escapeHtml(inv.paymentTerms || "")}" placeholder="如 Net 30／月結 30 天"></div>
+                <div class="field"><label>銷售代表編號（Sales Rep ID）</label><input name="salesRepId" value="${escapeHtml(inv.salesRepId || "")}" placeholder="如 EMP0004"></div>
                 <div class="field" style="grid-column:1/-1;"><label>備註</label><textarea name="remark" style="min-height:70px;">${escapeHtml(inv.remark || "")}</textarea></div>
               </div>
             </div>
@@ -23488,6 +23694,8 @@
         inv.dueDate = data.get("dueDate") || "";
         inv.paymentTiming = String(data.get("paymentTiming") || "");
         inv.warranty = String(data.get("warranty") || "");
+        inv.paymentTerms = String(data.get("paymentTerms") || "").trim();
+        inv.salesRepId = String(data.get("salesRepId") || "").trim();
         inv.remark = String(data.get("remark") || "");
         inv.updatedAt = new Date().toLocaleString("zh-HK");
         saveDataToLocalStorage();
@@ -23560,7 +23768,51 @@
         const invNo = (pay.invoiceId || '').replace(/\D/g, '');
         return 'EC' + invNo.slice(-8).padStart(8, '0');
       };
+      const payFilter = state.finPaymentFilter || {};
+      const payList = payments.filter(pay => {
+        if (payFilter.customer && pay.customerName !== payFilter.customer) return false;
+        if (payFilter.method && pay.paymentMethod !== payFilter.method) return false;
+        if (payFilter.dateFrom && String(pay.paymentDate || "") < payFilter.dateFrom) return false;
+        if (payFilter.dateTo && String(pay.paymentDate || "") > payFilter.dateTo) return false;
+        const amount = Number(pay.amount || 0);
+        if (payFilter.amountMin !== "" && payFilter.amountMin != null && amount < Number(payFilter.amountMin)) return false;
+        if (payFilter.amountMax !== "" && payFilter.amountMax != null && amount > Number(payFilter.amountMax)) return false;
+        return true;
+      });
+      const payCustomerOptions = [...new Set(payments.map(pay => pay.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+      const payMethodOptions = [...new Set(payments.map(pay => pay.paymentMethod).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       return `
+        <div class="wo-filters fin-wo-filters">
+          <label class="wo-filter-group"><span>客戶</span>
+            <select data-fin-pay-filter="customer">
+              <option value="">全部客戶</option>
+              ${payCustomerOptions.map(name => `<option value="${escapeHtml(name)}" ${payFilter.customer === name ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>收款方式</span>
+            <select data-fin-pay-filter="method">
+              <option value="">全部方式</option>
+              ${payMethodOptions.map(m => `<option value="${escapeHtml(m)}" ${payFilter.method === m ? "selected" : ""}>${escapeHtml(m)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>收款日期</span>
+            <div class="fin-wo-range">
+              <input type="date" aria-label="開始日期" value="${escapeHtml(payFilter.dateFrom || "")}" data-fin-pay-filter="dateFrom">
+              <em>至</em>
+              <input type="date" aria-label="結束日期" value="${escapeHtml(payFilter.dateTo || "")}" data-fin-pay-filter="dateTo">
+            </div>
+          </label>
+          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+            <div class="fin-wo-amount">
+              <input type="number" min="0" step="1" placeholder="最低" value="${escapeHtml(payFilter.amountMin || "")}" data-fin-pay-filter="amountMin">
+              <input type="number" min="0" step="1" placeholder="最高" value="${escapeHtml(payFilter.amountMax || "")}" data-fin-pay-filter="amountMax">
+            </div>
+          </label>
+          <div class="fin-wo-actions">
+            <button class="primary-btn" data-fin-filter-apply>搜索</button>
+            <button class="secondary-btn" data-fin-filter-reset="payments">重置</button>
+          </div>
+        </div>
         <div class="pc-table-wrapper">
           <table class="pc-table">
             <thead>
@@ -23577,7 +23829,7 @@
               </tr>
             </thead>
             <tbody>
-              ${payments.map(pay => `
+              ${payList.map(pay => `
                 <tr>
                   <td><strong>${formatReceiptNo(pay)}</strong></td>
                   <td>${pay.invoiceId}</td>
@@ -23587,21 +23839,50 @@
                   <td>${pay.paymentDate}</td>
                   <td><span class="chip">${pay.paymentMethod}</span></td>
                   <td>${pay.forJob || getJobId(pay.invoiceId)}</td>
-                  <td><button class="link-btn" data-print-receipt="${pay.id}">列印收據</button></td>
+                  <td><button class="fin-pending-detail-btn" type="button" data-fin-payment-detail="${pay.id}">詳情</button></td>
                 </tr>
               `).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);">暫無收款記錄</td></tr>'}
             </tbody>
           </table>
         </div>
-        <div style="margin-top:10px;font-size:12px;color:var(--muted);">
-          ${appIcon("info", 15)} 收據編號自動生成為「EC + invoice no」，無需手動輸入。參考 PDF 第 4 頁收據樣式。
-        </div>
       `;
+    }
+
+    // 收款詳情：列表只保留詳情，列印收據集中在此
+    function openPaymentDetailModal(paymentId) {
+      const pay = payments.find(item => item.id === paymentId);
+      if (!pay) { toast("找不到收款記錄", "error"); return; }
+      const inv = invoices.find(item => item.id === pay.invoiceId || item.invoiceNo === pay.invoiceId);
+      const jobId = quotations.find(item => item.id === inv?.quotationId)?.id || inv?.quotationId || inv?.jobCode || "—";
+      const receiptNo = pay.receiptNo && pay.receiptNo.startsWith("EC")
+        ? pay.receiptNo
+        : "EC" + String(pay.invoiceId || "").replace(/\D/g, "").slice(-8).padStart(8, "0");
+      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
+      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      openFinDetailModal({
+        title: "收款詳情",
+        body: `
+          <section class="fin-pending-detail-section">
+            <h3>收款資料</h3>
+            <div class="fin-pending-detail-grid">
+              ${field("收據編號", receiptNo)}
+              ${field("發票號", pay.invoiceId)}
+              ${field("Job ID", jobId)}
+              ${field("客戶", pay.customerName)}
+              ${field("金額", `HKD ${Number(pay.amount || 0).toLocaleString()}`)}
+              ${field("收款日期", pay.paymentDate)}
+              ${field("收款方式", pay.paymentMethod)}
+              ${field("For Payment of", pay.forJob || jobId)}
+              ${field("備註", pay.remark, true)}
+            </div>
+          </section>`,
+        actions: [{ label: "列印收據", primary: true, run: () => openPrintReceiptModal(pay.id) }]
+      });
     }
 
     // 渲染會計客戶檔案：獨立於 CS/報價組，含 billing address、收件人、數期；可變更功能
     function renderFinCustomers(acctCustomers) {
-      const filters = state.finCustomerFilters || { id: "全部", name: "全部", address: "全部" };
+      const filters = state.finCustomerFilters || { id: "全部", name: "全部", address: "全部", terms: "全部", method: "全部" };
       const acctCustomerId = customer => customer.customerId || customers.find(item =>
         (customer.customerId && item.id === customer.customerId)
         || item.nameZh === customer.name
@@ -23612,9 +23893,13 @@
         const idValue = acctCustomerId(customer);
         const nameValue = customer.name || customer.nameZh || "";
         const addressValue = acctCustomerAddress(customer);
+        const termsValue = customer.paymentTerms || "30 天";
+        const methodValue = customer.deliveryMethod || "Post（郵寄）";
         return (filters.id === "全部" || idValue === filters.id)
           && (filters.name === "全部" || nameValue === filters.name)
-          && (filters.address === "全部" || addressValue === filters.address);
+          && (filters.address === "全部" || addressValue === filters.address)
+          && (filters.terms === "全部" || termsValue === filters.terms)
+          && (filters.method === "全部" || methodValue === filters.method);
       });
       const optionsFor = (values, selected) => ["全部", ...values]
         .map(value => `<option value="${escapeHtml(value)}" ${selected === value ? "selected" : ""}>${escapeHtml(value)}</option>`)
@@ -23622,13 +23907,20 @@
       const idOptions = [...new Set(acctCustomers.map(acctCustomerId).filter(Boolean))].sort();
       const nameOptions = [...new Set(acctCustomers.map(customer => customer.name || customer.nameZh || "").filter(Boolean))].sort();
       const addressOptions = [...new Set(acctCustomers.map(acctCustomerAddress).filter(Boolean))].sort();
+      const termsOptions = [...new Set(acctCustomers.map(customer => customer.paymentTerms || "30 天").filter(Boolean))].sort();
+      const methodOptions = [...new Set(acctCustomers.map(customer => customer.deliveryMethod || "Post（郵寄）").filter(Boolean))].sort();
       return `
-        <div class="fin-customer-toolbar">
-          <span>${filteredCustomers.length} 個客戶${filteredCustomers.length !== acctCustomers.length ? `（共 ${acctCustomers.length}）` : ""}</span>
-          <label class="fin-customer-filter">Customer ID<select data-fin-customer-filter="id">${optionsFor(idOptions, filters.id)}</select></label>
-          <label class="fin-customer-filter">客戶名稱<select data-fin-customer-filter="name">${optionsFor(nameOptions, filters.name)}</select></label>
-          <label class="fin-customer-filter">Billing Address<select data-fin-customer-filter="address">${optionsFor(addressOptions, filters.address)}</select></label>
-          <button class="primary-btn" data-add-acct-customer>新增客戶</button>
+        <div class="wo-filters fin-wo-filters">
+          <label class="wo-filter-group"><span>Customer ID</span><select data-fin-customer-filter="id">${optionsFor(idOptions, filters.id)}</select></label>
+          <label class="wo-filter-group"><span>客戶名稱</span><select data-fin-customer-filter="name">${optionsFor(nameOptions, filters.name)}</select></label>
+          <label class="wo-filter-group"><span>Billing Address</span><select data-fin-customer-filter="address">${optionsFor(addressOptions, filters.address)}</select></label>
+          <label class="wo-filter-group"><span>客戶數期</span><select data-fin-customer-filter="terms">${optionsFor(termsOptions, filters.terms)}</select></label>
+          <label class="wo-filter-group"><span>寄送方式</span><select data-fin-customer-filter="method">${optionsFor(methodOptions, filters.method)}</select></label>
+          <div class="fin-wo-actions">
+            <button class="secondary-btn" data-fin-filter-reset="customers">重置</button>
+            <button class="primary-btn" data-add-acct-customer>新增客戶</button>
+          </div>
+          <span class="fin-wo-count">${filteredCustomers.length} 個客戶${filteredCustomers.length !== acctCustomers.length ? `（共 ${acctCustomers.length}）` : ""}</span>
         </div>
         <div class="pc-table-wrapper">
           <table class="pc-table">
@@ -23656,12 +23948,7 @@
                   <td>${c.recipient || '—'}${c.attn ? `（${c.attn}）` : ''}</td>
                   <td><span class="chip">${c.paymentTerms || '30 天'}</span></td>
                   <td><span class="chip">${c.deliveryMethod || 'Post（郵寄）'}</span></td>
-                  <td>
-                    <div class="fin-row-actions">
-                      <button class="link-btn" data-edit-acct-customer="${c.id}">變更</button>
-                      <button class="link-btn" data-del-acct-customer="${c.id}">刪除</button>
-                    </div>
-                  </td>
+                  <td><button class="fin-pending-detail-btn" type="button" data-fin-customer-detail="${c.id}">詳情</button></td>
                 </tr>
               `).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);">暫無符合條件的客戶</td></tr>'}
             </tbody>
@@ -23670,13 +23957,91 @@
       `;
     }
 
+    // 會計客戶詳情：列表只保留詳情，變更／刪除集中在此
+    function openAcctCustomerDetailModal(customerId) {
+      const list = JSON.parse(localStorage.getItem("ecinfo_acct_customers")) || DEFAULT_ACCT_CUSTOMERS;
+      const customer = list.find(item => String(item.id) === String(customerId));
+      if (!customer) { toast("找不到客戶資料", "error"); return; }
+      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
+      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      const resolvedId = customer.customerId || customers.find(item =>
+        (customer.customerId && item.id === customer.customerId)
+        || item.nameZh === customer.name
+        || item.nameEn === customer.name)?.id || "—";
+      openFinDetailModal({
+        title: "客戶檔案詳情",
+        body: `
+          <section class="fin-pending-detail-section">
+            <h3>客戶資料</h3>
+            <div class="fin-pending-detail-grid">
+              ${field("Customer ID", resolvedId)}
+              ${field("客戶名稱", customer.name)}
+              ${field("聯絡人", customer.contact)}
+              ${field("電話", customer.phone)}
+              ${field("Email", customer.email)}
+              ${field("Billing Address", customer.billingAddress || customer.address, true)}
+              ${field("收件人", customer.recipient)}
+              ${field("Attn", customer.attn)}
+              ${field("客戶數期", customer.paymentTerms || "30 天")}
+              ${field("寄送方式", customer.deliveryMethod || "Post（郵寄）")}
+              ${field("備註", customer.remark, true)}
+            </div>
+          </section>`,
+        actions: [
+          { label: "變更", primary: true, run: () => openEditAcctCustomerModal(customer.id) },
+          { label: "刪除", run: () => deleteAcctCustomer(customer.id) }
+        ]
+      });
+    }
+
     // 渲染 M 類保養合約：根據開始/結束日期與開單頻率自動生成每月待開發票
     function renderFinContracts(contracts) {
       const today = new Date().toISOString().slice(0, 10);
+      const conFilter = state.finContractFilter || {};
+      const conList = contracts.filter(c => {
+        const isActive = c.startDate <= today && c.endDate >= today;
+        if (conFilter.customer && c.customer !== conFilter.customer) return false;
+        if (conFilter.frequency && c.frequency !== conFilter.frequency) return false;
+        if (conFilter.status && (conFilter.status === "生效中") !== isActive) return false;
+        if (conFilter.dateFrom && String(c.startDate || "") < conFilter.dateFrom) return false;
+        if (conFilter.dateTo && String(c.endDate || "") > conFilter.dateTo) return false;
+        return true;
+      });
+      const conCustomers = [...new Set(contracts.map(c => c.customer).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+      const conFrequencies = [...new Set(contracts.map(c => c.frequency).filter(Boolean))];
       return `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <span style="color:var(--muted);font-size:13px;">${contracts.length} 個保養合約</span>
-          <button class="primary-btn" data-add-contract>新增合約</button>
+        <div class="wo-filters fin-wo-filters">
+          <label class="wo-filter-group"><span>客戶</span>
+            <select data-fin-con-filter="customer">
+              <option value="">全部客戶</option>
+              ${conCustomers.map(name => `<option value="${escapeHtml(name)}" ${conFilter.customer === name ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>開單頻率</span>
+            <select data-fin-con-filter="frequency">
+              <option value="">全部頻率</option>
+              ${conFrequencies.map(fr => `<option value="${escapeHtml(fr)}" ${conFilter.frequency === fr ? "selected" : ""}>${escapeHtml(fr)}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>狀態</span>
+            <select data-fin-con-filter="status">
+              <option value="">全部狀態</option>
+              ${["生效中", "已過期"].map(s => `<option value="${s}" ${conFilter.status === s ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
+          </label>
+          <label class="wo-filter-group"><span>合約期間</span>
+            <div class="fin-wo-range">
+              <input type="date" aria-label="開始日期" value="${escapeHtml(conFilter.dateFrom || "")}" data-fin-con-filter="dateFrom">
+              <em>至</em>
+              <input type="date" aria-label="結束日期" value="${escapeHtml(conFilter.dateTo || "")}" data-fin-con-filter="dateTo">
+            </div>
+          </label>
+          <div class="fin-wo-actions">
+            <button class="primary-btn" data-fin-filter-apply>搜索</button>
+            <button class="secondary-btn" data-fin-filter-reset="contracts">重置</button>
+            <button class="primary-btn" data-add-contract>新增合約</button>
+          </div>
+          <span class="fin-wo-count">${conList.length} 個保養合約${conList.length !== contracts.length ? `（共 ${contracts.length}）` : ""}</span>
         </div>
         <div class="pc-table-wrapper">
           <table class="pc-table">
@@ -23693,7 +24058,7 @@
               </tr>
             </thead>
             <tbody>
-              ${contracts.map(c => {
+              ${conList.map(c => {
                 const isActive = c.startDate <= today && c.endDate >= today;
                 return `
                 <tr>
@@ -23704,21 +24069,48 @@
                   <td>${c.endDate}</td>
                   <td><span class="chip">${c.frequency}</span></td>
                   <td><span class="tag ${isActive ? 'success' : 'warning'}">${isActive ? '生效中' : '已過期'}</span></td>
-                  <td>
-                    <div class="fin-row-actions">
-                      <button class="link-btn" data-gen-contract-invoice="${c.id}">生成當月發票</button>
-                      <button class="link-btn" data-edit-contract="${c.id}">變更</button>
-                    </div>
-                  </td>
+                  <td><button class="fin-pending-detail-btn" type="button" data-fin-contract-detail="${c.id}">詳情</button></td>
                 </tr>
               `}).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted);">暫無保養合約</td></tr>'}
             </tbody>
           </table>
         </div>
-        <div style="margin-top:10px;font-size:12px;color:var(--muted);">
-          ${appIcon("info", 15)} 所有 Job Code 出現 M 的工程/保養，系統根據合約開始日期/結束日期/開單頻率，自動「預生成」整個合約期的待開票記錄（例：2 年約、每月一次 → 24 張），每張列明服務起止日期、金額與付款週期；已開票的期間不會重複出現在待開票列表。
-        </div>
       `;
+    }
+
+    // 保養合約詳情：列表只保留詳情，生成發票／變更集中在此
+    function openContractDetailModal(contractId) {
+      const list = JSON.parse(localStorage.getItem("ecinfo_maintenance_contracts")) || DEFAULT_MAINTENANCE_CONTRACTS;
+      const contract = list.find(item => String(item.id) === String(contractId));
+      if (!contract) { toast("找不到保養合約", "error"); return; }
+      const today = new Date().toISOString().slice(0, 10);
+      const isActive = contract.startDate <= today && contract.endDate >= today;
+      const periods = generateContractBillingItems(contract) || [];
+      const billed = periods.filter(item => invoices.some(inv => inv.contractId === item.contractId && inv.billingPeriod === item.billingPeriod)).length;
+      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
+      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      openFinDetailModal({
+        title: "保養合約詳情",
+        body: `
+          <section class="fin-pending-detail-section">
+            <h3>合約資料</h3>
+            <div class="fin-pending-detail-grid">
+              ${field("Job Code", contract.jobCode)}
+              ${field("客戶", contract.customer)}
+              ${field("金額", `HKD ${Number(contract.amount || 0).toLocaleString()}`)}
+              ${field("開始日期", contract.startDate)}
+              ${field("結束日期", contract.endDate)}
+              ${field("開單頻率", contract.frequency)}
+              ${field("狀態", isActive ? "生效中" : "已過期")}
+              ${field("預生成期數", periods.length)}
+              ${field("已開票期數", billed)}
+            </div>
+          </section>`,
+        actions: [
+          { label: "生成當月發票", primary: true, run: () => genContractInvoice(contract.id) },
+          { label: "變更", run: () => openEditContractModal(contract.id) }
+        ]
+      });
     }
 
     // ============ 會計部輔助函數及模態框 ============
@@ -23783,7 +24175,6 @@
               </select>
             </div>
             <div class="field"><label>其他原因</label><textarea id="batchDocsReasonOther" placeholder="選擇「其他」時必須填寫" style="min-height:60px;"></textarea></div>` : ""}
-            <p style="font-size:12px;color:var(--muted);background:var(--bg);padding:10px;border-radius:6px;margin:12px 0 0;">${appIcon("info", 15)} 開完發票後，系統自動生成發票連同該單工程相關的相片、完工紙、SR 及客戶確認 work order/confirmation，並自動彈出列印發票功能。</p>
           </div>
           <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
             <button type="button" class="ghost-btn" data-close-modal>取消</button>
@@ -23950,10 +24341,12 @@
           name: customer.nameEn || inv.customerName || "",
           address: [address.addressZh, address.addressEn].filter(Boolean)
         },
-        customerId: customer.contractNo || customer.id || "",
-        internalRef: quotation ? quotation.id : (inv.jobCode || inv.quotationId || ""),
-        paymentTerms: acct ? acct.paymentTerms : "30 天",
-        salesRepId: (quotation && quotation.owner) || "Office",
+        // 列印模版欄位對應：Our Customer ID＝客戶編號；Our Internal Ref.＝EC Contract No
+        customerId: customer.id || acct?.customerId || inv.customerId || "",
+        internalRef: customer.contractNo || quotation?.contractNo || quotation?.ecContractNo || acct?.contractNo || inv.ecContractNo || "",
+        // Payment Terms＝付款條款文字，只取發票上填寫的內容；不拿客戶數期或其他欄位代填
+        paymentTerms: inv.paymentTerms || "",
+        salesRepId: inv.salesRepId || "",
         shippingMethod: "Hand Deliver",
         shipDate: formatShortInvoiceDate(inv.invoiceDate),
         dueDate: formatShortInvoiceDate(inv.dueDate),
@@ -30985,9 +31378,33 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           id: "全部",
           name: "全部",
           address: "全部",
+          terms: "全部",
+          method: "全部",
           ...(state.finCustomerFilters || {}),
           [select.dataset.finCustomerFilter]: select.value
         };
+        render();
+      }));
+      // 發票管理／收款記錄／保養合約：沿用 CALL 管理的欄位篩選（變更即套用）
+      const bindFinFieldFilters = (selector, attr, stateKey) => {
+        document.querySelectorAll(selector).forEach(input => {
+          const event = input.tagName === "SELECT" || input.type === "date" || input.type === "number" ? "change" : "input";
+          input.addEventListener(event, () => {
+            state[stateKey] = { ...(state[stateKey] || {}), [input.getAttribute(attr)]: input.value };
+            render();
+          });
+        });
+      };
+      bindFinFieldFilters("[data-fin-inv-filter]", "data-fin-inv-filter", "finInvoiceFilter");
+      bindFinFieldFilters("[data-fin-pay-filter]", "data-fin-pay-filter", "finPaymentFilter");
+      bindFinFieldFilters("[data-fin-con-filter]", "data-fin-con-filter", "finContractFilter");
+      document.querySelectorAll("[data-fin-filter-apply]").forEach(btn => btn.addEventListener("click", () => render()));
+      document.querySelectorAll("[data-fin-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
+        const tab = btn.dataset.finFilterReset;
+        if (tab === "invoices") state.finInvoiceFilter = {};
+        if (tab === "payments") state.finPaymentFilter = {};
+        if (tab === "contracts") state.finContractFilter = {};
+        if (tab === "customers") state.finCustomerFilters = { id: "全部", name: "全部", address: "全部", terms: "全部", method: "全部" };
         render();
       }));
       // 待開票全選 / 取消全選
@@ -31011,40 +31428,21 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         state.finSelectedIds = [...selectedIds];
         updateFinSelectedCount();
       }));
-      // 待開票詳情（只讀）
+      // 待開票詳情（開票／刪除移入詳情彈窗底部）
       document.querySelectorAll("[data-fin-pending-detail]").forEach(btn => btn.addEventListener("click", () => openFinPendingDetail(btn.dataset.finPendingDetail)));
-      // 待開票複製：產生一筆相同內容的待開票項目
-      document.querySelectorAll("[data-fin-pending-copy]").forEach(btn => btn.addEventListener("click", () => {
-        const id = String(btn.dataset.finPendingCopy);
-        const item = state.finPendingItemMap?.[id];
-        if (!item) return;
-        const copies = JSON.parse(localStorage.getItem('ecinfo_fin_pending_copies') || '[]');
-        const clone = JSON.parse(JSON.stringify(item));
-        clone.id = `COPY-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-        clone.isPendingCopy = true;
-        clone.sourcePendingId = id;
-        clone.copiedFrom = id;
-        if (quotations.some(quotation => quotation.id === id)) clone.sourceQuotationId = id;
-        copies.unshift(clone);
-        localStorage.setItem('ecinfo_fin_pending_copies', JSON.stringify(copies));
-        render();
-        toast('已複製待開票項目');
+      // 發票詳情
+      document.querySelectorAll("[data-fin-invoice-detail]").forEach(btn => btn.addEventListener("click", () => openInvoiceDetailModal(btn.dataset.finInvoiceDetail)));
+      // 發票列表「更多」下拉：所有操作（編輯／複製／變更／重印／列印／收款／作廢／刪除）
+      document.querySelectorAll("[data-fin-more-trigger]").forEach(btn => btn.addEventListener("click", event => {
+        event.stopPropagation();
+        openInvoiceMoreMenu(btn, btn.dataset.finMoreTrigger);
       }));
-      // 待開票刪除：只從待開票移除，不刪除底層報價／合約
-      document.querySelectorAll("[data-fin-pending-delete]").forEach(btn => btn.addEventListener("click", () => {
-        const id = String(btn.dataset.finPendingDelete);
-        if (id.startsWith('COPY-')) {
-          const copies = JSON.parse(localStorage.getItem('ecinfo_fin_pending_copies') || '[]').filter(item => String(item.id) !== id);
-          localStorage.setItem('ecinfo_fin_pending_copies', JSON.stringify(copies));
-        } else {
-          const hidden = JSON.parse(localStorage.getItem('ecinfo_fin_pending_hidden') || '[]').map(String);
-          if (!hidden.includes(id)) hidden.push(id);
-          localStorage.setItem('ecinfo_fin_pending_hidden', JSON.stringify(hidden));
-        }
-        state.finSelectedIds = (state.finSelectedIds || []).filter(selectedId => String(selectedId) !== id);
-        render();
-        toast('已從待開票移除');
-      }));
+      // 收款詳情
+      document.querySelectorAll("[data-fin-payment-detail]").forEach(btn => btn.addEventListener("click", () => openPaymentDetailModal(btn.dataset.finPaymentDetail)));
+      // 會計客戶詳情
+      document.querySelectorAll("[data-fin-customer-detail]").forEach(btn => btn.addEventListener("click", () => openAcctCustomerDetailModal(btn.dataset.finCustomerDetail)));
+      // 保養合約詳情
+      document.querySelectorAll("[data-fin-contract-detail]").forEach(btn => btn.addEventListener("click", () => openContractDetailModal(btn.dataset.finContractDetail)));
       // 批量開具發票（手動提供第一張發票號，餘下自動順序生成）
       document.querySelectorAll("[data-fin-batch-invoice]").forEach(btn => btn.addEventListener("click", openBatchInvoiceModal));
       // 列印選取的待開票
