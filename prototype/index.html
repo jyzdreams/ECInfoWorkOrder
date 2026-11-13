@@ -3675,16 +3675,24 @@
       min-width: 200px;
     }
     /* 會計管理：沿用 CALL 管理的欄位篩選樣式（日期／金額用組合輸入） */
-    .fin-wo-filters { margin-bottom: 14px; }
-    .fin-wo-filters .wo-filter-group { min-width: 150px; }
+    .fin-wo-filters { margin-bottom: 14px; gap: 8px; }
+    .fin-wo-filters .wo-filter-group { min-width: 0; }
     .fin-wo-filters .wo-filter-group input { min-width: 0; }
-    .fin-wo-range, .fin-wo-amount { display: flex; align-items: center; gap: 6px; }
-    .fin-wo-range input { width: 132px; }
-    .fin-wo-amount input { width: 96px; }
+    .fin-wo-range, .fin-wo-amount { display: flex; align-items: center; gap: 4px; }
+    .fin-wo-range input { width: 116px; }
+    .fin-wo-amount input { width: 72px; }
     .fin-wo-range em { font-style: normal; color: var(--muted); font-size: 12px; }
     .fin-wo-actions { display: flex; align-items: flex-end; gap: 8px; margin-left: auto; }
     .fin-wo-actions .primary-btn, .fin-wo-actions .secondary-btn { height: 34px; padding: 0 16px; font-size: 13px; }
     .fin-wo-count { align-self: flex-end; padding-bottom: 8px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+    /* 與 CALL 管理篩選一致的字級與控件高度（標籤 12px、控件 13px / 34px） */
+    .fin-wo-filters { font-size: 12px; }
+    .fin-wo-filters .wo-filter-group > span { font-size: 12px; font-weight: 500; color: var(--muted); line-height: 1.2; }
+    .fin-wo-filters .search-select-trigger { height: 34px; min-height: 34px; font-size: 13px; border-radius: 6px; }
+    .fin-wo-filters .fin-wo-range input,
+    .fin-wo-filters .fin-wo-amount input { height: 34px; font-size: 13px; }
+    .fin-wo-filters .fin-wo-actions .primary-btn,
+    .fin-wo-filters .fin-wo-actions .secondary-btn { height: 34px; font-size: 13px; }
     /* 統一搜索框包裹：輸入框 + 搜索按鈕並排 */
     .wo-search-wrap {
       display: flex;
@@ -4960,6 +4968,24 @@
     .fin-pending-table td:nth-child(1), .fin-pending-table td:nth-child(2) { z-index: 2; background: var(--panel); }
     .fin-pending-table thead th:nth-child(1), .fin-pending-table thead th:nth-child(2) { z-index: 3; background: var(--panel-soft); }
     .fin-pending-table tbody tr:hover td:nth-child(1), .fin-pending-table tbody tr:hover td:nth-child(2) { background: var(--panel-soft); }
+    /* 會計管理：仿 CALL 管理，凍結分頁列／篩選／批次工具列，只讓表格區域滾動 */
+    .pc-section.fin-list-freeze { display: flex; flex-direction: column; height: calc(100vh - 180px); overflow: hidden; }
+    .fin-list-freeze > .proc-tabs,
+    .fin-list-freeze > .wo-filters,
+    .fin-list-freeze > .fin-batch-toolbar,
+    .fin-list-freeze > .um-pagination { flex: 0 0 auto; }
+    .fin-list-freeze > .pc-table-wrapper { flex: 1 1 auto; min-height: 0; overflow: auto; }
+    .fin-list-freeze > .pc-table-wrapper thead th { position: sticky; top: 0; z-index: 4; background: var(--panel-soft); box-shadow: inset 0 -1px 0 var(--border); }
+    .fin-list-freeze > .pc-table-wrapper thead th:nth-child(1),
+    .fin-list-freeze > .pc-table-wrapper thead th:nth-child(2) { z-index: 5; }
+    /* 表格壓縮：與 CALL 管理相同的資訊密度，避免橫向滑動 */
+    #pcPages .fin-list-freeze .pc-table { font-size: 12px; }
+    #pcPages .fin-list-freeze .pc-table th { padding: 8px 5px; font-size: 12px; }
+    #pcPages .fin-list-freeze .pc-table td { padding: 8px 5px; font-size: 12px; }
+    @media (max-width: 860px) {
+      .pc-section.fin-list-freeze { height: auto; overflow: visible; }
+      .fin-list-freeze > .pc-table-wrapper { overflow-x: auto; }
+    }
     /* 發票列表「更多」下拉按鈕（固定定位，避免被表格容器裁切） */
     .fin-more-trigger { height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer; white-space: nowrap; }
     .fin-more-trigger:hover, .fin-more-trigger[aria-expanded="true"] { border-color: var(--primary); color: var(--primary); }
@@ -22587,7 +22613,7 @@
             <h1>會計管理</h1>
           </div>
 
-          <div class="pc-section">
+          <div class="pc-section fin-list-freeze">
             <div class="proc-tabs fin-proc-tabs">
               <div class="fin-tabs-list">
                 <button class="proc-tab ${finTab === 'pending' ? 'active' : ''}" data-fin-tab="pending">待開票 (${pendingTotal})</button>
@@ -23310,7 +23336,6 @@
           </label>
           <span class="fin-selected-count">已選 <b id="finSelectedCount">${selectedIds.size}</b> 筆</span>
           <button class="primary-btn" data-fin-batch-invoice${selectedIds.size ? "" : " disabled"}>批量開具發票</button>
-          <button class="secondary-btn" data-fin-print-selected${selectedIds.size ? "" : " disabled"}>列印選取</button>
         </div>
 
         <div class="pc-table-wrapper">
@@ -23508,6 +23533,27 @@
       window.addEventListener("scroll", close, true);
     }
 
+    // 會計分頁共用分頁器（發票／收款／客戶檔案／保養合約）：狀態獨立記錄
+    function finTabPagination(tab, total) {
+      const sizes = state.finPageSizes || (state.finPageSizes = {});
+      const pages = state.finPages || (state.finPages = {});
+      const pageSize = Number(sizes[tab]) || 10;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      const current = Math.min(Math.max(1, Number(pages[tab]) || 1), totalPages);
+      pages[tab] = current;
+      const buttons = [];
+      if (totalPages <= 7) { for (let i = 1; i <= totalPages; i++) buttons.push(i); }
+      else {
+        buttons.push(1);
+        if (current > 3) buttons.push("...");
+        for (let i = Math.max(2, current - 1); i <= Math.min(totalPages - 1, current + 1); i++) buttons.push(i);
+        if (current < totalPages - 2) buttons.push("...");
+        buttons.push(totalPages);
+      }
+      const html = `<div class="um-pagination wo-call-pagination" data-fin-tab-pagi="${tab}" data-fin-tab-total="${total}"><span>共 ${total} 條記錄，每頁 <select data-native-select data-fin-tab-page-size="${tab}" style="min-width:56px;height:28px;padding:2px 6px;font-size:12px;">${[10, 20, 50].map(n => `<option value="${n}" ${pageSize === n ? "selected" : ""}>${n}</option>`).join("")}</select> 條，第 ${current}/${totalPages} 頁</span><div class="um-pg-btns"><button data-fin-tab-page="${tab}" data-dir="prev" ${current <= 1 ? "disabled" : ""}>‹</button>${buttons.map(p => p === "..." ? '<span style="padding:0 4px;color:var(--muted);">…</span>' : `<button class="${current === p ? "active" : ""}" data-fin-tab-page="${tab}" data-num="${p}">${p}</button>`).join("")}<button data-fin-tab-page="${tab}" data-dir="next" ${current >= totalPages ? "disabled" : ""}>›</button></div></div>`;
+      return { pageSize, start: (current - 1) * pageSize, html };
+    }
+
     function renderFinInvoices() {
       // Job ID 顯示：報價項目用報價編號，保養合約帳單沿用合約 jobCode
       const getJobId = (quotationId, fallbackJobCode) => {
@@ -23533,6 +23579,8 @@
       });
       const invCustomerOptions = [...new Set(invoices.map(inv => inv.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       const invStatusOptions = ["已開具", "已收款", "已作廢"];
+      const invPager = finTabPagination("invoices", invList.length);
+      const invPage = invList.slice(invPager.start, invPager.start + invPager.pageSize);
       return `
         <div class="wo-filters fin-wo-filters">
           <label class="wo-filter-group"><span>發票狀態</span>
@@ -23581,7 +23629,7 @@
               </tr>
             </thead>
             <tbody>
-              ${invList.map(inv => `
+              ${invPage.map(inv => `
                 <tr>
                   <td><strong>${inv.invoiceNo}</strong>${inv.reprintCount ? `<span class="tag warning" style="margin-left:4px;font-size:10px;">重印×${inv.reprintCount}</span>` : ""}</td>
                   <td>${getJobId(inv.quotationId, inv.jobCode)}</td>
@@ -23601,6 +23649,7 @@
             </tbody>
           </table>
         </div>
+        ${invPager.html}
       `;
     }
 
@@ -23781,6 +23830,8 @@
       });
       const payCustomerOptions = [...new Set(payments.map(pay => pay.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       const payMethodOptions = [...new Set(payments.map(pay => pay.paymentMethod).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+      const payPager = finTabPagination("payments", payList.length);
+      const payPage = payList.slice(payPager.start, payPager.start + payPager.pageSize);
       return `
         <div class="wo-filters fin-wo-filters">
           <label class="wo-filter-group"><span>客戶</span>
@@ -23829,7 +23880,7 @@
               </tr>
             </thead>
             <tbody>
-              ${payList.map(pay => `
+              ${payPage.map(pay => `
                 <tr>
                   <td><strong>${formatReceiptNo(pay)}</strong></td>
                   <td>${pay.invoiceId}</td>
@@ -23845,6 +23896,7 @@
             </tbody>
           </table>
         </div>
+        ${payPager.html}
       `;
     }
 
@@ -23909,6 +23961,8 @@
       const addressOptions = [...new Set(acctCustomers.map(acctCustomerAddress).filter(Boolean))].sort();
       const termsOptions = [...new Set(acctCustomers.map(customer => customer.paymentTerms || "30 天").filter(Boolean))].sort();
       const methodOptions = [...new Set(acctCustomers.map(customer => customer.deliveryMethod || "Post（郵寄）").filter(Boolean))].sort();
+      const custPager = finTabPagination("customers", filteredCustomers.length);
+      const custPage = filteredCustomers.slice(custPager.start, custPager.start + custPager.pageSize);
       return `
         <div class="wo-filters fin-wo-filters">
           <label class="wo-filter-group"><span>Customer ID</span><select data-fin-customer-filter="id">${optionsFor(idOptions, filters.id)}</select></label>
@@ -23938,7 +23992,7 @@
               </tr>
             </thead>
             <tbody>
-              ${filteredCustomers.map(c => `
+              ${custPage.map(c => `
                 <tr>
                   <td>${escapeHtml(c.customerId || (customers.find(item => (c.customerId && item.id === c.customerId) || item.nameZh === c.name || item.nameEn === c.name)?.id) || '—')}</td>
                   <td><strong>${c.name}</strong></td>
@@ -23954,6 +24008,7 @@
             </tbody>
           </table>
         </div>
+        ${custPager.html}
       `;
     }
 
@@ -24009,6 +24064,8 @@
       });
       const conCustomers = [...new Set(contracts.map(c => c.customer).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       const conFrequencies = [...new Set(contracts.map(c => c.frequency).filter(Boolean))];
+      const conPager = finTabPagination("contracts", conList.length);
+      const conPage = conList.slice(conPager.start, conPager.start + conPager.pageSize);
       return `
         <div class="wo-filters fin-wo-filters">
           <label class="wo-filter-group"><span>客戶</span>
@@ -24058,7 +24115,7 @@
               </tr>
             </thead>
             <tbody>
-              ${conList.map(c => {
+              ${conPage.map(c => {
                 const isActive = c.startDate <= today && c.endDate >= today;
                 return `
                 <tr>
@@ -24075,6 +24132,7 @@
             </tbody>
           </table>
         </div>
+        ${conPager.html}
       `;
     }
 
@@ -24123,7 +24181,7 @@
       const allChecks = document.querySelectorAll(".fin-row-check");
       const eligibleChecks = Array.from(allChecks).filter(cb => !cb.disabled);
       if (selectAll) selectAll.checked = eligibleChecks.length > 0 && eligibleChecks.every(cb => selectedIds.includes(String(cb.value)));
-      document.querySelectorAll("[data-fin-batch-invoice], [data-fin-print-selected]").forEach(btn => { btn.disabled = selectedIds.length === 0; });
+      document.querySelectorAll("[data-fin-batch-invoice]").forEach(btn => { btn.disabled = selectedIds.length === 0; });
     }
 
     // 批量開具發票模態框：手動提供第一張發票號，餘下自動順序生成
@@ -31383,21 +31441,23 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           ...(state.finCustomerFilters || {}),
           [select.dataset.finCustomerFilter]: select.value
         };
+        state.finPages = { ...(state.finPages || {}), customers: 1 };
         render();
       }));
       // 發票管理／收款記錄／保養合約：沿用 CALL 管理的欄位篩選（變更即套用）
-      const bindFinFieldFilters = (selector, attr, stateKey) => {
+      const bindFinFieldFilters = (selector, attr, stateKey, tab) => {
         document.querySelectorAll(selector).forEach(input => {
           const event = input.tagName === "SELECT" || input.type === "date" || input.type === "number" ? "change" : "input";
           input.addEventListener(event, () => {
             state[stateKey] = { ...(state[stateKey] || {}), [input.getAttribute(attr)]: input.value };
+            state.finPages = { ...(state.finPages || {}), [tab]: 1 };
             render();
           });
         });
       };
-      bindFinFieldFilters("[data-fin-inv-filter]", "data-fin-inv-filter", "finInvoiceFilter");
-      bindFinFieldFilters("[data-fin-pay-filter]", "data-fin-pay-filter", "finPaymentFilter");
-      bindFinFieldFilters("[data-fin-con-filter]", "data-fin-con-filter", "finContractFilter");
+      bindFinFieldFilters("[data-fin-inv-filter]", "data-fin-inv-filter", "finInvoiceFilter", "invoices");
+      bindFinFieldFilters("[data-fin-pay-filter]", "data-fin-pay-filter", "finPaymentFilter", "payments");
+      bindFinFieldFilters("[data-fin-con-filter]", "data-fin-con-filter", "finContractFilter", "contracts");
       document.querySelectorAll("[data-fin-filter-apply]").forEach(btn => btn.addEventListener("click", () => render()));
       document.querySelectorAll("[data-fin-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
         const tab = btn.dataset.finFilterReset;
@@ -31405,6 +31465,27 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (tab === "payments") state.finPaymentFilter = {};
         if (tab === "contracts") state.finContractFilter = {};
         if (tab === "customers") state.finCustomerFilters = { id: "全部", name: "全部", address: "全部", terms: "全部", method: "全部" };
+        state.finPages = { ...(state.finPages || {}), [tab]: 1 };
+        render();
+      }));
+      // 會計各分頁的分頁器（發票／收款／客戶檔案／保養合約）
+      document.querySelectorAll("[data-fin-tab-page]").forEach(btn => btn.addEventListener("click", () => {
+        const tab = btn.dataset.finTabPage;
+        const total = Number(document.querySelector(`[data-fin-tab-pagi="${tab}"]`)?.dataset.finTabTotal) || 0;
+        const size = Number((state.finPageSizes || {})[tab]) || 10;
+        const totalPages = Math.max(1, Math.ceil(total / size));
+        const pages = state.finPages || (state.finPages = {});
+        let current = Number(pages[tab]) || 1;
+        if (btn.dataset.dir === "prev") current = Math.max(1, current - 1);
+        else if (btn.dataset.dir === "next") current = Math.min(totalPages, current + 1);
+        else if (btn.dataset.num) current = Number(btn.dataset.num);
+        pages[tab] = current;
+        render();
+      }));
+      document.querySelectorAll("[data-fin-tab-page-size]").forEach(select => select.addEventListener("change", () => {
+        const tab = select.dataset.finTabPageSize;
+        state.finPageSizes = { ...(state.finPageSizes || {}), [tab]: Number(select.value) || 10 };
+        state.finPages = { ...(state.finPages || {}), [tab]: 1 };
         render();
       }));
       // 待開票全選 / 取消全選
@@ -31445,12 +31526,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-fin-contract-detail]").forEach(btn => btn.addEventListener("click", () => openContractDetailModal(btn.dataset.finContractDetail)));
       // 批量開具發票（手動提供第一張發票號，餘下自動順序生成）
       document.querySelectorAll("[data-fin-batch-invoice]").forEach(btn => btn.addEventListener("click", openBatchInvoiceModal));
-      // 列印選取的待開票
-      document.querySelectorAll("[data-fin-print-selected]").forEach(btn => btn.addEventListener("click", () => {
-        const selected = state.finSelectedIds || [];
-        if (selected.length === 0) { toast("請先選擇待開票項目", "error"); return; }
-        openPrintInvoiceModal(selected);
-      }));
       // 發票完整編輯／複製／刪除／作廢
       document.querySelectorAll("[data-edit-invoice]").forEach(btn => btn.addEventListener("click", () => openInvoiceEditModal(btn.dataset.editInvoice)));
       document.querySelectorAll("[data-copy-invoice]").forEach(btn => btn.addEventListener("click", () => copyInvoice(btn.dataset.copyInvoice)));
