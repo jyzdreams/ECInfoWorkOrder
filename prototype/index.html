@@ -4962,12 +4962,6 @@
     .pc-table .tag.warning { background: var(--warning-soft); color: var(--warning); }
     .pc-table .tag.danger { background: var(--danger-soft); color: var(--danger); }
     .pc-table .tag.info { background: var(--primary-soft); color: var(--primary); }
-    /* 待開票表格：待開票編號置於首欄並凍結（連同勾選欄），水平捲動時保持可見 */
-    .fin-pending-table th:nth-child(1), .fin-pending-table td:nth-child(1) { position: sticky; left: 0; width: 44px; min-width: 44px; max-width: 44px; padding-left: 8px; padding-right: 4px; }
-    .fin-pending-table th:nth-child(2), .fin-pending-table td:nth-child(2) { position: sticky; left: 44px; border-right: 1px solid var(--border); box-shadow: 2px 0 6px rgba(15,23,42,.08); }
-    .fin-pending-table td:nth-child(1), .fin-pending-table td:nth-child(2) { z-index: 2; background: var(--panel); }
-    .fin-pending-table thead th:nth-child(1), .fin-pending-table thead th:nth-child(2) { z-index: 3; background: var(--panel-soft); }
-    .fin-pending-table tbody tr:hover td:nth-child(1), .fin-pending-table tbody tr:hover td:nth-child(2) { background: var(--panel-soft); }
     /* 會計管理：仿 CALL 管理，凍結分頁列／篩選／批次工具列，只讓表格區域滾動 */
     .pc-section.fin-list-freeze { display: flex; flex-direction: column; height: calc(100vh - 180px); overflow: hidden; }
     .fin-list-freeze > .proc-tabs,
@@ -22613,7 +22607,7 @@
             <h1>會計管理</h1>
           </div>
 
-          <div class="pc-section fin-list-freeze">
+          <div class="pc-section fin-list-freeze fin-list-section">
             <div class="proc-tabs fin-proc-tabs">
               <div class="fin-tabs-list">
                 <button class="proc-tab ${finTab === 'pending' ? 'active' : ''}" data-fin-tab="pending">待開票 (${pendingTotal})</button>
@@ -23343,7 +23337,7 @@
             <thead>
               <tr>
                 <th style="width:44px;"></th>
-                <th>待開票編號</th>
+                <th>開票編號</th>
                 <th>EC Contract No</th>
                 <th>Customer ID</th>
                 <th>金額(HKD)</th>
@@ -23614,7 +23608,7 @@
           </div>
         </div>
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table fin-invoice-table">
             <thead>
               <tr>
                 <th>發票號</th>
@@ -23865,7 +23859,7 @@
           </div>
         </div>
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table fin-payment-table">
             <thead>
               <tr>
                 <th>收據編號</th>
@@ -23974,10 +23968,9 @@
             <button class="secondary-btn" data-fin-filter-reset="customers">重置</button>
             <button class="primary-btn" data-add-acct-customer>新增客戶</button>
           </div>
-          <span class="fin-wo-count">${filteredCustomers.length} 個客戶${filteredCustomers.length !== acctCustomers.length ? `（共 ${acctCustomers.length}）` : ""}</span>
         </div>
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table fin-customer-table">
             <thead>
               <tr>
                 <th>Customer ID</th>
@@ -24098,10 +24091,9 @@
             <button class="secondary-btn" data-fin-filter-reset="contracts">重置</button>
             <button class="primary-btn" data-add-contract>新增合約</button>
           </div>
-          <span class="fin-wo-count">${conList.length} 個保養合約${conList.length !== contracts.length ? `（共 ${contracts.length}）` : ""}</span>
         </div>
         <div class="pc-table-wrapper">
-          <table class="pc-table">
+          <table class="pc-table fin-contract-table">
             <thead>
               <tr>
                 <th>Job Code</th>

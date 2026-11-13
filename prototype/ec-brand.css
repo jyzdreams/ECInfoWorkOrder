@@ -161,6 +161,97 @@ button, input, select, textarea { font-family: var(--font-sans); }
   .fin-tab-actions { justify-content: flex-start; }
 }
 .app { grid-template-columns: 228px minmax(0, 1fr); }
+
+/* 會計五個列表沿用 CALL 管理的字體、欄位與操作按鈕尺寸。 */
+#pcPages .fin-list-section { font-family: var(--font-sans); }
+#pcPages .fin-list-section .proc-tab { font-family: var(--font-sans); font-size: var(--text-sm); line-height: 20px; }
+#pcPages .fin-tab-actions > button,
+#pcPages .fin-filter-actions > button,
+#pcPages .fin-wo-actions > button {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  padding: 0 12px;
+  font-size: var(--text-sm);
+}
+#pcPages .fin-wo-filters {
+  gap: 10px;
+  margin-bottom: var(--data-page-gap);
+  padding: var(--filter-panel-padding);
+}
+#pcPages .fin-wo-filters .wo-filter-group { gap: 4px; }
+#pcPages .fin-wo-filters .wo-filter-group > span,
+#pcPages .fin-filter-field {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 16px;
+}
+#pcPages .fin-wo-filters .wo-filter-group input,
+#pcPages .fin-wo-filters .wo-filter-group select,
+#pcPages .fin-filter-bar input,
+#pcPages .fin-filter-bar select {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  border-radius: var(--control-radius);
+  font-size: var(--text-md);
+}
+#pcPages .fin-filter-date-range input { padding: 0 6px; font-size: var(--text-md); }
+#pcPages .fin-wo-range em { font-size: var(--text-xs); }
+#pcPages .fin-batch-toolbar {
+  gap: 10px;
+  margin-bottom: var(--data-page-gap);
+  padding: 10px 12px;
+}
+#pcPages .fin-checkbox-label,
+#pcPages .fin-selected-count { font-size: var(--text-sm); }
+#pcPages .fin-pending-detail-btn,
+#pcPages .fin-more-trigger {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  border-radius: 5px;
+}
+#pcPages .fin-list-section .pc-table th {
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+#pcPages .fin-list-section .pc-table td {
+  font-size: var(--text-md);
+  line-height: 1.45;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+#pcPages .fin-list-section .pc-table th:last-child,
+#pcPages .fin-list-section .pc-table td:last-child:not([colspan]) {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: -6px 0 10px rgba(15, 23, 42, .06);
+}
+#pcPages .fin-list-section .pc-table th:last-child {
+  z-index: 3;
+  background: var(--panel-soft);
+}
+#pcPages .fin-list-section .pc-table tbody tr:hover > td:last-child:not([colspan]) {
+  background: var(--hover);
+}
+#pcPages .fin-pending-table tbody td:nth-child(11),
+#pcPages .fin-customer-table tbody td:nth-child(5),
+#pcPages .fin-invoice-table tbody td:nth-child(3),
+#pcPages .fin-payment-table tbody td:nth-child(4),
+#pcPages .fin-contract-table tbody td:nth-child(2) {
+  min-width: 150px;
+  max-width: 250px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+#pcPages .fin-invoice-table tbody td:nth-child(4) > .muted {
+  display: inline;
+  margin-left: 6px;
+}
 .sidebar { background: var(--ec-navy); padding: 24px 14px 16px; border-right: 1px solid #203e58; }
 .sidebar > .brand { height: 74px; padding: 0 8px 19px; margin-bottom: 20px; border-bottom: 1px solid #ffffff20; }
 .sidebar > .brand .logo-mark {

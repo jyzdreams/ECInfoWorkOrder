@@ -330,12 +330,13 @@
     modal.className = "um-modal-overlay";
     modal.innerHTML = `<div class="um-modal rem-won-modal"><div class="um-modal-head"><div><h2>客戶接受最終報價</h2><p class="rem-modal-sub">${safe(id)} · 請記錄客戶確認資料</p></div><button class="um-modal-close" data-rem-close aria-label="關閉">×</button></div>
       <form data-rem-won-form="${safe(id)}" class="rem-won-form">
+        <div class="rem-won-scroll">
         <div class="rem-note"><span>成交版本</span><strong>${quoteVersion(q)}</strong><span>類別</span><strong>${safe(q.category || "未設定")}</strong>${tender ? `<span>標書</span><strong>${safe(tender.id)}</strong>` : ""}</div>
         <div class="rem-won-field-grid">
           <label class="rem-won-field"><span>客戶接受日期</span><input type="date" name="customerAcceptedAt" value="${today()}" required></label>
           <label class="rem-won-field"><span>客戶訂單號（如有）</span><input name="customerOrder" value="${safe(q.customerOrder || "")}" placeholder="可選填"></label>
         </div>
-        <label class="rem-won-field rem-won-field-full"><span>客戶確認文件 <span style="color:var(--danger);">*</span></span><input type="file" name="customerConfirmationFile" accept="image/*,.pdf"><small class="muted">${q.customerConfirmationFile?.name ? `已上傳：${safe(q.customerConfirmationFile.name)}（可重新選擇替換）` : "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名"}</small></label>
+        <div class="rem-won-field rem-won-field-full"><label class="rem-file-label" for="remWonConfirmationFile">客戶確認文件 <span style="color:var(--danger);">*</span></label><div class="rem-file-control"><input id="remWonConfirmationFile" type="file" name="customerConfirmationFile" accept="image/*,.pdf"><button type="button" class="secondary-btn" data-rem-clear-file disabled>清除文件</button></div><small class="muted" data-rem-file-status>${q.customerConfirmationFile?.name ? `已上傳：${safe(q.customerConfirmationFile.name)}（可重新選擇替換）` : "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名"}</small></div>
         <label class="rem-won-field rem-won-field-full"><span>客戶接受依據／回覆紀錄</span><textarea name="acceptanceNote" required placeholder="記錄郵件、訂單或確認方式；原型不代替真實憑證"></textarea></label>
         <section class="rem-final-section">
           <div class="rem-final-head"><div><h3>最終成交版明細</h3><p>請逐項標記材料或服務；只有材料行會生成 MR。</p></div><span class="rem-final-badge">${(q.items || []).length} 項</span></div>
@@ -343,12 +344,34 @@
             ${(q.items || []).map((item, i) => `<div class="rem-item"><div class="rem-item-copy"><strong>${safe(item.name || `明細 ${i+1}`)}</strong><span>數量：${safe(item.qty || 1)}${item.unit ? ` · ${safe(item.unit)}` : ""}</span></div><label class="rem-item-select"><span>類型</span><select data-final-item-type="${i}"><option value="">請選擇類型</option><option value="物料" ${item.itemType === "物料" ? "selected" : ""}>物料</option><option value="服務" ${item.itemType === "服務" ? "selected" : ""}>服務／工時</option></select></label></div>`).join("") || '<p class="muted rem-empty-items">此報價無明細，不生成 MR。</p>'}
           </div>
         </section>
+        </div>
+        <div class="rem-won-footer">
         <div class="rem-won-error" data-rem-won-error style="display:none;color:var(--danger);font-size:12px;margin:8px 0 0;"></div>
         <div class="rem-actions"><button type="submit" class="primary-btn">確認中單</button></div>
+        </div>
       </form></div>`;
     document.body.appendChild(modal);
     modal.querySelectorAll("[data-rem-close]").forEach(button => button.addEventListener("click", () => modal.remove()));
     const wonForm = modal.querySelector("form");
+    const confirmationFileInput = wonForm.elements.customerConfirmationFile;
+    const clearFileButton = wonForm.querySelector("[data-rem-clear-file]");
+    const fileStatus = wonForm.querySelector("[data-rem-file-status]");
+    const savedFileName = q.customerConfirmationFile?.name || "";
+    const fileHelpText = "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名";
+    const updateConfirmationFileStatus = () => {
+      const selectedFile = confirmationFileInput.files?.[0];
+      fileStatus.textContent = selectedFile
+        ? `已選擇：${selectedFile.name}`
+        : savedFileName
+          ? `已上傳：${savedFileName}（可重新選擇替換）`
+          : fileHelpText;
+      clearFileButton.disabled = !selectedFile;
+    };
+    confirmationFileInput.addEventListener("change", updateConfirmationFileStatus);
+    clearFileButton.addEventListener("click", () => {
+      confirmationFileInput.value = "";
+      updateConfirmationFileStatus();
+    });
     wonForm.addEventListener("submit", event => {
       event.preventDefault();
       if (confirmWon(q, event.currentTarget)) {
@@ -566,13 +589,20 @@
     .rem-won-modal .um-modal-head{margin:0;padding:22px 26px 16px;flex:0 0 auto}
     .rem-won-modal .um-modal-head h2{font-size:18px}
     .rem-modal-sub{margin:5px 0 0;color:var(--muted);font-size:12px}
-    .rem-won-form{display:grid;gap:18px;padding:20px 26px 24px;overflow-y:auto}
+    .rem-won-form{display:flex;flex:1 1 auto;flex-direction:column;gap:0;min-height:0;overflow:hidden;padding:0}
+    .rem-won-scroll{display:grid;flex:1 1 auto;align-content:start;gap:18px;min-height:0;overflow-y:auto;padding:20px 26px}
+    .rem-won-footer{flex:0 0 auto;padding:12px 26px 20px;background:var(--panel);border-top:1px solid var(--line)}
     .rem-won-form .rem-note{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--line);background:var(--primary-soft);color:var(--muted);font-size:13px}
     .rem-won-form .rem-note strong{color:var(--text);font-size:14px}
     .rem-won-field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .rem-won-field{display:grid!important;align-items:stretch!important;gap:7px!important;color:var(--text)!important;font-size:13px!important}
-    .rem-won-field>span{color:var(--muted);font-size:12px;font-weight:600}
+    .rem-won-field>span,.rem-file-label{color:var(--muted);font-size:12px;font-weight:600}
+    .rem-file-label{display:block}
     .rem-won-field input,.rem-won-field textarea{width:100%;box-sizing:border-box;min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);font:inherit;font-size:13px;padding:9px 11px}
+    .rem-file-control{display:flex;align-items:center;gap:8px;min-width:0}
+    .rem-file-control input{flex:1;min-width:0}
+    .rem-file-control button{flex:0 0 auto;min-width:88px;height:40px}
+    .rem-file-control button:disabled{opacity:.5;cursor:not-allowed}
     .rem-won-field input:focus,.rem-won-field textarea:focus{outline:2px solid rgba(30,107,255,.16);border-color:var(--primary)}
     .rem-won-field textarea{min-height:92px;resize:vertical;line-height:1.5}
     .rem-final-section{padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--panel-soft)}
@@ -588,12 +618,12 @@
     .rem-item-copy span{color:var(--muted);font-size:11px}
     .rem-item-select{display:grid!important;gap:5px!important;align-items:stretch!important;color:var(--muted)!important;font-size:11px!important}
     .rem-item-select select{width:100%;box-sizing:border-box;min-height:34px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);font:inherit;font-size:12px;padding:0 8px}
-    .rem-empty-items{margin:12px 0 0}
-    .rem-won-form .rem-actions{justify-content:flex-end;margin-top:0;padding-top:16px;border-top:1px solid var(--line)}
+    .rem-empty-items{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+    .rem-won-form .rem-actions{justify-content:flex-end;margin-top:0;padding-top:0;border-top:0}
     .rem-won-form .rem-actions button{min-width:104px;height:40px}
     .rem-warehouse-card{margin:0}
     button[data-dispatch-confirm]:disabled,button[data-md-submit]:disabled{background:var(--line);color:var(--muted);border-color:var(--line);cursor:not-allowed}
-    @media(max-width:760px){.rem-grid{grid-template-columns:1fr}.rem-toolbar{flex-direction:column}.rem-won-modal{width:calc(100vw - 20px)}.rem-won-modal .um-modal-head{padding:18px 18px 14px}.rem-won-form{padding:16px 18px 18px}.rem-won-field-grid{grid-template-columns:1fr}.rem-final-list .rem-item{grid-template-columns:1fr;gap:9px}}
+    @media(max-width:760px){.rem-grid{grid-template-columns:1fr}.rem-toolbar{flex-direction:column}.rem-won-modal{width:calc(100vw - 20px)}.rem-won-modal .um-modal-head{padding:18px 18px 14px}.rem-won-scroll{padding:16px 18px}.rem-won-footer{padding:12px 18px max(12px,env(safe-area-inset-bottom))}.rem-won-field-grid{grid-template-columns:1fr}.rem-final-list .rem-item{grid-template-columns:1fr;gap:9px}}
   </style>`);
 
   document.addEventListener("click", async event => {
