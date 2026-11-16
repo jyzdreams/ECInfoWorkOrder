@@ -415,6 +415,27 @@ body .rem-note { border-radius: 5px; }
 /* Give the CALL list more vertical room while keeping its toolbar and pager fixed. */
 #pcPages .wo-list-section.wo-list-freeze { height: calc(100vh - 120px); }
 
+/* 壓縮凍結列表行高：默認 10 條/頁不再讓表格區出現豎向滾動 */
+#pcPages .wo-list-section.wo-list-freeze .wo-table td {
+  min-height: 44px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  line-height: 1.35;
+}
+#pcPages .wo-list-section.wo-list-freeze .wo-table .wo-customer-name + div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#pcPages .wo-list-section.wo-list-freeze .wo-table .wo-id-link {
+  white-space: nowrap;
+}
+#pcPages .wo-list-section.wo-list-freeze .wo-table .wo-customer-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Dispatch tabs have different column sequences. Reserve readable summary space. */
 #pcPages .dispatch-table {
   --dispatch-col-1: 125px;

@@ -11841,7 +11841,8 @@
     }
 
     function modalSupervisorOptions(area = "", selectedName = "") {
-      const supervisors = users.filter(user => user.role === "TL" && isEnabled(user.status));
+      // 只列出與客戶區域匹配的主管；未選客戶（無區域）時列出全部
+      const supervisors = users.filter(user => user.role === "TL" && isEnabled(user.status) && (!area || user.area === area));
       supervisors.sort((a, b) => {
         const aRank = area && a.area === area ? 0 : 1;
         const bRank = area && b.area === area ? 0 : 1;
@@ -11861,6 +11862,10 @@
       const presetCustomer = !isEdit && workOrderState.presetCustomerId
         ? customers.find(c => c.id === workOrderState.presetCustomerId) : null;
       const presetCustomerType = presetCustomer ? presetCustomer.type : "";
+      // 從客戶詳情新建Call時，依客戶類別（M/P/M+P）預選Call類型
+      const presetCategoryCode = presetCustomer
+        ? (presetCustomer.businessCategory || categoryCodeFromContractNo(presetCustomer.contractNo))
+        : "";
       const selectedCustomer = isEdit ? customers.find(c => c.id === ticket.customerId) : presetCustomer;
       const selectedCustomerType = selectedCustomer ? selectedCustomer.type : (isEdit ? ticket.customerType || "" : "");
       const presetArea = presetCustomer && presetCustomer.addresses?.[0] ? presetCustomer.addresses[0].area : "";
@@ -11958,7 +11963,11 @@
                     <div class="qf-field">
                       <label class="qf-label">Call類型<span class="req">*</span></label>
                       <select class="qf-select" name="type" required>
-                        ${TYPES.map(t => `<option value="${escapeHtml(t)}" ${isEdit && ticket.type === t ? 'selected' : ''}>${escapeHtml(categoryCodeFromCallType(t) || t)}</option>`).join("")}
+                        ${TYPES.map(t => {
+                          const typeCode = categoryCodeFromCallType(t) || t;
+                          const selected = isEdit ? (ticket.type === t) : (presetCategoryCode && typeCode === presetCategoryCode);
+                          return `<option value="${escapeHtml(t)}" ${selected ? 'selected' : ''}>${escapeHtml(typeCode)}</option>`;
+                        }).join("")}
                       </select>
                     </div>
                     ${isEdit ? '' : `
@@ -12591,6 +12600,19 @@
       const phoneNumberInput = document.getElementById("phoneInput");
       if (phoneCodeInput) phoneCodeInput.value = phoneParts.countryCode;
       if (phoneNumberInput) phoneNumberInput.value = phoneParts.number;
+
+      // 依客戶類別（M/P/M+P）自動帶出 Call 類型
+      const typeSelect = workOrderForm?.querySelector('select[name="type"]');
+      if (typeSelect && customer) {
+        const category = customer.businessCategory || categoryCodeFromContractNo(customer.contractNo);
+        if (category) {
+          const option = [...typeSelect.options].find(o => categoryCodeFromCallType(o.value) === category);
+          if (option) {
+            typeSelect.value = option.value;
+            syncSearchableSelectDisplay(typeSelect);
+          }
+        }
+      }
 
       // 5. 政府客戶顯示 Call代碼、J No. 字段，並帶出 J No.
       const callCodeWrap = document.getElementById("callCodeFieldWrap");
