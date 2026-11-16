@@ -4973,9 +4973,10 @@
     .fin-list-freeze > .pc-table-wrapper thead th:nth-child(1),
     .fin-list-freeze > .pc-table-wrapper thead th:nth-child(2) { z-index: 5; }
     /* 表格壓縮：與 CALL 管理相同的資訊密度，避免橫向滑動 */
-    #pcPages .fin-list-freeze .pc-table { font-size: 12px; }
-    #pcPages .fin-list-freeze .pc-table th { padding: 8px 5px; font-size: 12px; }
-    #pcPages .fin-list-freeze .pc-table td { padding: 8px 5px; font-size: 12px; }
+    #pcPages .fin-list-section.fin-list-freeze .pc-table { font-size: 12px; }
+    #pcPages .fin-list-section.fin-list-freeze .pc-table th,
+    #pcPages .fin-list-section.fin-list-freeze .pc-table td { padding: 8px 5px; font-size: 12px; }
+    #pcPages .fin-list-section.fin-list-freeze .pc-table td { white-space: normal; overflow-wrap: anywhere; }
     @media (max-width: 860px) {
       .pc-section.fin-list-freeze { height: auto; overflow: visible; }
       .fin-list-freeze > .pc-table-wrapper { overflow-x: auto; }
@@ -7128,6 +7129,17 @@
     const isEnabled = (status) => status === "啓用" || status === "启用";
 
     let tickets = JSON.parse(localStorage.getItem('ecinfo_tickets') || 'null');
+    // 2026-11-15 用戶決定移除「確認完工」步驟：既有待完工確認工單一次性自動完成
+    if (Array.isArray(tickets) && tickets.some(t => t.status === "待完工確認")) {
+      const migratedAt = new Date().toLocaleString("zh-HK");
+      tickets.forEach(t => {
+        if (t.status !== "待完工確認") return;
+        t.status = "已完成";
+        t.completedAt = t.completedAt || t.updatedAt || migratedAt;
+        t.records = [...(t.records || []), { time: migratedAt, actor: "系統", text: "確認完工步驟已取消，提交後自動視為已完成。" }];
+      });
+      localStorage.setItem("ecinfo_tickets", JSON.stringify(tickets));
+    }
     // 來電單記錄（CS Call 流程：CS 記錄來電單，需建單時自動轉為工單）
     let callLogs = JSON.parse(localStorage.getItem('ecinfo_call_logs') || '[]');
     if (!Array.isArray(tickets) || tickets.length === 0) {
@@ -9967,13 +9979,10 @@
           return;
         }
 
-        // CP 的適用規則仍待確認，不能阻斷已確認的 SR → CR/TL 確認主鏈。
-        // 無成交報價的服務報告：提交即完成；有成交報價的維修仍交主管核對完工紙
-        const srAutoComplete = !requiresCompletionPaper(t);
-
+        // 2026-11-15 用戶決定移除「確認完工」步驟：提交 SR／CP 即視為工單完成
         // Build updates object with all new fields
         const updates = {
-          status: srAutoComplete ? "已完成" : "待完工確認",
+          status: "已完成",
           owner: t.tl,
           serviceReportNo: serviceReportNo,
           arrivalTime: arrivalTime,
@@ -10085,19 +10094,12 @@
           });
           toast(`已離線保存處理記錄（SR: ${serviceReportNo}），待恢復網絡後自動上傳`, "success");
         } else {
-          updateTicket(id, updates, srAutoComplete ? "師傅提交服務報告；無成交報價，工單直接完成。" : "師傅提交服務報告和現場記錄，待 CR／主管確認完工。");
+          updateTicket(id, updates, "師傅提交服務報告和現場記錄，工單已完成。");
         }
 
-        if (srAutoComplete) {
-          // 提交即完成：任務頁切到「已完成」，讓師傅看到流轉結果
-          state.mobileTaskStatus = "已完成";
-          users.filter(u => u.role === "CS" && u.status === "啓用").forEach(cs => createNotification({ module: "ticket", level: "info", title: "工單已完成", content: id, subContent: t.customer, targetPage: "workorder", targetId: id, receiverId: cs.id, receiverRole: "CS" }));
-        } else {
-          // 需主管核對完工紙：只通知 CR／主管確認，正式完成通知在確認動作後發出。
-          const areaCr = users.find(u => u.role === "CR" && u.status === "啓用" && u.area === t.area);
-          const areaTl = users.find(u => u.role === "TL" && u.status === "啓用" && (u.name === t.tl || u.area === t.area));
-          [areaCr, areaTl].filter(Boolean).forEach(user => createNotification({ module: "ticket", level: "action", title: "服務報告待確認完工", content: id, subContent: `${t.customer} · SR ${serviceReportNo}`, targetPage: "workorder", targetId: id, receiverId: user.id, receiverRole: user.role === "TL" ? "TEAM_LEADER" : "CR" }));
-        }
+        // 提交即完成：任務頁切到「已完成」，並通知 CS
+        state.mobileTaskStatus = "已完成";
+        users.filter(u => u.role === "CS" && u.status === "啓用").forEach(cs => createNotification({ module: "ticket", level: "info", title: "工單已完成", content: id, subContent: t.customer, targetPage: "workorder", targetId: id, receiverId: cs.id, receiverRole: "CS" }));
 
         // 顯示提交成功頁面，5 秒後自動跳轉到任務版面
         state.srSubmitted = true;
@@ -10250,10 +10252,6 @@
         if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("催單", "urge", "warning-btn");
       }
       if (state.role === "TL") {
-        if (t.status === "待完工確認") {
-          if (canConfirmCurrentReport(t)) add("確認完工", "confirmClose", "primary-btn");
-          add("退回補充", "returnWork", "secondary-btn");
-        }
         if (t.status === "待分派") {
           add("分派", "assign", "primary-btn");
           add("編輯CALL", "editTicket", "secondary-btn");
@@ -10274,10 +10272,6 @@
       }
       // CR 客戶關係部：可直接分派給師傅，不用經主管
       if (state.role === "CR") {
-        if (t.status === "待完工確認" && !requiresCompletionPaper(t)) {
-          add("確認完工", "confirmClose", "primary-btn");
-          add("退回補充", "returnWork", "secondary-btn");
-        }
         if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("分派給師傅", "assign", "primary-btn");
         if (t.status === "待分派") add("編輯CALL", "editTicket", "secondary-btn");
         if (["待分派", "待確認", "待處理", "處理中"].includes(t.status)) add("補充信息", "note", "secondary-btn");
@@ -10469,7 +10463,7 @@
             ${group.rows.length > 6 ? `<div class="tl-list-footer">顯示前 6 項，共 ${group.rows.length} 項；其餘請至分派中心查看。</div>` : ""}
           </section>
           <aside class="tl-panel tl-shortcuts"><div class="tl-panel-head"><h2>快捷操作</h2></div><div class="tl-shortcut-list">
-            ${[["pending", "安排分派", "查看待分派任務與接單申請", "route"], ["pendingCompletion", "完工確認", "核對師傅提交的完工記錄", "fileCheck"], ["assigned", "跟進進度", "查看已分派任務與負責師傅", "clipboard"]].map(([tab, title, desc, icon]) => `<button type="button" data-tl-home-dispatch="${tab}"><span class="tl-shortcut-icon">${appIcon(icon, 20)}</span><span><strong>${title}</strong><small>${desc}</small></span>${'<span aria-hidden="true">›</span>'}</button>`).join("")}
+            ${[["pending", "安排分派", "查看待分派任務與接單申請", "route"], ["assigned", "跟進進度", "查看已分派任務與負責師傅", "clipboard"]].map(([tab, title, desc, icon]) => `<button type="button" data-tl-home-dispatch="${tab}"><span class="tl-shortcut-icon">${appIcon(icon, 20)}</span><span><strong>${title}</strong><small>${desc}</small></span>${'<span aria-hidden="true">›</span>'}</button>`).join("")}
             <button type="button" data-page-target="srFolder"><span class="tl-shortcut-icon">${appIcon("folder", 20)}</span><span><strong>查閱服務單</strong><small>開啟現有服務單資料夾</small></span>${'<span aria-hidden="true">›</span>'}</button>
           </div></aside>
         </div>
@@ -13560,7 +13554,7 @@
       let dispatchRows = rows;
       if (!dispatchRows) {
         const buckets = getDispatchBuckets();
-        const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned: buckets.assigned, pendingCompletion: buckets.pendingCompletion, completed: buckets.completed };
+        const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned: buckets.assigned, completed: buckets.completed };
         dispatchRows = tabRows[state.dispatchTab] || tabRows.pending;
       }
       const filter = state.dispatchFilters || {};
@@ -13669,7 +13663,7 @@
     function renderDispatch() {
       const buckets = getDispatchBuckets();
       const { pending, pendingApproval, assigned, pendingCompletion, completed } = buckets;
-      const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned, pendingCompletion, completed };
+      const tabRows = { all: buckets.all, pending: buckets.pendingTab, assigned, completed };
       const activeTab = tabRows[state.dispatchTab] ? state.dispatchTab : "pending";
       if (state.dispatchTab !== activeTab) state.dispatchTab = activeTab;
       const dispatchRows = tabRows[activeTab];
@@ -13713,7 +13707,6 @@
                 ["all", "全部", buckets.all.length],
                 ["pending", "待處理", buckets.pendingTab.length],
                 ["assigned", "已分派", assigned.length],
-                ["pendingCompletion", "已確認", pendingCompletion.length],
                 ["completed", "已完成", completed.length]
               ].map(([key, label, count]) => `<button type="button" class="dispatch-tab ${activeTab === key ? "active" : ""}" data-dispatch-tab="${key}" role="tab" aria-selected="${activeTab === key ? "true" : "false"}"><span>${label}</span><strong class="dispatch-tab-count">${count}</strong></button>`).join("")}
               <button type="button" class="primary-btn direct-dispatch-add" data-direct-dispatch-open>新增分派</button>
@@ -32171,16 +32164,17 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           alert("請上傳 After Service 照片後再提交完工");
           return;
         }
-        // 最新用户说明：成交维修CP先交主管，提交不等于已完工/可开票。
+        // 2026-11-15 用戶決定移除「確認完工」步驟：提交完工紙即視為工單完成
         updateTicket(t.id, {
-          status: "待完工確認",
+          status: "已完成",
           owner: t.tl,
           cpStatus: "已提交",
           cpType: t.cpType || "電子完工紙",
-          cpSubmittedAt: new Date().toLocaleString("zh-HK")
-        }, `師傅提交維修完工紙（${t.cpType || "電子完工紙"}），先交主管 ${t.tl} 核對。`);
+          cpSubmittedAt: new Date().toLocaleString("zh-HK"),
+          completedAt: new Date().toLocaleString("zh-HK")
+        }, `師傅提交維修完工紙（${t.cpType || "電子完工紙"}），工單已完成。`);
         const receivingTl = users.find(u => u.role === "TL" && u.status === "啓用" && u.name === t.tl);
-        if (receivingTl) createNotification({module:"ticket",level:"action",title:"維修完工紙待主管核對",content:t.id,subContent:`${t.customer} · CP ${t.cpNo}`,targetPage:"workorder",targetId:t.id,receiverId:receivingTl.id,receiverRole:"TEAM_LEADER"});
+        if (receivingTl) createNotification({module:"ticket",level:"info",title:"維修完工紙已提交",content:t.id,subContent:`${t.customer} · CP ${t.cpNo}`,targetPage:"workorder",targetId:t.id,receiverId:receivingTl.id,receiverRole:"TEAM_LEADER"});
         // 顯示提交成功頁面，5 秒後自動跳轉
         state.srSubmitted = true;
         state.srSubmittedTicketId = t.id;

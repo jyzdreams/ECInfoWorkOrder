@@ -72,10 +72,10 @@
     const pool = [...b.pending, ...b.pendingApproval, ...b.pendingCompletion].filter(t => !scope(t));
     const mine = [...completion, ...approval, ...pending];
     const abnormal = b.all.filter(t => !terminal(t) && (t.urgent || (t.rejectReason && t.status === "待分派")));
-    return `${stats([["我的待處理", mine.length, "分派、申請及完工核對"], ["本區待認領", pool.length, "未指定有效主管的區域任務"], ["相關異常", abnormal.length, "緊急或退回待重新分派"]])}
-      <div class="wb-grid wb-supervisor-main"><div>${group("我的待辦", `${completion.length} 項完工核對 · ${approval.length} 項接單申請 · ${pending.length} 項待分派`, taskRows(mine, { mode: "task" }), route("分派中心", { page: "dispatch", tab: "all" }))}
+    return `${stats([["我的待處理", mine.length, "分派及接單申請"], ["本區待認領", pool.length, "未指定有效主管的區域任務"], ["相關異常", abnormal.length, "緊急或退回待重新分派"]])}
+      <div class="wb-grid wb-supervisor-main"><div>${group("我的待辦", `${approval.length} 項接單申請 · ${pending.length} 項待分派`, taskRows(mine, { mode: "task" }), route("分派中心", { page: "dispatch", tab: "all" }))}
       ${pool.length ? group("本區待認領", "團隊範圍，查看不等於認領", taskRows(pool, { mode: "task", limit: 3 })) : note("本區暫無未指定主管的待認領任務。")}${abnormal.length ? group("異常關注", "異常可能與待辦重疊", taskRows(abnormal, { mode: "task", limit: 2 })) : ""}</div>
-      <aside>${group("團隊調度", "已分派任務由師傅執行", `<div class="wb-team-count"><strong>${b.assigned.length}</strong><span>項執行中任務</span></div>${tools([["安排分派", { page: "dispatch", tab: "pending" }], ["完工核對", { page: "dispatch", tab: "pendingCompletion" }], ["團隊執行進度", { page: "dispatch", tab: "assigned" }], ["服務記錄", { page: "srFolder" }]])}${taskRows(b.assigned, { mode: "task", limit: 2 })}`)}</aside></div>
+      <aside>${group("團隊調度", "已分派任務由師傅執行", `<div class="wb-team-count"><strong>${b.assigned.length}</strong><span>項執行中任務</span></div>${tools([["安排分派", { page: "dispatch", tab: "pending" }], ["團隊執行進度", { page: "dispatch", tab: "assigned" }], ["服務記錄", { page: "srFolder" }]])}${taskRows(b.assigned, { mode: "task", limit: 2 })}`)}</aside></div>
       ${activity(b.all, taskTarget)}`;
   }
 
@@ -165,8 +165,7 @@
     const calls = currentVisibleTickets().filter(t => !terminal(t));
     const qs = readableQuotes().filter(q => ["待報價", "報價中", "需修訂"].includes(q.status));
     const pos = purchaseOrders.filter(p => !["已驗收", "已取消"].includes(p.status));
-    const unconfirmed = tickets.filter(t => t.status === "待完工確認");
-    const groups = [["CALL 交接", "受理及客戶工作", calls.length, { page: "workorder", view: "calls" }], ["任務核對", "待主管核對完工", unconfirmed.length, { page: "dispatch", tab: "pendingCompletion" }], ["報價工作", "待報價及修訂中", qs.length, { page: "quotations" }], ["標書進度", "待投標項目", tenders.filter(t => t.status === "待投標").length, { page: "tender" }], ["材料採購", "未驗收／未取消 PO", pos.length, { page: "procurement" }], ["票款跟進", "已開具的待收款發票", invoices.filter(i => i.status === "已開具").length, { page: "finance", tab: "invoices" }]];
+    const groups = [["CALL 交接", "受理及客戶工作", calls.length, { page: "workorder", view: "calls" }], ["報價工作", "待報價及修訂中", qs.length, { page: "quotations" }], ["標書進度", "待投標項目", tenders.filter(t => t.status === "待投標").length, { page: "tender" }], ["材料採購", "未驗收／未取消 PO", pos.length, { page: "procurement" }], ["票款跟進", "已開具的待收款發票", invoices.filter(i => i.status === "已開具").length, { page: "finance", tab: "invoices" }]];
     const abnormal = calls.filter(t => t.urgent || (t.rejectReason && t.status === "待分派"));
     const overview = `<div class="wb-overview">${groups.map(([title, sub, n, target]) => `<article><div><h3>${e(title)}</h3><p>${e(sub)}</p></div><strong>${number(n)}</strong>${route("查看工作", target)}</article>`).join("")}</div>`;
     return `<div class="wb-management-title"><div><h2>${admin ? "全局業務與系統工作" : "業務進展與關鍵關注"}</h2><p>按業務對象分組查看，數量不合併為個人待辦。</p></div>${route("統計報表", { page: "report" }, "wb-primary")}</div>
@@ -187,7 +186,7 @@
     const role = currentRole();
     const identityKey = `${state.role}:${state.currentPerson?.id || role.name}`;
     if (identityKey !== lastIdentity) { customerQuery = ""; showAllInvoices = false; lastIdentity = identityKey; }
-    return `<section class="page active wb-workbench wb-role-${e(state.role)}" data-wb-role="${e(state.role)}"><header class="wb-heading"><div><h1>我的工作台</h1><p>${e(role.name)}，${e({ CS: "受理客戶需求，跟進每次交接。", TL: "安排團隊工作，核對每次完工。", QUO: "從需求到版本，推進負責的報價。", TENDER: "掌握期限與投標事項。", MASTER: "查看現場安排與本人的執行任務。", PUR: "按採購與到貨事項逐項跟進。", FIN: "獨立核對票款與業務資料。", CR: "協調區域客戶與保養服務。", ADMIN: "查看各業務工作與系統提醒。", BOSS: "關注關鍵客戶與業務進展。" }[state.role] || "查看目前業務工作。")}</p></div><div class="wb-identity">${appIcon("user", 18)}<span>${e(role.label)}<small>${e(currentUserArea() || role.dept || "")}</small></span></div></header>${(layouts[state.role] || (() => empty("此身份暫無工作台資料")))()}${legacyQueries()}${renderCallLogModal()}${renderDashboardMetricModal()}</section>`;
+    return `<section class="page active wb-workbench wb-role-${e(state.role)}" data-wb-role="${e(state.role)}"><header class="wb-heading"><div><h1>我的工作台</h1><p>${e(role.name)}，${e({ CS: "受理客戶需求，跟進每次交接。", TL: "安排團隊工作，跟進每次派工。", QUO: "從需求到版本，推進負責的報價。", TENDER: "掌握期限與投標事項。", MASTER: "查看現場安排與本人的執行任務。", PUR: "按採購與到貨事項逐項跟進。", FIN: "獨立核對票款與業務資料。", CR: "協調區域客戶與保養服務。", ADMIN: "查看各業務工作與系統提醒。", BOSS: "關注關鍵客戶與業務進展。" }[state.role] || "查看目前業務工作。")}</p></div><div class="wb-identity">${appIcon("user", 18)}<span>${e(role.label)}<small>${e(currentUserArea() || role.dept || "")}</small></span></div></header>${(layouts[state.role] || (() => empty("此身份暫無工作台資料")))()}${legacyQueries()}${renderCallLogModal()}${renderDashboardMetricModal()}</section>`;
   };
   const originalShell = renderShell;
   renderShell = function () { originalShell(); if (state.view === "pc" && state.page === "dashboard") document.querySelector("#pageTitle").textContent = "我的工作台"; };
