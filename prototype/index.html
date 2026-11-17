@@ -3693,6 +3693,17 @@
     .fin-wo-filters .fin-wo-amount input { height: 34px; font-size: 13px; }
     .fin-wo-filters .fin-wo-actions .primary-btn,
     .fin-wo-filters .fin-wo-actions .secondary-btn { height: 34px; font-size: 13px; }
+    /* 篩選欄位對齊：一般欄位等寬，日期／金額組合欄位加寬，操作按鈕靠右 */
+    .fin-wo-filters { gap: 10px 12px; align-items: flex-end; margin-bottom: 12px; }
+    .fin-wo-filters .wo-filter-group { flex: 0 1 176px; min-width: 150px; }
+    .fin-wo-filters .wo-filter-group.fin-wo-group-wide { flex-basis: 252px; }
+    .fin-wo-filters .wo-filter-group > select,
+    .fin-wo-filters .wo-filter-group .search-select-trigger { width: 100%; }
+    .fin-wo-filters .fin-wo-range,
+    .fin-wo-filters .fin-wo-amount { width: 100%; }
+    .fin-wo-filters .fin-wo-range input,
+    .fin-wo-filters .fin-wo-amount input { flex: 1 1 0; width: auto; min-width: 0; }
+    .fin-wo-filters .fin-wo-actions { margin-left: auto; }
     /* 統一搜索框包裹：輸入框 + 搜索按鈕並排 */
     .wo-search-wrap {
       display: flex;
@@ -4982,9 +4993,17 @@
       .fin-list-freeze > .pc-table-wrapper { overflow-x: auto; }
     }
     /* 發票列表「更多」下拉按鈕（固定定位，避免被表格容器裁切） */
-    .fin-more-trigger { height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font-size: 12px; cursor: pointer; white-space: nowrap; }
-    .fin-more-trigger:hover, .fin-more-trigger[aria-expanded="true"] { border-color: var(--primary); color: var(--primary); }
-    .fin-more-menu { position: fixed; z-index: 60; min-width: 132px; padding: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 20px rgba(15,23,42,.14); display: flex; flex-direction: column; }
+    .fin-more-menu { position: fixed; z-index: 1001; min-width: 132px; padding: 4px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 20px rgba(15,23,42,.14); display: flex; flex-direction: column; }
+    /* 發票編輯：明細行編輯表 */
+    .inv-item-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .inv-item-table th, .inv-item-table td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .inv-item-table th { font-size: 12px; color: var(--muted); text-align: left; font-weight: 600; }
+    .inv-item-table td:nth-child(1) { width: 34px; }
+    .inv-item-table td:nth-child(3), .inv-item-table td:nth-child(4), .inv-item-table td:nth-child(5) { width: 96px; }
+    .inv-item-table td:last-child { width: 62px; }
+    .inv-item-table textarea, .inv-item-table input { width: 100%; box-sizing: border-box; padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px; font-family: inherit; }
+    .inv-item-summary { display: flex; gap: 20px; justify-content: flex-end; margin-top: 10px; font-size: 13px; }
+    .inv-item-summary strong { color: var(--primary-strong); }
     .fin-more-menu button { border: 0; background: none; text-align: left; padding: 7px 10px; border-radius: 5px; font-size: 12px; color: var(--text); cursor: pointer; white-space: nowrap; }
     .fin-more-menu button:hover { background: var(--primary-soft); color: var(--primary); }
 
@@ -5037,12 +5056,6 @@
     .fin-pending-detail-section h3 { margin:0 0 9px; color:var(--text); font-size:13px; }
     @media (max-width:600px) { .fin-pending-detail-grid { grid-template-columns:1fr; } .fin-pending-detail-item.wide { grid-column:auto; } }
     /* 收據預覽：模擬 PDF 第 4 頁收據樣式 */
-    .fin-receipt-preview { border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:14px; background:#fff; }
-    .fin-receipt-header { text-align:center; display:grid; gap:4px; padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom:14px; }
-    .fin-receipt-header strong { font-size:17px; }
-    .fin-receipt-header span { font-size:12px; color:var(--muted); }
-    .fin-receipt-body { display:grid; gap:9px; }
-    .fin-receipt-row { display:flex; justify-content:space-between; gap:14px; font-size:13px; }
     /* 批量按鈕 disabled 狀態 */
     .fin-batch-toolbar button:disabled { opacity:0.5; cursor:not-allowed; }
 
@@ -5078,25 +5091,21 @@
     .ec-inv-items thead th { background:#d5d5d5; font-weight:700; text-align:center; }
     .ec-inv-items .c-item { width:12mm; }
     .ec-inv-items .c-price { width:26mm; }
-    .ec-inv-items .c-qty { width:22mm; }
-    .ec-inv-items .c-amount { width:28mm; }
-    .ec-inv-items td.num { text-align:right; white-space:nowrap; }
+    .ec-inv-items .c-qty { width:20mm; }
+    .ec-inv-items .c-amount { width:34mm; }
+    .ec-inv-items td.num { text-align:right; white-space:nowrap; padding-right:2.5mm; }
     .ec-inv-items td.desc { vertical-align:top; white-space:pre-line; line-height:1.5; }
     .ec-inv-items tbody tr { height:12mm; }
     .ec-inv-totals { width:100%; border-collapse:collapse; table-layout:fixed; font-size:9.5pt; margin-top:-1px; }
     .ec-inv-totals th, .ec-inv-totals td { border:1px solid #000; padding:1.3mm 2mm; }
     .ec-inv-totals th { background:#d5d5d5; font-weight:700; text-align:left; line-height:1.65; }
-    .ec-inv-totals td { text-align:right; vertical-align:top; white-space:nowrap; line-height:1.65; }
+    .ec-inv-totals td { text-align:right; vertical-align:top; white-space:nowrap; line-height:1.65; padding-right:2.5mm; }
     .ec-inv-totals .blank { border:none; }
-    .ec-inv-sign { margin:6mm 0 0 auto; width:78mm; text-align:center; font-size:9.5pt; }
+    /* 2026-11-17 客戶要求：簽署區兩行靠左對齊；移除公司印章，留空並在下方加手動蓋印橫線 */
+    .ec-inv-sign { margin:6mm 0 0 auto; width:78mm; text-align:left; font-size:9.5pt; }
     .ec-inv-sign .l1 { font-style:italic; }
     .ec-inv-sign .l2 { font-style:italic; font-weight:700; margin-top:1mm; }
-    .ec-inv-sign .seal {
-      width:20mm; height:20mm; margin:3mm auto 0;
-      border:1px dashed #9a9a9a; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      color:#9a9a9a; font-size:7.5pt; font-style:normal;
-    }
+    .ec-inv-sign-line { margin-top:22mm; border-top:1px solid #000; }
     .ec-inv-footer { margin-top:auto; padding-top:6mm; font-size:9pt; line-height:1.5; }
     .ec-inv-footer .cheque { margin-bottom:4mm; }
     .ec-inv-footer .cheque p { margin:0; }
@@ -5104,22 +5113,7 @@
     .ec-inv-footer .contact { display:flex; flex-wrap:wrap; }
     .ec-inv-footer .contact .cell { width:50%; display:flex; margin-top:1mm; }
     .ec-inv-footer .contact .k { width:20mm; }
-    /* 列印預覽：等比縮小 A4 頁面，避免模態框橫向滾動 */
-    .ec-inv-preview-wrap { display:flex; flex-direction:column; gap:14px; align-items:center; background:#e9edf2; padding:14px; border-radius:10px; }
-    .ec-inv-scaler { width:calc(210mm * 0.66); height:calc(297mm * 0.66); overflow:hidden; }
-    .ec-inv-scaler .ec-inv-page { transform:scale(0.66); transform-origin:top left; box-shadow:0 2px 10px rgba(0,0,0,.18); }
-    /* 列印用根節點：屏幕隱藏，列印時只輸出這裡的發票頁 */
-    #ec-inv-print-root { display:none; }
-    @page { size:A4 portrait; margin:0; }
-    @media print {
-      body.ec-inv-printing { background:#fff !important; }
-      body.ec-inv-printing > *:not(#ec-inv-print-root) { display:none !important; }
-      #ec-inv-print-root { display:block !important; }
-      #ec-inv-print-root .ec-inv-page { box-shadow:none !important; page-break-after:always; break-after:page; }
-      #ec-inv-print-root .ec-inv-page:last-child { page-break-after:auto; break-after:auto; }
-      #ec-inv-print-root .ec-inv-items thead { display:table-header-group; }
-      #ec-inv-print-root .ec-inv-items tr { page-break-inside:avoid; }
-    }
+    /* 列印預覽：發票列印改用 iframe 顯示接近 A4 原尺寸（與報價列印一致） */
 
     /* 統一清單表格：所有業務表格沿用 CALL 管理的資料密度與操作節奏 */
     .data-table-wrap,
@@ -8257,10 +8251,26 @@
         paymentDate: "2026-06-20",
         paymentMethod: "銀行轉賬",
         status: "已收款",
-        receiptNo: "REC-2026-001",
+        receiptNo: "EC26060001",
         remark: "攝像頭維修項目收款"
       }
     ];
+
+    // v4 遷移：收據號統一為 EC＋年月＋四位序號（例：2026 年 6 月第一張 → EC26060001）
+    (function migrateReceiptNumbers() {
+      if (localStorage.getItem("ecinfo_receipt_no_migrated_v1")) return;
+      let changed = false;
+      payments.slice()
+        .sort((a, b) => String(a.paymentDate || "").localeCompare(String(b.paymentDate || "")) || String(a.id || "").localeCompare(String(b.id || "")))
+        .forEach(pay => {
+          if (!/^EC\d{8}$/.test(String(pay.receiptNo || ""))) {
+            pay.receiptNo = generateReceiptNo(pay.paymentDate);
+            changed = true;
+          }
+        });
+      if (changed) localStorage.setItem("ecinfo_payments", JSON.stringify(payments));
+      localStorage.setItem("ecinfo_receipt_no_migrated_v1", "true");
+    })();
 
     // 採購單狀態（本系統保留欄位，由採購部依實際進度手動推進）
     const PURCHASE_STATUSES = ["待下單", "已下單", "已發貨", "已到貨", "已入庫", "已驗收", "已取消"];
@@ -8771,7 +8781,9 @@
       isSettingsExpanded: false,
       isSidebarCollapsed: false,
       isSettingsPopoverOpen: false,
-      finTab: "pending",
+      isFinanceExpanded: false,
+      finTab: "invoices", // 會計管理抽屜：invoices／payments／customers／contracts
+      finInvoiceTab: "pending", // 發票管理內分頁：pending（待開票）／issued（已開票）
       finPage: 1,
       finPageSize: 10,
       finSelectedIds: [],
@@ -9056,6 +9068,8 @@
       // 如果點擊的是基礎設置且已經在基礎設置頁面，切換展開/收起狀態
       if (page === "settings" && state.page === "settings") {
         state.isSettingsExpanded = !state.isSettingsExpanded;
+      } else if (page === "finance" && state.page === "finance") {
+        state.isFinanceExpanded = !state.isFinanceExpanded;
       } else {
         state.page = page;
         state.view = "pc";
@@ -9068,6 +9082,13 @@
         } else {
           // 離開基礎設置時收起菜單
           state.isSettingsExpanded = false;
+        }
+        // 進入會計管理時展開抽屜；離開時收起
+        if (page === "finance") {
+          state.isFinanceExpanded = true;
+          if (!state.finTab) state.finTab = "invoices";
+        } else {
+          state.isFinanceExpanded = false;
         }
       }
       render();
@@ -9283,7 +9304,7 @@
         if (role === "CS") state.page = "workorder";
         if (role === "TL") state.page = "dispatch";
         if (role === "ADMIN") state.page = "dashboard";
-        if (role === "FIN") state.page = "finance";
+        if (role === "FIN") { state.page = "finance"; state.isFinanceExpanded = true; }
         if (role === "PUR") state.page = "procurement";
         if (role === "BOSS") state.page = "dashboard";
       }
@@ -10357,6 +10378,23 @@
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'server' ? 'active' : ''}" data-settings-tab="server"><span class="nav-subitem-icon">${appIcon("server", 15)}</span>服務器空間</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'excelImport' ? 'active' : ''}" data-settings-tab="excelImport"><span class="nav-subitem-icon">${appIcon("chart", 15)}</span>Excel 導入</button>
                 <button class="nav-subitem ${state.page === 'settings' && state.settingsTab === 'components' ? 'active' : ''}" data-settings-tab="components"><span class="nav-subitem-icon">${appIcon("blocks", 15)}</span>組件庫</button>
+              </div>
+            </div>
+          `;
+        }
+        if (p.key === "finance" && !collapsed) {
+          return `
+            <div class="nav-item-parent ${state.page === 'finance' ? 'active' : ''}">
+              <button class="nav-item" data-page="finance" data-collapsed-label="${p.label}">
+                <span class="nav-icon">${appIcon(p.icon, 16)}</span>
+                <span class="nav-label">${p.label}</span>
+                <span class="nav-arrow ${state.isFinanceExpanded ? 'expanded' : ''}">${appIcon("chevronDown", 14)}</span>
+              </button>
+              <div class="nav-submenu ${state.isFinanceExpanded ? 'expanded' : ''}">
+                <button class="nav-subitem ${state.page === 'finance' && state.finTab === 'invoices' ? 'active' : ''}" data-fin-section="invoices"><span class="nav-subitem-icon">${appIcon("receipt", 15)}</span>發票管理</button>
+                <button class="nav-subitem ${state.page === 'finance' && state.finTab === 'payments' ? 'active' : ''}" data-fin-section="payments"><span class="nav-subitem-icon">${appIcon("wallet", 15)}</span>收款記錄</button>
+                <button class="nav-subitem ${state.page === 'finance' && state.finTab === 'customers' ? 'active' : ''}" data-fin-section="customers"><span class="nav-subitem-icon">${appIcon("building", 15)}</span>客戶檔案</button>
+                <button class="nav-subitem ${state.page === 'finance' && state.finTab === 'contracts' ? 'active' : ''}" data-fin-section="contracts"><span class="nav-subitem-icon">${appIcon("fileCheck", 15)}</span>保養合約</button>
               </div>
             </div>
           `;
@@ -22604,7 +22642,8 @@
     // 會計部頁面渲染
     function renderFinance() {
       const pendingInvoices = getFinancePendingQuotations();
-      const finTab = state.finTab || "pending";
+      const finTab = state.finTab || "invoices";
+      const finInvoiceTab = state.finInvoiceTab || "pending";
 
       // 讀取會計客戶檔案（獨立於 CS/報價組，含 billing address、收件人、數期）
       const acctCustomers = JSON.parse(localStorage.getItem('ecinfo_acct_customers')) || DEFAULT_ACCT_CUSTOMERS;
@@ -22625,21 +22664,22 @@
           <div class="pc-section fin-list-freeze fin-list-section">
             <div class="proc-tabs fin-proc-tabs">
               <div class="fin-tabs-list">
-                <button class="proc-tab ${finTab === 'pending' ? 'active' : ''}" data-fin-tab="pending">待開票 (${pendingTotal})</button>
-                <button class="proc-tab ${finTab === 'invoices' ? 'active' : ''}" data-fin-tab="invoices">發票管理 (${invoices.length})</button>
-                <button class="proc-tab ${finTab === 'payments' ? 'active' : ''}" data-fin-tab="payments">收款記錄 (${payments.length})</button>
-                <button class="proc-tab ${finTab === 'customers' ? 'active' : ''}" data-fin-tab="customers">客戶檔案 (${acctCustomers.length})</button>
-                <button class="proc-tab ${finTab === 'contracts' ? 'active' : ''}" data-fin-tab="contracts">保養合約 (${maintenanceContracts.length})</button>
+                ${finTab === "invoices" ? `
+                  <button class="proc-tab ${finInvoiceTab === 'pending' ? 'active' : ''}" data-fin-invoice-tab="pending">待開票 (${pendingTotal})</button>
+                  <button class="proc-tab ${finInvoiceTab === 'issued' ? 'active' : ''}" data-fin-invoice-tab="issued">已開票 (${invoices.length})</button>
+                ` : `
+                  <button class="proc-tab active" type="button">${finTab === "payments" ? "收款記錄" : finTab === "customers" ? "客戶檔案" : "保養合約"}</button>
+                `}
               </div>
               <div class="fin-tab-actions">
                 <button class="secondary-btn" data-peachtree-sync style="display:none;">${appIcon("refresh", 16)} Peachtree 同步</button>
-                <button class="primary-btn" data-create-invoice>開具發票</button>
-                <button class="secondary-btn" data-record-payment>登記收款</button>
+                ${finTab === "invoices" ? `<button class="primary-btn" data-create-invoice>開具發票</button>` : ""}
+                ${finTab === "payments" ? `<button class="secondary-btn" data-record-payment>登記收款</button>` : ""}
               </div>
             </div>
 
-            ${finTab === "pending" ? renderFinPending(pendingInvoices) : ""}
-            ${finTab === "invoices" ? renderFinInvoices() : ""}
+            ${finTab === "invoices" && finInvoiceTab === "pending" ? renderFinPending(pendingInvoices) : ""}
+            ${finTab === "invoices" && finInvoiceTab === "issued" ? renderFinInvoices() : ""}
             ${finTab === "payments" ? renderFinPayments() : ""}
             ${finTab === "customers" ? renderFinCustomers(acctCustomers) : ""}
             ${finTab === "contracts" ? renderFinContracts(maintenanceContracts) : ""}
@@ -23166,6 +23206,8 @@
       const hasServiceReport = Boolean(ticket?.serviceReportNo || ticket?.serviceReportSourceImage);
       const hasCompletionPaper = Boolean(ticket?.cpNo && ticket.cpSourceImage && ticket.cpSubmittedAt);
       if (!hasServiceReport && !hasCompletionPaper) missing.push("服務報告／完工單");
+      // 2026-11-17 客戶要求：需交完工單的工單，欠缺完工相（After Service 照片）亦須顯示
+      if (ticket && requiresCompletionPaper(ticket) && !(ticket.afterServicePhotos || []).length) missing.push("完工相");
       if (!quotation.customerConfirmationFile || !quotation.customerConfirmationFile.name) missing.push("客戶確認文件");
       return missing;
     }
@@ -23183,6 +23225,29 @@
         localStorage.setItem("ecinfo_fin_pending_numbers", JSON.stringify(map));
       }
       return map[key];
+    }
+
+    // 待開票項目顯示編號：複製項目沿用來源編號，加上 -C1／-C2 後綴
+    function pendingItemNumber(item) {
+      const id = typeof item === "string" ? item : String(item?.id || "");
+      const copies = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]");
+      const copy = copies.find(entry => String(entry.id) === id);
+      if (!copy) return pendingInvoiceNumber(id);
+      const rootSourceOf = entry => {
+        let key = String(entry.copiedFrom || entry.sourceQuotationId || "");
+        let guard = 0;
+        while (key.startsWith("COPY-") && guard < 10) {
+          const parent = copies.find(item => String(item.id) === key);
+          if (!parent) break;
+          key = String(parent.copiedFrom || parent.sourceQuotationId || "");
+          guard += 1;
+        }
+        return key;
+      };
+      const sourceKey = rootSourceOf(copy);
+      const siblings = copies.filter(entry => rootSourceOf(entry) === sourceKey);
+      const index = Math.max(1, siblings.findIndex(entry => String(entry.id) === id) + 1);
+      return `${pendingInvoiceNumber(sourceKey || id)}-C${index}`;
     }
 
     // 會計模組統一詳情彈窗：列表只保留「詳情」，其餘操作集中到彈窗底部
@@ -23208,6 +23273,103 @@
       return overlay;
     }
 
+    // 會計詳情抽屜：沿用 CALL 管理詳情頁的右側抽屜、分頁籤與卡片式資料區
+    function closeFinDetailDrawer() {
+      const el = document.getElementById("finDetailDrawer");
+      if (el) el.remove();
+      if (!document.getElementById("woDrawerOverlay") && !document.getElementById("custDrawerOverlay")) {
+        document.body.classList.remove("drawer-open");
+      }
+    }
+
+    // 詳情抽屜「更多操作」下拉：固定定位，底部空間不足時向上展開
+    function openFinActionMenu(trigger, items) {
+      document.querySelectorAll(".fin-more-menu").forEach(menu => menu.remove());
+      const menu = document.createElement("div");
+      menu.className = "fin-more-menu";
+      menu.setAttribute("role", "menu");
+      items.forEach(item => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.setAttribute("role", "menuitem");
+        button.textContent = item.label;
+        button.addEventListener("click", () => {
+          menu.remove();
+          closeFinDetailDrawer();
+          item.run?.();
+        });
+        menu.appendChild(button);
+      });
+      document.body.appendChild(menu);
+      const rect = trigger.getBoundingClientRect();
+      menu.style.minWidth = Math.max(140, Math.round(rect.width)) + "px";
+      menu.style.visibility = "hidden";
+      const mw = menu.offsetWidth, mh = menu.offsetHeight;
+      const left = Math.max(8, Math.min(rect.right - mw, innerWidth - mw - 8));
+      const top = (rect.bottom + 4 + mh > innerHeight - 8) ? Math.max(8, rect.top - mh - 4) : rect.bottom + 4;
+      Object.assign(menu.style, { position: "fixed", left: left + "px", top: top + "px", visibility: "visible" });
+      trigger.setAttribute("aria-expanded", "true");
+      const close = () => {
+        menu.remove();
+        trigger.setAttribute("aria-expanded", "false");
+        document.removeEventListener("click", onDocClick, true);
+        window.removeEventListener("scroll", close, true);
+      };
+      const onDocClick = event => { if (!menu.contains(event.target) && event.target !== trigger) close(); };
+      setTimeout(() => document.addEventListener("click", onDocClick, true), 0);
+      window.addEventListener("scroll", close, true);
+    }
+
+    function openFinDetailDrawer({ label, title, subtitle = "", badge = "", tabs = [], actions = [], footerHtml = "", onReady = null }) {
+      closeFinDetailDrawer();
+      const activeTab = tabs[0] || { key: "basic", html: "" };
+      const container = document.createElement("div");
+      container.id = "finDetailDrawer";
+      container.innerHTML = `
+        <div class="wo-drawer-backdrop" data-fin-detail-close aria-hidden="true"></div>
+        <aside class="wo-drawer" role="dialog" aria-modal="true" aria-label="${escapeHtml(label)}">
+          <div class="wo-drawer-header">
+            <div class="wo-drawer-title"><div><h3>${escapeHtml(title)}</h3>${subtitle ? `<span class="wo-drawer-subtitle">${subtitle}</span>` : ""}</div>${badge || ""}</div>
+            <button class="wo-drawer-close" type="button" data-fin-detail-close aria-label="關閉">×</button>
+          </div>
+          ${tabs.length > 1 ? `<div class="wo-call-detail-tabs" role="tablist" aria-label="${escapeHtml(label)}分頁">${tabs.map(tab => `<button type="button" class="wo-call-detail-tab ${tab.key === activeTab.key ? "active" : ""}" role="tab" aria-selected="${tab.key === activeTab.key}" data-fin-detail-tab="${escapeHtml(tab.key)}">${escapeHtml(tab.label)}</button>`).join("")}</div>` : ""}
+          <div class="wo-drawer-body wo-call-detail-body"><div class="wo-call-detail-panel" role="tabpanel">${activeTab.html}</div></div>
+          ${(actions.length || footerHtml) ? `<div class="wo-drawer-footer wo-call-actions">${actions.map((action, index) => action.menu ? `<button type="button" class="secondary-btn" data-fin-detail-menu="${index}" aria-haspopup="menu" aria-expanded="false">${escapeHtml(action.label)} ▾</button>` : `<button type="button" class="${action.primary ? "primary-btn" : "secondary-btn"}" data-fin-detail-action="${index}">${escapeHtml(action.label)}</button>`).join("")}${footerHtml}</div>` : ""}
+        </aside>`;
+      document.body.appendChild(container);
+      document.body.classList.add("drawer-open");
+      container.querySelectorAll("[data-fin-detail-close]").forEach(el => el.addEventListener("click", closeFinDetailDrawer));
+      container.querySelectorAll("[data-fin-detail-menu]").forEach(btn => btn.addEventListener("click", () => {
+        const action = actions[Number(btn.dataset.finDetailMenu)];
+        openFinActionMenu(btn, action?.menu || []);
+      }));
+      container.querySelectorAll("[data-fin-detail-tab]").forEach(btn => btn.addEventListener("click", () => {
+        const tab = tabs.find(item => item.key === btn.dataset.finDetailTab);
+        if (!tab) return;
+        container.querySelectorAll("[data-fin-detail-tab]").forEach(item => {
+          const on = item === btn;
+          item.classList.toggle("active", on);
+          item.setAttribute("aria-selected", String(on));
+        });
+        container.querySelector(".wo-call-detail-panel").innerHTML = tab.html;
+        const body = container.querySelector(".wo-call-detail-body");
+        if (body) body.scrollTop = 0;
+      }));
+      container.querySelectorAll("[data-fin-detail-action]").forEach(btn => btn.addEventListener("click", () => {
+        const action = actions[Number(btn.dataset.finDetailAction)];
+        closeFinDetailDrawer();
+        action?.run?.();
+      }));
+      const onKeyDown = event => {
+        if (event.key !== "Escape") return;
+        closeFinDetailDrawer();
+        document.removeEventListener("keydown", onKeyDown);
+      };
+      document.addEventListener("keydown", onKeyDown);
+      if (typeof onReady === "function") onReady(container);
+      return container;
+    }
+
     // 從待開票移除：複製項目直接刪除，原始項目只記錄隱藏，不動底層報價／合約
     function removePendingItem(itemId) {
       const id = String(itemId);
@@ -23222,6 +23384,45 @@
       state.finSelectedIds = (state.finSelectedIds || []).filter(selectedId => String(selectedId) !== id);
       render();
       toast("已從待開票移除");
+    }
+
+    // 複製待開票項目：產生獨立快照，可各自開票；不影響原始項目的報價／合約
+    function copyPendingItem(itemId) {
+      const copies = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]");
+      const maintenanceContracts = JSON.parse(localStorage.getItem("ecinfo_maintenance_contracts")) || DEFAULT_MAINTENANCE_CONTRACTS;
+      const sourceQuotation = quotations.find(item => String(item.id) === String(itemId));
+      let source = null;
+      if (sourceQuotation) {
+        source = {
+          customerName: sourceQuotation.customerName,
+          customerId: sourceQuotation.customerId,
+          tenderAmount: sourceQuotation.tenderAmount || sourceQuotation.amount || 0,
+          title: sourceQuotation.title,
+          ourRef: sourceQuotation.id,
+          sourceQuotationId: sourceQuotation.id,
+          category: sourceQuotation.category || sourceQuotation.tenderCategory,
+          ecContractNo: sourceQuotation.ecContractNo || sourceQuotation.contractNo,
+          createdAt: sourceQuotation.createdAt
+        };
+      } else {
+        source = copies.find(item => String(item.id) === String(itemId))
+          || maintenanceContracts.flatMap(contract => generateContractBillingItems(contract)).find(item => String(item.id) === String(itemId));
+      }
+      if (!source) { toast("找不到待開票項目", "error"); return; }
+      // 複製複製項時，來源仍指向最原始的待開票項目，方便編號與排序歸組
+      const rootSourceId = String(itemId).startsWith("COPY-")
+        ? (source.copiedFrom || source.sourceQuotationId || itemId)
+        : (source.id || itemId);
+      const copy = {
+        ...JSON.parse(JSON.stringify(source)),
+        id: `COPY-${Date.now()}`,
+        copiedFrom: rootSourceId,
+        createdAt: new Date().toISOString().slice(0, 10)
+      };
+      copies.push(copy);
+      localStorage.setItem("ecinfo_fin_pending_copies", JSON.stringify(copies));
+      render();
+      toast("已複製待開票項目，可獨立開票");
     }
 
     // 渲染待開票頁面：保留 Job Code，並列 EC Contract No；支援明確條件篩選與欠件查閱
@@ -23249,7 +23450,19 @@
 
       const hiddenPending = JSON.parse(localStorage.getItem('ecinfo_fin_pending_hidden') || '[]').map(String);
       const pendingCopies = JSON.parse(localStorage.getItem('ecinfo_fin_pending_copies') || '[]');
-      const allPending = [...pendingInvoices, ...contractPending, ...pendingCopies]
+      // 複製項目緊跟原項目排列，避免大量資料時排到列表最後
+      const orderedPending = [];
+      const placedCopyIds = new Set();
+      [...pendingInvoices, ...contractPending].forEach(item => {
+        orderedPending.push(item);
+        pendingCopies.forEach(copy => {
+          if (String(copy.copiedFrom || copy.sourceQuotationId || "") !== String(item.id)) return;
+          orderedPending.push(copy);
+          placedCopyIds.add(String(copy.id));
+        });
+      });
+      const remainingCopies = pendingCopies.filter(copy => !placedCopyIds.has(String(copy.id)));
+      const allPending = [...orderedPending, ...remainingCopies]
         .filter(item => !hiddenPending.includes(String(item.id)));
       const finFilter = state.finFilter || {};
       const customerOptions = [...new Set(allPending.map(item => item.customerName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -23305,7 +23518,7 @@
 
       return `
         <div class="wo-filters fin-wo-filters">
-          <label class="wo-filter-group"><span>日期範圍</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>日期範圍</span>
             <div class="fin-wo-range" role="group" aria-label="日期範圍">
               <input type="date" id="finFilterDateFrom" aria-label="開始日期" value="${escapeHtml(finFilter.dateFrom || '')}" data-fin-filter="dateFrom">
               <em>至</em>
@@ -23326,14 +23539,13 @@
             <option value="M+P" ${finFilter.type === 'M+P' ? 'selected' : ''}>M+P</option>
             </select>
           </label>
-          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>金額範圍（HKD）</span>
             <div class="fin-wo-amount">
               <input type="number" min="0" step="1" aria-label="最低金額" placeholder="最低" value="${escapeHtml(finFilter.amountMin || '')}" data-fin-filter="amountMin">
               <input type="number" min="0" step="1" aria-label="最高金額" placeholder="最高" value="${escapeHtml(finFilter.amountMax || '')}" data-fin-filter="amountMax">
             </div>
           </label>
           <div class="fin-wo-actions">
-            <button class="primary-btn" data-fin-filter-search>搜索</button>
             <button class="secondary-btn" data-fin-filter-clear>重置</button>
           </div>
         </div>
@@ -23367,7 +23579,8 @@
             </thead>
             <tbody>
               ${pageItems.map(q => {
-                const sourceQuotation = quotations.find(item => item.id === q.id);
+                const sourceQuotation = quotations.find(item => item.id === q.id)
+                  || (q.sourceQuotationId ? quotations.find(item => item.id === q.sourceQuotationId) : null);
                 const sourceTicket = sourceQuotation ? findQuotationWorkOrder(sourceQuotation) : null;
                 const maintenanceContract = maintenanceContracts.find(item => item.id === q.contractId);
                 const linkedCustomer = customers.find(customer =>
@@ -23386,7 +23599,7 @@
                 return `
                 <tr>
                   <td><input type="checkbox" class="fin-row-check" value="${q.id}" data-fin-row-check${selectedIds.has(String(q.id)) ? ' checked' : ''}></td>
-                  <td>${escapeHtml(pendingInvoiceNumber(q.id))}</td>
+                  <td>${escapeHtml(pendingItemNumber(q))}</td>
                   <td>${escapeHtml(ecContractNo)}</td>
                   <td>${escapeHtml(customerId)}</td>
                   <td>${(q.tenderAmount || q.amount || 0).toLocaleString()}</td>
@@ -23408,9 +23621,14 @@
 
     // 待開票詳情：只讀展示當前待開票資料及其已關聯記錄，不觸發開票或變更狀態。
     function openFinPendingDetail(itemId) {
-      const sourceQuotation = quotations.find(item => String(item.id) === String(itemId));
       const maintenanceContracts = JSON.parse(localStorage.getItem('ecinfo_maintenance_contracts')) || DEFAULT_MAINTENANCE_CONTRACTS;
-      let item = sourceQuotation;
+      const pendingCopies = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]");
+      const copyItem = pendingCopies.find(entry => String(entry.id) === String(itemId)) || null;
+      const directQuotation = quotations.find(item => String(item.id) === String(itemId));
+      // 複製項目要沿用來源報價的文件狀態與關聯工單
+      const sourceQuotation = directQuotation
+        || (copyItem?.sourceQuotationId ? quotations.find(item => item.id === copyItem.sourceQuotationId) : null);
+      let item = directQuotation || copyItem;
       let maintenanceContract = null;
       if (!item) {
         const billingOverrides = getBillingOverrides();
@@ -23428,6 +23646,7 @@
         maintenanceContract = item ? maintenanceContracts.find(contract => contract.id === item.contractId) : null;
       }
       if (!item) { toast("找不到待開票項目", "error"); return; }
+      if (!maintenanceContract && item.contractId) maintenanceContract = maintenanceContracts.find(contract => contract.id === item.contractId) || null;
 
       const ticket = sourceQuotation ? findQuotationWorkOrder(sourceQuotation) : null;
       const linkedCustomer = customers.find(customer =>
@@ -23442,106 +23661,70 @@
       const amount = Number(item.tenderAmount ?? item.amount ?? 0);
       const category = String(item.category || item.tenderCategory || (item.isMaintenance ? "M" : "P"));
       const missingDocs = sourceQuotation ? getQuotationMissingDocs(sourceQuotation) : [];
-      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
-      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
       const actions = [
         { label: "開票", primary: true, run: () => createInvoice(itemId, {}) },
+        { label: "複製", run: () => copyPendingItem(itemId) },
         { label: "刪除", run: () => removePendingItem(itemId) }
       ];
       if (ticket?.serviceReportNo && !ticket?.cpNo) {
         actions.push({ label: "查看 SR", run: () => { state.srFolderMetricModal = null; state.srFolderReportTicketId = ticket.id; render(); } });
       }
-      openFinDetailModal({
-        title: "待開票詳情",
-        body: `
-          <section class="fin-pending-detail-section">
-            <h3>項目資料</h3>
-            <div class="fin-pending-detail-grid">
-              ${field("待開票編號", pendingInvoiceNumber(itemId))}
+      const pendingNo = pendingItemNumber(itemId);
+      const typeClass = category.replace(/\s*\+\s*/g, "").toLowerCase();
+      const basicPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>項目資料</h4></div>
+            <div class="wo-detail-grid">
+              ${field("待開票編號", pendingNo)}
               ${field("EC Contract No", ecContractNo)}
               ${field("客戶", item.customerName)}
-              ${field("描述", item.title || item.name, true)}
               ${field("金額", `HKD ${amount.toLocaleString()}`)}
               ${field("類型", category)}
               ${field("Billing Period", item.billingPeriod)}
-              ${field("服務起止日期", item.serviceStart ? `${item.serviceStart} ~ ${item.serviceEnd || item.serviceStart}` : "—")}
+              ${field("服務起止日期", item.serviceStart ? `${item.serviceStart} ~ ${item.serviceEnd || item.serviceStart}` : "")}
               ${field("付款週期", item.billingCycle || "一次性")}
               ${field("項目編號", sourceQuotation?.id || item.ourRef || maintenanceContract?.jobCode)}
-              ${field("附件類別", sourceQuotation ? "開票文件" : "合約")}
-              ${field("欠缺文件", missingDocs.length ? missingDocs.join("、") : "—", true)}
+              ${field("描述", item.title || item.name, "full-width wo-detail-description")}
             </div>
-          </section>
-          ${(sourceQuotation || maintenanceContract) ? `<section class="fin-pending-detail-section">
-            <h3>相關記錄</h3>
-            <div class="fin-pending-detail-grid">
+          </div>
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>開票文件</h4></div>
+            <div class="wo-detail-grid">
+              ${field("附件類別", sourceQuotation ? "開票文件" : "合約")}
+              ${field("欠缺文件", missingDocs.length ? missingDocs.join("、") : "無", "full-width wo-detail-description")}
+            </div>
+          </div>
+        </div>`;
+      const relatedPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>相關記錄</h4></div>
+            ${(sourceQuotation || maintenanceContract || ticket) ? `<div class="wo-detail-grid">
               ${sourceQuotation ? field("報價單號", sourceQuotation.id) : ""}
               ${ticket ? field("關聯工單", ticket.id) : ""}
               ${ticket ? field("工單狀態", ticket.status) : ""}
               ${maintenanceContract ? field("保養合約", maintenanceContract.jobCode) : ""}
               ${maintenanceContract ? field("合約期間", `${maintenanceContract.startDate || "—"} ~ ${maintenanceContract.endDate || "—"}`) : ""}
               ${maintenanceContract ? field("合約開單頻率", maintenanceContract.frequency) : ""}
-            </div>
-          </section>` : ""}`,
+            </div>` : '<div class="wo-detail-empty">暫無關聯記錄</div>'}
+          </div>
+        </div>`;
+      openFinDetailDrawer({
+        label: "待開票詳情",
+        title: pendingNo,
+        subtitle: `${escapeHtml(item.customerName || "—")} · EC Contract No ${escapeHtml(ecContractNo)}`,
+        badge: `<span class="chip fin-type-chip fin-type-${typeClass}">${escapeHtml(category)}</span>`,
+        tabs: [
+          { key: "basic", label: "基礎資料", html: basicPanel },
+          { key: "related", label: "相關記錄", html: relatedPanel }
+        ],
         actions
       });
     }
 
     // 渲染發票管理：第二欄位改為 Job ID；含客戶數期、金額變更原因、重印日期選項、列印功能
-    // 發票操作清單：列表「更多」下拉與其他入口共用，按狀態決定可用項
-    function invoiceActionList(inv) {
-      const list = [
-        { act: "edit", label: "編輯", run: () => openInvoiceEditModal(inv.id) },
-        { act: "copy", label: "複製", run: () => copyInvoice(inv.id) },
-        { act: "amount", label: "變更金額", run: () => openChangeAmountModal(inv.id) },
-        { act: "date", label: "變更日期", run: () => openChangeDateModal(inv.id) },
-        { act: "terms", label: "變更數期", run: () => openChangeTermsModal(inv.id) },
-        { act: "reprint", label: "重印", run: () => openReprintModal(inv.id) },
-        { act: "print", label: "列印", run: () => openPrintInvoiceModal([inv.id]) }
-      ];
-      if (inv.status === "已開具") {
-        list.push({ act: "paid", label: "標記收款", run: () => markAsPaid(inv.id) });
-        list.push({ act: "void", label: "作廢", run: () => voidInvoice(inv.id) });
-      }
-      list.push({ act: "delete", label: "刪除", run: () => deleteInvoice(inv.id) });
-      return list;
-    }
-
-    // 列表「更多」下拉：以固定定位呈現，避免被表格容器裁切
-    function openInvoiceMoreMenu(trigger, invoiceId) {
-      document.querySelectorAll(".fin-more-menu").forEach(menu => menu.remove());
-      const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
-      if (!inv) return;
-      const menu = document.createElement("div");
-      menu.className = "fin-more-menu";
-      menu.setAttribute("role", "menu");
-      invoiceActionList(inv).forEach(action => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.setAttribute("role", "menuitem");
-        button.textContent = action.label;
-        button.addEventListener("click", () => { menu.remove(); action.run(); });
-        menu.appendChild(button);
-      });
-      document.body.appendChild(menu);
-      const rect = trigger.getBoundingClientRect();
-      menu.style.minWidth = Math.max(132, Math.round(rect.width)) + "px";
-      menu.style.visibility = "hidden";
-      const mw = menu.offsetWidth, mh = menu.offsetHeight;
-      const left = Math.max(8, Math.min(rect.right - mw, innerWidth - mw - 8));
-      const top = (rect.bottom + 4 + mh > innerHeight - 8) ? Math.max(8, rect.top - mh - 4) : rect.bottom + 4;
-      Object.assign(menu.style, { position: "fixed", left: left + "px", top: top + "px", visibility: "visible" });
-      trigger.setAttribute("aria-expanded", "true");
-      const close = () => {
-        menu.remove();
-        trigger.setAttribute("aria-expanded", "false");
-        document.removeEventListener("click", onDocClick, true);
-        window.removeEventListener("scroll", close, true);
-      };
-      const onDocClick = event => { if (!menu.contains(event.target) && event.target !== trigger) close(); };
-      setTimeout(() => document.addEventListener("click", onDocClick, true), 0);
-      window.addEventListener("scroll", close, true);
-    }
-
     // 會計分頁共用分頁器（發票／收款／客戶檔案／保養合約）：狀態獨立記錄
     function finTabPagination(tab, total) {
       const sizes = state.finPageSizes || (state.finPageSizes = {});
@@ -23604,21 +23787,20 @@
               ${invCustomerOptions.map(name => `<option value="${escapeHtml(name)}" ${invFilter.customer === name ? "selected" : ""}>${escapeHtml(name)}</option>`).join("")}
             </select>
           </label>
-          <label class="wo-filter-group"><span>開票日期</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>開票日期</span>
             <div class="fin-wo-range">
               <input type="date" aria-label="開始日期" value="${escapeHtml(invFilter.dateFrom || "")}" data-fin-inv-filter="dateFrom">
               <em>至</em>
               <input type="date" aria-label="結束日期" value="${escapeHtml(invFilter.dateTo || "")}" data-fin-inv-filter="dateTo">
             </div>
           </label>
-          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>金額範圍（HKD）</span>
             <div class="fin-wo-amount">
               <input type="number" min="0" step="1" placeholder="最低" value="${escapeHtml(invFilter.amountMin || "")}" data-fin-inv-filter="amountMin">
               <input type="number" min="0" step="1" placeholder="最高" value="${escapeHtml(invFilter.amountMax || "")}" data-fin-inv-filter="amountMax">
             </div>
           </label>
           <div class="fin-wo-actions">
-            <button class="primary-btn" data-fin-filter-apply>搜索</button>
             <button class="secondary-btn" data-fin-filter-reset="invoices">重置</button>
           </div>
         </div>
@@ -23651,7 +23833,6 @@
                   <td><span class="tag ${inv.status === '已收款' ? 'success' : inv.status === '已作廢' ? 'danger' : 'warning'}">${inv.status}</span>${inv.voidDate ? `<div class="muted" style="font-size:11px;">作廢日期：${inv.voidDate}</div>` : ''}</td>
                   <td><div class="fin-row-actions">
                     <button class="fin-pending-detail-btn" type="button" data-fin-invoice-detail="${inv.id}">詳情</button>
-                    <button class="fin-more-trigger" type="button" data-fin-more-trigger="${inv.id}" aria-haspopup="menu" aria-expanded="false">更多 ▾</button>
                   </div></td>
                 </tr>
               `).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);">暫無發票</td></tr>'}
@@ -23662,104 +23843,259 @@
       `;
     }
 
+    // 發票詳情內編輯：明細行模板與編輯面板（沿用詳情抽屜，不另開彈窗）
+    function invoiceItemRowHtml(item = {}) {
+      return `
+        <tr data-invoice-item>
+          <td class="inv-item-no" style="text-align:center;"></td>
+          <td><textarea data-item-description rows="2">${escapeHtml(item.description || "")}</textarea></td>
+          <td><input data-item-price type="number" min="0" step="0.01" value="${Number(item.unitPrice || 0)}"></td>
+          <td><input data-item-qty type="number" min="0" step="0.01" value="${Number(item.quantity ?? 1)}"></td>
+          <td><input data-item-amount type="number" min="0" step="0.01" value="${Number(item.amount || 0)}"></td>
+          <td style="text-align:center;"><button type="button" class="ghost-btn" data-item-remove>刪除</button></td>
+        </tr>`;
+    }
+
+    function renderInvoiceDrawerEditPanel(inv) {
+      const printData = buildInvoicePrintData(inv);
+      let lineItems = getInvoiceLineItems(inv);
+      const derivedTotal = lineItems.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+      if (!(Array.isArray(inv.items) && inv.items.length) && Math.abs(derivedTotal - Number(inv.amount || 0)) > 0.005) {
+        const quotationTitle = quotations.find(q => q.id === inv.quotationId)?.title || "";
+        lineItems = [{ description: quotationTitle || inv.remark || inv.customerName || "", unitPrice: Number(inv.amount || 0), quantity: 1, amount: Number(inv.amount || 0) }];
+      }
+      const field = (label, name, value, opts = {}) => `
+        <div class="field" ${opts.full ? 'style="grid-column:1/-1;"' : ""}>
+          <label ${opts.required ? 'class="required"' : ""}>${escapeHtml(label)}</label>
+          ${opts.textarea
+            ? `<textarea name="${name}" style="min-height:${opts.rows ? opts.rows * 24 : 60}px;">${escapeHtml(value ?? "")}</textarea>`
+            : `<input name="${name}" type="${opts.type || "text"}" ${opts.required ? "required" : ""} ${opts.step ? `step="${opts.step}"` : ""} ${opts.min != null ? `min="${opts.min}"` : ""} value="${escapeHtml(value ?? "")}">`}
+        </div>`;
+      return `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>發票資料</h4></div>
+            <div class="um-form-grid" style="gap:14px;">
+              ${field("發票號", "invoiceNo", inv.invoiceNo, { required: true })}
+              ${field("客戶名稱", "customerName", inv.customerName, { required: true })}
+              ${field("開票日期", "invoiceDate", inv.invoiceDate, { type: "date", required: true })}
+              ${field("到期日", "dueDate", inv.dueDate || inv.invoiceDate, { type: "date" })}
+              ${field("Bill To 名稱", "billToName", inv.billToName || printData.billTo.name)}
+              ${field("Our Customer ID", "customerId", inv.customerId || printData.customerId)}
+              ${field("Our Internal Ref.", "internalRef", inv.internalRef || printData.internalRef)}
+              ${field("付款條款（Payment Terms）", "paymentTerms", inv.paymentTerms || "C.O.D.")}
+              ${field("銷售代表編號（Sales Rep ID）", "salesRepId", inv.salesRepId)}
+              ${field("Shipping Method", "shippingMethod", inv.shippingMethod || printData.shippingMethod)}
+              ${field("Ship Date", "shipDate", inv.shipDate || inv.invoiceDate, { type: "date" })}
+              ${field("Credit note applied (HKD)", "creditNoteApplied", Number(inv.creditNoteApplied || 0), { type: "number", step: "0.01", min: 0 })}
+              ${field("付款方式", "paymentTiming", inv.paymentTiming)}
+              ${field("保固期", "warranty", inv.warranty)}
+              ${field("Bill To 地址", "billToAddress", inv.billToAddress || printData.billTo.address.join("\n"), { full: true, textarea: true, rows: 3 })}
+              ${field("備註", "remark", inv.remark, { full: true, textarea: true, rows: 2 })}
+            </div>
+          </div>
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading" style="display:flex;align-items:center;justify-content:space-between;">
+              <h4>發票明細</h4>
+              <button type="button" class="secondary-btn" data-item-add style="height:30px;padding:0 12px;font-size:12px;">+ 新增明細</button>
+            </div>
+            <table class="inv-item-table">
+              <thead><tr><th>#</th><th>Description</th><th>Unit Price</th><th>Quantity</th><th>Amount</th><th></th></tr></thead>
+              <tbody data-invoice-items-body>${lineItems.map(invoiceItemRowHtml).join("")}</tbody>
+            </table>
+            <div class="inv-item-summary">
+              <span>Total：<strong>HKD <span data-items-total></span></strong></span>
+              <span>Amount net due：<strong>HKD <span data-items-net></span></strong></span>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function collectInvoiceEditData(panel, inv) {
+      const val = name => panel.querySelector(`[name="${name}"]`);
+      const invoiceNo = String(val("invoiceNo")?.value || "").trim();
+      if (!invoiceNo) return { error: "請輸入發票號" };
+      if (invoices.some(item => item.id !== inv.id && item.invoiceNo === invoiceNo)) return { error: "發票號已存在" };
+      const items = [...panel.querySelectorAll("[data-invoice-item]")].map(row => ({
+        description: row.querySelector("[data-item-description]").value.trim(),
+        unitPrice: Number(row.querySelector("[data-item-price]").value) || 0,
+        quantity: Number(row.querySelector("[data-item-qty]").value) || 0,
+        amount: Number(row.querySelector("[data-item-amount]").value) || 0
+      }));
+      if (!items.length) return { error: "請至少保留一筆明細" };
+      return { data: {
+        invoiceNo,
+        customerName: String(val("customerName")?.value || "").trim(),
+        items,
+        amount: items.reduce((sum, item) => sum + item.amount, 0),
+        invoiceDate: val("invoiceDate")?.value || "",
+        dueDate: val("dueDate")?.value || "",
+        billToName: String(val("billToName")?.value || "").trim(),
+        billToAddress: String(val("billToAddress")?.value || "").trim(),
+        customerId: String(val("customerId")?.value || "").trim(),
+        internalRef: String(val("internalRef")?.value || "").trim(),
+        shippingMethod: String(val("shippingMethod")?.value || "").trim(),
+        shipDate: val("shipDate")?.value || "",
+        creditNoteApplied: Number(val("creditNoteApplied")?.value) || 0,
+        paymentTiming: String(val("paymentTiming")?.value || ""),
+        warranty: String(val("warranty")?.value || ""),
+        paymentTerms: String(val("paymentTerms")?.value || "").trim(),
+        salesRepId: String(val("salesRepId")?.value || "").trim(),
+        remark: String(val("remark")?.value || "")
+      } };
+    }
+
+    function saveInvoiceEditFromPanel(panel, inv) {
+      const result = collectInvoiceEditData(panel, inv);
+      if (result.error) { toast(result.error, "error"); return false; }
+      Object.assign(inv, result.data, { updatedAt: new Date().toLocaleString("zh-HK") });
+      saveDataToLocalStorage();
+      toast("發票已更新", "success");
+      return true;
+    }
+
+    function bindInvoiceDrawerEdit(container, inv) {
+      const panel = container.querySelector(".wo-call-detail-panel");
+      const tbody = panel.querySelector("[data-invoice-items-body]");
+      const recalc = () => {
+        let total = 0;
+        tbody.querySelectorAll("[data-invoice-item]").forEach((row, index) => {
+          row.querySelector(".inv-item-no").textContent = index + 1;
+          total += Number(row.querySelector("[data-item-amount]").value) || 0;
+        });
+        const credit = Number(panel.querySelector('[name="creditNoteApplied"]')?.value) || 0;
+        panel.querySelector("[data-items-total]").textContent = formatInvoiceMoney(total) || "0.00";
+        panel.querySelector("[data-items-net]").textContent = formatInvoiceMoney(total - credit) || "0.00";
+      };
+      tbody.addEventListener("input", event => {
+        const row = event.target.closest("[data-invoice-item]");
+        if (row && event.target.matches("[data-item-price],[data-item-qty]")) {
+          const price = Number(row.querySelector("[data-item-price]").value) || 0;
+          const qty = Number(row.querySelector("[data-item-qty]").value) || 0;
+          row.querySelector("[data-item-amount]").value = (price * qty).toFixed(2);
+        }
+        recalc();
+      });
+      panel.querySelector('[name="creditNoteApplied"]')?.addEventListener("input", recalc);
+      panel.querySelector("[data-item-add]").addEventListener("click", () => {
+        tbody.insertAdjacentHTML("beforeend", invoiceItemRowHtml());
+        recalc();
+      });
+      tbody.addEventListener("click", event => {
+        if (!event.target.matches("[data-item-remove]")) return;
+        if (tbody.querySelectorAll("[data-invoice-item]").length <= 1) { toast("請至少保留一筆明細", "error"); return; }
+        event.target.closest("[data-invoice-item]").remove();
+        recalc();
+      });
+      recalc();
+      container.querySelector("[data-invoice-edit-cancel]").addEventListener("click", () => openInvoiceDetailModal(inv.id));
+      container.querySelector("[data-invoice-edit-save]").addEventListener("click", () => {
+        if (saveInvoiceEditFromPanel(panel, inv)) openInvoiceDetailModal(inv.id);
+      });
+    }
+
     // 發票詳情：列表只保留詳情，編輯／複製／變更／重印／列印／收款／作廢／刪除集中在此
-    function openInvoiceDetailModal(invoiceId) {
+    function openInvoiceDetailModal(invoiceId, options = {}) {
       const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
       if (!inv) { toast("找不到發票", "error"); return; }
       const acctCustomers = JSON.parse(localStorage.getItem("ecinfo_acct_customers")) || DEFAULT_ACCT_CUSTOMERS;
       const terms = inv.paymentTerms || acctCustomers.find(item => item.name === inv.customerName)?.paymentTerms || "30 天";
       const jobId = quotations.find(item => item.id === inv.quotationId)?.id || inv.jobCode || inv.quotationId || "—";
       const linkedPayments = payments.filter(p => p.invoiceId === inv.id || p.invoiceNo === inv.invoiceNo);
-      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
-      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
-      openFinDetailModal({
-        title: "發票詳情",
-        body: `
-          <section class="fin-pending-detail-section">
-            <h3>發票資料</h3>
-            <div class="fin-pending-detail-grid">
+      const printData = buildInvoicePrintData(inv);
+      const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
+      const statusTag = `<span class="tag ${inv.status === "已收款" ? "success" : inv.status === "已作廢" ? "danger" : "warning"}">${escapeHtml(inv.status || "—")}</span>`;
+      const basicPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>發票資料</h4></div>
+            <div class="wo-detail-grid">
               ${field("發票號", inv.invoiceNo)}
               ${field("Job ID", jobId)}
               ${field("客戶", inv.customerName)}
-              ${field("金額", `HKD ${Number(inv.amount || 0).toLocaleString()}`)}
               ${field("開票日期", inv.invoiceDate)}
               ${field("到期日", inv.dueDate)}
+              ${field("狀態", inv.status)}
+              ${field("Bill To", printData.billTo.name)}
+              ${field("Our Customer ID", printData.customerId)}
+              ${field("Our Internal Ref.", printData.internalRef)}
+              ${field("付款條款（Payment Terms）", printData.paymentTerms)}
+              ${field("銷售代表編號", printData.salesRepId)}
+              ${field("Shipping Method", printData.shippingMethod)}
+              ${field("Ship Date", printData.shipDate)}
               ${field("客戶數期", terms)}
-              ${inv.salesRepId ? field("銷售代表編號", inv.salesRepId) : ""}
               ${field("付款方式", inv.paymentTiming)}
               ${field("保固期", inv.warranty)}
-              ${field("狀態", inv.status)}
+              ${field("Total", `HKD ${formatInvoiceMoney(printData.total)}`)}
+              ${field("Credit note applied", `HKD ${formatInvoiceMoney(printData.creditNoteApplied)}`)}
+              ${field("Amount net due", `HKD ${formatInvoiceMoney(printData.amountNetDue)}`)}
+              ${field("Bill To 地址", printData.billTo.address.join(" / "), "full-width wo-detail-description")}
               ${inv.voidDate ? field("作廢日期", inv.voidDate) : ""}
               ${inv.reprintCount ? field("重印次數", `×${inv.reprintCount}`) : ""}
               ${inv.copiedFrom ? field("複製自", inv.copiedFrom) : ""}
               ${inv.amountChanged ? field("金額曾變更", inv.amountChangeReason || "是") : ""}
               ${inv.dateChanged ? field("日期曾變更", inv.dateChangeReason || "是") : ""}
-              ${inv.lowAmountReason ? field("低於報價金額原因", inv.lowAmountReason, true) : ""}
-              ${inv.missingDocsReason ? field("缺文件開票理由", inv.missingDocsReason, true) : ""}
-              ${field("備註", inv.remark, true)}
+              ${inv.lowAmountReason ? field("低於報價金額原因", inv.lowAmountReason, "full-width wo-detail-description") : ""}
+              ${inv.missingDocsReason ? field("缺文件開票理由", inv.missingDocsReason, "full-width wo-detail-description") : ""}
+              ${field("備註", inv.remark, "full-width wo-detail-description")}
             </div>
-          </section>
-          <section class="fin-pending-detail-section">
-            <h3>收款記錄（${linkedPayments.length}）</h3>
-            ${linkedPayments.length ? `<div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>收據編號</th><th>金額</th><th>收款日期</th><th>收款方式</th></tr></thead><tbody>${linkedPayments.map(p => `<tr><td>${value(p.receiptNo)}</td><td>HKD ${Number(p.amount || 0).toLocaleString()}</td><td>${value(p.paymentDate)}</td><td>${value(p.paymentMethod)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">尚未登記收款。</p>`}
-          </section>`
-      });
-    }
-
-    // 發票完整編輯：所有欄位可修改更新
-    function openInvoiceEditModal(invoiceId) {
-      const inv = invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId);
-      if (!inv) return;
-      const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
-      modal.innerHTML = `
-        <div class="um-modal" style="max-width:560px;">
-          <div class="um-modal-head"><h2>編輯發票</h2><button class="um-modal-close" type="button" data-close-modal>×</button></div>
-          <form id="editInvoiceForm">
-            <div style="padding:20px 24px;">
-              <div class="um-form-grid" style="gap:16px;">
-                <div class="field"><label class="required">發票號</label><input name="invoiceNo" required value="${escapeHtml(inv.invoiceNo || "")}"></div>
-                <div class="field"><label class="required">客戶名稱</label><input name="customerName" required value="${escapeHtml(inv.customerName || "")}"></div>
-                <div class="field"><label class="required">金額 (HKD)</label><input name="amount" type="number" step="0.01" min="0" required value="${Number(inv.amount || 0)}"></div>
-                <div class="field"><label class="required">開票日期</label><input name="invoiceDate" type="date" required value="${escapeHtml(inv.invoiceDate || "")}"></div>
-                <div class="field"><label>到期日</label><input name="dueDate" type="date" value="${escapeHtml(inv.dueDate || "")}"></div>
-                <div class="field"><label>付款方式</label><input name="paymentTiming" value="${escapeHtml(inv.paymentTiming || "")}"></div>
-                <div class="field"><label>保固期</label><input name="warranty" value="${escapeHtml(inv.warranty || "")}"></div>
-                <div class="field"><label>付款條款（Payment Terms）</label><input name="paymentTerms" value="${escapeHtml(inv.paymentTerms || "")}" placeholder="如 Net 30／月結 30 天"></div>
-                <div class="field"><label>銷售代表編號（Sales Rep ID）</label><input name="salesRepId" value="${escapeHtml(inv.salesRepId || "")}" placeholder="如 EMP0004"></div>
-                <div class="field" style="grid-column:1/-1;"><label>備註</label><textarea name="remark" style="min-height:70px;">${escapeHtml(inv.remark || "")}</textarea></div>
-              </div>
-            </div>
-            <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);">
-              <button type="button" class="secondary-btn" data-close-modal>取消</button>
-              <button type="submit" class="primary-btn">保存</button>
-            </div>
-          </form>
+          </div>
         </div>`;
-      document.body.appendChild(modal);
-      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", () => modal.remove()));
-      modal.addEventListener("click", event => { if (event.target === modal) modal.remove(); });
-      modal.querySelector("#editInvoiceForm").addEventListener("submit", event => {
-        event.preventDefault();
-        const data = new FormData(event.target);
-        const newNo = String(data.get("invoiceNo") || "").trim();
-        if (!newNo) { toast("請輸入發票號", "error"); return; }
-        if (invoices.some(item => item.id !== inv.id && item.invoiceNo === newNo)) { toast("發票號已存在", "error"); return; }
-        inv.invoiceNo = newNo;
-        inv.customerName = String(data.get("customerName") || "").trim();
-        inv.amount = Number(data.get("amount")) || 0;
-        inv.invoiceDate = data.get("invoiceDate");
-        inv.dueDate = data.get("dueDate") || "";
-        inv.paymentTiming = String(data.get("paymentTiming") || "");
-        inv.warranty = String(data.get("warranty") || "");
-        inv.paymentTerms = String(data.get("paymentTerms") || "").trim();
-        inv.salesRepId = String(data.get("salesRepId") || "").trim();
-        inv.remark = String(data.get("remark") || "");
-        inv.updatedAt = new Date().toLocaleString("zh-HK");
-        saveDataToLocalStorage();
-        modal.remove();
-        toast("發票已更新", "success");
-        render();
+      const itemsPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>發票明細（${printData.items.length}）</h4></div>
+            <div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th style="width:44px;">項次</th><th>Description</th><th>Unit Price</th><th>Quantity</th><th>Amount</th></tr></thead><tbody>${printData.items.map(row => `<tr><td>${escapeHtml(row.item)}</td><td style="white-space:pre-line;">${escapeHtml(row.description)}</td><td>${formatInvoiceMoney(row.unitPrice)}</td><td>${formatInvoiceQty(row.quantity)}</td><td>${formatInvoiceMoney(row.amount)}</td></tr>`).join("")}</tbody></table></div>
+            <div class="wo-detail-grid" style="margin-top:10px;">
+              ${field("Total", `HKD ${formatInvoiceMoney(printData.total)}`)}
+              ${field("Credit note applied", `HKD ${formatInvoiceMoney(printData.creditNoteApplied)}`)}
+              ${field("Amount net due", `HKD ${formatInvoiceMoney(printData.amountNetDue)}`)}
+            </div>
+          </div>
+        </div>`;
+      const paymentPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>收款記錄（${linkedPayments.length}）</h4></div>
+            ${linkedPayments.length ? `<div class="pc-table-wrapper"><table class="pc-table"><thead><tr><th>收據編號</th><th>金額</th><th>收款日期</th><th>收款方式</th></tr></thead><tbody>${linkedPayments.map(p => `<tr><td>${escapeHtml(p.receiptNo || "—")}</td><td>HKD ${Number(p.amount || 0).toLocaleString()}</td><td>${escapeHtml(p.paymentDate || "—")}</td><td>${escapeHtml(p.paymentMethod || "—")}</td></tr>`).join("")}</tbody></table></div>` : '<div class="wo-detail-empty">尚未登記收款</div>'}
+          </div>
+        </div>`;
+      if (options.edit) {
+        openFinDetailDrawer({
+          label: "編輯發票",
+          title: inv.invoiceNo || "編輯發票",
+          subtitle: `${escapeHtml(inv.customerName || "—")} · Job ID ${escapeHtml(jobId)}`,
+          badge: '<span class="tag warning">編輯中</span>',
+          tabs: [{ key: "edit", label: "編輯", html: renderInvoiceDrawerEditPanel(inv) }],
+          footerHtml: '<button type="button" class="secondary-btn" data-invoice-edit-cancel>取消</button><button type="button" class="primary-btn" data-invoice-edit-save>保存修改</button>',
+          onReady: container => bindInvoiceDrawerEdit(container, inv)
+        });
+        return;
+      }
+      openFinDetailDrawer({
+        label: "發票詳情",
+        title: inv.invoiceNo || "發票詳情",
+        subtitle: `${escapeHtml(inv.customerName || "—")} · Job ID ${escapeHtml(jobId)}`,
+        badge: statusTag,
+        tabs: [
+          { key: "basic", label: "發票資料", html: basicPanel },
+          { key: "items", label: "發票明細", html: itemsPanel },
+          { key: "payments", label: "收款記錄", html: paymentPanel }
+        ],
+        actions: [
+          { label: "更多操作", menu: [
+            { label: "複製", run: () => copyInvoice(inv.id) },
+            { label: "變更金額", run: () => openChangeAmountModal(inv.id) },
+            { label: "變更日期", run: () => openChangeDateModal(inv.id) },
+            { label: "變更數期", run: () => openChangeTermsModal(inv.id) },
+            { label: "重印", run: () => openReprintModal(inv.id) },
+            ...(inv.status === "已開具" ? [{ label: "作廢", run: () => voidInvoice(inv.id) }] : []),
+            { label: "刪除", run: () => deleteInvoice(inv.id) }
+          ] },
+          { label: "編輯", run: () => openInvoiceDetailModal(inv.id, { edit: true }) },
+          ...(inv.status === "已開具" ? [{ label: "標記收款", run: () => markAsPaid(inv.id) }] : []),
+          { label: "列印", primary: true, run: () => openPrintInvoiceModal([inv.id]) }
+        ]
       });
     }
 
@@ -23820,11 +24156,10 @@
         const q = quotations.find(item => item.id === inv.quotationId);
         return q ? q.id : (inv.quotationId || inv.jobCode || '—');
       };
-      // 收據編號自動生成為 EC + invoice no 數字部分
+      // 收據編號：EC＋年月＋四位序號（舊格式缺有效編號時按收款日期生成）
       const formatReceiptNo = (pay) => {
-        if (pay.receiptNo && pay.receiptNo.startsWith('EC')) return pay.receiptNo;
-        const invNo = (pay.invoiceId || '').replace(/\D/g, '');
-        return 'EC' + invNo.slice(-8).padStart(8, '0');
+        if (/^EC\d{8}$/.test(String(pay.receiptNo || ""))) return pay.receiptNo;
+        return generateReceiptNo(pay.paymentDate);
       };
       const payFilter = state.finPaymentFilter || {};
       const payList = payments.filter(pay => {
@@ -23855,21 +24190,20 @@
               ${payMethodOptions.map(m => `<option value="${escapeHtml(m)}" ${payFilter.method === m ? "selected" : ""}>${escapeHtml(m)}</option>`).join("")}
             </select>
           </label>
-          <label class="wo-filter-group"><span>收款日期</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>收款日期</span>
             <div class="fin-wo-range">
               <input type="date" aria-label="開始日期" value="${escapeHtml(payFilter.dateFrom || "")}" data-fin-pay-filter="dateFrom">
               <em>至</em>
               <input type="date" aria-label="結束日期" value="${escapeHtml(payFilter.dateTo || "")}" data-fin-pay-filter="dateTo">
             </div>
           </label>
-          <label class="wo-filter-group"><span>金額範圍（HKD）</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>金額範圍（HKD）</span>
             <div class="fin-wo-amount">
               <input type="number" min="0" step="1" placeholder="最低" value="${escapeHtml(payFilter.amountMin || "")}" data-fin-pay-filter="amountMin">
               <input type="number" min="0" step="1" placeholder="最高" value="${escapeHtml(payFilter.amountMax || "")}" data-fin-pay-filter="amountMax">
             </div>
           </label>
           <div class="fin-wo-actions">
-            <button class="primary-btn" data-fin-filter-apply>搜索</button>
             <button class="secondary-btn" data-fin-filter-reset="payments">重置</button>
           </div>
         </div>
@@ -23915,17 +24249,15 @@
       if (!pay) { toast("找不到收款記錄", "error"); return; }
       const inv = invoices.find(item => item.id === pay.invoiceId || item.invoiceNo === pay.invoiceId);
       const jobId = quotations.find(item => item.id === inv?.quotationId)?.id || inv?.quotationId || inv?.jobCode || "—";
-      const receiptNo = pay.receiptNo && pay.receiptNo.startsWith("EC")
+      const receiptNo = /^EC\d{8}$/.test(String(pay.receiptNo || ""))
         ? pay.receiptNo
-        : "EC" + String(pay.invoiceId || "").replace(/\D/g, "").slice(-8).padStart(8, "0");
-      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
-      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
-      openFinDetailModal({
-        title: "收款詳情",
-        body: `
-          <section class="fin-pending-detail-section">
-            <h3>收款資料</h3>
-            <div class="fin-pending-detail-grid">
+        : generateReceiptNo(pay.paymentDate);
+      const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
+      const panel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>收款資料</h4></div>
+            <div class="wo-detail-grid">
               ${field("收據編號", receiptNo)}
               ${field("發票號", pay.invoiceId)}
               ${field("Job ID", jobId)}
@@ -23933,10 +24265,17 @@
               ${field("金額", `HKD ${Number(pay.amount || 0).toLocaleString()}`)}
               ${field("收款日期", pay.paymentDate)}
               ${field("收款方式", pay.paymentMethod)}
-              ${field("For Payment of", pay.forJob || jobId)}
-              ${field("備註", pay.remark, true)}
+              ${field("For Payment of", inv?.invoiceNo || pay.invoiceId)}
+              ${field("備註", pay.remark, "full-width wo-detail-description")}
             </div>
-          </section>`,
+          </div>
+        </div>`;
+      openFinDetailDrawer({
+        label: "收款詳情",
+        title: receiptNo,
+        subtitle: `${escapeHtml(pay.customerName || "—")} · 發票 ${escapeHtml(pay.invoiceId || "—")}`,
+        badge: `<span class="tag">${escapeHtml(pay.paymentMethod || "收款")}</span>`,
+        tabs: [{ key: "basic", label: "收款資料", html: panel }],
         actions: [{ label: "列印收據", primary: true, run: () => openPrintReceiptModal(pay.id) }]
       });
     }
@@ -24025,34 +24364,50 @@
       const list = JSON.parse(localStorage.getItem("ecinfo_acct_customers")) || DEFAULT_ACCT_CUSTOMERS;
       const customer = list.find(item => String(item.id) === String(customerId));
       if (!customer) { toast("找不到客戶資料", "error"); return; }
-      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
-      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
+      const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
       const resolvedId = customer.customerId || customers.find(item =>
         (customer.customerId && item.id === customer.customerId)
         || item.nameZh === customer.name
         || item.nameEn === customer.name)?.id || "—";
-      openFinDetailModal({
-        title: "客戶檔案詳情",
-        body: `
-          <section class="fin-pending-detail-section">
-            <h3>客戶資料</h3>
-            <div class="fin-pending-detail-grid">
+      const basicPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>客戶資料</h4></div>
+            <div class="wo-detail-grid">
               ${field("Customer ID", resolvedId)}
               ${field("客戶名稱", customer.name)}
               ${field("聯絡人", customer.contact)}
               ${field("電話", customer.phone)}
               ${field("Email", customer.email)}
-              ${field("Billing Address", customer.billingAddress || customer.address, true)}
+              ${field("Billing Address", customer.billingAddress || customer.address, "full-width wo-detail-description")}
+            </div>
+          </div>
+        </div>`;
+      const shippingPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>寄送與帳務</h4></div>
+            <div class="wo-detail-grid">
               ${field("收件人", customer.recipient)}
               ${field("Attn", customer.attn)}
               ${field("客戶數期", customer.paymentTerms || "30 天")}
               ${field("寄送方式", customer.deliveryMethod || "Post（郵寄）")}
-              ${field("備註", customer.remark, true)}
+              ${field("備註", customer.remark, "full-width wo-detail-description")}
             </div>
-          </section>`,
+          </div>
+        </div>`;
+      openFinDetailDrawer({
+        label: "客戶檔案詳情",
+        title: customer.name || "客戶檔案",
+        subtitle: `Customer ID ${escapeHtml(resolvedId)}`,
+        badge: `<span class="tag">${escapeHtml(customer.paymentTerms || "30 天")}</span>`,
+        tabs: [
+          { key: "basic", label: "客戶資料", html: basicPanel },
+          { key: "shipping", label: "寄送與帳務", html: shippingPanel }
+        ],
         actions: [
-          { label: "變更", primary: true, run: () => openEditAcctCustomerModal(customer.id) },
-          { label: "刪除", run: () => deleteAcctCustomer(customer.id) }
+          { label: "刪除", run: () => deleteAcctCustomer(customer.id) },
+          { label: "變更", primary: true, run: () => openEditAcctCustomerModal(customer.id) }
         ]
       });
     }
@@ -24094,7 +24449,7 @@
               ${["生效中", "已過期"].map(s => `<option value="${s}" ${conFilter.status === s ? "selected" : ""}>${s}</option>`).join("")}
             </select>
           </label>
-          <label class="wo-filter-group"><span>合約期間</span>
+          <label class="wo-filter-group fin-wo-group-wide"><span>合約期間</span>
             <div class="fin-wo-range">
               <input type="date" aria-label="開始日期" value="${escapeHtml(conFilter.dateFrom || "")}" data-fin-con-filter="dateFrom">
               <em>至</em>
@@ -24102,7 +24457,6 @@
             </div>
           </label>
           <div class="fin-wo-actions">
-            <button class="primary-btn" data-fin-filter-apply>搜索</button>
             <button class="secondary-btn" data-fin-filter-reset="contracts">重置</button>
             <button class="primary-btn" data-add-contract>新增合約</button>
           </div>
@@ -24152,14 +24506,12 @@
       const isActive = contract.startDate <= today && contract.endDate >= today;
       const periods = generateContractBillingItems(contract) || [];
       const billed = periods.filter(item => invoices.some(inv => inv.contractId === item.contractId && inv.billingPeriod === item.billingPeriod)).length;
-      const value = v => escapeHtml(v == null || v === "" ? "—" : String(v));
-      const field = (label, content, wide = false) => `<div class="fin-pending-detail-item${wide ? " wide" : ""}"><span>${value(label)}</span><strong>${value(content)}</strong></div>`;
-      openFinDetailModal({
-        title: "保養合約詳情",
-        body: `
-          <section class="fin-pending-detail-section">
-            <h3>合約資料</h3>
-            <div class="fin-pending-detail-grid">
+      const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
+      const panel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>合約資料</h4></div>
+            <div class="wo-detail-grid">
               ${field("Job Code", contract.jobCode)}
               ${field("客戶", contract.customer)}
               ${field("金額", `HKD ${Number(contract.amount || 0).toLocaleString()}`)}
@@ -24167,13 +24519,25 @@
               ${field("結束日期", contract.endDate)}
               ${field("開單頻率", contract.frequency)}
               ${field("狀態", isActive ? "生效中" : "已過期")}
+            </div>
+          </div>
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>開票進度</h4></div>
+            <div class="wo-detail-grid">
               ${field("預生成期數", periods.length)}
               ${field("已開票期數", billed)}
             </div>
-          </section>`,
+          </div>
+        </div>`;
+      openFinDetailDrawer({
+        label: "保養合約詳情",
+        title: contract.jobCode || "保養合約",
+        subtitle: `${escapeHtml(contract.customer || "—")} · ${escapeHtml(contract.frequency || "—")}`,
+        badge: `<span class="tag ${isActive ? "success" : "warning"}">${isActive ? "生效中" : "已過期"}</span>`,
+        tabs: [{ key: "basic", label: "合約資料", html: panel }],
         actions: [
-          { label: "生成當月發票", primary: true, run: () => genContractInvoice(contract.id) },
-          { label: "變更", run: () => openEditContractModal(contract.id) }
+          { label: "變更", run: () => openEditContractModal(contract.id) },
+          { label: "生成當月發票", primary: true, run: () => genContractInvoice(contract.id) }
         ]
       });
     }
@@ -24282,7 +24646,7 @@
             const copyInvoice = {
               id: invoiceNo, invoiceNo: invoiceNo, quotationId: "", jobCode: copy.ourRef || copy.id,
               customerName: copy.customerName, amount: copy.tenderAmount || copy.amount || 0,
-              invoiceDate: invDate, dueDate: "", status: "已開具", taxRate: 0,
+              invoiceDate: invDate, dueDate: invDate, paymentTerms: "C.O.D.", status: "已開具", taxRate: 0,
               remark: copy.title || "", amountChanged: false,
               missingDocs: copyDocs.length ? copyDocs : undefined,
               missingDocsReason: copyDocs.length ? docsReason : ""
@@ -24305,8 +24669,8 @@
             const qDocs = getQuotationMissingDocs(q);
             invoices.push({
               id: invoiceNo, invoiceNo: invoiceNo, quotationId: q.id, customerName: q.customerName,
-              amount: q.tenderAmount || q.amount, invoiceDate: invDate, dueDate: "",
-              status: "已開具", taxRate: 0, remark: q.title || "", amountChanged: false,
+              amount: q.tenderAmount || q.amount, invoiceDate: invDate, dueDate: invDate,
+              paymentTerms: "C.O.D.", status: "已開具", taxRate: 0, remark: q.title || "", amountChanged: false,
               lowAmountReason: isLow ? lowReason : "",
               referenceTotal: isLow ? total : undefined,
               missingDocs: qDocs.length ? qDocs : undefined,
@@ -24320,7 +24684,7 @@
               invoices.push({
                 id: invoiceNo, invoiceNo: invoiceNo, quotationId: "", jobCode: matched.ourRef,
                 customerName: matched.customerName, amount: matched.tenderAmount,
-                invoiceDate: invDate, dueDate: "", status: "已開具", taxRate: 0,
+                invoiceDate: invDate, dueDate: invDate, paymentTerms: "C.O.D.", status: "已開具", taxRate: 0,
                 remark: matched.title, amountChanged: false,
                 contractId: matched.contractId, billingPeriod: matched.billingPeriod,
                 serviceStart: matched.serviceStart, serviceEnd: matched.serviceEnd
@@ -24373,52 +24737,72 @@
       return number.toFixed(2);
     }
 
-    /* 由發票記錄組裝列印模版資料：串接報價明細、客戶檔案與會計客戶數期 */
+    /* 發票明細：優先使用發票上已編輯的明細，否則由報價明細推導 */
+    function getInvoiceLineItems(inv) {
+      if (Array.isArray(inv.items) && inv.items.length) {
+        return inv.items.map(item => ({
+          description: String(item.description || ""),
+          unitPrice: Number(item.unitPrice || 0),
+          quantity: Number(item.quantity ?? 1),
+          amount: item.amount != null ? Number(item.amount) : Number(item.unitPrice || 0) * Number(item.quantity ?? 1)
+        }));
+      }
+      const quotation = quotations.find(item => item.id === inv.quotationId);
+      const quoteItems = (quotation && (quotation.acceptedItems || quotation.items)) || [];
+      if (quoteItems.length) {
+        return quoteItems.map(item => ({
+          description: [item.name, item.spec].filter(Boolean).join(" ")
+            + (item.location ? `\n地點：${item.location}` : ""),
+          unitPrice: Number(item.unitPrice || 0),
+          quantity: Number(item.qty ?? 1),
+          amount: item.amount != null ? Number(item.amount) : Number(item.qty || 0) * Number(item.unitPrice || 0)
+        }));
+      }
+      return [{
+        description: (quotation && quotation.title) || inv.remark || "",
+        unitPrice: Number(inv.amount || 0),
+        quantity: 1,
+        amount: Number(inv.amount || 0)
+      }];
+    }
+
+    /* 由發票記錄組裝列印模版資料：發票上編輯過的值優先，未填才回退客戶／報價資料 */
     function buildInvoicePrintData(inv) {
       const quotation = quotations.find(item => item.id === inv.quotationId);
       const customer = customers.find(c => c.nameZh === inv.customerName) || {};
       const acctCustomers = JSON.parse(localStorage.getItem('ecinfo_acct_customers')) || DEFAULT_ACCT_CUSTOMERS;
       const acct = acctCustomers.find(c => c.name === inv.customerName);
       const address = (Array.isArray(customer.addresses) && customer.addresses[0]) || {};
-      // 明細優先取報價已確認項目；沒有明細時退回單行標題，確保發票可列印
-      const quoteItems = (quotation && (quotation.acceptedItems || quotation.items)) || [];
-      const items = quoteItems.length
-        ? quoteItems.map((item, index) => ({
-            item: String(index + 1),
-            description: [item.name, item.spec].filter(Boolean).join(" ")
-              + (item.location ? `\n地點：${item.location}` : ""),
-            unitPrice: item.unitPrice,
-            quantity: item.qty,
-            amount: item.amount != null ? item.amount : Number(item.qty || 0) * Number(item.unitPrice || 0)
-          }))
-        : [{
-            item: "1",
-            description: (quotation && quotation.title) || inv.remark || "",
-            unitPrice: inv.amount,
-            quantity: 1,
-            amount: inv.amount
-          }];
+      const lineItems = getInvoiceLineItems(inv);
+      const items = lineItems.map((item, index) => ({ item: String(index + 1), ...item }));
+      const itemsTotal = lineItems.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+      const hasEditedItems = Array.isArray(inv.items) && inv.items.length > 0;
+      const total = hasEditedItems ? itemsTotal : Number(inv.amount || itemsTotal || 0);
+      const creditNoteApplied = Number(inv.creditNoteApplied || 0);
+      const billToAddress = inv.billToAddress
+        ? String(inv.billToAddress).split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+        : [address.addressZh, address.addressEn].filter(Boolean);
       return {
         invoiceNo: inv.invoiceNo || "",
         invoiceDate: formatInvoiceDate(inv.invoiceDate),
         reprint: Boolean(inv.reprintCount),
         billTo: {
-          name: customer.nameEn || inv.customerName || "",
-          address: [address.addressZh, address.addressEn].filter(Boolean)
+          name: inv.billToName || customer.nameEn || inv.customerName || "",
+          address: billToAddress
         },
         // 列印模版欄位對應：Our Customer ID＝客戶編號；Our Internal Ref.＝EC Contract No
-        customerId: customer.id || acct?.customerId || inv.customerId || "",
-        internalRef: customer.contractNo || quotation?.contractNo || quotation?.ecContractNo || acct?.contractNo || inv.ecContractNo || "",
-        // Payment Terms＝付款條款文字，只取發票上填寫的內容；不拿客戶數期或其他欄位代填
-        paymentTerms: inv.paymentTerms || "",
+        customerId: inv.customerId || customer.id || acct?.customerId || "",
+        internalRef: inv.internalRef || customer.contractNo || quotation?.contractNo || quotation?.ecContractNo || acct?.contractNo || inv.ecContractNo || "",
+        // Payment Terms＝付款條款文字，預設 C.O.D.；不拿客戶數期或其他欄位代填
+        paymentTerms: inv.paymentTerms || "C.O.D.",
         salesRepId: inv.salesRepId || "",
-        shippingMethod: "Hand Deliver",
-        shipDate: formatShortInvoiceDate(inv.invoiceDate),
-        dueDate: formatShortInvoiceDate(inv.dueDate),
+        shippingMethod: inv.shippingMethod || "Hand Deliver",
+        shipDate: formatShortInvoiceDate(inv.shipDate || inv.invoiceDate),
+        dueDate: formatShortInvoiceDate(inv.dueDate || inv.invoiceDate),
         items,
-        total: inv.amount,
-        creditNoteApplied: inv.creditNoteApplied,
-        amountNetDue: inv.amount
+        total,
+        creditNoteApplied,
+        amountNetDue: total - creditNoteApplied
       };
     }
 
@@ -24510,7 +24894,7 @@
           <div class="ec-inv-sign">
             <div class="l1">For and on behalf of</div>
             <div class="l2">EC INFOTECH LIMITED</div>
-            <div class="seal">公司印章</div>
+            <div class="ec-inv-sign-line"></div>
           </div>
 
           <div class="ec-inv-footer">
@@ -24534,53 +24918,67 @@
       `;
     }
 
-    // 列印發票：以紙質發票模版自動填充發票信息，僅輸出 A4 發票頁
+    // 取出發票模版樣式（主頁面樣式表中的發票列印區段）
+    function invoicePrintStyles() {
+      const styleText = [...document.querySelectorAll("style")].map(node => node.textContent || "").join("\n");
+      const start = styleText.indexOf("/* ===== 會計發票列印模版");
+      if (start < 0) return "";
+      const end = styleText.indexOf("/* 統一清單表格", start);
+      return end > start ? styleText.slice(start, end) : styleText.slice(start);
+    }
+
+    // 列印發票：以紙質發票模版填充，使用與報價一致的 iframe 預覽（接近 A4 原尺寸）
     function openPrintInvoiceModal(invoiceIds) {
       const targetInvoices = invoices.filter(inv => invoiceIds.includes(inv.id) || invoiceIds.includes(inv.invoiceNo));
       if (targetInvoices.length === 0) { toast("找不到對應發票", "error"); return; }
-      // 每張發票一頁，先統一渲染，供列印與預覽共用
-      const pageHtmlList = targetInvoices.map(inv => renderInvoicePrintPage(buildInvoicePrintData(inv)));
-      // 列印用根節點：屏幕隱藏，列印時只輸出此區域，避免把整個系統介面印出來
-      let printRoot = document.getElementById("ec-inv-print-root");
-      if (!printRoot) {
-        printRoot = document.createElement("div");
-        printRoot.id = "ec-inv-print-root";
-        document.body.appendChild(printRoot);
-      }
-      printRoot.innerHTML = pageHtmlList.join("");
-      const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
-      modal.innerHTML = `
-        <div class="um-modal" style="max-width:760px;">
-          <div class="um-modal-head"><h2>列印發票</h2><button class="um-modal-close" data-close-modal>×</button></div>
-          <div style="padding:18px 24px;max-height:62vh;overflow:auto;">
-            <p style="color:var(--muted);font-size:13px;margin:0 0 14px;">已按發票記錄自動填充 ${targetInvoices.length} 張發票（客戶、報價明細、金額、日期及客戶數期）。預覽為縮小顯示，實際列印為 A4 原尺寸。</p>
-            <div class="ec-inv-preview-wrap">
-              ${pageHtmlList.map(html => `<div class="ec-inv-scaler">${html}</div>`).join("")}
+      const pagesHtml = targetInvoices.map(inv => renderInvoicePrintPage(buildInvoicePrintData(inv))).join("");
+      const printHtml = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><title>發票列印</title>
+        <style>
+          ${invoicePrintStyles()}
+          html, body { margin:0; padding:0; background:#e9edf2; }
+          body { padding:16px 0 24px; }
+          .ec-inv-page { margin:0 auto 16px; box-shadow:0 2px 10px rgba(0,0,0,.18); }
+          @media print {
+            body { background:#fff; padding:0; }
+            .ec-inv-page { margin:0; box-shadow:none; page-break-after:always; break-after:page; }
+            .ec-inv-page:last-child { page-break-after:auto; break-after:auto; }
+            @page { size:A4 portrait; margin:0; }
+          }
+        </style></head><body>${pagesHtml}</body></html>`;
+      const existing = document.querySelector("[data-invoice-print-preview]");
+      if (existing) existing.remove();
+      const overlay = document.createElement("div");
+      overlay.className = "quotation-print-preview-overlay";
+      overlay.dataset.invoicePrintPreview = "true";
+      overlay.innerHTML = `
+        <div class="quotation-print-preview" role="dialog" aria-modal="true" aria-label="發票列印預覽">
+          <div class="quotation-print-preview-head">
+            <h2>發票預覽 · ${targetInvoices.length} 張</h2>
+            <div class="quotation-print-preview-actions">
+              <button class="primary-btn" type="button" data-invoice-print-execute>列印／另存 PDF</button>
+              <button class="wo-drawer-close" type="button" data-invoice-print-close aria-label="關閉" title="關閉">×</button>
             </div>
           </div>
-          <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
-            <button type="button" class="ghost-btn" data-close-modal>取消</button>
-            <button type="button" class="primary-btn" id="ecInvPrintBtn">列印</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      // 關閉時清除列印內容並還原列印狀態
-      const closeModal = () => {
-        document.body.classList.remove("ec-inv-printing");
-        printRoot.innerHTML = "";
-        modal.remove();
+          <iframe class="quotation-print-preview-frame" title="發票列印預覽"></iframe>
+        </div>`;
+      document.body.appendChild(overlay);
+      document.body.classList.add("modal-open");
+      const frame = overlay.querySelector(".quotation-print-preview-frame");
+      frame.srcdoc = printHtml;
+      const close = () => {
+        overlay.remove();
+        if (!document.querySelector(".um-modal-overlay, .quotation-print-preview-overlay")) {
+          document.body.classList.remove("modal-open");
+        }
       };
-      modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", closeModal));
-      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-      modal.querySelector("#ecInvPrintBtn").addEventListener("click", () => {
-        const restore = () => document.body.classList.remove("ec-inv-printing");
-        window.addEventListener("afterprint", restore, { once: true });
-        document.body.classList.add("ec-inv-printing");
-        window.print();
-        restore();
+      overlay.querySelector("[data-invoice-print-close]").addEventListener("click", close);
+      overlay.querySelector("[data-invoice-print-execute]").addEventListener("click", () => {
+        const printWindow = frame.contentWindow;
+        if (!printWindow) { toast("列印預覽尚未準備完成，請稍後再試", "error"); return; }
+        printWindow.focus();
+        printWindow.print();
       });
+      overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
     }
 
     // 變更客戶數期模態框
@@ -24749,46 +25147,122 @@
     }
 
     // 列印收據模態框（參考 PDF 第 4 頁收據樣式，收據編號自動生成 EC + invoice no）
+    // 收據列印：依紙樣模版輸出 A4 收據，資料全部取自收款記錄
     function openPrintReceiptModal(payId) {
       const pay = payments.find(p => p.id === payId);
       if (!pay) return;
       const inv = invoices.find(i => i.id === pay.invoiceId || i.invoiceNo === pay.invoiceId);
-      const jobId = inv ? (quotations.find(q => q.id === inv.quotationId)?.id || inv.quotationId || inv.jobCode || '—') : '—';
-      // 收據編號自動生成為 EC + invoice no 數字部分
-      const invNo = (pay.invoiceId || '').replace(/\D/g, '');
-      const receiptNo = (pay.receiptNo && pay.receiptNo.startsWith('EC')) ? pay.receiptNo : 'EC' + invNo.slice(-8).padStart(8, '0');
-      const modal = document.createElement("div");
-      modal.className = "um-modal-overlay";
-      modal.innerHTML = `
-        <div class="um-modal" style="max-width:640px;">
-          <div class="um-modal-head"><h2>列印收據</h2><button class="um-modal-close" data-close-modal>×</button></div>
-          <div style="padding:20px 24px;max-height:60vh;overflow:auto;">
-            <div class="fin-receipt-preview">
-              <div class="fin-receipt-header">
-                <strong>EC Infotech Limited</strong>
-                <span>Unit D, 3/Fl., Block 2, Camel Paint Building, 62 Hoi Yuen Road, Kwun Tong, Kowloon, Hong Kong</span>
-                <span>Tel: 2876 2990 · Fax: 3101 0616</span>
-              </div>
-              <div class="fin-receipt-body">
-                <div class="fin-receipt-row"><span><strong>To:</strong> ${pay.customerName}</span><span><strong>Date:</strong> ${pay.paymentDate}</span></div>
-                <div class="fin-receipt-row"><span><strong>Receipt Number:</strong> ${receiptNo}</strong></span><span><strong>For Payment of:</strong> ${pay.forJob || jobId}</span></div>
-                <h3 style="text-align:center;margin:14px 0 8px;letter-spacing:1px;">OFFICIAL RECEIPT</h3>
-                <p style="margin:0 0 8px;font-size:13px;color:#526176;">We hereby acknowledge receipt of ${pay.paymentMethod === 'Cheque' || pay.paymentMethod === '支票' ? 'cheque' : 'cash'} in Hong Kong Dollars from,</p>
-                <div class="fin-receipt-row"><span><strong>Received From:</strong> ${pay.customerName}</span></div>
-                <div class="fin-receipt-row"><strong>In the Amount of: HK$${pay.amount.toLocaleString()}</strong></div>
-                ${(pay.paymentMethod === 'Cheque' || pay.paymentMethod === '支票') ? `<div class="fin-receipt-row"><span><strong>Cheque No.:</strong> ${pay.chequeNo || '—'}</span></div>` : ''}
-                <div class="fin-receipt-row"><span>On Behalf of EC InfoTech Limited</span></div>
-              </div>
+      const jobId = inv ? (quotations.find(q => q.id === inv.quotationId)?.id || inv.quotationId || inv.jobCode || "—") : "—";
+      const acctCustomers = JSON.parse(localStorage.getItem("ecinfo_acct_customers")) || DEFAULT_ACCT_CUSTOMERS;
+      const acct = acctCustomers.find(c => c.name === pay.customerName);
+      const customer = customers.find(c => c.nameZh === pay.customerName || c.nameEn === pay.customerName);
+      const receiptNo = /^EC\d{8}$/.test(String(pay.receiptNo || ""))
+        ? pay.receiptNo
+        : generateReceiptNo(pay.paymentDate);
+      const fmtDate = value => {
+        const date = new Date(`${value || ""}T12:00:00`);
+        if (isNaN(date.getTime())) return value || "";
+        return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear()}`;
+      };
+      const addressLines = String(acct?.billingAddress || customer?.addresses?.[0]?.addressZh || customer?.addresses?.[0]?.address || "")
+        .split(/\r?\n|,|，/).map(line => line.trim()).filter(Boolean);
+      const attn = acct?.attn || acct?.recipient || "";
+      const method = String(pay.paymentMethod || "");
+      const chequeText = /支票|cheque/i.test(method)
+        ? (pay.chequeNo || "Cheque")
+        : /現金|cash/i.test(method) ? "Cash"
+        : /銀行|轉賬|转账|bank/i.test(method) ? (pay.chequeNo || "Bank Transfer")
+        : (pay.chequeNo || method || "");
+      const amountText = `HK$${Number(pay.amount || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const escape = value => escapeHtml(value == null ? "" : String(value));
+      const printHtml = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><title>收據列印 · ${escape(receiptNo)}</title>
+        <style>
+          html, body { margin:0; padding:0; background:#e9edf2; }
+          body { padding:16px 0 24px; font-family:"Times New Roman","Microsoft JhengHei",sans-serif; }
+          .ec-receipt-page { position:relative; width:210mm; min-height:297mm; box-sizing:border-box; padding:16mm 20mm 20mm; margin:0 auto 16px; background:#fff; color:#111; font-size:12pt; box-shadow:0 2px 10px rgba(0,0,0,.18); }
+          .ec-receipt-top { display:flex; align-items:flex-end; justify-content:space-between; gap:8mm; border-bottom:1px solid #111; padding-bottom:3mm; }
+          .ec-receipt-brand { display:flex; align-items:center; gap:4mm; }
+          .ec-receipt-brand img { width:22mm; display:block; }
+          .ec-receipt-brand span { font-size:20pt; font-weight:700; letter-spacing:.4pt; }
+          .ec-receipt-meta { text-align:right; font-size:11pt; line-height:1.7; white-space:nowrap; }
+          .ec-receipt-to { margin-top:12mm; font-size:11.5pt; line-height:1.55; }
+          .ec-receipt-to .name { font-weight:600; }
+          .ec-receipt-attn { margin-top:5mm; font-size:11.5pt; }
+          .ec-receipt-title { margin:14mm 0 10mm; text-align:center; font-size:20pt; font-weight:700; letter-spacing:1pt; text-decoration:underline; }
+          .ec-receipt-intro { margin:0 0 10mm; font-size:11.5pt; }
+          .ec-receipt-lines { display:flex; flex-direction:column; gap:8mm; font-size:12pt; }
+          .ec-receipt-lines .line { display:flex; align-items:baseline; gap:3mm; }
+          .ec-receipt-lines .k { width:44mm; flex:none; }
+          .ec-receipt-lines .v { flex:1; border-bottom:1px solid #111; padding:0 2mm 1mm; min-height:6mm; }
+          .ec-receipt-foot { margin-top:22mm; font-size:10.5pt; line-height:1.6; }
+          @media print {
+            body { background:#fff; padding:0; }
+            .ec-receipt-page { margin:0; box-shadow:none; }
+            @page { size:A4 portrait; margin:0; }
+          }
+        </style></head><body>
+        <div class="ec-receipt-page">
+          <div class="ec-receipt-top">
+            <div class="ec-receipt-brand"><img src="logo_ecinfo.svg" alt="EC InfoTech Limited"><span>EC Infotech Limited</span></div>
+            <div class="ec-receipt-meta">
+              <div>Date: ${escape(fmtDate(pay.paymentDate))}</div>
+              <div>Receipt Number: ${escape(receiptNo)}</div>
             </div>
           </div>
-          <div style="display:flex;gap:10px;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border);background:var(--bg);">
-            <button type="button" class="primary-btn" onclick="window.print()">列印</button>
+          <div class="ec-receipt-to">
+            <div class="name">To: ${escape(pay.customerName)}</div>
+            ${addressLines.map(line => `<div>${escape(line)}</div>`).join("")}
+          </div>
+          ${attn ? `<div class="ec-receipt-attn">Attn: ${escape(attn)}</div>` : ""}
+          <h1 class="ec-receipt-title">OFFICIAL RECEIPT</h1>
+          <p class="ec-receipt-intro">We hereby acknowledge receipt of cheque in Hong Kong Dollars from,</p>
+          <div class="ec-receipt-lines">
+            <div class="line"><span class="k">Received From :</span><span class="v">${escape(pay.customerName)}</span></div>
+            <div class="line"><span class="k">In the Amount of :</span><span class="v">${escape(amountText)}</span></div>
+            <div class="line"><span class="k">Cheque No.:</span><span class="v">${escape(chequeText)}</span></div>
+            <div class="line"><span class="k">For Payment of:</span><span class="v">${escape(inv?.invoiceNo || pay.invoiceId || "")}</span></div>
+          </div>
+          <div class="ec-receipt-foot">
+            <div>On Behalf of EC InfoTech Limited</div>
+            <div>Unit D, 3/Fl., Block 2, Camel Paint Building, 62 Hoi Yuen Road, Kwun Tong, Kowloon, Hong Kong</div>
+            <div>Tel: 2876 2990　Fax: 3101 0616</div>
           </div>
         </div>
-      `;
-      document.body.appendChild(modal);
-      modal.querySelectorAll("[data-close-modal]").forEach(b => b.addEventListener("click", () => modal.remove()));
-      modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+        </body></html>`;
+      const existing = document.querySelector("[data-receipt-print-preview]");
+      if (existing) existing.remove();
+      const overlay = document.createElement("div");
+      overlay.className = "quotation-print-preview-overlay";
+      overlay.dataset.receiptPrintPreview = "true";
+      overlay.innerHTML = `
+        <div class="quotation-print-preview" role="dialog" aria-modal="true" aria-label="收據列印預覽">
+          <div class="quotation-print-preview-head">
+            <h2>收據預覽 · ${escape(receiptNo)}</h2>
+            <div class="quotation-print-preview-actions">
+              <button class="primary-btn" type="button" data-receipt-print-execute>列印／另存 PDF</button>
+              <button class="wo-drawer-close" type="button" data-receipt-print-close aria-label="關閉" title="關閉">×</button>
+            </div>
+          </div>
+          <iframe class="quotation-print-preview-frame" title="收據列印預覽"></iframe>
+        </div>`;
+      document.body.appendChild(overlay);
+      document.body.classList.add("modal-open");
+      const frame = overlay.querySelector(".quotation-print-preview-frame");
+      frame.srcdoc = printHtml;
+      const close = () => {
+        overlay.remove();
+        if (!document.querySelector(".um-modal-overlay, .quotation-print-preview-overlay")) {
+          document.body.classList.remove("modal-open");
+        }
+      };
+      overlay.querySelector("[data-receipt-print-close]").addEventListener("click", close);
+      overlay.querySelector("[data-receipt-print-execute]").addEventListener("click", () => {
+        const printWindow = frame.contentWindow;
+        if (!printWindow) { toast("列印預覽尚未準備完成，請稍後再試", "error"); return; }
+        printWindow.focus();
+        printWindow.print();
+      });
+      overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
     }
 
     // 新增會計客戶檔案模態框
@@ -24958,7 +25432,8 @@
       if (!c) return;
       const currentMonth = new Date().toISOString().slice(0, 7);
       toast(`已為合約 ${c.jobCode} 生成 ${currentMonth} 月結待開發票，請至待開票分頁查看。`, "success");
-      state.finTab = "pending";
+      state.finTab = "invoices";
+      state.finInvoiceTab = "pending";
       render();
     }
 
@@ -27604,21 +28079,36 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       });
     }
 
-    // 生成發票號：YYYYMMDD-NNN（年月日+當日遞增序號），依現有發票號避免撞號
-    // 會計部會議（0928）：發票號用「年日+遞增」規則，序號隨日期自然歸零
+    // 生成發票號：YYMM＋四位當月遞增序號（2026 年 10 月第 1 張 → 26100001）
+    // 2026-11-17 客戶確定：預設格式為「年＋月＋序號」，序號按月歸零
     function generateInvoiceNo() {
       const d = new Date();
-      const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
-      const prefix = `${ymd}-`;
+      const prefix = `${String(d.getFullYear()).slice(-2)}${String(d.getMonth() + 1).padStart(2, '0')}`;
       let maxSeq = 0;
       invoices.forEach(inv => {
-        const no = inv.invoiceNo || "";
-        if (no.startsWith(prefix)) {
-          const seq = parseInt(no.slice(prefix.length), 10);
+        const no = String(inv.invoiceNo || "");
+        if (/^\d{8}$/.test(no) && no.startsWith(prefix)) {
+          const seq = parseInt(no.slice(4), 10);
           if (!isNaN(seq) && seq > maxSeq) maxSeq = seq;
         }
       });
-      return `${prefix}${String(maxSeq + 1).padStart(3, '0')}`;
+      return `${prefix}${String(maxSeq + 1).padStart(4, '0')}`;
+    }
+
+    // 生成收據號：EC＋年月＋四位當月遞增序號（2026 年 6 月第一張 → EC26060001）
+    function generateReceiptNo(paymentDate) {
+      const date = new Date(`${paymentDate || ""}T12:00:00`);
+      const base = isNaN(date.getTime()) ? new Date() : date;
+      const prefix = `EC${String(base.getFullYear()).slice(-2)}${String(base.getMonth() + 1).padStart(2, "0")}`;
+      let maxSeq = 0;
+      payments.forEach(pay => {
+        const no = String(pay.receiptNo || "");
+        if (/^EC\d{8}$/.test(no) && no.startsWith(prefix)) {
+          const seq = parseInt(no.slice(6), 10);
+          if (!isNaN(seq) && seq > maxSeq) maxSeq = seq;
+        }
+      });
+      return `${prefix}${String(maxSeq + 1).padStart(4, "0")}`;
     }
 
     // 開具發票
@@ -27692,7 +28182,8 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       const defaultInvoiceNo = generateInvoiceNo();
       const defaultDate = new Date().toISOString().slice(0, 10);
-      const defaultDueDate = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      // 2026-11-17 客戶要求：到期日預設為開票日期當日
+      const defaultDueDate = defaultDate;
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -27723,6 +28214,10 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
                 <div class="field">
                   <label>發票金額 (HKD)</label>
                   <input value="${base.amount.toFixed(2)}" readonly style="background:var(--bg);text-align:right;">
+                </div>
+                <div class="field">
+                  <label>付款條款（Payment Terms）</label>
+                  <input name="paymentTerms" value="C.O.D.">
                 </div>
                 <div class="field">
                   <label>付款方式</label>
@@ -27785,6 +28280,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           amount: base.amount,
           invoiceDate: formData.get("invoiceDate"),
           dueDate: formData.get("dueDate"),
+          paymentTerms: String(formData.get("paymentTerms") || "").trim() || "C.O.D.",
           status: '已開具',
           invoiceNo: formData.get("invoiceNo"),
           taxRate: 0,
@@ -27826,7 +28322,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (!invoice) return;
 
       const defaultDate = new Date().toISOString().slice(0, 10);
-      const defaultReceiptNo = `REC-2026-${String(payments.length + 1).padStart(3, '0')}`;
+      const defaultReceiptNo = generateReceiptNo(defaultDate);
       const modal = document.createElement("div");
       modal.className = "um-modal-overlay";
       modal.innerHTML = `
@@ -30075,6 +30571,17 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         }
         render();
       }));
+
+      // 會計管理抽屜二級菜單點擊
+      document.querySelectorAll("[data-fin-section]").forEach(btn => btn.addEventListener("click", () => {
+        state.finTab = btn.dataset.finSection;
+        state.page = "finance";
+        state.view = "pc";
+        state.isFinanceExpanded = true;
+        state.finPage = 1;
+        state.finSelectedIds = [];
+        render();
+      }));
       
       document.querySelectorAll("[data-new-ticket]").forEach(btn => btn.addEventListener("click", () => {
         if (state.role !== "CS" && state.role !== "BOSS") {
@@ -31386,9 +31893,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
 
       // 備貨管理：開啟備貨單詳情抽屜
       document.querySelectorAll("[data-sp-view]").forEach(btn => btn.addEventListener("click", () => showSpDrawer(btn.dataset.spView)));
-      // 會計管理 Tab 切換
-      document.querySelectorAll("[data-fin-tab]").forEach(btn => btn.addEventListener("click", () => {
-        state.finTab = btn.dataset.finTab;
+      // 發票管理內分頁切換（待開票／已開票）
+      document.querySelectorAll("[data-fin-invoice-tab]").forEach(btn => btn.addEventListener("click", () => {
+        state.finInvoiceTab = btn.dataset.finInvoiceTab;
         state.finPage = 1;
         state.finSelectedIds = [];
         render();
@@ -31411,11 +31918,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
           }
         });
       });
-      document.querySelectorAll("[data-fin-filter-search]").forEach(btn => btn.addEventListener("click", () => {
-        state.finPage = 1;
-        state.finSelectedIds = [];
-        render();
-      }));
       // 清除篩選
       document.querySelectorAll("[data-fin-filter-clear]").forEach(btn => btn.addEventListener("click", () => {
         state.finFilter = { dateFrom: "", dateTo: "", customer: "", type: "", amountMin: "", amountMax: "" };
@@ -31465,7 +31967,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       bindFinFieldFilters("[data-fin-inv-filter]", "data-fin-inv-filter", "finInvoiceFilter", "invoices");
       bindFinFieldFilters("[data-fin-pay-filter]", "data-fin-pay-filter", "finPaymentFilter", "payments");
       bindFinFieldFilters("[data-fin-con-filter]", "data-fin-con-filter", "finContractFilter", "contracts");
-      document.querySelectorAll("[data-fin-filter-apply]").forEach(btn => btn.addEventListener("click", () => render()));
       document.querySelectorAll("[data-fin-filter-reset]").forEach(btn => btn.addEventListener("click", () => {
         const tab = btn.dataset.finFilterReset;
         if (tab === "invoices") state.finInvoiceFilter = {};
@@ -31520,11 +32021,6 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-fin-pending-detail]").forEach(btn => btn.addEventListener("click", () => openFinPendingDetail(btn.dataset.finPendingDetail)));
       // 發票詳情
       document.querySelectorAll("[data-fin-invoice-detail]").forEach(btn => btn.addEventListener("click", () => openInvoiceDetailModal(btn.dataset.finInvoiceDetail)));
-      // 發票列表「更多」下拉：所有操作（編輯／複製／變更／重印／列印／收款／作廢／刪除）
-      document.querySelectorAll("[data-fin-more-trigger]").forEach(btn => btn.addEventListener("click", event => {
-        event.stopPropagation();
-        openInvoiceMoreMenu(btn, btn.dataset.finMoreTrigger);
-      }));
       // 收款詳情
       document.querySelectorAll("[data-fin-payment-detail]").forEach(btn => btn.addEventListener("click", () => openPaymentDetailModal(btn.dataset.finPaymentDetail)));
       // 會計客戶詳情
@@ -31533,8 +32029,7 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       document.querySelectorAll("[data-fin-contract-detail]").forEach(btn => btn.addEventListener("click", () => openContractDetailModal(btn.dataset.finContractDetail)));
       // 批量開具發票（手動提供第一張發票號，餘下自動順序生成）
       document.querySelectorAll("[data-fin-batch-invoice]").forEach(btn => btn.addEventListener("click", openBatchInvoiceModal));
-      // 發票完整編輯／複製／刪除／作廢
-      document.querySelectorAll("[data-edit-invoice]").forEach(btn => btn.addEventListener("click", () => openInvoiceEditModal(btn.dataset.editInvoice)));
+      // 發票複製／刪除／作廢
       document.querySelectorAll("[data-copy-invoice]").forEach(btn => btn.addEventListener("click", () => copyInvoice(btn.dataset.copyInvoice)));
       document.querySelectorAll("[data-delete-invoice]").forEach(btn => btn.addEventListener("click", () => deleteInvoice(btn.dataset.deleteInvoice)));
       document.querySelectorAll("[data-void-invoice]").forEach(btn => btn.addEventListener("click", () => voidInvoice(btn.dataset.voidInvoice)));

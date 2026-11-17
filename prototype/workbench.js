@@ -54,15 +54,31 @@
 
   function cs() {
     const all = currentVisibleTickets(), open = all.filter(t => !terminal(t));
-    const handed = t => isValidSupervisorName(t.tl) || Boolean(t.master || t.quotationRequested || t.quotationId || t.needsQuotation);
-    const mine = open.filter(t => own(t.owner) && !handed(t) && !["已解决", "已解決"].includes(t.handlingMethod));
-    const follow = open.filter(handed), urgent = open.filter(t => t.urgent);
     const logs = currentVisibleCallLogs();
+    const counts = Object.fromEntries(STATUSES.map(s => [s, all.filter(t => t.status === s).length]));
+    const dashStatuses = ["待分派", "待確認", "待處理", "處理中", "已完成", "已取消"];
+    const statCards = `<div class="dash-stat-grid">
+      <button type="button" class="dash-stat dash-stat-total" data-dashboard-metric="全部"><span class="dash-stat-label">CALL總數</span><span class="dash-stat-value">${number(all.length)}</span></button>
+      ${dashStatuses.map(s => `<button type="button" class="dash-stat" data-tone="${statusTone(s) || 'neutral'}" data-dashboard-metric="${e(s)}"><span class="dash-stat-label">${e(s)}</span><span class="dash-stat-value">${number(counts[s] || 0)}</span></button>`).join("")}
+    </div>`;
+    const workTable = `<div class="dash-table-wrap"><table class="dash-table">
+      <thead><tr><th>工單編號</th><th>客戶名稱</th><th>內容摘要</th><th>狀態</th><th>負責人</th><th>更新時間</th><th>操作</th></tr></thead>
+      <tbody>${open.length ? byUpdate(open).slice(0, 10).map(t => `<tr>
+        <td>${route(t.id, { kind: "call", id: t.id })}</td>
+        <td>${e(t.customer || (customerFor(t) && customerFor(t).nameZh) || "—")}</td>
+        <td class="dash-desc" title="${e(t.desc || t.rejectReason || "")}">${e(t.desc || t.rejectReason || "—")}</td>
+        <td>${badge(t.status)}</td>
+        <td>${e(t.owner || t.master || t.tl || "—")}</td>
+        <td>${e(t.updatedAt || t.createdAt || "—")}</td>
+        <td>${route("查看", { kind: "call", id: t.id }, "wb-link")}</td>
+      </tr>`).join("") : '<tr><td colspan="7" class="wb-empty">暫無未結 CALL</td></tr>'}</tbody>
+    </table></div>`;
     return `<div class="wb-intake"><div><h2>先受理，再交接</h2><p>以合同與客戶定位需求，讓每次來電都有去向。</p></div>${route("新增 CALL", { kind: "newCall", page: "workorder" }, "wb-primary")}</div>
-      ${stats([["本人待跟進", mine.length, "依現有負責人標註"], ["已交接跟蹤", follow.length, "由主管、師傅或報價接續"], ["緊急 CALL", urgent.length, "工作範圍內的未結記錄"]])}
-      <div class="wb-grid wb-cs-main"><div>${group("我的待跟進", "僅列本人標註且尚未交接的 CALL", taskRows(mine), route("CALL 列表", { page: "workorder", view: "calls" }))}${group("已交接工作", "業務跟蹤，不計入本人待辦", taskRows(byUpdate(follow), { limit: 3 }), route("查看全部", { page: "workorder", view: "calls" }))}</div>
-      <aside>${group("客戶與合同", "查閱現有客戶資料與歷史 CALL", `<form class="wb-search" data-wb-customer-search><label for="wbCustomerQuery">合同編號或客戶名稱</label><input id="wbCustomerQuery" name="query" value="${e(customerQuery)}" placeholder="輸入合同編號或客戶名稱"><button class="wb-primary" type="submit">查詢客戶</button></form>${customerMatches()}${tools([["客戶列表", { page: "workorder", view: "customers" }], ["全部來電記錄", { kind: "callLogs" }]])}`)}${tbd("待客戶回覆 · TBD", "目前沒有可獨立核算的回覆狀態，請在原 CALL 資料中跟進。")}
-      ${group("最近來電", "保留來電決策與原始記錄", logs.length ? `<div class="wb-call-log">${logs.slice(0, 4).map(l => `<article>${badge(l.decision)}<strong>${e(l.customer || "來電")}</strong><p>${e(l.content || "無補充內容")}</p><small>${e(l.time || "時間未記錄")}</small></article>`).join("")}</div>` : empty("暫無來電記錄"), route("全部來電", { kind: "callLogs" }))}</aside></div>${activity([...mine, ...follow].filter(t => own(t.owner)), t => ({ kind: "call", id: t.id }))}`;
+      ${statCards}
+      <div class="wb-grid wb-cs-main"><div>${group("CALL 工作清單", "未結 CALL 的工單編號、客戶、內容摘要與狀態", workTable, route("更多篩選", { page: "workorder", view: "calls" }))}</div>
+      <aside>${group("客戶服務", "合同／客戶查詢、客戶列表與全部來電記錄", `<form class="wb-search" data-wb-customer-search><label for="wbCustomerQuery">合同編號或客戶名稱</label><input id="wbCustomerQuery" name="query" value="${e(customerQuery)}" placeholder="輸入合同編號或客戶名稱"><button class="wb-primary" type="submit">查詢客戶</button></form>${customerMatches()}${tools([["客戶列表", { page: "workorder", view: "customers" }], ["全部來電記錄", { kind: "callLogs" }]])}`)}${tbd("待客戶回覆 · TBD", "目前沒有可獨立核算的回覆狀態，請在原 CALL 資料中跟進。")}
+      ${group("最近來電", "保留來電決策與原始記錄", logs.length ? `<div class="wb-call-log">${logs.slice(0, 4).map(l => `<article>${badge(l.decision)}<strong>${e(l.customer || "來電")}</strong><p>${e(l.content || "無補充內容")}</p><small>${e(l.time || "時間未記錄")}</small></article>`).join("")}</div>` : empty("暫無來電記錄"), route("全部來電", { kind: "callLogs" }))}</aside></div>
+      ${activity(all, t => ({ kind: "call", id: t.id }))}`;
   }
 
   function supervisor() {
