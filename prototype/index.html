@@ -3005,6 +3005,13 @@
     .um-user-name strong { font-size: 13px; }
     .um-user-name span { font-size: 11px; color: var(--muted); }
     .um-detail-panel { display: grid; gap: 14px; align-content: start; }
+    /* 用戶管理：與其他列表頁一致，凍結篩選與分頁，僅表格滾動並固定表頭 */
+    .um-list-panel.um-list-freeze { display: flex; flex-direction: column; gap: 12px; height: calc(100vh - 180px); overflow: hidden; min-height: 0; }
+    .um-list-panel.um-list-freeze > .wo-filters,
+    .um-list-panel.um-list-freeze > .um-pagination { flex: 0 0 auto; }
+    .um-list-panel.um-list-freeze > .data-table-wrap { flex: 1 1 auto; min-height: 0; overflow: auto; }
+    .um-list-panel.um-list-freeze > .data-table-wrap thead th { position: sticky; top: 0; z-index: 2; background: var(--panel-soft); box-shadow: inset 0 -1px 0 var(--line); }
+    @media (max-width:860px) { .um-list-panel.um-list-freeze { height: auto; overflow: visible; } }
     .um-detail-header {
       display: flex; align-items: center; gap: 14px;
       padding-bottom: 14px; border-bottom: 1px solid var(--line);
@@ -3090,6 +3097,34 @@
     }
     .um-form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .um-form-grid .wide { grid-column: 1 / -1; }
+
+    /* ===== 分拆發票 ===== */
+    .split-modal { width: min(760px, 94vw); }
+    .split-summary {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;
+      background: var(--panel-soft, #f6f8fb); border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+    }
+    .split-summary div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .split-summary span { font-size: 11px; color: var(--muted); }
+    .split-summary strong { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .split-summary div:last-child strong { white-space: normal; line-height: 1.4; }
+    .split-section { border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 4px; margin-bottom: 14px; }
+    .split-section > h3 { margin: 0 0 10px; font-size: 13px; }
+    .split-hint { font-size: 12px; color: var(--muted); line-height: 1.7; margin: 2px 0 8px; }
+    .split-preview { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .split-preview-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 10px 14px; background: var(--panel-soft, #f6f8fb); font-size: 12px;
+    }
+    .split-preview-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .split-preview-table th, .split-preview-table td { padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; }
+    .split-preview-table .num { text-align: right; }
+    .split-preview-wrap { max-height: 190px; overflow: auto; }
+    .split-diff { padding: 10px 14px; font-size: 12px; border-top: 1px solid var(--line); background: var(--panel-soft, #f6f8fb); color: var(--muted); }
+    .split-diff.is-warning { background: var(--warning-soft, #fff7e6); color: var(--warning-ink, #8a5a00); }
+    .split-diff.is-error { background: var(--danger-soft, #fdecec); color: var(--danger); }
+    @media (max-width: 720px) { .split-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
     /* ===== Dictionary Management Module ===== */
     .dm-modal-overlay {
@@ -3182,6 +3217,16 @@
     .dm-drawer-body { flex: 1; overflow-y: auto; padding: 24px; }
     .dm-drawer-body::-webkit-scrollbar { width: 6px; }
     .dm-drawer-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+    /* 字典管理：仿 CALL 管理，凍結分類／篩選與分頁，僅表格區域滾動並固定表頭 */
+    .dm-list-panel.dm-list-freeze { display: flex; flex-direction: column; gap: 12px; height: calc(100vh - 180px); overflow: hidden; min-height: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 16px; }
+    .dm-list-panel.dm-list-freeze > .dm-filter-block,
+    .dm-list-panel.dm-list-freeze > .um-pagination { flex: 0 0 auto; }
+    .dm-list-panel.dm-list-freeze > .data-table-wrap { flex: 1 1 auto; min-height: 0; overflow: auto; }
+    .dm-list-panel.dm-list-freeze > .data-table-wrap thead th { position: sticky; top: 0; z-index: 2; background: var(--panel-soft); box-shadow: inset 0 -1px 0 var(--line); }
+    .dm-filter-block { display: flex; flex-direction: column; gap: 10px; }
+    .dm-tabs { margin-bottom: 0; }
+    .dm-data-table { table-layout: fixed; width: 100%; min-width: 0; }
+    @media (max-width: 860px) { .dm-list-panel.dm-list-freeze { height: auto; overflow: visible; } }
 
     /* Form styles for drawer */
     .form-row {
@@ -5532,6 +5577,13 @@
     }
     .cm-data-table th:last-child { z-index: 2; background: var(--panel-soft); }
     .cm-data-table tbody tr:hover > td:last-child:not([colspan]) { background: var(--panel-soft); }
+    /* 客戶管理：仿 CALL 管理，凍結篩選與分頁，僅表格區域滾動並固定表頭 */
+    .cm-list-panel.cm-list-freeze { display: flex; flex-direction: column; gap: 12px; height: calc(100vh - 180px); overflow: hidden; min-height: 0; }
+    .cm-list-panel.cm-list-freeze > .cm-data-filters,
+    .cm-list-panel.cm-list-freeze > .um-pagination { flex: 0 0 auto; }
+    .cm-list-panel.cm-list-freeze > .data-table-wrap { flex: 1 1 auto; min-height: 0; overflow: auto; }
+    .cm-list-panel.cm-list-freeze > .data-table-wrap thead th { position: sticky; top: 0; z-index: 3; background: var(--panel-soft); box-shadow: inset 0 -1px 0 var(--line); }
+    @media (max-width:860px) { .cm-list-panel.cm-list-freeze { height: auto; overflow: visible; } }
     .cm-customer-name-sub { margin-top: 2px; color: var(--muted); font-size: 11px; }
     .cm-customer-actions { text-align: center; white-space: nowrap; }
     .cm-customer-actions .wo-actions-group { justify-content: center; gap: 4px; }
@@ -6648,7 +6700,10 @@
       manageType: null,
       editItem: null,
       drawerOpen: false,
-      deleteTarget: null
+      deleteTarget: null,
+      searchKeyword: "",
+      page: 1,
+      pageSize: 10
     };
 
     // 報價組通訊錄狀態（#37）：drawerOpen 控制新增/編輯抽屜，editIndex 為 null 代表新增
@@ -9003,7 +9058,17 @@
     // INT-20261013-01: CR reads follow the selected employee, not the role's demo area.
     // This does not change other roles or introduce night-shift exceptions.
     const canReadCurrentCRArea = area => state.role !== "CR" || (Boolean(area) && area === currentRole().area);
-    const currentVisibleTickets = () => tickets.filter(t => canReadCurrentCRArea(t.area));
+    // 主管的 CALL 可見範圍：本區工單＋自己名下（含跨區指派）；未設定區域時不限制。
+    const canReadCallRecord = ticket => {
+      if (!ticket) return false;
+      if (state.role === "CR") return canReadCurrentCRArea(ticket.area);
+      if (state.role === "TL") {
+        const area = currentUserArea();
+        return !area || ticket.area === area || ticket.tl === currentRole().name;
+      }
+      return true;
+    };
+    const currentVisibleTickets = () => tickets.filter(t => canReadCallRecord(t));
     const currentVisibleCallLogs = () => callLogs.filter(l => canReadCurrentCRArea(ticketById(l.workOrderId)?.area));
     const quotationRecordArea = q => q?.area || ticketById(q?.ticketId)?.area || "";
     // 取得報價目前對應的履約工單（優先新生成的工單，其次原始關聯工單）
@@ -9023,7 +9088,15 @@
     };
     // CR 例外：本人創建或提交的報價始終可見（僅該 CR 本人）
     const isOwnQuotation = q => Boolean(q) && [q.preparedBy, q.requestedBy].includes(currentRole().name);
-    const canReadQuotationRecord = q => canReadCurrentCRArea(quotationRecordArea(q)) || (state.role === "CR" && isOwnQuotation(q));
+    const quotationMemberArea = () => (state.currentPerson && state.currentPerson.area) || currentRole().area || "";
+    const canReadQuotationRecord = q => {
+      // 報價組只可查看所屬區域的報價（ADMIN／BOSS／TENDER 不受限）
+      if (state.role === "QUO") {
+        const area = quotationMemberArea();
+        return Boolean(area) && quotationRecordArea(q) === area;
+      }
+      return canReadCurrentCRArea(quotationRecordArea(q)) || (state.role === "CR" && isOwnQuotation(q));
+    };
 
     function toast(message, type) {
       const el = $("#toast");
@@ -10914,7 +10987,7 @@
         : callManagementStatusLabel({ status: f.status });
       if (f.status !== normalizedStatusFilter) f.status = normalizedStatusFilter;
       const filtered = tickets.filter(t => {
-        if (!canReadCurrentCRArea(t.area)) return false;
+        if (!canReadCallRecord(t)) return false;
         if (f.quick === "todo" && !["待分派", "待確認", "待處理"].includes(t.status)) return false;
         if (f.quick === "focus" && !(t.urgent || t.rejectReason || (t.tags || []).includes("無法完成示例"))) return false;
         return (normalizedStatusFilter === "全部" || callManagementStatusLabel(t) === normalizedStatusFilter)
@@ -11042,10 +11115,14 @@
       const statuses = CALL_MANAGEMENT_STATUS_LABELS.filter(status => availableStatuses.has(status))
         .concat([...availableStatuses].filter(status => !CALL_MANAGEMENT_STATUS_LABELS.includes(status)));
       const owners = [...new Set(tickets.map(t => t.tl || "待分派").filter(Boolean))];
+      // 主管只可選本區；未設定區域時維持全部選項。
+      const tlArea = state.role === "TL" ? currentUserArea() : "";
+      const areaOptions = tlArea ? REGIONS.filter(r => r === tlArea) : REGIONS;
+      if (!areaOptions.includes(workOrderState.callFilters.area)) workOrderState.callFilters.area = "全部";
       return `<div class="wo-filters wo-call-filters">
         <div class="wo-filter-group"><label>CALL狀態</label><select class="qf-select" data-call-filter="status"><option value="全部">全部</option>${statuses.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.status === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>CALL類型</label><select class="qf-select" data-call-filter="type"><option value="全部">全部</option>${callTypeFilterOptions().map(o => `<option value="${escapeHtml(o.value)}" ${workOrderState.callFilters.type === o.value ? "selected" : ""}>${escapeHtml(o.label)}</option>`).join("")}</select></div>
-        <div class="wo-filter-group"><label>區域</label><select class="qf-select" data-call-filter="area"><option value="全部">全部</option>${REGIONS.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.area === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
+        <div class="wo-filter-group"><label>區域</label><select class="qf-select" data-call-filter="area"><option value="全部">全部</option>${areaOptions.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.area === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label>負責人</label><select class="qf-select" data-call-filter="owner"><option value="全部">全部</option>${owners.map(v => `<option value="${escapeHtml(v)}" ${workOrderState.callFilters.owner === v ? "selected" : ""}>${escapeHtml(v)}</option>`).join("")}</select></div>
         <div class="wo-filter-group"><label for="callKeywordFilter">關鍵詞搜尋</label><input id="callKeywordFilter" type="search" data-call-filter="keyword" value="${escapeHtml(workOrderState.callFilters.keyword || "")}" placeholder="CALL編號或客戶名稱" aria-label="按 CALL 編號或客戶名稱搜尋"></div>
         <div class="wo-actions-top"><button type="button" class="secondary-btn wo-search-btn" data-call-reset>重置</button></div>
@@ -11537,7 +11614,7 @@
     function openCallDetail(ticketId) {
       const ticket = ticketById(ticketId);
       if (!ticket) return;
-      if (!canReadCurrentCRArea(ticket.area)) { toast("只能查看所屬區域的 CALL", "error"); return; }
+      if (!canReadCallRecord(ticket)) { toast("只能查看本區或自己名下的 CALL", "error"); return; }
       state.selectedTicketId = ticketId;
       state.dashboardMetricModal = null;
       state.dispatchMetricModal = null;
@@ -12209,7 +12286,7 @@
     function showWorkOrderDrawer(ticketId) {
       const ticket = ticketById(ticketId);
       if (!ticket) return;
-      if (!canReadCurrentCRArea(ticket.area)) { toast("只能查看所屬區域的 CALL", "error"); return; }
+      if (!canReadCallRecord(ticket)) { toast("只能查看本區或自己名下的 CALL", "error"); return; }
       workOrderState.drawerEditMode = false;
       workOrderState.selectedWorkOrderId = ticketId;
       workOrderState.callDetailTab = "basic";
@@ -15282,23 +15359,23 @@
           }));
         }
         if (type === "Call代碼") {
-          return dictData["Call代碼"] || callCodes.map((cc, i) => ({ 
-            id: cc.id, 
-            name: cc.name, 
-            code: cc.code, 
-            description: "", 
-            status: cc.status, 
+          return dictData["Call代碼"] || callCodes.map((cc, i) => ({
+            id: cc.id,
+            name: cc.name,
+            code: cc.code,
+            description: "",
+            status: cc.status,
             createdAt: "2026-01-01",
-            sortOrder: cc.sortOrder 
+            sortOrder: cc.sortOrder
           }));
         }
         if (type === "狀態說明") {
-          return dictData["狀態說明"] || STATUSES.map((s, i) => ({ 
-            id: "DS" + String(i + 1).padStart(3, "0"), 
-            name: s, 
-            description: "MVP 固定狀態，不新增主狀態", 
-            status: "啓用", 
-            createdAt: "2026-01-01" 
+          return dictData["狀態說明"] || STATUSES.map((s, i) => ({
+            id: "DS" + String(i + 1).padStart(3, "0"),
+            name: s,
+            description: "MVP 固定狀態，不新增主狀態",
+            status: "啓用",
+            createdAt: "2026-01-01"
           }));
         }
         if (type === "通知規則") {
@@ -15346,43 +15423,81 @@
 
       const items = getDictItems(activeDictTab);
       const config = DICT_CONFIG[activeDictTab];
+      const keyword = String(dictState.searchKeyword || "").trim().toLowerCase();
+      const filtered = keyword
+        ? items.filter(item => ["id", "name", "code", "description"]
+            .some(key => String(item[key] || "").toLowerCase().includes(keyword)))
+        : items;
+      dictState.lastFilteredCount = filtered.length;
+      const pageSize = Number(dictState.pageSize) || 10;
+      const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+      const currentPage = Math.min(Math.max(1, Number(dictState.page) || 1), totalPages);
+      dictState.page = currentPage;
+      const pageItems = filtered.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize + pageSize);
 
-      // 生成表格列頭
       const columns = config.tableColumns;
-      const thead = columns.map(col => `<th style="${col.width ? `width:${col.width}` : ''}">${col.label}</th>`).join("") + `<th style="width:140px">操作</th>`;
-
-      // 生成表格行（直接显示编辑/删除按钮）
-      const tbody = items.map((item, index) => {
+      const cols = columns.map(col => {
+        const width = col.key === "createdAt" ? "140px" : (col.width || (["name", "description"].includes(col.key) ? "auto" : "140px"));
+        return `<col style="width:${width}">`;
+      }).join("") + '<col style="width:110px">';
+      const thead = columns.map(col => `<th>${col.label}</th>`).join("") + `<th style="text-align:center;">操作</th>`;
+      const tbody = pageItems.map(item => {
         const cells = columns.map(col => {
-          if (col.key === "status") {
-            return `<td><span class="tag">${item.status || "啓用"}</span></td>`;
-          }
-          return `<td>${item[col.key] || "-"}</td>`;
+          if (col.key === "status") return `<td><span class="tag">${item.status || "啓用"}</span></td>`;
+          return `<td>${escapeHtml(String(item[col.key] == null ? "-" : item[col.key]))}</td>`;
         }).join("");
-        const actions = `
-          <td>
-            <button class="text-btn" data-dict-edit-main="${index}">編輯</button>
-            <span class="text-divider">｜</span>
-            <button class="text-btn danger" data-dict-delete-main="${index}">刪除</button>
-          </td>`;
-        return `<tr>${cells}${actions}</tr>`;
+        const index = items.indexOf(item);
+        return `<tr>${cells}<td style="text-align:center;"><button class="wo-view-btn" data-dict-edit-main="${index}">編輯</button></td></tr>`;
       }).join("");
+
+      const pageButtons = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pageButtons.push(i);
+      } else {
+        pageButtons.push(1);
+        if (currentPage > 3) pageButtons.push("...");
+        for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pageButtons.push(i);
+        if (currentPage < totalPages - 2) pageButtons.push("...");
+        pageButtons.push(totalPages);
+      }
 
       return `
         <section class="page active">
-          <div class="card">
-            <div class="card-head">
-              <div><h2>字典管理</h2><p>維護系統基礎數據字典，包括 Call類型、區域、Call代碼、報價類別等。</p></div>
-              <button class="primary-btn" data-dict-add-main>新增</button>
-            </div>
-            <div class="settings-tabs">
-              ${tabs.map(t => `<button class="${activeDictTab === t ? "active" : ""}" data-dict-tab="${t}">${t}</button>`).join("")}
+          <div class="dm-list-panel dm-list-freeze">
+            <div class="dm-filter-block">
+              <div class="settings-tabs dm-tabs">
+                ${tabs.map(t => `<button class="${activeDictTab === t ? "active" : ""}" data-dict-tab="${t}">${t}</button>`).join("")}
+              </div>
+              <div class="wo-filters cm-data-filters">
+                <div class="wo-filter-group">
+                  <label>關鍵詞搜尋</label>
+                  <input type="search" placeholder="名稱／編碼／編號" value="${escapeHtml(dictState.searchKeyword || "")}" data-dict-search>
+                </div>
+                <div class="wo-actions-top">
+                  <button type="button" class="secondary-btn wo-search-btn" data-dict-reset>重置</button>
+                  <button type="button" class="primary-btn customer-action-btn" data-dict-add-main>+ 新增</button>
+                </div>
+              </div>
             </div>
             <div class="data-table-wrap">
-              <table>
+              <table class="wo-table cm-data-table dm-data-table">
+                <colgroup>${cols}</colgroup>
                 <thead><tr>${thead}</tr></thead>
-                <tbody>${tbody || '<tr><td colspan="' + (columns.length + 1) + '" style="text-align:center;padding:40px;color:var(--muted)">暫無數據</td></tr>'}</tbody>
+                <tbody>${tbody || `<tr><td colspan="${columns.length + 1}" style="text-align:center;padding:40px;color:var(--muted);">暫無數據</td></tr>`}</tbody>
               </table>
+            </div>
+            <div class="um-pagination">
+              <span>共 ${filtered.length} 條記錄，每頁
+                <select data-dict-page-size style="min-width:56px;height:28px;padding:2px 6px;font-size:12px;">
+                  ${[10, 20, 50].map(size => `<option value="${size}" ${pageSize === size ? "selected" : ""}>${size}</option>`).join("")}
+                </select>
+                條，第 ${currentPage}/${totalPages} 頁
+              </span>
+              <div class="um-pg-btns">
+                <button data-dict-page="prev" ${currentPage <= 1 ? "disabled" : ""}>‹</button>
+                ${pageButtons.map(p => p === "..." ? '<span style="padding:0 4px;color:var(--muted);">…</span>' : `<button class="${currentPage === p ? "active" : ""}" data-dict-page="${p}">${p}</button>`).join("")}
+                <button data-dict-page="next" ${currentPage >= totalPages ? "disabled" : ""}>›</button>
+              </div>
             </div>
           </div>
         </section>`;
@@ -15566,6 +15681,7 @@
               </form>
             </div>
             <div class="dm-drawer-footer">
+              ${isNew ? "" : '<button class="danger-btn" data-dict-delete-drawer>刪除</button>'}
               <button class="ghost-btn" data-dm-drawer-close>取消</button>
               <button class="primary-btn" data-dict-save>保存</button>
             </div>
@@ -15597,76 +15713,54 @@
     function renderUsersPage() {
       return `
         <section class="page active">
-          <div class="card" style="margin-bottom:14px;">
-            <div class="card-head">
-              <div><h2>用戶管理</h2><p>管理系統用戶、角色和權限配置。</p></div>
-              <button class="primary-btn" data-create-user>新增用戶</button>
-            </div>
-          </div>
-          <!-- G3／G4（會議決策）：上線計劃與工作交接機制說明 -->
-          <div class="card" style="margin-bottom:14px;">
-            <div class="card-head"><div><h2>上線計劃與工作交接</h2><p>專案層級安排，非日常操作。</p></div></div>
-            <ul class="muted" style="font-size:13px;line-height:1.9;margin:8px 0 0 18px;">
-              <li><strong>正式生效日</strong>：2027-01-01；生效前安排至少 1 個月全員並行試運行（Parallel Run）。</li>
-              <li><strong>數據策略</strong>：不進行舊系統全量歷史遷移，新業務自生效日起於新系統錄入；歷史單據由舊渠道查詢。</li>
-              <li><strong>主數據前置</strong>：上線前須完成地點（大地點＋子位置）、客戶、物料等主數據清洗與導入。</li>
-              <li><strong>工作交接</strong>：沿用 OA／釘釘「流程交接」，員工離職或放長假（一週以上）時指定代理人，待辦流程與審批權限臨時轉移，假期結束後回復。</li>
-            </ul>
-          </div>
-          <div class="um-layout">
-            ${renderRoleSidebar()}
-            ${renderUserList()}
-            ${renderUserDetail()}
-          </div>
+          ${renderUserList()}
         </section>`;
-    }
-
-    function renderRoleSidebar() {
-      // 動態計算各角色用戶數（與 USER_ROLES 保持一致）
-      const roleCounts = {
-        "全部": users.length
-      };
-      USER_ROLES.forEach(r => {
-        roleCounts[r.code] = users.filter(u => u.role === r.code).length;
-      });
-      const roleItems = [
-        { code: "全部", name: "全部用戶" },
-        ...USER_ROLES
-      ];
-      return `
-        <div class="um-role-sidebar">
-          <h3 class="um-role-title">角色分類</h3>
-          ${roleItems.map(r => `
-            <button class="um-role-item ${userState.roleFilter === r.code ? "active" : ""}" data-role-filter="${r.code}">
-              <span class="role-name">${r.name}</span>
-              <span class="role-count">${roleCounts[r.code] || 0}</span>
-            </button>
-          `).join("")}
-        </div>`;
     }
 
     function renderUserList() {
       const filtered = filterUsers();
       const paginated = paginateUsers(filtered);
-      const totalPages = Math.ceil(filtered.length / userState.pageSize);
-
+      const totalPages = Math.max(1, Math.ceil(filtered.length / userState.pageSize));
       return `
-        <div class="um-list-panel">
-          <div class="um-toolbar">
-            <input class="um-search" type="text" placeholder="搜索用戶名/工號/電話/郵箱" value="${escapeHtml(userState.searchKeyword)}" data-user-search>
-            <select class="qf-select um-filter-role" data-user-filter-role>
-              <option value="全部" ${userState.filterRole === "全部" ? "selected" : ""}>全部角色</option>
-              ${USER_ROLES.map(r => `<option value="${r.code}" ${userState.filterRole === r.code ? "selected" : ""}>${r.name}</option>`).join("")}
-            </select>
-            <select class="qf-select um-filter-status" data-user-filter-status>
-              <option value="全部" ${userState.filterStatus === "全部" ? "selected" : ""}>全部狀態</option>
-              <option value="啓用" ${userState.filterStatus === "啓用" ? "selected" : ""}>啓用</option>
-              <option value="禁用" ${userState.filterStatus === "禁用" ? "selected" : ""}>禁用</option>
-              <option value="離職" ${userState.filterStatus === "離職" ? "selected" : ""}>離職</option>
-            </select>
+        <div class="um-list-panel um-list-freeze">
+          <div class="wo-filters cm-data-filters">
+            <div class="wo-filter-group">
+              <label>關鍵詞搜尋</label>
+              <input type="search" placeholder="搜索用戶名/工號/電話/郵箱" value="${escapeHtml(userState.searchKeyword)}" data-user-search>
+            </div>
+            <div class="wo-filter-group">
+              <label>角色</label>
+              <select class="qf-select" data-user-filter-role>
+                <option value="全部" ${userState.filterRole === "全部" ? "selected" : ""}>全部角色</option>
+                ${USER_ROLES.map(r => `<option value="${r.code}" ${userState.filterRole === r.code ? "selected" : ""}>${r.name}</option>`).join("")}
+              </select>
+            </div>
+            <div class="wo-filter-group">
+              <label>狀態</label>
+              <select class="qf-select" data-user-filter-status>
+                <option value="全部" ${userState.filterStatus === "全部" ? "selected" : ""}>全部狀態</option>
+                <option value="啓用" ${userState.filterStatus === "啓用" ? "selected" : ""}>啓用</option>
+                <option value="禁用" ${userState.filterStatus === "禁用" ? "selected" : ""}>禁用</option>
+                <option value="離職" ${userState.filterStatus === "離職" ? "selected" : ""}>離職</option>
+              </select>
+            </div>
+            <div class="wo-actions-top">
+              <button type="button" class="secondary-btn wo-search-btn" data-user-reset>重置</button>
+              <button type="button" class="primary-btn customer-action-btn" data-create-user>+ 新增用戶</button>
+            </div>
           </div>
           <div class="data-table-wrap">
-            <table class="um-user-table">
+            <table class="wo-table cm-data-table">
+              <colgroup>
+                <col style="width:230px;">
+                <col style="width:110px;">
+                <col style="width:110px;">
+                <col style="width:80px;">
+                <col style="width:140px;">
+                <col style="width:90px;">
+                <col style="width:140px;">
+                <col style="width:90px;">
+              </colgroup>
               <thead>
                 <tr>
                   <th>用戶</th>
@@ -15676,12 +15770,12 @@
                   <th>電話</th>
                   <th>狀態</th>
                   <th>最後登錄</th>
-                  <th>操作</th>
+                  <th style="text-align:center;">操作</th>
                 </tr>
               </thead>
               <tbody>
                 ${paginated.map(u => `
-                  <tr class="${userState.selectedUserId === u.id ? "selected" : ""}" data-user-row="${u.id}">
+                  <tr data-user-row="${u.id}">
                     <td>
                       <div class="um-user-name">
                         <span class="um-avatar-sm um-avatar-${u.role.toLowerCase()}">${u.name[0]}</span>
@@ -15697,104 +15791,90 @@
                     <td>${escapeHtml(u.phone)}</td>
                     <td><span class="tag user-status-${u.status}">${u.status}</span></td>
                     <td>${escapeHtml(u.lastLogin)}</td>
-                    <td>
-                      <button class="ghost-btn" data-view-user="${u.id}">查看</button>
-                      <button class="ghost-btn" data-edit-user="${u.id}">編輯</button>
-                    </td>
+                    <td style="text-align:center;"><button class="wo-view-btn" data-view-user="${u.id}">詳情</button></td>
                   </tr>
                 `).join("") || `<tr><td colspan="8" class="muted" style="text-align:center;padding:20px;">暫無匹配用戶</td></tr>`}
               </tbody>
             </table>
           </div>
           <div class="um-pagination">
-            <span>共 ${filtered.length} 條記錄，第 ${userState.currentPage}/${totalPages || 1} 頁</span>
+            <span>共 ${filtered.length} 條記錄，每頁
+              <select data-user-page-size style="min-width:56px;height:28px;padding:2px 6px;font-size:12px;">
+                ${[10, 20, 50].map(size => `<option value="${size}" ${userState.pageSize === size ? "selected" : ""}>${size}</option>`).join("")}
+              </select>
+              條，第 ${userState.currentPage}/${totalPages} 頁
+            </span>
             <div class="um-pg-btns">
               <button data-user-page="prev" ${userState.currentPage <= 1 ? "disabled" : ""}>‹</button>
-              ${Array.from({ length: totalPages }, (_, i) => i + 1).map(p => `
-                <button class="${userState.currentPage === p ? "active" : ""}" data-user-page="${p}">${p}</button>
-              `).join("")}
+              ${Array.from({ length: totalPages }, (_, i) => i + 1).map(p => `<button class="${userState.currentPage === p ? "active" : ""}" data-user-page="${p}">${p}</button>`).join("")}
               <button data-user-page="next" ${userState.currentPage >= totalPages ? "disabled" : ""}>›</button>
             </div>
           </div>
         </div>`;
     }
 
-    function renderUserDetail() {
-      if (!userState.selectedUserId) {
-        return `
-          <div class="um-detail-panel">
-            <div class="um-empty-detail">
-              <div class="icon">${appIcon("user", 26)}</div>
-              <div>點擊左側用戶查看詳情</div>
-            </div>
-          </div>`;
-      }
-      const user = users.find(u => u.id === userState.selectedUserId);
-      if (!user) return `<div class="um-detail-panel"><div class="um-empty-detail">用戶不存在</div></div>`;
-
+    // 用戶詳情抽屜：沿用 CALL 樣式，列表只保留詳情
+    function openUserDetailDrawer(userId) {
+      const user = users.find(u => u.id === userId);
+      if (!user) { toast("找不到用戶", "error"); return; }
+      const roleName = USER_ROLES.find(r => r.code === user.role)?.name || user.role;
       const perms = ROLE_PERMISSIONS[user.role] || [];
       const stats = getUserStats(user);
-
-      return `
-        <div class="um-detail-panel">
-          <div class="um-detail-header">
-            <span class="um-avatar-lg um-avatar-${user.role.toLowerCase()}">${user.name[0]}</span>
-            <div style="flex:1;">
-              <h3 class="um-detail-name">${escapeHtml(user.name)}</h3>
-              <div class="um-detail-sub">${escapeHtml(user.employeeNo)} · ${USER_ROLES.find(r => r.code === user.role)?.name || user.role}</div>
-            </div>
-            <div style="display:flex;gap:6px;">
-              <button class="ghost-btn" data-close-user-detail>關閉</button>
-              <button class="ghost-btn" data-edit-user="${user.id}">編輯</button>
-              <button class="danger-btn" data-delete-user="${user.id}">刪除</button>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="um-section-title">基本信息</h4>
-            <div class="info-list">
-              ${infoRow("姓名", user.name)}
-              ${infoRow("工號", user.employeeNo)}
-              ${infoRow("角色", USER_ROLES.find(r => r.code === user.role)?.name || user.role)}
-              ${infoRow("手機號", user.phone)}
-              ${infoRow("郵箱", user.email)}
-              ${infoRow("所屬區域", user.area)}
-              ${infoRow("直屬主管", user.manager || "無")}
-              ${infoRow("創建時間", user.createdAt)}
-              ${infoRow("最後登錄", user.lastLogin)}
-              ${infoRow("狀態", user.status)}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="um-section-title">權限信息</h4>
-            <div class="um-perm-grid">
-              ${perms.map(p => `<div class="um-perm-item"><span class="chk">✓</span><span>${p}</span></div>`).join("")}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="um-section-title">工作統計</h4>
-            <div class="um-stat-grid">
-              <div class="um-stat-item">
-                <div class="sv">${stats.completed}</div>
-                <div class="sl">本月完成工單</div>
-              </div>
-              <div class="um-stat-item">
-                <div class="sv">${stats.processing}</div>
-                <div class="sl">處理中工單</div>
-              </div>
-              <div class="um-stat-item">
-                <div class="sv">${stats.overdue}</div>
-                <div class="sl">超時工單</div>
-              </div>
-              <div class="um-stat-item">
-                <div class="sv">${stats.satisfaction}%</div>
-                <div class="sl">滿意度</div>
-              </div>
+      const field = (label, content, className = "") => callDetailValue(label, escapeHtml(String(content == null || content === "" ? "—" : content)), className);
+      const basicPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>基本信息</h4></div>
+            <div class="wo-detail-grid">
+              ${field("姓名", user.name)}
+              ${field("工號", user.employeeNo)}
+              ${field("角色", roleName)}
+              ${field("手機號", user.phone)}
+              ${field("郵箱", user.email)}
+              ${field("所屬區域", user.area)}
+              ${field("直屬主管", user.manager || "無")}
+              ${field("創建時間", user.createdAt)}
+              ${field("最後登錄", user.lastLogin)}
+              ${field("狀態", user.status)}
             </div>
           </div>
         </div>`;
+      const permsPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>權限信息（${perms.length}）</h4></div>
+            <div class="wo-detail-grid">${perms.length
+              ? perms.map(p => `<div class="wo-detail-item"><span class="wo-detail-label">權限</span><span class="wo-detail-value">✓ ${escapeHtml(String(p))}</span></div>`).join("")
+              : '<div class="wo-detail-empty">暫無權限資料</div>'}</div>
+          </div>
+        </div>`;
+      const statsPanel = `
+        <div class="wo-detail-section">
+          <div class="wo-detail-card">
+            <div class="wo-detail-card-heading"><h4>工作統計</h4></div>
+            <div class="wo-detail-grid">
+              ${field("本月完成工單", stats.completed)}
+              ${field("處理中工單", stats.processing)}
+              ${field("超時工單", stats.overdue)}
+              ${field("滿意度", `${stats.satisfaction}%`)}
+            </div>
+          </div>
+        </div>`;
+      openFinDetailDrawer({
+        label: "用戶詳情",
+        title: user.name,
+        subtitle: `${escapeHtml(user.employeeNo)} · ${escapeHtml(roleName)}`,
+        badge: `<span class="tag user-status-${user.status}">${escapeHtml(user.status)}</span>`,
+        tabs: [
+          { key: "basic", label: "基本信息", html: basicPanel },
+          { key: "perms", label: "權限信息", html: permsPanel },
+          { key: "stats", label: "工作統計", html: statsPanel }
+        ],
+        actions: [
+          { label: "刪除", run: () => deleteUser(user.id) },
+          { label: "編輯", primary: true, run: () => openEditUser(user.id) }
+        ]
+      });
     }
 
     function filterUsers() {
@@ -16120,7 +16200,7 @@
       }
 
       return `
-        <div class="cm-list-panel">
+        <div class="cm-list-panel cm-list-freeze">
           <div class="wo-filters wo-customer-list-filters cm-data-filters">
             <div class="wo-filter-group">
               <label>客戶名稱</label>
@@ -17436,6 +17516,9 @@
       }
       const ticket = findQuotationWorkOrder(quotation);
       const relatedTicketId = ticket?.id || quotation.ticketId || quotation.generatedTicketId || quotation.sourceTicketId || "";
+      const confirmationFiles = Array.isArray(quotation.customerConfirmationFiles) && quotation.customerConfirmationFiles.length
+        ? quotation.customerConfirmationFiles
+        : (quotation.customerConfirmationFile?.name ? [quotation.customerConfirmationFile] : []);
 
       return `
         <aside class="wo-drawer">
@@ -17755,10 +17838,18 @@
                           ? `<span class="tag ${spStatusClass(stockStatus)}">${escapeHtml(stockStatus)}</span>`
                           : `<span class="tag">${getQuotationStockLabel(quotation)}</span>`;
                       })()}
-                      <span class="muted" style="font-size:11px;margin-left:6px;">（由備貨管理同步，僅供查看）</span>
                     </span>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div class="wo-detail-section">
+              <div class="wo-detail-card">
+                <h4>客戶確認文件（${confirmationFiles.length}）</h4>
+                ${confirmationFiles.length
+                  ? `<div class="wo-detail-grid">${confirmationFiles.map((file, index) => `<div class="wo-detail-item"><span class="wo-detail-label">文件 ${index + 1}</span><span class="wo-detail-value">${escapeHtml(file.name || "—")}${file.uploadedAt ? ` · ${escapeHtml(file.uploadedAt)}` : ""}</span></div>`).join("")}</div>`
+                  : '<div style="padding:12px 14px;color:var(--muted);font-size:13px;">未上傳客戶確認文件</div>'}
               </div>
             </div>
 
@@ -17804,7 +17895,7 @@
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">派工時間與事項</span>
-                    <span class="wo-detail-value" style="white-space:pre-wrap;">${escapeHtml(ticket?.assignNote || ticket?.formalAppointmentAt || "未填寫派工備註，可向主管了解")}</span>
+                    <span class="wo-detail-value" style="white-space:pre-wrap;">${escapeHtml(ticket?.assignNote || ticket?.formalAppointmentAt || "未填寫")}</span>
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">完工確認</span>
@@ -17854,7 +17945,7 @@
           <div class="wo-drawer-footer qm-drawer-footer" style="padding: 16px 20px; border-top: 1px solid var(--line); display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;">
             <button class="secondary-btn" data-quotation-history="${quotation.id}">報價歷史</button>
             ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="secondary-btn" data-create-revision="${quotation.id}">修訂報價</button>` : ""}
-            ${quotation.status !== "已中單" && quotation.status !== "丟單" ? `<button class="${quotation.isInviteTender ? "primary-btn" : "secondary-btn"}" data-mark-won="${quotation.id}">標記中單</button>` : ""}
+            ${quotation.status === "報價中" ? `<button class="${quotation.isInviteTender ? "primary-btn" : "secondary-btn"}" data-mark-won="${quotation.id}">標記中單</button>` : ""}
             ${quotation.isInviteTender ? `<button class="primary-btn" data-mark-tender-won="${quotation.id}">標記中標</button>` : ""}
             ${(["已到貨", "已入庫", "已驗收"].includes(quotation.procurementStatus)) && quotation.completionPaperStatus !== "已完工" ? `<button class="secondary-btn" data-manage-paper="${quotation.id}">完工紙管理</button>` : ""}
             ${quotation.completionPaperStatus === "已完工" && quotation.procurementStatus !== "已關單" ? `<button class="primary-btn" data-close-procurement="${quotation.id}">採購部關單</button>` : ""}
@@ -18118,11 +18209,6 @@
                     <h5>備註</h5>
                     <textarea name="remark" placeholder="請輸入備註（選填）" style="${textareaStyle}">${escapeHtml(quotation.remark || '')}</textarea>
                   </div>
-                  <div class="qm-detail-subsection">
-                    <h5>客戶確認文件</h5>
-                    <input type="file" name="customerConfirmationFile" accept="image/*,.pdf" style="font-size:13px;">
-                    <div class="muted" style="font-size:12px;margin-top:4px;">${quotation.customerConfirmationFile?.name ? `已上傳：${escapeHtml(quotation.customerConfirmationFile.name)}（可重新選擇替換）` : "未上傳；開票前需提供客戶確認文件"}</div>
-                  </div>
                 </div>
               </div>
               </div>
@@ -18142,7 +18228,6 @@
                           ? `<span class="tag ${spStatusClass(stockStatus)}">${escapeHtml(stockStatus)}</span>`
                           : `<span class="tag">${getQuotationStockLabel(quotation)}</span>`;
                       })()}
-                      <span class="muted" style="font-size:11px;margin-left:6px;">（由備貨管理同步，僅供查看）</span>
                     </span>
                   </div>
                 </div>
@@ -18191,7 +18276,7 @@
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">派工時間與事項</span>
-                    <span class="wo-detail-value" style="white-space:pre-wrap;">${escapeHtml(ticket?.assignNote || ticket?.formalAppointmentAt || "未填寫派工備註，可向主管了解")}</span>
+                    <span class="wo-detail-value" style="white-space:pre-wrap;">${escapeHtml(ticket?.assignNote || ticket?.formalAppointmentAt || "未填寫")}</span>
                   </div>
                   <div class="wo-detail-item">
                     <span class="wo-detail-label">完工確認</span>
@@ -19522,7 +19607,15 @@
       // presetCustomerId：從 Call 管理客戶詳情側邊欄進入時帶入該客戶，關聯工單僅列出此客戶的歷史 CALL
       const presetCustomer = presetCustomerId ? customers.find(c => c.id === presetCustomerId) : null;
       const presetArea = presetCustomer ? ((presetCustomer.addresses && presetCustomer.addresses[0] && presetCustomer.addresses[0].area) || presetCustomer.area || "") : "";
-      const ticketOptions = presetCustomer ? tickets.filter(t => t.customerId === presetCustomer.id) : tickets;
+      // 報價組／CR 只可選所屬區域的客戶與 CALL；其他角色維持全部
+      const quotationAreaScope = ["QUO", "CR"].includes(state.role)
+        ? ((state.currentPerson && state.currentPerson.area) || currentRole().area || "")
+        : "";
+      const customerInScope = c => !quotationAreaScope
+        || (Array.isArray(c.addresses) ? c.addresses : []).some(address => String(address.area || "").trim() === quotationAreaScope);
+      const scopedCustomers = customers.filter(customerInScope);
+      const ticketOptions = (presetCustomer ? tickets.filter(t => t.customerId === presetCustomer.id) : tickets)
+        .filter(t => !quotationAreaScope || String(t.area || "").trim() === quotationAreaScope);
       // Keep current owners while including quotation-team staff in the existing choices.
       const currentUserName = currentRole().name || "";
       const ownerNames = users.filter(u => ["TL", "ADMIN", "QUO"].includes(u.role)).map(u => u.name);
@@ -19568,7 +19661,7 @@
                             // 由客戶檔案帶入時僅鎖定該客戶，不提供新增
                             ? `<option value="${escapeHtml(presetCustomer.nameZh)}" data-id="${presetCustomer.id}" selected${customerSub(presetCustomer) ? ` data-sub="${escapeHtml(customerSub(presetCustomer))}"` : ""}>${escapeHtml(presetCustomer.nameZh)}</option>`
                             // 其他入口：列出既有客戶供選擇（客戶名稱可重複，副標題顯示 Contract No 以區分）
-                            : `<option value="">請選擇客戶</option>${customers.map(c => `<option value="${escapeHtml(c.nameZh)}" data-id="${c.id}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
+                            : `<option value="">請選擇客戶</option>${scopedCustomers.map(c => `<option value="${escapeHtml(c.nameZh)}" data-id="${c.id}"${customerSub(c) ? ` data-sub="${escapeHtml(customerSub(c))}"` : ""}>${escapeHtml(c.nameZh)}${c.nameEn ? ` (${escapeHtml(c.nameEn)})` : ""}</option>`).join("")}`}
                         </select>
                         <input type="hidden" name="customerId" value="${presetCustomer ? presetCustomer.id : ""}">
                       </div>
@@ -19826,11 +19919,11 @@
       const quotation = quotations.find(q => q.id === quotationId);
       if (!quotation) return;
 
-      // 報價狀態流轉規則（待報價可跳轉至任意狀態——含標書中標自動創建的報價，可直接推進到已中單/需修訂/丟單）
+      // 報價狀態流轉規則：必須先完成報價（報價中）才可標記中單，避免跳過報價內容確認
       const statusTransitions = {
-        "待報價": ["報價中", "需修訂", "已中單", "丟單"],
+        "待報價": ["報價中", "需修訂", "丟單"],
         "報價中": ["需修訂", "已中單", "丟單"],
-        "需修訂": ["報價中", "已中單", "丟單"],
+        "需修訂": ["報價中", "丟單"],
         "已中單": [],
         "丟單": []
       };
@@ -23208,7 +23301,9 @@
       if (!hasServiceReport && !hasCompletionPaper) missing.push("服務報告／完工單");
       // 2026-11-17 客戶要求：需交完工單的工單，欠缺完工相（After Service 照片）亦須顯示
       if (ticket && requiresCompletionPaper(ticket) && !(ticket.afterServicePhotos || []).length) missing.push("完工相");
-      if (!quotation.customerConfirmationFile || !quotation.customerConfirmationFile.name) missing.push("客戶確認文件");
+      const hasConfirmationFile = (Array.isArray(quotation.customerConfirmationFiles) && quotation.customerConfirmationFiles.length > 0)
+        || Boolean(quotation.customerConfirmationFile && quotation.customerConfirmationFile.name);
+      if (!hasConfirmationFile) missing.push("客戶確認文件");
       return missing;
     }
 
@@ -23664,6 +23759,7 @@
       const field = (label, content, className = "") => callDetailValue(label, content == null || content === "" ? "—" : escapeHtml(String(content)), className);
       const actions = [
         { label: "開票", primary: true, run: () => createInvoice(itemId, {}) },
+        { label: "分拆發票", run: () => openSplitInvoiceModal(itemId) },
         { label: "複製", run: () => copyPendingItem(itemId) },
         { label: "刪除", run: () => removePendingItem(itemId) }
       ];
@@ -24033,6 +24129,10 @@
               ${inv.voidDate ? field("作廢日期", inv.voidDate) : ""}
               ${inv.reprintCount ? field("重印次數", `×${inv.reprintCount}`) : ""}
               ${inv.copiedFrom ? field("複製自", inv.copiedFrom) : ""}
+              ${inv.splitFrom ? field("分拆自", inv.splitFrom) : ""}
+              ${inv.splitCycle ? field("分拆週期", inv.splitCycle) : ""}
+              ${inv.splitPeriod ? field("開單期間", inv.splitPeriod) : ""}
+              ${inv.splitCount ? field("分拆期數", `${inv.splitIndex} / ${inv.splitCount}`) : ""}
               ${inv.amountChanged ? field("金額曾變更", inv.amountChangeReason || "是") : ""}
               ${inv.dateChanged ? field("日期曾變更", inv.dateChangeReason || "是") : ""}
               ${inv.lowAmountReason ? field("低於報價金額原因", inv.lowAmountReason, "full-width wo-detail-description") : ""}
@@ -24161,6 +24261,8 @@
         if (/^EC\d{8}$/.test(String(pay.receiptNo || ""))) return pay.receiptNo;
         return generateReceiptNo(pay.paymentDate);
       };
+      // For Payment of 顯示發票編號（invoice number）
+      const getInvoiceNo = invoiceId => invoices.find(item => item.id === invoiceId || item.invoiceNo === invoiceId)?.invoiceNo || invoiceId || "—";
       const payFilter = state.finPaymentFilter || {};
       const payList = payments.filter(pay => {
         if (payFilter.customer && pay.customerName !== payFilter.customer) return false;
@@ -24232,7 +24334,7 @@
                   <td>HKD ${pay.amount.toLocaleString()}</td>
                   <td>${pay.paymentDate}</td>
                   <td><span class="chip">${pay.paymentMethod}</span></td>
-                  <td>${pay.forJob || getJobId(pay.invoiceId)}</td>
+                  <td>${getInvoiceNo(pay.invoiceId)}</td>
                   <td><button class="fin-pending-detail-btn" type="button" data-fin-payment-detail="${pay.id}">詳情</button></td>
                 </tr>
               `).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted);">暫無收款記錄</td></tr>'}
@@ -28316,6 +28418,375 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       });
     }
 
+    // ===== 分拆發票（Recurring / Split Invoice）=====
+    // 週期以「期」為單位：月系週期每期＝1 個月，週系週期每期＝1 週；
+    // 每張發票金額＝每期銀碼 × 該期包含的期數（季度 3 期、半年 6 期、全年 12 期）。
+    const SPLIT_CYCLES = [
+      { key: "weekly", label: "每星期（Weekly）", unit: "週", days: 7 },
+      { key: "biweekly", label: "每兩週（Bi-weekly）", unit: "週", days: 14 },
+      { key: "fourweeks", label: "每四週（Every four weeks）", unit: "週", days: 28 },
+      { key: "monthly", label: "每月（Monthly）", unit: "月", months: 1 },
+      { key: "quarterly", label: "每季（Quarterly）", unit: "月", months: 3 },
+      { key: "halfyear", label: "每半年（Twice a year）", unit: "月", months: 6 },
+      { key: "yearly", label: "每年（Yearly）", unit: "月", months: 12 },
+      { key: "custom", label: "自訂週期（Per Period）", unit: "月", custom: true }
+    ];
+    const splitCycle = key => SPLIT_CYCLES.find(item => item.key === key) || SPLIT_CYCLES[3];
+    const splitAddDays = (iso, days) => {
+      const d = new Date(`${iso}T12:00:00`);
+      d.setDate(d.getDate() + days);
+      return d.toISOString().slice(0, 10);
+    };
+    const splitAddMonths = (iso, months) => {
+      const d = new Date(`${iso}T12:00:00`);
+      const day = d.getDate();
+      d.setDate(1);
+      d.setMonth(d.getMonth() + months);
+      const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+      d.setDate(Math.min(day, lastDay));
+      return d.toISOString().slice(0, 10);
+    };
+    const splitMonthSpan = (start, end) => {
+      const s = new Date(`${start}T12:00:00`);
+      const e = new Date(`${end}T12:00:00`);
+      if (isNaN(s.getTime()) || isNaN(e.getTime()) || e < s) return 0;
+      return (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()) + 1;
+    };
+    // 不完整期按「期內包含的月首數」計算期數，避免起始日不是 1 號時多算一期
+    function splitPartialMonths(start, end) {
+      const e = new Date(`${end}T12:00:00`);
+      if (isNaN(e.getTime())) return 1;
+      const d = new Date(`${start}T12:00:00`);
+      let count = d.getDate() === 1 ? 1 : 0;
+      d.setDate(1);
+      d.setMonth(d.getMonth() + 1);
+      while (d <= e) {
+        count += 1;
+        d.setMonth(d.getMonth() + 1);
+      }
+      return Math.max(1, count);
+    }
+    // 依週期與結束方式產生各期：countLimit 有值時按「開 N 期」產生完整週期，否則按結束日期截短最後一期
+    function buildSplitPeriods(start, end, cycle, cycleMonths, countLimit) {
+      const periods = [];
+      let cursor = start;
+      let guard = 0;
+      while (guard < 400) {
+        guard += 1;
+        if (!countLimit && cursor > end) break;
+        let periodEnd;
+        let units;
+        if (cycle.days) {
+          periodEnd = splitAddDays(cursor, cycle.days - 1);
+          if (!countLimit && periodEnd > end) periodEnd = end;
+          const days = Math.round((new Date(`${periodEnd}T12:00:00`) - new Date(`${cursor}T12:00:00`)) / 86400000) + 1;
+          units = Math.max(0.01, Math.round((days / 7) * 100) / 100);
+        } else {
+          const nextStart = splitAddMonths(cursor, cycleMonths);
+          const fullEnd = splitAddDays(nextStart, -1);
+          periodEnd = fullEnd;
+          if (!countLimit && periodEnd > end) periodEnd = end;
+          units = periodEnd === fullEnd ? cycleMonths : splitPartialMonths(cursor, periodEnd);
+        }
+        if (periodEnd < cursor) break;
+        periods.push({ start: cursor, end: periodEnd, units });
+        if (countLimit && periods.length >= countLimit) break;
+        if (!countLimit && periodEnd >= end) break;
+        cursor = splitAddDays(periodEnd, 1);
+      }
+      return periods;
+    }
+    const splitMoney = value => Math.round(Number(value || 0) * 100) / 100;
+
+    function resolvePendingInvoiceSource(itemId) {
+      const pendingCopies = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]");
+      const copyItem = pendingCopies.find(entry => String(entry.id) === String(itemId)) || null;
+      if (copyItem) {
+        const quotation = copyItem.sourceQuotationId ? quotations.find(item => item.id === copyItem.sourceQuotationId) : null;
+        return { item: copyItem, copyItem, quotation };
+      }
+      const quotation = quotations.find(item => String(item.id) === String(itemId)) || null;
+      if (quotation) return { item: quotation, copyItem: null, quotation };
+      const contracts = JSON.parse(localStorage.getItem("ecinfo_maintenance_contracts")) || DEFAULT_MAINTENANCE_CONTRACTS;
+      const contractItem = contracts.flatMap(contract => generateContractBillingItems(contract)).find(item => String(item.id) === String(itemId)) || null;
+      return contractItem ? { item: contractItem, copyItem: null, quotation: null } : null;
+    }
+
+    function openSplitInvoiceModal(itemId) {
+      const source = resolvePendingInvoiceSource(itemId);
+      if (!source) { toast("找不到待開票項目", "error"); return; }
+      const { item, copyItem, quotation } = source;
+      const customerName = item.customerName || item.customer || "—";
+      const totalAmount = Number(item.tenderAmount ?? item.amount ?? 0);
+      const title = item.title || quotation?.title || customerName;
+      const today = new Date().toISOString().slice(0, 10);
+      const defaultStart = String(item.serviceStart || item.createdAt || today).slice(0, 10);
+      const defaultEnd = String(item.serviceEnd || "").slice(0, 10) || splitAddDays(splitAddMonths(defaultStart, 12), -1);
+      const defaultMonths = Math.max(1, splitPartialMonths(defaultStart, defaultEnd));
+      const defaultRate = splitMoney(totalAmount / defaultMonths) || splitMoney(totalAmount) || 0;
+
+      const modal = document.createElement("div");
+      modal.className = "um-modal-overlay";
+      modal.innerHTML = `
+        <div class="um-modal split-modal" role="dialog" aria-modal="true" aria-label="分拆發票">
+          <div class="um-modal-head">
+            <div>
+              <h2>分拆發票</h2>
+              <p class="split-hint" style="margin:4px 0 0;">按週期自動生成多期發票；確認後原待開票項目不可再拆分。</p>
+            </div>
+            <button class="um-modal-close" type="button" data-close-modal aria-label="關閉">×</button>
+          </div>
+          <form id="splitInvoiceForm">
+            <div class="split-summary">
+              <div><span>客戶</span><strong title="${escapeHtml(customerName)}">${escapeHtml(customerName)}</strong></div>
+              <div><span>項目</span><strong title="${escapeHtml(title)}">${escapeHtml(title)}</strong></div>
+              <div><span>原金額</span><strong>HKD ${totalAmount.toLocaleString()}</strong></div>
+              <div><span>服務期間</span><strong>${escapeHtml(defaultStart)} ~ ${escapeHtml(defaultEnd)}</strong></div>
+            </div>
+
+            <div class="split-section">
+              <h3>1. 分拆週期</h3>
+              <div class="um-form-grid">
+                <div class="field">
+                  <label>週期</label>
+                  <select name="cycle">${SPLIT_CYCLES.map(cycle => `<option value="${cycle.key}" ${cycle.key === "monthly" ? "selected" : ""}>${escapeHtml(cycle.label)}</option>`).join("")}</select>
+                </div>
+                <div class="field" data-custom-months style="display:none;">
+                  <label>自訂週期（月）</label>
+                  <input name="customMonths" type="number" min="1" max="60" step="1" value="2">
+                </div>
+                <div class="field">
+                  <label style="display:flex;align-items:center;justify-content:space-between;gap:8px;"><span>每期銀碼（HKD／<span data-rate-unit>月</span>）</span><button type="button" class="link-btn" data-split-autorate style="font-size:12px;border:0;background:none;color:var(--primary);cursor:pointer;padding:0;">按原金額平均</button></label>
+                  <input name="rate" type="number" min="0.01" step="0.01" value="${defaultRate}" required>
+                </div>
+                <div class="field wide">
+                  <p class="split-hint" data-rate-hint>每張發票金額＝每期銀碼 × 本期期數（每季 3 期、每半年 6 期、每年 12 期；週系週期以每週為一期）。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="split-section">
+              <h3>2. 開單範圍</h3>
+              <div class="um-form-grid">
+                <div class="field">
+                  <label>開始日期</label>
+                  <input name="startDate" type="date" value="${escapeHtml(defaultStart)}" required>
+                </div>
+                <div class="field">
+                  <label>結束方式</label>
+                  <div style="display:flex;gap:16px;align-items:center;padding:10px 0;">
+                    <label style="display:inline-flex;align-items:center;gap:6px;margin:0;"><input type="radio" name="endMode" value="date" checked style="width:auto;min-height:0;margin:0;"> 指定結束日期</label>
+                    <label style="display:inline-flex;align-items:center;gap:6px;margin:0;"><input type="radio" name="endMode" value="count" style="width:auto;min-height:0;margin:0;"> 開單期數</label>
+                  </div>
+                </div>
+                <div class="field" data-end-date>
+                  <label>結束日期</label>
+                  <input name="endDate" type="date" value="${escapeHtml(defaultEnd)}">
+                </div>
+                <div class="field" data-end-count style="display:none;">
+                  <label>開單期數</label>
+                  <input name="occurrences" type="number" min="1" max="120" step="1" value="4">
+                </div>
+              </div>
+            </div>
+
+            <div class="split-preview">
+              <div class="split-preview-head">
+                <strong>預覽</strong>
+                <span data-preview-summary>—</span>
+              </div>
+              <div class="split-preview-wrap">
+                <table class="split-preview-table">
+                  <thead><tr><th>期數</th><th>開單期間</th><th>本期期數</th><th class="num">金額 (HKD)</th></tr></thead>
+                  <tbody data-preview-body></tbody>
+                </table>
+              </div>
+              <div class="split-diff" data-preview-note>—</div>
+            </div>
+
+            <div class="um-modal-actions">
+              <button type="button" class="secondary-btn" data-close-modal>取消</button>
+              <button type="submit" class="primary-btn" data-split-submit>生成發票</button>
+            </div>
+          </form>
+        </div>`;
+      document.body.appendChild(modal);
+      const close = () => modal.remove();
+      modal.querySelectorAll("[data-close-modal]").forEach(btn => btn.addEventListener("click", close));
+      modal.addEventListener("click", event => { if (event.target === modal) close(); });
+
+      const form = modal.querySelector("#splitInvoiceForm");
+      const customField = form.querySelector("[data-custom-months]");
+      const endDateField = form.querySelector("[data-end-date]");
+      const endCountField = form.querySelector("[data-end-count]");
+      const rateUnit = form.querySelector("[data-rate-unit]");
+      const previewBody = form.querySelector("[data-preview-body]");
+      const previewSummary = form.querySelector("[data-preview-summary]");
+      const previewNote = form.querySelector("[data-preview-note]");
+      const submitBtn = form.querySelector("[data-split-submit]");
+
+      const readSplitForm = () => {
+        const cycle = splitCycle(form.querySelector('[name="cycle"]').value);
+        const customMonths = Math.max(1, parseInt(form.querySelector('[name="customMonths"]').value, 10) || 1);
+        const cycleMonths = cycle.months || (cycle.custom ? customMonths : 1);
+        const start = form.querySelector('[name="startDate"]').value;
+        const endMode = (form.querySelector('[name="endMode"]:checked') || {}).value || "date";
+        const end = form.querySelector('[name="endDate"]').value;
+        const occurrences = Math.max(1, parseInt(form.querySelector('[name="occurrences"]').value, 10) || 1);
+        const rate = Number(form.querySelector('[name="rate"]').value);
+        return { cycle, cycleMonths, start, endMode, end, occurrences, rate };
+      };
+
+      const renderPreview = () => {
+        const cfg = readSplitForm();
+        customField.style.display = cfg.cycle.custom ? "" : "none";
+        endDateField.style.display = cfg.endMode === "date" ? "" : "none";
+        endCountField.style.display = cfg.endMode === "count" ? "" : "none";
+        rateUnit.textContent = cfg.cycle.unit;
+        previewBody.innerHTML = "";
+        previewSummary.textContent = "—";
+        previewNote.className = "split-diff";
+        previewNote.textContent = "—";
+        submitBtn.disabled = false;
+
+        let periods = [];
+        if (!cfg.start) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "請填寫開始日期。";
+          submitBtn.disabled = true;
+          return;
+        }
+        if (cfg.endMode === "date" && (!cfg.end || cfg.end < cfg.start)) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "結束日期必須晚於開始日期。";
+          submitBtn.disabled = true;
+          return;
+        }
+        if (!(cfg.rate > 0)) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "請填寫大於 0 的每期銀碼。";
+          submitBtn.disabled = true;
+          return;
+        }
+        if (cfg.cycle.custom && !(cfg.cycleMonths > 0)) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "自訂週期需填寫月數。";
+          submitBtn.disabled = true;
+          return;
+        }
+        periods = buildSplitPeriods(cfg.start, cfg.end, cfg.cycle, cfg.cycleMonths, cfg.endMode === "count" ? cfg.occurrences : 0);
+        if (!periods.length) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "按目前設定沒有可生成的期數。";
+          submitBtn.disabled = true;
+          return;
+        }
+        const amounts = periods.map(period => splitMoney(cfg.rate * period.units));
+        const computed = splitMoney(amounts.reduce((sum, value) => sum + value, 0));
+        const diff = splitMoney(totalAmount - computed);
+        amounts[amounts.length - 1] = splitMoney(amounts[amounts.length - 1] + diff);
+
+        previewBody.innerHTML = periods.map((period, index) => `<tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(period.start)} ~ ${escapeHtml(period.end)}</td>
+          <td>${cfg.cycle.days ? `${period.units} 週` : `${period.units} 期`}</td>
+          <td class="num">${amounts[index].toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+        </tr>`).join("");
+        previewSummary.textContent = `共 ${periods.length} 期 · 發票合計 HKD ${totalAmount.toLocaleString()}`;
+        if (diff !== 0) {
+          previewNote.classList.add("is-warning");
+          previewNote.textContent = `每期銀碼計算合計與原項目金額相差 HKD ${diff.toLocaleString()}，差額已調整至最後一期，使發票合計等於原金額 HKD ${totalAmount.toLocaleString()}。`;
+        } else {
+          previewNote.textContent = `金額與原項目一致（HKD ${totalAmount.toLocaleString()}）。`;
+        }
+        if (amounts[amounts.length - 1] < 0) {
+          previewNote.classList.add("is-error");
+          previewNote.textContent = "調整尾差後最後一期為負數，請降低每期銀碼或調整開單範圍。";
+          submitBtn.disabled = true;
+        }
+      };
+
+      form.addEventListener("change", renderPreview);
+      form.addEventListener("input", renderPreview);
+      form.querySelectorAll('[name="endMode"]').forEach(radio => radio.addEventListener("change", renderPreview));
+      const autoRateBtn = form.querySelector("[data-split-autorate]");
+      if (autoRateBtn) {
+        autoRateBtn.addEventListener("click", () => {
+          const cfg = readSplitForm();
+          if (!cfg.start || (cfg.endMode === "date" && (!cfg.end || cfg.end < cfg.start))) {
+            toast("請先填寫有效的開始及結束日期", "error");
+            return;
+          }
+          const periods = buildSplitPeriods(cfg.start, cfg.end, cfg.cycle, cfg.cycleMonths, cfg.endMode === "count" ? cfg.occurrences : 0);
+          const units = periods.reduce((sum, period) => sum + period.units, 0);
+          if (!units) { toast("目前設定沒有可生成的期數", "error"); return; }
+          form.querySelector('[name="rate"]').value = splitMoney(totalAmount / units);
+          renderPreview();
+        });
+      }
+      renderPreview();
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const cfg = readSplitForm();
+        const periods = buildSplitPeriods(cfg.start, cfg.end, cfg.cycle, cfg.cycleMonths, cfg.endMode === "count" ? cfg.occurrences : 0);
+        if (!periods.length || !(cfg.rate > 0)) { toast("請檢查週期、日期與每期銀碼", "error"); return; }
+        const amounts = periods.map(period => splitMoney(cfg.rate * period.units));
+        const computed = splitMoney(amounts.reduce((sum, value) => sum + value, 0));
+        const diff = splitMoney(totalAmount - computed);
+        amounts[amounts.length - 1] = splitMoney(amounts[amounts.length - 1] + diff);
+        if (amounts.some(value => value <= 0)) { toast("分拆後出現非正數金額，請調整每期銀碼", "error"); return; }
+
+        const invoiceDate = today;
+        const cycleLabel = cfg.cycle.custom ? `自訂週期（每 ${cfg.cycleMonths} 個月）` : cfg.cycle.label;
+        periods.forEach((period, index) => {
+          const isLast = index === periods.length - 1;
+          const periodLabel = `${period.start} 至 ${period.end}`;
+          const description = `${title}（${periodLabel}）${isLast && diff !== 0 ? "　含尾差調整" : ""}`;
+          const invoice = {
+            id: `INV-${Date.now()}-${index}`,
+            quotationId: quotation ? quotation.id : "",
+            jobCode: quotation ? quotation.id : (item.ourRef || item.id || itemId),
+            customerName,
+            amount: amounts[index],
+            invoiceDate,
+            dueDate: invoiceDate,
+            paymentTerms: "C.O.D.",
+            status: "已開具",
+            invoiceNo: generateInvoiceNo(),
+            taxRate: 0,
+            paymentTiming: "後付款（Post-payment）",
+            warranty: "",
+            remark: description,
+            items: [{ description, unitPrice: amounts[index], quantity: 1, amount: amounts[index] }],
+            splitFrom: itemId,
+            splitCycle: cycleLabel,
+            splitPeriod: periodLabel,
+            splitIndex: index + 1,
+            splitCount: periods.length,
+            serviceStart: period.start,
+            serviceEnd: period.end
+          };
+          if (item.contractId) {
+            invoice.contractId = item.contractId;
+            invoice.billingPeriod = item.billingPeriod || `${period.start}~${period.end}`;
+          }
+          invoices.push(invoice);
+        });
+        if (copyItem) {
+          const remaining = JSON.parse(localStorage.getItem("ecinfo_fin_pending_copies") || "[]")
+            .filter(entry => String(entry.id) !== String(copyItem.id));
+          localStorage.setItem("ecinfo_fin_pending_copies", JSON.stringify(remaining));
+        }
+        saveDataToLocalStorage();
+        close();
+        toast(`已生成 ${periods.length} 張分拆發票`, "success");
+        state.finTab = "invoices";
+        state.finInvoiceTab = "issued";
+        render();
+      });
+    }
+
     // 標記收款
     function markAsPaid(invoiceId) {
       const invoice = invoices.find(i => i.id === invoiceId);
@@ -31652,13 +32123,9 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }
       document.querySelectorAll("[data-user-row]").forEach(row => row.addEventListener("click", (e) => {
         if (e.target.closest("button")) return;
-        userState.selectedUserId = row.dataset.userRow;
-        render();
+        openUserDetailDrawer(row.dataset.userRow);
       }));
-      document.querySelectorAll("[data-view-user]").forEach(btn => btn.addEventListener("click", () => {
-        userState.selectedUserId = btn.dataset.viewUser;
-        render();
-      }));
+      document.querySelectorAll("[data-view-user]").forEach(btn => btn.addEventListener("click", () => openUserDetailDrawer(btn.dataset.viewUser)));
       document.querySelectorAll("[data-edit-user]").forEach(btn => btn.addEventListener("click", () => openEditUser(btn.dataset.editUser)));
       document.querySelectorAll("[data-delete-user]").forEach(btn => btn.addEventListener("click", () => deleteUser(btn.dataset.deleteUser)));
       document.querySelectorAll("[data-close-user-detail]").forEach(btn => btn.addEventListener("click", () => { userState.selectedUserId = null; render(); }));
@@ -31668,6 +32135,19 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
         if (page === "prev" && userState.currentPage > 1) userState.currentPage--;
         else if (page === "next" && userState.currentPage < totalPages) userState.currentPage++;
         else if (page !== "prev" && page !== "next") userState.currentPage = parseInt(page);
+        render();
+      }));
+      document.querySelectorAll("[data-user-reset]").forEach(btn => btn.addEventListener("click", () => {
+        userState.searchKeyword = "";
+        userState.filterRole = "全部";
+        userState.filterStatus = "全部";
+        userState.roleFilter = "全部";
+        userState.currentPage = 1;
+        render();
+      }));
+      document.querySelectorAll("[data-user-page-size]").forEach(select => select.addEventListener("change", () => {
+        userState.pageSize = Number(select.value) || 10;
+        userState.currentPage = 1;
         render();
       }));
 
@@ -32716,13 +33196,38 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       }));
     }
 
+    // 字典管理：關鍵詞與每頁筆數
+    document.addEventListener("input", function(e) {
+      const input = e.target.closest("[data-dict-search]");
+      if (!input) return;
+      dictState.searchKeyword = input.value;
+      dictState.page = 1;
+      clearTimeout(window.__dictSearchTimer);
+      window.__dictSearchTimer = setTimeout(() => {
+        const focus = document.activeElement === input;
+        const pos = input.selectionStart;
+        render();
+        if (focus) {
+          const next = document.querySelector("[data-dict-search]");
+          if (next) { next.focus(); next.setSelectionRange(pos, pos); }
+        }
+      }, 300);
+    });
+    document.addEventListener("change", function(e) {
+      const select = e.target.closest("[data-dict-page-size]");
+      if (!select) return;
+      dictState.pageSize = Number(select.value) || 10;
+      dictState.page = 1;
+      render();
+    });
+
     // 字典管理事件委託 - 只註冊一次，處理動態渲染的按鈕
     document.addEventListener("click", function(e) {
       const target = e.target;
 
       // 標籤頁切換
       const tabBtn = target.closest("[data-dict-tab]");
-      if (tabBtn) { state.dictTab = tabBtn.dataset.dictTab; render(); return; }
+      if (tabBtn) { state.dictTab = tabBtn.dataset.dictTab; dictState.page = 1; dictState.searchKeyword = ""; render(); return; }
 
       // 關閉抽屜/確認框（僅點擊遮罩本身或關閉按鈕時觸發）
       // 關鍵：使用 matches() 而非 closest()，避免點擊內部按鈕時冒泡到遮罩層誤觸發關閉
@@ -32733,6 +33238,41 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
       if (target.matches("[data-dm-confirm-close]")) {
         dictState.deleteTarget = null;
         render(); return;
+      }
+
+      // 重置篩選
+      if (target.closest("[data-dict-reset]")) {
+        dictState.searchKeyword = "";
+        dictState.page = 1;
+        render();
+        return;
+      }
+
+      // 分頁
+      const dictPageBtn = target.closest("[data-dict-page]");
+      if (dictPageBtn) {
+        const page = dictPageBtn.dataset.dictPage;
+        const totalPages = Math.max(1, Math.ceil((dictState.lastFilteredCount || 0) / (Number(dictState.pageSize) || 10)));
+        if (page === "prev") dictState.page = Math.max(1, (dictState.page || 1) - 1);
+        else if (page === "next") dictState.page = Math.min(totalPages, (dictState.page || 1) + 1);
+        else dictState.page = parseInt(page, 10) || 1;
+        render();
+        return;
+      }
+
+      // 抽屜內刪除
+      const deleteDrawerBtn = target.closest("[data-dict-delete-drawer]");
+      if (deleteDrawerBtn) {
+        const type = dictState.manageType;
+        const storeKey = dictStoreKey(type);
+        const idx = (dictData[storeKey] || []).findIndex(i => i.id === dictState.editItem?.id);
+        if (idx >= 0) {
+          dictState.deleteTarget = idx;
+          dictState.drawerOpen = false;
+          dictState.editItem = null;
+          render();
+        }
+        return;
       }
 
       // 新增按鈕（主頁面）
@@ -33332,6 +33872,25 @@ https://ecinfo.com/sr/${escapeHtml(t.serviceReportNo)}
     })();
 
     render();
+
+    // 移動端聯調：另一分頁改寫 ecinfo_tickets 時同步本頁（畫面有彈窗/抽屜時只提示，避免打斷操作）
+    window.addEventListener("storage", (event) => {
+      if (event.key !== "ecinfo_tickets" || !event.newValue) return;
+      try {
+        const next = JSON.parse(event.newValue);
+        if (!Array.isArray(next)) return;
+        tickets = next;
+        const busy = document.querySelector(".wo-drawer, .um-modal-overlay, .dispatch-modal-overlay, .qm-drawer");
+        if (busy) {
+          toast("移動端已更新工單資料，關閉目前彈窗後重新整理可見", "warning");
+          return;
+        }
+        render();
+        toast("已同步移動端工單更新");
+      } catch (error) {
+        // 忽略無法解析的存儲事件
+      }
+    });
 
     // 向本地代理載入倉庫通產品清單，供報價物料明細單選下拉使用
     loadWarehouseProducts();

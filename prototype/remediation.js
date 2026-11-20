@@ -273,11 +273,12 @@
     if (state.role !== "QUO" && state.role !== "ADMIN") { toast("由報價組確認中單", "error"); return false; }
     if (q.status === "已中單" && q.customerAcceptedAt) { toast("此成交版本已確認，沒有重複生成", "error"); return false; }
     if (!["M", "P", "M+P"].includes(q.category)) { toast("請先在報價階段設定 M／P／M+P 類別", "error"); return false; }
+    if (q.status === "待報價") { toast("請先完成報價內容並保存後再標記中單", "error"); return false; }
+    if (q.status !== "報價中") { toast("只有報價中的報價可標記中單", "error"); return false; }
     const acceptedAt = form.elements.customerAcceptedAt.value;
     const acceptanceNote = form.elements.acceptanceNote.value.trim();
     if (!acceptedAt || !acceptanceNote) { toast("請記錄客戶接受日期及依據", "error"); return false; }
-    const confirmationFile = form.elements.customerConfirmationFile?.files?.[0] || null;
-    if (!confirmationFile && !q.customerConfirmationFile?.name) { toast("請上傳客戶確認文件", "error"); return false; }
+    const confirmationFiles = Array.from(form.elements.customerConfirmationFile?.files || []);
     if (isM(q) && (!Number.isInteger(Number(q.serviceEveryMonths)) || Number(q.serviceEveryMonths) < 1 || !q.contractStart || !q.contractEnd || q.contractEnd < q.contractStart)) {
       toast("M 報價須先設定服務週期及合約期間", "error"); return false;
     }
@@ -296,13 +297,16 @@
     q.acceptedByQuotationTeam = currentRole().name;
     q.wonAt = new Date().toLocaleString("zh-HK");
     q.customerOrder = form.elements.customerOrder.value.trim();
-    if (confirmationFile) {
-      q.customerConfirmationFile = {
-        name: confirmationFile.name,
-        size: confirmationFile.size,
-        type: confirmationFile.type || "",
-        uploadedAt: new Date().toLocaleString("zh-HK")
-      };
+    if (confirmationFiles.length) {
+      const uploadedAt = new Date().toLocaleString("zh-HK");
+      q.customerConfirmationFiles = confirmationFiles.map(file => ({
+        name: file.name,
+        size: file.size,
+        type: file.type || "",
+        uploadedAt
+      }));
+      // 兼容既有單檔欄位
+      q.customerConfirmationFile = q.customerConfirmationFiles[0];
     }
     if (q.sourceTenderId || q.tenderNo) q.bidStatus = "已中標";
     q.status = "已中單";
@@ -331,13 +335,13 @@
     modal.innerHTML = `<div class="um-modal rem-won-modal"><div class="um-modal-head"><div><h2>客戶接受最終報價</h2><p class="rem-modal-sub">${safe(id)} · 請記錄客戶確認資料</p></div><button class="um-modal-close" data-rem-close aria-label="關閉">×</button></div>
       <form data-rem-won-form="${safe(id)}" class="rem-won-form">
         <div class="rem-won-scroll">
-        <div class="rem-note"><span>成交版本</span><strong>${quoteVersion(q)}</strong><span>類別</span><strong>${safe(q.category || "未設定")}</strong>${tender ? `<span>標書</span><strong>${safe(tender.id)}</strong>` : ""}</div>
+        <div class="rem-note"><span>成交版本</span><strong>${safe(generateOurRef(Number(q.revision || 0)))}</strong><span>類別</span><strong>${safe(q.category || "未設定")}</strong>${tender ? `<span>標書</span><strong>${safe(tender.id)}</strong>` : ""}</div>
         <div class="rem-won-field-grid">
-          <label class="rem-won-field"><span>客戶接受日期</span><input type="date" name="customerAcceptedAt" value="${today()}" required></label>
+          <label class="rem-won-field"><span>客戶接受日期 <span style="color:var(--danger);">*</span></span><input type="date" name="customerAcceptedAt" value="${today()}" required></label>
           <label class="rem-won-field"><span>客戶訂單號（如有）</span><input name="customerOrder" value="${safe(q.customerOrder || "")}" placeholder="可選填"></label>
         </div>
-        <div class="rem-won-field rem-won-field-full"><label class="rem-file-label" for="remWonConfirmationFile">客戶確認文件 <span style="color:var(--danger);">*</span></label><div class="rem-file-control"><input id="remWonConfirmationFile" type="file" name="customerConfirmationFile" accept="image/*,.pdf"><button type="button" class="secondary-btn" data-rem-clear-file disabled>清除文件</button></div><small class="muted" data-rem-file-status>${q.customerConfirmationFile?.name ? `已上傳：${safe(q.customerConfirmationFile.name)}（可重新選擇替換）` : "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名"}</small></div>
-        <label class="rem-won-field rem-won-field-full"><span>客戶接受依據／回覆紀錄</span><textarea name="acceptanceNote" required placeholder="記錄郵件、訂單或確認方式；原型不代替真實憑證"></textarea></label>
+        <div class="rem-won-field rem-won-field-full"><label class="rem-file-label" for="remWonConfirmationFile">客戶確認文件</label><div class="rem-file-control"><input id="remWonConfirmationFile" type="file" name="customerConfirmationFile" accept="image/*,.pdf" multiple><button type="button" class="secondary-btn" data-rem-clear-file disabled>清除文件</button></div><small class="muted" data-rem-file-status>${(q.customerConfirmationFiles?.length || q.customerConfirmationFile?.name) ? `已上傳 ${q.customerConfirmationFiles?.length || 1} 個文件：${safe((q.customerConfirmationFiles?.length ? q.customerConfirmationFiles : [q.customerConfirmationFile]).map(f => f.name).join("、"))}（可重新選擇替換）` : "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名"}</small></div>
+        <label class="rem-won-field rem-won-field-full"><span>客戶接受依據／回覆紀錄 <span style="color:var(--danger);">*</span></span><textarea name="acceptanceNote" required placeholder="記錄郵件、訂單或確認方式；原型不代替真實憑證"></textarea></label>
         <section class="rem-final-section">
           <div class="rem-final-head"><div><h3>最終成交版明細</h3><p>請逐項標記材料或服務；只有材料行會生成 MR。</p></div><span class="rem-final-badge">${(q.items || []).length} 項</span></div>
           <div class="rem-final-list">
@@ -356,19 +360,32 @@
     const confirmationFileInput = wonForm.elements.customerConfirmationFile;
     const clearFileButton = wonForm.querySelector("[data-rem-clear-file]");
     const fileStatus = wonForm.querySelector("[data-rem-file-status]");
-    const savedFileName = q.customerConfirmationFile?.name || "";
+    const savedFiles = Array.isArray(q.customerConfirmationFiles) && q.customerConfirmationFiles.length
+      ? q.customerConfirmationFiles
+      : (q.customerConfirmationFile?.name ? [q.customerConfirmationFile] : []);
     const fileHelpText = "上傳客戶確認郵件、PO 或簽回文件；原型只記錄檔名";
+    // 同一彈窗內多次選擇時累積檔案，避免後一次選擇覆蓋前一次
+    let pendingFiles = [];
     const updateConfirmationFileStatus = () => {
-      const selectedFile = confirmationFileInput.files?.[0];
-      fileStatus.textContent = selectedFile
-        ? `已選擇：${selectedFile.name}`
-        : savedFileName
-          ? `已上傳：${savedFileName}（可重新選擇替換）`
+      fileStatus.textContent = pendingFiles.length
+        ? `已選擇 ${pendingFiles.length} 個文件：${pendingFiles.map(file => file.name).join("、")}`
+        : savedFiles.length
+          ? `已上傳 ${savedFiles.length} 個文件：${savedFiles.map(file => file.name).join("、")}（可重新選擇替換）`
           : fileHelpText;
-      clearFileButton.disabled = !selectedFile;
+      clearFileButton.disabled = pendingFiles.length === 0;
     };
-    confirmationFileInput.addEventListener("change", updateConfirmationFileStatus);
+    confirmationFileInput.addEventListener("change", () => {
+      Array.from(confirmationFileInput.files || []).forEach(file => {
+        const exists = pendingFiles.some(item => item.name === file.name && item.size === file.size && item.lastModified === file.lastModified);
+        if (!exists) pendingFiles.push(file);
+      });
+      const transfer = new DataTransfer();
+      pendingFiles.forEach(file => transfer.items.add(file));
+      confirmationFileInput.files = transfer.files;
+      updateConfirmationFileStatus();
+    });
     clearFileButton.addEventListener("click", () => {
+      pendingFiles = [];
       confirmationFileInput.value = "";
       updateConfirmationFileStatus();
     });
@@ -487,7 +504,7 @@
         <div class="wo-detail-item"><span class="wo-detail-label">材料申請單</span><span class="wo-detail-value">${safe(mr.id)}</span></div>
         <div class="wo-detail-item"><span class="wo-detail-label">MR 申請狀態</span><span class="wo-detail-value">${safe(mr.requestStatus || "未記錄審批結果")}${mr.requestStatusMode === "DEMO" ? "（演示）" : ""}</span></div>
         <div class="wo-detail-item"><span class="wo-detail-label">材料狀態</span><span class="wo-detail-value">${safe(mr.status || "未記錄")}</span></div>
-      </div><p class="muted">MR 申請完成與材料備齊分開記錄；材料備齊後再安排施工。</p>
+      </div>
     </div></div>` : "";
     const customerPanel = `<div class="wo-detail-section"><div class="wo-detail-card"><h4>客戶信息</h4><div class="wo-detail-grid">
       <div class="wo-detail-item"><span class="wo-detail-label">客戶名稱</span><span class="wo-detail-value">${safe(q.customerName || "未設定")}</span></div>
